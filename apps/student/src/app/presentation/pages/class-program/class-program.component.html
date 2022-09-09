@@ -1,0 +1,43 @@
+<div
+  class="bg-primaryBlue bg-image flex flex-col md:flex-row p-6 md:p-11 w-full h-full items-start justify-start"
+>
+  <div
+    class="card bg-white items-start justify-between"
+    style="max-width: 32rem"
+  >
+    <h4 class="mb-0">Chọn môn và chương trình học</h4>
+    <div class="flex flex-col gap-4 w-full">
+      <select
+        class="form-control w-full"
+        [(ngModel)]="selectedSubject"
+        (ngModelChange)="changeSubject()"
+      >
+        <option [ngValue]="null" disabled selected>Chọn môn</option>
+        <option *ngFor="let subject of subjects" [ngValue]="subject">
+          {{ subject.label }}
+        </option>
+      </select>
+      <select
+        name="program"
+        id="program"
+        class="form-control w-full"
+        [attr.disabled]="this.selectedSubject === null ? 'disabled' : null"
+        [(ngModel)]="selectedProgram"
+      >
+        <option [ngValue]="null" disabled selected>Chọn chương trình</option>
+        <option *ngFor="let program of programs" [ngValue]="program">
+          {{ program.name }}
+        </option>
+      </select>
+    </div>
+    <button
+      (click)="submit()"
+      class="btn primary w-full"
+      [attr.disabled]="selectedProgram === null ? 'disabled' : null"
+    >
+      Bắt đầu
+    </button>
+    <a [routerLink]="paths.home">Về trang chủ</a>
+  </div>
+  <div class="md:hidden bg-image2 w-full flex-1"></div>
+</div>

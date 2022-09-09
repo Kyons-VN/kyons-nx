@@ -1,0 +1,129 @@
+<div class="flex flex-col min-h-full">
+  <div class="flex flex-col gap-6 py-6 px-11">
+    <div class="flex gap-11">
+      <span class="h7">Hồ sơ của bạn</span>
+      <span
+        [routerLink]="'/knowledge'"
+        class="h7 text-blueGrey-400 cursor-pointer hover:text-blueGrey-500"
+        >Kỹ năng và cây kiến thức</span
+      >
+    </div>
+  </div>
+  <div class="flex px-11 gap-6">
+    <div
+      class="card bg-white w-1/4 items-start justify-start gap-4 overflow-auto"
+      style="height: calc(100vh - 12rem)"
+    >
+      <h5>Thông tin cá nhân</h5>
+      <div (click)="changeAvatar()" class="cursor-pointer flex flex-col gap-2">
+        <div
+          class="w-24 h-24 rounded-md bg-[#C2D2EE] flex items-end justify-center"
+        >
+          <img src="assets/images/Frame.svg" alt="Profile Image" class="w-11" />
+        </div>
+        <div class="text-orange">Thay hình đại diện</div>
+      </div>
+      <form
+        [formGroup]="profileForm"
+        novalidate
+        class="flex flex-col w-full gap-4"
+      >
+        <input
+          type="text"
+          id="name"
+          placeholder="Họ và Tên"
+          formControlName="name"
+        />
+        <!-- <my-date-picker
+          name="mydate"
+          [options]="myDatePickerOptions"
+          [placeholder]="'Ngày sinh'"
+          formControlName="birthDay"
+        ></my-date-picker> -->
+        <mat-form-field appearance="outline">
+          <mat-label></mat-label>
+          <input matInput [matDatepicker]="picker" placehoder="Chọn ngày" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <input
+          type="text"
+          id="email"
+          placeholder="Email"
+          formControlName="email"
+        />
+        <a class="btn">Lưu thông tin</a>
+      </form>
+    </div>
+    <div
+      class="card bg-white w-1/4 items-start justify-start gap-4 overflow-auto"
+      style="height: calc(100vh - 12rem)"
+    >
+      <h5>Đổi mật khẩu</h5>
+      <form
+        [formGroup]="passwordForm"
+        novalidate
+        class="flex flex-col w-full gap-4"
+      >
+        <input
+          type="text"
+          id="oldPass"
+          placeholder="Nhập mật khẩu cũ"
+          formControlName="oldPass"
+        />
+        <input
+          type="text"
+          id="newPass"
+          placeholder="Nhập mật khẩu mới"
+          formControlName="newPass"
+        />
+        <input
+          type="text"
+          id="confirmNewPass"
+          placeholder="Nhập lại mật khẩu mới"
+          formControlName="confirmNewPass"
+        />
+        <a class="btn">Lưu thông tin</a>
+      </form>
+    </div>
+    <div
+      class="card bg-white w-1/2 items-stretch justify-start overflow-auto"
+      style="height: calc(100vh - 12rem)"
+    >
+      <h5>Tài khoản Kyons</h5>
+      <ul class="flex flex-col gap-2">
+        <li class="flex justify-between">
+          <span class="text-blueGrey-400">Phí sử dụng Kyons</span>
+          <span class="font-extrabold">123 000VND/ tháng</span>
+        </li>
+        <li class="border-t border-blueGrey-300"></li>
+        <li class="flex justify-between">
+          <span class="text-blueGrey-400"
+            >Tài khoản của bạn sẽ hết hạn vào</span
+          >
+          <span>Thứ tư ,ngày 00, tháng 00, 2021 </span>
+        </li>
+        <li class="border-t border-blueGrey-300"></li>
+        <li>Để thanh toán chi phí, vui lòng thực hiện chuyển khoản đến</li>
+        <li class="flex justify-between">
+          <span class="text-blueGrey-400">Ngân hàng</span>
+          <span>ABCXZY</span>
+        </li>
+        <li class="border-t border-blueGrey-300"></li>
+        <li class="flex justify-between">
+          <span class="text-blueGrey-400">Số tài khoản</span>
+          <span>123 456 6767</span>
+        </li>
+        <li class="border-t border-blueGrey-300"></li>
+        <li class="flex justify-between">
+          <span class="text-blueGrey-400">Tên chủ tài khoản</span>
+          <span>Công ty TNHH Kyons</span>
+        </li>
+      </ul>
+      <span class="h7">Xem lịch sử thanh toán</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  // @apply px-3 py-2 h-10;
+}
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  @apply m-0;
+}

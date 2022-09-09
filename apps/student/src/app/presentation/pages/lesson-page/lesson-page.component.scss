@@ -1,0 +1,32 @@
+@media (max-width: 767px) {
+  .menuSM {
+    width: calc(100% - 2rem);
+    .menuSMItem {
+      width: calc(100% - 2rem);
+    }
+  }
+}
+.bg-image {
+  background-image: url('../../../../assets/images/Waiting.svg');
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@media (min-width: 768px) {
+  .bg-image {
+    height: calc(100vh - 8.25rem);
+    background-position: right center;
+  }
+  .max-height {
+    height: calc(100vh - 9.5rem);
+    .max-height-item {
+      max-height: calc(100vh - 15rem);
+      overflow: auto;
+    }
+  }
+  .test-height {
+    max-height: calc(100vh - 20rem);
+    overflow: auto;
+  }
+}

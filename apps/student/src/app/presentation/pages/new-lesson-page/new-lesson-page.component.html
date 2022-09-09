@@ -1,0 +1,59 @@
+<div class="p-11 grid md:grid-cols-2 gap-6" style="height: calc(100vh - 50px)">
+  <div class="bg-white rounded-lg p-6 overflow-auto">
+    <h1>Kiến thức cần bổ sung</h1>
+    <h6 class="text-secondaryBlue">Hãy chọn kiến thức bạn muốn học kế tiếp.</h6>
+    <p>
+      Nhấn (<span class="text-orange">+</span>) để đưa kiến thức vào bài học.
+      Bạn chỉ được chọn 1 bài.
+    </p>
+    <div class="flex flex-col gap-2">
+      <div
+        [style.opacity]="selectedLearningPointIds.length > 0 ? 0.5 : 1"
+        [style.display]="
+          selectedLearningPointIds.includes(lP.id) ? 'none' : 'flex'
+        "
+        (click)="selectedLearningPointIds.length === 0 && select(lP.id)"
+        *ngFor="let lP of learningPoints; let i = index"
+        class="flex rounded-md border border-blueGrey-300 p-2 gap-4 items-center"
+        [ngClass]="{
+          'cursor-pointer': selectedLearningPointIds.length === 0,
+          'cursor-not-allowed': selectedLearningPointIds.length !== 0,
+          'bg-red-1': lP.lastScore >= 0 && lP.lastScore <= 4,
+          'bg-lightOrange-4': lP.lastScore >= 5 && lP.lastScore <= 8,
+          'bg-emerald-3': lP.lastScore >= 9 && lP.lastScore <= 10
+        }"
+      >
+        <i class="icon-Add text-orange"></i>
+        <span class="text-sm">{{ lP.learningPoint }}</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bg-white rounded-lg p-6 flex flex-col gap-2 overflow-auto relative"
+  >
+    <div
+      [style.display]="
+        selectedLearningPointIds.includes(lP.id) ? 'flex' : 'none'
+      "
+      (click)="deselect(lP.id)"
+      *ngFor="let lP of learningPoints"
+      class="flex rounded-md bg-secondaryBlue border border-blueGrey-300 p-2 gap-4 items-center cursor-pointer"
+    >
+      <i class="icon-Subtract text-orange"></i>
+      <span class="text-sm text-white">{{ lP.learningPoint }}</span>
+    </div>
+    <div class="h-10"></div>
+    <div class="h-10 absolute right-6 bottom-6 flex items-center gap-2">
+      <a class="btn btn-rounded" [routerLink]="paths.learningPath"
+        >Chọn bài học sau</a
+      >
+      <button
+        [disabled]="selectedLearningPointIds.length === 0"
+        class="btn primary"
+        (click)="submit()"
+      >
+        Tạo bài học
+      </button>
+    </div>
+  </div>
+</div>

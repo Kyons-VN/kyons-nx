@@ -1,0 +1,6 @@
+.progress-container {
+  @apply h-2 rounded-md bg-blueGrey-100 w-full;
+  .progressing {
+    @apply h-2 rounded-md bg-lightBlue-1 w-full;
+  }
+}

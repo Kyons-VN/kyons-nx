@@ -1,0 +1,189 @@
+<div class="flex h-14 text-base bg-white">
+  <ul class="flex items-center px-11 gap-12">
+    <li>
+      <a
+        [routerLink]="'/'"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex gap-3 items-center font-extrabold text-blueGrey-400"
+        (isActiveChange)="(this.ngOnInit)"
+      >
+        <span class="h-5">
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M1.33331 16.0547L16 2.66663L30.6666 16.0547"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M28 14.6666V30.6666H4V14.6666"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M20 20H12V30.6667H20V20Z"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg> -->
+          <student-svg
+            name="home"
+            [color]="'#94A3B8'"
+          ></student-svg>
+        </span>
+        Trang chủ</a
+      >
+    </li>
+    <!-- <li>
+      <a
+        [routerLink]="'/'"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="flex gap-3 items-center font-extrabold text-blueGrey-400"
+        (isActiveChange)="this.ngOnInit"
+        ><span class="h-8"
+          ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M29.8001 1.33334H4.66675V30.6667H29.8001V1.33334Z"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M25.2668 1.33334V30.6667"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M20.2668 1.33334V30.6667"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2.66675 11.6534H6.66675"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2.66675 4.98666H6.66675"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2.66675 18.32H6.66675"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M2.66675 24.9867H6.66675"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        Sổ tay</a
+      >
+    </li> -->
+    <!--
+        [routerLink]="'/make-test'"
+        routerLinkActive="active" -->
+    <!-- <li>
+      <a class="flex gap-3 items-center font-extrabold text-blueGrey-400" (isActiveChange)="this.ngOnInit"
+        ><span class="h-8"
+          ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path
+              d="M16.1664 26L12.8639 26.4487L13.3167 23.2692L27.8185 9.30768L30.6683 12.0384L16.1664 26Z"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M5.51306 14.6923H16.1664"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M5.61963 19.8205H9.97419"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M24.8756 7.84614H18.2173V1.43588"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M24.8889 12.141V7.84615L18.2172 1.28204H1.33167V30.7179H24.8889V18.1795"
+              stroke="#94A3B8"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        Bài kiểm tra thử
+      </a>
+    </li> -->
+  </ul>
+  <div class="flex-1"></div>
+  <button #toggleButton (click)="showSubmenu = !showSubmenu" class="font-bold">
+    Chào {{ username }}
+    <img
+      class="inline pointer-events-none transition-transform"
+      [style.transform]="showSubmenu ? 'rotateX(180deg)' : 'rotateX(0deg)'"
+      src="assets/icons/down.svg"
+    />
+  </button>
+  <ul #menu class="flex items-center p-6 gap-6">
+    <li class="flex items-center gap-5 cursor-pointer relative">
+      <ul
+        [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
+        class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch gap-2 flex-col top-5 z-10"
+      >
+        <!-- <li [routerLink]="'/profile'">
+          <a class="h-5 text-primaryBlue">Hồ sơ cá nhân</a>
+        </li>
+        <li class="border-t border-blueGrey-300"></li>
+        <li [routerLink]="'/knowledge'">
+          <a class="h-5 text-primaryBlue">Cây kiến thức</a>
+        </li>
+        <li class="border-t border-blueGrey-300"></li> -->
+        <li [routerLink]="paths.signOut">
+          <a class="flex h-16 text-primaryBlue p-6">Thoát</a>
+        </li>
+      </ul>
+    </li>
+    <!-- <li>
+      <div class="relative">
+        <img src="assets/icons/clarity_notification-line.svg" class="cursor-pointer" />
+        <span class="top-menu-notification"></span>
+      </div>
+    </li> -->
+  </ul>
+</div>

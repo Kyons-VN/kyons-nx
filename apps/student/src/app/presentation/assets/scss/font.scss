@@ -1,0 +1,160 @@
+@font-face {
+  font-family: 'Kyons-Icon-Fonts';
+  src: url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.eot?drx3bn');
+  src: url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.eot?drx3bn#iefix')
+      format('embedded-opentype'),
+    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.ttf?drx3bn')
+      format('truetype'),
+    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.woff?drx3bn')
+      format('woff'),
+    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.svg?drx3bn#Kyons-Icon-Fonts')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Kyons-Icon-Fonts' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &::before {
+    vertical-align: middle;
+  }
+}
+
+.icon-Add-friend:before {
+  content: '\e900';
+}
+.icon-Add-to-handbook:before {
+  content: '\e901';
+}
+.icon-Add:before {
+  content: '\e902';
+}
+.icon-Arrow-down-stop:before {
+  content: '\e903';
+}
+.icon-Arrow-down:before {
+  content: '\e904';
+}
+.icon-Arrow-left-stop:before {
+  content: '\e905';
+}
+.icon-Arrow-left:before {
+  content: '\e906';
+}
+.icon-Arrow-right-stop:before {
+  content: '\e907';
+}
+.icon-Arrow-right:before {
+  content: '\e908';
+}
+.icon-Arrow-up-stop:before {
+  content: '\e909';
+}
+.icon-Arrow-up:before {
+  content: '\e90a';
+}
+.icon-Birthday:before {
+  content: '\e90b';
+}
+.icon-Bookmark:before {
+  content: '\e90c';
+}
+.icon-Calendar:before {
+  content: '\e90d';
+}
+.icon-Carousel:before {
+  content: '\e90e';
+}
+.icon-Check:before {
+  content: '\e910';
+}
+.icon-Close:before {
+  content: '\e911';
+}
+.icon-Document:before {
+  content: '\e912';
+}
+.icon-Edit:before {
+  content: '\e913';
+}
+.icon-Email:before {
+  content: '\e914';
+}
+.icon-Error:before {
+  content: '\e915';
+}
+.icon-Filter:before {
+  content: '\e916';
+}
+.icon-Hanbook:before {
+  content: '\e917';
+}
+.icon-Home:before {
+  content: '\e918';
+}
+.icon-Info:before {
+  content: '\e919';
+}
+.icon-Lesson-content:before {
+  content: '\e91a';
+}
+.icon-Location:before {
+  content: '\e91b';
+}
+.icon-Menu-Hambuger:before {
+  content: '\e91c';
+}
+.icon-More:before {
+  content: '\e91d';
+}
+.icon-Notification:before {
+  content: '\e91e';
+}
+.icon-Phone:before {
+  content: '\e91f';
+}
+.icon-Profile:before {
+  content: '\e920';
+}
+.icon-Reload:before {
+  content: '\e921';
+}
+.icon-Remove-from-handbook:before {
+  content: '\e922';
+}
+.icon-Search:before {
+  content: '\e923';
+}
+.icon-Submit:before {
+  content: '\e924';
+}
+.icon-Subtract:before {
+  content: '\e925';
+}
+.icon-Test:before {
+  content: '\e926';
+}
+.icon-Thumbnail:before {
+  content: '\e927';
+}
+.icon-Time:before {
+  content: '\e928';
+}
+.icon-Tutor:before {
+  content: '\e929';
+}
+.icon-Work:before {
+  content: '\e92a';
+}

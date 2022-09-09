@@ -1,0 +1,152 @@
+<div class="flex flex-col md:flex-row h-full">
+  <div
+    class="flex w-full h-full items-center justify-center bg-primaryBlue"
+    [ngClass]="{ 'md:w-7/12': isPromotionEnable }"
+  >
+    <form class="flex flex-col w-260px mb-24" [formGroup]="signInform">
+      <img
+        (dblclick)="debug()"
+        src="./assets/images/logo-v.svg"
+        alt="Logo"
+        class="h-24"
+      />
+      <div class="h-12"></div>
+      <input
+        type="text"
+        id="email"
+        placeholder="Nhập email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="error"
+      >
+        <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
+        <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
+      </div>
+      <div class="h-4"></div>
+      <input
+        type="password"
+        placeholder="Nhập mật khẩu"
+        formControlName="password"
+      />
+      <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="error"
+      >
+        <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
+      </div>
+      <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
+      <div class="h-6"></div>
+      <button
+        (click)="login()"
+        class="btn"
+        [disabled]="(signInform.touched && signInform.invalid) || processing"
+      >
+        {{ processing ? 'Đang xử lý' : 'Đăng nhập' }}
+      </button>
+    </form>
+  </div>
+  <div
+    class="flex flex-col w-full md:w-7/12 gap-7 h-full"
+    *ngIf="isPromotionEnable"
+  >
+    <student-carousel
+      class="carousel-html-content"
+      [cellWidth]="'100%'"
+      [cellsToScroll]="1"
+      [margin]="0"
+      style="height: 100%"
+      [overflowCellsLimit]="1"
+    >
+      <div class="carousel-cell">
+        <div class="px-28 py-28 flex flex-col gap-6">
+          <h1>Mời bạn cùng học</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque
+            vitae molestie pretium, semper sed vulputate eu.
+          </p>
+          <img
+            src="assets/images/Group 1420.svg"
+            class="block w-full max-h-[50vh]"
+            alt="..."
+          />
+        </div>
+      </div>
+      <div class="carousel-cell">
+        <div class="px-24 py-28 flex flex-col gap-6">
+          <h1>Ưu đãi cho bạn!</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque
+            vitae molestie pretium, semper sed vulputate eu.
+          </p>
+          <img
+            src="assets/images/Group 1421.svg"
+            class="block w-full max-h-[50vh]"
+            alt="..."
+          />
+        </div>
+      </div>
+    </student-carousel>
+    <!-- <div id="carouselExampleCaptions" class="carousel slide relative h-full" data-bs-ride="carousel">
+      <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+      </div>
+      <div class="carousel-inner relative w-full h-full overflow-hidden">
+        <div class="carousel-item active relative float-left w-full h-full">
+          <div class="px-28 py-28 flex flex-col gap-6">
+            <h1>Mời bạn cùng học</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque vitae molestie pretium, semper sed
+              vulputate eu.
+            </p>
+            <img src="assets/images/Group 1420.svg" class="block w-full max-h-[50vh]" alt="..." />
+          </div>
+        </div>
+        <div class="carousel-item relative float-left w-full h-full">
+          <div class="px-24 py-28 flex flex-col gap-6">
+            <h1>Ưu đãi cho bạn!</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque vitae molestie pretium, semper sed
+              vulputate eu.
+            </p>
+            <img src="assets/images/Group 1421.svg" class="block w-full max-h-[50vh]" alt="..." />
+          </div>
+        </div>
+      </div> -->
+    <!-- <button
+        class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon inline-block" aria-hidden="true">
+          <img class="w-full" src="assets/icons/left.svg" alt="Left" />
+        </span>
+      </button>
+      <button
+        class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+        type="button"
+        data-bs-target="#carouselExampleCaptions"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon inline-block" aria-hidden="true">
+          <img class="w-full" src="assets/icons/right.svg" alt="Right" />
+        </span>
+      </button>
+    </div> -->
+  </div>
+</div>

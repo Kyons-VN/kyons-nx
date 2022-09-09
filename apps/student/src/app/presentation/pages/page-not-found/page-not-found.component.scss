@@ -1,0 +1,12 @@
+.bg-image {
+  background-image: url('../../../../assets/images/Group 1450.svg');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  transition: all ease 0.5s;
+}
+@screen md {
+  .bg-image {
+    background-position: right top;
+  }
+}

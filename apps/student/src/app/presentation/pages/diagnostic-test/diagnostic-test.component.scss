@@ -1,0 +1,21 @@
+.bg-image {
+  background-image: url('../../../../assets/images/Frame 1348.svg');
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.bg-waiting {
+  background-image: url('../../../../assets/images/Waiting.svg');
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#responsiveProgressBar {
+  width: calc(100% - 4rem);
+}
+@screen md {
+  #responsiveProgressBar {
+    width: calc(50% - 7rem);
+    left: 4.2rem;
+  }
+}

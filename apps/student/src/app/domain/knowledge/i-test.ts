@@ -1,0 +1,56 @@
+import { Category } from '../../infrastructure/knowledge/category';
+import { Topic } from '../../infrastructure/knowledge/topic';
+
+interface ITestContent {
+  id: string;
+  questions: IQuestion[];
+  done: boolean;
+}
+
+interface IQA {
+  question: IQuestion;
+}
+
+interface IQuestion {
+  id: string;
+  content: string;
+  answers: IAnswer[];
+  category: Category;
+  topic: Topic;
+}
+
+interface IAnswer {
+  id: string;
+  order: number;
+  value: string;
+  content: string;
+}
+
+interface ITestResult {
+  score: number;
+  result: IAnswerResult;
+  review: IAnswerReview;
+}
+
+interface IAnswerResult {
+  categories: { [key: string]: number };
+  topics: { [key: string]: number };
+  score: number;
+  maxScore: { [key: string]: number };
+  topicWrongQuestions: { [key: string]: Array<string> };
+}
+
+interface IAnswerReview {
+  selectedAnswers: Array<string>;
+  rightAnswers: Array<string>;
+}
+
+export {
+  ITestContent,
+  IQA,
+  IQuestion,
+  IAnswer,
+  ITestResult,
+  IAnswerResult,
+  IAnswerReview,
+};

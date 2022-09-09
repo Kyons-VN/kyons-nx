@@ -1,0 +1,117 @@
+<div *ngIf="loading === false" class="h-full">
+  <div class="flex flex-col gap-6 py-6 px-11 min-h-full">
+    <a [routerLink]="paths.home">< Trở về</a>
+    <h1>Tiếng Anh</h1>
+    <div class="h-2"></div>
+    <h3>Bắt đầu thu thập kiến thức</h3>
+    <div
+      #widgetsWrapper
+      class="mx-[-2.75rem] p-11 flex overflow-hidden relative"
+      (wheel)="onScroll($event)"
+    >
+      <div
+        class="absolute w-auto border-2 border-orange border-dashed mx-[-2.75rem] top-1/2 z-1"
+        style="left: 0"
+        [ngStyle]="{ right: -scrollDistance + 256 / 2 + 'px' }"
+      ></div>
+      <div class="flex z-2 relative" style="gap: 24px">
+        <div
+          [routerLink]="[paths.lessonPage, lesson.id]"
+          class="small-card cursor-pointer hover:shadow-3"
+          [ngClass]="{
+            'bg-secondaryBlue': !lesson.isNew,
+            'bg-primaryBlue': lesson.isNew
+          }"
+          *ngFor="let lesson of lessons"
+        >
+          <div class="flex flex-col gap-2">
+            <h6 [ngClass]="{ 'text-white': lesson.learnedLPDs !== undefined }">
+              Bài số {{ lesson.index + 1 }}
+            </h6>
+          </div>
+        </div>
+        <div
+          *ngIf="
+            userType === 'self_study' &&
+            (lessons.length === 0 || !lessons[lessons.length - 1].isNew)
+          "
+          class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
+          [routerLink]="paths.newLesson"
+        >
+          <i class="icon-Add text-5xl"></i>
+          <h6>Tạo bài học mới</h6>
+        </div>
+        <div
+          *ngIf="
+            userType !== 'self_study' &&
+            (lessons.length === 0 || !lessons[lessons.length - 1].isNew)
+          "
+          class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
+        >
+          <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
+        </div>
+      </div>
+    </div>
+    <div class="self-end flex">
+      <div class="flex gap-3">
+        <div
+          (click)="scrollLeft()"
+          class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M10 12L6 8L10 4"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div
+          (click)="scrollRight()"
+          class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M6 12L10 8L6 4"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <ng-template #elseBlock>
+    <div class="bg-image h-full">
+      <div class="h-28 hidden md:flex"></div>
+      <div class="flex flex-col sm:w-full md:w-1/2 py-28 px-11 gap-6">
+        <div class="flex flex-col gap-2">
+          <h1>Bạn đã hoàn thành bài kiểm tra</h1>
+          <h3 *ngIf="userType !== 'self_study'" class="text-secondaryBlue">
+            Kyons đang chuẩn bị giáo trình cho bạn. Xin vui lòng đợi.
+          </h3>
+          <h3 *ngIf="userType === 'self_study'" class="text-secondaryBlue">Bạn có thể chọn bài học tiếp theo.</h3>
+        </div>
+        <div *ngIf="userType === 'self_study'" class="self-center flex gap-2">
+          <a class="btn primary" [routerLink]="paths.newLesson">Tạo bài học</a>
+        </div>
+      </div>
+    </div>
+  </ng-template> -->
+</div>

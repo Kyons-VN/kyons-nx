@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>
+  {{ title }}
+</h1>
+
+<div mat-dialog-content>
+  <p>{{ message }}</p>
+</div>
+
+<div mat-dialog-actions class="flex">
+  <button class="btn secondary" (click)="onDismiss()">Hủy</button>
+  <span class="flex-1"></span>
+  <button class="btn primary" (click)="onConfirm()">Đồng ý</button>
+</div>
