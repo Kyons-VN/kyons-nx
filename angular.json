@@ -2,7 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "share-pipes": "libs/share-pipes",
     "student": "apps/student",
-    "student-e2e": "apps/student-e2e"
+    "student-e2e": "apps/student-e2e",
+    "tutor": "apps/tutor",
+    "tutor-e2e": "apps/tutor-e2e"
   }
 }

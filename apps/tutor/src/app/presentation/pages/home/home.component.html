@@ -1,0 +1,76 @@
+<div class="flex flex-col h-full md:py-10 md:pr-11 md:pl-6 gap-5">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Index Column -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Tên học sinh</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
+
+    <!-- Point Column -->
+    <ng-container matColumnDef="reason">
+      <th mat-header-cell *matHeaderCellDef>Kiến thức cần giúp</th>
+      <td mat-cell *matCellDef="let element">{{ element.reason }}</td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+      <td mat-cell *matCellDef="let element">{{ element.statusDisplay }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="action">
+      <th class="text-right" mat-header-cell *matHeaderCellDef>Hỗ trợ</th>
+      <td
+        class="flex items-center gap-1 h-[53px]"
+        mat-cell
+        *matCellDef="let element"
+      >
+        <a
+          *ngIf="element.url !== ''"
+          [href]="element.url"
+          class="link"
+          target="_blank"
+          >Google Meet</a
+        >
+        &nbsp;
+        <a
+          *ngIf="element.link !== ''"
+          [href]="element.link"
+          class="link"
+          target="_blank"
+          >Messenger</a
+        >
+        <span class="flex-1"></span>
+        <button
+          *ngIf="element.status === 0"
+          class="btn primary"
+          (click)="startSession(element.id)"
+        >
+          Start
+        </button>
+        <button
+          *ngIf="element.status === 1"
+          class="btn primary"
+          (click)="endSession(element.id, element.studentId)"
+        >
+          End
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

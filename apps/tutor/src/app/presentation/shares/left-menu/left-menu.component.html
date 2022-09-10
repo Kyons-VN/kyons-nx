@@ -1,0 +1,30 @@
+<div class="flex w-full h-full px-11 py-10 bg-blueGrey-100">
+  <ul class="flex flex-col gap-6">
+    <li
+      class="cursor-pointer h-5"
+      routerLink="/"
+      routerLinkActive="text-orange font-bold"
+      [routerLinkActiveOptions]="{exact: true}"
+      (isActiveChange)="(this.ngOnInit)"
+    >
+      Học sinh cần giúp đỡ
+    </li>
+    <li
+      class="cursor-pointer h-5"
+      routerLink="/update-learning-path"
+      routerLinkActive="text-orange font-bold"
+      (isActiveChange)="(this.ngOnInit)"
+    >
+      Cập nhật con đường kiến thức
+    </li>
+    <li
+      class="cursor-pointer h-5"
+      routerLink="/update-google-meet"
+      routerLinkActive="text-orange font-bold"
+      (isActiveChange)="(this.ngOnInit)"
+    >
+      Phòng dạy học Google Meet
+    </li>
+    <li class="cursor-pointer h-5" [routerLink]="'/sign-out'">Thoát</li>
+  </ul>
+</div>

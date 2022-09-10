@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharePipesModule } from '@kyonsvn/share-pipes';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
-import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
+// import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
+// import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { authInterceptorProviders } from './infrastructure/auth/interceptor';
@@ -70,8 +71,8 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     TrackingLessonComponent,
     NewLessonPageComponent,
     // Pipes
-    OrderByPipe,
-    KeysPipe,
+    // OrderByPipe,
+    // KeysPipe,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +102,7 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     MaterialModule,
     SvgModule,
     IvyCarouselModule,
+    SharePipesModule,
   ],
   exports: [MaterialModule, SvgModule],
   providers: [authInterceptorProviders],

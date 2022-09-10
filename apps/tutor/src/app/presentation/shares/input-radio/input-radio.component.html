@@ -1,0 +1,22 @@
+<div class="flex items-center">
+  <input [id]="name + value" type="radio" [name]="name" class="hidden" [disabled]="disabled" [checked]="checked" />
+  <label [for]="name + value" class="flex cursor-pointer px-1">
+    <span
+      class="w-5 h-5 inline-block mr-2 rounded-full cursor-pointer border border-blueGrey-400 flex-shrink-0 lg:mt-1"
+      [ngClass]="{
+        '!bg-darkRed': color === 'red',
+        '!bg-darkEmerald': color === 'green',
+        '!bg-primaryBlue': color === 'blue'
+      }"
+    ></span>
+    <p
+      class="mb-2"
+      [ngClass]="{
+        '!text-darkRed': color === 'red',
+        '!text-darkEmerald': color === 'green',
+        '!text-primaryBlue': color === 'blue'
+      }"
+      [innerHTML]="label"
+    ></p>
+  </label>
+</div>

@@ -1,0 +1,103 @@
+<div class="flex flex-col h-full md:py-10 md:pr-11 md:pl-6 gap-5">
+  <div class="flex">
+    <img class="cursor-pointer" routerLink="/update-learning-path" src="assets/images/icons/left.svg" alt="" />
+    <h1>{{ studentName }}</h1>
+    <span class="flex-1"></span>
+    <button (click)="create()" class="btn primary">Tạo bài học</button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef class="w-[80px]">
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="w-[80px]">ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="topic">
+      <th mat-header-cell *matHeaderCellDef class="w-1/6">Chủ đề</th>
+      <td mat-cell *matCellDef="let element">{{ element.topic }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="learning_point">
+      <th mat-header-cell *matHeaderCellDef class="w-1/2">
+        <span>Chủ điểm</span>
+        <div class="relative p-1 bg-white mb-2">
+          <input
+            class="text-primaryBlue w-full"
+            matInput
+            (keyup)="applyFilter($event, 'lPFilter')"
+            placeholder="Filter"
+            #input1
+            [(ngModel)]="lPFilter"
+          />
+          <button
+            class="absolute right-1 text-primaryBlue"
+            *ngIf="lPFilter"
+            (click)="lPFilter = ''; clearFilter('lPFilter')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.learning_point }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="difficulty_id">
+      <th mat-header-cell *matHeaderCellDef class="w-1/12">Cấp độ</th>
+      <td mat-cell *matCellDef="let element">{{ element.difficulty_id }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+
+    <ng-container matColumnDef="program">
+      <th mat-header-cell *matHeaderCellDef class="w-1/6">
+        <span>Chương trình</span>
+        <div class="relative bg-white p-1 mb-2">
+          <input
+            class="text-primaryBlue w-full"
+            matInput
+            (keyup)="applyFilter($event, 'lPFilter')"
+            placeholder="Filter"
+            #input2
+            [(ngModel)]="programFilter"
+          />
+          <button
+            class="absolute right-1 text-primaryBlue"
+            *ngIf="programFilter"
+            (click)="programFilter = ''; clearFilter('lPFilter')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.program }}</td>
+    </ng-container>
+  </table>
+</div>
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

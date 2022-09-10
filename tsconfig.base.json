@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@kyonsvn/share-pipes": ["libs/share-pipes/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

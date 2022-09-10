@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/share-pipes/src",
+  "prefix": "kyonsvn",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/share-pipes"],
+      "options": {
+        "project": "libs/share-pipes/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/share-pipes/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/share-pipes/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/share-pipes"],
+      "options": {
+        "jestConfig": "libs/share-pipes/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/share-pipes/**/*.ts", "libs/share-pipes/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}

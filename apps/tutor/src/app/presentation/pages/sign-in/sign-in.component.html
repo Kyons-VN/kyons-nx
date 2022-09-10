@@ -1,0 +1,42 @@
+<div class="flex flex-col h-full">
+  <div class="flex w-full h-full items-center justify-center">
+    <form class="flex flex-col w-[440px] mb-24" [formGroup]="signInform">
+      <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
+      <div class="h-12"></div>
+      <input
+        type="text"
+        id="email"
+        placeholder="Nhập email"
+        formControlName="email"
+      />
+      <div
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+        class="error"
+      >
+        <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
+        <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
+      </div>
+      <div class="h-4"></div>
+      <input
+        type="password"
+        placeholder="Nhập mật khẩu"
+        formControlName="password"
+      />
+      <div
+        *ngIf="password.invalid && (password.dirty || password.touched)"
+        class="error"
+      >
+        <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
+      </div>
+      <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
+      <div class="h-6"></div>
+      <button
+        (click)="login()"
+        class="btn"
+        [disabled]="(signInform.touched && signInform.invalid) || loginPressed"
+      >
+        {{ loginPressed ? "Đang xử lý" : "Đăng nhập" }}
+      </button>
+    </form>
+  </div>
+</div>

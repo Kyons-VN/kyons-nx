@@ -45,8 +45,8 @@
           "outputPath": "dist/student/",
           "fileReplacements": [
             {
-              "replace": "src/app/app-routing.module.ts",
-              "with": "src/app/app-routing.module.firebase.ts"
+              "replace": "apps/tutor/src/app/app-routing.module.ts",
+              "with": "apps/tutor/src/app/app-routing.module.firebase.ts"
             }
           ],
           "buildOptimizer": false,
