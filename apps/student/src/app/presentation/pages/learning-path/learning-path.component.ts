@@ -79,17 +79,8 @@ export class LearningPathComponent implements OnInit, OnDestroy {
         if (!willUpdate) return;
         this.loading = false;
         setTimeout(() => {
-          this.scrollDistance =
-            this.lessons.length * (256 + 24) + 48 - window.innerWidth;
-
-          if (
-            this.lessons.length === 0 ||
-            !this.lessons[this.lessons.length - 1].isNew
-          ) {
-            this.scrollDistance += 256 + 24;
-          }
           this.widgetsWrapper.nativeElement.scrollTo({
-            left: this.scrollDistance,
+            left: this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44,
           });
         }, 500);
       },
@@ -101,29 +92,33 @@ export class LearningPathComponent implements OnInit, OnDestroy {
 
   @HostListener('scroll', ['$event'])
   onScroll(event: WheelEvent) {
-    if (event.deltaY > 0) this.scrollRight();
-    else this.scrollLeft();
+    if (event.deltaY > 0) this.scrollRight(event.deltaY);
+    else this.scrollLeft(event.deltaY);
   }
 
-  public scrollRight(): void {
-    if (
-      this.widgetsWrapper.nativeElement.scrollLeft >
-      this.lessons.length * (256 + 24) - window.innerWidth
-    )
+  public scrollRight(deltaY: number): void {
+    this.scrollDistance += deltaY;
+    if (this.scrollDistance > this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44) {
+      this.scrollDistance = this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44;
       return;
-    this.scrollDistance = this.widgetsWrapper.nativeElement.scrollLeft + 500;
+    }
 
     this.widgetsWrapper.nativeElement.scrollTo({
-      left: this.widgetsWrapper.nativeElement.scrollLeft + 500,
+      left: this.scrollDistance,
       behavior: 'smooth',
     });
+
   }
 
-  public scrollLeft(): void {
-    this.scrollDistance = this.widgetsWrapper.nativeElement.scrollLeft - 500;
+  public scrollLeft(deltaY: number): void {
+    this.scrollDistance += deltaY;
+    if (this.scrollDistance < -44) {
+      this.scrollDistance = -44;
+      return;
+    }
 
     this.widgetsWrapper.nativeElement.scrollTo({
-      left: this.widgetsWrapper.nativeElement.scrollLeft - 500,
+      left: this.scrollDistance,
       behavior: 'smooth',
     });
   }

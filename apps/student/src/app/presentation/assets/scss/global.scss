@@ -170,7 +170,7 @@ p {
 .btn {
   @apply bg-orange h-10 rounded-md text-white flex items-center justify-center cursor-pointer border border-orange;
   &:active {
-    @apply text-lightlightOrange-3;
+    @apply text-lightOrange-3;
   }
   &:hover {
     @apply shadow-1;

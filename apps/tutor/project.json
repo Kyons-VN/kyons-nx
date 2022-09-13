@@ -42,7 +42,7 @@
         },
         "firebase": {
           "baseHref": "/tutor/",
-          "outputPath": "dist/tutor/",
+          "outputPath": "dist/firebase/tutor/",
           "fileReplacements": [
             {
               "replace": "apps/tutor/src/app/app-routing.module.ts",

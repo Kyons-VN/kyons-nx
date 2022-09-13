@@ -5,16 +5,21 @@
     <div class="h-2"></div>
     <h3>Bắt đầu thu thập kiến thức</h3>
     <div
-      #widgetsWrapper
       class="mx-[-2.75rem] p-11 flex overflow-hidden relative"
       (wheel)="onScroll($event)"
+      style="height: calc(256px + 2.75 * 2rem)"
     >
-      <div
+      <!-- <div
         class="absolute w-auto border-2 border-orange border-dashed mx-[-2.75rem] top-1/2 z-1"
         style="left: 0"
         [ngStyle]="{ right: -scrollDistance + 256 / 2 + 'px' }"
-      ></div>
-      <div class="flex z-2 relative" style="gap: 24px">
+      ></div> -->
+      <div
+        #widgetsWrapper
+        class="flex z-2 absolute overflow-x-scroll w-full top-11 bottom-[-17px] left-0 right-0"
+        style="gap: 1.5rem"
+      >
+        <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
         <div
           [routerLink]="[paths.lessonPage, lesson.id]"
           class="small-card cursor-pointer hover:shadow-3"
@@ -22,19 +27,14 @@
             'bg-secondaryBlue': !lesson.isNew,
             'bg-primaryBlue': lesson.isNew
           }"
-          *ngFor="let lesson of lessons"
+          *ngFor="let lesson of lessons; index as i"
         >
           <div class="flex flex-col gap-2">
-            <h6 [ngClass]="{ 'text-white': lesson.learnedLPDs !== undefined }">
-              Bài số {{ lesson.index + 1 }}
-            </h6>
+            <h6 [ngClass]="{'text-white': lesson.learnedLPDs !== undefined}">Bài số {{ lesson.index + 1 }}</h6>
           </div>
         </div>
         <div
-          *ngIf="
-            userType === 'self_study' &&
-            (lessons.length === 0 || !lessons[lessons.length - 1].isNew)
-          "
+          *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
           class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
           [routerLink]="paths.newLesson"
         >
@@ -42,56 +42,30 @@
           <h6>Tạo bài học mới</h6>
         </div>
         <div
-          *ngIf="
-            userType !== 'self_study' &&
-            (lessons.length === 0 || !lessons[lessons.length - 1].isNew)
-          "
+          *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
           class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
         >
           <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
         </div>
+        <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
       </div>
     </div>
     <div class="self-end flex">
       <div class="flex gap-3">
         <div
-          (click)="scrollLeft()"
+          (click)="scrollLeft(-100); scrollLeft(-100); scrollLeft(-100); scrollLeft(-100); scrollLeft(-100)"
           class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M10 12L6 8L10 4"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
         <div
-          (click)="scrollRight()"
+          (click)="scrollRight(100); scrollRight(100); scrollRight(100); scrollRight(100); scrollRight(100)"
           class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
-            <path
-              d="M6 12L10 8L6 4"
-              stroke="white"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 12L10 8L6 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </div>
       </div>
