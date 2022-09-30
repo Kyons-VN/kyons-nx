@@ -25,6 +25,7 @@
     "lodash": "^4.17.21",
     "mydatepicker": "^2.6.11",
     "ng-circle-progress": "^1.6.0",
+    "ngx-drag-scroll": "^14.0.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

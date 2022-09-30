@@ -7,8 +7,6 @@ import {
 } from '@angular/core';
 import { TrackingService } from '../../../infrastructure/tracking.service';
 
-const trackingThreshold = 10000; // miliseconds
-
 @Component({
   selector: 'student-tracking',
   template: `<ng-container></ng-container>`,
@@ -22,31 +20,31 @@ export class TrackingComponent implements OnInit, OnDestroy {
   constructor(private service: TrackingService) { }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMove(e: MouseEvent) {
+  onMouseMove() {
     if (!this._isMouseActive) {
-      this.service.resetTrackingOnApp();
+      // this.service.resetTrackingOnApp();
       this._isMouseActive = true;
       clearInterval(this._trackingInterval);
       this._trackingInterval = setInterval(() => {
         if (this._isMouseActive) this.service.updateTrackOnApp();
-      }, trackingThreshold);
+      }, this.service.trackingThreshold);
     }
     clearTimeout(this._mouseInactiveTimeout);
     this._mouseInactiveTimeout = setTimeout(() => {
       clearInterval(this._trackingInterval);
       this._isMouseActive = false;
-    }, trackingThreshold);
+    }, this.service.trackingThreshold);
   }
 
   ngOnInit(): void {
     this._isMouseActive = false;
     this._trackingInterval = setInterval(() => {
       if (this._isMouseActive) this.service.updateTrackOnApp();
-    }, trackingThreshold);
+    }, this.service.trackingThreshold);
     this._mouseInactiveTimeout = setTimeout(() => {
       clearInterval(this._trackingInterval);
       this._isMouseActive = false;
-    }, trackingThreshold);
+    }, this.service.trackingThreshold);
   }
 
   ngOnDestroy(): void {

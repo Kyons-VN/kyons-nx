@@ -92,33 +92,37 @@ export class LearningPathComponent implements OnInit, OnDestroy {
 
   @HostListener('scroll', ['$event'])
   onScroll(event: WheelEvent) {
+    if (this.detectTouchPad(event)) {
+      this.scrollDistance += event.deltaX;
+      return;
+    }
     if (event.deltaY > 0) this.scrollRight(event.deltaY);
     else this.scrollLeft(event.deltaY);
+    console.log(this.scrollDistance);
   }
 
-  public scrollRight(deltaY: number): void {
-    this.scrollDistance += deltaY;
-    if (this.scrollDistance > this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44) {
-      this.scrollDistance = this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44;
-      return;
+  public scrollRight(deltaY: number = window.innerWidth - 300): void {
+
+    let newScroll = this.widgetsWrapper.nativeElement.scrollLeft + 300 + deltaY;
+    if (newScroll > this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44) {
+      newScroll = this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44;
     }
 
     this.widgetsWrapper.nativeElement.scrollTo({
-      left: this.scrollDistance,
+      left: newScroll,
       behavior: 'smooth',
     });
 
   }
 
-  public scrollLeft(deltaY: number): void {
-    this.scrollDistance += deltaY;
-    if (this.scrollDistance < -44) {
-      this.scrollDistance = -44;
-      return;
+  public scrollLeft(deltaY: number = -window.innerWidth + 300): void {
+    let newScroll = this.widgetsWrapper.nativeElement.scrollLeft - 300 + deltaY;
+    if (newScroll < -44) {
+      newScroll = -44;
     }
 
     this.widgetsWrapper.nativeElement.scrollTo({
-      left: this.scrollDistance,
+      left: newScroll,
       behavior: 'smooth',
     });
   }
@@ -126,4 +130,18 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.interval !== undefined) this.interval.unsubscribe();
   }
+
+  detectTouchPad(e: any): boolean {
+    let isTouchPad = false;
+    if (e.wheelDeltaY) {
+      if (Math.abs(e.wheelDeltaY) !== 120) {
+        isTouchPad = true;
+      }
+    }
+    else if (e.deltaMode === 0) {
+      isTouchPad = true;
+    }
+    return isTouchPad;
+  }
 }
+

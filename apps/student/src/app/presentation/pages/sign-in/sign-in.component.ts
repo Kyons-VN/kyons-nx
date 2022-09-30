@@ -50,7 +50,8 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binhhm2009+0909ai@gmail.com');
+      this.email.setValue('binh+0929ss@te.st');
+      this.password.setValue('Zaq1@wsx');
     }
     if (this.signInform.untouched) {
       this.signInform.markAllAsTouched();
@@ -84,6 +85,6 @@ export class SignInComponent implements OnInit {
   }
 
   debug() {
-    this.isDebug = true;
+    if (!environment.production) this.isDebug = true;
   }
 }

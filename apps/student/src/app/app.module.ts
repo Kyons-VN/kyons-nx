@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharePipesModule } from '@kyonsvn/share-pipes';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
 import { AppRoutingModule } from './app-routing.module';
@@ -103,6 +104,7 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     SvgModule,
     IvyCarouselModule,
     SharePipesModule,
+    DragScrollModule,
   ],
   exports: [MaterialModule, SvgModule],
   providers: [authInterceptorProviders],

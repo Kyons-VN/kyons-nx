@@ -219,7 +219,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             this.tutorReady(tutor_info.meeting_url);
           }
         },
-        error: (err) => {
+        error: () => {
           this.waiting = false;
           subscription.unsubscribe();
         },

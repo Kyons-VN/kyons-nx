@@ -21,8 +21,8 @@ export class AuthService implements IAuth {
     private http: HttpClient,
     private userService: UserService,
     private trackingService: TrackingService,
-    private knowledgeService: KnowledgeService
-  ) {}
+    private knowledgeService: KnowledgeService,
+  ) { }
 
   signIn(credential: IAuthCredential) {
     return this.http
@@ -51,7 +51,7 @@ export class AuthService implements IAuth {
   signOut() {
     this.removeToken();
     this.userService.removeCurrentUser();
-    this.trackingService.removeTracking();
+    this.trackingService.resetTracking();
     this.knowledgeService.removeSelectedProgram();
   }
 
