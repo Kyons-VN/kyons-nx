@@ -14,7 +14,6 @@ import { NavigationService } from '../../../infrastructure/navigation/navigation
 import { AppPath } from '../../routes';
 
 @Component({
-  selector: 'student-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })

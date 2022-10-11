@@ -7,7 +7,6 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'student-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })

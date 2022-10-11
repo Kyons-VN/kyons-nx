@@ -7,7 +7,6 @@ import { NavigationService } from '../../../infrastructure/navigation/navigation
 import { AppPath } from '../../routes';
 
 @Component({
-  selector: 'student-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

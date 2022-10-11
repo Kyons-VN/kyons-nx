@@ -16,11 +16,11 @@ import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { ClassProgramComponent } from './presentation/pages/class-program/class-program.component';
 import { DiagnosticTestDecisionComponent } from './presentation/pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/diagnostic-test.component';
+import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
 import { HomeComponent } from './presentation/pages/home/home.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './presentation/pages/lesson-page/lesson-page.component';
-import { MakeTestComponent } from './presentation/pages/make-test/make-test.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './presentation/pages/profile/profile.component';
@@ -43,7 +43,6 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
 
 @NgModule({
   declarations: [
-    // Components
     AppComponent,
     SignInComponent,
     HomeComponent,
@@ -58,7 +57,6 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     LearningPathComponent,
     QuestionsProgressComponent,
     LessonPageComponent,
-    MakeTestComponent,
     InputRadioComponent,
     SignOutComponent,
     ProfileComponent,
@@ -71,6 +69,7 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     TrackingComponent,
     TrackingLessonComponent,
     NewLessonPageComponent,
+    FinalExamComponent,
     // Pipes
     // OrderByPipe,
     // KeysPipe,

@@ -27,7 +27,6 @@ import {
 } from '../../share-components/confirm-dialog/confirm-dialog.component';
 
 @Component({
-  selector: 'student-lesson-page',
   templateUrl: './lesson-page.component.html',
   styleUrls: ['./lesson-page.component.scss'],
 })

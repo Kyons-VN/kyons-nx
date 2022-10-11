@@ -6,13 +6,13 @@ import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 import { Program } from './program';
 
-const SELECTED_PROGRAM_KEY = 'selectedProgram';
+const SELECTED_PROGRAM_KEY = 'selected_program';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KnowledgeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getSubjects(): Observable<Subject[]> {
     return this.http.get(SERVER_API + '/subjects').pipe(
@@ -45,7 +45,7 @@ export class KnowledgeService {
     return Program.fromJson(
       JSON.parse(
         window.localStorage.getItem(SELECTED_PROGRAM_KEY) ??
-          JSON.stringify(Program.empty().toJson())
+        JSON.stringify(Program.empty().toJson())
       )
     );
   }

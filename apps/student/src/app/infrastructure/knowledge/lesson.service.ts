@@ -3,24 +3,28 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable } from 'rxjs';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
-import { LearningPoint, LessonGroup, LessonItem } from './lesson';
+import { LearningPath, LearningPoint, LessonGroup, LessonItem } from './lesson';
 import { Program } from './program';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LessonService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getList(selectedProgram: Program): Observable<LessonItem[]> {
+  getList(selectedProgram: Program): Observable<LearningPath> {
     const params = new HttpParams().set('program_id', selectedProgram.id);
     return this.http.get(SERVER_API + '/lesson/list', { params: params }).pipe(
       catchError(DBHelper.handleError('GET lesson_list', [])),
-      map((collection: any) => {
-        if (collection.length === 0) return [];
-        return collection.map((item: any, index: number) =>
-          LessonItem.fromJson({ dataObject: item, index: index })
-        );
+      map((data: any) => {
+        if (data['completed']) return LearningPath.completed(selectedProgram);
+        return LearningPath.fromJson({
+          program: selectedProgram,
+          isCompleted: false,
+          lessonList: data.length === 0 ? [] : data.map((item: any, index: number) =>
+            LessonItem.fromJson({ dataObject: item, index: index })
+          )
+        },);
       })
     );
   }

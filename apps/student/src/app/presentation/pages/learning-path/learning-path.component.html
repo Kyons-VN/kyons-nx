@@ -33,20 +33,30 @@
             <h6 [ngClass]="{'text-white': lesson.learnedLPDs !== undefined}">Bài số {{ lesson.index + 1 }}</h6>
           </div>
         </div>
-        <div
-          *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-          class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-          [routerLink]="paths.newLesson"
-        >
-          <i class="icon-Add text-5xl"></i>
-          <h6>Tạo bài học mới</h6>
+        <div class="" *ngIf="!isCompleted; else elseBlock">
+          <div
+            *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
+            class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
+            [routerLink]="paths.newLesson"
+          >
+            <i class="icon-Add text-5xl"></i>
+            <h6>Tạo bài học mới</h6>
+          </div>
+          <div
+            *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
+            class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
+          >
+            <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
+          </div>
         </div>
-        <div
-          *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-          class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
-        >
-          <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
-        </div>
+        <ng-template #elseBlock>
+          <div
+            class="small-card bg-lightBlue-1 !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
+            [routerLink]="[this.paths.finalExam, selectedProgram.id]"
+          >
+            <h6>Bài kiểm tra cuối khoá</h6>
+          </div>
+        </ng-template>
         <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
       </div>
     </div>

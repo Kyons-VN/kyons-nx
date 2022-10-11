@@ -3,11 +3,11 @@ import { AuthGuard } from './auth.guard';
 import { ClassProgramComponent } from './pages/class-program/class-program.component';
 import { DiagnosticTestDecisionComponent } from './pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './pages/diagnostic-test/diagnostic-test.component';
+import { FinalExamComponent } from './pages/final-exam/final-exam.component';
 import { HomeComponent } from './pages/home/home.component';
 import { KnowledgeComponent } from './pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
-import { MakeTestComponent } from './pages/make-test/make-test.component';
 import { NewLessonPageComponent } from './pages/new-lesson-page/new-lesson-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -37,6 +37,7 @@ class AppPath {
   profile = '/profile/';
   pageNotfound = '/page-not-found/';
   newLesson = '/new-lesson/';
+  finalExam = '/final-exam/';
 }
 
 const routes: Routes = [
@@ -75,11 +76,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'make-test',
-    component: MakeTestComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
@@ -100,6 +96,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'final-exam/:programId',
+    component: FinalExamComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },
@@ -110,3 +111,4 @@ const routes: Routes = [
 ];
 
 export { routes, AppPath };
+

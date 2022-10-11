@@ -3,7 +3,6 @@ import { NavigationService } from '../../../infrastructure/navigation/navigation
 import { AppPath } from '../../routes';
 
 @Component({
-  selector: 'student-knowledge',
   templateUrl: './knowledge.component.html',
   styleUrls: ['./knowledge.component.scss'],
 })

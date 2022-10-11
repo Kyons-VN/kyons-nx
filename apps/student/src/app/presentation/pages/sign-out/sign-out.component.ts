@@ -5,7 +5,6 @@ import { NavigationService } from '../../../infrastructure/navigation/navigation
 import { AppPath } from '../../routes';
 
 @Component({
-  selector: 'student-sign-out',
   templateUrl: './sign-out.component.html',
   styleUrls: ['./sign-out.component.scss'],
 })

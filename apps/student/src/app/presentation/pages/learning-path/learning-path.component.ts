@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { interval, Subscription } from 'rxjs';
 import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
-import { LessonItem } from '../../../infrastructure/knowledge/lesson';
+import { LearningPath, LessonItem } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
 import { Program } from '../../../infrastructure/knowledge/program';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
@@ -18,7 +18,6 @@ import { UserService } from '../../../infrastructure/user/user.service';
 import { AppPath } from '../../routes';
 
 @Component({
-  selector: 'student-learning-path',
   templateUrl: './learning-path.component.html',
   styleUrls: ['./learning-path.component.scss'],
 })
@@ -45,6 +44,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   dataSource: any[] = [];
   loading = true;
   interval!: Subscription;
+  isCompleted = false;
 
   @ViewChild('widgetsWrapper', { read: ElementRef })
   public widgetsWrapper!: ElementRef<any>;
@@ -62,17 +62,23 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   getList() {
     let willUpdate = true;
     this.lessonService.getList(this.selectedProgram).subscribe({
-      next: (data: LessonItem[]) => {
-        if (data.length > 0) {
-          const length = data.length;
+      next: (learningPath: LearningPath) => {
+        if (learningPath.lessonList.length > 0) {
+          const length = learningPath.lessonList.length;
           if (
             this.lessons.length == length &&
-            this.lessons[length - 1].isNew == data[length - 1].isNew
+            this.lessons[length - 1].isNew == learningPath.lessonList[length - 1].isNew
           ) {
             willUpdate = false;
             return;
           }
-          this.lessons = data;
+          this.lessons = learningPath.lessonList;
+        }
+        if (learningPath.isCompleted) {
+          // willUpdate = false;
+          // this.router.navigate([this.paths.finalExam, learningPath.program.id]);
+          this.isCompleted = true;
+          return;
         }
       },
       complete: () => {
@@ -117,7 +123,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
 
   public scrollLeft(deltaY: number = -window.innerWidth + 300): void {
     let newScroll = this.widgetsWrapper.nativeElement.scrollLeft - 300 + deltaY;
-    if (newScroll < -44) {
+    if (newScroll < - 44) {
       newScroll = -44;
     }
 

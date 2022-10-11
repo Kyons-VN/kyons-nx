@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { TrackingService } from '../../../infrastructure/tracking.service';
+import { TrackingService } from '../../../infrastructure/tracking/tracking.service';
 
 @Component({
   selector: 'student-tracking',

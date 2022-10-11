@@ -1,12 +1,14 @@
 import { pick } from 'lodash';
+import { ILearningPath } from '../../domain/knowledge/i-learning-path';
 import { ILearningPoint } from '../../domain/knowledge/i-learning-point';
 import {
   ILesson,
   ILessonCategory,
   ILessonGroup,
-  ILessonItem,
+  ILessonItem
 } from '../../domain/knowledge/i-lesson';
 import { Category } from './category';
+import { Program } from './program';
 import { Topic } from './topic';
 
 class LessonItem implements ILessonItem {
@@ -64,21 +66,27 @@ class LessonItem implements ILessonItem {
   }
 }
 
-// class LearningPointDifficulty implements ILearningPointDifficulty {
-//   id: string;
-//   content: string;
+class LearningPath implements ILearningPath {
+  isCompleted: boolean;
+  lessonList: LessonItem[];
+  program: Program;
 
-//   constructor({ id, content }: { id: string, content: string }) {
-//     this.id = id;
-//     this.content = content;
-//   }
+  constructor({ isCompleted, lessonList, program }: { isCompleted: boolean, lessonList: LessonItem[], program: Program }) {
+    this.isCompleted = isCompleted;
+    this.lessonList = lessonList;
+    this.program = program;
+  }
 
-//   static fromJson(dataObject: any): LearningPointDifficulty {
-//     const _ = pick(dataObject, ['id', 'learning_point_difficulty_id', 'content']);
-//     _.id = _.learning_point_difficulty_id.toString();
-//     return new LearningPointDifficulty(_);
-//   }
-// }
+  static fromJson(dataObject: any): LearningPath {
+    const _ = pick(dataObject, ['completed', 'isCompleted', 'learning_point_difficulty_id', 'lessonList', 'program']);
+    _.isCompleted = _.completed;
+    return new LearningPath(_);
+  }
+
+  static completed(program: Program): LearningPath {
+    return new LearningPath({ isCompleted: true, lessonList: [], program: program });
+  }
+}
 
 class LearningPoint implements ILearningPoint {
   id: string;
@@ -249,4 +257,5 @@ class Lesson implements ILesson {
   }
 }
 
-export { LessonItem, LessonGroup, LessonCategory, Lesson, LearningPoint };
+export { LessonItem, LessonGroup, LessonCategory, Lesson, LearningPoint, LearningPath };
+

@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { IAuth, IAuthCredential } from '../../domain/auth/auth';
 import { DBHelper } from '../helper/helper';
 import { KnowledgeService } from '../knowledge/knowledge.service';
-import { TrackingService } from '../tracking.service';
+import { TrackingService } from '../tracking/tracking.service';
 import { UserService } from '../user/user.service';
 import { SERVER_API } from './interceptor';
 
