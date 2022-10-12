@@ -49,7 +49,7 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binh+0929ss@te.st');
+      this.email.setValue('binh+1012ss@te.st');
       this.password.setValue('Zaq1@wsx');
     }
     if (this.signInform.untouched) {

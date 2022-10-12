@@ -49,6 +49,7 @@ export class DiagnosticTestComponent implements OnInit {
   resultRenderObject: any[] = [];
   lessonGroup!: LessonGroup;
   userType!: string;
+  isSubmitting = false;
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -92,6 +93,7 @@ export class DiagnosticTestComponent implements OnInit {
   }
 
   testComplete() {
+    this.isSubmitting = true;
     this.submission.end = new Date();
     this.testService.submitTest(this.submission).subscribe({
       next: (result) => {

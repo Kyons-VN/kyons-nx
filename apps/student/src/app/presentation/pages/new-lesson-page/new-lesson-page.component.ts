@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
 import { LearningPoint } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';

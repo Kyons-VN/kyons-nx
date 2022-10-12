@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 import { IProgram } from '../../domain/knowledge/i-program';
 
 class Program implements IProgram {

@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 import { Program } from '../../infrastructure/knowledge/program';
 import { IProgram } from '../knowledge/i-program';
 import { SubjectStatus } from './status';
@@ -36,3 +36,4 @@ class Subject implements ISubject {
 }
 
 export { Subject };
+

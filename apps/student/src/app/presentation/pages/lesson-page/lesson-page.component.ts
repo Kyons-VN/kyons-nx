@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { delay } from 'lodash';
+import { delay } from 'lodash-es';
 import { interval, Subscription } from 'rxjs';
 import { Lesson, LessonGroup } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';

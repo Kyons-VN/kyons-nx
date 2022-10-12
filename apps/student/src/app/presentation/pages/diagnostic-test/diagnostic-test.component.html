@@ -1,10 +1,7 @@
-<div
-  *ngIf="!testResult"
-  class="rounded-lg sm:flex sm:flex-col p-0 md:p-11 md:grid md:grid-cols-2 relative"
->
+<div *ngIf="!testResult" class="rounded-lg sm:flex sm:flex-col p-0 md:p-11 md:grid md:grid-cols-2 relative">
   <student-questions-progress
     id="responsiveProgressBar"
-    [ngStyle]="{ display: isTitleHidden ? 'block' : 'none' }"
+    [ngStyle]="{display: isTitleHidden ? 'block' : 'none'}"
     class="top-[-1px] md:top-11 absolute left bg-white h-11 left-6"
     [progress]="progress"
   ></student-questions-progress>
@@ -17,10 +14,7 @@
       <h4>Bài khảo sát</h4>
       <h6>Chương trình Anh Văn chuẩn quốc gia</h6>
     </div>
-    <student-questions-progress
-      class="w-full"
-      [progress]="progress"
-    ></student-questions-progress>
+    <student-questions-progress class="w-full" [progress]="progress"></student-questions-progress>
     <student-test-content
       [content]="testContent"
       [submission]="submission"
@@ -32,33 +26,27 @@
   <div class="flex flex-col w-full sm:h-auto md:h-full">
     <div class="bg-image flex-1"></div>
     <div class="flex w-full items-center p-6">
-      <!-- <a class="cursor-pointer" (click)="skipTest()">Chọn con đường học mẫu</a> -->
       <span class="flex-1"></span>
       <button
         (click)="testComplete()"
         class="btn primary w-48"
-        [disabled]="progress < 100 && isTest === false"
+        [disabled]="isSubmitting || (progress < 100 && isTest === false)"
       >
         Nộp bài
       </button>
     </div>
   </div>
-  <!-- <pre *ngIf="isTest">{{ this.submission.submitData | json }}</pre> -->
 </div>
-<div
-  *ngIf="testResult"
-  class="sm:flex sm:flex-col p-0 md:p-11 md:grid md:grid-cols-2 relative gap-6"
->
-  <div class="flex flex-col gap-6" style="height: calc(100vh - 7rem)">
-    <h1>Bạn đã hoàn thành bài kiểm tra</h1>
-    <h6 class="text-secondaryBlue" *ngIf="userType !== 'self_study'">
+<div *ngIf="testResult" class="sm:flex sm:flex-col p-0 md:p-11 flex-col md:flex-row relative gap-6">
+  <div class="flex flex-col gap-11 rounded-lg p-6 bg-white md:w-5/12" style="height: calc(100vh - 9rem)">
+    <h4>Bạn đã hoàn thành bài kiểm tra</h4>
+    <p class="text-secondaryBlue" *ngIf="userType !== 'self_study'">
       Kyons đang chuẩn bị giáo trình cho bạn. Xin vui lòng đợi.
-    </h6>
-    <h6 class="text-secondaryBlue" *ngIf="userType === 'self_study'">
-      Đây là kết quả bài kiểm tra của bạn. Bạn có thể chọn bài học tiếp theo dựa
-      trên bài khảo sát này.
-    </h6>
-    <div class="flex flex-col rounded-lg p-6 bg-white">
+    </p>
+    <p class="text-secondaryBlue" *ngIf="userType === 'self_study'">
+      Đây là kết quả bài kiểm tra của bạn. Bạn có thể chọn bài học tiếp theo dựa trên bài khảo sát này.
+    </p>
+    <div class="flex flex-col">
       <div class="flex flex-col gap-6">
         <div class="flex flex-col gap-6"></div>
         <div class="flex gap-14">
@@ -66,10 +54,7 @@
             <div class="h8">Điểm của bạn</div>
             <div class="w-120px h-120px">
               <circle-progress
-                [percent]="
-                  (testResult.result.score * 100) /
-                  testResult.result.maxScore['total']
-                "
+                [percent]="(testResult.result.score * 100) / testResult.result.maxScore['total']"
                 [title]="testResult.score.toString()"
                 subtitle="10"
               ></circle-progress>
@@ -77,10 +62,7 @@
           </div>
           <div class="flex flex-col flex-1 gap-1">
             <div class="h8">Tổng quan kiến thức</div>
-            <div
-              class="flex flex-col"
-              *ngFor="let cat of this.resultRenderObject; let lCIndex = index"
-            >
+            <div class="flex flex-col" *ngFor="let cat of this.resultRenderObject; let lCIndex = index">
               <div class="flex">
                 <span>{{ cat.name }}</span>
                 <span class="flex-1"></span>
@@ -92,32 +74,18 @@
         </div>
         <div class="flex-1"></div>
         <div class="self-end flex gap-2">
-          <a
-            *ngIf="userType !== 'self_study'"
-            class="btn primary w-48"
-            [routerLink]="paths.learningPath"
+          <a *ngIf="userType !== 'self_study'" class="btn primary w-48" [routerLink]="paths.learningPath"
             >Đến giáo trình</a
           >
-          <a
-            *ngIf="userType === 'self_study'"
-            class="btn btn-rounded"
-            [routerLink]="paths.learningPath"
+          <a *ngIf="userType === 'self_study'" class="btn btn-rounded" [routerLink]="paths.learningPath"
             >Chọn bài học sau</a
           >
-          <a
-            *ngIf="userType === 'self_study'"
-            class="btn primary w-48"
-            [routerLink]="paths.newLesson"
-            >Tạo bài học</a
-          >
+          <a *ngIf="userType === 'self_study'" class="btn primary w-48" [routerLink]="paths.newLesson">Tạo bài học</a>
         </div>
       </div>
     </div>
-    <div class="flex flex-1 overflow-auto flex-col rounded-lg p-6 bg-white">
-      <student-test-review
-        [reviewRenderObject]="reviewRenderObject"
-      ></student-test-review>
-    </div>
   </div>
-  <div class="bg-waiting"></div>
+  <div class="flex flex-1 overflow-auto flex-col rounded-lg p-6 md:w-7/12 bg-white" style="height: calc(100vh - 9rem)">
+    <student-test-review [reviewRenderObject]="reviewRenderObject"></student-test-review>
+  </div>
 </div>

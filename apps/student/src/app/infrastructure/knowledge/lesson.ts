@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 import { ILearningPath } from '../../domain/knowledge/i-learning-path';
 import { ILearningPoint } from '../../domain/knowledge/i-learning-point';
 import {

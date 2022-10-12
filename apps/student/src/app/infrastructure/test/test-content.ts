@@ -1,11 +1,11 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 import {
   IAnswer,
   IAnswerResult,
   IAnswerReview,
   IQuestion,
   ITestContent,
-  ITestResult,
+  ITestResult
 } from '../../domain/knowledge/i-test';
 import { Category } from '../knowledge/category';
 import { Topic } from '../knowledge/topic';

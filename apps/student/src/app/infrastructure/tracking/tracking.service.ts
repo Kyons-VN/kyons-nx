@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UUID } from 'angular2-uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { SERVER_API } from '../auth/interceptor';
 
 const DEVICE_ID_KEY = 'device_id';
@@ -84,7 +84,7 @@ export class TrackingService {
   }
 
   private generateDeviceId() {
-    return UUID.UUID();
+    return uuidv4();
   }
 
   resetTrackingOnApp() {
