@@ -4,17 +4,18 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HTTP_INTERCEPTORS,
+  HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, lastValueFrom, Observable, of, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { AppPath } from '../../presentation/routes';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
 
 const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
-export const SERVER_API = 'https://api.tuhoconline.org';
+export const SERVER_API = environment.serverApi;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

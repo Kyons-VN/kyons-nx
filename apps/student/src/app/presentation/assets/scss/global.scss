@@ -72,9 +72,8 @@ p {
 small {
   font-size: 0.75rem;
 }
-a {
-  @apply text-orange;
-  text-decoration: none;
+a:not(.btn) {
+  @apply text-orange underline;
   &.active[routerlinkactive='active'] {
     @apply text-primaryBlue;
     svg > path {

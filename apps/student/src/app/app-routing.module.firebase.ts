@@ -11,4 +11,4 @@ import { routes } from './presentation/routes';
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

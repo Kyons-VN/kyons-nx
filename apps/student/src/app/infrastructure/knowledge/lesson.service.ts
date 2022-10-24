@@ -17,7 +17,7 @@ export class LessonService {
     return this.http.get(SERVER_API + '/lesson/list', { params: params }).pipe(
       catchError(DBHelper.handleError('GET lesson_list', [])),
       map((data: any) => {
-        if (data['completed']) return LearningPath.completed(selectedProgram);
+        if (data['completed']) return LearningPath.completed(selectedProgram, data['lesson_list']);
         return LearningPath.fromJson({
           program: selectedProgram,
           isCompleted: false,

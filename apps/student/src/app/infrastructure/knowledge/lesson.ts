@@ -83,8 +83,12 @@ class LearningPath implements ILearningPath {
     return new LearningPath(_);
   }
 
-  static completed(program: Program): LearningPath {
-    return new LearningPath({ isCompleted: true, lessonList: [], program: program });
+  static completed(program: Program, data: any[]): LearningPath {
+    return new LearningPath({
+      isCompleted: true, lessonList: data.length === 0 ? [] : data.map((item: any, index: number) =>
+        LessonItem.fromJson({ dataObject: item, index: index })
+      ), program: program
+    });
   }
 }
 

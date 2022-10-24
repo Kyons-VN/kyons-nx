@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
+  serverApi: 'https://api.tuhoconline.org',
 };
 
 /*
