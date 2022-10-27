@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,20 +17,21 @@ import { AppPath } from '../../routes';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, AfterViewInit {
   paths: AppPath;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private navService: NavigationService
+    private navService: NavigationService,
+    private element: ElementRef
   ) {
     this.paths = navService.paths;
   }
 
   @HostBinding('class') class = 'h-full';
 
-  signInform: FormGroup = this.fb.group({});
+  signInForm: FormGroup = this.fb.group({});
   email: FormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -42,9 +43,15 @@ export class SignInComponent implements OnInit {
 
   isPromotionEnable = environment.isPromotionEnable;
 
+  @ViewChild("emailElm") emailElm!: ElementRef;
+
   ngOnInit(): void {
-    this.signInform.addControl('email', this.email);
-    this.signInform.addControl('password', this.password);
+    this.signInForm.addControl('email', this.email);
+    this.signInForm.addControl('password', this.password);
+  }
+
+  ngAfterViewInit(): void {
+    this.emailElm.nativeElement.focus();
   }
 
   login() {
@@ -52,14 +59,14 @@ export class SignInComponent implements OnInit {
       this.email.setValue('binh+1012ss@te.st');
       this.password.setValue('Zaq1@wsx');
     }
-    if (this.signInform.untouched) {
-      this.signInform.markAllAsTouched();
+    if (this.signInForm.untouched) {
+      this.signInForm.markAllAsTouched();
       return;
     }
-    if (this.signInform.status === FormControlStatus.VALID) {
+    if (this.signInForm.status === FormControlStatus.VALID) {
       this.processing = true;
       this.authService
-        .signIn(new AuthCredential(this.signInform.value))
+        .signIn(new AuthCredential(this.signInForm.value))
         .subscribe({
           next: (result: any) => {
             if (result.success) {

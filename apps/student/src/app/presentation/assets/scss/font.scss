@@ -1,13 +1,10 @@
 @font-face {
   font-family: 'Kyons-Icon-Fonts';
-  src: url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.eot?drx3bn');
-  src: url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.eot?drx3bn#iefix')
-      format('embedded-opentype'),
-    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.ttf?drx3bn')
+  src: url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.ttf?91dme6')
       format('truetype'),
-    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.woff?drx3bn')
+    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.woff?91dme6')
       format('woff'),
-    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.svg?drx3bn#Kyons-Icon-Fonts')
+    url('../../../../assets/kyons_fonts/Kyons-Icon-Fonts.svg?91dme6#Kyons-Icon-Fonts')
       format('svg');
   font-weight: normal;
   font-style: normal;
@@ -32,129 +29,135 @@
   }
 }
 
-.icon-Add-friend:before {
-  content: '\e900';
+.icon-CallTutor:before {
+  content: "\e900";
 }
-.icon-Add-to-handbook:before {
-  content: '\e901';
+.icon-Visibility:before {
+  content: "\e901";
 }
-.icon-Add:before {
-  content: '\e902';
+.icon-VisibilityOff:before {
+  content: "\e902";
 }
-.icon-Arrow-down-stop:before {
-  content: '\e903';
+.icon-icon-AddFriend:before {
+  content: "\e903";
 }
-.icon-Arrow-down:before {
-  content: '\e904';
+.icon-icon-BookmarkAdd:before {
+  content: "\e904";
 }
-.icon-Arrow-left-stop:before {
-  content: '\e905';
+.icon-icon-Add:before {
+  content: "\e905";
 }
-.icon-Arrow-left:before {
-  content: '\e906';
+.icon-icon-ArrowDownStop:before {
+  content: "\e906";
 }
-.icon-Arrow-right-stop:before {
-  content: '\e907';
+.icon-icon-ArrowDown:before {
+  content: "\e907";
 }
-.icon-Arrow-right:before {
-  content: '\e908';
+.icon-icon-ArrowLeftStop:before {
+  content: "\e908";
 }
-.icon-Arrow-up-stop:before {
-  content: '\e909';
+.icon-icon-ArrowLeft:before {
+  content: "\e909";
 }
-.icon-Arrow-up:before {
-  content: '\e90a';
+.icon-icon-ArrowRightStop:before {
+  content: "\e90a";
 }
-.icon-Birthday:before {
-  content: '\e90b';
+.icon-icon-ArrowRight:before {
+  content: "\e90b";
 }
-.icon-Bookmark:before {
-  content: '\e90c';
+.icon-icon-ArrowUpStop:before {
+  content: "\e90c";
 }
-.icon-Calendar:before {
-  content: '\e90d';
+.icon-icon-ArrowUp:before {
+  content: "\e90d";
 }
-.icon-Carousel:before {
-  content: '\e90e';
+.icon-icon-Birthday:before {
+  content: "\e90e";
 }
-.icon-Check:before {
-  content: '\e910';
+.icon-icon-Bookmark:before {
+  content: "\e90f";
 }
-.icon-Close:before {
-  content: '\e911';
+.icon-icon-Calendar:before {
+  content: "\e910";
 }
-.icon-Document:before {
-  content: '\e912';
+.icon-icon-Carousel:before {
+  content: "\e911";
 }
-.icon-Edit:before {
-  content: '\e913';
+.icon-icon-Check:before {
+  content: "\e912";
 }
-.icon-Email:before {
-  content: '\e914';
+.icon-icon-Close:before {
+  content: "\e913";
 }
-.icon-Error:before {
-  content: '\e915';
+.icon-icon-Document:before {
+  content: "\e914";
 }
-.icon-Filter:before {
-  content: '\e916';
+.icon-icon-Edit:before {
+  content: "\e915";
 }
-.icon-Hanbook:before {
-  content: '\e917';
+.icon-icon-Email:before {
+  content: "\e916";
 }
-.icon-Home:before {
-  content: '\e918';
+.icon-icon-Error:before {
+  content: "\e917";
 }
-.icon-Info:before {
-  content: '\e919';
+.icon-icon-Filter:before {
+  content: "\e918";
 }
-.icon-Lesson-content:before {
-  content: '\e91a';
+.icon-icon-Hanbook:before {
+  content: "\e919";
 }
-.icon-Location:before {
-  content: '\e91b';
+.icon-icon-Home:before {
+  content: "\e91a";
 }
-.icon-Menu-Hambuger:before {
-  content: '\e91c';
+.icon-icon-Info:before {
+  content: "\e91b";
 }
-.icon-More:before {
-  content: '\e91d';
+.icon-icon-LessonContent:before {
+  content: "\e91c";
 }
-.icon-Notification:before {
-  content: '\e91e';
+.icon-icon-Location:before {
+  content: "\e91d";
 }
-.icon-Phone:before {
-  content: '\e91f';
+.icon-icon-MenuHambuger:before {
+  content: "\e91e";
 }
-.icon-Profile:before {
-  content: '\e920';
+.icon-icon-More:before {
+  content: "\e91f";
 }
-.icon-Reload:before {
-  content: '\e921';
+.icon-icon-Notification:before {
+  content: "\e920";
 }
-.icon-Remove-from-handbook:before {
-  content: '\e922';
+.icon-icon-Phone:before {
+  content: "\e921";
 }
-.icon-Search:before {
-  content: '\e923';
+.icon-icon-Profile:before {
+  content: "\e922";
 }
-.icon-Submit:before {
-  content: '\e924';
+.icon-icon-Reload:before {
+  content: "\e923";
 }
-.icon-Subtract:before {
-  content: '\e925';
+.icon-icon-BookmarkRemove:before {
+  content: "\e924";
 }
-.icon-Test:before {
-  content: '\e926';
+.icon-icon-Search:before {
+  content: "\e925";
 }
-.icon-Thumbnail:before {
-  content: '\e927';
+.icon-icon-Submit:before {
+  content: "\e926";
 }
-.icon-Time:before {
-  content: '\e928';
+.icon-icon-Subtract:before {
+  content: "\e927";
 }
-.icon-Tutor:before {
-  content: '\e929';
+.icon-icon-Test:before {
+  content: "\e928";
 }
-.icon-Work:before {
-  content: '\e92a';
+.icon-icon-Thumbnail:before {
+  content: "\e929";
+}
+.icon-icon-Time:before {
+  content: "\e92a";
+}
+.icon-icon-Work:before {
+  content: "\e92b";
 }

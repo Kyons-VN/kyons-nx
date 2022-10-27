@@ -38,6 +38,7 @@ class AppPath {
   pageNotfound = '/page-not-found/';
   newLesson = '/new-lesson/';
   finalExam = '/final-exam/';
+  resetPassword = '/reset-password/';
 }
 
 const routes: Routes = [
@@ -99,6 +100,10 @@ const routes: Routes = [
     path: 'final-exam/:programId',
     component: FinalExamComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ForgetPasswordComponent)
   },
   {
     path: '**',

@@ -1,6 +1,8 @@
 interface IAuth {
   signIn: (credential: IAuthCredential) => void;
-  signOut: Function;
+  signOut: () => void;
+  resetPassword: (email: string) => void;
+  newPassword: (email: string, newPassword: string, code: string) => void;
 }
 
 interface IAuthCredential {
@@ -10,3 +12,4 @@ interface IAuthCredential {
 }
 
 export { IAuth, IAuthCredential };
+

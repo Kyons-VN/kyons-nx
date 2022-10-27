@@ -84,4 +84,18 @@ export class AuthService implements IAuth {
       }
     );
   }
+
+  resetPassword(email: string) {
+    return this.http.post(
+      SERVER_API + '/forgot_password',
+      { 'email': email },
+    );
+  }
+
+  newPassword(email: string, newPassword: string, code: string) {
+    return this.http.put(
+      SERVER_API + '/forgot_password',
+      { 'email': email, 'password': newPassword, 'code': code },
+    );
+  }
 }

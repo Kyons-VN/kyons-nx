@@ -1,56 +1,37 @@
 <div class="flex flex-col md:flex-row h-full">
   <div
-    class="flex w-full h-full items-center justify-center bg-primaryBlue"
-    [ngClass]="{ 'md:w-7/12': isPromotionEnable }"
+    class="flex w-full h-full items-center justify-center bg-primaryBlue p-6"
+    [ngClass]="{'md:w-7/12': isPromotionEnable}"
   >
-    <form class="flex flex-col w-260px mb-24" [formGroup]="signInform">
-      <img
-        (dblclick)="debug()"
-        src="./assets/images/logo-v.svg"
-        alt="Logo"
-        class="h-24"
-      />
+    <form class="flex flex-col w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-24" [formGroup]="signInForm">
+      <img (dblclick)="debug()" src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
       <div class="h-12"></div>
-      <input
-        type="text"
-        id="email"
-        placeholder="Nhập email"
-        formControlName="email"
-      />
-      <div
-        *ngIf="email.invalid && (email.dirty || email.touched)"
-        class="error"
-      >
+      <input type="text" #emailElm placeholder="Nhập email" formControlName="email" />
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
         <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
         <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
       </div>
       <div class="h-4"></div>
-      <input
-        type="password"
-        placeholder="Nhập mật khẩu"
-        formControlName="password"
-      />
-      <div
-        *ngIf="password.invalid && (password.dirty || password.touched)"
-        class="error"
-      >
+      <input type="password" placeholder="Nhập mật khẩu" formControlName="password" />
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
         <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
       </div>
       <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
       <div class="h-6"></div>
-      <button
-        (click)="login()"
-        class="btn"
-        [disabled]="(signInform.touched && signInform.invalid) || processing"
-      >
+      <button (click)="login()" class="btn" [disabled]="(signInForm.touched && signInForm.invalid) || processing">
         {{ processing ? 'Đang xử lý' : 'Đăng nhập' }}
       </button>
+      <div class="h-6"></div>
+      <a [routerLink]="paths.resetPassword" class="text-orange">Quên mật khẩu</a>
+      <div class="h-2"></div>
+      <p>
+        <span class="text-white">Bạn chưa có tài khoản?</span>
+        &nbsp;
+        <a [routerLink]="paths.resetPassword" class="text-orange">Đăng ký tại đây</a>
+      </p>
     </form>
   </div>
-  <div
-    class="flex flex-col w-full md:w-7/12 gap-7 h-full"
-    *ngIf="isPromotionEnable"
-  >
+  <div class="flex flex-col w-full md:w-7/12 gap-7 h-full" *ngIf="isPromotionEnable">
     <student-carousel
       class="carousel-html-content"
       [cellWidth]="'100%'"
@@ -63,28 +44,20 @@
         <div class="px-28 py-28 flex flex-col gap-6">
           <h1>Mời bạn cùng học</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque
-            vitae molestie pretium, semper sed vulputate eu.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque vitae molestie pretium, semper sed
+            vulputate eu.
           </p>
-          <img
-            src="assets/images/Group 1420.svg"
-            class="block w-full max-h-[50vh]"
-            alt="..."
-          />
+          <img src="assets/images/Group 1420.svg" class="block w-full max-h-[50vh]" alt="..." />
         </div>
       </div>
       <div class="carousel-cell">
         <div class="px-24 py-28 flex flex-col gap-6">
           <h1>Ưu đãi cho bạn!</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque
-            vitae molestie pretium, semper sed vulputate eu.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque vitae molestie pretium, semper sed
+            vulputate eu.
           </p>
-          <img
-            src="assets/images/Group 1421.svg"
-            class="block w-full max-h-[50vh]"
-            alt="..."
-          />
+          <img src="assets/images/Group 1421.svg" class="block w-full max-h-[50vh]" alt="..." />
         </div>
       </div>
     </student-carousel>
