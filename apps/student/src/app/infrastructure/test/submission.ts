@@ -35,8 +35,8 @@ export class Submission implements ISubmission {
         answer_key_id: Number(this.submitData[questionId]),
       };
     });
-    result.start_time = formatDate(this.start, 'yyyy-mm-dd H:m:s', 'en_US');
-    result.end_time = formatDate(this.end, 'yyyy-mm-dd H:m:s', 'en_US');
+    result.start_time = formatDate(this.start, 'yyyy-MM-dd H:m:s', 'en_US');
+    result.end_time = formatDate(this.end, 'yyyy-MM-dd H:m:s', 'en_US');
     result.submission = submission;
     return result;
   }

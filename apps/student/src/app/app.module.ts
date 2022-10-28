@@ -8,6 +8,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
+import player from 'lottie-web/esm/lottie';
+import { LottieModule } from 'ngx-lottie';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { authInterceptorProviders } from './infrastructure/auth/interceptor';
@@ -32,6 +34,7 @@ import { AppInputComponent } from './presentation/share-components/app-input/app
 import { IvyCarouselModule } from './presentation/share-components/carousel/carousel.module';
 import { ConfirmDialogComponent } from './presentation/share-components/confirm-dialog/confirm-dialog.component';
 import { InputRadioComponent } from './presentation/share-components/input-radio/input-radio.component';
+import { LoadingComponent } from './presentation/share-components/loading/loading.component';
 import { SubjectCardComponent } from './presentation/share-components/program-card/program-card.component';
 import { QuestionsProgressComponent } from './presentation/share-components/questions-progress/questions-progress.component';
 import { ScoreBarComponent } from './presentation/share-components/score-bar/score-bar.component';
@@ -40,6 +43,10 @@ import { TestReviewComponent } from './presentation/share-components/test-review
 import { TopMenuComponent } from './presentation/share-components/top-menu/top-menu.component';
 import { TrackingLessonComponent } from './presentation/share-components/tracking/tracking-lesson.component';
 import { TrackingComponent } from './presentation/share-components/tracking/tracking.component';
+
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -70,6 +77,7 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     TrackingLessonComponent,
     NewLessonPageComponent,
     FinalExamComponent,
+    LoadingComponent,
     // Pipes
     // OrderByPipe,
     // KeysPipe,
@@ -104,6 +112,7 @@ import { TrackingComponent } from './presentation/share-components/tracking/trac
     IvyCarouselModule,
     SharePipesModule,
     DragScrollModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
   exports: [MaterialModule, SvgModule],
   providers: [authInterceptorProviders],

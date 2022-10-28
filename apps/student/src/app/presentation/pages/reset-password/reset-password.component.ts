@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
+import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
 import { AppPath } from '../../routes';
 
@@ -20,7 +21,7 @@ import { AppPath } from '../../routes';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
-export class ForgetPasswordComponent implements OnInit, AfterViewInit {
+export class ResetPasswordComponent implements OnInit, AfterViewInit {
   paths: AppPath;
 
   constructor(private router: Router,
@@ -28,6 +29,7 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder,
     private authService: AuthService,
     navService: NavigationService,
+    private loading: LoadingOverlayService
   ) {
     this.paths = navService.paths;
   }
@@ -76,7 +78,7 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
         }
       }
       );
-    console.log('init ForgetPasswordComponent');
+    console.log('init ResetPasswordComponent');
     this.emailForm.addControl('email', this.email);
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.errorMessage = '';
@@ -106,12 +108,13 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
     }
   }
 
-  async sendEmail(): Promise<void> {
+  sendEmail() {
     this.emailForm.markAsTouched();
     if (this.emailForm.invalid) return;
+    this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
-    await this.authService.resetPassword(this.email.value).subscribe({
+    this.authService.resetPassword(this.email.value).subscribe({
       next: (res) => {
         console.log(res);
         this.step = 1;
@@ -123,17 +126,22 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
         console.log(err);
         this.emailNotFound = true;
 
+      },
+      complete: () => {
+        this.processing = false;
+        this.loading.hide();
       }
     });
-    this.processing = false;
+
   }
 
-  async sendCode(): Promise<void> {
+  sendCode() {
     this.resetForm.markAsTouched();
     if (this.resetForm.invalid) return;
+    this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
-    await this.authService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
+    this.authService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
       next: (res) => {
         console.log(res);
         this.step = 2;
@@ -156,9 +164,13 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
           this.errorMessage = err.error.message;
         }
 
-      }
+      },
+      complete: () => {
+        this.processing = false;
+        this.loading.hide();
+      },
     });
-    this.processing = false;
+
   }
 
   notHaveDigit(str: string) {
@@ -178,14 +190,14 @@ export class ForgetPasswordComponent implements OnInit, AfterViewInit {
   }
 }
 
-function notFoundValidator(valueObject: ForgetPasswordComponent): ValidatorFn {
+function notFoundValidator(valueObject: ResetPasswordComponent): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const forbidden = valueObject ? valueObject.emailNotFound : null;
     return forbidden ? { forbiddenName: { value: control.value } } : null;
   };
 }
 
-function wrongCodeValidator(valueObject: ForgetPasswordComponent): ValidatorFn {
+function wrongCodeValidator(valueObject: ResetPasswordComponent): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const forbidden = valueObject ? valueObject.wrongCode : null;
     return forbidden ? { forbiddenName: { value: control.value } } : null;

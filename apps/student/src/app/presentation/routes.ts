@@ -103,7 +103,7 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ForgetPasswordComponent)
+    loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
   },
   {
     path: '**',

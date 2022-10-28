@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TutorSvgComponent {
-  @Input() color: string = '#94A3B8';
+  @Input() color = '#94A3B8';
 }

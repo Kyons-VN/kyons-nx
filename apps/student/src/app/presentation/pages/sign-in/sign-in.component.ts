@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { FormControlStatus } from '../../../helper/form';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
 import { AuthCredential } from '../../../infrastructure/auth/credential';
+import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
 import { AppPath } from '../../routes';
 
@@ -24,7 +25,8 @@ export class SignInComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private router: Router,
     private navService: NavigationService,
-    private element: ElementRef
+    private loading: LoadingOverlayService,
+
   ) {
     this.paths = navService.paths;
   }
@@ -64,6 +66,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
       return;
     }
     if (this.signInForm.status === FormControlStatus.VALID) {
+      this.loading.show();
       this.processing = true;
       this.authService
         .signIn(new AuthCredential(this.signInForm.value))
@@ -78,12 +81,13 @@ export class SignInComponent implements OnInit, AfterViewInit {
 
               setTimeout(() => {
                 this.router.navigate([redirectPath]);
-              }, 500);
+              }, 600);
             } else this.errorMessage = true;
           },
           complete: () => {
             setTimeout(() => {
               this.processing = false;
+              this.loading.hide();
             }, 500);
           },
         });
