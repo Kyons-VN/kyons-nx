@@ -1,5 +1,5 @@
 .loading-wrapper {
-  @apply bg-primaryBlue/80 absolute top-0 left-0 w-screen h-screen;
+  @apply bg-primaryBlue absolute top-0 left-0 w-screen h-screen;
   .loading{
     @apply flex items-center justify-center w-full h-full;
   }

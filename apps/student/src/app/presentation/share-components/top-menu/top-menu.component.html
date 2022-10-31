@@ -4,8 +4,8 @@
       <a
         [routerLink]="'/'"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        class="flex gap-3 items-center font-extrabold text-blueGrey-400"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="menu-item"
         (isActiveChange)="(this.ngOnInit)"
       >
         <span class="h-5">
@@ -32,10 +32,7 @@
               stroke-linejoin="round"
             />
           </svg> -->
-          <student-svg
-            name="home"
-            [color]="'#94A3B8'"
-          ></student-svg>
+          <student-svg name="home" [color]="'#94A3B8'"></student-svg>
         </span>
         Trang chủ</a
       >
@@ -163,7 +160,7 @@
   <ul #menu class="flex items-center p-6 gap-6">
     <li class="flex items-center gap-5 cursor-pointer relative">
       <ul
-        [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
+        [ngStyle]="{display: showSubmenu ? 'flex' : 'none'}"
         class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch gap-2 flex-col top-5 z-10"
       >
         <!-- <li [routerLink]="'/profile'">
@@ -175,7 +172,7 @@
         </li>
         <li class="border-t border-blueGrey-300"></li> -->
         <li [routerLink]="paths.signOut">
-          <a class="flex h-16 text-primaryBlue p-6">Thoát</a>
+          <a class="drop-menu-item">Thoát</a>
         </li>
       </ul>
     </li>

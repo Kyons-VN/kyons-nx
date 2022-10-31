@@ -1,16 +1,39 @@
 <div class="flex flex-col md:flex-row h-full">
-  <div class="flex flex-col w-full h-full items-center justify-center bg-primaryBlue">
-    <div class="flex flex-col w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">
+  <div *ngIf="step === 0" class="flex flex-col w-full h-full items-center justify-center bg-primaryBlue">
+    <div class="flex flex-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
       <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
       <div class="h-12"></div>
-      <form *ngIf="step === 0" class="flex flex-col" [formGroup]="emailForm" autocomplete="off">
-        <p class="text-white">Nhập email của bạn để nhận mã thay đổi mật khẩu.</p>
-        <div class="h-6"></div>
+      <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
         <input
-          [ngClass]="{'!text-orange border-orange': email.invalid || emailNotFound}"
+          [ngClass]="{'!text-orange border-orange': lastName.invalid}"
+          type="text"
+          #nameElm
+          placeholder="Họ"
+          formControlName="lastName"
+          autocomplete="off"
+        />
+        <div class="h-1"></div>
+        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+          <div *ngIf="lastName.errors?.['required']">Chưa nhập họ.</div>
+        </div>
+        <div class="h-4"></div>
+        <input
+          [ngClass]="{'!text-orange border-orange': firstName.invalid}"
+          type="text"
+          placeholder="Tên"
+          formControlName="firstName"
+          autocomplete="off"
+        />
+        <div class="h-1"></div>
+        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+          <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
+        </div>
+        <div class="h-4"></div>
+        <input
+          [ngClass]="{'!text-orange border-orange': email.invalid}"
           type="text"
           #emailElm
-          placeholder="Nhập email"
+          placeholder="Nhập email của bạn"
           formControlName="email"
           autocomplete="off"
         />
@@ -18,37 +41,6 @@
         <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
           <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
           <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
-        </div>
-        <div *ngIf="emailNotFound && (email.dirty || email.touched)" class="error">
-          <div>Không tìm thấy tài khoản trùng khớp email.</div>
-        </div>
-        <div class="error mt-1" *ngIf="errorMessage">Thông tin chưa chính xác</div>
-        <div class="h-4"></div>
-        <button (click)="sendEmail()" class="btn" [disabled]="(emailForm.touched && emailForm.invalid) || processing">
-          {{ processing ? 'Đang xử lý' : 'Gửi tôi mã code' }}
-        </button>
-      </form>
-      <form *ngIf="step === 1" class="flex flex-col" [formGroup]="resetForm" autocomplete="off">
-        <div class="h-12"></div>
-        <p class="text-white">
-          Mã code đã được gửi đến email của bạn. Vui lòng kiểm tra email và nhập mã vào ô bên dưới.
-        </p>
-        <div class="h-6"></div>
-        <input
-          [ngClass]="{'!text-orange': wrongCode || (code.invalid && (code.dirty || code.touched))}"
-          type="text"
-          #codeElm
-          placeholder="Nhập mã code"
-          formControlName="code"
-          autocomplete="new-code"
-        />
-        <div class="h-1"></div>
-        <div *ngIf="code.invalid && (code.dirty || code.touched)" class="error">
-          <div *ngIf="code.errors?.['required']">Chưa nhập mã.</div>
-          <div *ngIf="code.errors?.['pattern']">Cú pháp chưa đúng.</div>
-        </div>
-        <div *ngIf="wrongCode" class="error">
-          <div>Mã xác thực không đúng.</div>
         </div>
         <div class="h-4"></div>
         <div class="relative w-full">
@@ -113,15 +105,23 @@
         </div>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="h-6"></div>
-        <button (click)="sendCode()" class="btn" [disabled]="(resetForm.touched && resetForm.invalid) || processing">
-          {{ processing ? 'Đang xử lý' : 'Tiếp tục' }}
+        <button (click)="submit()" class="btn" [disabled]="(form.touched && form.invalid) || processing">
+          {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
         </button>
       </form>
-      <div *ngIf="step === 2" class="text-white">
-        Đổi mật khẩu thành công! Hãy đăng nhập và trải nghiệm Kyons thôi nào!
-      </div>
       <div class="h-6"></div>
-      <a [routerLink]="paths.home" [ngClass]="{'text-orange': step !== 2, btn: step === 2}">Quay lại đăng nhập</a>
+      <span class="text-white">Đã có tài khoản? <a [routerLink]="paths.home">Đăng nhập</a></span>
+    </div>
+  </div>
+  <div *ngIf="step === 1" class="bg-blueGrey-100 w-screen h-screen flex items-center justify-center p-6">
+    <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
+      <img src="/assets/images/New Account.svg" />
+      <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
+        <h4 class="text-primaryBlue">Chúc mừng bạn đã tạo tài khoản thành công!</h4>
+        <span>Bạn kiểm tra email để xác nhận tài khoản. Sau đó hãy đăng nhập vào Kyons và trải nghiệm nhé.</span>
+        <a class="btn" [routerLink]="paths.home">Trở về trang đăng nhập</a>
+      </div>
+      <div class="h-[100px]"></div>
     </div>
   </div>
 </div>

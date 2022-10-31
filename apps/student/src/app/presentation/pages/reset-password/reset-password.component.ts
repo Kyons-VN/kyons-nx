@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators
+  ReactiveFormsModule, Validators
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../../infrastructure/auth/auth.service';
 import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
+import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '../../../utils/validators';
 import { AppPath } from '../../routes';
 
 @Component({
@@ -23,8 +23,12 @@ import { AppPath } from '../../routes';
 })
 export class ResetPasswordComponent implements OnInit, AfterViewInit {
   paths: AppPath;
+  notHaveUppercase: (str: string) => void;
+  notHaveDigit: (str: string) => void;
+  notHaveSpecial: (str: string) => void;
+  search: (str: string, regexStr: string) => void;
 
-  constructor(private router: Router,
+  constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
@@ -32,6 +36,10 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     private loading: LoadingOverlayService
   ) {
     this.paths = navService.paths;
+    this.notHaveUppercase = notHaveUppercase;
+    this.notHaveDigit = notHaveDigit;
+    this.notHaveSpecial = notHaveSpecial;
+    this.search = search;
   }
 
   @HostBinding('class') class = 'h-full';
@@ -41,7 +49,6 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   email: FormControl = new FormControl('', [
     Validators.required,
     Validators.email,
-    notFoundValidator(this),
   ]);
   code: FormControl = new FormControl('', [
     Validators.required,
@@ -73,7 +80,6 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
           this.step = 1;
           if (params['reset_token']) {
             this.code.setValue(params['reset_token']);
-            // this.sendCode();
           }
         }
       }
@@ -118,6 +124,8 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
       next: (res) => {
         console.log(res);
         this.step = 1;
+        this.processing = false;
+        this.loading.hide();
         setTimeout(() => {
           this.codeElm.nativeElement.focus();
         }, 1000);
@@ -126,11 +134,9 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
         console.log(err);
         this.emailNotFound = true;
 
-      },
-      complete: () => {
         this.processing = false;
         this.loading.hide();
-      }
+      },
     });
 
   }
@@ -142,9 +148,10 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.processing = true;
     this.emailNotFound = false;
     this.authService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
         this.step = 2;
+        this.processing = false;
+        this.loading.hide();
       },
       error: (err) => {
         // {
@@ -164,42 +171,10 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
           this.errorMessage = err.error.message;
         }
 
-      },
-      complete: () => {
+
         this.processing = false;
         this.loading.hide();
       },
     });
-
   }
-
-  notHaveDigit(str: string) {
-    return str.search(/(?=.*[0-9])/);
-  }
-
-  notHaveUppercase(str: string) {
-    return str.search(/(?=.*[A-Z])/);
-  }
-
-  notHaveSpecial(str: string) {
-    return str.search(/(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]])/);
-  }
-
-  search(str: string, regexStr: string) {
-    str.search(regexStr);
-  }
-}
-
-function notFoundValidator(valueObject: ResetPasswordComponent): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const forbidden = valueObject ? valueObject.emailNotFound : null;
-    return forbidden ? { forbiddenName: { value: control.value } } : null;
-  };
-}
-
-function wrongCodeValidator(valueObject: ResetPasswordComponent): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const forbidden = valueObject ? valueObject.wrongCode : null;
-    return forbidden ? { forbiddenName: { value: control.value } } : null;
-  };
 }

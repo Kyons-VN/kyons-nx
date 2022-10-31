@@ -11,6 +11,7 @@ import { delay } from 'lodash-es';
 import { interval, Subscription } from 'rxjs';
 import { Lesson, LessonGroup } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
+import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
 import { Submission } from '../../../infrastructure/test/submission';
 import {
@@ -40,7 +41,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private testService: TestService,
     navService: NavigationService,
-    userService: UserService
+    userService: UserService,
+    private loading: LoadingOverlayService,
   ) {
     this.paths = navService.paths;
     this.userType = userService.getUserType();
@@ -252,6 +254,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   testComplete() {
+    if (this.testProgress < 100) return;
+    this.loading.show();
     this.testSubmission.end = new Date();
     this.testService.submitTest(this.testSubmission).subscribe({
       next: (result) => {
@@ -272,6 +276,9 @@ export class LessonPageComponent implements OnInit, OnDestroy {
         //     'questions': questions,
         //   };
         // })
+      },
+      error: () => {
+        this.loading.hide();
       },
       complete: () => {
         const topicWrongQuestions =
@@ -314,6 +321,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             ),
           };
         });
+        this.loading.hide();
       },
     });
   }

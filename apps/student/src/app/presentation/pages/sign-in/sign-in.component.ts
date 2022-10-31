@@ -42,6 +42,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
   errorMessage = false;
   processing = false;
   isDebug = false;
+  showPassword = false;
 
   isPromotionEnable = environment.isPromotionEnable;
 
@@ -80,15 +81,16 @@ export class SignInComponent implements OnInit, AfterViewInit {
               console.log('redirectPath', redirectPath);
 
               setTimeout(() => {
+                this.processing = false;
+                this.loading.hide();
                 this.router.navigate([redirectPath]);
               }, 600);
             } else this.errorMessage = true;
           },
-          complete: () => {
-            setTimeout(() => {
-              this.processing = false;
-              this.loading.hide();
-            }, 500);
+          error: () => {
+            this.errorMessage = true;
+            this.processing = false;
+            this.loading.hide();
           },
         });
     }

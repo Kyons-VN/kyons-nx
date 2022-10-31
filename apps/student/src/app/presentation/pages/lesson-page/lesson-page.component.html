@@ -1,13 +1,12 @@
 <div class="flex flex-col min-h-full" *ngIf="lessonGroup">
   <div class="flex flex-col md:gap-6 py-2 md:py-6 px-4 md:px-11">
     <div class="flex gap-3 md:gap-11 items-end">
-      <a [routerLink]="paths.learningPath">< Trở về</a>
+      <a class="no-underline" [routerLink]="paths.learningPath">< Trở về</a>
       <span
         (click)="tabIndex = 0"
         class="h7"
         [ngClass]="{
-          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500':
-            tabIndex !== 0
+          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500': tabIndex !== 0
         }"
         >Bài học</span
       >
@@ -15,8 +14,7 @@
         (click)="tabIndex = 1; reset()"
         class="h7"
         [ngClass]="{
-          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500':
-            tabIndex !== 1
+          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500': tabIndex !== 1
         }"
         >Bài tập</span
       >
@@ -24,66 +22,38 @@
         (click)="tabIndex = 2; reset()"
         class="h7"
         [ngClass]="{
-          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500':
-            tabIndex !== 2
+          'cursor-pointer text-blueGrey-400 hover:text-blueGrey-500': tabIndex !== 2
         }"
         >Bài kiểm tra</span
       >
     </div>
   </div>
-  <div
-    *ngIf="tabIndex === 0"
-    class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6"
-  >
-    <student-tracking-lesson
-      [lessonId]="lessonGroupId"
-      [trackingType]="'on_study'"
-    ></student-tracking-lesson>
+  <div *ngIf="tabIndex === 0" class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
+    <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_study'"></student-tracking-lesson>
     <div
       class="menuSM flex flex-col items-center rounded-lg py-2 px-3 md:p-6 bg-white md:w-5/12 items-start!important justify-start gap-2 md:gap-4 overflow-auto max-height md:h-auto md:overflow-auto"
-      [ngClass]="{ 'h-10 overflow-hidden': hideMenuSM }"
+      [ngClass]="{'h-10 overflow-hidden': hideMenuSM}"
     >
-      <a
-        class="flex w-full md:hidden link cursor-pointer"
-        (click)="hideMenuSM = !hideMenuSM"
-        (show)="(hideMenuSM)"
-      >
+      <a class="flex w-full md:hidden link cursor-pointer" (click)="hideMenuSM = !hideMenuSM" (show)="(hideMenuSM)">
         <span class="truncate">{{ selectedLesson.name }}</span>
         <span class="flex-1"></span>
-        <img
-          [ngClass]="{ 'rotate-180': hideMenuSM }"
-          src="assets/icons/up.svg"
-          alt=""
-        />
+        <img [ngClass]="{'rotate-180': hideMenuSM}" src="assets/icons/up.svg" alt="" />
       </a>
       <div
         class="menuSMItem flex flex-col md:w-full gap-2 md:gap-4"
-        *ngFor="
-          let lessonCategory of lessonGroup.lessonCategories;
-          let lCIndex = index
-        "
+        *ngFor="let lessonCategory of lessonGroup.lessonCategories; let lCIndex = index"
       >
         <h6 class="w-full flex gap-2 justify-center items-start">
           <span>{{ lCIndex + 1 }}.</span>
-          <span class="flex-1"
-            >{{ lessonCategory.category.name }} -
-            {{ lessonCategory.topic.name }}</span
-          >
-          <span
-            class="p-[0.3rem] cursor-pointer"
-            (click)="hide[lCIndex] = !hide[lCIndex]"
-          >
-            <img
-              [ngClass]="{ 'rotate-180': hide[lCIndex] }"
-              src="assets/icons/up.svg"
-              alt=""
-            />
+          <span class="flex-1">{{ lessonCategory.category.name }} - {{ lessonCategory.topic.name }}</span>
+          <span class="p-[0.3rem] cursor-pointer" (click)="hide[lCIndex] = !hide[lCIndex]">
+            <img [ngClass]="{'rotate-180': hide[lCIndex]}" src="assets/icons/up.svg" alt="" />
           </span>
         </h6>
         <hr class="w-full border-blueGrey-300" />
         <div
           class="flex flex-col w-full gap-2 md:gap-4 overflow-hidden"
-          [ngStyle]="{ height: hide[lCIndex] ? 0 : 'unset' }"
+          [ngStyle]="{height: hide[lCIndex] ? 0 : 'unset'}"
         >
           <div
             (click)="loadContentFromLessonId(lesson.id); hideMenuSM = true"
@@ -106,46 +76,23 @@
       class="flex flex-col md:rounded-lg p-4 md:p-6 bg-white w-full md:w-7/12 items-stretch justify-start overflow-auto relative max-height"
     >
       <div class="flex items-start max-height-item">
-        <div
-          class="flex-1"
-          [innerHTML]="selectedLessonContent"
-          style="white-space: pre-line"
-        ></div>
+        <div class="flex-1" [innerHTML]="selectedLessonContent" style="white-space: pre-line"></div>
       </div>
       <div class="flex-1"></div>
       <div class="self-end flex gap-2 mt-8">
-        <button
-          [disabled]="selectedLessonIndex === 0"
-          class="btn btn-rounded"
-          (click)="pre()"
-        >
-          Trở lại
-        </button>
-        <button
-          *ngIf="selectedLessonIndex !== lessonIdsList.length - 1"
-          class="btn btn-rounded"
-          (click)="next()"
-        >
+        <button [disabled]="selectedLessonIndex === 0" class="btn btn-rounded" (click)="pre()">Trở lại</button>
+        <button *ngIf="selectedLessonIndex !== lessonIdsList.length - 1" class="btn btn-rounded" (click)="next()">
           Tiếp
         </button>
-        <button
-          *ngIf="selectedLessonIndex === lessonIdsList.length - 1"
-          class="btn"
-          (click)="tabIndex = 1"
-        >
+        <button *ngIf="selectedLessonIndex === lessonIdsList.length - 1" class="btn" (click)="tabIndex = 1">
           Làm bài tập
         </button>
       </div>
     </div>
   </div>
   <div *ngIf="tabIndex === 1" class="flex-1 flex flex-col w-full h-full">
-    <student-tracking-lesson
-      [lessonId]="lessonGroupId"
-      [trackingType]="'on_exercise'"
-    ></student-tracking-lesson>
-    <div
-      class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6"
-    >
+    <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_exercise'"></student-tracking-lesson>
+    <div class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
       <div
         *ngIf="!exerciseResult"
         class="menuSM flex rounded-lg p-6 bg-white w-full md:w-5/12 items-start justify-start gap-4 overflow-auto"
@@ -160,10 +107,7 @@
         class="flex flex-col gap-2 md:rounded-lg p-6 bg-white w-full md:w-7/12 items-stretch justify-start overflow-auto"
       >
         <div class="flex flex-col gap-2 w-full">
-          <student-questions-progress
-            class="w-full"
-            [progress]="exerciseProgress"
-          ></student-questions-progress>
+          <student-questions-progress class="w-full" [progress]="exerciseProgress"></student-questions-progress>
           <student-test-content
             [content]="exerciseContent"
             [submission]="exerciseSubmission"
@@ -173,30 +117,20 @@
           ></student-test-content>
           <div class="w-full flex mt-2">
             <span class="flex-1"></span>
-            <button
-              (click)="exerciseComplete()"
-              class="btn primary w-48"
-              [disabled]="exerciseProgress < 100"
-            >
+            <button (click)="exerciseComplete()" class="btn primary w-48" [disabled]="exerciseProgress < 100">
               Nộp bài
             </button>
           </div>
         </div>
       </div>
-      <div
-        *ngIf="exerciseResult"
-        class="flex flex-col w-full md:w-5/12 p-6 bg-white"
-      >
+      <div *ngIf="exerciseResult" class="flex flex-col w-full md:w-5/12 p-6 bg-white">
         <div class="flex flex-col gap-6">
           <div class="flex gap-14">
             <div class="flex flex-col">
               <div class="h8">Điểm của bạn</div>
               <div class="w-120px h-120px">
                 <circle-progress
-                  [percent]="
-                    (exerciseResult.result.score * 100) /
-                    exerciseResult.result.maxScore['total']
-                  "
+                  [percent]="(exerciseResult.result.score * 100) / exerciseResult.result.maxScore['total']"
                   [title]="exerciseResult.score.toString()"
                   subtitle="10"
                 ></circle-progress>
@@ -204,13 +138,7 @@
             </div>
             <div class="flex flex-col flex-1 gap-1">
               <div class="h8">Tổng quan kiến thức</div>
-              <div
-                class="flex flex-col"
-                *ngFor="
-                  let cat of this.exerciseResultRenderObject;
-                  let lCIndex = index
-                "
-              >
+              <div class="flex flex-col" *ngFor="let cat of this.exerciseResultRenderObject; let lCIndex = index">
                 <div class="flex">
                   <span>{{ cat.name }}</span>
                   <span class="flex-1"></span>
@@ -222,32 +150,20 @@
           </div>
           <div class="flex-1"></div>
           <div class="self-end flex gap-2">
-            <button class="btn btn-rounded" (click)="redoExercise()">
-              Làm lại bài tập
-            </button>
+            <button class="btn btn-rounded" (click)="redoExercise()">Làm lại bài tập</button>
             <button class="btn" (click)="tabIndex = 2">Làm bài kiểm tra</button>
           </div>
         </div>
         <div class="flex flex-col"></div>
       </div>
-      <div
-        *ngIf="exerciseResult"
-        class="flex flex-col w-full md:w-7/12 p-6 bg-white"
-      >
-        <student-test-review
-          [reviewRenderObject]="exerciseReviewRenderObject"
-        ></student-test-review>
+      <div *ngIf="exerciseResult" class="flex flex-col w-full md:w-7/12 p-6 bg-white">
+        <student-test-review [reviewRenderObject]="exerciseReviewRenderObject"></student-test-review>
       </div>
     </div>
   </div>
   <div *ngIf="tabIndex === 2" class="flex-1 flex flex-col w-full h-full">
-    <student-tracking-lesson
-      [lessonId]="lessonGroupId"
-      [trackingType]="'on_test'"
-    ></student-tracking-lesson>
-    <div
-      class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6"
-    >
+    <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_test'"></student-tracking-lesson>
+    <div class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
       <div
         *ngIf="!testResult"
         class="menuSM flex rounded-lg p-6 bg-white w-full md:w-5/12 items-start justify-start gap-4 overflow-auto"
@@ -257,25 +173,16 @@
           <!-- <img class="w-4 h-4" src="assets/icons/Check.svg" alt="" /> -->
         </div>
       </div>
-      <div
-        *ngIf="testResult"
-        class="flex flex-col w-full md:w-5/12 p-6 bg-white"
-      >
+      <div *ngIf="testResult" class="flex flex-col w-full md:w-5/12 p-6 bg-white">
         <div class="flex flex-col gap-6">
           <h4>Bạn đã hoàn thành bài kiểm tra</h4>
-          <p>
-            Đây là kết quả bài kiểm tra của bạn. Hãy trở về giáo trình để tiếp
-            tục bài học.
-          </p>
+          <p>Đây là kết quả bài kiểm tra của bạn. Hãy trở về giáo trình để tiếp tục bài học.</p>
           <div class="flex gap-14">
             <div class="flex flex-col">
               <div class="h8">Điểm của bạn</div>
               <div class="w-120px h-120px">
                 <circle-progress
-                  [percent]="
-                    (testResult.result.score * 100) /
-                    testResult.result.maxScore['total']
-                  "
+                  [percent]="(testResult.result.score * 100) / testResult.result.maxScore['total']"
                   [title]="testResult.score.toString()"
                   subtitle="10"
                 ></circle-progress>
@@ -283,13 +190,7 @@
             </div>
             <div class="flex flex-col flex-1 gap-1">
               <div class="h8">Tổng quan kiến thức</div>
-              <div
-                class="flex flex-col"
-                *ngFor="
-                  let cat of this.testResultRenderObject;
-                  let lCIndex = index
-                "
-              >
+              <div class="flex flex-col" *ngFor="let cat of this.testResultRenderObject; let lCIndex = index">
                 <div class="flex">
                   <span>{{ cat.name }}</span>
                   <span class="flex-1"></span>
@@ -301,29 +202,19 @@
           </div>
           <div class="flex-1"></div>
           <div class="self-end flex gap-2">
-            <a class="btn primary w-48" [routerLink]="paths.learningPath"
-              >Đến giáo trình</a
-            >
+            <a class="btn primary w-48" [routerLink]="paths.learningPath">Đến giáo trình</a>
           </div>
         </div>
         <div class="flex flex-col"></div>
       </div>
-      <div
-        *ngIf="testResult"
-        class="flex flex-col w-full md:w-7/12 p-6 bg-white"
-      >
-        <student-test-review
-          [reviewRenderObject]="testReviewRenderObject"
-        ></student-test-review>
+      <div *ngIf="testResult" class="flex flex-col w-full md:w-7/12 p-6 bg-white">
+        <student-test-review [reviewRenderObject]="testReviewRenderObject"></student-test-review>
       </div>
       <div
         *ngIf="!testResult"
         class="flex flex-col gap-2 md:rounded-lg p-6 bg-white w-full md:w-7/12 items-stretch justify-start overflow-auto"
       >
-        <student-questions-progress
-          class="w-full"
-          [progress]="testProgress"
-        ></student-questions-progress>
+        <student-questions-progress class="w-full" [progress]="testProgress"></student-questions-progress>
         <student-test-content
           [content]="testContent"
           [submission]="testSubmission"
@@ -333,13 +224,7 @@
         ></student-test-content>
         <div class="w-full flex mt-2">
           <span class="flex-1"></span>
-          <button
-            (click)="testComplete()"
-            class="btn primary w-48"
-            [disabled]="testProgress < 100"
-          >
-            Nộp bài
-          </button>
+          <button (click)="testComplete()" class="btn primary w-48" [disabled]="testProgress < 100">Nộp bài</button>
         </div>
       </div>
     </div>
@@ -369,18 +254,10 @@
     *ngIf="ready"
     class="fixed top-0 left-0 w-screen h-screen flex items-center justify-center bg-[rgba(0,0,0,0.25)]"
   >
-    <div
-      class="bg-white rounded-lg flex items-center flex-col w-[360px] p-8 gap-2"
-    >
+    <div class="bg-white rounded-lg flex items-center flex-col w-[360px] p-8 gap-2">
       <h6>Gia sư đã sẵn sàng</h6>
       <p>Nhấn vào link để kết nối với gia sư</p>
-      <a
-        (click)="closeTutorPopup()"
-        [href]="meetingUrl"
-        target="_blank"
-        class="btn"
-        >Gặp gia sư</a
-      >
+      <a (click)="closeTutorPopup()" [href]="meetingUrl" target="_blank" class="btn">Gặp gia sư</a>
     </div>
   </div>
 </div>

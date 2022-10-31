@@ -26,6 +26,7 @@ class AppPath {
   home = '/';
   signIn = '/sign-in/';
   signOut = '/sign-out/';
+  signUp = '/sign-up/';
   classProgram = '/class-program/';
   test = '/test/';
   diagnosticTestDecision = '/diagnostic-test-decision/';
@@ -104,6 +105,10 @@ const routes: Routes = [
   {
     path: 'reset-password',
     loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+  },
+  {
+    path: 'sign-up',
+    loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent)
   },
   {
     path: '**',
