@@ -2,8 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { delay } from 'lodash-es';
-import { AuthService } from '../../../infrastructure/auth/auth.service';
+import { AccountStandaloneService } from '../../../infrastructure/auth/account.service';
 import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '../../../utils/validators';
@@ -24,7 +23,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AccountStandaloneService,
     navService: NavigationService,
     private loading: LoadingOverlayService) {
     this.paths = navService.paths;
@@ -69,9 +68,24 @@ export class SignUpComponent implements OnInit {
   submit() {
     console.log('submit');
     this.loading.show();
-    delay(() => {
-      this.loading.hide();
-      this.step = 1;
-    }, 1000);
+    if (this.form.invalid) return;
+    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value).subscribe({
+      next: (res: any) => {
+        if (res['success']) {
+          this.step = 1;
+        }
+        else {
+          this.errorMessage = 'Email đã có trong hệ thống';
+        }
+        this.processing = false;
+        this.loading.hide();
+      },
+      error: (err) => {
+        console.log(err);
+        this.errorMessage = 'Có lỗi, xin thử lại';
+        this.processing = false;
+        this.loading.hide();
+      },
+    });
   }
 }

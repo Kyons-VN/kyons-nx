@@ -32,10 +32,6 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const url = new URL(req.url);
-    if (url.pathname.includes('/forgot_password')) {
-      return next.handle(req).pipe();
-    }
     let authReq = req;
     const token = this.auth.getToken();
     const contentType = req.headers.get('Content-Type') ?? 'application/json';

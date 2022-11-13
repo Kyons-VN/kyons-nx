@@ -8,7 +8,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { KnowledgeComponent } from './pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
+import { MockTestSelectTopicComponent } from './pages/mock-test/select-topic/mock-test-select-topic.component';
 import { NewLessonPageComponent } from './pages/new-lesson-page/new-lesson-page.component';
+import { PackagePageComponent } from './pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RatingTutorComponent } from './pages/rating-tutor/rating-tutor.component';
@@ -40,6 +42,9 @@ class AppPath {
   newLesson = '/new-lesson/';
   finalExam = '/final-exam/';
   resetPassword = '/reset-password/';
+  account = 'account/';
+  package = 'account/package/';
+  mockTest = '/mock-test/'
 }
 
 const routes: Routes = [
@@ -52,7 +57,10 @@ const routes: Routes = [
   { path: 'sign-out', component: SignOutComponent },
   {
     path: 'class-program',
-    component: ClassProgramComponent,
+    children: [
+      { path: '', component: ClassProgramComponent },
+      { path: 'mock-test/:id', component: MockTestSelectTopicComponent },
+    ],
     canActivate: [AuthGuard],
   },
   {
@@ -103,6 +111,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'account',
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'package', component: PackagePageComponent },
+    ],
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'reset-password',
     loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
   },
@@ -110,6 +126,10 @@ const routes: Routes = [
     path: 'sign-up',
     loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent)
   },
+  // {
+  //   path: 'email-template',
+  //   component: EmailTemplateComponent,
+  // },
   {
     path: '**',
     component: PageNotFoundComponent,

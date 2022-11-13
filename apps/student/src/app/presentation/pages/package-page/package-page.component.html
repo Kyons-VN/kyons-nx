@@ -1,0 +1,125 @@
+<div class="p-6 md:p-11 flex flex-col gap-6">
+  <div class="flex flex-row w-full items-center gap-6">
+    <a class="!no-underline" [routerLink]="paths.account">< Trở về</a>
+    <h1 class="text-primaryBlue">Dịch vụ và thanh toán</h1>
+  </div>
+  <div class="flex flex-col md:flex-row w-full gap-6">
+    <div class="rounded-lg bg-white w-full md:w-1/3 p-6 flex flex-col gap-6">
+      <h4>Quét mã QR để nạp tiền</h4>
+      <span>
+        Vui lòng quét mã QR hoặc chuyển khoản để nạp tiền vào tài khoản, kèm ghi chú:<br />
+        <strong>[Email của bạn] - Kyons credit</strong>
+      </span>
+      <div class="flex flex-row gap-6">
+        <div class="w-1/2">
+          <strong>Zalo Pay</strong>
+          <div class="rounded-lg border border-blueGrey-300 flex items-center justify-center w-[100px] h-[100px]">
+            <img src="assets/icons/ZaloPay.svg" class="w-[24px]" alt="Zalo Pay" />
+          </div>
+        </div>
+        <div class="w-1/2">
+          <strong>Momo</strong>
+          <div class="rounded-lg border border-blueGrey-300 flex items-center justify-center w-[100px] h-[100px]">
+            <img src="assets/icons/Momo.svg" class="w-[24px]" alt="Mobo" />
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <strong>Hoặc qua số tài khoản ngân hàng</strong>
+        <div class="flex flex-row justify-between"><span>Ngân hàng</span><span>ABCXZY</span></div>
+        <div class="flex flex-row justify-between"><span>Số tài khoản</span><span>12344556</span></div>
+        <div class="flex flex-row justify-between">
+          <span>Tên chủ tài khoản</span><span>Công ty cổ phần Kyons</span>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-lg bg-white w-full md:w-2/3 p-6 flex flex-col gap-6">
+      <h4>Gói dịch vụ của Kyons</h4>
+      <strong>Tiền trong tài khoản</strong>
+      <table class="table" cellPadding="8px">
+        <thead>
+          <tr class="border-blueGrey-400 border-b-2">
+            <th align="left">Gói học tập</th>
+            <th align="left">Chi tiết</th>
+            <th align="right">Giá tiền</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-blueGrey-300 border-b">
+            <td>Light Test</td>
+            <td>2 bài kiểm tra thử</td>
+            <td align="right">20 000 VND</td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>VIP Test</td>
+            <td>7 bài kiểm tra thử</td>
+            <td align="right">60 000 VND</td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Diamond Test</td>
+            <td>10 bài kiểm tra thử</td>
+            <td align="right">80 000 VND</td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Fighter Combo</td>
+            <td>
+              <ul class="list-disc pl-4">
+                <li>10 bài kiểm tra thử</li>
+                <li>3 ngày học thử giáo trình của Kyons</li>
+              </ul>
+            </td>
+            <td align="right">60 000 VND</td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Early Bird Member</td>
+            <td>
+              <ul class="list-disc pl-4">
+                <li>1 tháng học giáo trình của Kyons</li>
+                <li>5 bài kiểm tra thử</li>
+                <li>1 lần học với gia sư (tối đa 30 phút)</li>
+              </ul>
+              <span class="text-lightBlue-1">*Giá đã áp dụng khuyến mãi 50%. Giá chưa khuyến mãi 750 000 VND</span>
+            </td>
+            <td align="right"><span class="text-lightBlue-1">20 000 VND</span></td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Tutor Advice</td>
+            <td>1 lần học (tối đa 30 phút)</td>
+            <td align="right">120 000 VND</td>
+            <td align="right">
+              <span class="inline-block"
+                ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

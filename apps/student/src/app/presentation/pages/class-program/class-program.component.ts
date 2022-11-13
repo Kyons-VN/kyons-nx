@@ -27,8 +27,10 @@ export class ClassProgramComponent implements OnInit {
 
   selectedSubject: null | Subject = null;
   selectedProgram: null | Program = null;
+  selectedTarget: null | string = null;
   subjects!: Subject[];
   programs: Program[] = [];
+  targets: string[] = ['mục tiêu 1', 'mục tiêu 2', 'mục tiêu 3', 'mục tiêu 4'];
 
   ngOnInit(): void {
     this.knowledgeService.getSubjects().subscribe({

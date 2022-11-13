@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { AuthService } from '../../../infrastructure/auth/auth.service';
+import { AccountStandaloneService } from '../../../infrastructure/auth/account.service';
 import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '../../../utils/validators';
@@ -31,7 +31,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AccountStandaloneService,
     navService: NavigationService,
     private loading: LoadingOverlayService
   ) {
@@ -120,7 +120,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
-    this.authService.resetPassword(this.email.value).subscribe({
+    this.authService.requestResetPassword(this.email.value).subscribe({
       next: (res) => {
         console.log(res);
         this.step = 1;
@@ -138,7 +138,6 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
         this.loading.hide();
       },
     });
-
   }
 
   sendCode() {

@@ -111,6 +111,12 @@ a:not(.btn) {
   }
 }
 
+.btn-small{
+  font-size: .875rem;
+  line-height: 100%;
+  @apply px-1 py-2 h-8;
+}
+
 select {
   @apply bg-white border border-blueGrey-400 rounded-md;
 }
@@ -179,7 +185,7 @@ p {
   }
 }
 .btn-rounded {
-  @apply bg-white h-10 rounded-md text-orange flex items-center justify-center cursor-pointer border border-blueGrey-300;
+  @apply bg-white h-10 rounded-md text-orange flex items-center justify-center cursor-pointer border p-2 border-blueGrey-300;
   &:active {
     @apply border-orange text-orange;
   }

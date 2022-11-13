@@ -8,7 +8,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
-import player from 'lottie-web/esm/lottie';
+import player from 'lottie-web';
 import { LottieModule } from 'ngx-lottie';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,7 +23,9 @@ import { HomeComponent } from './presentation/pages/home/home.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './presentation/pages/lesson-page/lesson-page.component';
+import { MockTestTestComponent } from './presentation/pages/mock-test/test/mock-test-test.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
+import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './presentation/pages/profile/profile.component';
 import { RatingTutorComponent } from './presentation/pages/rating-tutor/rating-tutor.component';
@@ -78,12 +80,14 @@ export function playerFactory() {
     NewLessonPageComponent,
     FinalExamComponent,
     LoadingComponent,
+    PackagePageComponent,
+    MockTestTestComponent,
     // Pipes
     // OrderByPipe,
     // KeysPipe,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -112,7 +116,7 @@ export function playerFactory() {
     IvyCarouselModule,
     SharePipesModule,
     DragScrollModule,
-    LottieModule.forRoot({ player: playerFactory })
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [MaterialModule, SvgModule],
   providers: [authInterceptorProviders],

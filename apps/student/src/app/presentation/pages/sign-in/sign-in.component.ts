@@ -51,6 +51,12 @@ export class SignInComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.signInForm.addControl('email', this.email);
     this.signInForm.addControl('password', this.password);
+    this.signInForm.get('email')?.valueChanges.subscribe(() => {
+      this.errorMessage = false;
+    })
+    this.signInForm.get('password')?.valueChanges.subscribe(() => {
+      this.errorMessage = false;
+    })
   }
 
   ngAfterViewInit(): void {
@@ -59,7 +65,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binh+1012ss@te.st');
+      this.email.setValue('1111ss@te.st');
       this.password.setValue('Zaq1@wsx');
     }
     if (this.signInForm.untouched) {
@@ -85,7 +91,11 @@ export class SignInComponent implements OnInit, AfterViewInit {
                 this.loading.hide();
                 this.router.navigate([redirectPath]);
               }, 600);
-            } else this.errorMessage = true;
+            } else {
+              this.processing = false;
+              this.errorMessage = true;
+              this.loading.hide();
+            }
           },
           error: () => {
             this.errorMessage = true;

@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/tutor/prod",
         "index": "apps/tutor/src/index.html",
@@ -14,8 +16,13 @@
         "polyfills": "apps/tutor/src/polyfills.ts",
         "tsConfig": "apps/tutor/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/tutor/src/favicon.ico", "apps/tutor/src/assets"],
-        "styles": ["apps/tutor/src/styles.scss"],
+        "assets": [
+          "apps/tutor/src/favicon.ico",
+          "apps/tutor/src/assets"
+        ],
+        "styles": [
+          "apps/tutor/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -89,12 +96,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/tutor/**/*.ts", "apps/tutor/**/*.html"]
+        "lintFilePatterns": [
+          "apps/tutor/**/*.ts",
+          "apps/tutor/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/tutor"],
+      "outputs": [
+        "coverage/apps/tutor"
+      ],
       "options": {
         "jestConfig": "apps/tutor/jest.config.ts",
         "passWithNoTests": true

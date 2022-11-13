@@ -5,6 +5,18 @@
       <div class="h-12"></div>
       <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
         <input
+          [ngClass]="{'!text-orange border-orange': firstName.invalid}"
+          type="text"
+          placeholder="Tên"
+          formControlName="firstName"
+          autocomplete="off"
+        />
+        <div class="h-1"></div>
+        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+          <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
+        </div>
+        <div class="h-4"></div>
+        <input
           [ngClass]="{'!text-orange border-orange': lastName.invalid}"
           type="text"
           #nameElm
@@ -15,18 +27,6 @@
         <div class="h-1"></div>
         <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
           <div *ngIf="lastName.errors?.['required']">Chưa nhập họ.</div>
-        </div>
-        <div class="h-4"></div>
-        <input
-          [ngClass]="{'!text-orange border-orange': firstName.invalid}"
-          type="text"
-          placeholder="Tên"
-          formControlName="firstName"
-          autocomplete="off"
-        />
-        <div class="h-1"></div>
-        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
-          <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
         </div>
         <div class="h-4"></div>
         <input
