@@ -8,13 +8,14 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
-import player from 'lottie-web';
+import player from 'lottie-web/esm/lottie';
 import { LottieModule } from 'ngx-lottie';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { authInterceptorProviders } from './infrastructure/auth/interceptor';
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
+import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
 import { ClassProgramComponent } from './presentation/pages/class-program/class-program.component';
 import { DiagnosticTestDecisionComponent } from './presentation/pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/diagnostic-test.component';
@@ -82,6 +83,7 @@ export function playerFactory() {
     LoadingComponent,
     PackagePageComponent,
     MockTestTestComponent,
+    AccountPageComponent,
     // Pipes
     // OrderByPipe,
     // KeysPipe,

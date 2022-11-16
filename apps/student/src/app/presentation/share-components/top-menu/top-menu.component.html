@@ -161,18 +161,18 @@
     <li class="flex items-center gap-5 cursor-pointer relative">
       <ul
         [ngStyle]="{display: showSubmenu ? 'flex' : 'none'}"
-        class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch gap-2 flex-col top-5 z-10"
+        class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
       >
-        <!-- <li [routerLink]="'/profile'">
-          <a class="h-5 text-primaryBlue">Hồ sơ cá nhân</a>
+        <li [routerLink]="paths.account" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
+          <span class="drop-menu-item">Tài khoản</span>
         </li>
         <li class="border-t border-blueGrey-300"></li>
-        <li [routerLink]="'/knowledge'">
+        <!-- <li [routerLink]="'/knowledge'">
           <a class="h-5 text-primaryBlue">Cây kiến thức</a>
         </li>
         <li class="border-t border-blueGrey-300"></li> -->
         <li [routerLink]="paths.signOut">
-          <a class="drop-menu-item">Thoát</a>
+          <span class="drop-menu-item">Thoát</span>
         </li>
       </ul>
     </li>

@@ -1,7 +1,7 @@
 // Design System
 html,
 body {
-  @apply h-full m-0 p-0 text-sm bg-blueGrey-100;
+  @apply h-full m-0 p-0 text-sm md:text-[0.935rem] bg-blueGrey-100;
 
   font-family: 'Montserrat', sans-serif;
 }

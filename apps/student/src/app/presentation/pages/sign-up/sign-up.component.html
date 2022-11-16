@@ -115,10 +115,13 @@
   </div>
   <div *ngIf="step === 1" class="bg-blueGrey-100 w-screen h-screen flex items-center justify-center p-6">
     <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
-      <img src="/assets/images/New Account.svg" />
+      <img src="assets/images/New Account.svg" />
       <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
         <h4 class="text-primaryBlue">Chúc mừng bạn đã tạo tài khoản thành công!</h4>
-        <span>Bạn kiểm tra email để xác nhận tài khoản. Sau đó hãy đăng nhập vào Kyons và trải nghiệm nhé.</span>
+        <div class="flex flex-col gap-2">
+          <span>Hãy kiểm tra email để xác nhận tài khoản và đăng nhập vào Kyons.</span>
+          <span>Tụi mình đã sẵn sàng để giúp bạn học ‘’ích’’ hơn rồi đó!</span>
+        </div>
         <a class="btn" [routerLink]="paths.home">Trở về trang đăng nhập</a>
       </div>
       <div class="h-[100px]"></div>

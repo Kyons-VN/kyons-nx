@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { ClassProgramComponent } from './pages/class-program/class-program.component';
 import { DiagnosticTestDecisionComponent } from './pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './pages/diagnostic-test/diagnostic-test.component';
@@ -113,7 +114,7 @@ const routes: Routes = [
   {
     path: 'account',
     children: [
-      { path: '', component: HomeComponent },
+      { path: '', component: AccountPageComponent },
       { path: 'package', component: PackagePageComponent },
     ],
     canActivate: [AuthGuard],

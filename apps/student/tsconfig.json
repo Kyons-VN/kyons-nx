@@ -20,7 +20,12 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@presentation/*": ["apps/student/src/app/presentation/*"],
+      "@infrastructure/*": ["apps/student/src/app/infrastructure/*"],
+      "@domain/*": ["apps/student/src/app/domain/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

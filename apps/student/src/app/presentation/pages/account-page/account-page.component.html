@@ -1,0 +1,60 @@
+<div class="flex w-full h-full justify-center p-6 md:p-11">
+  <div class="flex flex-col w-full max-w-[894px] gap-6">
+    <h2>Tài khoản Kyons</h2>
+    <div class="flex gap-6 items-start">
+      <div class="md:w-1/4 bg-white rounded-md p-6">
+        <ul class="flex flex-col gap-2">
+          <li
+            (click)="activeTab = 0"
+            class="flex w-full items-center justify-between h-6 cursor-pointer"
+            [ngClass]="{'text-lightBlue-1': activeTab === 0}"
+          >
+            <span>Tài khoản của bạn</span>
+            <i class="icon-ArrowRight text-orange text-[20px]"></i>
+          </li>
+          <li class="border-b border-blueGrey-300"></li>
+          <li
+            (click)="getTransactions()"
+            class="flex w-full items-center justify-between h-6 cursor-pointer"
+            [ngClass]="{'text-lightBlue-1': activeTab === 1}"
+          >
+            <span>Lịch sử giao dịch</span>
+            <i class="icon-ArrowRight text-orange text-[20px]"></i>
+          </li>
+          <li class="border-b border-blueGrey-300"></li>
+          <li
+            (click)="activeTab = 2"
+            class="flex w-full items-center justify-between h-6 cursor-pointer"
+            [ngClass]="{'text-lightBlue-1': activeTab === 2}"
+          >
+            <span>Lịch sử sử dụng</span>
+            <i class="icon-ArrowRight text-orange text-[20px]"></i>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="activeTab === 0" class="flex flex-col gap-2 md:w-3/4 bg-white rounded-md p-6">
+        <h5>Tài khoản của bạn</h5>
+        <div class="flex items-center justify-between w-full">
+          <strong>Tiền trong tài khoản</strong>
+          <strong>{{ balance | currency: ' ':false:'4.0-2' }} VND</strong>
+        </div>
+        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 px-2 py-3 gap-6">
+          <span>Bài kiểm tra</span>
+          <span class="flex-1"></span>
+          <strong>{{ inventory.mock_test }} bài</strong>
+          <button class="btn" (click)="({})">Mua thêm</button>
+        </div>
+        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 px-2 py-3 gap-6">
+          <span>Gói học tập</span>
+          <span class="flex-1"></span>
+          <strong>{{ inventory.subscription }}</strong>
+          <button class="btn" (click)="({})">Mua thêm</button>
+        </div>
+      </div>
+      <div *ngIf="activeTab === 1" class="flex flex-col gap-2 md:w-3/4 bg-white rounded-md p-6">
+        <h5>Lịch sử giao dịch</h5>
+        <div class="contents" *ngFor="let tran of transactions; index as i"></div>
+      </div>
+    </div>
+  </div>
+</div>

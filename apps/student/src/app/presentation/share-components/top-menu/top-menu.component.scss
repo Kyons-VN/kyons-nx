@@ -12,6 +12,6 @@
 a.menu-item{
   @apply flex gap-3 items-center font-extrabold text-blueGrey-400 no-underline;
 }
-a.drop-menu-item{
-  @apply flex h-16 text-primaryBlue p-6 no-underline;
+.drop-menu-item{
+  @apply flex h-16 p-6 no-underline;
 }
