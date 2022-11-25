@@ -4,6 +4,7 @@ import {
   answerPrefixes,
   TestContent
 } from '../../../infrastructure/test/test-content';
+import { Progress } from '../questions-progress/questions-progress.component';
 
 @Component({
   selector: 'student-test-content',
@@ -15,8 +16,9 @@ export class TestContentComponent implements OnInit {
   answerPrefixes!: string[];
   conponentId = '';
 
-  progress = 0;
-  @Output() progressEvent = new EventEmitter<number>();
+  @Input() currentIndex!: number;
+  progress = new Progress();
+  @Output() progressEvent = new EventEmitter<Progress>();
 
   @Input() content!: TestContent;
   @Output() contentEvent = new EventEmitter<TestContent>();
@@ -29,19 +31,22 @@ export class TestContentComponent implements OnInit {
     this.conponentId = new Date().getTime().toString();
   }
 
-  updateProgress(nextProgress: number) {
-    if (!this._addedList.includes(nextProgress)) {
-      this.progress += (1 / this.content.questions.length) * 100;
-      this._addedList.push(nextProgress);
-      this.progressEvent.emit(Math.round(this.progress));
+  updateProgress(nextProgressValue: number) {
+    if (!this._addedList.includes(nextProgressValue)) {
+      this._addedList.push(nextProgressValue);
+      const newProgress = Progress.from(this.progress.value + 1, this.content.questions.length);
+      this.progress = newProgress;
+      this.progressEvent.emit(this.progress);
     }
   }
 
   getNextProgress(index: number) {
-    return Math.round(((index + 1) / this.content.questions.length) * 100);
+    // return Math.round(((index + 1) / this.content.questions.length) * 100);
+    return index + 1;
   }
 
   updateSubmitData(questionId: string, answerId: string) {
     this.submission.submitData[questionId] = answerId;
+    // this.submissionEvent.emit(this.submission);
   }
 }

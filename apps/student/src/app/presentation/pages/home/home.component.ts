@@ -30,7 +30,10 @@ export class HomeComponent implements OnInit {
       next: (programs) => {
         this.programs = programs;
       },
-      error: (error: Error) => console.log(error),
+      error: (error) => {
+        // TODO: Define error resposes
+        console.log(error);
+      },
     });
   }
 

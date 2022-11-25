@@ -12,56 +12,31 @@ import { Program } from './program';
 import { Topic } from './topic';
 
 class LessonItem implements ILessonItem {
-  index: number;
   id: string;
-  priority: number;
-  learnedLPDs: number;
-  totalLPDs: number;
+  name: string;
   isNew?: boolean;
 
   constructor({
-    index,
     id,
-    priority,
-    learnedLPDs,
-    totalLPDs,
     isNew,
+    name,
   }: {
-    index: number;
     id: string;
-    priority: number;
-    learnedLPDs: number;
-    totalLPDs: number;
     isNew?: boolean;
+    name: string;
   }) {
-    this.index = index;
     this.id = id;
-    this.priority = priority;
-    this.learnedLPDs = learnedLPDs;
-    this.totalLPDs = totalLPDs;
     if (isNew) this.isNew = isNew;
+    this.name = name;
   }
 
-  static fromJson({
-    dataObject,
-    index,
-  }: {
-    dataObject: any;
-    index: number;
-  }): LessonItem {
-    dataObject['index'] = index;
-    dataObject['learnedLPDs'] = dataObject['studying_lpd'];
-    dataObject['totalLPDs'] = dataObject['total_lpd'];
+  static fromJson(dataObject: any): LessonItem {
     const _ = pick(dataObject, [
-      'index',
+      'name',
       'id',
-      'priority',
-      'learnedLPDs',
-      'totalLPDs',
-      'new',
       'isNew',
     ]);
-    _.isNew = _.new ?? undefined;
+    _.isNew = dataObject['new'] ?? undefined;
     return new LessonItem(_);
   }
 }
@@ -85,8 +60,8 @@ class LearningPath implements ILearningPath {
 
   static completed(program: Program, data: any[]): LearningPath {
     return new LearningPath({
-      isCompleted: true, lessonList: data.length === 0 ? [] : data.map((item: any, index: number) =>
-        LessonItem.fromJson({ dataObject: item, index: index })
+      isCompleted: true, lessonList: data.length === 0 ? [] : data.map((item: any) =>
+        LessonItem.fromJson({ dataObject: item })
       ), program: program
     });
   }

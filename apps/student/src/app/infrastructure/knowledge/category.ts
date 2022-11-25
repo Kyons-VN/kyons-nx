@@ -14,6 +14,6 @@ export class Category implements ICategory {
   }
 
   static fromJson(json: any): Category {
-    return new Category({ id: json.id.toString(), name: json.name });
+    return new Category({ 'id': json.id.toString(), 'name': json.name });
   }
 }

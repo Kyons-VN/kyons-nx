@@ -19,6 +19,8 @@ export class NavigationService {
         return this.paths.learningPath;
       case RedirectAfterLogin[RedirectAfterLogin.DiagnosticTest]:
         return this.paths.classProgram;
+      case RedirectAfterLogin[RedirectAfterLogin.MockTest]:
+        return this.paths.mockTest;
       default:
         return this.paths.home;
     }

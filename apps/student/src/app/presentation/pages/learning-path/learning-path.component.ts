@@ -8,9 +8,13 @@ import {
   ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { interval, Subscription } from 'rxjs';
+import { Category } from '@infrastructure/knowledge/category';
+import LearningGoal from '@infrastructure/knowledge/learning-goal';
+import { LearningGoalCategory, LearningGoalPath } from '@infrastructure/knowledge/learning-goal-path';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { Subscription } from 'rxjs';
 import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
-import { LearningPath, LessonItem } from '../../../infrastructure/knowledge/lesson';
+import { LessonItem } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
 import { Program } from '../../../infrastructure/knowledge/program';
 import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
@@ -25,16 +29,21 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   paths: AppPath;
   userType: string;
   selectedProgram: Program;
+  selectedLearningGoal: LearningGoal;
+  selectedCategoryId: string;
   constructor(
     private lessonService: LessonService,
     navService: NavigationService,
     userService: UserService,
-    knowledgeService: KnowledgeService,
-    private router: Router
+    private knowledgeService: KnowledgeService,
+    private router: Router,
+    private loading: LoadingOverlayService,
   ) {
     this.paths = navService.paths;
     this.userType = userService.getUserType();
     this.selectedProgram = knowledgeService.getSelectedProgram();
+    this.selectedLearningGoal = knowledgeService.getSelectedLearningGoal();
+    this.selectedCategoryId = knowledgeService.getSelectedCategoryId();
   }
 
   @HostBinding('class') class = 'h-full';
@@ -42,9 +51,29 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   scrollDistance = 0;
   lessons: LessonItem[] = [];
   dataSource: any[] = [];
-  loading = true;
+  processing = true;
   interval!: Subscription;
   isCompleted = false;
+  categories: Category[] = [];
+  learningGoalCategory = LearningGoalCategory.empty();
+  learningGoalPath = LearningGoalPath.empty();
+  nextStep = false;
+  unCompletedCategories: LearningGoalCategory[] = [];
+  completeStep = false;
+
+  get selectedCategoryIdMod() {
+    return this.selectedCategoryId;
+  }
+
+  set selectedCategoryIdMod(newValue) {
+    console.log(newValue);
+    this.selectedCategoryId = newValue;
+    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+    this.lessons = this.learningGoalCategory.lessons;
+    this.knowledgeService.selectCategoryId(this.selectedCategoryId);
+
+    this.scrollToEndOfLessons();
+  }
 
   @ViewChild('widgetsWrapper', { read: ElementRef })
   public widgetsWrapper!: ElementRef<any>;
@@ -54,46 +83,68 @@ export class LearningPathComponent implements OnInit, OnDestroy {
       this.router.navigate([this.paths.home]);
       return;
     }
-    const requestInterval = interval(5000);
-    this.getList();
-    this.interval = requestInterval.subscribe(() => this.getList());
+    // const requestInterval = interval(5000);
+    this._getLlearningGoalPath();
+    // this.interval = requestInterval.subscribe(() => this.getList());
   }
 
-  getList() {
-    let willUpdate = true;
-    this.lessonService.getList(this.selectedProgram).subscribe({
-      next: (learningPath: LearningPath) => {
-        if (learningPath.lessonList.length > 0) {
-          const length = learningPath.lessonList.length;
-          if (
-            this.lessons.length == length &&
-            this.lessons[length - 1].isNew == learningPath.lessonList[length - 1].isNew
-          ) {
-            willUpdate = false;
-            return;
+  _getLlearningGoalPath() {
+    this.lessonService.getList(this.selectedProgram, this.selectedLearningGoal).subscribe({
+      next: (learningGoalPath: LearningGoalPath | Error) => {
+        if (learningGoalPath instanceof Error) {
+          if (learningGoalPath.message == 'new_user') {
+            console.log('new_user');
+            this.router.navigate([this.paths.newUser]);
           }
-          this.lessons = learningPath.lessonList;
         }
-        if (learningPath.isCompleted) {
-          // willUpdate = false;
+        else {
+          this.learningGoalPath = learningGoalPath;
+          this.categories = this.learningGoalPath.getCategories();
+          const categoryIds = this.categories.map((c) => c.id);
+          if (categoryIds.includes(this.selectedCategoryId)) {
+            this.selectedCategoryIdMod = this.selectedCategoryId;
+          }
+          else {
+            this.selectedCategoryId = this.categories[0].id;
+          }
+          this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+          this.lessons = this.learningGoalCategory.lessons;
+          // if (learningGoalPath.lessonList.length > 0) {
+          //   const length = learningGoalPath.lessonList.length;
+          //   if (
+          //     this.lessons.length == length &&
+          //     this.lessons[length - 1].isNew == learningGoalPath.lessonList[length - 1].isNew
+          //   ) {
+          //     willUpdate = false;
+          //     return;
+          //   }
+          //   this.lessons = learningGoalPath.lessonList;
+          // }
+          // if (learningGoalPath.progress == 100) {
           // this.router.navigate([this.paths.finalExam, learningPath.program.id]);
-          this.isCompleted = true;
-          return;
+          // this.isCompleted = true;
+          // return;
+          // }
+          // else {
+          this.processing = false;
+          this.scrollToEndOfLessons();
+          // }
         }
-      },
-      complete: () => {
-        if (!willUpdate) return;
-        this.loading = false;
-        setTimeout(() => {
-          this.widgetsWrapper.nativeElement.scrollTo({
-            left: this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44,
-          });
-        }, 500);
       },
       error: (err) => {
+        this.processing = false;
+        // TODO: Define error resposes
         console.log(err);
       },
     });
+  }
+
+  scrollToEndOfLessons() {
+    setTimeout(() => {
+      this.widgetsWrapper.nativeElement.scrollTo({
+        left: this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44,
+      });
+    }, 500);
   }
 
   @HostListener('scroll', ['$event'])
@@ -149,5 +200,18 @@ export class LearningPathComponent implements OnInit, OnDestroy {
     }
     return isTouchPad;
   }
+
+  onCategoryChange(newValue: string) {
+    console.log(newValue);
+    this.selectedCategoryId = newValue;
+    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+    this.lessons = this.learningGoalCategory.lessons;
+  }
+
+  showNextStep() {
+    this.unCompletedCategories = this.learningGoalPath.getUncompletedCategories();
+    this.nextStep = true;
+  }
+
 }
 

@@ -14,13 +14,8 @@
         "polyfills": "apps/student/src/polyfills.ts",
         "tsConfig": "apps/student/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/student/src/favicon.ico",
-          "apps/student/src/assets"
-        ],
-        "styles": [
-          "apps/student/src/styles.scss"
-        ],
+        "assets": ["apps/student/src/favicon.ico", "apps/student/src/assets"],
+        "styles": ["apps/student/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -28,8 +23,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
@@ -94,17 +89,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/student/**/*.ts",
-          "apps/student/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/student/**/*.ts", "apps/student/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/student"
-      ],
+      "outputs": ["coverage/apps/student"],
       "options": {
         "jestConfig": "apps/student/jest.config.ts",
         "passWithNoTests": true

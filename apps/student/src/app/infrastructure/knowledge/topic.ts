@@ -3,6 +3,7 @@ import { ITopic } from '../../domain/knowledge/i-topic';
 export class Topic implements ITopic {
   id: string;
   name: string;
+  checked = false;
 
   constructor({ id, name }: { id: string; name: string }) {
     this.id = id;
@@ -14,6 +15,6 @@ export class Topic implements ITopic {
   }
 
   static fromJson(json: any): Topic {
-    return new Topic({ id: json.id.toString(), name: json.name });
+    return new Topic({ 'id': json.id.toString(), 'name': json.name });
   }
 }

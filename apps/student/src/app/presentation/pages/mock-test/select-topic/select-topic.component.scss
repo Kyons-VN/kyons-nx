@@ -1,0 +1,4 @@
+.checkbox > input[type=checkbox]:checked + span::before{
+  left: 9px;
+  top: 11px;
+}

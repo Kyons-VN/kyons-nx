@@ -1,7 +1,12 @@
 <div class="flex flex-col min-h-full" *ngIf="lessonGroup">
   <div class="flex flex-col md:gap-6 py-2 md:py-6 px-4 md:px-11">
-    <div class="flex gap-3 md:gap-11 items-end">
-      <a class="no-underline" [routerLink]="paths.learningPath">< Trở về</a>
+    <div class="flex gap-3 md:gap-11 items-center">
+      <a
+        class="no-underline text-orange self-center flex items-center justify-center gap-1 md:gap-2"
+        [routerLink]="paths.learningPath"
+        ><i class="icon-ArrowLeft text-[20px] flex"></i>
+        <span class="leading-[20px]">Trở về</span>
+      </a>
       <span
         (click)="tabIndex = 0"
         class="h7"
@@ -31,8 +36,8 @@
   <div *ngIf="tabIndex === 0" class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
     <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_study'"></student-tracking-lesson>
     <div
-      class="menuSM flex flex-col items-center rounded-lg py-2 px-3 md:p-6 bg-white md:w-5/12 items-start!important justify-start gap-2 md:gap-4 overflow-auto max-height md:h-auto md:overflow-auto"
-      [ngClass]="{'h-10 overflow-hidden': hideMenuSM}"
+      class="menuSM flex flex-col items-center rounded-lg py-2 px-3 md:p-6 bg-white md:w-5/12 items-start!important justify-start gap-2 md:gap-4 overflow-auto md:h-auto md:overflow-auto"
+      [ngClass]="{'h-8 overflow-hidden': hideMenuSM}"
     >
       <a class="flex w-full md:hidden link cursor-pointer" (click)="hideMenuSM = !hideMenuSM" (show)="(hideMenuSM)">
         <span class="truncate">{{ selectedLesson.name }}</span>
@@ -46,9 +51,9 @@
         <h6 class="w-full flex gap-2 justify-center items-start">
           <span>{{ lCIndex + 1 }}.</span>
           <span class="flex-1">{{ lessonCategory.category.name }} - {{ lessonCategory.topic.name }}</span>
-          <span class="p-[0.3rem] cursor-pointer" (click)="hide[lCIndex] = !hide[lCIndex]">
+          <!-- <span class="p-[0.3rem] cursor-pointer" (click)="hide[lCIndex] = !hide[lCIndex]">
             <img [ngClass]="{'rotate-180': hide[lCIndex]}" src="assets/icons/up.svg" alt="" />
-          </span>
+          </span> -->
         </h6>
         <hr class="w-full border-blueGrey-300" />
         <div
@@ -80,17 +85,17 @@
       </div>
       <div class="flex-1"></div>
       <div class="self-end flex gap-2 mt-8">
-        <button [disabled]="selectedLessonIndex === 0" class="btn btn-rounded" (click)="pre()">Trở lại</button>
+        <!-- <button [disabled]="selectedLessonIndex === 0" class="btn btn-rounded" (click)="pre()">Trở lại</button>
         <button *ngIf="selectedLessonIndex !== lessonIdsList.length - 1" class="btn btn-rounded" (click)="next()">
           Tiếp
-        </button>
+        </button> -->
         <button *ngIf="selectedLessonIndex === lessonIdsList.length - 1" class="btn" (click)="tabIndex = 1">
           Làm bài tập
         </button>
       </div>
     </div>
   </div>
-  <div *ngIf="tabIndex === 1" class="flex-1 flex flex-col w-full h-full">
+  <div class="flex-1 flex flex-col w-full h-full" [ngClass]="{hidden: tabIndex !== 1}">
     <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_exercise'"></student-tracking-lesson>
     <div class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
       <div
@@ -106,21 +111,38 @@
         *ngIf="!exerciseResult"
         class="flex flex-col gap-2 md:rounded-lg p-6 bg-white w-full md:w-7/12 items-stretch justify-start overflow-auto"
       >
-        <div class="flex flex-col gap-2 w-full">
-          <student-questions-progress class="w-full" [progress]="exerciseProgress"></student-questions-progress>
+        <student-questions-progress class="w-full" [progress]="exerciseProgress"></student-questions-progress>
+        <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_28rem)] overflow-auto">
           <student-test-content
             [content]="exerciseContent"
             [submission]="exerciseSubmission"
             (progressEvent)="updateExerciseProgress($event)"
             (submissionEvent)="updateExerciseSubmission($event)"
+            [currentIndex]="currentExerciseIndex"
             class="test-height"
           ></student-test-content>
-          <div class="w-full flex mt-2">
-            <span class="flex-1"></span>
-            <button (click)="exerciseComplete()" class="btn primary w-48" [disabled]="exerciseProgress < 100">
-              Nộp bài
-            </button>
-          </div>
+        </div>
+        <div class="w-full flex mt-2" *ngIf="exerciseContent !== undefined">
+          <span class="flex-1"></span>
+          <button
+            (click)="currentExerciseIndex = currentExerciseIndex + 1"
+            [disabled]="exerciseProgress.value <= currentExerciseIndex"
+            class="btn"
+            [ngClass]="{'!hidden': currentExerciseIndex + 1 === exerciseContent.questions.length}"
+          >
+            Tiếp
+          </button>
+          <button
+            (click)="exerciseComplete()"
+            [disabled]="exerciseProgress.value < currentExerciseIndex + 1"
+            class="btn"
+            [ngClass]="{'!hidden': currentExerciseIndex + 1 !== exerciseContent.questions.length}"
+          >
+            Nộp bài
+          </button>
+          <!-- <button (click)="exerciseComplete()" class="btn primary w-48" [disabled]="exerciseProgress.value < 100">
+            Nộp bài
+          </button> -->
         </div>
       </div>
       <div *ngIf="exerciseResult" class="flex flex-col w-full md:w-5/12 p-6 bg-white">
@@ -161,7 +183,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="tabIndex === 2" class="flex-1 flex flex-col w-full h-full">
+  <div class="flex-1 flex flex-col w-full h-full" [ngClass]="{hidden: tabIndex !== 2}">
     <student-tracking-lesson [lessonId]="lessonGroupId" [trackingType]="'on_test'"></student-tracking-lesson>
     <div class="flex flex-col items-center md:flex-row md:items-start md:px-11 gap-6">
       <div
@@ -202,6 +224,7 @@
           </div>
           <div class="flex-1"></div>
           <div class="self-end flex gap-2">
+            <a class="btn-rounded" [routerLink]="paths.mockTest">Tạo mục tiêu mới</a>
             <a class="btn primary w-48" [routerLink]="paths.learningPath">Đến giáo trình</a>
           </div>
         </div>
@@ -215,16 +238,37 @@
         class="flex flex-col gap-2 md:rounded-lg p-6 bg-white w-full md:w-7/12 items-stretch justify-start overflow-auto"
       >
         <student-questions-progress class="w-full" [progress]="testProgress"></student-questions-progress>
-        <student-test-content
-          [content]="testContent"
-          [submission]="testSubmission"
-          (progressEvent)="updateTestProgress($event)"
-          (submissionEvent)="updateTestSubmission($event)"
-          class="test-height"
-        ></student-test-content>
-        <div class="w-full flex mt-2">
+        <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_28rem)] overflow-auto">
+          <student-test-content
+            [content]="testContent"
+            [submission]="testSubmission"
+            (progressEvent)="updateTestProgress($event)"
+            (submissionEvent)="updateTestSubmission($event)"
+            [currentIndex]="currentTestIndex"
+            class="test-height"
+          ></student-test-content>
+        </div>
+        <div class="w-full flex mt-2" *ngIf="testContent !== undefined">
           <span class="flex-1"></span>
-          <button (click)="testComplete()" class="btn primary w-48" [disabled]="testProgress < 100">Nộp bài</button>
+          <button
+            (click)="currentTestIndex = currentTestIndex + 1"
+            [disabled]="testProgress.value < currentTestIndex + 1"
+            class="btn"
+            [ngClass]="{'!hidden': currentTestIndex + 1 === testContent.questions.length}"
+          >
+            Tiếp
+          </button>
+          <button
+            (click)="testComplete()"
+            [disabled]="testProgress.value < currentTestIndex + 1"
+            class="btn"
+            [ngClass]="{'!hidden': currentTestIndex + 1 !== testContent.questions.length}"
+          >
+            Nộp bài
+          </button>
+          <!-- <button (click)="testComplete()" class="btn primary w-48" [disabled]="testProgress.value < 100">
+            Nộp bài
+          </button> -->
         </div>
       </div>
     </div>

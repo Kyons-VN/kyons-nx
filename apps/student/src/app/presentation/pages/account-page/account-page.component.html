@@ -21,39 +21,67 @@
             <span>Lịch sử giao dịch</span>
             <i class="icon-ArrowRight text-orange text-[20px]"></i>
           </li>
-          <li class="border-b border-blueGrey-300"></li>
+          <!-- <li class="border-b border-blueGrey-300"></li>
           <li
-            (click)="activeTab = 2"
+            (click)="getActivities()"
             class="flex w-full items-center justify-between h-6 cursor-pointer"
             [ngClass]="{'text-lightBlue-1': activeTab === 2}"
           >
             <span>Lịch sử sử dụng</span>
             <i class="icon-ArrowRight text-orange text-[20px]"></i>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div *ngIf="activeTab === 0" class="flex flex-col gap-2 md:w-3/4 bg-white rounded-md p-6">
         <h5>Tài khoản của bạn</h5>
         <div class="flex items-center justify-between w-full">
           <strong>Tiền trong tài khoản</strong>
-          <strong>{{ balance | currency: ' ':false:'4.0-2' }} VND</strong>
+          <strong>{{ balance.formatedValue }}</strong>
         </div>
-        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 px-2 py-3 gap-6">
+        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 p-2 gap-6">
           <span>Bài kiểm tra</span>
           <span class="flex-1"></span>
-          <strong>{{ inventory.mock_test }} bài</strong>
-          <button class="btn" (click)="({})">Mua thêm</button>
+          <strong>{{ inventory.mockTest }} bài</strong>
+          <a class="btn btn-small" [routerLink]="paths.package">Mua thêm</a>
         </div>
-        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 px-2 py-3 gap-6">
+        <div class="flex items-center justify-between w-full rounded-lg border border-blueGrey-300 p-2 gap-6">
           <span>Gói học tập</span>
           <span class="flex-1"></span>
-          <strong>{{ inventory.subscription }}</strong>
-          <button class="btn" (click)="({})">Mua thêm</button>
+          <strong>{{ inventory.getTime() }}</strong>
+          <a class="btn btn-small" [routerLink]="paths.package">Mua thêm</a>
         </div>
       </div>
-      <div *ngIf="activeTab === 1" class="flex flex-col gap-2 md:w-3/4 bg-white rounded-md p-6">
+      <div *ngIf="activeTab === 1" class="flex flex-col gap-6 md:w-3/4 bg-white rounded-md p-6">
         <h5>Lịch sử giao dịch</h5>
-        <div class="contents" *ngFor="let tran of transactions; index as i"></div>
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2" *ngFor="let tran of transactions.list; index as i">
+            <hr *ngIf="i !== 0" class="text-blueGrey-300" />
+            <div class="flex flex-row justify-between w-full">
+              <div class="">
+                <span>{{ tran.packageName }}</span
+                ><br />
+                <span>{{ tran.formatedTime() }}</span>
+              </div>
+              <strong>{{ tran.formatedAmount() }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="activeTab === 2" class="flex flex-col gap-6 md:w-3/4 bg-white rounded-md p-6">
+        <h5>Dịch vụ của bạn</h5>
+        <div class="flex flex-col gap-2">
+          <!-- <div class="flex flex-col gap-2" *ngFor="let tran of activities; index as i">
+            <hr *ngIf="i !== 0" class="text-blueGrey-300" />
+            <div class="flex flex-row justify-between w-full">
+              <div class="">
+                <span>{{ tran.packageName }}</span
+                ><br />
+                <span>{{ tran.formatedTime() }}</span>
+              </div>
+              <strong>{{ tran.formatedAmount() }}</strong>
+            </div>
+          </div> -->
+        </div>
       </div>
     </div>
   </div>

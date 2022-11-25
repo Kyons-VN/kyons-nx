@@ -2,6 +2,11 @@ import { formatDate } from '@angular/common';
 import { ISubmission } from '../../domain/knowledge/i-submission';
 
 export class Submission implements ISubmission {
+  start: Date = new Date();
+  private _submitData: { [questionId: string]: string } = {};
+
+
+  private _end: Date = new Date();
   private _testId = '';
   public get testId(): string {
     return this._testId;
@@ -9,17 +14,12 @@ export class Submission implements ISubmission {
   public set testId(value: string) {
     this._testId = value;
   }
-  start: Date = new Date();
-
-  private _end: Date = new Date();
   public get end(): Date {
     return this._end;
   }
   public set end(value: Date) {
     this._end = value;
   }
-
-  private _submitData: { [questionId: string]: string } = {};
   public get submitData(): { [questionId: string]: string } {
     return this._submitData;
   }
@@ -40,4 +40,5 @@ export class Submission implements ISubmission {
     result.submission = submission;
     return result;
   }
+
 }

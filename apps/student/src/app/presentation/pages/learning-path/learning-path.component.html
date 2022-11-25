@@ -1,11 +1,27 @@
-<div *ngIf="loading === false" class="h-full">
-  <div class="flex flex-col gap-6 py-6 px-11 min-h-full">
-    <a class="no-underline" [routerLink]="paths.home">< Trở về</a>
-    <h1>Tiếng Anh</h1>
-    <div class="h-2"></div>
-    <h3>Bắt đầu thu thập kiến thức</h3>
+<div class="h-full">
+  <div *ngIf="!processing && !nextStep" class="flex flex-col gap-6 py-6 px-11 min-h-full">
+    <div class="flex flex-row items-center gap-6">
+      <a class="no-underline text-orange" [routerLink]="paths.home"
+        ><i class="icon-ArrowLeft text-[20px]"></i> Trở về</a
+      >
+      <h2>Tiếng Anh</h2>
+    </div>
+    <div class="flex flex-row gap-6 p-2 rounded bg-white">
+      <select [(ngModel)]="selectedCategoryIdMod">
+        <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+      </select>
+      <div class="flex flex-col flex-1">
+        <div class="h8">Hoàn thành:</div>
+        <div class="flex gap-4 items-center w-full">
+          <div class="progress-container flex-1">
+            <div class="progressing" [ngStyle]="{width: learningGoalPath.progress + '%'}"></div>
+          </div>
+          <div class="h7">{{ learningGoalPath.progress }}%</div>
+        </div>
+      </div>
+    </div>
     <div
-      class="mx-[-2.75rem] p-11 flex overflow-hidden relative"
+      class="mx-[-2.75rem] px-11 flex overflow-hidden relative mt-[-2.5rem]"
       (wheel)="onScroll($event)"
       style="height: calc(256px + 2.75 * 2rem)"
     >
@@ -14,6 +30,7 @@
         style="left: 0"
         [ngStyle]="{ right: -scrollDistance + 256 / 2 + 'px' }"
       ></div> -->
+
       <div
         #widgetsWrapper
         class="flex z-2 absolute overflow-x-scroll w-full top-11 bottom-[-17px] left-0 right-0"
@@ -30,33 +47,50 @@
           *ngFor="let lesson of lessons; index as i"
         >
           <div class="flex flex-col gap-2">
-            <h6 [ngClass]="{'text-white': lesson.learnedLPDs !== undefined}">Bài số {{ lesson.index + 1 }}</h6>
+            <h6>Bài số {{ i + 1 }}</h6>
           </div>
         </div>
-        <div class="" *ngIf="!isCompleted; else elseBlock">
+        <div class="" *ngIf="learningGoalPath.progress === 100; else elseBlock1">
           <div
-            *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-            class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-            [routerLink]="paths.newLesson"
-          >
-            <i class="icon-Add text-5xl"></i>
-            <h6>Tạo bài học mới</h6>
-          </div>
-          <div
-            *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-            class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
-          >
-            <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
-          </div>
-        </div>
-        <ng-template #elseBlock>
-          <div
-            class="small-card bg-lightBlue-1 !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
             [routerLink]="[this.paths.finalExam, selectedProgram.id]"
+            class="bg-lightBlue-1 small-card !text-white cursor-pointer flex flex-col items-center justify-center gap-3"
           >
-            <h6>Bài kiểm tra cuối khoá</h6>
+            <h6>Chúc mừng</h6>
           </div>
+        </div>
+        <ng-template #elseBlock1>
+          <div class="" *ngIf="!learningGoalCategory.isCompleted; else elseBlock2">
+            <div
+              *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
+              class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
+              [routerLink]="paths.newLesson"
+            >
+              <i class="icon-Add text-5xl"></i>
+              <h6>Tạo bài học mới</h6>
+            </div>
+            <div
+              *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
+              class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
+            >
+              <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
+            </div>
+          </div>
+          <ng-template #elseBlock2>
+            <div
+              (click)="showNextStep()"
+              class="bg-lightBlue-1 small-card !text-white cursor-pointer flex flex-col items-center justify-center gap-3"
+            >
+              <h6>Trạm cuối rồi</h6>
+            </div>
+          </ng-template>
         </ng-template>
+        <!-- <div
+        class="small-card bg-lightBlue-1 !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
+        [routerLink]="[this.paths.finalExam, selectedProgram.id]"
+      >
+        <h6>Bài kiểm tra cuối khoá</h6>
+      </div> -->
+
         <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
       </div>
     </div>
@@ -98,4 +132,27 @@
       </div>
     </div>
   </ng-template> -->
+  <div *ngIf="nextStep" class="w-full h-full flex flex-col items-center justify-start p-6 md:p-11">
+    <div class="flex flex-col w-full md:w-1/2 gap-6 items-center">
+      <img src="assets/images/End Path.svg" class="w-[150px] h-[150px]" />
+      <div class="flex flex-col bg-white rounded-lg p-6 gap-6">
+        <h4>Chúc mừng bạn đã đến trạm cuối của {{ learningGoalCategory.category.name }}!</h4>
+        <div class="">
+          <p>
+            Bạn đã hoàn thành 1 phần trong <strong>{{ selectedLearningGoal.name }}</strong> rồi. Tiếp tục chinh phục
+            những cung đường còn lại nhé!
+          </p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <button
+            *ngFor="let cat of unCompletedCategories"
+            (click)="selectedCategoryIdMod = cat.category.id; nextStep = false"
+            class="btn"
+          >
+            Tiếp tục học {{ cat.category.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

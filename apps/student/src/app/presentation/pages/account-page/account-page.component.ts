@@ -1,7 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import Balance from '@infrastructure/order/balance';
+import Inventory from '@infrastructure/order/inventory';
 import { OrderService } from '@infrastructure/order/order.service';
+import { TransactionList } from '@infrastructure/order/transaction';
 import { AppPath } from '@presentation/routes';
 // import { AppPath } from '../../routes';
 
@@ -23,13 +26,10 @@ export class AccountPageComponent implements OnInit {
 
   activeTab = 0;
   hasError = '';
-  inventory = {
-    "mock_test": 10,
-    "tutor_advice": 0,
-    "subscription": ''
-  };
-  balance = 0;
-  transactions = [];
+  inventory: Inventory = Inventory.empty();
+  balance: Balance = Balance.empty();
+  transactions = TransactionList.empty();
+  activities = [];
 
   private toTime(totalhours: number) {
     const days = Math.floor(totalhours / 24);
@@ -42,19 +42,20 @@ export class AccountPageComponent implements OnInit {
   ngOnInit(): void {
     console.log('init AccountPageComponent');
     this.orderService.getInventories().subscribe({
-      next: (data: any) => {
-        data.subscription = this.toTime(data.subscription);
-        this.inventory = data;
+      next: (inventory: Inventory) => {
+        this.inventory = inventory;
       },
       error: (err) => {
+        // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
       }
     });
     this.orderService.getBalance().subscribe({
-      next: (res: any) => {
-        this.balance = res;
+      next: (balance: Balance) => {
+        this.balance = balance;
       },
       error: (err) => {
+        // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
       }
     });
@@ -62,17 +63,20 @@ export class AccountPageComponent implements OnInit {
 
   getTransactions() {
     this.activeTab = 1;
-    if (this.transactions.length == 0) {
+    if (this.transactions.list.length == 0) {
       this.orderService.getTransaction().subscribe({
         next: (res: any) => {
           this.transactions = res;
         },
         error: (err) => {
+          // TODO: Define error resposes
           this.hasError = 'Có lỗi, vui lòng thử lại';
         }
       });
     }
-
   }
 
+  getActivities() {
+    this.activeTab = 2;
+  }
 }

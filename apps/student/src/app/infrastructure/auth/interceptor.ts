@@ -3,8 +3,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
-  HTTP_INTERCEPTORS
+  HttpRequest, HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -76,10 +75,10 @@ export class AuthInterceptor implements HttpInterceptor {
               // this.forceSignOut();
               console.log('forceSignOut');
             }
-          } else this.redirectToHome();
+          }// else this.redirectToHome();
         }
         console.log(errorMsg);
-        return throwError(() => new Error(errorMsg));
+        return throwError(() => new Error(error.error));
       })
     );
   }

@@ -2,7 +2,13 @@
   .menuSM {
     width: calc(100% - 2rem);
     .menuSMItem {
-      width: calc(100% - 2rem);
+      // width: calc(100% - 2rem);
+    }
+  }
+  .max-height {
+    height: calc(100vh - 11rem);
+    .max-height-item {
+      overflow: auto;
     }
   }
 }
@@ -26,7 +32,7 @@
     }
   }
   .test-height {
-    max-height: calc(100vh - 20rem);
+    height: calc(100vh - 20rem);
     overflow: auto;
   }
 }

@@ -44,7 +44,7 @@ h5 {
   font-size: 1.375rem;
   font-weight: 700;
   margin: 0;
-  line-height: 100%;
+  line-height: 150%;
 }
 h6 {
   font-size: 1.25rem;
@@ -72,7 +72,7 @@ p {
 small {
   font-size: 0.75rem;
 }
-a:not(.btn) {
+a:not(.btn):not(.btn-rounded):not(.no-underline):not(.menu-item) {
   @apply text-orange underline;
   &.active[routerlinkactive='active'] {
     @apply text-primaryBlue;
@@ -111,10 +111,11 @@ a:not(.btn) {
   }
 }
 
-.btn-small{
+.btn.btn-small,.btn-rounded.btn-small{
+  @apply px-1 py-2 h-8;
+  
   font-size: .875rem;
   line-height: 100%;
-  @apply px-1 py-2 h-8;
 }
 
 select {
@@ -139,7 +140,7 @@ button {
 }
 input {
   &[type='text'],
-  &[type='password'] {
+  &[type='password'],&[type='number'] {
     @apply h-10 border border-blueGrey-400 rounded-md shadow-none outline-none;
   }
   &:focus {
@@ -185,7 +186,7 @@ p {
   }
 }
 .btn-rounded {
-  @apply bg-white h-10 rounded-md text-orange flex items-center justify-center cursor-pointer border p-2 border-blueGrey-300;
+  @apply bg-white h-10 rounded-md text-orange flex items-center justify-center cursor-pointer border p-2 border-blueGrey-300 font-bold;
   &:active {
     @apply border-orange text-orange;
   }
@@ -233,4 +234,10 @@ table {
 }
 .cdk-overlay-container .mat-dialog-container {
   @apply rounded-lg;
+}
+.progress-container {
+  @apply h-2 rounded-md bg-blueGrey-100 w-full;
+  .progressing {
+    @apply h-2 rounded-md bg-lightBlue-1 w-full;
+  }
 }

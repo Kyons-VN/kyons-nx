@@ -7,8 +7,10 @@ import {
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
 import { delay } from 'lodash-es';
-import { interval, Subscription } from 'rxjs';
+import { fromEvent, interval, Observable, Subscription } from 'rxjs';
 import { Lesson, LessonGroup } from '../../../infrastructure/knowledge/lesson';
 import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
@@ -34,6 +36,8 @@ import {
 export class LessonPageComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'h-full';
   paths: AppPath;
+  learningGoalId: string;
+  source: Observable<KeyboardEvent>;
   constructor(
     private route: ActivatedRoute,
     private lessonService: LessonService,
@@ -43,22 +47,24 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     navService: NavigationService,
     userService: UserService,
     private loading: LoadingOverlayService,
+    knowledgeService: KnowledgeService,
   ) {
+    this.source = fromEvent<KeyboardEvent>(document, 'keyup');
     this.paths = navService.paths;
     this.userType = userService.getUserType();
+    this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
   }
 
   selectedLessonIndex = 0;
 
-  selectedLPDId = '';
   selectedLessonContent = '';
   hide: { [lCIndex: number]: any } = {};
   confirm = false;
   lessonGroupId!: string;
   lessonGroup!: LessonGroup;
   tabIndex = 0;
-  testProgress = 0;
-  exerciseProgress = 0;
+  testProgress = new Progress();
+  exerciseProgress = new Progress();
   testContent!: TestContent;
   exerciseContent!: TestContent;
   testSubmission!: Submission;
@@ -68,7 +74,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   firstLessonId = '';
   lastLessonId = '';
   lCIndex = 0;
-  hideMenuSM = false;
+  hideMenuSM = true;
   selectedLPDName = '';
   waiting = false;
   ready = false;
@@ -88,14 +94,15 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   testReviewRenderObject: any[] = [];
   testResultRenderObject: any[] = [];
   userType: string;
+  currentExerciseIndex = 0;
+  currentTestIndex = 0;
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (this.tabIndex != 0) return;
     if (event.key == 'ArrowLeft') {
-      this.pre();
+      if (this.tabIndex != 0) this.tabIndex--;
     } else if (event.key == 'ArrowRight') {
-      this.next();
+      if (this.tabIndex != 2) this.tabIndex++;
     }
   }
 
@@ -115,11 +122,12 @@ export class LessonPageComponent implements OnInit, OnDestroy {
       });
     this.testSubmission = new Submission();
     this.exerciseSubmission = new Submission();
-    this.testService.getTest(this.lessonGroupId).subscribe({
+    this.testService.getTest(this.lessonGroupId, this.learningGoalId).subscribe({
       next: (value) => {
         if (value.done == true) this.complete = true;
         this.testContent = value;
         this.testSubmission.testId = value.id;
+        this.testProgress = Progress.from(0, this.testContent.questions.length);
       },
       complete: () => {
         if (!this.complete) return;
@@ -173,17 +181,47 @@ export class LessonPageComponent implements OnInit, OnDestroy {
         });
       },
     });
-    this.testService.getExercise(this.lessonGroupId).subscribe({
+    this.testService.getExercise(this.lessonGroupId, this.learningGoalId).subscribe({
       next: (value) => {
         this.exerciseContent = value;
         this.exerciseSubmission.testId = value.id;
+        this.exerciseProgress = Progress.from(0, this.exerciseContent.questions.length);
+      },
+    });
+    this.source.subscribe({
+      next: (e) => {
+        console.log(e.key);
+
+        if (this.tabIndex == 1) {
+          const question = this.exerciseContent.questions[this.currentExerciseIndex];
+          const answers = question.answers;
+          const currentSubmitDataLength = Object.keys(this.exerciseSubmission.submitData).length;
+          if (['1', '2', '3', '4'].includes(e.key)) {
+            this.exerciseSubmission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
+
+            if (currentSubmitDataLength != Object.keys(this.exerciseSubmission.submitData).length) {
+              this.exerciseProgress.next();
+            }
+          }
+          if (e.key == ' ') {
+            if (currentSubmitDataLength == this.exerciseContent.questions.length) {
+              this.exerciseComplete()
+            }
+            else {
+              if (this.exerciseProgress.value > this.currentExerciseIndex) {
+                this.currentExerciseIndex++;
+              }
+            }
+          }
+        }
       },
     });
   }
 
   reset(): void {
-    this.testProgress = 0;
-    this.exerciseProgress = 0;
+    // this.testProgress.value = 0;
+    // this.testProgress.label = '';
+    // this.exerciseProgress.label = '';
   }
 
   requestTutor(learningPointId: string) {
@@ -221,6 +259,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
           }
         },
         error: () => {
+          // TODO: Define error resposes
           this.waiting = false;
           subscription.unsubscribe();
         },
@@ -234,10 +273,10 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.ready = true;
   }
 
-  updateTestProgress(nextProgress: number) {
+  updateTestProgress(nextProgress: Progress) {
     this.testProgress = nextProgress;
   }
-  updateExerciseProgress(nextProgress: number) {
+  updateExerciseProgress(nextProgress: Progress) {
     this.exerciseProgress = nextProgress;
   }
 
@@ -254,7 +293,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   testComplete() {
-    if (this.testProgress < 100) return;
+    if (this.testProgress.value < this.testContent.questions.length) return;
     this.loading.show();
     this.testSubmission.end = new Date();
     this.testService.submitTest(this.testSubmission).subscribe({
@@ -278,6 +317,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
         // })
       },
       error: () => {
+        // TODO: Define error resposes
         this.loading.hide();
       },
       complete: () => {
@@ -327,6 +367,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   exerciseComplete() {
+    if (this.exerciseProgress.value < this.exerciseContent.questions.length) return;
+    this.loading.show();
     this.exerciseSubmission.end = new Date();
     this.testService.submitTest(this.exerciseSubmission).subscribe({
       next: (result) => {
@@ -347,6 +389,10 @@ export class LessonPageComponent implements OnInit, OnDestroy {
         //     'questions': questions,
         //   };
         // });
+      },
+      error: () => {
+        // TODO: Define error resposes
+        this.loading.hide();
       },
       complete: () => {
         const topicWrongQuestions =
@@ -390,17 +436,10 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             ),
           };
         });
+        this.loading.hide();
       },
     });
   }
-
-  // loadContent(lCIndex: number, lPDIndex: number) {
-  //   this.lCIndex = lCIndex;
-  //   this.lPDIndex = lPDIndex;
-  //   this.selectedLPDContent = this.lesson.learningPoints[lCIndex].lPDs[lPDIndex].content;
-  //   this.selectedLPDId = this.lesson.learningPoints[lCIndex].lPDs[lPDIndex].id;
-  //   this.selectedLPDName = this.lesson.learningPoints[lCIndex].name + ' / Cấp độ ' + (lPDIndex + 1);
-  // }
 
   loadContent(lessonIndex: number) {
     this.selectedLessonIndex = lessonIndex;
@@ -413,18 +452,20 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.loadContent(lessonIndex);
   }
 
-  pre() {
-    if (this.selectedLessonIndex > 0)
-      this.loadContent(this.selectedLessonIndex - 1);
-  }
+  // pre() {
+  //   if (this.selectedLessonIndex > 0)
+  //     this.loadContent(this.selectedLessonIndex - 1);
+  // }
 
-  next() {
-    if (this.selectedLessonIndex < this.lessonIdsList.length - 1)
-      this.loadContent(this.selectedLessonIndex + 1);
-  }
+  // next() {
+  //   if (this.selectedLessonIndex < this.lessonIdsList.length - 1)
+  //     this.loadContent(this.selectedLessonIndex + 1);
+  // }
 
   redoExercise() {
     this.exerciseResult = undefined;
+    this.exerciseProgress = Progress.from(0, this.exerciseContent.questions.length);
+    this.currentExerciseIndex = 0;
   }
 
   ngOnDestroy(): void {

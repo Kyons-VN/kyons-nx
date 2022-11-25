@@ -67,8 +67,9 @@ export class SignUpComponent implements OnInit {
 
   submit() {
     console.log('submit');
-    this.loading.show();
+    this.form.markAllAsTouched();
     if (this.form.invalid) return;
+    this.loading.show();
     this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value).subscribe({
       next: (res: any) => {
         if (res['success']) {
@@ -81,6 +82,7 @@ export class SignUpComponent implements OnInit {
         this.loading.hide();
       },
       error: (err) => {
+        // TODO: Define error resposes
         console.log(err);
         this.errorMessage = 'Có lỗi, xin thử lại';
         this.processing = false;

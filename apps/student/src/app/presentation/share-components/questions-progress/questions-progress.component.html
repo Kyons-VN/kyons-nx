@@ -1,4 +1,4 @@
-<span>{{ progress }}%</span>
+<span>{{ progress.label }}&nbsp;</span>
 <div class="progress-container">
-  <div class="progressing" [ngStyle]="{ width: progress + '%' }"></div>
+  <div class="progressing" [ngStyle]="{width: (progress.value / progress.total) * 100 + '%'}"></div>
 </div>

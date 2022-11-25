@@ -2,8 +2,9 @@ import { ICategory } from './i-category';
 import { ITopic } from './i-topic';
 
 interface ILessonItem {
-  index: number;
   id: string;
+  name: string;
+  isNew?: boolean;
 }
 
 interface ILessonGroup {
@@ -27,3 +28,4 @@ interface ILesson {
 }
 
 export { ILessonItem, ILessonGroup, ILessonCategory, ILesson };
+

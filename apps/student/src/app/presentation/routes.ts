@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
-import { ClassProgramComponent } from './pages/class-program/class-program.component';
 import { DiagnosticTestDecisionComponent } from './pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './pages/diagnostic-test/diagnostic-test.component';
 import { FinalExamComponent } from './pages/final-exam/final-exam.component';
@@ -9,8 +8,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { KnowledgeComponent } from './pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
-import { MockTestSelectTopicComponent } from './pages/mock-test/select-topic/mock-test-select-topic.component';
+import { MockTestSelectProgramComponent } from './pages/mock-test/select-program/select-program.component';
+import { SelectTopicComponent } from './pages/mock-test/select-topic/select-topic.component';
+import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.component';
 import { NewLessonPageComponent } from './pages/new-lesson-page/new-lesson-page.component';
+import { NewUserComponent } from './pages/new-user/new-user.component';
 import { PackagePageComponent } from './pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -30,7 +32,7 @@ class AppPath {
   signIn = '/sign-in/';
   signOut = '/sign-out/';
   signUp = '/sign-up/';
-  classProgram = '/class-program/';
+  classProgram = '/mock-test/';
   test = '/test/';
   diagnosticTestDecision = '/diagnostic-test-decision/';
   diagnosticTest = '/diagnostic-test/';
@@ -43,9 +45,12 @@ class AppPath {
   newLesson = '/new-lesson/';
   finalExam = '/final-exam/';
   resetPassword = '/reset-password/';
-  account = 'account/';
-  package = 'account/package/';
-  mockTest = '/mock-test/'
+  account = '/account/';
+  package = '/account/package/';
+  mockTest = '/mock-test/';
+  mockTestSelect = '/mock-test/select/';
+  mockTestTest = '/mock-test/test/';
+  newUser = '/new-user/';
 }
 
 const routes: Routes = [
@@ -57,10 +62,11 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },
   {
-    path: 'class-program',
+    path: 'mock-test',
     children: [
-      { path: '', component: ClassProgramComponent },
-      { path: 'mock-test/:id', component: MockTestSelectTopicComponent },
+      { path: '', component: MockTestSelectProgramComponent },
+      { path: 'select/:id', component: SelectTopicComponent },
+      { path: 'test/:id', component: MockTestTestComponent },
     ],
     canActivate: [AuthGuard],
   },
@@ -127,10 +133,10 @@ const routes: Routes = [
     path: 'sign-up',
     loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent)
   },
-  // {
-  //   path: 'email-template',
-  //   component: EmailTemplateComponent,
-  // },
+  {
+    path: 'new-user',
+    component: NewUserComponent,
+  },
   {
     path: '**',
     component: PageNotFoundComponent,

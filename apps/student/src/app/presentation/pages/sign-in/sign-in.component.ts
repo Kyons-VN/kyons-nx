@@ -65,7 +65,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('1111ss@te.st');
+      this.email.setValue('binhhm2009+1116@gmail.com');
       this.password.setValue('Zaq1@wsx');
     }
     if (this.signInForm.untouched) {
@@ -98,6 +98,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
             }
           },
           error: () => {
+            // TODO: Define error resposes
             this.errorMessage = true;
             this.processing = false;
             this.loading.hide();

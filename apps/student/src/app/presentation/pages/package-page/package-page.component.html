@@ -5,12 +5,12 @@
   </div>
   <div class="flex flex-col md:flex-row w-full gap-6">
     <div class="rounded-lg bg-white w-full md:w-1/3 p-6 flex flex-col gap-6">
-      <h4>Quét mã QR để nạp tiền</h4>
+      <h4>Nạp tiền vào hệ thống</h4>
       <span>
-        Vui lòng quét mã QR hoặc chuyển khoản để nạp tiền vào tài khoản, kèm ghi chú:<br />
+        Chuyển khoản để nạp tiền vào tài khoản, kèm ghi chú:<br />
         <strong>[Email của bạn] - Kyons credit</strong>
       </span>
-      <div class="flex flex-row gap-6">
+      <!-- <div class="flex flex-row gap-6">
         <div class="w-1/2">
           <strong>Zalo Pay</strong>
           <div class="rounded-lg border border-blueGrey-300 flex items-center justify-center w-[100px] h-[100px]">
@@ -23,19 +23,20 @@
             <img src="assets/icons/Momo.svg" class="w-[24px]" alt="Mobo" />
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="flex flex-col gap-2">
-        <strong>Hoặc qua số tài khoản ngân hàng</strong>
-        <div class="flex flex-row justify-between"><span>Ngân hàng</span><span>ABCXZY</span></div>
-        <div class="flex flex-row justify-between"><span>Số tài khoản</span><span>12344556</span></div>
-        <div class="flex flex-row justify-between">
-          <span>Tên chủ tài khoản</span><span>Công ty cổ phần Kyons</span>
-        </div>
+        <strong>Tài khoản ngân hàng</strong>
+        <div class="flex flex-row justify-between"><span>Ngân hàng</span><span>Techcombank</span></div>
+        <div class="flex flex-row justify-between"><span>Số tài khoản</span><span>19037780961051</span></div>
+        <div class="flex flex-row justify-between"><span>Tên chủ tài khoản</span><span>Công Ty TNHH Kyons</span></div>
       </div>
     </div>
     <div class="rounded-lg bg-white w-full md:w-2/3 p-6 flex flex-col gap-6">
       <h4>Gói dịch vụ của Kyons</h4>
-      <strong>Tiền trong tài khoản</strong>
+      <div class="flex flex-row justify-between">
+        <strong>Tiền trong tài khoản</strong>
+        <strong>{{ balance.formatedValue }}</strong>
+      </div>
       <table class="table" cellPadding="8px">
         <thead>
           <tr class="border-blueGrey-400 border-b-2">
@@ -46,7 +47,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="border-blueGrey-300 border-b">
+          <tr *ngFor="let p of packages" class="border-blueGrey-300 border-b">
+            <td>{{ p.name }}</td>
+            <td class="ck-content" [innerHTML]="p.description"></td>
+            <td align="right">
+              <span *ngIf="p.price !== p.salePrice" class="line-through">{{ p.formatedPrice }}</span
+              ><br /><strong>{{ p.formatedSalePrice }}</strong>
+            </td>
+            <td align="right">
+              <span class="inline-block"
+                ><button (click)="buyPackage(p)" class="btn btn-rounded btn-small inline-block whitespace-nowrap">
+                  Mua gói
+                </button></span
+              >
+            </td>
+          </tr>
+          <!-- <tr class="border-blueGrey-300 border-b">
             <td>Light Test</td>
             <td>2 bài kiểm tra thử</td>
             <td align="right">20 000 VND</td>
@@ -117,9 +133,38 @@
                 ><a class="btn btn-rounded btn-small inline-block whitespace-nowrap">Mua gói</a></span
               >
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
+    </div>
+  </div>
+  <div *ngIf="step === 1" class="flex items-center justify-center fixed z-10 w-full h-full top-0 left-0 bg-black/50">
+    <div class="flex flex-col w-[400px] bg-white rounded-lg p-8 gap-6">
+      <div class="flex flex-col gap-2">
+        <div class="h7">{{ selectedPackage.name }}</div>
+        <div class="flex flex-col gap-1">
+          <span>Số lượng</span>
+          <input type="number" name="quantity" id="" min="1" max="99" [(ngModel)]="quantity" />
+          <span *ngIf="quantity === 0 || quantity > 99" class="text-red-0 text-sm">Số lượng không đúng</span>
+        </div>
+        <div class="flex flex-row justify-between">
+          <strong>Tổng giá tiền</strong>
+          <strong>{{ quantity * selectedPackage.salePrice | currency: 'VND':'code':'1.0-2':'vi' }}</strong>
+        </div>
+      </div>
+      <div class="flex flex-row justify-between">
+        <button (click)="step = 0" class="btn-rounded">Hủy</button>
+        <button (click)="orderPackage()" class="btn" [disabled]="quantity === 0 || quantity > 99">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="step === 2" class="flex items-center justify-center fixed z-10 w-full h-full top-0 left-0 bg-black/50">
+    <div class="flex flex-col w-[400px] bg-white rounded-lg p-8 gap-6">
+      <div class="flex flex-col gap-2">
+        <div class="h7">Không thể mua gói!</div>
+        <span>Tài khoản của bạn hiện không đủ số dư để thanh toán. Vui lòng nạp thêm tiền vào Kyons</span>
+      </div>
+      <button (click)="step = 0" class="btn">Đóng thông báo</button>
     </div>
   </div>
 </div>

@@ -1,8 +1,6 @@
 interface IAuth {
   signIn: (credential: IAuthCredential) => void;
   signOut: () => void;
-  resetPassword: (email: string) => void;
-  newPassword: (email: string, newPassword: string, code: string) => void;
 }
 
 interface IAuthCredential {

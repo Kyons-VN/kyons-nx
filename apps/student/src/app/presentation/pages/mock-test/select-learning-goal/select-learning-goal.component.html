@@ -1,0 +1,23 @@
+<div class="flex w-full h-full justify-center p-6 md:p-11">
+  <div class="flex flex-col w-full max-w-[894px] gap-6">
+    <h2>Chọn nội dung</h2>
+    <div class="rounded-lg p-6 flex flex-col gap-6 bg-white items-start">
+      <span> Bạn chọn tối đa 3 bài để ôn luyện nhé </span>
+      <!-- <button class="btn-rounded">
+        <span class="flex items-center gap-2"
+          ><i class="icon-ArrowLeft"></i> Chọn tất cả <i class="icon-ArrowRight"></i
+        ></span>
+      </button> -->
+      <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_25rem)] overflow-auto">
+        <label *ngFor="let learningGoal of learningGoals" class="border border-blueGrey-300 p-2 rounded checkbox">
+          <input class="mr-4" type="checkbox" [(ngModel)]="learningGoal.checked" />
+          <span>{{ learningGoal.name }}</span>
+        </label>
+      </div>
+      <div class="flex-f"></div>
+      <div class="self-end">
+        <button (click)="submit()" class="btn">Làm bài kiểm tra</button>
+      </div>
+    </div>
+  </div>
+</div>

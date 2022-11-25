@@ -1,1 +1,92 @@
-<p>mock-test-test works!</p>
+<div *ngIf="!testResult && testContent" class="flex w-full h-full justify-center p-6 md:p-11">
+  <div class="flex flex-col w-full max-w-[894px] gap-6">
+    <h2>Bài kiểm tra</h2>
+    <div class="rounded-lg p-6 flex flex-col gap-6 bg-white items-start">
+      <div class="h8">Mục tiêu của bạn: {{ learningGold.name }}</div>
+      <student-questions-progress class="w-full" [progress]="progress"></student-questions-progress>
+      <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_28rem)] overflow-auto">
+        <student-test-content
+          [content]="testContent"
+          [submission]="submission"
+          (progressEvent)="updateProgress($event)"
+          (submissionEvent)="updateSubmission($event)"
+          [currentIndex]="currentIndex"
+        ></student-test-content>
+        <!-- <label *ngFor="let topic of topics" class="border border-blueGrey-300 p-2 rounded checkbox">
+          <input class="mr-4" type="checkbox" [(ngModel)]="topic.checked" (change)="updateCount()" />
+          <span>{{ topic.name }}</span>
+        </label> -->
+      </div>
+      <div class="flex-1"></div>
+      <div class="self-end">
+        <button
+          (click)="currentIndex = currentIndex + 1"
+          [disabled]="progress.value < currentIndex + 1"
+          class="btn"
+          [ngClass]="{'!hidden': currentIndex + 1 === testContent.questions.length}"
+        >
+          Tiếp
+        </button>
+        <button
+          (click)="testComplete()"
+          [disabled]="progress.value < currentIndex + 1 && !isTest"
+          class="btn"
+          [ngClass]="{'!hidden': currentIndex + 1 !== testContent.questions.length && !isTest}"
+        >
+          Nộp bài
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="testResult" class="sm:flex sm:flex-col p-0 md:p-11 flex-col md:flex-row relative gap-6">
+  <div class="flex flex-col gap-11 rounded-lg p-6 bg-white md:w-5/12" style="height: calc(100vh - 9rem)">
+    <h4>Bạn đã hoàn thành bài kiểm tra</h4>
+    <!-- <p class="text-secondaryBlue" *ngIf="userType !== 'self_study'">
+      Kyons đang chuẩn bị giáo trình cho bạn. Xin vui lòng đợi.
+    </p> -->
+    <!-- <p class="text-secondaryBlue" *ngIf="userType === 'self_study'">
+      Đây là kết quả bài kiểm tra của bạn. Bạn có thể chọn bài học tiếp theo dựa trên bài khảo sát này.
+    </p> -->
+    <div class="flex flex-col">
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6"></div>
+        <div class="flex gap-14">
+          <div class="flex flex-col">
+            <div class="h8">Điểm của bạn</div>
+            <div class="w-120px h-120px">
+              <circle-progress
+                [percent]="(testResult.result.score * 100) / testResult.result.maxScore['total']"
+                [title]="testResult.score.toString()"
+                subtitle="10"
+              ></circle-progress>
+            </div>
+          </div>
+          <div class="flex flex-col flex-1 gap-1">
+            <div class="h8">Kiến thức của bạn tại {{ selectedProgram.name }}</div>
+            <div class="flex flex-col" *ngFor="let cat of this.resultRenderObject; let lCIndex = index">
+              <div class="flex">
+                <span>{{ cat.name }}</span>
+                <span class="flex-1"></span>
+                <span>{{ cat.score }}%</span>
+              </div>
+              <hr class="mt-1" />
+            </div>
+          </div>
+        </div>
+        <div class="flex-1"></div>
+        <div class="self-end flex gap-2">
+          <!-- <a *ngIf="userType !== 'self_study'" class="btn primary w-48" [routerLink]=""
+            >Đến giáo trình</a
+          >
+          <a class="btn-rounded" [routerLink]="">Gửi thử thách</a> -->
+          <a class="btn-rounded" [routerLink]="paths.mockTest">Tạo mục tiêu mới</a>
+          <a class="btn primary w-48" [routerLink]="paths.learningPath">Đến giáo trình</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-1 overflow-auto flex-col rounded-lg p-6 md:w-7/12 bg-white" style="height: calc(100vh - 9rem)">
+    <student-test-review [reviewRenderObject]="reviewRenderObject"></student-test-review>
+  </div>
+</div>

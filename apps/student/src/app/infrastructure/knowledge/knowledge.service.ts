@@ -4,9 +4,12 @@ import { catchError, map, Observable } from 'rxjs';
 import { Subject } from '../../domain/subject/subject';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
+import LearningGoal from './learning-goal';
 import { Program } from './program';
 
 const SELECTED_PROGRAM_KEY = 'selected_program';
+const SELECTED_LEARNING_GOAL_KEY = 'selected_learning_goal';
+const SELECTED_CATEGORY_ID = 'selected_category_id';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +42,9 @@ export class KnowledgeService {
       SELECTED_PROGRAM_KEY,
       JSON.stringify(program.toJson())
     );
+    if (program.learningGoal) {
+      this.selectLearningGoad(program.learningGoal);
+    }
   }
 
   getSelectedProgram(): Program {
@@ -52,5 +58,36 @@ export class KnowledgeService {
 
   removeSelectedProgram() {
     window.localStorage.removeItem(SELECTED_PROGRAM_KEY);
+  }
+
+  selectLearningGoad(learningGoal: LearningGoal) {
+    window.localStorage.setItem(
+      SELECTED_LEARNING_GOAL_KEY,
+      JSON.stringify(learningGoal.toJson())
+    );
+  }
+
+  getSelectedLearningGoal(): LearningGoal {
+    return LearningGoal.fromJson(
+      JSON.parse(
+        window.localStorage.getItem(SELECTED_LEARNING_GOAL_KEY) ??
+        JSON.stringify(LearningGoal.empty().toJson())
+      )
+    );
+  }
+
+  selectCategoryId(learningGoal: string) {
+    window.localStorage.setItem(
+      SELECTED_CATEGORY_ID,
+      learningGoal
+    );
+  }
+
+  getSelectedCategoryId(): string {
+    return window.localStorage.getItem(SELECTED_CATEGORY_ID) ?? '';
+  }
+
+  removeSelectedLearningGoal() {
+    window.localStorage.removeItem(SELECTED_LEARNING_GOAL_KEY);
   }
 }
