@@ -1,29 +1,27 @@
 import {
   Component,
-  HostBinding,
-  HostListener,
-  OnDestroy,
+  HostBinding, HostListener, OnDestroy,
   OnInit
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
-import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
-import { delay } from 'lodash-es';
-import { fromEvent, interval, Observable, Subscription } from 'rxjs';
-import { Lesson, LessonGroup } from '../../../infrastructure/knowledge/lesson';
-import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
-import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { Submission } from '../../../infrastructure/test/submission';
+import { Lesson, LessonGroup } from '@infrastructure/knowledge/lesson';
+import { LessonService } from '@infrastructure/knowledge/lesson.service';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { Submission } from '@infrastructure/test/submission';
 import {
   TestContent,
   TestResult
-} from '../../../infrastructure/test/test-content';
-import { TestService } from '../../../infrastructure/test/test.service';
-import { TutorService } from '../../../infrastructure/tutor/tutor.service';
-import { UserService } from '../../../infrastructure/user/user.service';
-import { AppPath } from '../../routes';
+} from '@infrastructure/test/test-content';
+import { TestService } from '@infrastructure/test/test.service';
+import { TutorService } from '@infrastructure/tutor/tutor.service';
+import { UserService } from '@infrastructure/user/user.service';
+import { AppPath } from '@presentation/routes';
+import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
+import { delay } from 'lodash-es';
+import { forkJoin, interval, Subscription } from 'rxjs';
 import {
   ConfirmDialogComponent,
   ConfirmDialogModel
@@ -37,7 +35,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'h-full';
   paths: AppPath;
   learningGoalId: string;
-  source: Observable<KeyboardEvent>;
   constructor(
     private route: ActivatedRoute,
     private lessonService: LessonService,
@@ -49,7 +46,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     private loading: LoadingOverlayService,
     knowledgeService: KnowledgeService,
   ) {
-    this.source = fromEvent<KeyboardEvent>(document, 'keyup');
     this.paths = navService.paths;
     this.userType = userService.getUserType();
     this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
@@ -122,15 +118,27 @@ export class LessonPageComponent implements OnInit, OnDestroy {
       });
     this.testSubmission = new Submission();
     this.exerciseSubmission = new Submission();
-    this.testService.getTest(this.lessonGroupId, this.learningGoalId).subscribe({
-      next: (value) => {
-        if (value.done == true) this.complete = true;
-        this.testContent = value;
-        this.testSubmission.testId = value.id;
-        this.testProgress = Progress.from(0, this.testContent.questions.length);
-      },
-      complete: () => {
-        if (!this.complete) return;
+    const join = {
+      getTest: this.testService.getTest(this.lessonGroupId, this.learningGoalId),
+      getExercise: this.testService.getExercise(this.lessonGroupId, this.learningGoalId),
+    };
+    forkJoin(join).subscribe(({
+      getTest,
+      getExercise
+    }: {
+      getTest: TestContent;
+      getExercise: TestContent;
+    }) => {
+      this.testContent = getTest;
+      this.testSubmission.testId = getTest.id;
+      this.testProgress = Progress.from(0, this.testContent.questions.length);
+
+      this.exerciseContent = getExercise;
+      this.exerciseSubmission.testId = this.exerciseContent.id;
+      this.exerciseProgress = Progress.from(0, this.exerciseContent.questions.length);
+
+      if (getTest.done == true) {
+        this.complete = true;
         this.testService.getTestResult(this.lessonGroupId).subscribe({
           next: (value) => {
             this.testResult = value;
@@ -179,42 +187,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             });
           },
         });
-      },
-    });
-    this.testService.getExercise(this.lessonGroupId, this.learningGoalId).subscribe({
-      next: (value) => {
-        this.exerciseContent = value;
-        this.exerciseSubmission.testId = value.id;
-        this.exerciseProgress = Progress.from(0, this.exerciseContent.questions.length);
-      },
-    });
-    this.source.subscribe({
-      next: (e) => {
-        console.log(e.key);
-
-        if (this.tabIndex == 1) {
-          const question = this.exerciseContent.questions[this.currentExerciseIndex];
-          const answers = question.answers;
-          const currentSubmitDataLength = Object.keys(this.exerciseSubmission.submitData).length;
-          if (['1', '2', '3', '4'].includes(e.key)) {
-            this.exerciseSubmission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
-
-            if (currentSubmitDataLength != Object.keys(this.exerciseSubmission.submitData).length) {
-              this.exerciseProgress.next();
-            }
-          }
-          if (e.key == ' ') {
-            if (currentSubmitDataLength == this.exerciseContent.questions.length) {
-              this.exerciseComplete()
-            }
-            else {
-              if (this.exerciseProgress.value > this.currentExerciseIndex) {
-                this.currentExerciseIndex++;
-              }
-            }
-          }
-        }
-      },
+      }
     });
   }
 
@@ -299,22 +272,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.testService.submitTest(this.testSubmission).subscribe({
       next: (result) => {
         this.testResult = result;
-        // const topicWrongQuestions = this.testResult.result.topicWrongQuestions;
-        // const selectedAnswers = this.testResult.review.selectedAnswers;
-        // const rightAnswers = this.testResult.review.rightAnswers;
-        // this.testReviewRenderObject = Object.keys(topicWrongQuestions).map((topicId) => {
-        //   const questions = this._getTestQuestionsFromIds(topicWrongQuestions[topicId]).map((question) => {
-        //     return {
-        //       'content': question.content,
-        //       'selected': question.answers.filter((answer) => selectedAnswers.includes(answer.id))[0].content,
-        //       'right': question.answers.filter((answer) => rightAnswers.includes(answer.id))[0].content,
-        //     };
-        //   })
-        //   return {
-        //     'topic': this._getTopicNameFromId(topicId),
-        //     'questions': questions,
-        //   };
-        // })
       },
       error: () => {
         // TODO: Define error resposes
@@ -367,28 +324,14 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   exerciseComplete() {
-    if (this.exerciseProgress.value < this.exerciseContent.questions.length) return;
+    console.log(this);
+
+    if (this.exerciseProgress.value < this.exerciseContent.questions.length || this.exerciseResult != undefined) return;
     this.loading.show();
     this.exerciseSubmission.end = new Date();
     this.testService.submitTest(this.exerciseSubmission).subscribe({
       next: (result) => {
         this.exerciseResult = result;
-        // const topicWrongQuestions = this.exerciseResult.result.topicWrongQuestions;
-        // const selectedAnswers = this.exerciseResult.review.selectedAnswers;
-        // const rightAnswers = this.exerciseResult.review.rightAnswers;
-        // this.exerciseReviewRenderObject = Object.keys(topicWrongQuestions).map((topicId) => {
-        //   const questions = this._getExerciseQuestionsFromIds(topicWrongQuestions[topicId]).map((question) => {
-        //     return {
-        //       'content': question.content,
-        //       'selected': question.answers.filter((answer) => selectedAnswers.includes(answer.id))[0].content,
-        //       'right': question.answers.filter((answer) => rightAnswers.includes(answer.id))[0].content,
-        //     };
-        //   })
-        //   return {
-        //     'topic': this._getTopicNameFromId(topicId),
-        //     'questions': questions,
-        //   };
-        // });
       },
       error: () => {
         // TODO: Define error resposes
@@ -452,24 +395,16 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.loadContent(lessonIndex);
   }
 
-  // pre() {
-  //   if (this.selectedLessonIndex > 0)
-  //     this.loadContent(this.selectedLessonIndex - 1);
-  // }
-
-  // next() {
-  //   if (this.selectedLessonIndex < this.lessonIdsList.length - 1)
-  //     this.loadContent(this.selectedLessonIndex + 1);
-  // }
-
   redoExercise() {
     this.exerciseResult = undefined;
     this.exerciseProgress = Progress.from(0, this.exerciseContent.questions.length);
     this.currentExerciseIndex = 0;
+    this.exerciseSubmission = new Submission();
+    this.exerciseSubmission.testId = this.exerciseContent.id;
   }
 
   ngOnDestroy(): void {
-    if (this.interval !== undefined) this.interval.unsubscribe();
+    if (this.interval != undefined) this.interval.unsubscribe();
   }
 
   closeTutorPopup() {

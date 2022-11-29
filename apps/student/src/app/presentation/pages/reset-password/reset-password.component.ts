@@ -8,11 +8,11 @@ import {
   ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { AccountStandaloneService } from '../../../infrastructure/auth/account.service';
-import { LoadingOverlayService } from '../../../infrastructure/loading-overlay.service';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '../../../utils/validators';
-import { AppPath } from '../../routes';
+import { AccountStandaloneService } from '@infrastructure/auth/account.service';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { AppPath } from '@presentation/routes';
+import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
 @Component({
   selector: 'student-asd',

@@ -5,9 +5,9 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { UserService } from '../../../infrastructure/user/user.service';
-import { AppPath } from '../../routes';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { UserService } from '@infrastructure/user/user.service';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   selector: 'student-top-menu',

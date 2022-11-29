@@ -1,10 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import Balance from '@infrastructure/order/balance';
 import { OrderService } from '@infrastructure/order/order.service';
 import { Package } from '@infrastructure/order/package';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../routes';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './package-page.component.html',

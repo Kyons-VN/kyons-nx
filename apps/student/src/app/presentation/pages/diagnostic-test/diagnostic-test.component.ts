@@ -1,20 +1,20 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import {
   LessonCategory,
   LessonGroup
-} from '../../../infrastructure/knowledge/lesson';
-import { Program } from '../../../infrastructure/knowledge/program';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { Submission } from '../../../infrastructure/test/submission';
+} from '@infrastructure/knowledge/lesson';
+import { Program } from '@infrastructure/knowledge/program';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { Submission } from '@infrastructure/test/submission';
 import {
   TestContent,
   TestResult
-} from '../../../infrastructure/test/test-content';
-import { TestService } from '../../../infrastructure/test/test.service';
-import { UserService } from '../../../infrastructure/user/user.service';
-import { AppPath } from '../../routes';
+} from '@infrastructure/test/test-content';
+import { TestService } from '@infrastructure/test/test.service';
+import { UserService } from '@infrastructure/user/user.service';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   selector: 'student-diagnostic-test',

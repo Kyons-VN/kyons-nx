@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Question, TestContent } from '../../../infrastructure/models/test-content';
-import { StudentService } from '../../../infrastructure/student.service';
+import { Question, TestContent } from '@infrastructure/models/test-content';
+import { StudentService } from '@infrastructure/student.service';
 
 @Component({
   templateUrl: './test-result.component.html',

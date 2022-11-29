@@ -1,9 +1,9 @@
 <div class="flex w-full h-full justify-center p-6 md:p-11">
   <div class="flex flex-col w-full max-w-[894px] gap-6">
     <h2>Tài khoản Kyons</h2>
-    <div class="flex gap-6 items-start">
-      <div class="md:w-1/4 bg-white rounded-md p-6">
-        <ul class="flex flex-col gap-2">
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+      <div class="hidden md:flex w-1/4 bg-white rounded-md p-6">
+        <ul class="flex flex-col gap-2 w-full">
           <li
             (click)="activeTab = 0"
             class="flex w-full items-center justify-between h-6 cursor-pointer"
@@ -32,7 +32,11 @@
           </li> -->
         </ul>
       </div>
-      <div *ngIf="activeTab === 0" class="flex flex-col gap-2 md:w-3/4 bg-white rounded-md p-6">
+      <select class="w-full md:hidden" [(ngModel)]="activeTab" (ngModelChange)="onSelectTab($event)">
+        <option value="0"><span>Tài khoản của bạn</span></option>
+        <option value="1"><span>Lịch sử giao dịch</span></option>
+      </select>
+      <div *ngIf="activeTab === 0" class="flex flex-col gap-2 w-full md:w-3/4 bg-white rounded-md p-6">
         <h5>Tài khoản của bạn</h5>
         <div class="flex items-center justify-between w-full">
           <strong>Tiền trong tài khoản</strong>
@@ -51,7 +55,7 @@
           <a class="btn btn-small" [routerLink]="paths.package">Mua thêm</a>
         </div>
       </div>
-      <div *ngIf="activeTab === 1" class="flex flex-col gap-6 md:w-3/4 bg-white rounded-md p-6">
+      <div *ngIf="activeTab === 1" class="flex flex-col gap-6 w-full md:w-3/4 bg-white rounded-md p-6">
         <h5>Lịch sử giao dịch</h5>
         <div class="flex flex-col gap-2">
           <div class="flex flex-col gap-2" *ngFor="let tran of transactions.list; index as i">

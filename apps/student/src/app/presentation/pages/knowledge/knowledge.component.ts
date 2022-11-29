@@ -1,6 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../routes';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './knowledge.component.html',

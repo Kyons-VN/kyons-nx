@@ -2,8 +2,8 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormControlStatus } from '../../../../app/helper/form';
-import { AuthService } from '../../../infrastructure/auth/auth.service';
-import { AuthCredential } from '../../../infrastructure/auth/credential';
+import { AuthService } from '@infrastructure/auth/auth.service';
+import { AuthCredential } from '@infrastructure/auth/credential';
 
 @Component({
   selector: 'tutor-sign-in',

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
-import { StudentTest } from '../../../infrastructure/models/student';
-import { StudentService } from '../../../infrastructure/student.service';
+import { StudentTest } from '@infrastructure/models/student';
+import { StudentService } from '@infrastructure/student.service';
 
 export interface LearningPathTable {
   name: string;

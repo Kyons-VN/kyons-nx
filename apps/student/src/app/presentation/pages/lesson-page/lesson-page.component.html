@@ -119,11 +119,17 @@
             (progressEvent)="updateExerciseProgress($event)"
             (submissionEvent)="updateExerciseSubmission($event)"
             [currentIndex]="currentExerciseIndex"
+            (currentIndexEvent)="currentExerciseIndex = $event"
+            [isActive]="tabIndex === 1"
+            (completeCallback)="exerciseComplete()"
             class="test-height"
           ></student-test-content>
         </div>
-        <div class="w-full flex mt-2" *ngIf="exerciseContent !== undefined">
-          <span class="flex-1"></span>
+        <div class="w-full flex items-center justify-between mt-2" *ngIf="exerciseContent !== undefined">
+          <div class="flex flex-col">
+            <strong class="uppercase">Phím tắt:</strong>
+            <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
+          </div>
           <button
             (click)="currentExerciseIndex = currentExerciseIndex + 1"
             [disabled]="exerciseProgress.value <= currentExerciseIndex"
@@ -245,11 +251,17 @@
             (progressEvent)="updateTestProgress($event)"
             (submissionEvent)="updateTestSubmission($event)"
             [currentIndex]="currentTestIndex"
+            (currentIndexEvent)="currentTestIndex = $event"
+            [isActive]="this.tabIndex === 2"
+            (completeCallback)="testComplete()"
             class="test-height"
           ></student-test-content>
         </div>
-        <div class="w-full flex mt-2" *ngIf="testContent !== undefined">
-          <span class="flex-1"></span>
+        <div class="w-full flex items-center justify-between mt-2" *ngIf="testContent !== undefined">
+          <div class="flex flex-col">
+            <strong class="uppercase">Phím tắt:</strong>
+            <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
+          </div>
           <button
             (click)="currentTestIndex = currentTestIndex + 1"
             [disabled]="testProgress.value < currentTestIndex + 1"

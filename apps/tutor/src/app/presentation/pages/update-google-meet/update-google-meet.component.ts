@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../infrastructure/user.service';
+import { UserService } from '@infrastructure/user.service';
 
 @Component({
   templateUrl: './update-google-meet.component.html',

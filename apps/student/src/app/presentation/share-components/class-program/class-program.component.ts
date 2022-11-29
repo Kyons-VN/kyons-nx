@@ -65,7 +65,7 @@ export class ClassProgramComponent implements OnInit {
             if (inventory.mockTest > 0) {
               this.testService.getLearningGoal(this.selectedProgram).subscribe({
                 next: (data) => {
-                  this.router.navigate([this.paths.mockTestSelect, data[0].id]);
+                  this.router.navigate([this.paths.mockTestSelect.replace(':id', data[0].id)]);
                 },
               });
             }

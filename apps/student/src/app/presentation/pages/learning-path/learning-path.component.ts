@@ -9,17 +9,17 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from '@infrastructure/knowledge/category';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import LearningGoal from '@infrastructure/knowledge/learning-goal';
 import { LearningGoalCategory, LearningGoalPath } from '@infrastructure/knowledge/learning-goal-path';
+import { LessonItem } from '@infrastructure/knowledge/lesson';
+import { LessonService } from '@infrastructure/knowledge/lesson.service';
+import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { UserService } from '@infrastructure/user/user.service';
+import { AppPath } from '@presentation/routes';
 import { Subscription } from 'rxjs';
-import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
-import { LessonItem } from '../../../infrastructure/knowledge/lesson';
-import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
-import { Program } from '../../../infrastructure/knowledge/program';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { UserService } from '../../../infrastructure/user/user.service';
-import { AppPath } from '../../routes';
 
 @Component({
   templateUrl: './learning-path.component.html',

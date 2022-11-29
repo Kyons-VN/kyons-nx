@@ -6,7 +6,7 @@ import Inventory from '@infrastructure/order/inventory';
 import { OrderService } from '@infrastructure/order/order.service';
 import { TransactionList } from '@infrastructure/order/transaction';
 import { AppPath } from '@presentation/routes';
-// import { AppPath } from '../../routes';
+// import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './account-page.component.html',
@@ -78,5 +78,11 @@ export class AccountPageComponent implements OnInit {
 
   getActivities() {
     this.activeTab = 2;
+  }
+
+  onSelectTab(newValue: string) {
+    console.log(newValue);
+    this.activeTab = parseInt(newValue);  // don't forget to update the model here
+    // ... do other stuff here ...
   }
 }

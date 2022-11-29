@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { requestStatusDisplay } from '../../../helper/display';
-import { StudentRequest } from '../../../infrastructure/models/student';
-import { StudentService } from '../../../infrastructure/student.service';
+import { StudentRequest } from '@infrastructure/models/student';
+import { StudentService } from '@infrastructure/student.service';
 
 export interface HelpTable {
   name: string;

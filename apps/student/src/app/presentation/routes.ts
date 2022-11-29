@@ -10,6 +10,7 @@ import { LearningPathComponent } from './pages/learning-path/learning-path.compo
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
 import { MockTestSelectProgramComponent } from './pages/mock-test/select-program/select-program.component';
 import { SelectTopicComponent } from './pages/mock-test/select-topic/select-topic.component';
+import { MockTestShareComponent } from './pages/mock-test/share/share.component';
 import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.component';
 import { NewLessonPageComponent } from './pages/new-lesson-page/new-lesson-page.component';
 import { NewUserComponent } from './pages/new-user/new-user.component';
@@ -48,8 +49,9 @@ class AppPath {
   account = '/account/';
   package = '/account/package/';
   mockTest = '/mock-test/';
-  mockTestSelect = '/mock-test/select/';
-  mockTestTest = '/mock-test/test/';
+  mockTestSelect = '/mock-test/:id/select/';
+  mockTestTest = '/mock-test/:id/test/';
+  mockTestShare = '/mock-test/:id/share/';
   newUser = '/new-user/';
 }
 
@@ -65,8 +67,17 @@ const routes: Routes = [
     path: 'mock-test',
     children: [
       { path: '', component: MockTestSelectProgramComponent },
+      {
+        path: ':id', children: [
+          { path: 'select', component: SelectTopicComponent },
+          { path: 'test', component: MockTestTestComponent },
+          { path: 'share', component: MockTestShareComponent },
+
+        ]
+      },
       { path: 'select/:id', component: SelectTopicComponent },
       { path: 'test/:id', component: MockTestTestComponent },
+      { path: 'share/:id', component: MockTestShareComponent },
     ],
     canActivate: [AuthGuard],
   },

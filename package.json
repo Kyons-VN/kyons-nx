@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
-    "start": "nx serve",
+    "start": "nx serve --host=127.0.0.1",
     "build": "nx build",
     "test": "nx test"
   },
@@ -26,7 +26,7 @@
     "mydatepicker": "^2.6.11",
     "ng-circle-progress": "^1.6.0",
     "ngx-drag-scroll": "^14.0.1",
-    "ngx-lottie": "^9.0.0",
+    "ngx-lottie": "^9.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",

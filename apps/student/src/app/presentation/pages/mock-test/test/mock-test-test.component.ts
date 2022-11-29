@@ -10,6 +10,7 @@ import { TestContent, TestResult } from '@infrastructure/test/test-content';
 import { TestService } from '@infrastructure/test/test.service';
 import { AppPath } from '@presentation/routes';
 import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
+import { fromEvent, Observable } from 'rxjs';
 
 @Component({
   templateUrl: './mock-test-test.component.html',
@@ -18,6 +19,7 @@ import { Progress } from '@presentation/share-components/questions-progress/ques
 export class MockTestTestComponent implements OnInit {
   paths: AppPath;
   selectedProgram;
+  source: Observable<KeyboardEvent>;
   constructor(private route: ActivatedRoute,
     navService: NavigationService, private testService: TestService,
     private loading: LoadingOverlayService,
@@ -25,22 +27,27 @@ export class MockTestTestComponent implements OnInit {
   ) {
     this.paths = navService.paths;
     this.selectedProgram = knowledgeService.getSelectedProgram();
+    this.source = fromEvent<KeyboardEvent>(document, 'keyup');
   }
 
   learningGold!: LearningGoal;
-  progress = new Progress();
+  testProgress = new Progress();
   isTitleHidden = false;
   testContent!: TestContent;
-  submission = new Submission();
+  testSubmission = new Submission();
   isTest = false;
-  testResult!: TestResult;
+  testResult: TestResult | undefined;
   reviewRenderObject: any[] = [];
   resultRenderObject: any[] = [];
   lessonGroup!: LessonGroup;
   userType!: string;
   isSubmitting = false;
-  currentIndex = 0;
+  currentTestIndex = 0;
   progressString = '';
+  hasError = '';
+  complete = false;
+  testReviewRenderObject: any[] = [];
+  testResultRenderObject: any[] = [];
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -51,49 +58,102 @@ export class MockTestTestComponent implements OnInit {
     this.learningGold = LearningGoal.fromJson({ id: learningGoalId, name: learningGoalName });
     this.testService.getMockTest(this.learningGold.id).subscribe({
       next: (value) => {
+        if (value.done == true) this.complete = true;
         this.testContent = value;
-        this.submission.testId = this.testContent.id;
-        this.progress.label = `0/${value.questions.length}`;
+        this.testSubmission.testId = this.testContent.id;
+        this.testProgress = Progress.from(0, value.questions.length);
       },
       complete: () => {
-        if (this.isTest) {
-          this.testContent.questions.map((question) => {
-            question.answers.map((answer, j) => {
-              if (j === 0) this.submission.submitData[question.id] = answer.id;
-            });
+        if (this.complete) {
+          this.testService.getTestResult(learningGoalId).subscribe({
+            next: (value) => {
+              this.testResult = value;
+            },
+            complete: () => {
+              const topicWrongQuestions =
+                this.testResult?.result.topicWrongQuestions ?? {};
+              const selectedAnswers =
+                this.testResult?.review.selectedAnswers ?? [];
+              const rightAnswers = this.testResult?.review.rightAnswers ?? [];
+              this.testReviewRenderObject = Object.keys(topicWrongQuestions).map(
+                (topicId) => {
+                  const questions = this._getTestQuestionsFromIds(
+                    topicWrongQuestions[topicId]
+                  ).map((question) => {
+                    return {
+                      content: question.content,
+                      selected: question.answers.filter((answer) =>
+                        selectedAnswers.includes(answer.id)
+                      )[0].content,
+                      right: question.answers.filter((answer) =>
+                        rightAnswers.includes(answer.id)
+                      )[0].content,
+                    };
+                  });
+                  return {
+                    topic: this._getTopicNameFromId(topicId),
+                    questions: questions,
+                  };
+                }
+              );
+              this.testResultRenderObject = Object.keys(
+                this.testResult?.result.categories ?? []
+              ).map((catId) => {
+                const totalQuestionOfCategory =
+                  this.testResult?.result.maxScore[catId] ?? 0;
+                return {
+                  name: this.lessonGroup.lessonCategories.find(
+                    (lG) => lG.category.id == catId
+                  )?.category.name,
+                  score: Math.round(
+                    ((this.testResult?.result.categories[catId] ?? 0) * 100) /
+                    totalQuestionOfCategory
+                  ),
+                };
+              });
+            },
           });
         }
-        const lessonInfos = this.testContent.questions.map(
-          (question) =>
-            new LessonCategory({
-              category: question.category,
-              topic: question.topic,
-              lessons: [],
+        else {
+          if (this.isTest) {
+            this.testContent.questions.map((question) => {
+              question.answers.map((answer, j) => {
+                if (j === 0) this.testSubmission.submitData[question.id] = answer.id;
+              });
+            });
+          }
+          const lessonInfos = this.testContent.questions.map(
+            (question) =>
+              new LessonCategory({
+                category: question.category,
+                topic: question.topic,
+                lessons: [],
+              })
+          );
+          const lessonInfosMap = new Map(
+            lessonInfos.map((question) => {
+              return [question.topic.id, question];
             })
-        );
-        const lessonInfosMap = new Map(
-          lessonInfos.map((question) => {
-            return [question.topic.id, question];
-          })
-        );
-        const lessonInfosMapArray: LessonCategory[] = [
-          ...lessonInfosMap.values(),
-        ];
+          );
+          const lessonInfosMapArray: LessonCategory[] = [
+            ...lessonInfosMap.values(),
+          ];
 
-        this.lessonGroup = new LessonGroup({
-          id: '',
-          lessonCategories: lessonInfosMapArray,
-        });
+          this.lessonGroup = new LessonGroup({
+            id: '',
+            lessonCategories: lessonInfosMapArray,
+          });
+        }
       },
     });
   }
 
   updateProgress(nextProgress: Progress) {
-    this.progress = nextProgress;
+    this.testProgress = nextProgress;
   }
 
   updateSubmission(nextSubmission: Submission) {
-    this.submission.submitData = nextSubmission.submitData;
+    this.testSubmission.submitData = nextSubmission.submitData;
   }
 
   round(value: number) {
@@ -103,15 +163,14 @@ export class MockTestTestComponent implements OnInit {
   testComplete() {
     this.isSubmitting = true;
     this.loading.show();
-    this.submission.end = new Date();
-    this.testService.submitTest(this.submission).subscribe({
+    this.testSubmission.end = new Date();
+    this.testService.submitTest(this.testSubmission).subscribe({
       next: (result) => {
         this.testResult = result;
-      },
-      complete: () => {
         const topicWrongQuestions = this.testResult.result.topicWrongQuestions;
         const selectedAnswers = this.testResult.review.selectedAnswers;
         const rightAnswers = this.testResult.review.rightAnswers;
+        const answerResult = this.testResult.result;
         this.reviewRenderObject = Object.keys(topicWrongQuestions).map(
           (topicId) => {
             const questions = this._getQuestionsFromIds(
@@ -137,17 +196,23 @@ export class MockTestTestComponent implements OnInit {
           this.testResult.result.categories
         ).map((catId, index) => {
           const totalQuestionOfCategory =
-            this.testResult.result.maxScore[catId];
+            answerResult.maxScore[catId];
           return {
             name: this.lessonGroup.lessonCategories.find(
               (lG) => lG.category.id == catId
             )?.category.name,
             score: Math.round(
-              (this.testResult.result.categories[catId] * 100) /
+              (answerResult.categories[catId] * 100) /
               totalQuestionOfCategory
             ),
           };
         });
+        this.loading.hide();
+      },
+      error: (err) => {
+        // TODO: Define error resposes
+        console.log(err);
+        this.hasError = 'Có lỗi, vui lòng thử lại';
         this.loading.hide();
       },
     });
@@ -160,6 +225,10 @@ export class MockTestTestComponent implements OnInit {
   }
 
   _getQuestionsFromIds(questionIds: string[]) {
+    return this.testContent.questions.filter((q) => questionIds.includes(q.id));
+  }
+
+  _getTestQuestionsFromIds(questionIds: string[]) {
     return this.testContent.questions.filter((q) => questionIds.includes(q.id));
   }
 }

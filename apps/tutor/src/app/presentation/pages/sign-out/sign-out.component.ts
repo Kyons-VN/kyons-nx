@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../infrastructure/auth/auth.service';
+import { AuthService } from '@infrastructure/auth/auth.service';
 
 @Component({
   selector: 'tutor-sign-out',

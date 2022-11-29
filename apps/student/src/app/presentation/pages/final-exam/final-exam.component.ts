@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { AppPath } from '@presentation/routes';
-import { UserService } from '../../../infrastructure/user/user.service';
+import { UserService } from '@infrastructure/user/user.service';
 
 @Component({
   selector: 'student-final-exam',

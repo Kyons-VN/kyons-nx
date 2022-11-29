@@ -9,7 +9,7 @@
       <div class="mt-2 flex flex-col gap-1">
         <student-input-radio
           [style.display]="ai > 3 ? 'none' : 'block'"
-          *ngFor="let answer of question.answers | orderBy: 'order'; let ai = index"
+          *ngFor="let answer of question.answers | orderBy : 'order'; let ai = index"
           (change)="updateProgress(getNextProgress(qi)); updateSubmitData(question.id, answer.id)"
           [value]="answer.id"
           [label]="answerPrefixes[ai] + answer.content"

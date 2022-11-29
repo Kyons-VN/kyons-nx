@@ -1,8 +1,8 @@
 import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { TestService } from '../../../infrastructure/test/test.service';
-import { AppPath } from '../../routes';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { TestService } from '@infrastructure/test/test.service';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   selector: 'student-diagnostic-test-decision',

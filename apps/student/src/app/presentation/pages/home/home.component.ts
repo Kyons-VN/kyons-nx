@@ -1,10 +1,10 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { Program } from '@infrastructure/knowledge/program';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { AppPath } from '@presentation/routes';
 import { environment } from '../../../../environments/environment';
-import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
-import { Program } from '../../../infrastructure/knowledge/program';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../routes';
 
 @Component({
   templateUrl: './home.component.html',

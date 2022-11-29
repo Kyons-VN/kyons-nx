@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { TestResult } from '../../../infrastructure/test/test-content';
+import { TestResult } from '@infrastructure/test/test-content';
 
 @Component({
   selector: 'student-score-bar',

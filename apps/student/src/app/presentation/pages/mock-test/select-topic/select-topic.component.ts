@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { Program } from '@infrastructure/knowledge/program';
 import { Topic } from '@infrastructure/knowledge/topic';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { LoadingOverlayService } from '../../../../infrastructure/loading-overlay.service';
-import { NavigationService } from '../../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../../routes';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './select-topic.component.html',
@@ -55,7 +55,7 @@ export class SelectTopicComponent implements OnInit {
       next: (learningGoal) => {
         this.loading.hide();
         this.knowledgeService.selectLearningGoad(learningGoal);
-        this.router.navigate([this.paths.mockTestTest, learningGoal.id]);
+        this.router.navigate([this.paths.mockTestTest.replace(':id', learningGoal.id)]);
       },
     });
   }

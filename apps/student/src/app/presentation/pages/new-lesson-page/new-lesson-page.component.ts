@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { LearningPoint } from '@infrastructure/knowledge/lesson';
+import { LessonService } from '@infrastructure/knowledge/lesson.service';
+import { Program } from '@infrastructure/knowledge/program';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { AppPath } from '@presentation/routes';
 import { uniq } from 'lodash-es';
-import { KnowledgeService } from '../../../infrastructure/knowledge/knowledge.service';
-import { LearningPoint } from '../../../infrastructure/knowledge/lesson';
-import { LessonService } from '../../../infrastructure/knowledge/lesson.service';
-import { Program } from '../../../infrastructure/knowledge/program';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../routes';
 
 @Component({
   selector: 'student-new-lesson-page',

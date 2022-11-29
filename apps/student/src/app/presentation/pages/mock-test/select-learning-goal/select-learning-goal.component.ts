@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import LearningGoal from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { LoadingOverlayService } from '../../../../infrastructure/loading-overlay.service';
-import { NavigationService } from '../../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../../routes';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './select-learning-goal.component.html',

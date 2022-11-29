@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../infrastructure/auth/auth.service';
-import { NavigationService } from '../../../infrastructure/navigation/navigation.service';
-import { AppPath } from '../../routes';
+import { AuthService } from '@infrastructure/auth/auth.service';
+import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { AppPath } from '@presentation/routes';
 
 @Component({
   templateUrl: './sign-out.component.html',
