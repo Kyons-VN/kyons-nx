@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { catchError, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IAuth, IAuthCredential } from '../../domain/auth/auth';
 import { DBHelper } from '../helper/helper';
 import { KnowledgeService } from '../knowledge/knowledge.service';
 import { TrackingService } from '../tracking/tracking.service';
@@ -16,7 +16,7 @@ const USER_ROLE = 'role';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements IAuth {
+export class AuthService implements IAuthService {
   constructor(
     private http: HttpClient,
     private userService: UserService,

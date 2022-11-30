@@ -10,7 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { Category } from '@infrastructure/knowledge/category';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
-import LearningGoal from '@infrastructure/knowledge/learning-goal';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { LearningGoalCategory, LearningGoalPath } from '@infrastructure/knowledge/learning-goal-path';
 import { LessonItem } from '@infrastructure/knowledge/lesson';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
@@ -68,7 +68,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   set selectedCategoryIdMod(newValue) {
     console.log(newValue);
     this.selectedCategoryId = newValue;
-    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
     this.lessons = this.learningGoalCategory.lessons;
     this.knowledgeService.selectCategoryId(this.selectedCategoryId);
 
@@ -107,7 +107,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
           else {
             this.selectedCategoryId = this.categories[0].id;
           }
-          this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+          this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
           this.lessons = this.learningGoalCategory.lessons;
           // if (learningGoalPath.lessonList.length > 0) {
           //   const length = learningGoalPath.lessonList.length;
@@ -204,12 +204,12 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   onCategoryChange(newValue: string) {
     console.log(newValue);
     this.selectedCategoryId = newValue;
-    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategory(this.selectedCategoryId);
+    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
     this.lessons = this.learningGoalCategory.lessons;
   }
 
   showNextStep() {
-    this.unCompletedCategories = this.learningGoalPath.getUncompletedCategories();
+    this.unCompletedCategories = this.learningGoalPath.getUncompletedLearningGoalCategories();
     this.nextStep = true;
   }
 

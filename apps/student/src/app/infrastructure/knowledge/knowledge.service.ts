@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import IKnowledgeService from '@domain/knowledge/i-knowledge-service';
 import { catchError, map, Observable } from 'rxjs';
 import { Subject } from '../../domain/subject/subject';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
-import LearningGoal from './learning-goal';
+import { LearningGoal } from './learning-goal';
 import { Program } from './program';
 
 const SELECTED_PROGRAM_KEY = 'selected_program';
@@ -14,7 +15,7 @@ const SELECTED_CATEGORY_ID = 'selected_category_id';
 @Injectable({
   providedIn: 'root',
 })
-export class KnowledgeService {
+export class KnowledgeService implements IKnowledgeService {
   constructor(private http: HttpClient) { }
 
   getSubjects(): Observable<Subject[]> {
@@ -37,7 +38,7 @@ export class KnowledgeService {
     );
   }
 
-  selectProgram(program: Program) {
+  selectProgram(program: Program): void {
     window.localStorage.setItem(
       SELECTED_PROGRAM_KEY,
       JSON.stringify(program.toJson())
@@ -56,11 +57,11 @@ export class KnowledgeService {
     );
   }
 
-  removeSelectedProgram() {
+  removeSelectedProgram(): void {
     window.localStorage.removeItem(SELECTED_PROGRAM_KEY);
   }
 
-  selectLearningGoad(learningGoal: LearningGoal) {
+  selectLearningGoad(learningGoal: LearningGoal): void {
     window.localStorage.setItem(
       SELECTED_LEARNING_GOAL_KEY,
       JSON.stringify(learningGoal.toJson())
@@ -76,7 +77,7 @@ export class KnowledgeService {
     );
   }
 
-  selectCategoryId(learningGoal: string) {
+  selectCategoryId(learningGoal: string): void {
     window.localStorage.setItem(
       SELECTED_CATEGORY_ID,
       learningGoal

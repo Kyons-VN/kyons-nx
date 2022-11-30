@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import ILessonService from '@domain/knowledge/i-lesson-service';
 import { catchError, map, Observable } from 'rxjs';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
-import LearningGoal from './learning-goal';
+import { LearningGoal } from './learning-goal';
 import { LearningGoalPath } from './learning-goal-path';
 import { LearningPoint, LessonGroup } from './lesson';
 import { Program } from './program';
@@ -11,7 +12,7 @@ import { Program } from './program';
 @Injectable({
   providedIn: 'root',
 })
-export class LessonService {
+export class LessonService implements ILessonService {
   constructor(private http: HttpClient) { }
 
   getList(selectedProgram: Program, selectedLearningGoal: LearningGoal): Observable<LearningGoalPath | Error> {
@@ -19,33 +20,6 @@ export class LessonService {
     return this.http.get<LearningGoalPath>(SERVER_API + '/lesson/list', { params: params }).pipe(
       catchError(DBHelper.handleError('GET lesson_list', [])),
       map((data: any) => {
-        // data = {
-        //   "complete_percentage": 100,
-        //   "categories": [
-        //     {
-        //       "category_id": 1,
-        //       "category_name": "Vocabulary",
-        //       "completed": true,
-        //       "lesson_list": [
-        //         {
-        //           "id": "ea758892a1870a10703d",
-        //           "name": "Unit 2: Personnal Experiences Các họ từ vựng cần nhớ (Word families 1) (English 11)",
-        //           "new": false
-        //         },
-        //         {
-        //           "id": "1c05f2011c1ba32bf197",
-        //           "name": "Unit 4: Volunteer Work Các họ từ vựng cần nhớ (Word families 2) (English 11)",
-        //           "new": false
-        //         },
-        //         {
-        //           "id": "808e1199c490d441340c",
-        //           "name": "Unit 3: A Party Vận dụng từ loại trong câu (Word formation) (English 11)",
-        //           "new": false
-        //         }
-        //       ]
-        //     }
-        //   ]
-        // };
         if (data['new_user']) {
           return Error('new_user');
         }

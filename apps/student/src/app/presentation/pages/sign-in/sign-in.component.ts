@@ -65,7 +65,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binhhm2009+1116@gmail.com');
+      this.email.setValue('binhhm2009+1124ai@gmail.com');
       this.password.setValue('Zaq1@wsx');
     }
     if (this.signInForm.untouched) {

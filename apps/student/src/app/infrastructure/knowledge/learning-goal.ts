@@ -1,6 +1,7 @@
+import { ILearningGoal } from "@domain/knowledge/I-learning-goal";
 import pick from "lodash-es/pick";
 
-export default class LearningGoal {
+class LearningGoal implements ILearningGoal {
   id: string;
   name: string;
   constructor({ id, name }: { id: string, name: string }) {
@@ -12,7 +13,7 @@ export default class LearningGoal {
 
   static fromJson(dataObject: any): LearningGoal {
     const _ = pick(dataObject, ['id', 'name']);
-    
+
     return new LearningGoal(_);
   }
 
@@ -27,3 +28,6 @@ export default class LearningGoal {
     };
   }
 }
+
+export { LearningGoal };
+

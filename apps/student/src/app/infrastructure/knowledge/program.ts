@@ -1,6 +1,6 @@
 import { pick } from 'lodash-es';
 import { IProgram } from '../../domain/knowledge/i-program';
-import LearningGoal from './learning-goal';
+import { LearningGoal } from './learning-goal';
 
 class Program implements IProgram {
   id: string;

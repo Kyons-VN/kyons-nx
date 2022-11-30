@@ -1,7 +1,8 @@
+import { ILearningGoalCategory, ILearningGoalPath } from "@domain/knowledge/i-learning-goal-path";
 import pick from "lodash-es/pick";
 import { Category } from "./category";
 import { LessonItem } from "./lesson";
-export class LearningGoalPath {
+export class LearningGoalPath implements ILearningGoalPath {
   progress: number;
   lessonCategories: LearningGoalCategory[];
   constructor({ progress, lessonCategories }: { progress: number, lessonCategories: LearningGoalCategory[] }) {
@@ -22,16 +23,16 @@ export class LearningGoalPath {
     return this.lessonCategories.map((l) => l.category);
   }
 
-  getUncompletedCategories() {
+  getUncompletedLearningGoalCategories() {
     return this.lessonCategories.filter((l) => !l.isCompleted);
   }
 
-  getLearningGoalCategory(categoryId: string) {
+  getLearningGoalCategoryById(categoryId: string) {
     return this.lessonCategories.filter((lGC) => lGC.category.id == categoryId)[0];
   }
 }
 
-export class LearningGoalCategory {
+export class LearningGoalCategory implements ILearningGoalCategory {
   isCompleted = false;
   category: Category;
   lessons: LessonItem[];

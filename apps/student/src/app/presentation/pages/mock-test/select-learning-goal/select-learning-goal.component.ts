@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
-import LearningGoal from '@infrastructure/knowledge/learning-goal';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import LearningGoal from '@infrastructure/knowledge/learning-goal';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Topic } from '@infrastructure/knowledge/topic';
 import { catchError, map, Observable } from 'rxjs';
 import { SERVER_API } from '../auth/interceptor';

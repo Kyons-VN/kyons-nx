@@ -1,4 +1,4 @@
-interface IAuth {
+interface IAuthService {
   signIn: (credential: IAuthCredential) => void;
   signOut: () => void;
 }
@@ -9,5 +9,5 @@ interface IAuthCredential {
   toJson: () => { [key: string]: any };
 }
 
-export { IAuth, IAuthCredential };
+export { IAuthService, IAuthCredential };
 

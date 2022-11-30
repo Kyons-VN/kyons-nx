@@ -1,4 +1,4 @@
-import { IAuthCredential } from '../../../app/domain/auth/auth';
+import { IAuthCredential } from '@domain/auth/i-auth-service';
 
 export class AuthCredential implements IAuthCredential {
   email: string;
