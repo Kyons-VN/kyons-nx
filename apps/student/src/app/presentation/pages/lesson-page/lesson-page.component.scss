@@ -25,9 +25,8 @@
     background-position: right center;
   }
   .max-height {
-    height: calc(100vh - 9.5rem);
+    height: calc(100vh - 12rem);
     .max-height-item {
-      max-height: calc(100vh - 15rem);
       overflow: auto;
     }
   }

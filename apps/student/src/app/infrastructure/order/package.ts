@@ -30,6 +30,7 @@ class Package {
     const _ = pick(dataObject, ['id', 'name', 'description', 'discount', 'limit', 'items', 'price', 'salePrice']);
     _.discount = Discount.fromJson(dataObject);
     _.price = parseInt(_.price);
+    _.limit = dataObject['limit'] ?? 99;
     _.salePrice = parseInt(dataObject['sale_price']);
     _.items = dataObject['package_items'].map((itemObject: any) => PackageItem.fromJson(itemObject));
     return new Package(_);

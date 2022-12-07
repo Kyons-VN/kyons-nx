@@ -22,7 +22,7 @@ export class PackagePageComponent implements OnInit {
   }
 
   packages: Package[] = [];
-  hasError = '';
+  errorMessage = '';
   step = 0;
   selectedPackage!: Package;
   quantity = 1;
@@ -30,22 +30,26 @@ export class PackagePageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("init PackagePageComponent");
-    this.orderService.getBalance().subscribe({
-      next: (balance: Balance) => {
-        this.balance = balance;
-      },
-      error: (err) => {
-        // TODO: Define error resposes
-        this.hasError = 'Có lỗi, vui lòng thử lại';
-      }
-    });
+    this.getBalance();
     this.orderService.getPackages().subscribe({
       next: (packages: Package[]) => {
         this.packages = packages;
       },
       error: (err) => {
         // TODO: Define error resposes
-        this.hasError = 'Có lỗi, vui lòng thử lại';
+        this.errorMessage = 'Có lỗi, vui lòng thử lại';
+      }
+    });
+  }
+
+  getBalance() {
+    this.orderService.getBalance().subscribe({
+      next: (balance: Balance) => {
+        this.balance = balance;
+      },
+      error: (err) => {
+        // TODO: Define error resposes
+        this.errorMessage = 'Có lỗi, vui lòng thử lại';
       }
     });
   }
@@ -61,18 +65,30 @@ export class PackagePageComponent implements OnInit {
     this.orderService.orderPackage(this.selectedPackage.id, this.quantity).subscribe({
       next: (res) => {
         console.log(res);
-        if (res === 'OK') {
-          this.step = 3
-        }
+        this.step = 2;
+        this.getBalance();
         this.loading.hide();
       },
       error: (err) => {
         // TODO: Define error resposes
-        this.hasError = 'Có lỗi, vui lòng thử lại';
-        this.step = 2;
+        if (err.error_code == 'BalanceLow') {
+          this.errorMessage = 'Tài khoản của bạn hiện không đủ số dư để thanh toán. Vui lòng nạp thêm tiền vào Kyons';
+        }
+        else if (err.error_code == 'OverLimit') {
+          this.errorMessage = `Bạn chỉ có thể mua tối đa ${this.selectedPackage.limit} gói`;
+        }
+        else {
+          this.errorMessage = 'Có lỗi, vui lòng thử lại';
+        }
+        this.step = 3;
         this.loading.hide();
       }
     });
+  }
+
+  close() {
+    this.step = 0;
+    this.quantity = 1;
   }
 
 }

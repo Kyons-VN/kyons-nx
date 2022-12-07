@@ -16,7 +16,8 @@
         "inlineStyleLanguage": "scss",
         "assets": ["apps/student/src/favicon.ico", "apps/student/src/assets"],
         "styles": ["apps/student/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["lottie-web"]
       },
       "configurations": {
         "production": {

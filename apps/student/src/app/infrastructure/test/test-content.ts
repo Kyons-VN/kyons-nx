@@ -5,7 +5,8 @@ import {
   IAnswerReview,
   IQuestion,
   ITestContent,
-  ITestResult
+  ITestResult,
+  TestType
 } from '../../domain/knowledge/i-test';
 import { Category } from '../knowledge/category';
 import { Topic } from '../knowledge/topic';
@@ -174,27 +175,41 @@ class TestResult implements ITestResult {
   score: number;
   result: AnswerResult;
   review: AnswerReview;
+  ordinalNumber: number;
+  type: TestType;
+
   constructor({
     score,
     result,
     review,
+    type,
+    ordinalNumber,
   }: {
     score: number;
     result: AnswerResult;
     review: AnswerReview;
+    type: TestType;
+    ordinalNumber: number;
   }) {
     this.score = score;
     this.result = result;
     this.review = review;
+    this.ordinalNumber = ordinalNumber;
+    this.type = type;
   }
+
   static fromJson({
     total_score,
     result,
     review,
+    type,
+    order_number,
   }: {
     total_score: number;
     result: any[];
     review: any;
+    type: string;
+    order_number: number;
   }): TestResult {
     const maxScore = result.reduce(
       (pre: { [key: string]: number }, element: { [key: string]: any }) => {
@@ -261,9 +276,16 @@ class TestResult implements ITestResult {
       score: total_score,
       result: answerResult,
       review: answerReview,
+      type: <TestType>TestType[type as keyof typeof TestType],
+      ordinalNumber: order_number,
     });
+  }
+
+  isFirst() {
+    return this.ordinalNumber == 1;
   }
 }
 
 const answerPrefixes = ['A. ', 'B. ', 'C. ', 'D. ', 'E. ', 'F. '];
 export { TestContent, answerPrefixes, TestResult, AnswerResult };
+

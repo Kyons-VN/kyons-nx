@@ -134,6 +134,12 @@ $student-theme: mat.define-light-theme(
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@layer base {
+  :root,
+  ::after {
+    --color-primaryBlue: #2c3d5b;
+  }
+}
 
 @import 'apps/student/src/app/presentation/assets/scss/font.scss';
 @import 'apps/student/src/app/presentation/assets/scss/material.scss';

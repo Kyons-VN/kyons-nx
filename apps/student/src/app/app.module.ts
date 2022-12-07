@@ -8,7 +8,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
-import player from 'lottie-web/esm/lottie';
+import player from 'lottie-web/build/player/lottie_light';
 import { LottieModule } from 'ngx-lottie';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

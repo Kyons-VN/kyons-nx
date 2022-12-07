@@ -87,10 +87,11 @@ export class OrderService implements IOrderServicce {
         params
       )
       .pipe(
-        catchError(DBHelper.handleError('POST orderPackage')),
+        // catchError(DBHelper.handleError('POST orderPackage')),
         map((res: any) => {
-          if (res.success) return 'OK';
-          return '';
+          return res;
+          //   if (res.success) return 'OK';
+          //   return '';
         })
       );
   }

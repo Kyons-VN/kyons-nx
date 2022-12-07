@@ -78,7 +78,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }// else this.redirectToHome();
         }
         console.log(errorMsg);
-        return throwError(() => new Error(error.error));
+        return throwError(() => error.error);
       })
     );
   }

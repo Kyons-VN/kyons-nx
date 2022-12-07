@@ -31,7 +31,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private authService: AccountStandaloneService,
+    private accountService: AccountStandaloneService,
     navService: NavigationService,
     private loading: LoadingOverlayService
   ) {
@@ -120,7 +120,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
-    this.authService.requestResetPassword(this.email.value).subscribe({
+    this.accountService.requestResetPassword(this.email.value).subscribe({
       next: (res) => {
         console.log(res);
         this.step = 1;
@@ -146,7 +146,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
-    this.authService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
+    this.accountService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
       next: () => {
         this.step = 2;
         this.processing = false;

@@ -144,27 +144,41 @@
         <div class="h7">{{ selectedPackage.name }}</div>
         <div class="flex flex-col gap-1">
           <span>Số lượng</span>
-          <input type="number" name="quantity" id="" min="1" max="99" [(ngModel)]="quantity" />
-          <span *ngIf="quantity === 0 || quantity > 99" class="text-red-0 text-sm">Số lượng không đúng</span>
+          <input type="number" name="quantity" min="1" [max]="selectedPackage.limit" [(ngModel)]="quantity" />
+          <span *ngIf="quantity <= 0" class="text-red-0 text-sm">Số lượng tối thiểu là 1</span>
+          <span *ngIf="quantity > selectedPackage.limit" class="text-red-0 text-sm"
+            >Bạn chỉ có thể mua tối đa {{ selectedPackage.limit }} gói</span
+          >
         </div>
         <div class="flex flex-row justify-between">
           <strong>Tổng giá tiền</strong>
-          <strong>{{ quantity * selectedPackage.salePrice | currency: 'VND':'code':'1.0-2':'vi' }}</strong>
+          <strong>{{ quantity * selectedPackage.salePrice | currency : 'VND' : 'code' : '1.0-2' : 'vi' }}</strong>
         </div>
       </div>
       <div class="flex flex-row justify-between">
-        <button (click)="step = 0" class="btn-rounded">Hủy</button>
-        <button (click)="orderPackage()" class="btn" [disabled]="quantity === 0 || quantity > 99">Xác nhận</button>
+        <button (click)="close()" class="btn-rounded">Hủy</button>
+        <button (click)="orderPackage()" class="btn" [disabled]="quantity === 0 || quantity > selectedPackage.limit">
+          Xác nhận
+        </button>
       </div>
     </div>
   </div>
   <div *ngIf="step === 2" class="flex items-center justify-center fixed z-10 w-full h-full top-0 left-0 bg-black/50">
     <div class="flex flex-col w-[400px] bg-white rounded-lg p-8 gap-6">
       <div class="flex flex-col gap-2">
-        <div class="h7">Không thể mua gói!</div>
-        <span>Tài khoản của bạn hiện không đủ số dư để thanh toán. Vui lòng nạp thêm tiền vào Kyons</span>
+        <div class="h7">Mua gói thành công!</div>
+        <span>Bạn vừa mua {{ selectedPackage.name }}</span>
       </div>
-      <button (click)="step = 0" class="btn">Đóng thông báo</button>
+      <button (click)="close()" class="btn">Đóng thông báo</button>
+    </div>
+  </div>
+  <div *ngIf="step === 3" class="flex items-center justify-center fixed z-10 w-full h-full top-0 left-0 bg-black/50">
+    <div class="flex flex-col w-[400px] bg-white rounded-lg p-8 gap-6">
+      <div class="flex flex-col gap-2">
+        <div class="h7">Không thể mua gói!</div>
+        <span>{{ errorMessage }}</span>
+      </div>
+      <button (click)="close()" class="btn">Đóng thông báo</button>
     </div>
   </div>
 </div>

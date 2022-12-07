@@ -26,10 +26,18 @@ interface IAnswer {
   content: string;
 }
 
+enum TestType {
+  Mock, Lesson, Exercise
+}
+
 interface ITestResult {
   score: number;
   result: IAnswerResult;
   review: IAnswerReview;
+  ordinalNumber: number;
+  type: TestType;
+
+  isFirst: () => boolean;
 }
 
 interface IAnswerResult {
@@ -51,6 +59,8 @@ export {
   IQuestion,
   IAnswer,
   ITestResult,
+  TestType,
   IAnswerResult,
   IAnswerReview,
 };
+

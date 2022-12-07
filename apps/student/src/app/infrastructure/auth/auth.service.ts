@@ -28,7 +28,7 @@ export class AuthService implements IAuthService {
     return this.http
       .post(SERVER_API + '/auth/sign_in', credential.toJson())
       .pipe(
-        catchError(DBHelper.handleError('POST sign_in', null)),
+        catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
         map((data: any) => {
           if (TOKEN_KEY in data && REFRESH_TOKEN_KEY in data) {
             if (data[USER_ROLE] !== environment.name)

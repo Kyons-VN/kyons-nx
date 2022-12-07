@@ -207,6 +207,7 @@ export class MockTestTestComponent implements OnInit {
             ),
           };
         });
+        this.testResult.isFirst();
         this.loading.hide();
       },
       error: (err) => {

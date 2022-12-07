@@ -120,13 +120,13 @@ class LearningPoint implements ILearningPoint {
 
 class LessonGroup implements ILessonGroup {
   id: string;
-  lessonCategories: ILessonCategory[];
+  lessonCategories: LessonCategory[];
   constructor({
     id,
     lessonCategories,
   }: {
     id: string;
-    lessonCategories: ILessonCategory[];
+    lessonCategories: LessonCategory[];
   }) {
     this.id = id;
     this.lessonCategories = lessonCategories;

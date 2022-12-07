@@ -6,8 +6,10 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
-import { Lesson, LessonGroup } from '@infrastructure/knowledge/lesson';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
+import { Lesson, LessonCategory, LessonGroup } from '@infrastructure/knowledge/lesson';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
+import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { Submission } from '@infrastructure/test/submission';
@@ -20,7 +22,8 @@ import { TutorService } from '@infrastructure/tutor/tutor.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { AppPath } from '@presentation/routes';
 import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
-import { delay } from 'lodash-es';
+// import * as _ from 'lodash';
+import { delay, range } from 'lodash-es';
 import { forkJoin, interval, Subscription } from 'rxjs';
 import {
   ConfirmDialogComponent,
@@ -32,9 +35,10 @@ import {
   styleUrls: ['./lesson-page.component.scss'],
 })
 export class LessonPageComponent implements OnInit, OnDestroy {
-  @HostBinding('class') class = 'h-full';
+  @HostBinding('class') class = 'h-full flex flex-col';
   paths: AppPath;
-  learningGoalId: string;
+  learningGoal: LearningGoal;
+  program: Program;
   constructor(
     private route: ActivatedRoute,
     private lessonService: LessonService,
@@ -48,7 +52,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   ) {
     this.paths = navService.paths;
     this.userType = userService.getUserType();
-    this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
+    this.learningGoal = knowledgeService.getSelectedLearningGoal();
+    this.program = knowledgeService.getSelectedProgram();
   }
 
   selectedLessonIndex = 0;
@@ -58,6 +63,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   confirm = false;
   lessonGroupId!: string;
   lessonGroup!: LessonGroup;
+  lessonCategory!: LessonCategory;
   tabIndex = 0;
   testProgress = new Progress();
   exerciseProgress = new Progress();
@@ -92,6 +98,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   userType: string;
   currentExerciseIndex = 0;
   currentTestIndex = 0;
+  starsOfDifficulty = range(5);
+  emptyStars = range(0);
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -112,6 +120,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
           this.lessonsList = this.lessonGroup.lessonCategories
             .map((lessonCat) => lessonCat.lessons)
             .reduce((acc, next) => acc.concat(next));
+          this.lessonCategory = this.lessonGroup.lessonCategories[0];
           this.lessonIdsList = this.lessonsList.map((lesson) => lesson.id);
           this.loadContent(0);
         },
@@ -119,8 +128,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.testSubmission = new Submission();
     this.exerciseSubmission = new Submission();
     const join = {
-      getTest: this.testService.getTest(this.lessonGroupId, this.learningGoalId),
-      getExercise: this.testService.getExercise(this.lessonGroupId, this.learningGoalId),
+      getTest: this.testService.getTest(this.lessonGroupId, this.learningGoal.id),
+      getExercise: this.testService.getExercise(this.lessonGroupId, this.learningGoal.id),
     };
     forkJoin(join).subscribe(({
       getTest,
@@ -189,12 +198,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
-
-  reset(): void {
-    // this.testProgress.value = 0;
-    // this.testProgress.label = '';
-    // this.exerciseProgress.label = '';
   }
 
   requestTutor(learningPointId: string) {
@@ -388,6 +391,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
     this.selectedLessonIndex = lessonIndex;
     this.selectedLesson = this.lessonsList[lessonIndex];
     this.selectedLessonContent = this.selectedLesson.content;
+    this.starsOfDifficulty = range(this.selectedLesson.difficultyLevel);
+    this.emptyStars = range(5 - this.selectedLesson.difficultyLevel);
   }
 
   loadContentFromLessonId(lessonId: string) {

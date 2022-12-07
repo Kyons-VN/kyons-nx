@@ -19,7 +19,7 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { AppPath } from '@presentation/routes';
-import { Subscription } from 'rxjs';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './learning-path.component.html',
@@ -83,9 +83,9 @@ export class LearningPathComponent implements OnInit, OnDestroy {
       this.router.navigate([this.paths.home]);
       return;
     }
-    // const requestInterval = interval(5000);
+    const requestInterval = interval(5000);
     this._getLlearningGoalPath();
-    // this.interval = requestInterval.subscribe(() => this.getList());
+    this.interval = requestInterval.subscribe(() => this._getLlearningGoalPath());
   }
 
   _getLlearningGoalPath() {
@@ -109,6 +109,8 @@ export class LearningPathComponent implements OnInit, OnDestroy {
           }
           this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
           this.lessons = this.learningGoalCategory.lessons;
+          this.selectedLearningGoal.progress = this.learningGoalPath.progress;
+          this.knowledgeService.selectLearningGoad(this.selectedLearningGoal);
           // if (learningGoalPath.lessonList.length > 0) {
           //   const length = learningGoalPath.lessonList.length;
           //   if (

@@ -9,11 +9,6 @@
     "tutor-e2e": "apps/tutor-e2e"
   },
   "build": {
-    "builder": "@angular-devkit/build-angular:browser",
-    "options": {
-      "allowedCommonJsDependencies": [
-        "lottie-web"
-      ]
-    }
+    "builder": "@angular-devkit/build-angular:browser"
   }
 }
