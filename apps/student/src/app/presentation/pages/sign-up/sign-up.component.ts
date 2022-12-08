@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
     Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/)
   ]);
   step = 0;
-  showPassword = false;
+  showPassword = true;
   processing = false;
   errorMessage = '';
 

@@ -51,13 +51,13 @@
             placeholder="Nhập mật khẩu"
             formControlName="password"
           />
-          <div
+          <button
             (click)="showPassword = !showPassword"
             class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
           >
-            <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
-            <i *ngIf="!showPassword" class="icon-Visibility"></i>
-          </div>
+            <i tabindex="1" *ngIf="showPassword" class="icon-VisibilityOff"></i>
+            <i tabindex="1" *ngIf="!showPassword" class="icon-Visibility"></i>
+          </button>
         </div>
         <div class="h-1"></div>
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">

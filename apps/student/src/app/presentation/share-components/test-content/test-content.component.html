@@ -5,7 +5,7 @@
       class="mb-4 absolute"
       [ngClass]="{'block ': qi === currentIndex, 'hidden ': qi !== currentIndex}"
     >
-      <p class="h7">{{ qi + 1 }}. <span [innerHTML]="question.content"></span></p>
+      <p><span [innerHTML]="question.content"></span></p>
       <div class="mt-2 flex flex-col gap-1">
         <student-input-radio
           [style.display]="ai > 3 ? 'none' : 'block'"

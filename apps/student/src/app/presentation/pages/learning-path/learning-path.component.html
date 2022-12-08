@@ -11,7 +11,7 @@
         <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
       </select>
       <div class="flex flex-col flex-1">
-        <div class="h8">Tiến trình học</div>
+        <div class="h8">{{ selectedLearningGoal.name }}</div>
         <div class="flex gap-4 items-center w-full">
           <div class="progress-container flex-1">
             <div class="progressing" [ngStyle]="{width: learningGoalPath.progress + '%'}"></div>
