@@ -1,5 +1,6 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { LessonCategory, LessonGroup } from '@infrastructure/knowledge/lesson';
@@ -21,16 +22,18 @@ export class MockTestTestComponent implements OnInit {
   selectedProgram;
   source: Observable<KeyboardEvent>;
   constructor(private route: ActivatedRoute,
+    private router: Router,
     navService: NavigationService, private testService: TestService,
     private loading: LoadingOverlayService,
     knowledgeService: KnowledgeService,
+    private clipboard: Clipboard,
   ) {
     this.paths = navService.paths;
     this.selectedProgram = knowledgeService.getSelectedProgram();
     this.source = fromEvent<KeyboardEvent>(document, 'keyup');
   }
 
-  learningGold!: LearningGoal;
+  learningGoal!: LearningGoal;
   testProgress = new Progress();
   isTitleHidden = false;
   testContent!: TestContent;
@@ -48,6 +51,9 @@ export class MockTestTestComponent implements OnInit {
   complete = false;
   testReviewRenderObject: any[] = [];
   testResultRenderObject: any[] = [];
+  isSharing = false;
+  shareLink = '';
+  isCopied = false;
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -55,8 +61,8 @@ export class MockTestTestComponent implements OnInit {
     });
     const learningGoalId = this.route.snapshot.paramMap.get('id') ?? '';
     const learningGoalName = this.route.snapshot.paramMap.get('name') ?? '';
-    this.learningGold = LearningGoal.fromJson({ id: learningGoalId, name: learningGoalName });
-    this.testService.getMockTest(this.learningGold.id).subscribe({
+    this.learningGoal = LearningGoal.fromJson({ id: learningGoalId, name: learningGoalName });
+    this.testService.getMockTest(this.learningGoal.id).subscribe({
       next: (value) => {
         if (value.done == true) this.complete = true;
         this.testContent = value;
@@ -65,54 +71,57 @@ export class MockTestTestComponent implements OnInit {
       },
       complete: () => {
         if (this.complete) {
-          this.testService.getTestResult(learningGoalId).subscribe({
-            next: (value) => {
-              this.testResult = value;
-            },
-            complete: () => {
-              const topicWrongQuestions =
-                this.testResult?.result.topicWrongQuestions ?? {};
-              const selectedAnswers =
-                this.testResult?.review.selectedAnswers ?? [];
-              const rightAnswers = this.testResult?.review.rightAnswers ?? [];
-              this.testReviewRenderObject = Object.keys(topicWrongQuestions).map(
-                (topicId) => {
-                  const questions = this._getTestQuestionsFromIds(
-                    topicWrongQuestions[topicId]
-                  ).map((question) => {
-                    return {
-                      content: question.content,
-                      selected: question.answers.filter((answer) =>
-                        selectedAnswers.includes(answer.id)
-                      )[0].content,
-                      right: question.answers.filter((answer) =>
-                        rightAnswers.includes(answer.id)
-                      )[0].content,
-                    };
-                  });
-                  return {
-                    topic: this._getTopicNameFromId(topicId),
-                    questions: questions,
-                  };
-                }
-              );
-              this.testResultRenderObject = Object.keys(
-                this.testResult?.result.categories ?? []
-              ).map((catId) => {
-                const totalQuestionOfCategory =
-                  this.testResult?.result.maxScore[catId] ?? 0;
-                return {
-                  name: this.lessonGroup.lessonCategories.find(
-                    (lG) => lG.category.id == catId
-                  )?.category.name,
-                  score: Math.round(
-                    ((this.testResult?.result.categories[catId] ?? 0) * 100) /
-                    totalQuestionOfCategory
-                  ),
-                };
-              });
-            },
-          });
+
+          alert('Bài kiểm tra đã làm rồi');
+          this.router.navigate([this.paths.mockTest]);
+          // this.testService.getTestResult('lesson', learningGoalId).subscribe({
+          //   next: (value) => {
+          //     this.testResult = value;
+          //   },
+          //   complete: () => {
+          //     const topicWrongQuestions =
+          //       this.testResult?.result.topicWrongQuestions ?? {};
+          //     const selectedAnswers =
+          //       this.testResult?.review.selectedAnswers ?? [];
+          //     const rightAnswers = this.testResult?.review.rightAnswers ?? [];
+          //     this.testReviewRenderObject = Object.keys(topicWrongQuestions).map(
+          //       (topicId) => {
+          //         const questions = this._getTestQuestionsFromIds(
+          //           topicWrongQuestions[topicId]
+          //         ).map((question) => {
+          //           return {
+          //             content: question.content,
+          //             selected: question.answers.filter((answer) =>
+          //               selectedAnswers.includes(answer.id)
+          //             )[0].content,
+          //             right: question.answers.filter((answer) =>
+          //               rightAnswers.includes(answer.id)
+          //             )[0].content,
+          //           };
+          //         });
+          //         return {
+          //           topic: this._getTopicNameFromId(topicId),
+          //           questions: questions,
+          //         };
+          //       }
+          //     );
+          //     this.testResultRenderObject = Object.keys(
+          //       this.testResult?.result.categories ?? []
+          //     ).map((catId) => {
+          //       const totalQuestionOfCategory =
+          //         this.testResult?.result.maxScore[catId] ?? 0;
+          //       return {
+          //         name: this.lessonGroup.lessonCategories.find(
+          //           (lG) => lG.category.id == catId
+          //         )?.category.name,
+          //         score: Math.round(
+          //           ((this.testResult?.result.categories[catId] ?? 0) * 100) /
+          //           totalQuestionOfCategory
+          //         ),
+          //       };
+          //     });
+          //   },
+          // });
         }
         else {
           if (this.isTest) {
@@ -207,7 +216,7 @@ export class MockTestTestComponent implements OnInit {
             ),
           };
         });
-        this.testResult.isFirst();
+        if (this.testResult.canShare()) this.shareLink = this.testResult.getShareableMockTestLink();
         this.loading.hide();
       },
       error: (err) => {
@@ -217,6 +226,12 @@ export class MockTestTestComponent implements OnInit {
         this.loading.hide();
       },
     });
+  }
+
+  copy() {
+    this.clipboard.copy(this.shareLink);
+    this.isCopied = true;
+    setTimeout(() => { this.isCopied = false }, 1000)
   }
 
   _getTopicNameFromId(topicId: string) {

@@ -2,9 +2,9 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from '@domain/subject/subject';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import Inventory from '@infrastructure/order/inventory';
 import { OrderService } from '@infrastructure/order/order.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { AppPath } from '@presentation/routes';
@@ -14,6 +14,7 @@ enum SubmitType {
 }
 
 const emptyProgramObject = Program.empty();
+const emptyLearningGoalObject = LearningGoal.empty();
 
 @Component({
   selector: 'student-class-program',
@@ -38,10 +39,11 @@ export class ClassProgramComponent implements OnInit {
   selectedSubject: null | Subject = null;
   emptyProgram = emptyProgramObject;
   selectedProgram = emptyProgramObject;
-  selectedTarget: null | string = null;
+  emptyLearningGoal = emptyLearningGoalObject;
+  selectedTarget = emptyLearningGoalObject;
   subjects!: Subject[];
   programs: Program[] = [];
-  targets: string[] = ['mục tiêu 1', 'mục tiêu 2', 'mục tiêu 3', 'mục tiêu 4'];
+  targets: LearningGoal[] = [];
   hasError = '';
 
   ngOnInit(): void {
@@ -56,28 +58,63 @@ export class ClassProgramComponent implements OnInit {
     this.selectedProgram = emptyProgramObject;
   }
 
+  changeProgram() {
+    this.selectedTarget = emptyLearningGoalObject;
+    this.testService.getLearningGoal(this.selectedProgram).subscribe({
+      next: (data) => {
+        this.targets = data;
+        // 
+      },
+      error: (err) => {
+        if (err.error_code == 'RanOutMockTest') {
+          this.hasError = 'RanOutMockTest';
+        }
+        else {
+
+          this.hasError = 'Có lỗi, vui lòng thử lại';
+        }
+      }
+    });
+    // this.orderService.getInventories().subscribe({
+    //   next: (inventory: Inventory) => {
+    //     if (inventory.mockTest > 0) {
+    //     }
+    //     else {
+    //       this.hasError = 'LowBalance';
+    //     }
+    //   },
+    //   error: (err) => {
+    //     // TODO: Define error resposes
+    //     this.hasError = 'Có lỗi, vui lòng thử lại';
+    //   }
+    // });
+  }
+
   submit() {
     if (this.selectedProgram != null) {
       this.knowledgeService.selectProgram(this.selectedProgram);
+      this.knowledgeService.selectLearningGoad(this.selectedTarget);
       if (this.type == SubmitType.mock_test) {
-        this.orderService.getInventories().subscribe({
-          next: (inventory: Inventory) => {
-            if (inventory.mockTest > 0) {
-              this.testService.getLearningGoal(this.selectedProgram).subscribe({
-                next: (data) => {
-                  this.router.navigate([this.paths.mockTestSelect.replace(':id', data[0].id)]);
-                },
-              });
-            }
-            else {
-              this.hasError = 'LowBalance';
-            }
-          },
-          error: (err) => {
-            // TODO: Define error resposes
-            this.hasError = 'Có lỗi, vui lòng thử lại';
-          }
-        });
+        this.router.navigate([this.paths.mockTestSelect.replace(':id', this.selectedTarget.id)]);
+        // this.orderService.getInventories().subscribe({
+        //   next: (inventory: Inventory) => {
+        //     if (inventory.mockTest > 0) {
+        //       this.testService.getLearningGoal(this.selectedProgram).subscribe({
+        //         next: (data) => {
+        //           this.targets = data;
+        //           // 
+        //         },
+        //       });
+        //     }
+        //     else {
+        //       this.hasError = 'LowBalance';
+        //     }
+        //   },
+        //   error: (err) => {
+        //     // TODO: Define error resposes
+        //     this.hasError = 'Có lỗi, vui lòng thử lại';
+        //   }
+        // });
       }
     }
   }

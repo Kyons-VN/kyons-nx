@@ -25,7 +25,9 @@
       "@presentation/*": ["apps/student/src/app/presentation/*"],
       "@infrastructure/*": ["apps/student/src/app/infrastructure/*"],
       "@domain/*": ["apps/student/src/app/domain/*"],
-      "@utils/*": ["apps/student/src/app/utils/*"]
+      "@utils/*": ["apps/student/src/app/utils/*"],
+      "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@environments/*": ["apps/student/src/environments/*"]
     }
   },
   "angularCompilerOptions": {

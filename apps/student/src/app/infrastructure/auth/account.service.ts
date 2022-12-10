@@ -16,12 +16,17 @@ export class AccountStandaloneService {
   }
 
   // signUp({ email, firstName, lastName, password }: { email: string, firstName: string, lastName: string, password: string }) {
-  signUp(email: string, firstName: string, lastName: string, password: string) {
+  signUp(email: string, firstName: string, lastName: string, password: string, ref?: any) {
+    const params: any = { 'email': email, 'family_name': lastName, 'given_name': firstName, 'password': password };
+    if (ref) {
+      params['referral'] = {
+        'mocktest_referral': ref
+      };
+    }
     return this.http.post(
       SERVER_API + '/auth/sign_up',
-      { 'email': email, 'family_name': lastName, 'given_name': firstName, 'password': password },
+      params,
     );
-
   }
 
   requestResetPassword(email: string) {

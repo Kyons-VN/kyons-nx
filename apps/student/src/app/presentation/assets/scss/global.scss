@@ -119,6 +119,14 @@ a:not(.btn):not(.btn-rounded):not(.no-underline):not(.menu-item) {
   line-height: 100%;
 }
 
+.btn.btn-large,
+.btn-rounded.btn-large {
+  @apply p-5 h-12;
+
+  font-size: 0.875rem;
+  line-height: 100%;
+}
+
 select {
   @apply bg-white border border-blueGrey-400 rounded-md;
 }
@@ -169,6 +177,9 @@ input[type='radio']:checked + label span {
 
 input[type='radio']:checked + label {
   @apply text-lightBlue-1;
+}
+input:read-only {
+  @apply border-blueGrey-300 text-blueGrey-400;
 }
 
 p {

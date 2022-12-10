@@ -1,13 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@infrastructure/auth/auth.service';
 import { AuthCredential } from '@infrastructure/auth/credential';
+import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
+import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { AppPath } from '@presentation/routes';
@@ -15,6 +21,8 @@ import { FormControlStatus } from '@utils/form';
 import { environment } from '../../../../environments/environment';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
@@ -26,6 +34,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
     private router: Router,
     private navService: NavigationService,
     private loading: LoadingOverlayService,
+    private knowledgeService: KnowledgeService,
 
   ) {
     this.paths = navService.paths;
@@ -81,14 +90,25 @@ export class SignInComponent implements OnInit, AfterViewInit {
           next: (result: any) => {
             if (result.success) {
               console.log('redirect_after_auth', result.redirect_after_auth);
-              const redirectPath = this.navService.getRouteAfterLogin(
+              let redirectPath = this.navService.getRouteAfterLogin(
                 result.redirect_after_auth
               );
               console.log('redirectPath', redirectPath);
+              const selectedProgram = result.program ? Program.fromJson(result.program) : null;
+              if (selectedProgram) {
+                if (result.learning_goal) {
+                  selectedProgram.learningGoal = LearningGoal.fromJson(result.learning_goal)
+                }
+                this.knowledgeService.selectProgram(selectedProgram);
+              }
+              const learningGoal = selectedProgram ? selectedProgram.learningGoal : null;
 
               setTimeout(() => {
                 this.processing = false;
                 this.loading.hide();
+                if (redirectPath == this.paths.mockTestTest) {
+                  if (learningGoal) { redirectPath = redirectPath.replace(':id', learningGoal.id) }
+                }
                 this.router.navigate([redirectPath]);
               }, 600);
             } else {

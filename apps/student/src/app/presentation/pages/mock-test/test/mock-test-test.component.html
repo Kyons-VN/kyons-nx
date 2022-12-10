@@ -1,9 +1,9 @@
-<div class="flex flex-col" *ngIf="hasError === ''">
+<div class="flex flex-col" *ngIf="hasError === '' && !isSharing">
   <div *ngIf="!testResult && testContent" class="flex w-full h-full justify-center p-6 md:p-11">
     <div class="flex flex-col w-full max-w-[894px] gap-6">
       <h2>Bài kiểm tra</h2>
       <div class="rounded-lg p-6 flex flex-col gap-6 bg-white items-start">
-        <div class="h8">Mục tiêu của bạn: {{ learningGold.name }}</div>
+        <div class="h8">Mục tiêu của bạn: {{ learningGoal.name }}</div>
         <student-questions-progress class="w-full" [progress]="testProgress"></student-questions-progress>
         <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_32rem)] overflow-auto">
           <student-test-content
@@ -110,6 +110,7 @@
               >Đến giáo trình</a
             >
             <a class="btn-rounded" [routerLink]="">Gửi thử thách</a> -->
+            <button *ngIf="testResult.canShare()" class="btn-rounded" (click)="isSharing = true">Gửi thử thách</button>
             <a class="btn-rounded" [routerLink]="paths.mockTest">Tạo mục tiêu mới</a>
             <a class="btn primary w-48" [routerLink]="paths.learningPath">Đến giáo trình</a>
           </div>
@@ -124,24 +125,43 @@
     </div>
   </div>
 </div>
-<!-- <div *ngIf="showShare" class="flex flex-col w-full h-full items-center justify-start p-6 md:p-11">
+<div *ngIf="isSharing" class="flex flex-col w-full h-full items-center justify-start p-6 md:p-11">
   <div class="flex flex-col w-full md:w-1/2 gap-6 items-center">
-    <img src="assets/images/The personalized road.svg" class="w-[150px] h-[150px]" />
+    <img src="assets/images/Invite Friend.svg" class="w-[150px] h-[150px]" />
     <div class="flex flex-col bg-white rounded-lg p-6 gap-6">
-      <h4>Sẽ ra sao nếu đây là bài kiểm tra thật?</h4>
+      <h4>Chia sẻ thử thách nhận quà!</h4>
       <div class="">
-        <p>Chắc chắn bạn sẽ không thể Undo hay ctrl+Z làm lại được rồi.</p>
+        <p>Bạn có thể chia sẻ các bài kiểm tra với bạn bè và mời họ cùng tham gia Kyons.</p>
+        <ul class="list-disc pl-6">
+          <li>
+            Với mỗi email đăng ký và kích hoạt thành công, bạn sẽ được tặng
+            <strong>1 bài kiểm tra và 36 giờ học không tính phí</strong>.
+          </li>
+          <li>
+            Từ email thứ 6 đăng ký thành công, bạn sẽ nhận được
+            <strong>1 tuần học miễn phí và 1 gói tư vấn cùng gia sư</strong> (tối đa 30 phút)
+          </li>
+        </ul>
+        <p></p>
         <p>
-          Nhưng với Kyons, bạn có thể học và làm lại bài đến khi không mắc lỗi đó ở bài thi thật nữa! Bài học ngắn gọn,
-          bài tập chọn lọc và một lộ trình học được Kyons thiết kế dựa trên mục tiêu học tập của riêng bạn đang chờ ở
-          phía trước.
+          <strong>Lưu ý:</strong> chương trình chia sẻ thử thách chỉ có giá trị với các bạn nhận thử thách mà chưa có
+          tài khoản Kyons.
         </p>
-        <p>Còn chần chừ gì mà chưa học cùng Kyons nào!</p>
+      </div>
+      <div class="relative w-full">
+        <input class="w-full pr-8" type="text" readonly="readonly" [value]="shareLink" /><button
+          class="absolute top-2 right-2"
+          (click)="copy()"
+        >
+          <i class="icon-Duplicate text-blueGrey-400"></i>
+        </button>
+        <div class="absolute right-5 top-[-0.25rem]">
+          <div *ngIf="isCopied" class="mat-tooltip left mat-tooltip-show">Copied</div>
+        </div>
       </div>
       <div class="flex flex-col gap-2">
-        <button class="btn">Học thử 7 ngày hoàn toàn miễn phí</button>
-        <button class="btn" [routerLink]="paths.package">Mua gói học tập ưu đãi giới hạn</button>
+        <button (click)="isSharing = false" class="btn">Trở lại kết quả bài kiểm tra</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>

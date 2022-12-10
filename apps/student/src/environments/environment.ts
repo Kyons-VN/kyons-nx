@@ -7,6 +7,7 @@ export const environment = {
   name: 'STUDENT',
   isPromotionEnable: false,
   serverApi: 'https://api-stg.tuhoconline.org',
+  origin: 'https://kyonsvn.web.app/student/#',
 };
 
 /*

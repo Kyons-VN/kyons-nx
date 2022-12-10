@@ -2,7 +2,7 @@
   <div class="flex flex-col w-full max-w-[894px] gap-6">
     <h2>Chọn nội dung</h2>
     <div class="rounded-lg p-6 flex flex-col gap-6 bg-white items-start">
-      <span>Bạn hãy chọn từ 3 đến 4 bài để ôn luyện nhé</span>
+      <span>Bạn hãy chọn từ {{ selectedTarget.minTopic }} đến {{ selectedTarget.maxTopic }} bài để ôn luyện nhé</span>
       <!-- <button class="btn-rounded">
         <span class="flex items-center gap-2"
           ><i class="icon-ArrowLeft"></i> Chọn tất cả <i class="icon-ArrowRight"></i
@@ -16,7 +16,11 @@
       </div>
       <div class="flex-1"></div>
       <div class="self-end">
-        <button (click)="submit()" [disabled]="checkedCount < 3 || checkedCount > 4" class="btn">
+        <button
+          (click)="submit()"
+          [disabled]="checkedCount < (selectedTarget.minTopic ?? 3) || checkedCount > (selectedTarget.maxTopic ?? 4)"
+          class="btn"
+        >
           Làm bài kiểm tra
         </button>
       </div>

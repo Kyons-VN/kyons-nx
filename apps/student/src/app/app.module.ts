@@ -29,7 +29,6 @@ import { PackagePageComponent } from './presentation/pages/package-page/package-
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './presentation/pages/profile/profile.component';
 import { RatingTutorComponent } from './presentation/pages/rating-tutor/rating-tutor.component';
-import { SignInComponent } from './presentation/pages/sign-in/sign-in.component';
 import { SignOutComponent } from './presentation/pages/sign-out/sign-out.component';
 import { TestComponent } from './presentation/pages/test/test.component';
 import { AppInputComponent } from './presentation/share-components/app-input/app-input.component';
@@ -57,7 +56,6 @@ import localeVN from '@angular/common/locales/vi';
 import { SelectLearningGoalComponent } from '@presentation/pages/mock-test/select-learning-goal/select-learning-goal.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
 import { MockTestSelectProgramComponent } from './presentation/pages/mock-test/select-program/select-program.component';
-import { MockTestShareComponent } from './presentation/pages/mock-test/share/share.component';
 import { NewUserComponent } from './presentation/pages/new-user/new-user.component';
 
 registerLocaleData(localeVN, 'vi');
@@ -66,7 +64,6 @@ registerLocaleData(localeEN, 'en');
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
     HomeComponent,
     TopMenuComponent,
     SubjectCardComponent,
@@ -100,10 +97,6 @@ registerLocaleData(localeEN, 'en');
     SelectLearningGoalComponent,
     SelectTopicComponent,
     NewUserComponent,
-    MockTestShareComponent,
-    // Pipes
-    // OrderByPipe,
-    // KeysPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

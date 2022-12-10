@@ -69,7 +69,7 @@ export class KnowledgeService implements IKnowledgeService {
   }
 
   getSelectedLearningGoal(): LearningGoal {
-    return LearningGoal.fromJson(
+    return new LearningGoal(
       JSON.parse(
         window.localStorage.getItem(SELECTED_LEARNING_GOAL_KEY) ??
         JSON.stringify(LearningGoal.empty().toJson())

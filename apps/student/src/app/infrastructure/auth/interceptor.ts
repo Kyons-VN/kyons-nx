@@ -34,7 +34,7 @@ export class AuthInterceptor implements HttpInterceptor {
     let authReq = req;
     const token = this.auth.getToken();
     const contentType = req.headers.get('Content-Type') ?? 'application/json';
-    if (token !== null) {
+    if (token !== '') {
       authReq = req.clone({
         headers: req.headers
           .set(TOKEN_HEADER_KEY, 'Bearer ' + token)
@@ -54,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.auth.removeToken();
             const refreshToken = this.auth.getRefreshToken();
             if (refreshToken && refreshToken !== 'undefined') {
-              const result = lastValueFrom(
+              lastValueFrom(
                 this.auth.refreshToken(refreshToken)
               ).then((value) => {
                 console.log(value);

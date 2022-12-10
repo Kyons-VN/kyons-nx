@@ -5,9 +5,11 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { AppPath } from '@presentation/routes';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'student-top-menu',
@@ -17,10 +19,13 @@ import { AppPath } from '@presentation/routes';
 export class TopMenuComponent implements OnInit {
   showSubmenu = false;
   paths: AppPath;
+  show = true;
   constructor(
     private userService: UserService,
     private renderer: Renderer2,
-    navService: NavigationService
+    navService: NavigationService,
+    private route: ActivatedRoute,
+    router: Router,
   ) {
     /**
      * This events get called by all clicks on the page
@@ -35,12 +40,25 @@ export class TopMenuComponent implements OnInit {
        * the menu and button the condition abbove must close the menu
        */
       if (
+        this.toggleButton != undefined &&
         e.target !== this.toggleButton.nativeElement &&
         e.target !== this.menu.nativeElement
       ) {
         this.showSubmenu = false;
       }
     });
+
+    router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    )
+      .subscribe((event) => {
+        if ((event as NavigationEnd).urlAfterRedirects.indexOf('/sign-in') == 0 || (event as NavigationEnd).urlAfterRedirects.indexOf('/sign-up') == 0 || (event as NavigationEnd).urlAfterRedirects.indexOf('/share-mocktest') == 0) {
+          this.show = false;
+        }
+        else {
+          this.show = true;
+        }
+      });
   }
 
   /**

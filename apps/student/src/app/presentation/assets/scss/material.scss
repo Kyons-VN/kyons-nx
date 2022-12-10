@@ -42,7 +42,7 @@ body .mat-tooltip {
     overflow: initial;
     margin-left: 1rem;
     &:after {
-      left: -0.75rem;
+      left: -0.7rem;
       top: calc(50% - 0.25rem);
       transform: rotate(270deg);
     }
@@ -52,7 +52,7 @@ body .mat-tooltip {
     overflow: initial;
     margin-right: 1rem;
     &:after {
-      right: -0.75rem;
+      right: -0.7rem;
       top: calc(50% - 0.25rem);
       transform: rotate(90deg);
     }

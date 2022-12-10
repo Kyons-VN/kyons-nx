@@ -1,1 +1,42 @@
-<p>share works!</p>
+<div class="flex flex-col md:flex-row h-full bg-primaryBlue items-center justify-center">
+  <div *ngIf="!showForLoggedInUser" class="flex flex-col w-full md:w-1/2 gap-6 items-center">
+    <img src="assets/images/logo-v.svg" class="w-[150px] h-[150px]" />
+    <div *ngIf="fromUsername" class="flex flex-col bg-white rounded-lg p-6 gap-6">
+      <div class="flex flex-row items-center justify-center">
+        <h4 class="flex-1">Điểm số của {{ fromUsername }} khi thực hiện bài kiểm tra</h4>
+        <div class="rounded-[50%] w-[90px] h-[90px] flex items-center justify-center text-white bg-lightBlue-1">
+          <h5>{{ score }}/10</h5>
+        </div>
+      </div>
+      <div class="">
+        <p>{{ fromUsername }} đã tạo một mục tiêu học tập là {{ learningGoal.name }}</p>
+        <p>
+          Điểm bài kiểm tra khảo sát của bạn ấy là {{ score }}/10 và mời bạn cùng tham gia học {{ learningGoal.name }}
+        </p>
+        <ul class="list-disc pl-6">
+          <li>
+            Nếu bạn chấp nhận thử thách, bạn sẽ thực hiện bài kiểm tra tương tự và ôn tập cùng nội dung với bạn của
+            mình.
+          </li>
+          <li>Hoặc bạn tự tạo mục tiêu học tập và thực hiện bài kiểm tra của riêng bạn.</li>
+        </ul>
+        <p></p>
+        <p>
+          <strong>Lưu ý:</strong>
+        </p>
+        <span>Bạn chỉ có thể chấp nhận thử thách và tham gia game này khi bạn chưa có tài khoản Kyons.</span>
+      </div>
+      <div class="flex flex-row gap-2">
+        <button (click)="acceptChalenge()" class="btn btn-large flex-1">Chấp nhận thử thách</button>
+        <button (click)="createNewLearningGoal()" class="btn btn-large flex-1">Tự tạo mục tiêu riêng</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showForLoggedInUser" class="w-[400px] flex flex-col rounded-lg bg-white p-8">
+    <div class="h7">Thử thách chỉ dành cho các bạn chưa có tài khoản</div>
+    <div class="h-2"></div>
+    <span>Bạn đã có tài khoản và không thể tham gia chương trình</span>
+    <div class="h-6"></div>
+    <button class="btn" (click)="showForLoggedInUser = false">Đóng thông báo</button>
+  </div>
+</div>

@@ -100,6 +100,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   currentTestIndex = 0;
   starsOfDifficulty = range(5);
   emptyStars = range(0);
+  subscriptionExpired = false;
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -124,6 +125,12 @@ export class LessonPageComponent implements OnInit, OnDestroy {
           this.lessonIdsList = this.lessonsList.map((lesson) => lesson.id);
           this.loadContent(0);
         },
+        error: (err) => {
+          console.log(err);
+          if (err.error_code == 'SubscriptionExpired') {
+            this.subscriptionExpired = true;
+          }
+        }
       });
     this.testSubmission = new Submission();
     this.exerciseSubmission = new Submission();
@@ -148,7 +155,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
 
       if (getTest.done == true) {
         this.complete = true;
-        this.testService.getTestResult(this.lessonGroupId).subscribe({
+        this.testService.getTestResult('lesson', this.lessonGroupId).subscribe({
           next: (value) => {
             this.testResult = value;
           },

@@ -36,8 +36,11 @@ interface ITestResult {
   review: IAnswerReview;
   ordinalNumber: number;
   type: TestType;
+  shareReferral?: string;
 
   isFirst: () => boolean;
+  canShare: () => boolean;
+  getShareableMockTestLink?: () => string;
 }
 
 interface IAnswerResult {

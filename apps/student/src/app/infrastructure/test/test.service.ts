@@ -41,8 +41,8 @@ export class TestService {
       );
   }
 
-  getTestResult(lessonId: string): Observable<TestResult> {
-    const params = new HttpParams().set('lesson_id', lessonId);
+  getTestResult(type: string, id: string): Observable<TestResult> {
+    const params = new HttpParams().set(`${type}_id`, id);
     return this.http.get(SERVER_API + '/test/result', { params: params }).pipe(
       catchError(DBHelper.handleError('GET get_test_result', [])),
       map((dataObject: any) => {
@@ -98,7 +98,7 @@ export class TestService {
       .get<LearningGoal[]>(SERVER_API + '/students/learning_goal/list', { params: params })
       // .get<LearningGoal[]>(SERVER_API + '/lesson/list', { params: params })
       .pipe(
-        catchError(DBHelper.handleError('GET getLearningGoals', [])),
+        // catchError(DBHelper.handleError('GET getLearningGoals', [])),
         map((collections: any) => {
           if (collections.length == 0) return [];
           return collections.map((dataObject: any) => LearningGoal.fromJson(dataObject));
@@ -144,6 +144,24 @@ export class TestService {
         catchError(DBHelper.handleError('GET diagnostic_test', [])),
         map((dataObject: any) => {
           return TestContent.fromJson(dataObject);
+        })
+      );
+  }
+
+  getShareMockTestInfoFromRef(ref: string) {
+    return this.http
+      .get(`${SERVER_API}/students/reference/mocktest/${ref}`)
+      .pipe(
+        map(({
+          given_name,
+          total_score,
+          learning_goal
+        }: any) => {
+          return {
+            'fromUsername': given_name,
+            'score': total_score,
+            'learningGoal': LearningGoal.fromJson(learning_goal),
+          };
         })
       );
   }

@@ -3,6 +3,7 @@ enum RedirectAfterLogin {
   DiagnosticTest,
   MockTest,
   LearningPath,
+  ReferralMockTest,
 }
 export { RedirectAfterLogin };
 

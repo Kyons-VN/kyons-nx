@@ -16,11 +16,11 @@ export class AppComponent implements OnInit {
   isAuthenticated = true;
 
   ngOnInit(): void {
-    this.isAuthenticated = this.authService.getToken() !== null;
+    this.isAuthenticated = this.authService.getToken() !== '';
     this.router.events.subscribe((val) => {
       // see also
       if (val instanceof NavigationEnd)
-        this.isAuthenticated = this.authService.getToken() !== null;
+        this.isAuthenticated = this.authService.getToken() !== '';
     });
   }
 }

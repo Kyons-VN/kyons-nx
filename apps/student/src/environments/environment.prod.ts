@@ -3,4 +3,5 @@ export const environment = {
   name: 'STUDENT',
   isPromotionEnable: false,
   serverApi: 'https://api.tuhoconline.org',
+  origin: 'https://student.tuhoconline.org',
 };

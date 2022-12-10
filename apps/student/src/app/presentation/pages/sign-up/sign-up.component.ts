@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TestType } from '@domain/knowledge/i-test';
 import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { AppPath } from '@presentation/routes';
+import { BeforeunloadDirective } from '@share-directives/before-unload';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule,
+    BeforeunloadDirective],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
@@ -54,8 +57,31 @@ export class SignUpComponent implements OnInit {
   showPassword = true;
   processing = false;
   errorMessage = '';
+  ref!: string;
+  refFrom!: TestType | null;
+
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeUnloadHander($event: any) {
+  //   if (this.refFrom == TestType.Mock) {
+  //     return $event.returnValue = true;
+  //   }
+  //   else {
+  //     return;
+  //   }
+  // }
+
+  beforeunload = () => {
+    console.log('dô');
+
+    if (this.refFrom == TestType.Mock && this.step != 1) {
+      return 'Thử thách chỉ dành cho các bạn chưa có tài khoản.\nBạn sẽ không thể tiếp tục thử thách nếu chuyển trang khác. Nhấn ok để đi đến trang khác. Nhấn Cancel để ở lại trang';
+    }
+    else return undefined;
+  }
 
   ngOnInit(): void {
+    this.ref = this.route.snapshot.queryParams['ref'] ?? '';
+    this.refFrom = this.route.snapshot.queryParams['mocktest'] ? TestType.Mock : null;
     this.form.addControl('firstName', this.firstName);
     this.form.addControl('lastName', this.lastName);
     this.form.addControl('email', this.email);
@@ -70,7 +96,8 @@ export class SignUpComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
     this.loading.show();
-    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value).subscribe({
+    this.processing = true;
+    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.ref).subscribe({
       next: (res: any) => {
         if (res['success']) {
           this.step = 1;
@@ -89,5 +116,9 @@ export class SignUpComponent implements OnInit {
         this.loading.hide();
       },
     });
+  }
+
+  isSharedFromMockTest() {
+    return this.refFrom === TestType.Mock;
   }
 }

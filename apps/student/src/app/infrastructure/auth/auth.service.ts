@@ -57,7 +57,7 @@ export class AuthService implements IAuthService {
   }
 
   public getToken() {
-    return window.localStorage.getItem(TOKEN_KEY);
+    return window.localStorage.getItem(TOKEN_KEY) ?? '';
   }
 
   public getRefreshToken() {

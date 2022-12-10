@@ -1,3 +1,4 @@
+import { environment } from '@environments/environment';
 import { pick } from 'lodash-es';
 import {
   IAnswer,
@@ -177,6 +178,7 @@ class TestResult implements ITestResult {
   review: AnswerReview;
   ordinalNumber: number;
   type: TestType;
+  shareReferral?: string;
 
   constructor({
     score,
@@ -204,12 +206,14 @@ class TestResult implements ITestResult {
     review,
     type,
     order_number,
+    mocktest_referral,
   }: {
     total_score: number;
     result: any[];
     review: any;
     type: string;
     order_number: number;
+    mocktest_referral?: string;
   }): TestResult {
     const maxScore = result.reduce(
       (pre: { [key: string]: number }, element: { [key: string]: any }) => {
@@ -221,7 +225,6 @@ class TestResult implements ITestResult {
     );
     maxScore['total'] = result.length;
     const categoryToScoreMap: { [key: string]: number } = result
-      // .filter(r => r.score == 1)
       .reduce(
         (pre: { [key: string]: number }, element: { [key: string]: any }) => {
           pre[element['category_id'].toString()] =
@@ -272,17 +275,34 @@ class TestResult implements ITestResult {
       rightAnswers: review['right_answer'].map((e: number) => e.toString()),
     });
 
-    return new TestResult({
+    const testResult = new TestResult({
       score: total_score,
       result: answerResult,
       review: answerReview,
       type: <TestType>TestType[type as keyof typeof TestType],
-      ordinalNumber: order_number,
+      ordinalNumber: order_number
     });
+
+    if (testResult.type == TestType.Mock) {
+      testResult.shareReferral = mocktest_referral ?? '';
+    }
+
+    return testResult;
   }
 
   isFirst() {
     return this.ordinalNumber == 1;
+  }
+
+  canShare() {
+    return this.type == TestType.Mock && this.shareReferral != '';
+  }
+
+  getShareableMockTestLink() {
+    console.log(window.location.hostname);
+
+    const origin = window.location.hostname == 'localhost' ? 'http://localhost:4200' : environment.origin;
+    return this.type == TestType.Mock ? `${origin}/share-mocktest/${this.shareReferral}` : '';
   }
 }
 

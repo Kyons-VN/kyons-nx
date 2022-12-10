@@ -21,6 +21,8 @@ export class NavigationService {
         return this.paths.classProgram;
       case RedirectAfterLogin[RedirectAfterLogin.MockTest]:
         return this.paths.mockTest;
+      case RedirectAfterLogin[RedirectAfterLogin.ReferralMockTest]:
+        return this.paths.mockTestTest;
       default:
         return this.paths.home;
     }

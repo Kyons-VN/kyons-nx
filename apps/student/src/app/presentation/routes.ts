@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { LeaveGuard } from './leave.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { DiagnosticTestDecisionComponent } from './pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './pages/diagnostic-test/diagnostic-test.component';
@@ -51,7 +52,7 @@ class AppPath {
   mockTest = '/mock-test/';
   mockTestSelect = '/mock-test/:id/select/';
   mockTestTest = '/mock-test/:id/test/';
-  mockTestShare = '/mock-test/:id/share/';
+  mockTestShare = '/share-mocktest/:ref';
   newUser = '/new-user/';
 }
 
@@ -71,8 +72,6 @@ const routes: Routes = [
         path: ':id', children: [
           { path: 'select', component: SelectTopicComponent },
           { path: 'test', component: MockTestTestComponent },
-          { path: 'share', component: MockTestShareComponent },
-
         ]
       },
       { path: 'select/:id', component: SelectTopicComponent },
@@ -81,6 +80,7 @@ const routes: Routes = [
     ],
     canActivate: [AuthGuard],
   },
+  { path: 'share-mocktest/:ref', component: MockTestShareComponent },
   {
     path: 'test',
     component: TestComponent,
@@ -142,7 +142,8 @@ const routes: Routes = [
   },
   {
     path: 'sign-up',
-    loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent)
+    loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
+    canDeactivate: [LeaveGuard],
   },
   {
     path: 'new-user',

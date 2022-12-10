@@ -30,9 +30,9 @@ export class LessonService implements ILessonService {
 
   getDetail(id: string): Observable<LessonGroup> {
     return this.http.get<LessonGroup>(SERVER_API + `/lesson/${id}`).pipe(
-      catchError(DBHelper.handleError('GET lesson_detail')),
-      map((dataObject: any) => {
-        return LessonGroup.fromJson(id, dataObject);
+      // catchError(DBHelper.handleError('GET lesson_detail')),
+      map((res: any) => {
+        return LessonGroup.fromJson(id, res);
       })
     );
   }

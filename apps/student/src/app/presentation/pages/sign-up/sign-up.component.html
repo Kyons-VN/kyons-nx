@@ -4,6 +4,12 @@
       <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
       <div class="h-12"></div>
       <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
+        <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>
+        <!-- <div *ngIf="isSharedFromMockTest()" class="flex flex-col" [beforeunload]="beforeunload">
+          <span class="text-white">Mã giới thiệu:</span>
+          <input *ngIf="refFrom !== null && ref" type="text" readonly="readonly" [value]="ref" />
+        </div> -->
+        <div class="h-4"></div>
         <input
           [ngClass]="{'!text-orange border-orange': firstName.invalid}"
           type="text"
@@ -55,8 +61,8 @@
             (click)="showPassword = !showPassword"
             class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
           >
-            <i tabindex="1" *ngIf="showPassword" class="icon-VisibilityOff"></i>
-            <i tabindex="1" *ngIf="!showPassword" class="icon-Visibility"></i>
+            <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
+            <i *ngIf="!showPassword" class="icon-Visibility"></i>
           </button>
         </div>
         <div class="h-1"></div>
@@ -110,7 +116,7 @@
         </button>
       </form>
       <div class="h-6"></div>
-      <span class="text-white">Đã có tài khoản? <a [routerLink]="paths.home">Đăng nhập</a></span>
+      <span class="text-white">Đã có tài khoản? <a [routerLink]="paths.signIn">Đăng nhập</a></span>
     </div>
   </div>
   <div *ngIf="step === 1" class="bg-blueGrey-100 w-screen h-screen flex items-center justify-center p-6">
@@ -122,7 +128,7 @@
           <span>Hãy kiểm tra email để xác nhận tài khoản và đăng nhập vào Kyons.</span>
           <span>Tụi mình đã sẵn sàng để giúp bạn học ‘’ích’’ hơn rồi đó!</span>
         </div>
-        <a class="btn" [routerLink]="paths.home">Trở về trang đăng nhập</a>
+        <a class="btn" [routerLink]="paths.signIn">Trở về trang đăng nhập</a>
       </div>
       <div class="h-[100px]"></div>
     </div>

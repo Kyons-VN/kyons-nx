@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
+import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
 import { Topic } from '@infrastructure/knowledge/topic';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
@@ -16,6 +17,7 @@ export class SelectTopicComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
   paths: AppPath;
   program: Program;
+  selectedTarget: LearningGoal;
   constructor(
     private route: ActivatedRoute,
     navService: NavigationService,
@@ -27,6 +29,7 @@ export class SelectTopicComponent implements OnInit {
     this.paths = navService.paths;
     this.program = knowledgeService.getSelectedProgram();
     this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
+    this.selectedTarget = knowledgeService.getSelectedLearningGoal();
   }
 
   topics: Topic[] = [];
@@ -50,6 +53,9 @@ export class SelectTopicComponent implements OnInit {
 
   // learningGoals.filter((lG)=>lG.checked===true).length===0
   submit() {
+    if (this.topics.filter((lG) => lG.checked === true).length < (this.selectedTarget.minTopic ?? 3) || this.topics.filter((lG) => lG.checked === true).length > (this.selectedTarget.maxTopic ?? 4)) {
+      return;
+    }
     this.loading.show();
     this.testService.submitTopics(this.learningGoalId, this.topics.filter((lG) => lG.checked === true).map((topic) => topic.id)).subscribe({
       next: (learningGoal) => {

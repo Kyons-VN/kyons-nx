@@ -15,23 +15,30 @@
           class="form-control w-full"
           [attr.disabled]="this.selectedSubject === null ? 'disabled' : null"
           [(ngModel)]="selectedProgram"
+          (ngModelChange)="changeProgram()"
         >
           <option [ngValue]="emptyProgram" disabled selected>Chọn chương trình</option>
           <option *ngFor="let program of programs" [ngValue]="program">
             {{ program.name }}
           </option>
         </select>
-        <!-- <select name="target" id="target" class="form-control w-full" [(ngModel)]="selectedTarget">
-          <option [ngValue]="null" disabled selected>Mục tiêu học tập</option>
+        <select
+          name="target"
+          id="target"
+          class="form-control w-full"
+          [(ngModel)]="selectedTarget"
+          [attr.disabled]="this.selectedProgram.id === '' ? 'disabled' : null"
+        >
+          <option [ngValue]="emptyLearningGoal" disabled selected>Mục tiêu học tập</option>
           <option *ngFor="let target of targets" [ngValue]="target">
-            {{ target }}
+            {{ target.name }}
           </option>
-        </select> -->
+        </select>
       </div>
       <button
         (click)="submit()"
         class="btn primary w-full"
-        [attr.disabled]="selectedProgram === null ? 'disabled' : null"
+        [attr.disabled]="selectedTarget === emptyLearningGoal ? 'disabled' : null"
       >
         Bắt đầu
       </button>
@@ -39,12 +46,12 @@
     </div>
   </div>
   <div
-    *ngIf="hasError === 'LowBalance'"
-    class="fixed w-full h-full left-0 top-0 flex flex-col items-center justify-center bg-blueGrey-100"
+    *ngIf="hasError === 'RanOutMockTest'"
+    class="fixed w-full h-full left-0 top-0 flex flex-col items-center justify-center bg-blueGrey-100 p-6 md:m-0"
   >
     <div class="w-full md:w-[400px] bg-white rounded-lg p-8 flex flex-col gap-6">
       <div class="flex flex-col gap-2">
-        <div class="h7">Bạn đã dùng hết số lượng bài kiểm tra</div>
+        <div class="h7">Bạn đã sử dụng hết bài kiểm tra!</div>
         <span>Để tạo mục tiêu mới, bạn cần mua thêm gói dịch vụ Kyons.</span>
       </div>
       <div class="flex justify-between">
