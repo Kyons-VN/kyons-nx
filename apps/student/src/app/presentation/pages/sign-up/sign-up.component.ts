@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TestType } from '@domain/knowledge/i-test';
@@ -59,6 +59,12 @@ export class SignUpComponent implements OnInit {
   errorMessage = '';
   ref!: string;
   refFrom!: TestType | null;
+  isShowTOS = false;
+  tosChecked = new FormControl(true, [
+    Validators.required,
+    Validators.requiredTrue
+  ]);
+  @ViewChild('tosIframe') public tosIframe!: ElementRef<any>;
 
   // @HostListener('window:beforeunload', ['$event'])
   // beforeUnloadHander($event: any) {
@@ -86,9 +92,24 @@ export class SignUpComponent implements OnInit {
     this.form.addControl('lastName', this.lastName);
     this.form.addControl('email', this.email);
     this.form.addControl('password', this.password);
+    this.form.addControl('tosChecked', this.tosChecked);
     this.form.valueChanges.subscribe(() => {
       this.errorMessage = '';
     })
+  }
+
+  showTOS() {
+    this.isShowTOS = true;
+    // setTimeout(() => {
+
+    //   const iframDoc = this.tosIframe.nativeElement.ownerDocument;
+    //   // iframDoc.head.appendChild('style.css');
+    //   const style = iframDoc.createElement("style");
+    //   const rule = 'body{backgound-color:white}';
+    //   style.innerHTML = rule;
+    //   iframDoc.head.appendChild(style);
+    //   // iframDoc.styleSheets[0].insertRule('strong { color: red; }');
+    // }, 1000);
   }
 
   submit() {

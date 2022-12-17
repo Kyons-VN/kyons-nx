@@ -64,7 +64,8 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "index": "apps/student/src/index.dev.html"
         }
       },
       "defaultConfiguration": "production"
