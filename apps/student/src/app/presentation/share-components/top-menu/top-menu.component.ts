@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { UserService } from '@infrastructure/user/user.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -18,7 +18,7 @@ import { filter } from 'rxjs/operators';
 })
 export class TopMenuComponent implements OnInit {
   showSubmenu = false;
-  paths: AppPath;
+  paths: AppPaths;
   show = true;
   constructor(
     private userService: UserService,

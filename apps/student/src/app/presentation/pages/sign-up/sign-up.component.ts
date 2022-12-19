@@ -6,7 +6,7 @@ import { TestType } from '@domain/knowledge/i-test';
 import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { BeforeunloadDirective } from '@share-directives/before-unload';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
@@ -18,7 +18,7 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
@@ -65,6 +65,7 @@ export class SignUpComponent implements OnInit {
     Validators.requiredTrue
   ]);
   @ViewChild('tosIframe') public tosIframe!: ElementRef<any>;
+  currentUrl = '';
 
   // @HostListener('window:beforeunload', ['$event'])
   // beforeUnloadHander($event: any) {
@@ -95,7 +96,8 @@ export class SignUpComponent implements OnInit {
     this.form.addControl('tosChecked', this.tosChecked);
     this.form.valueChanges.subscribe(() => {
       this.errorMessage = '';
-    })
+    });
+    this.currentUrl = window.location.href.replace(window.location.origin, '');
   }
 
   showTOS() {

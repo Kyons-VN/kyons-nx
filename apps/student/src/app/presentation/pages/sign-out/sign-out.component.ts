@@ -2,14 +2,14 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@infrastructure/auth/auth.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './sign-out.component.html',
   styleUrls: ['./sign-out.component.scss'],
 })
 export class SignOutComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -26,6 +26,6 @@ export class SignOutComponent implements OnInit {
 
   signOut() {
     this.authService.signOut();
-    this.router.navigate([this.paths.signIn]);
+    this.router.navigate([this.paths.signIn.path]);
   }
 }

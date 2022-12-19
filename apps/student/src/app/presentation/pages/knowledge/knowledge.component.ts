@@ -1,6 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './knowledge.component.html',
@@ -8,7 +8,7 @@ import { AppPath } from '@presentation/routes';
 })
 export class KnowledgeComponent {
   @HostBinding('class') class = 'h-full';
-  paths: AppPath;
+  paths: AppPaths;
   constructor(navService: NavigationService) {
     this.paths = navService.paths;
   }

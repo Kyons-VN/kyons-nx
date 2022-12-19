@@ -16,7 +16,7 @@ import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { FormControlStatus } from '@utils/form';
 import { environment } from '../../../../environments/environment';
 
@@ -27,7 +27,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit, AfterViewInit {
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -106,7 +106,7 @@ export class SignInComponent implements OnInit, AfterViewInit {
               setTimeout(() => {
                 this.processing = false;
                 this.loading.hide();
-                if (redirectPath == this.paths.mockTestTest) {
+                if (redirectPath == this.paths.mockTestTest.path) {
                   if (learningGoal) { redirectPath = redirectPath.replace(':id', learningGoal.id) }
                 }
                 this.router.navigate([redirectPath]);

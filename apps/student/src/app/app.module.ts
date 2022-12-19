@@ -16,7 +16,6 @@ import { authInterceptorProviders } from './infrastructure/auth/interceptor';
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
-import { DiagnosticTestDecisionComponent } from './presentation/pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/diagnostic-test.component';
 import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
 import { HomeComponent } from './presentation/pages/home/home.component';
@@ -71,7 +70,6 @@ registerLocaleData(localeEN, 'en');
     PageNotFoundComponent,
     TestComponent,
     AppInputComponent,
-    DiagnosticTestDecisionComponent,
     DiagnosticTestComponent,
     LearningPathComponent,
     QuestionsProgressComponent,

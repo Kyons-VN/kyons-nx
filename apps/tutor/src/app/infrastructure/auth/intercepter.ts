@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { catchError, lastValueFrom, Observable, of, throwError } from 'rxjs';
-import { AppPath } from '../../presentation/routes';
+import { AppPaths } from '../../presentation/routes';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
 
@@ -12,7 +12,7 @@ export const SERVER_API = 'https://api.tuhoconline.org';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  paths: AppPath;
+  paths: AppPaths;
   constructor(private auth: AuthService, private router: Router, private navService: NavigationService) {
     this.paths = this.navService.paths;
   }

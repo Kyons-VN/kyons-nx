@@ -7,7 +7,7 @@ import { Program } from '@infrastructure/knowledge/program';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { OrderService } from '@infrastructure/order/order.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 enum SubmitType {
   mock_test
@@ -25,7 +25,7 @@ export class ClassProgramComponent implements OnInit {
   @HostBinding('class') class = 'w-full h-full';
   @Input() type = SubmitType.mock_test;
 
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     private router: Router,
     navService: NavigationService,
@@ -95,7 +95,7 @@ export class ClassProgramComponent implements OnInit {
       this.knowledgeService.selectProgram(this.selectedProgram);
       this.knowledgeService.selectLearningGoad(this.selectedTarget);
       if (this.type == SubmitType.mock_test) {
-        this.router.navigate([this.paths.mockTestSelect.replace(':id', this.selectedTarget.id)]);
+        this.router.navigate([this.paths.mockTestSelect.path.replace(':id', this.selectedTarget.id)]);
         // this.orderService.getInventories().subscribe({
         //   next: (inventory: Inventory) => {
         //     if (inventory.mockTest > 0) {

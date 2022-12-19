@@ -9,7 +9,7 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { Submission } from '@infrastructure/test/submission';
 import { TestContent, TestResult } from '@infrastructure/test/test-content';
 import { TestService } from '@infrastructure/test/test.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
 import { fromEvent, Observable } from 'rxjs';
 
@@ -18,7 +18,7 @@ import { fromEvent, Observable } from 'rxjs';
   styleUrls: ['./mock-test-test.component.scss'],
 })
 export class MockTestTestComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   selectedProgram;
   source: Observable<KeyboardEvent>;
   constructor(private route: ActivatedRoute,
@@ -73,7 +73,7 @@ export class MockTestTestComponent implements OnInit {
         if (this.complete) {
 
           alert('Bài kiểm tra đã làm rồi');
-          this.router.navigate([this.paths.mockTest]);
+          this.router.navigate([this.paths.mockTest.path]);
           // this.testService.getTestResult('lesson', learningGoalId).subscribe({
           //   next: (value) => {
           //     this.testResult = value;

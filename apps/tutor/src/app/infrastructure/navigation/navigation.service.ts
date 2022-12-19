@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AppPath } from '../../presentation/routes';
+import { AppPaths } from '../../presentation/routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
-  paths: AppPath;
+  paths: AppPaths;
   constructor() {
-    this.paths = new AppPath();
+    this.paths = new AppPaths();
   }
 }

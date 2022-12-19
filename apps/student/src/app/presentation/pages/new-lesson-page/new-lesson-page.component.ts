@@ -5,7 +5,7 @@ import { LearningPoint } from '@infrastructure/knowledge/lesson';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { Program } from '@infrastructure/knowledge/program';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { uniq } from 'lodash-es';
 
 @Component({
@@ -16,7 +16,7 @@ import { uniq } from 'lodash-es';
 export class NewLessonPageComponent implements OnInit {
   learningPoints!: LearningPoint[];
   selectedLearningPointIds: string[] = [];
-  paths: AppPath;
+  paths: AppPaths;
   selectedProgram: Program;
   constructor(
     private router: Router,
@@ -55,7 +55,7 @@ export class NewLessonPageComponent implements OnInit {
       )
       .subscribe({
         complete: () => {
-          this.router.navigate([this.paths.learningPath]);
+          this.router.navigate([this.paths.learningPath.path]);
         },
       });
   }

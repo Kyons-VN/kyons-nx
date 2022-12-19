@@ -6,7 +6,7 @@ import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './select-learning-goal.component.html',
@@ -14,7 +14,7 @@ import { AppPath } from '@presentation/routes';
 })
 export class SelectLearningGoalComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
-  paths: AppPath;
+  paths: AppPaths;
   program: Program;
   constructor(
     private route: ActivatedRoute,

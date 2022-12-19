@@ -163,7 +163,7 @@
         [ngStyle]="{display: showSubmenu ? 'flex' : 'none'}"
         class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
       >
-        <li [routerLink]="paths.account" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
+        <li [routerLink]="paths.account.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
           <span class="drop-menu-item">Tài khoản</span>
         </li>
         <li class="border-t border-blueGrey-300"></li>
@@ -171,7 +171,7 @@
           <a class="h-5 text-primaryBlue">Cây kiến thức</a>
         </li>
         <li class="border-t border-blueGrey-300"></li> -->
-        <li [routerLink]="paths.signOut">
+        <li [routerLink]="paths.signOut.path">
           <span class="drop-menu-item">Thoát</span>
         </li>
       </ul>

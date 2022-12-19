@@ -42,7 +42,7 @@
       >
         Bắt đầu
       </button>
-      <a [routerLink]="paths.home">Về trang chủ</a>
+      <a [routerLink]="paths.home.path">Về trang chủ</a>
     </div>
   </div>
   <div
@@ -56,7 +56,7 @@
       </div>
       <div class="flex justify-between">
         <button (click)="hasError = ''" class="btn-rounded">Không đổi mục tiêu</button>
-        <a class="btn" [routerLink]="paths.package">Mua gói</a>
+        <a class="btn" [routerLink]="paths.package.path">Mua gói</a>
       </div>
     </div>
     <div class="h-1/3"></div>

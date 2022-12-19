@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, lastValueFrom, Observable, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AppPath } from '../../presentation/routes';
+import { AppPaths } from '../../presentation/routes';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
 
@@ -18,7 +18,7 @@ export const SERVER_API = environment.serverApi;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     private auth: AuthService,
     private router: Router,
@@ -109,12 +109,12 @@ export class AuthInterceptor implements HttpInterceptor {
   forceSignOut() {
     this.auth.signOut();
     setTimeout(() => {
-      this.router.navigate([this.paths.signIn]);
+      this.router.navigate([this.paths.signIn.path]);
     }, 100);
   }
 
   private redirectToHome() {
-    this.router.navigate([this.paths.home]);
+    this.router.navigate([this.paths.home.path]);
   }
 }
 

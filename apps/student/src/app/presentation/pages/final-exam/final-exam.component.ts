@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { UserService } from '@infrastructure/user/user.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { UserService } from '@infrastructure/user/user.service';
 export class FinalExamComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
   surveyLink: string;
-  paths: AppPath;
+  paths: AppPaths;
   constructor(private route: ActivatedRoute, userService: UserService, navService: NavigationService) {
     this.paths = navService.paths;
     const userType = userService.getUserType();

@@ -9,7 +9,7 @@ import {
 import { AuthService } from '../infrastructure/auth/auth.service';
 import { NavigationService } from '../infrastructure/navigation/navigation.service';
 import { UserService } from '../infrastructure/user/user.service';
-import { AppPath } from './routes';
+import { AppPaths } from './routes';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
     this.paths = navService.paths;
   }
 
-  paths: AppPath;
+  paths: AppPaths;
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const token = this.authenticationService.getToken();
@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate([this.paths.signIn], {
+    this.router.navigate([this.paths.signIn.path], {
       queryParams: { returnUrl: state.url },
     });
     return false;

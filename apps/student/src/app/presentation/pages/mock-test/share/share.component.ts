@@ -6,7 +6,7 @@ import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   standalone: true,
@@ -15,7 +15,7 @@ import { AppPath } from '@presentation/routes';
   styleUrls: ['./share.component.scss'],
 })
 export class MockTestShareComponent implements OnInit {
-  paths: AppPath
+  paths: AppPaths
   constructor(private route: ActivatedRoute, navService: NavigationService, private testService: TestService,
     private loading: LoadingOverlayService, private authService: AuthService, private router: Router) {
     this.paths = navService.paths;
@@ -47,7 +47,7 @@ export class MockTestShareComponent implements OnInit {
 
   acceptChalenge() {
     if (this.authService.getToken() == '') {
-      this.router.navigate([this.paths.signUp], { queryParams: { ref: this.ref, mocktest: true } })
+      this.router.navigate([this.paths.signUp.path], { queryParams: { ref: this.ref, mocktest: true } })
     }
     else {
       this.showForLoggedInUser = true;
@@ -56,10 +56,10 @@ export class MockTestShareComponent implements OnInit {
 
   createNewLearningGoal() {
     if (this.authService.getToken() == '') {
-      this.router.navigate([this.paths.signUp]);
+      this.router.navigate([this.paths.signUp.path]);
     }
     else {
-      this.router.navigate([this.paths.mockTest]);
+      this.router.navigate([this.paths.mockTest.path]);
     }
   }
 }

@@ -4,7 +4,7 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import Balance from '@infrastructure/order/balance';
 import { OrderService } from '@infrastructure/order/order.service';
 import { Package } from '@infrastructure/order/package';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './package-page.component.html',
@@ -12,7 +12,7 @@ import { AppPath } from '@presentation/routes';
 })
 export class PackagePageComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     navService: NavigationService,
     private orderService: OrderService,

@@ -8,7 +8,7 @@ import { TestResultComponent } from "./pages/test-result/test-result.component";
 import { UpdateGoogleMeetComponent } from "./pages/update-google-meet/update-google-meet.component";
 import { UpdateLearningPathComponent } from "./pages/update-learning-path/update-learning-path.component";
 
-class AppPath {
+class AppPaths {
   home = '/';
   signIn = '/sign-in/';
   signOut = '/sign-out/';
@@ -43,5 +43,5 @@ const routes = [
   { path: '**', component: PageNotFoundComponent },
 ];
 
-export { routes, AppPath };
+export { routes, AppPaths };
 

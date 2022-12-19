@@ -18,7 +18,7 @@ import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { UserService } from '@infrastructure/user/user.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { interval, Subscription } from 'rxjs';
 
 @Component({
@@ -26,7 +26,7 @@ import { interval, Subscription } from 'rxjs';
   styleUrls: ['./learning-path.component.scss'],
 })
 export class LearningPathComponent implements OnInit, OnDestroy {
-  paths: AppPath;
+  paths: AppPaths;
   userType: string;
   selectedProgram: Program;
   selectedLearningGoal: LearningGoal;
@@ -80,7 +80,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.selectedProgram.isEmpty()) {
-      this.router.navigate([this.paths.home]);
+      this.router.navigate([this.paths.home.path]);
       return;
     }
     const requestInterval = interval(5000);
@@ -94,7 +94,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
         if (learningGoalPath instanceof Error) {
           if (learningGoalPath.message == 'new_user') {
             console.log('new_user');
-            this.router.navigate([this.paths.newUser]);
+            this.router.navigate([this.paths.newUser.path]);
           }
         }
         else {
@@ -123,7 +123,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
           //   this.lessons = learningGoalPath.lessonList;
           // }
           // if (learningGoalPath.progress == 100) {
-          // this.router.navigate([this.paths.finalExam, learningPath.program.id]);
+          // this.router.navigate([this.paths.finalExam.path, learningPath.program.id]);
           // this.isCompleted = true;
           // return;
           // }

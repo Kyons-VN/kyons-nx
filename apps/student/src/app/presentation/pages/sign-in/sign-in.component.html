@@ -37,10 +37,10 @@
         {{ processing ? 'Đang xử lý' : 'Đăng nhập' }}
       </button>
       <div class="h-6"></div>
-      <a [routerLink]="paths.resetPassword" class="text-orange">Quên mật khẩu</a>
+      <a [routerLink]="paths.resetPassword.path" class="text-orange">Quên mật khẩu</a>
       <div class="h-2"></div>
       <span class="text-white"
-        >Bạn chưa có tài khoản? &nbsp; <a [routerLink]="paths.signUp" class="text-orange">Đăng ký tại đây</a></span
+        >Bạn chưa có tài khoản? &nbsp; <a [routerLink]="paths.signUp.path" class="text-orange">Đăng ký tại đây</a></span
       >
     </form>
   </div>

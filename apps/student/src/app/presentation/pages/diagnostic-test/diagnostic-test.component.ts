@@ -14,7 +14,7 @@ import {
 } from '@infrastructure/test/test-content';
 import { TestService } from '@infrastructure/test/test.service';
 import { UserService } from '@infrastructure/user/user.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   selector: 'student-diagnostic-test',
@@ -22,7 +22,7 @@ import { AppPath } from '@presentation/routes';
   styleUrls: ['./diagnostic-test.component.scss'],
 })
 export class DiagnosticTestComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   selectedProgram: Program;
   constructor(
     private router: Router,
@@ -161,7 +161,7 @@ export class DiagnosticTestComponent implements OnInit {
   skipTest() {
     this.testService.skipTest().subscribe({
       next: (value) => {
-        if (value === true) this.router.navigate([this.paths.learningPath]);
+        if (value === true) this.router.navigate([this.paths.learningPath.path]);
       },
     });
   }
