@@ -62,7 +62,7 @@
             }
           ],
           "outputHashing": "all",
-          "index": "apps/student/src/index.test.html"
+          "index": "apps/student/src/environments/test/index.html"
         },
         "dev": {
           "outputPath": "dist/apps/student/dev",
@@ -85,7 +85,7 @@
             }
           ],
           "outputHashing": "all",
-          "index": "apps/student/src/index.test.html"
+          "index": "apps/student/src/environments/test/index.html"
         },
         "firebase": {
           "baseHref": "/student/",
@@ -103,7 +103,7 @@
           "sourceMap": true,
           "namedChunks": true,
           "outputHashing": "all",
-          "index": "apps/student/src/index.test.html"
+          "index": "apps/student/src/environments/test/index.html"
         },
         "development": {
           "buildOptimizer": false,
