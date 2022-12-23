@@ -15,8 +15,8 @@ import { LearningGoalCategory, LearningGoalPath } from '@infrastructure/knowledg
 import { LessonItem } from '@infrastructure/knowledge/lesson';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { Program } from '@infrastructure/knowledge/program';
-import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { OrderService } from '@infrastructure/order/order.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { AppPath } from '@presentation/routes';
 import { interval, Subscription } from 'rxjs';
@@ -37,7 +37,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
     userService: UserService,
     private knowledgeService: KnowledgeService,
     private router: Router,
-    private loading: LoadingOverlayService,
+    private orderService: OrderService,
   ) {
     this.paths = navService.paths;
     this.userType = userService.getUserType();
@@ -60,6 +60,8 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   nextStep = false;
   unCompletedCategories: LearningGoalCategory[] = [];
   completeStep = false;
+  subscriptionExpired = false;
+  showSubscriptionExpired = false;
 
   get selectedCategoryIdMod() {
     return this.selectedCategoryId;
@@ -111,26 +113,8 @@ export class LearningPathComponent implements OnInit, OnDestroy {
           this.lessons = this.learningGoalCategory.lessons;
           this.selectedLearningGoal.progress = this.learningGoalPath.progress;
           this.knowledgeService.selectLearningGoad(this.selectedLearningGoal);
-          // if (learningGoalPath.lessonList.length > 0) {
-          //   const length = learningGoalPath.lessonList.length;
-          //   if (
-          //     this.lessons.length == length &&
-          //     this.lessons[length - 1].isNew == learningGoalPath.lessonList[length - 1].isNew
-          //   ) {
-          //     willUpdate = false;
-          //     return;
-          //   }
-          //   this.lessons = learningGoalPath.lessonList;
-          // }
-          // if (learningGoalPath.progress == 100) {
-          // this.router.navigate([this.paths.finalExam, learningPath.program.id]);
-          // this.isCompleted = true;
-          // return;
-          // }
-          // else {
           this.processing = false;
           this.scrollToEndOfLessons();
-          // }
         }
       },
       error: (err) => {
@@ -138,6 +122,15 @@ export class LearningPathComponent implements OnInit, OnDestroy {
         // TODO: Define error resposes
         console.log(err);
       },
+      complete: () => {
+        this.orderService.getInventories().subscribe({
+          next: (inventory) => {
+            if (inventory.subscription == 0) {
+              this.subscriptionExpired = true;
+            }
+          }
+        })
+      }
     });
   }
 
@@ -213,6 +206,15 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   showNextStep() {
     this.unCompletedCategories = this.learningGoalPath.getUncompletedLearningGoalCategories();
     this.nextStep = true;
+  }
+
+  goToLesson(lesson: LessonItem) {
+    if (lesson.isNew && this.subscriptionExpired) {
+      this.showSubscriptionExpired = true;
+    }
+    else {
+      this.router.navigate([this.paths.lessonPage, lesson.id]);
+    }
   }
 
 }
