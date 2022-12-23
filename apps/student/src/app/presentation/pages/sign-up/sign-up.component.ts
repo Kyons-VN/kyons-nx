@@ -60,7 +60,7 @@ export class SignUpComponent implements OnInit {
   ref!: string;
   refFrom!: TestType | null;
   isShowTOS = false;
-  tosChecked = new FormControl(true, [
+  tosChecked = new FormControl(false, [
     Validators.required,
     Validators.requiredTrue
   ]);

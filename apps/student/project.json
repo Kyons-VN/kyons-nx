@@ -41,6 +41,28 @@
           ],
           "outputHashing": "all"
         },
+        "dev": {
+          "outputPath": "dist/apps/student/dev",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/student/src/environments/environment.ts",
+              "with": "apps/student/src/environments/environment.dev.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
         "firebase": {
           "baseHref": "/student/",
           "outputPath": "dist/apps/student/firebase",

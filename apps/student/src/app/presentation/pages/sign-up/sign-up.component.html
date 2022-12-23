@@ -1,5 +1,5 @@
-<div *ngIf="step === 0" class="flex flex-col w-full h-full items-center justify-center bg-primaryBlue">
-  <div class="flex flex-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+<div *ngIf="step === 0" class="flex flex-col w-full h-full items-center bg-primaryBlue overflow-auto">
+  <div class="flex flex-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 md:py-16">
     <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
     <div class="h-12"></div>
     <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
@@ -8,18 +8,7 @@
           <span class="text-white">Mã giới thiệu:</span>
           <input *ngIf="refFrom !== null && ref" type="text" readonly="readonly" [value]="ref" />
         </div> -->
-      <div class="h-4"></div>
-      <input
-        [ngClass]="{'!text-orange border-orange': firstName.invalid}"
-        type="text"
-        placeholder="Tên"
-        formControlName="firstName"
-        autocomplete="off"
-      />
-      <div class="h-1"></div>
-      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
-        <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
-      </div>
+      <span class="text-white">Bạn đã sẵn sàng học ít nhưng trúng đích cùng Kyons chưa?</span>
       <div class="h-4"></div>
       <input
         [ngClass]="{'!text-orange border-orange': lastName.invalid}"
@@ -32,6 +21,18 @@
       <div class="h-1"></div>
       <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
         <div *ngIf="lastName.errors?.['required']">Chưa nhập họ.</div>
+      </div>
+      <div class="h-4"></div>
+      <input
+        [ngClass]="{'!text-orange border-orange': firstName.invalid}"
+        type="text"
+        placeholder="Tên"
+        formControlName="firstName"
+        autocomplete="off"
+      />
+      <div class="h-1"></div>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+        <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
       </div>
       <div class="h-4"></div>
       <input
@@ -120,10 +121,12 @@
         <input #tos type="checkbox" formControlName="tosChecked" />
         <span>
           Tôi đồng ý với điều kiện và điều khoản sử dụng của Kyons. Xem điều kiện và điều khoản sử dụng tại
-          <a [routerLink]="paths.termsOfService.path" [queryParams]="{backUrl: currentUrl}" target="_blank">đây</a>
+          <a [routerLink]="paths.termsOfService.path" target="_blank">đây</a>
         </span>
       </label>
-      <div class="error" *ngIf="tosChecked.errors?.['required']">Chưa đồng ý với điều khoản sử dụng.</div>
+      <div *ngIf="tosChecked.invalid && (tosChecked.dirty || tosChecked.touched)" class="error">
+        <div *ngIf="tosChecked.errors?.['required']">Chưa đồng ý với điều khoản sử dụng.</div>
+      </div>
     </form>
   </div>
 </div>

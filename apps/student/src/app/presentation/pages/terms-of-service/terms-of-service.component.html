@@ -1,20 +1,10 @@
-<div class="bg-blueGrey-100 flex w-full h-full items-center justify-center">
-  <div class="w-full max-w-4xl p-6 md:p-16 flex flex-col gap-6">
-    <h4>Điều khoản và điều kiện</h4>
-    <div class="bg-white rounded-lg">
-      <embed
-        src="https://kyonsvn.web.app/student/assets/Terms%20and%20Conditions.pdf"
-        type="application/pdf"
-        frameBorder="0"
-        scrolling="auto"
-        height="100%"
-        width="100%"
-        #tosIframe
-        style="height: 65vh"
-      />
-    </div>
-    <div class="self-end">
-      <a class="btn btn-large" (click)="return()">Trở về {{ backPageName.toLowerCase() }}</a>
-    </div>
-  </div>
-</div>
+<embed
+  src="assets/Terms%20and%20Conditions.pdf"
+  type="application/pdf"
+  frameBorder="0"
+  scrolling="auto"
+  height="100%"
+  width="100%"
+  #tosIframe
+  style="height: 100vh"
+/>
