@@ -41,6 +41,29 @@
           ],
           "outputHashing": "all"
         },
+        "stg": {
+          "outputPath": "dist/apps/student/stg",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/student/src/environments/environment.ts",
+              "with": "apps/student/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/student/src/index.test.html"
+        },
         "dev": {
           "outputPath": "dist/apps/student/dev",
           "budgets": [
@@ -61,7 +84,8 @@
               "with": "apps/student/src/environments/environment.dev.ts"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "index": "apps/student/src/index.test.html"
         },
         "firebase": {
           "baseHref": "/student/",
@@ -78,7 +102,8 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "index": "apps/student/src/index.test.html"
         },
         "development": {
           "buildOptimizer": false,
@@ -87,7 +112,7 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
-          "index": "apps/student/src/index.dev.html"
+          "index": "apps/student/src/index.test.html"
         }
       },
       "defaultConfiguration": "production"

@@ -111,6 +111,12 @@ AWS_PROFILE=kyons-importer aws s3 rm s3://dev.kyons.vn/
 AWS_PROFILE=kyons-importer aws s3 cp --recursive ./dev s3://dev.kyons.vn
 ```
 
+```
+AWS_PROFILE=kyons-importer aws s3 rm s3://stg.kyons.vn/index.html
+AWS_PROFILE=kyons-importer aws s3 rm s3://stg.kyons.vn/
+AWS_PROFILE=kyons-importer aws s3 cp --recursive ./stg s3://dev.kyons.vn
+```
+
 ## Start
 
 ```
