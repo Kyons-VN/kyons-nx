@@ -112,7 +112,7 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
-          "index": "apps/student/src/index.test.html"
+          "index": "apps/student/src/environments/test/index.html"
         }
       },
       "defaultConfiguration": "production"

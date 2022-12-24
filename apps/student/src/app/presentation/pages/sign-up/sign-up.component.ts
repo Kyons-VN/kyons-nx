@@ -60,8 +60,7 @@ export class SignUpComponent implements OnInit {
   ref!: string;
   refFrom!: TestType | null;
   isShowTOS = false;
-  tosChecked = new FormControl(false, [
-    Validators.required,
+  tosChecked = new FormControl<boolean>(false, [
     Validators.requiredTrue
   ]);
   @ViewChild('tosIframe') public tosIframe!: ElementRef<any>;
@@ -120,7 +119,7 @@ export class SignUpComponent implements OnInit {
     if (this.form.invalid) return;
     this.loading.show();
     this.processing = true;
-    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.ref).subscribe({
+    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.tosChecked.value ?? false, this.ref).subscribe({
       next: (res: any) => {
         if (res['success']) {
           this.step = 1;
