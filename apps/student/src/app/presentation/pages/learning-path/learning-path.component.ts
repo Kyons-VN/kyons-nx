@@ -213,7 +213,7 @@ export class LearningPathComponent implements OnInit, OnDestroy {
       this.showSubscriptionExpired = true;
     }
     else {
-      this.router.navigate([this.paths.lessonPage, lesson.id]);
+      this.router.navigate([this.paths.lessonPage.path, lesson.id]);
     }
   }
 

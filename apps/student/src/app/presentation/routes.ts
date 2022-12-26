@@ -32,7 +32,7 @@ class AppPaths {
   home = { name: 'Trang chủ', path: '/' };
   signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
   signOut = { name: 'Thoát', path: '/sign-out/' };
-  signUp = { name: 'Trang đăng ký', path: '/sign-up' };
+  signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
   classProgram = { name: 'Trang chọn mục tiêu', path: '/mock-test/' };
   test = { name: 'Test', path: '/test/' };
   diagnosticTest = { name: '', path: '/diagnostic-test/' };

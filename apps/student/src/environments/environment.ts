@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
-  serverApi: 'https://api-dev.tuhoconline.org',
+  serverApi: 'https://api.tuhoconline.org',
   origin: 'https://kyonsvn.web.app/student/#',
 };
 
