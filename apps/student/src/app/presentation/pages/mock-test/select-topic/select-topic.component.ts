@@ -7,7 +7,7 @@ import { Topic } from '@infrastructure/knowledge/topic';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './select-topic.component.html',
@@ -15,7 +15,7 @@ import { AppPath } from '@presentation/routes';
 })
 export class SelectTopicComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
-  paths: AppPath;
+  paths: AppPaths;
   program: Program;
   selectedTarget: LearningGoal;
   constructor(
@@ -61,7 +61,7 @@ export class SelectTopicComponent implements OnInit {
       next: (learningGoal) => {
         this.loading.hide();
         this.knowledgeService.selectLearningGoad(learningGoal);
-        this.router.navigate([this.paths.mockTestTest.replace(':id', learningGoal.id)]);
+        this.router.navigate([this.paths.mockTestTest.path.replace(':id', learningGoal.id)]);
       },
     });
   }

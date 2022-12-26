@@ -5,8 +5,8 @@ import Balance from '@infrastructure/order/balance';
 import Inventory from '@infrastructure/order/inventory';
 import { OrderService } from '@infrastructure/order/order.service';
 import { TransactionList } from '@infrastructure/order/transaction';
-import { AppPath } from '@presentation/routes';
-// import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
+// import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './account-page.component.html',
@@ -15,7 +15,7 @@ import { AppPath } from '@presentation/routes';
 export class AccountPageComponent implements OnInit {
   @HostBinding('class') class = 'w-full h-full';
 
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     private router: Router,
     private orderService: OrderService,

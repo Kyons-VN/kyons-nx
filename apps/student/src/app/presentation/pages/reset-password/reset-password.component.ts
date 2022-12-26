@@ -11,7 +11,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
 @Component({
@@ -22,7 +22,7 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit, AfterViewInit {
-  paths: AppPath;
+  paths: AppPaths;
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;

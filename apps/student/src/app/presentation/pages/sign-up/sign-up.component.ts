@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TestType } from '@domain/knowledge/i-test';
 import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { BeforeunloadDirective } from '@share-directives/before-unload';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
@@ -18,7 +18,7 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
@@ -59,6 +59,12 @@ export class SignUpComponent implements OnInit {
   errorMessage = '';
   ref!: string;
   refFrom!: TestType | null;
+  isShowTOS = false;
+  tosChecked = new FormControl<boolean>(false, [
+    Validators.requiredTrue
+  ]);
+  @ViewChild('tosIframe') public tosIframe!: ElementRef<any>;
+  currentUrl = '';
 
   // @HostListener('window:beforeunload', ['$event'])
   // beforeUnloadHander($event: any) {
@@ -86,9 +92,25 @@ export class SignUpComponent implements OnInit {
     this.form.addControl('lastName', this.lastName);
     this.form.addControl('email', this.email);
     this.form.addControl('password', this.password);
+    this.form.addControl('tosChecked', this.tosChecked);
     this.form.valueChanges.subscribe(() => {
       this.errorMessage = '';
-    })
+    });
+    this.currentUrl = window.location.href.replace(window.location.origin, '');
+  }
+
+  showTOS() {
+    this.isShowTOS = true;
+    // setTimeout(() => {
+
+    //   const iframDoc = this.tosIframe.nativeElement.ownerDocument;
+    //   // iframDoc.head.appendChild('style.css');
+    //   const style = iframDoc.createElement("style");
+    //   const rule = 'body{backgound-color:white}';
+    //   style.innerHTML = rule;
+    //   iframDoc.head.appendChild(style);
+    //   // iframDoc.styleSheets[0].insertRule('strong { color: red; }');
+    // }, 1000);
   }
 
   submit() {
@@ -97,7 +119,7 @@ export class SignUpComponent implements OnInit {
     if (this.form.invalid) return;
     this.loading.show();
     this.processing = true;
-    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.ref).subscribe({
+    this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.tosChecked.value ?? false, this.ref).subscribe({
       next: (res: any) => {
         if (res['success']) {
           this.step = 1;

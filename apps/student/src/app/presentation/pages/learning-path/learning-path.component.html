@@ -1,7 +1,7 @@
 <div class="h-full">
   <div *ngIf="!processing && !nextStep" class="flex flex-col gap-6 py-6 px-11 min-h-full">
     <div class="flex flex-row items-center gap-6">
-      <a class="no-underline text-orange" [routerLink]="paths.home"
+      <a class="no-underline text-orange" [routerLink]="paths.home.path"
         ><i class="icon-ArrowLeft text-[20px]"></i> Trở về</a
       >
       <h2>Tiếng Anh</h2>
@@ -52,7 +52,7 @@
         </div>
         <div class="" *ngIf="learningGoalPath.progress === 100; else elseBlock1">
           <div
-            [routerLink]="[this.paths.finalExam, selectedProgram.id]"
+            [routerLink]="[this.paths.finalExam.path, selectedProgram.id]"
             class="bg-lightBlue-1 small-card !text-white cursor-pointer flex flex-col items-center justify-center gap-3"
           >
             <h6>Chúc mừng</h6>
@@ -63,7 +63,7 @@
             <div
               *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
               class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-              [routerLink]="paths.newLesson"
+              [routerLink]="paths.newLesson.path"
             >
               <i class="icon-Add text-5xl"></i>
               <h6>Tạo bài học mới</h6>
@@ -86,7 +86,7 @@
         </ng-template>
         <!-- <div
         class="small-card bg-lightBlue-1 !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-        [routerLink]="[this.paths.finalExam, selectedProgram.id]"
+        [routerLink]="[this.paths.finalExam.path, selectedProgram.id]"
       >
         <h6>Bài kiểm tra cuối khoá</h6>
       </div> -->
@@ -127,7 +127,7 @@
           <h3 *ngIf="userType === 'self_study'" class="text-secondaryBlue">Bạn có thể chọn bài học tiếp theo.</h3>
         </div>
         <div *ngIf="userType === 'self_study'" class="self-center flex gap-2">
-          <a class="btn primary" [routerLink]="paths.newLesson">Tạo bài học</a>
+          <a class="btn primary" [routerLink]="paths.newLesson.path">Tạo bài học</a>
         </div>
       </div>
     </div>
@@ -167,7 +167,7 @@
     </div>
     <div class="flex justify-between">
       <button (click)="showSubscriptionExpired = false" class="btn-rounded">Đóng thông báo</button>
-      <a class="btn" [routerLink]="paths.package">Mua gói</a>
+      <a class="btn" [routerLink]="paths.package.path">Mua gói</a>
     </div>
   </div>
   <div class="h-1/3"></div>

@@ -111,8 +111,8 @@
             >
             <a class="btn-rounded" [routerLink]="">Gửi thử thách</a> -->
             <button *ngIf="testResult.canShare()" class="btn-rounded" (click)="isSharing = true">Gửi thử thách</button>
-            <a class="btn-rounded" [routerLink]="paths.mockTest">Tạo mục tiêu mới</a>
-            <a class="btn primary w-48" [routerLink]="paths.learningPath">Đến giáo trình</a>
+            <a class="btn-rounded" [routerLink]="paths.mockTest.path">Tạo mục tiêu mới</a>
+            <a class="btn primary w-48" [routerLink]="paths.learningPath.path">Đến giáo trình</a>
           </div>
         </div>
       </div>

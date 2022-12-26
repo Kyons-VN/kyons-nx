@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { OrderService } from '@infrastructure/order/order.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   templateUrl: './new-user.component.html',
@@ -11,7 +11,7 @@ import { AppPath } from '@presentation/routes';
 })
 export class NewUserComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     navService: NavigationService,
     private loading: LoadingOverlayService,
@@ -29,7 +29,7 @@ export class NewUserComponent implements OnInit {
     this.loading.show();
     this.orderService.getFreeTrial().subscribe({
       next: () => {
-        this.router.navigate([this.paths.learningPath]);
+        this.router.navigate([this.paths.learningPath.path]);
         this.loading.hide();
       },
       error: (_) => {

@@ -1,136 +1,146 @@
-<div class="flex flex-col md:flex-row h-full">
-  <div *ngIf="step === 0" class="flex flex-col w-full h-full items-center justify-center bg-primaryBlue">
-    <div class="flex flex-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
-      <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
-      <div class="h-12"></div>
-      <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
-        <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>
-        <!-- <div *ngIf="isSharedFromMockTest()" class="flex flex-col" [beforeunload]="beforeunload">
+<div *ngIf="step === 0" class="flex flex-col w-full h-full items-center bg-primaryBlue overflow-auto">
+  <div class="flex flex-col w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 p-4 md:py-16">
+    <img src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
+    <div class="h-12"></div>
+    <form *ngIf="step === 0" class="flex flex-col" [formGroup]="form" autocomplete="off">
+      <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>
+      <!-- <div *ngIf="isSharedFromMockTest()" class="flex flex-col" [beforeunload]="beforeunload">
           <span class="text-white">Mã giới thiệu:</span>
           <input *ngIf="refFrom !== null && ref" type="text" readonly="readonly" [value]="ref" />
         </div> -->
-        <div class="h-4"></div>
-        <input
-          [ngClass]="{'!text-orange border-orange': firstName.invalid}"
-          type="text"
-          placeholder="Tên"
-          formControlName="firstName"
-          autocomplete="off"
-        />
-        <div class="h-1"></div>
-        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
-          <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
-        </div>
-        <div class="h-4"></div>
-        <input
-          [ngClass]="{'!text-orange border-orange': lastName.invalid}"
-          type="text"
-          #nameElm
-          placeholder="Họ"
-          formControlName="lastName"
-          autocomplete="off"
-        />
-        <div class="h-1"></div>
-        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
-          <div *ngIf="lastName.errors?.['required']">Chưa nhập họ.</div>
-        </div>
-        <div class="h-4"></div>
-        <input
-          [ngClass]="{'!text-orange border-orange': email.invalid}"
-          type="text"
-          #emailElm
-          placeholder="Nhập email của bạn"
-          formControlName="email"
-          autocomplete="off"
-        />
-        <div class="h-1"></div>
-        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
-          <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
-          <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
-        </div>
-        <div class="h-4"></div>
-        <div class="relative w-full">
-          <input
-            #passwordElm
-            [type]="showPassword ? 'text' : 'password'"
-            class="w-full"
-            placeholder="Nhập mật khẩu"
-            formControlName="password"
-          />
-          <button
-            (click)="showPassword = !showPassword"
-            class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
-          >
-            <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
-            <i *ngIf="!showPassword" class="icon-Visibility"></i>
-          </button>
-        </div>
-        <div class="h-1"></div>
-        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
-          <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
-          <div *ngIf="password.errors?.['pattern']">Mật khẩu không hợp lệ.</div>
-        </div>
-        <div class="h-4"></div>
-        <!-- ^((?=.*[A-Z])(?=.*d).{8,99}) -->
-        <div *ngIf="password.touched" class="text-white text-sm">
-          Mật khẩu phải có:<br />
-          <ul class="list-disc">
-            <li
-              class="ml-5"
-              [ngClass]="{
-                'text-red-0': (password.dirty || password.touched) && password.value.length < 8
-              }"
-            >
-              Từ 8 ký tự trở lên
-            </li>
-            <li
-              class="ml-5"
-              [ngClass]="{
-                'text-red-0': (password.dirty || password.touched) && notHaveUppercase(password.value)
-              }"
-            >
-              Ký tự viết hoa (A-Z)
-            </li>
-            <li
-              class="ml-5"
-              [ngClass]="{
-                'text-red-0': (password.dirty || password.touched) && notHaveDigit(password.value)
-              }"
-            >
-              Ký tự số (0-9)
-            </li>
-            <li
-              class="ml-5"
-              [ngClass]="{
-                'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value)
-              }"
-            >
-              Ký tự đặc biệt (~! @#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
-            </li>
-          </ul>
-        </div>
-        <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <div class="h-6"></div>
-        <button (click)="submit()" class="btn" [disabled]="(form.touched && form.invalid) || processing">
-          {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
-        </button>
-      </form>
-      <div class="h-6"></div>
-      <span class="text-white">Đã có tài khoản? <a [routerLink]="paths.signIn">Đăng nhập</a></span>
-    </div>
-  </div>
-  <div *ngIf="step === 1" class="bg-blueGrey-100 w-screen h-screen flex items-center justify-center p-6">
-    <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
-      <img src="assets/images/New Account.svg" />
-      <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
-        <h4 class="text-primaryBlue">Chúc mừng bạn đã tạo tài khoản thành công!</h4>
-        <div class="flex flex-col gap-2">
-          <span>Hãy kiểm tra email để xác nhận tài khoản và đăng nhập vào Kyons.</span>
-          <span>Tụi mình đã sẵn sàng để giúp bạn học ‘’ích’’ hơn rồi đó!</span>
-        </div>
-        <a class="btn" [routerLink]="paths.signIn">Trở về trang đăng nhập</a>
+      <span class="text-white">Bạn đã sẵn sàng học ít nhưng trúng đích cùng Kyons chưa?</span>
+      <div class="h-4"></div>
+      <input
+        [ngClass]="{'!text-orange border-orange': lastName.invalid}"
+        type="text"
+        #nameElm
+        placeholder="Họ"
+        formControlName="lastName"
+        autocomplete="off"
+      />
+      <div class="h-1"></div>
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="error">
+        <div *ngIf="lastName.errors?.['required']">Chưa nhập họ.</div>
       </div>
-      <div class="h-[100px]"></div>
+      <div class="h-4"></div>
+      <input
+        [ngClass]="{'!text-orange border-orange': firstName.invalid}"
+        type="text"
+        placeholder="Tên"
+        formControlName="firstName"
+        autocomplete="off"
+      />
+      <div class="h-1"></div>
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="error">
+        <div *ngIf="firstName.errors?.['required']">Chưa nhập tên.</div>
+      </div>
+      <div class="h-4"></div>
+      <input
+        [ngClass]="{'!text-orange border-orange': email.invalid}"
+        type="text"
+        #emailElm
+        placeholder="Nhập email của bạn"
+        formControlName="email"
+        autocomplete="off"
+      />
+      <div class="h-1"></div>
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+        <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
+        <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
+      </div>
+      <div class="h-4"></div>
+      <div class="relative w-full">
+        <input
+          #passwordElm
+          [type]="showPassword ? 'text' : 'password'"
+          class="w-full"
+          placeholder="Nhập mật khẩu"
+          formControlName="password"
+        />
+        <button
+          (click)="showPassword = !showPassword"
+          class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
+        >
+          <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
+          <i *ngIf="!showPassword" class="icon-Visibility"></i>
+        </button>
+      </div>
+      <div class="h-1"></div>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+        <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
+        <div *ngIf="password.errors?.['pattern']">Mật khẩu không hợp lệ.</div>
+      </div>
+      <div class="h-4"></div>
+      <!-- ^((?=.*[A-Z])(?=.*d).{8,99}) -->
+      <div *ngIf="password.touched" class="text-white text-sm">
+        Mật khẩu phải có:<br />
+        <ul class="list-disc">
+          <li
+            class="ml-5"
+            [ngClass]="{
+              'text-red-0': (password.dirty || password.touched) && password.value.length < 8
+            }"
+          >
+            Từ 8 ký tự trở lên
+          </li>
+          <li
+            class="ml-5"
+            [ngClass]="{
+              'text-red-0': (password.dirty || password.touched) && notHaveUppercase(password.value)
+            }"
+          >
+            Ký tự viết hoa (A-Z)
+          </li>
+          <li
+            class="ml-5"
+            [ngClass]="{
+              'text-red-0': (password.dirty || password.touched) && notHaveDigit(password.value)
+            }"
+          >
+            Ký tự số (0-9)
+          </li>
+          <li
+            class="ml-5"
+            [ngClass]="{
+              'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value)
+            }"
+          >
+            Ký tự đặc biệt (~! @#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
+          </li>
+        </ul>
+      </div>
+      <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <div class="h-6"></div>
+      <button (click)="submit()" class="btn" [disabled]="(form.touched && form.invalid) || processing">
+        {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
+      </button>
+      <div class="h-6"></div>
+      <span class="text-white">Đã có tài khoản? <a [routerLink]="paths.signIn.path">Đăng nhập</a></span>
+      <div class="h-2"></div>
+      <label for="tos" class="text-white checkbox dark flex gap-2">
+        <input #tos type="checkbox" formControlName="tosChecked" />
+        <span>
+          Tôi đồng ý với điều kiện và điều khoản sử dụng của Kyons. Xem điều kiện và điều khoản sử dụng tại
+          <a [routerLink]="paths.termsOfService.path" target="_blank">đây</a>
+        </span>
+      </label>
+      <div *ngIf="tosChecked.invalid && (tosChecked.dirty || tosChecked.touched)" class="error">
+        <div *ngIf="tosChecked.errors?.['required']">Chưa đồng ý với điều khoản sử dụng.</div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="step === 1" class="bg-blueGrey-100 w-screen h-screen flex items-center justify-center p-6">
+  <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
+    <img src="assets/images/New Account.svg" />
+    <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
+      <h4 class="text-primaryBlue">Chúc mừng bạn đã tạo tài khoản thành công!</h4>
+      <div class="flex flex-col gap-2">
+        <span>Hãy kiểm tra email để xác nhận tài khoản và đăng nhập vào Kyons.</span>
+        <span>Tụi mình đã sẵn sàng để giúp bạn học ‘’ích’’ hơn rồi đó!</span>
+      </div>
+      <a class="btn" [routerLink]="paths.signIn.path">Trở về trang đăng nhập</a>
     </div>
+    <div class="h-[100px]"></div>
   </div>
 </div>
