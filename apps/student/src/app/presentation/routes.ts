@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { LeaveGuard } from './leave.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
-import { DiagnosticTestDecisionComponent } from './pages/diagnostic-test-decision/diagnostic-test-decision.component';
 import { DiagnosticTestComponent } from './pages/diagnostic-test/diagnostic-test.component';
 import { FinalExamComponent } from './pages/final-exam/final-exam.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -29,31 +28,31 @@ import { TestComponent } from './pages/test/test.component';
  * but for production we strip it out. That's why we have 2 app-routing.module files.
  */
 
-class AppPath {
-  home = '/';
-  signIn = '/sign-in/';
-  signOut = '/sign-out/';
-  signUp = '/sign-up/';
-  classProgram = '/mock-test/';
-  test = '/test/';
-  diagnosticTestDecision = '/diagnostic-test-decision/';
-  diagnosticTest = '/diagnostic-test/';
-  learningPath = '/learning-path/';
-  lessonPage = '/learning-path/lesson-page/';
-  diagnosticTestComplete = '/diagnostic-test/test-complete/';
-  waitingForTutor = '/waiting-for-tutor/';
-  profile = '/profile/';
-  pageNotfound = '/page-not-found/';
-  newLesson = '/new-lesson/';
-  finalExam = '/final-exam/';
-  resetPassword = '/reset-password/';
-  account = '/account/';
-  package = '/account/package/';
-  mockTest = '/mock-test/';
-  mockTestSelect = '/mock-test/:id/select/';
-  mockTestTest = '/mock-test/:id/test/';
-  mockTestShare = '/share-mocktest/:ref';
-  newUser = '/new-user/';
+class AppPaths {
+  home = { name: 'Trang chủ', path: '/' };
+  signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
+  signOut = { name: 'Thoát', path: '/sign-out/' };
+  signUp = { name: 'Trang đăng ký', path: '/sign-up' };
+  classProgram = { name: 'Trang chọn mục tiêu', path: '/mock-test/' };
+  test = { name: 'Test', path: '/test/' };
+  diagnosticTest = { name: '', path: '/diagnostic-test/' };
+  learningPath = { name: '', path: '/learning-path/' };
+  lessonPage = { name: '', path: '/learning-path/lesson-page/' };
+  diagnosticTestComplete = { name: '', path: '/diagnostic-test/test-complete/' };
+  waitingForTutor = { name: '', path: '/waiting-for-tutor/' };
+  profile = { name: '', path: '/profile/' };
+  pageNotfound = { name: '', path: '/page-not-found/' };
+  newLesson = { name: '', path: '/new-lesson/' };
+  finalExam = { name: '', path: '/final-exam/' };
+  resetPassword = { name: '', path: '/reset-password/' };
+  account = { name: '', path: '/account/' };
+  package = { name: '', path: '/account/package/' };
+  mockTest = { name: '', path: '/mock-test/' };
+  mockTestSelect = { name: '', path: '/mock-test/:id/select/' };
+  mockTestTest = { name: '', path: '/mock-test/:id/test/' };
+  mockTestShare = { name: '', path: '/share-mocktest/:ref' };
+  newUser = { name: '', path: '/new-user/' };
+  termsOfService = { name: '', path: '/terms-of-service' };
 }
 
 const routes: Routes = [
@@ -84,11 +83,6 @@ const routes: Routes = [
   {
     path: 'test',
     component: TestComponent,
-  },
-  {
-    path: 'diagnostic-test-decision',
-    component: DiagnosticTestDecisionComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'diagnostic-test',
@@ -150,6 +144,10 @@ const routes: Routes = [
     component: NewUserComponent,
   },
   {
+    path: 'terms-of-service',
+    loadComponent: () => import('./pages/terms-of-service/terms-of-service.component').then(m => m.TermsOfServiceComponent)
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },
@@ -159,5 +157,5 @@ const routes: Routes = [
   },
 ];
 
-export { routes, AppPath };
+export { routes, AppPaths };
 

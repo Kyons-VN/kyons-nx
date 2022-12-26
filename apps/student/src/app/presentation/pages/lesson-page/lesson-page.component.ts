@@ -20,7 +20,7 @@ import {
 import { TestService } from '@infrastructure/test/test.service';
 import { TutorService } from '@infrastructure/tutor/tutor.service';
 import { UserService } from '@infrastructure/user/user.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
 // import * as _ from 'lodash';
 import { delay, range } from 'lodash-es';
@@ -36,7 +36,7 @@ import {
 })
 export class LessonPageComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'h-full flex flex-col';
-  paths: AppPath;
+  paths: AppPaths;
   learningGoal: LearningGoal;
   program: Program;
   constructor(

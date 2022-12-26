@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
 import { RedirectAfterLogin } from '../../domain/navigation/i-redirect';
-import { AppPath } from '../../presentation/routes';
+import { AppPaths } from '../../presentation/routes';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavigationService {
-  paths: AppPath;
+  paths: AppPaths;
   constructor() {
-    this.paths = new AppPath();
+    this.paths = new AppPaths();
   }
 
   getRouteAfterLogin(redirectString: string): string {
     switch (redirectString) {
       case RedirectAfterLogin[RedirectAfterLogin.HomePage]:
-        return this.paths.home;
+        return this.paths.home.path;
       case RedirectAfterLogin[RedirectAfterLogin.LearningPath]:
-        return this.paths.learningPath;
+        return this.paths.learningPath.path;
       case RedirectAfterLogin[RedirectAfterLogin.DiagnosticTest]:
-        return this.paths.classProgram;
+        return this.paths.classProgram.path;
       case RedirectAfterLogin[RedirectAfterLogin.MockTest]:
-        return this.paths.mockTest;
+        return this.paths.mockTest.path;
       case RedirectAfterLogin[RedirectAfterLogin.ReferralMockTest]:
-        return this.paths.mockTestTest;
+        return this.paths.mockTestTest.path;
       default:
-        return this.paths.home;
+        return this.paths.home.path;
     }
   }
 }

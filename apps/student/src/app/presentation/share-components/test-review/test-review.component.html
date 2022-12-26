@@ -2,9 +2,12 @@
 <div *ngFor="let review of reviewRenderObject">
   <div class="flex justify-between items-center cursor-pointer" (click)="review.isOpen = !review.isOpen">
     <div>{{ review.topic }}</div>
-    <a class="flex transition-transform" [style.transform]="review.isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)'"
-      ><i class="icon-ArrowDown"></i
-    ></a>
+    <button
+      class="flex transition-transform text-orange"
+      [style.transform]="review.isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)'"
+    >
+      <i class="icon-ArrowDown"></i>
+    </button>
   </div>
   <mat-divider></mat-divider>
   <div class="flex flex-col gap-4 transition-all overflow-hidden mt-2" [style.height]="review.isOpen ? 'auto' : 0">

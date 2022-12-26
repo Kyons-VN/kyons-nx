@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { Program } from '@infrastructure/knowledge/program';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPath } from '@presentation/routes';
+import { AppPaths } from '@presentation/routes';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  paths: AppPath;
+  paths: AppPaths;
   constructor(
     navService: NavigationService,
     private knowledgeService: KnowledgeService,
@@ -39,6 +39,6 @@ export class HomeComponent implements OnInit {
 
   selectProgram(program: Program) {
     this.knowledgeService.selectProgram(program);
-    this.router.navigate([this.paths.learningPath]);
+    this.router.navigate([this.paths.learningPath.path]);
   }
 }
