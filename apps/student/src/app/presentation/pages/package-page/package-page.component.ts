@@ -29,7 +29,6 @@ export class PackagePageComponent implements OnInit {
   balance = Balance.empty();
 
   ngOnInit(): void {
-    console.log("init PackagePageComponent");
     this.getBalance();
     this.orderService.getPackages().subscribe({
       next: (packages: Package[]) => {
@@ -63,8 +62,7 @@ export class PackagePageComponent implements OnInit {
   orderPackage() {
     this.loading.show();
     this.orderService.orderPackage(this.selectedPackage.id, this.quantity).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
         this.step = 2;
         this.getBalance();
         this.loading.hide();

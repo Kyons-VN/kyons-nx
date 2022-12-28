@@ -37,7 +37,6 @@ export class SelectTopicComponent implements OnInit {
   learningGoalId = '';
 
   ngOnInit(): void {
-    console.log('init MockTestSelectTopicComponent');
     this.learningGoalId = this.route.snapshot.paramMap.get('id') ?? '';
     this.testService.getTopicsOfLearningGoal(this.learningGoalId).subscribe({
       next: (topics: Topic[]) => {

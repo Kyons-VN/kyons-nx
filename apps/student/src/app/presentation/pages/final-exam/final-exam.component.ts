@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPaths } from '@presentation/routes';
 import { UserService } from '@infrastructure/user/user.service';
+import { AppPaths } from '@presentation/routes';
 
 @Component({
   selector: 'student-final-exam',
@@ -32,7 +32,6 @@ export class FinalExamComponent implements OnInit {
   finalExamLink!: string;
 
   ngOnInit(): void {
-    console.log('init student-final-exam');
     const programId = this.route.snapshot.paramMap.get('programId') ?? '';
     // switch (programId) {
     //   case '2':

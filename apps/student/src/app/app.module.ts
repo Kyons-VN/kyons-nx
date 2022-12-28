@@ -52,7 +52,6 @@ export function playerFactory() {
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeVN from '@angular/common/locales/vi';
-import { SelectLearningGoalComponent } from '@presentation/pages/mock-test/select-learning-goal/select-learning-goal.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
 import { MockTestSelectProgramComponent } from './presentation/pages/mock-test/select-program/select-program.component';
 import { NewUserComponent } from './presentation/pages/new-user/new-user.component';
@@ -92,7 +91,6 @@ registerLocaleData(localeEN, 'en');
     MockTestTestComponent,
     AccountPageComponent,
     MockTestSelectProgramComponent,
-    SelectLearningGoalComponent,
     SelectTopicComponent,
     NewUserComponent,
   ],

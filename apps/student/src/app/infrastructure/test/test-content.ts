@@ -299,8 +299,6 @@ class TestResult implements ITestResult {
   }
 
   getShareableMockTestLink() {
-    console.log(window.location.hostname);
-
     const origin = window.location.hostname == 'localhost' ? 'http://localhost:4200' : environment.origin;
     return this.type == TestType.Mock ? `${origin}/share-mocktest/${this.shareReferral}` : '';
   }

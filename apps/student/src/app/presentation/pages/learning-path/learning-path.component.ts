@@ -68,7 +68,6 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   }
 
   set selectedCategoryIdMod(newValue) {
-    console.log(newValue);
     this.selectedCategoryId = newValue;
     this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
     this.lessons = this.learningGoalCategory.lessons;
@@ -150,7 +149,6 @@ export class LearningPathComponent implements OnInit, OnDestroy {
     }
     if (event.deltaY > 0) this.scrollRight(event.deltaY);
     else this.scrollLeft(event.deltaY);
-    console.log(this.scrollDistance);
   }
 
   public scrollRight(deltaY: number = window.innerWidth - 300): void {
@@ -197,7 +195,6 @@ export class LearningPathComponent implements OnInit, OnDestroy {
   }
 
   onCategoryChange(newValue: string) {
-    console.log(newValue);
     this.selectedCategoryId = newValue;
     this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
     this.lessons = this.learningGoalCategory.lessons;

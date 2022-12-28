@@ -30,7 +30,6 @@ export class MockTestShareComponent implements OnInit {
   showForLoggedInUser = false;
 
   ngOnInit(): void {
-    console.log('init MockTestShareComponent');
     this.ref = this.route.snapshot.paramMap.get('ref') ?? '';
     this.testService.getShareMockTestInfoFromRef(this.ref).subscribe({
       next: ({

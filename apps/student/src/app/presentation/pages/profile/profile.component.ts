@@ -41,6 +41,6 @@ export class ProfileComponent implements OnInit {
   }
 
   changeAvatar() {
-    console.log('changeAvatar');
+    //
   }
 }

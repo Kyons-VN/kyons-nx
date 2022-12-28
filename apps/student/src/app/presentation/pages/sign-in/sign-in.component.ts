@@ -89,11 +89,9 @@ export class SignInComponent implements OnInit, AfterViewInit {
         .subscribe({
           next: (result: any) => {
             if (result.success) {
-              console.log('redirect_after_auth', result.redirect_after_auth);
               let redirectPath = this.navService.getRouteAfterLogin(
                 result.redirect_after_auth
               );
-              console.log('redirectPath', redirectPath);
               const selectedProgram = result.program ? Program.fromJson(result.program) : null;
               if (selectedProgram) {
                 if (result.learning_goal) {

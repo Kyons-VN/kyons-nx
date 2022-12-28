@@ -1,4 +1,5 @@
 {
+  "name": "share-directives",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/share-directives/src",
   "projectType": "library",
@@ -12,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/share-directives"],
+      "outputs": ["{workspaceRoot}/coverage/libs/share-directives"],
       "options": {
         "jestConfig": "libs/share-directives/jest.config.ts",
         "passWithNoTests": true

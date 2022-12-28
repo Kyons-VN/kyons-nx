@@ -77,8 +77,6 @@ export class SignUpComponent implements OnInit {
   // }
 
   beforeunload = () => {
-    console.log('dô');
-
     if (this.refFrom == TestType.Mock && this.step != 1) {
       return 'Thử thách chỉ dành cho các bạn chưa có tài khoản.\nBạn sẽ không thể tiếp tục thử thách nếu chuyển trang khác. Nhấn ok để đi đến trang khác. Nhấn Cancel để ở lại trang';
     }
@@ -114,7 +112,6 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
-    console.log('submit');
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
     this.loading.show();

@@ -74,7 +74,6 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.route.queryParams
       .subscribe(params => {
-        console.log(params); // { orderby: "price" }
         if (params['email']) {
           this.email.setValue(params['email']);
           this.step = 1;
@@ -84,7 +83,6 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
         }
       }
       );
-    console.log('init ResetPasswordComponent');
     this.emailForm.addControl('email', this.email);
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.errorMessage = '';
@@ -121,8 +119,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.processing = true;
     this.emailNotFound = false;
     this.accountService.requestResetPassword(this.email.value).subscribe({
-      next: (res) => {
-        console.log(res);
+      next: () => {
         this.step = 1;
         this.processing = false;
         this.loading.hide();

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
@@ -9,7 +9,7 @@ import { AppPaths } from '@presentation/routes';
   templateUrl: './new-user.component.html',
   styleUrls: ['./new-user.component.scss'],
 })
-export class NewUserComponent implements OnInit {
+export class NewUserComponent {
   @HostBinding('class') class = 'h-full';
   paths: AppPaths;
   constructor(
@@ -20,11 +20,6 @@ export class NewUserComponent implements OnInit {
     this.paths = navService.paths;
   }
 
-  ngOnInit(): void {
-    console.log('init NewUserComponent');
-
-  }
-
   getFreeTrial() {
     this.loading.show();
     this.orderService.getFreeTrial().subscribe({
@@ -32,7 +27,7 @@ export class NewUserComponent implements OnInit {
         this.router.navigate([this.paths.learningPath.path]);
         this.loading.hide();
       },
-      error: (_) => {
+      error: () => {
         alert('Có lỗi, xin thử lại');
         this.loading.hide();
       }

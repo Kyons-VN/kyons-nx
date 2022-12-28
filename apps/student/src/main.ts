@@ -11,13 +11,11 @@ if (environment.production) {
 function bootstrap() {
   if (window.screen.width <= 768) {
     const xhr = new XMLHttpRequest();
-    console.log(window.screen.width);
     xhr.open('GET', '/assets/mobile-iframe.html');
     xhr.onload = function () {
       const pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
       const html = pattern.exec(xhr.responseText);
       if (html) {
-        console.log(html[1]);
         window.document.body.innerHTML = html[1];
       }
     };

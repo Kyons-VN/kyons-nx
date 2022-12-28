@@ -66,12 +66,6 @@ export class TestContentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.answerPrefixes = answerPrefixes;
     this.conponentId = new Date().getTime().toString();
-    // this.subscription = fromEvent<KeyboardEvent>(document, 'keydown').subscribe({
-    //   next: (e) => {
-    //     console.log(e.key);
-
-    //   },
-    // });
   }
 
   ngOnDestroy(): void {

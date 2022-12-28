@@ -3,7 +3,7 @@ import {
   HostBinding, HostListener, OnDestroy,
   OnInit
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ActivatedRoute } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
@@ -126,7 +126,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
           this.loadContent(0);
         },
         error: (err) => {
-          console.log(err);
           if (err.error_code == 'SubscriptionExpired') {
             this.subscriptionExpired = true;
           }
@@ -334,8 +333,6 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   exerciseComplete() {
-    console.log(this);
-
     if (this.exerciseProgress.value < this.exerciseContent.questions.length || this.exerciseResult != undefined) return;
     this.loading.show();
     this.exerciseSubmission.end = new Date();

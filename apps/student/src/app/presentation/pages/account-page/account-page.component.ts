@@ -40,7 +40,6 @@ export class AccountPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('init AccountPageComponent');
     this.orderService.getInventories().subscribe({
       next: (inventory: Inventory) => {
         this.inventory = inventory;
@@ -81,7 +80,6 @@ export class AccountPageComponent implements OnInit {
   }
 
   onSelectTab(newValue: string) {
-    console.log(newValue);
     this.activeTab = parseInt(newValue);  // don't forget to update the model here
     // ... do other stuff here ...
   }
