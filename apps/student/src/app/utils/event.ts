@@ -1,9 +1,16 @@
 import { Submission } from "@infrastructure/test/submission";
 import { TestContent } from "@infrastructure/test/test-content";
-import { Progress } from "@presentation/share-components/questions-progress/questions-progress.component";
+// import { Progress } from "@presentation/share-components/questions-progress/questions-progress.component";
 import { fromEvent, Subscription } from "rxjs";
 
-function initTestKeyboardEvent({ isActive, testContent, submission, progress, currentIndex, completeCallback }: { isActive: () => boolean, testContent: TestContent, submission: Submission, progress: Progress, currentIndex: { value: number }, completeCallback: () => void }): Subscription {
+interface IProgress {
+  value: number;
+  label: string;
+  total: number;
+  next(): void;
+}
+
+function initTestKeyboardEvent({ isActive, testContent, submission, progress, currentIndex, completeCallback }: { isActive: () => boolean, testContent: TestContent, submission: Submission, progress: IProgress, currentIndex: { value: number }, completeCallback: () => void }): Subscription {
   return fromEvent<KeyboardEvent>(document, 'keydown').subscribe({
     next: (e) => {
       console.log(e.key);
@@ -33,5 +40,5 @@ function initTestKeyboardEvent({ isActive, testContent, submission, progress, cu
   });
 }
 
-export { initTestKeyboardEvent };
+export { initTestKeyboardEvent, IProgress };
 

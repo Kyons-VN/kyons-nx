@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      @font-face {
+        font-family: 'Kyons-Icon-Fonts';
+        src: url('/assets/kyons_fonts/Kyons-Icon-Fonts.ttf?91dme6') format('truetype'),
+          url('/assets/kyons_fonts/Kyons-Icon-Fonts.woff?91dme6') format('woff'),
+          url('/assets/kyons_fonts/Kyons-Icon-Fonts.svg?91dme6#Kyons-Icon-Fonts') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+      }
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: rgb(44 61 91);
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: white;
+      }
+      .splash-notsupported {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 14px;
+        line-height: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+      }
+    </style>
+    <div class="splash-notsupported">
+      <img src="/assets/images/logo-v.svg" width="100px" alt="" />
+      <div style="height: 40px"></div>
+      <p>Apologies, this project is not yet properly supported on mobile devices.</p>
+      <p>If you're not on a mobile device, please disregard this message and click below to force a reload.</p>
+      <a class="btn" href="/">Reload</a>
+      <div style="height: 100px"></div>
+    </div>
+  </body>
+</html>

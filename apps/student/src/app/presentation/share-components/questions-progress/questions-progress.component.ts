@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IProgress } from '@utils/event';
 
 @Component({
   selector: 'student-questions-progress',
@@ -9,7 +10,7 @@ export class QuestionsProgressComponent {
   @Input() progress = new Progress();
 }
 
-export class Progress {
+export class Progress implements IProgress {
   value = 0;
   label = '';
   total = 1;

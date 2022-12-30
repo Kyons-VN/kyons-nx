@@ -2,14 +2,19 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "school": "apps/school",
+    "school-e2e": "apps/school-e2e",
     "share-directives": "libs/share-directives",
     "share-pipes": "libs/share-pipes",
+    "share-utils": "libs/share-utils",
     "student": "apps/student",
     "student-e2e": "apps/student-e2e",
+    "theme": "libs/theme",
     "tutor": "apps/tutor",
     "tutor-e2e": "apps/tutor-e2e"
   },
   "build": {
     "builder": "@angular-devkit/build-angular:browser"
-  }
+  },
+  "defaultProject": "student"
 }

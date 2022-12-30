@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@view/*": ["apps/school/src/app/view/*"],
+      "@data/*": ["apps/school/src/app/data/*"],
+      "@domain/*": ["apps/school/src/app/domain/*"],
+      "@utils/*": ["libs/share-utils/src/lib/*"],
+      "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@environments/*": ["apps/school/src/environments/*"],
+      "@theme/*": ["libs/theme/*"],
+      "@assets/*": ["libs/theme/src/lib/assets/*"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json",
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

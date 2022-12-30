@@ -1,0 +1,6 @@
+@media (min-width: 768px) {
+  .card-h-full {
+    height: calc(100vh - 11.5rem) !important;
+    overflow: auto;
+  }
+}

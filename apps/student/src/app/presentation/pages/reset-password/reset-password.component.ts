@@ -15,7 +15,6 @@ import { AppPaths } from '@presentation/routes';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
 @Component({
-  selector: 'student-asd',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './reset-password.component.html',
