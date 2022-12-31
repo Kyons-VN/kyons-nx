@@ -170,6 +170,7 @@ export class MockTestTestComponent implements OnInit {
   }
 
   testComplete() {
+    if (this.isSubmitting) return;
     this.isSubmitting = true;
     this.loading.show();
     this.testSubmission.end = new Date();
