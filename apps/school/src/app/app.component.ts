@@ -1,11 +1,10 @@
-import {NxWelcomeComponent} from './nx-welcome.component';
-import {RouterModule} from '@angular/router';
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'kyonsvn-root',
+  imports: [RouterModule],
+  selector: 'school-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

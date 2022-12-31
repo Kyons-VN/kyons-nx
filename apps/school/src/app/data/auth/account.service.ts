@@ -1,5 +1,5 @@
 import { HttpBackend, HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 
 export const SERVER_API = environment.serverApi;
@@ -8,10 +8,11 @@ export const SERVER_API = environment.serverApi;
   providedIn: 'root',
 })
 export class AccountStandaloneService {
-  constructor(
-    private http: HttpClient,
-    backend: HttpBackend,
-  ) {
+  http: HttpClient;
+  constructor() {
+    console.log('Create');
+
+    const backend = inject(HttpBackend);
     this.http = new HttpClient(backend);
   }
 

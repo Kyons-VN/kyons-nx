@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { SERVER_API } from '../auth/interceptor';
 
@@ -10,7 +10,7 @@ const DEVICE_ID_KEY = 'device_id';
 export class TrackingService {
   public trackingThreshold = 10000;
   _deviceId!: string;
-  constructor(private http: HttpClient) {
+  constructor() {
     const deviceId = localStorage.getItem(DEVICE_ID_KEY);
     if (deviceId == null) {
       this._deviceId = this.generateDeviceId();
@@ -35,7 +35,7 @@ export class TrackingService {
     else {
       total += this.trackingThreshold / 1000;
       this.setTrackingOnApp(total);
-      this.http.post(SERVER_API + '/students/on_app', {
+      inject(HttpClient).post(SERVER_API + '/students/on_app', {
         'on_total': total
       }).subscribe();
     }
@@ -54,7 +54,7 @@ export class TrackingService {
       }
       updateTracking[trackingType] = lessonTracking[trackingType];
 
-      this.http.post(SERVER_API + '/students/on_lesson', updateTracking).subscribe();
+      inject(HttpClient).post(SERVER_API + '/students/on_lesson', updateTracking).subscribe();
     }
 
   }
@@ -91,7 +91,7 @@ export class TrackingService {
     const tracking = this.getTracking();
     tracking.total = this.trackingThreshold / 1000;
     localStorage.setItem('tracking', JSON.stringify(tracking));
-    this.http.post(SERVER_API + '/students/on_app', {
+    inject(HttpClient).post(SERVER_API + '/students/on_app', {
       'on_total': tracking.toJson,
       'start': true
     }).subscribe();
@@ -108,7 +108,7 @@ export class TrackingService {
       'start': true,
     };
     params[trackingType] = updateTracking[trackingType];
-    this.http.post(SERVER_API + '/students/on_lesson', params).subscribe();
+    inject(HttpClient).post(SERVER_API + '/students/on_lesson', params).subscribe();
   }
 
   resetTracking() {

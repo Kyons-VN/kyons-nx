@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { SERVER_API } from '../auth/interceptor';
@@ -11,13 +11,13 @@ export const CURRENT_USER = 'current' + environment.name + 'User';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  // http = inject(HttpClient);
 
   async updateCurrentUser(uuid: string, email: string) {
     const params = new HttpParams().set('id', uuid);
     const promise = new Promise((resolve, reject) => {
       firstValueFrom(
-        this.http
+        inject(HttpClient)
           .get(SERVER_API + '/auth/get_user', {
             params: params,
           })

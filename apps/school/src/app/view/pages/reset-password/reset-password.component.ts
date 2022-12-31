@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,36 +10,35 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
-import { LoadingOverlayService } from '@data/loading-overlay.service';
+// import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
-import { AppPaths } from '@view/routes';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, HttpClientModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit, AfterViewInit {
-  paths: AppPaths;
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
   search: (str: string, regexStr: string) => void;
 
+  paths = inject(NavigationService).paths;
+  // loading = inject(LoadingOverlayService);
+  fb = inject(FormBuilder);
+  accountService: AccountStandaloneService;
+
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private accountService: AccountStandaloneService,
-    navService: NavigationService,
-    private loading: LoadingOverlayService
   ) {
-    this.paths = navService.paths;
     this.notHaveUppercase = notHaveUppercase;
     this.notHaveDigit = notHaveDigit;
     this.notHaveSpecial = notHaveSpecial;
     this.search = search;
+    this.accountService = new AccountStandaloneService();
   }
 
   @HostBinding('class') class = 'h-full';
@@ -114,14 +114,14 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   sendEmail() {
     this.emailForm.markAsTouched();
     if (this.emailForm.invalid) return;
-    this.loading.show();
+    // this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
     this.accountService.requestResetPassword(this.email.value).subscribe({
       next: () => {
         this.step = 1;
         this.processing = false;
-        this.loading.hide();
+        // this.loading.hide();
         setTimeout(() => {
           this.codeElm.nativeElement.focus();
         }, 1000);
@@ -131,7 +131,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
         this.emailNotFound = true;
 
         this.processing = false;
-        this.loading.hide();
+        // this.loading.hide();
       },
     });
   }
@@ -139,14 +139,14 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
   sendCode() {
     this.resetForm.markAsTouched();
     if (this.resetForm.invalid) return;
-    this.loading.show();
+    // this.loading.show();
     this.processing = true;
     this.emailNotFound = false;
     this.accountService.newPassword(this.email.value, this.password.value, this.code.value).subscribe({
       next: () => {
         this.step = 2;
         this.processing = false;
-        this.loading.hide();
+        // this.loading.hide();
       },
       error: (err) => {
         // {
@@ -168,7 +168,7 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
 
 
         this.processing = false;
-        this.loading.hide();
+        // this.loading.hide();
       },
     });
   }

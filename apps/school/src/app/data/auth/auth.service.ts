@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TrackingService } from '@data/tracking/tracking.service';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { catchError, map } from 'rxjs';
@@ -16,14 +16,12 @@ const USER_ROLE = 'role';
   providedIn: 'root',
 })
 export class AuthService implements IAuthService {
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-    private trackingService: TrackingService,
-  ) { }
+  // http = inject(HttpClient);
+  userService = inject(UserService);
+  trackingService = inject(TrackingService);
 
   signIn(credential: IAuthCredential) {
-    return this.http
+    return inject(HttpClient)
       .post(SERVER_API + '/auth/sign_in', credential.toJson())
       .pipe(
         catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
@@ -71,7 +69,7 @@ export class AuthService implements IAuthService {
   }
 
   refreshToken(refreshToken: string) {
-    return this.http.post(
+    return inject(HttpClient).post(
       SERVER_API + '/auth/refresh',
       {},
       {
@@ -81,4 +79,9 @@ export class AuthService implements IAuthService {
       }
     );
   }
+
+
+  isLoggedIn() {
+    return this.getToken() != '';
+  };
 }

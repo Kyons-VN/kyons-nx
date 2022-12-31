@@ -1,6 +1,6 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
 
 @Injectable({
@@ -9,14 +9,15 @@ import { LoadingComponent } from '@view/share-components/loading/loading.compone
 export class LoadingOverlayService {
   private overlayRef: OverlayRef;
 
-  constructor(private overlay: Overlay) {
-    this.overlayRef = this.overlay.create();
+  constructor() {
+    const overlay = inject(Overlay);
+    this.overlayRef = overlay.create();
   }
 
   public show() {
     // Returns an OverlayRef (which is a PortalHost)
     if (!this.overlayRef) {
-      this.overlayRef = this.overlay.create();
+      this.overlayRef = inject(Overlay).create();
     }
 
     // Create ComponentPortal that can be attached to a PortalHost

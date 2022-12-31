@@ -3,7 +3,7 @@ import { HomeComponent } from '@view/pages/home/home.component';
 import { PageNotFoundComponent } from '@view/pages/page-not-found/page-not-found.component';
 import { SignInComponent } from '@view/pages/sign-in/sign-in.component';
 import { SignOutComponent } from '@view/pages/sign-out/sign-out.component';
-import { AuthGuard } from './auth.guard';
+import { authGuard } from './auth.guard';
 
 /**
  * This routes will be used to genarate the app's sitemap.
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-out', component: SignOutComponent },

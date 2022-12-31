@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,14 +8,18 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '@data/auth/auth.service';
 import { AuthCredential } from '@data/auth/credential';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { environment } from '@environments/environment';
 import { FormControlStatus } from '@utils/form';
-import { AppPaths } from '@view/routes';
+import player from 'lottie-web/build/player/lottie_light';
+
+export function playerFactory() {
+  return player;
+}
 
 @Component({
   standalone: true,
@@ -24,17 +28,10 @@ import { AppPaths } from '@view/routes';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit, AfterViewInit {
-  paths: AppPaths;
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    navService: NavigationService,
-    private loading: LoadingOverlayService,
-
-  ) {
-    this.paths = navService.paths;
-  }
+  paths = inject(NavigationService).paths;
+  authService = inject(AuthService);
+  loading = inject(LoadingOverlayService);
+  fb = inject(FormBuilder);
 
   @HostBinding('class') class = 'h-full';
 
