@@ -101,6 +101,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   starsOfDifficulty = range(5);
   emptyStars = range(0);
   subscriptionExpired = false;
+  isSubmitting = false;
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -275,7 +276,8 @@ export class LessonPageComponent implements OnInit, OnDestroy {
   }
 
   testComplete() {
-    if (this.testProgress.value < this.testContent.questions.length) return;
+    if (this.testProgress.value < this.testContent.questions.length || this.isSubmitting) return;
+    this.isSubmitting = true;
     this.loading.show();
     this.testSubmission.end = new Date();
     this.testService.submitTest(this.testSubmission).subscribe({
@@ -284,6 +286,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
       },
       error: () => {
         // TODO: Define error resposes
+        this.isSubmitting = false;
         this.loading.hide();
       },
       complete: () => {
@@ -327,13 +330,15 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             ),
           };
         });
+        this.isSubmitting = false;
         this.loading.hide();
       },
     });
   }
 
   exerciseComplete() {
-    if (this.exerciseProgress.value < this.exerciseContent.questions.length || this.exerciseResult != undefined) return;
+    if (this.exerciseProgress.value < this.exerciseContent.questions.length || this.exerciseResult != undefined || this.isSubmitting) return;
+    this.isSubmitting = true;
     this.loading.show();
     this.exerciseSubmission.end = new Date();
     this.testService.submitTest(this.exerciseSubmission).subscribe({
@@ -342,6 +347,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
       },
       error: () => {
         // TODO: Define error resposes
+        this.isSubmitting = false;
         this.loading.hide();
       },
       complete: () => {
@@ -386,6 +392,7 @@ export class LessonPageComponent implements OnInit, OnDestroy {
             ),
           };
         });
+        this.isSubmitting = false;
         this.loading.hide();
       },
     });
