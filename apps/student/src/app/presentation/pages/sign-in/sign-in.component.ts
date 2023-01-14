@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,7 +26,7 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit, AfterViewInit {
+export class SignInComponent implements OnInit {
   paths: AppPaths;
   constructor(
     private fb: FormBuilder,
@@ -68,9 +68,9 @@ export class SignInComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-    this.emailElm.nativeElement.focus();
-  }
+  // ngAfterViewInit(): void {
+  // this.emailElm.nativeElement.focus();
+  // }
 
   login() {
     if (this.isDebug) {

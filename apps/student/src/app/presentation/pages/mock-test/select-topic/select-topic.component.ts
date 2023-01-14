@@ -35,6 +35,7 @@ export class SelectTopicComponent implements OnInit {
   topics: Topic[] = [];
   checkedCount = 0;
   learningGoalId = '';
+  isDoneEditing = false;
 
   ngOnInit(): void {
     this.learningGoalId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -52,6 +53,7 @@ export class SelectTopicComponent implements OnInit {
 
   // learningGoals.filter((lG)=>lG.checked===true).length===0
   submit() {
+    this.isDoneEditing = true;
     if (this.topics.filter((lG) => lG.checked === true).length < (this.selectedTarget.minTopic ?? 3) || this.topics.filter((lG) => lG.checked === true).length > (this.selectedTarget.maxTopic ?? 4)) {
       return;
     }
