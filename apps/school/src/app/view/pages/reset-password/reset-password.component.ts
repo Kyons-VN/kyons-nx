@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -20,7 +20,7 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
-export class ResetPasswordComponent implements OnInit, AfterViewInit {
+export class ResetPasswordComponent implements OnInit {
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
@@ -95,21 +95,21 @@ export class ResetPasswordComponent implements OnInit, AfterViewInit {
     this.resetForm.addControl('password', this.password);
   }
 
-  ngAfterViewInit(): void {
-    if (this.step == 0) this.emailElm.nativeElement.focus();
-    else if (this.step == 1) {
-      if (this.email.value == '') {
-        setTimeout(() => {
-          this.codeElm.nativeElement.focus();
-        }, 1000);
-      }
-      else {
-        setTimeout(() => {
-          this.passwordElm.nativeElement.focus();
-        }, 1000);
-      }
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if (this.step == 0) this.emailElm.nativeElement.focus();
+  //   else if (this.step == 1) {
+  //     if (this.email.value == '') {
+  //       setTimeout(() => {
+  //         this.codeElm.nativeElement.focus();
+  //       }, 1000);
+  //     }
+  //     else {
+  //       setTimeout(() => {
+  //         this.passwordElm.nativeElement.focus();
+  //       }, 1000);
+  //     }
+  //   }
+  // }
 
   sendEmail() {
     this.emailForm.markAsTouched();

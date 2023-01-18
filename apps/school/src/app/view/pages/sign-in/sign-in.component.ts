@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,7 +27,7 @@ export function playerFactory() {
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit, AfterViewInit {
+export class SignInComponent implements OnInit {
   paths = inject(NavigationService).paths;
   authService = inject(AuthService);
   loading = inject(LoadingOverlayService);
@@ -61,9 +61,9 @@ export class SignInComponent implements OnInit, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
-    this.emailElm.nativeElement.focus();
-  }
+  // ngAfterViewInit(): void {
+  //   this.emailElm.nativeElement.focus();
+  // }
 
   login() {
     if (this.isDebug) {
