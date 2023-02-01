@@ -112,7 +112,10 @@ export class ResetPasswordComponent implements OnInit {
   // }
 
   sendEmail() {
-    this.emailForm.markAsTouched();
+    if (this.emailForm.untouched) {
+      this.emailForm.markAllAsTouched();
+      return;
+    }
     if (this.emailForm.invalid) return;
     this.loading.show();
     this.processing = true;

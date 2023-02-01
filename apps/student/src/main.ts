@@ -22,7 +22,7 @@ function bootstrap() {
     xhr.send();
     return;
     // if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
-    // if (window.location.host == 'student.tuhoconline.org') window.location = 'https://kyonsvn.web.app/student';
+    // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
   }
   platformBrowserDynamic()
     .bootstrapModule(AppModule, {

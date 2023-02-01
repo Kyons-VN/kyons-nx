@@ -12,7 +12,7 @@
         "outputPath": "dist/apps/student/prod",
         "index": "apps/student/src/index.html",
         "main": "apps/student/src/main.ts",
-        "polyfills": "apps/student/src/polyfills.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/student/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/student/src/favicon.ico", "apps/student/src/assets"],
@@ -60,6 +60,29 @@
             {
               "replace": "apps/student/src/environments/environment.ts",
               "with": "apps/student/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/student/src/environments/test/index.html"
+        },
+        "content": {
+          "outputPath": "dist/apps/student/content",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/student/src/environments/environment.ts",
+              "with": "apps/student/src/environments/environment.content.ts"
             }
           ],
           "outputHashing": "all",

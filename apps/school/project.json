@@ -9,7 +9,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/school",
+        "outputPath": "dist/apps/school/prod",
         "index": "apps/school/src/index.html",
         "main": "apps/school/src/main.ts",
         "polyfills": ["zone.js"],
@@ -25,7 +25,8 @@
           }
         ],
         "styles": ["libs/theme/src/styles.scss", "apps/school/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "allowedCommonJsDependencies": ["lottie-web"]
       },
       "configurations": {
         "production": {
@@ -42,6 +43,52 @@
             }
           ],
           "outputHashing": "all"
+        },
+        "stg": {
+          "outputPath": "dist/apps/school/stg",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/school/src/environments/environment.ts",
+              "with": "apps/school/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/school/src/environments/test/index.html"
+        },
+        "dev": {
+          "outputPath": "dist/apps/school/dev",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/school/src/environments/environment.ts",
+              "with": "apps/school/src/environments/environment.dev.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/school/src/environments/test/index.html"
         },
         "development": {
           "buildOptimizer": false,
