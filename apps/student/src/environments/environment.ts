@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
-  serverApi: 'https://api-stg.kyons.vn',
+  serverApi: 'https://student-api-stg.kyons.vn',
   origin: 'https://dev.kyons.vn',
 };
 
