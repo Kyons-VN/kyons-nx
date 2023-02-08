@@ -3,5 +3,5 @@ export const environment = {
   name: 'STUDENT',
   isPromotionEnable: false,
   serverApi: 'https://student-api-stg.kyons.vn',
-  origin: 'https://stg.kyons.vn',
+  origin: 'https://student-stg.kyons.vn',
 };
