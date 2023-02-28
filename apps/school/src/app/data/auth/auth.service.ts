@@ -16,13 +16,12 @@ const USER_ROLE = 'role';
   providedIn: 'root',
 })
 export class AuthService implements IAuthService {
-  // http = inject(HttpClient);
+  http = inject(HttpClient);
   userService = inject(UserService);
   trackingService = inject(TrackingService);
 
   signIn(credential: IAuthCredential) {
-    return inject(HttpClient)
-      .post(SERVER_API + '/auth/sign_in', credential.toJson())
+    return this.http.post(SERVER_API + '/auth/sign_in', credential.toJson())
       .pipe(
         catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
         map((data: any) => {
@@ -69,7 +68,7 @@ export class AuthService implements IAuthService {
   }
 
   refreshToken(refreshToken: string) {
-    return inject(HttpClient).post(
+    return this.http.post(
       SERVER_API + '/auth/refresh',
       {},
       {

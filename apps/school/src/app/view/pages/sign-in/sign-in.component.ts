@@ -35,7 +35,7 @@ export class SignInComponent implements OnInit {
 
   @HostBinding('class') class = 'h-full';
 
-  signInForm: FormGroup = this.fb.group({});
+  signInForm!: FormGroup;
   email: FormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -51,6 +51,7 @@ export class SignInComponent implements OnInit {
   @ViewChild("emailElm") emailElm!: ElementRef;
 
   ngOnInit(): void {
+    this.signInForm = this.fb.group({});
     this.signInForm.addControl('email', this.email);
     this.signInForm.addControl('password', this.password);
     this.signInForm.get('email')?.valueChanges.subscribe(() => {
