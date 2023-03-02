@@ -10,6 +10,8 @@ import { SERVER_API } from './interceptor';
 
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
+const INTEGRATE_TOKEN_KEY = 'integrate_token';
+const INTEGRATE_REFRESH_TOKEN_KEY = 'integrate_refresh_token';
 const USER_ROLE = 'role';
 
 @Injectable({
@@ -52,6 +54,9 @@ export class AuthService implements IAuthService {
   public getToken() {
     return window.localStorage.getItem(TOKEN_KEY) ?? '';
   }
+  public getIntegrateToken() {
+    return window.localStorage.getItem(INTEGRATE_TOKEN_KEY) ?? '';
+  }
 
   public getRefreshToken() {
     return window.localStorage.getItem(REFRESH_TOKEN_KEY);
@@ -60,6 +65,8 @@ export class AuthService implements IAuthService {
   public setToken(data: any) {
     window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
     window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
+    window.localStorage.setItem(INTEGRATE_TOKEN_KEY, data[INTEGRATE_TOKEN_KEY]);
+    window.localStorage.setItem(INTEGRATE_REFRESH_TOKEN_KEY, data[INTEGRATE_REFRESH_TOKEN_KEY]);
   }
 
   public removeToken() {
