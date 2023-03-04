@@ -8,11 +8,12 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@data/auth/auth.service';
 import { AuthCredential } from '@data/auth/credential';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
+import { User } from '@domain/user/user';
 import { environment } from '@environments/environment';
 import { FormControlStatus } from '@utils/form';
 import player from 'lottie-web/build/player/lottie_light';
@@ -32,6 +33,7 @@ export class SignInComponent implements OnInit {
   authService = inject(AuthService);
   loading = inject(LoadingOverlayService);
   fb = inject(FormBuilder);
+  router = inject(Router);
 
   @HostBinding('class') class = 'h-full';
 
@@ -62,10 +64,6 @@ export class SignInComponent implements OnInit {
     })
   }
 
-  // ngAfterViewInit(): void {
-  //   this.emailElm.nativeElement.focus();
-  // }
-
   login() {
     if (this.isDebug) {
       this.email.setValue('binhhm2009+1205ai@gmail.com');
@@ -81,11 +79,12 @@ export class SignInComponent implements OnInit {
       this.authService
         .signIn(new AuthCredential(this.signInForm.value))
         .subscribe({
-          next: (result: any) => {
-            if (result.success) {
-
+          next: (user: User) => {
+            if (user) {
               setTimeout(() => {
-                // this.router.navigate([redirectPath]);
+                this.router.navigate([this.paths.home.path]);
+                this.processing = false;
+                this.loading.hide();
               }, 600);
             } else {
               this.processing = false;
@@ -94,7 +93,6 @@ export class SignInComponent implements OnInit {
             }
           },
           error: () => {
-            // TODO: Define error resposes
             this.errorMessage = true;
             this.processing = false;
             this.loading.hide();

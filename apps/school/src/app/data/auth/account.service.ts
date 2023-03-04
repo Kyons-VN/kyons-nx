@@ -11,23 +11,8 @@ export class AccountStandaloneService {
   http: HttpClient;
   constructor() {
     console.log('Create');
-
     const backend = inject(HttpBackend);
     this.http = new HttpClient(backend);
-  }
-
-  // signUp({ email, firstName, lastName, password }: { email: string, firstName: string, lastName: string, password: string }) {
-  signUp(email: string, firstName: string, lastName: string, password: string, tosChecked: boolean, ref?: any) {
-    const params: any = { 'email': email, 'family_name': lastName, 'given_name': firstName, 'password': password, "accept_term_condition": tosChecked };
-    if (ref) {
-      params['referral'] = {
-        'mocktest_referral': ref
-      };
-    }
-    return this.http.post(
-      SERVER_API + '/auth/sign_up',
-      params,
-    );
   }
 
   requestResetPassword(email: string) {

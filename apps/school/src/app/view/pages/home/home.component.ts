@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   jwt = '';
 
   ngOnInit() {
-    console.log(this.paths);
     this.jwt = this.auth.getIntegrateToken();
   }
 

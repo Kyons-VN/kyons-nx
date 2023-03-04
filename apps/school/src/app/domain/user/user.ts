@@ -1,20 +1,34 @@
-interface IUser {
-  id: string;
-  email: string;
-  name: string;
-}
+import { ISchool, IUser } from "./i_user";
 
-export class User implements IUser {
-  id: string;
-  email: string;
+class School implements ISchool {
   name: string;
-  constructor(id: string, email: string, name: string) {
-    this.id = id;
-    this.email = email;
+  classes: string[];
+  constructor({ name: name, classes: classes }: { name: string, classes: string[] }) {
     this.name = name;
+    this.classes = classes;
   }
-
-  fromJson(json: any): User {
-    return new User(json['id'], json['email'], json['name']);
+  public static fromJson(json: any): School {
+    return new School({ name: json['name'], classes: json['class'] });
   }
 }
+
+class User implements IUser {
+  email: string;
+  first_name: string;
+  last_name: string;
+  username: string;
+  school: ISchool;
+  constructor({ email: email, first_name: first_name, last_name: last_name, username: username, school: school }: { email: string, first_name: string, last_name: string, username: string, school: ISchool }) {
+    this.email = email;
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.username = username;
+    this.school = school;
+  }
+
+  public static fromJson(json: any): User {
+    return new User({ email: json['email'], first_name: json['first_name'], last_name: json['last_name'], username: json['username'], school: School.fromJson(json['school']) });
+  }
+}
+
+export { User, School };

@@ -6,7 +6,7 @@
     <form class="flex flex-col w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-24" [formGroup]="signInForm">
       <img (dblclick)="debug()" src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
       <div class="h-12"></div>
-      <input type="text" #emailElm placeholder="Nhập email" formControlName="email" />
+      <input type="text" #emailElm placeholder="Nhập email" formControlName="email" autocomplete="email" />
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
         <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
         <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
@@ -19,6 +19,7 @@
           class="w-full"
           placeholder="Nhập mật khẩu"
           formControlName="password"
+          autocomplete="current-password"
         />
         <div
           (click)="showPassword = !showPassword"
