@@ -11,6 +11,7 @@ const REFRESH_TOKEN_KEY = 'refresh_token';
 const INTEGRATE_TOKEN_KEY = 'integrate_token';
 const INTEGRATE_REFRESH_TOKEN_KEY = 'integrate_refresh_token';
 const USER_ROLE = 'role';
+const USER_KEY = 'user';
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +77,13 @@ export class AuthService implements IAuthService {
     );
   }
 
+  setUser(user: User) {
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user.toJson()));
+  }
+  getUser(): User {
+    const user = JSON.parse(window.localStorage.getItem(USER_KEY) ?? '');
+    return User.fromJson(user);
+  }
 
   isLoggedIn() {
     return this.getToken() != '';

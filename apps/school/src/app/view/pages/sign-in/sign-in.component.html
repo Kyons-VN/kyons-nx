@@ -3,13 +3,13 @@
     class="flex w-full h-full items-center justify-center bg-primaryBlue p-6"
     [ngClass]="{'md:w-7/12': isPromotionEnable}"
   >
-    <form class="flex flex-col w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 mb-24" [formGroup]="signInForm">
+    <form class="flex flex-col w-full sm:w-[434px] mb-24" [formGroup]="signInForm">
       <img (dblclick)="debug()" src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
       <div class="h-12"></div>
-      <input type="text" #emailElm placeholder="Nhập email" formControlName="email" autocomplete="email" />
+      <input type="text" #emailElm placeholder="Enter email" formControlName="email" autocomplete="email" />
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
-        <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
-        <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
+        <div *ngIf="email.errors?.['required']">Email is empty.</div>
+        <div *ngIf="email.errors?.['email']">Please use email with format abc@email.com.</div>
       </div>
       <div class="h-4"></div>
       <div class="relative w-full">
@@ -17,7 +17,7 @@
           #passwordElm
           [type]="showPassword ? 'text' : 'password'"
           class="w-full"
-          placeholder="Nhập mật khẩu"
+          placeholder="Enter password"
           formControlName="password"
           autocomplete="current-password"
         />
@@ -30,19 +30,16 @@
         </div>
       </div>
       <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
-        <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
+        <div *ngIf="password.errors?.['required']">Password is empty.</div>
       </div>
-      <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
+      <div class="error" *ngIf="errorMessage">Email or password is incorrect</div>
       <div class="h-6"></div>
       <button (click)="login()" class="btn" [disabled]="(signInForm.touched && signInForm.invalid) || processing">
-        {{ processing ? 'Đang xử lý' : 'Đăng nhập' }}
+        {{ processing ? 'Processing' : 'Sign in' }}
       </button>
       <div class="h-6"></div>
-      <a [routerLink]="paths.resetPassword.path" class="text-orange">Quên mật khẩu</a>
+      <a [routerLink]="paths.resetPassword.path" class="text-orange">Forget password?</a>
       <div class="h-2"></div>
-      <!-- <span class="text-white"
-        >Bạn chưa có tài khoản? &nbsp; <a [routerLink]="paths.signUp.path" class="text-orange">Đăng ký tại đây</a></span
-      > -->
     </form>
   </div>
 </div>

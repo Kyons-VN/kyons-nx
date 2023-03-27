@@ -7,7 +7,7 @@ export const environment = {
   name: 'STUDENT',
   isPromotionEnable: false,
   serverApi: 'https://school-api-stg.kyons.vn',
-  origin: 'https://school-stg.kyons.vn',
+  origin: 'https://school-dev.kyons.vn',
 };
 
 /*

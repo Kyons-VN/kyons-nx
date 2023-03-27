@@ -9,7 +9,7 @@
       <input type="text" #emailElm placeholder="Nhập email" formControlName="email" />
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
         <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div>
-        <div *ngIf="email.errors?.['email']">Email chưa đúng.</div>
+        <div *ngIf="email.errors?.['email']">Vui lòng nhập theo định dạng abc@email.com.</div>
       </div>
       <div class="h-4"></div>
       <div class="relative w-full">

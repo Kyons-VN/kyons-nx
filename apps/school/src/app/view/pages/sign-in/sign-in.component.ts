@@ -81,6 +81,7 @@ export class SignInComponent implements OnInit {
         .subscribe({
           next: (user: User) => {
             if (user) {
+              this.authService.setUser(user);
               setTimeout(() => {
                 this.router.navigate([this.paths.home.path]);
                 this.processing = false;

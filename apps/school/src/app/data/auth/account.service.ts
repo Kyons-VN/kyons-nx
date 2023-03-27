@@ -15,17 +15,17 @@ export class AccountStandaloneService {
     this.http = new HttpClient(backend);
   }
 
-  requestResetPassword(email: string) {
+  requestResetPassword(username: string) {
     return this.http.post(
-      SERVER_API + '/forgot_password',
-      { 'email': email },
+      SERVER_API + '/student/forgot_password',
+      { 'username': username },
     );
   }
 
-  newPassword(email: string, newPassword: string, code: string) {
+  newPassword(username: string, newPassword: string, code: string) {
     return this.http.put(
-      SERVER_API + '/forgot_password',
-      { 'email': email, 'password': newPassword, 'code': code },
+      SERVER_API + '/student/update_password',
+      { 'username': username, 'password': newPassword, 'validation_code': code },
     );
   }
 }

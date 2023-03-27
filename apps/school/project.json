@@ -29,7 +29,7 @@
         "allowedCommonJsDependencies": ["lottie-web"]
       },
       "configurations": {
-        "production": {
+        "prod": {
           "budgets": [
             {
               "type": "initial",
@@ -40,6 +40,12 @@
               "type": "anyComponentStyle",
               "maximumWarning": "2kb",
               "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/school/src/environments/environment.ts",
+              "with": "apps/school/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"

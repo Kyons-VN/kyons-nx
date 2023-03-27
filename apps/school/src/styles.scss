@@ -1,0 +1,12 @@
+.caret-right::after {
+  content: '';
+  position: absolute;
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid #2c3d5b;
+  border-top: 4px solid transparent;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -4px;
+}

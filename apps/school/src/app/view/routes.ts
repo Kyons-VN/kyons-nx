@@ -4,6 +4,7 @@ import { PageNotFoundComponent } from '@view/pages/page-not-found/page-not-found
 import { SignInComponent } from '@view/pages/sign-in/sign-in.component';
 import { SignOutComponent } from '@view/pages/sign-out/sign-out.component';
 import { authGuard } from './auth.guard';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 
 /**
  * This routes will be used to genarate the app's sitemap.
@@ -16,12 +17,18 @@ class AppPaths {
   signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
   signOut = { name: 'Thoát', path: '/sign-out/' };
   resetPassword = { name: '', path: '/reset-password/' };
+  changePassword = { name: '', path: '/change-password/' };
 }
 
 const appRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
     canActivate: [authGuard],
   },
   { path: 'sign-in', component: SignInComponent },
