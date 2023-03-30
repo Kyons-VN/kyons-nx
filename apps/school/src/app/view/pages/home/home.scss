@@ -1,0 +1,30 @@
+#profile {
+  background-image: url(../../../../assets/Normal_Account.svg);
+  &:hover {
+    background-image: url(../../../../assets/Hover_Account.svg);
+  }
+  &:active {
+    background-image: url(../../../../assets/Press_Account.svg);
+  }
+}
+#change-password {
+  background-image: url(../../../../assets/Normal_Changepassword.svg);
+  &:hover {
+    background-image: url(../../../../assets/Hover_Changepassword.svg);
+  }
+  &:active {
+    background-image: url(../../../../assets/Press_Changepassword.svg);
+  }
+}
+#sign-out {
+  background-image: url(../../../../assets/Normal_Logout.svg);
+  &:hover {
+    background-image: url(../../../../assets/Hover_Logout.svg);
+  }
+  &:active {
+    background-image: url(../../../../assets/Press_Logout.svg);
+  }
+}
+.menu-item {
+  @apply w-10 h-10;
+}

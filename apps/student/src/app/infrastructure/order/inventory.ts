@@ -20,8 +20,8 @@ export default class Inventory implements IInventory {
   private toTime(totalhours: number) {
     const days = Math.floor(totalhours / 24);
     const hours = totalhours % 24;
-    const minutes = Math.floor((hours - Math.floor(hours)) * 60);
     const roundedHours = Math.floor(hours);
+    const minutes = Math.floor((hours - roundedHours) * 60);
     if (totalhours == 0) return '0 phút';
     return `Còn ${days > 0 ? ` ${days} ngày` : ''}${roundedHours > 0 ? ` ${roundedHours} giờ` : ''}${minutes > 0 ? ` ${minutes} phút` : ''}`;
   }

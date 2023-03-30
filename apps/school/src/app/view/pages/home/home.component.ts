@@ -11,6 +11,7 @@ const UNSAFE_URL = 'https://kyons.cerebry.co/?auth_tok='
 @Component({
   standalone: true,
   imports: [CommonModule, RouterModule],
+  styleUrls: ['./home.scss'],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, AfterViewInit {
