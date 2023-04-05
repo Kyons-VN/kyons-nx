@@ -11,7 +11,9 @@
     "student-e2e": "apps/student-e2e",
     "theme": "libs/theme",
     "tutor": "apps/tutor",
-    "tutor-e2e": "apps/tutor-e2e"
+    "tutor-e2e": "apps/tutor-e2e",
+    "waiting-list": "apps/waiting-list",
+    "waiting-list-e2e": "apps/waiting-list-e2e"
   },
   "build": {
     "builder": "@angular-devkit/build-angular:browser"

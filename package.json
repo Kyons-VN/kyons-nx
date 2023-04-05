@@ -7,6 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "start": "nx serve --host=127.0.0.1",
     "start:school": "nx run school:serve:development --host=127.0.0.1",
+    "start:wl": "nx run waiting-list:serve:dev --host=127.0.0.1",
     "build": "nx build",
     "test": "nx test"
   },

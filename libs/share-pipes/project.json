@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["{workspaceRoot}/dist/libs/share-pipes"],
+      "outputs": [
+        "{workspaceRoot}/dist/libs/share-pipes"
+      ],
       "options": {
         "project": "libs/share-pipes/ng-package.json"
       },
@@ -22,7 +24,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/share-pipes"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/share-pipes"
+      ],
       "options": {
         "jestConfig": "libs/share-pipes/jest.config.ts",
         "passWithNoTests": true
@@ -31,7 +35,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/share-pipes/**/*.ts", "libs/share-pipes/**/*.html"]
+        "lintFilePatterns": [
+          "libs/share-pipes/**/*.ts",
+          "libs/share-pipes/**/*.html"
+        ]
       }
     }
   },

@@ -7,18 +7,29 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/student/prod",
         "index": "apps/student/src/index.html",
         "main": "apps/student/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/student/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/student/src/favicon.ico", "apps/student/src/assets"],
-        "styles": ["apps/student/src/styles.scss"],
+        "assets": [
+          "apps/student/src/favicon.ico",
+          "apps/student/src/assets"
+        ],
+        "styles": [
+          "apps/student/src/styles.scss"
+        ],
         "scripts": [],
-        "allowedCommonJsDependencies": ["lottie-web"]
+        "allowedCommonJsDependencies": [
+          "lottie-web"
+        ]
       },
       "configurations": {
         "production": {
@@ -162,12 +173,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/student/**/*.ts", "apps/student/**/*.html"]
+        "lintFilePatterns": [
+          "apps/student/**/*.ts",
+          "apps/student/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/student"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/student"
+      ],
       "options": {
         "jestConfig": "apps/student/jest.config.ts",
         "passWithNoTests": true

@@ -6,14 +6,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/share-directives/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/share-directives/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/share-directives"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/share-directives"
+      ],
       "options": {
         "jestConfig": "libs/share-directives/jest.config.ts",
         "passWithNoTests": true
