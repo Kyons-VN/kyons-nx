@@ -3,17 +3,17 @@ import { WaitingListComponent } from './pages/waiting-list/waiting-list.componen
 
 class AppPaths {
   home = { name: 'Trang chủ', path: '/' };
-  waitingList = { name: 'Trang chờ', path: '/waiting-list/' };
+  waitingList = { name: 'Trang chờ', path: '/waitlist/' };
 }
 
 const appRoutes: Route[] = [
   {
-    path: 'waiting-list',
+    path: 'waitlist',
     component: WaitingListComponent,
   },
   {
     path: '**',
-    component: WaitingListComponent,
+    redirectTo: 'waitlist'
   },
 ];
 

@@ -1,0 +1,48 @@
+.home {
+  @apply h-screen;
+  background-image: url('/assets/bg-home-xs.jpg');
+  background-size: cover;
+  background-position-x: 66.66%;
+  background-repeat: no-repeat;
+  @media screen and (min-width: 768px) {
+    background-image: url('/assets/bg-home-full.jpg');
+  }
+}
+section {
+  @apply p-6 flex flex-col justify-start items-center text-center;
+}
+a {
+  @apply text-lightOrange-3 #{!important};
+}
+.who {
+  background-image: url('/assets/bg-planets-xs.svg');
+  background-position-y: 4%;
+  background-repeat: no-repeat;
+}
+.register {
+  background-image: url('/assets/bg-register-xs.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+}
+.contact {
+  background-image: url('/assets/bg-contact-xs.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  @apply py-20;
+}
+
+footer {
+  @apply text-blueGrey-100 bg-blueGrey-800;
+}
+.card-wrapper {
+  img {
+    @apply w-full;
+  }
+  .card-text {
+    @apply rounded-lg p-6 flex flex-col gap-6 text-white bg-primaryBlue;
+  }
+}
+input::placeholder {
+  @apply text-blueGrey-400;
+}
