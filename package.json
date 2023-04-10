@@ -1,6 +1,6 @@
 {
   "name": "kyonsvn",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "scripts": {
     "ng": "nx",
@@ -27,7 +27,7 @@
     "lottie-web": "^5.10.0",
     "mydatepicker": "^2.6.11",
     "ng-circle-progress": "^1.6.0",
-    "ngx-drag-scroll": "^14.0.1",
+    "ngx-facebook": "3.0.0-0",
     "ngx-lottie": "^9.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

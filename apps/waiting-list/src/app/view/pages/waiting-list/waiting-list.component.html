@@ -1,120 +1,420 @@
-<div class="bg-[#F1F8FD]">
-  <section class="home">
-    <img src="/assets/logo-horizontal.svg" alt="Logo" />
-    <h4 class="text-white mt-6 w-10/12">
-      Tham gia <span class="text-lightOrange-3">"Danh sách chờ"</span> để cùng bay vào ngân hà tri thức và nhận các phần
-      quà hấp dẫn
-    </h4>
-    <button class="btn mt-4 w-full">Đăng ký tham gia</button>
-    <button class="btn !bg-lightBlue-2 !border-lightBlue-2 mt-4 w-full">Xem thể lệ và thông tin quà tặng</button>
-  </section>
-  <section class="who">
-    <div class="mt-28 flex flex-col gap-6">
-      <h4>Kyons là ai?</h4>
-      <p>
-        Kyons™ là nền tảng học tập ứng dụng trí tuệ<br />nhân tạo (AI) giúp bạn tập trung học những<br />kiến thức mình
-        chưa vững để đạt được<br />kết quả cao nhất trong thời gian ngắn nhất!
-      </p>
-    </div>
-    <div class="mt-36 flex flex-col items-stretch text-center justify-center gap-7">
-      <h6>Vì sao nên sử dụng Kyons?</h6>
-      <div class="card-wrapper">
-        <img src="/assets/why-1.svg" alt="Thi thử với AI" />
-        <div class="card-text">
-          <p>
-            <strong class="text-orange">Thi thử với AI</strong>, định lượng kiến thức<br />một cách thông minh, giúp
-            thiết kế lộ trình học nhanh chóng nhưng vô cùng hiệu quả
-          </p>
+<div *ngIf="!isLogedIn">
+  <div class="bg-[#F1F8FD]">
+    <section class="home">
+      <img class="md:hidden" src="/assets/logo-horizontal.svg" alt="Logo" />
+      <div class="hidden md:flex w-full justify-between items-start">
+        <img class="w-[184px]" src="/assets/logo-horizontal.svg" alt="Logo" />
+        <div class="flex gap-2 items-start">
+          <button *ngIf="!isLogedIn" (click)="toggleLoginFormFn()" class="btn btn-rounded w-full">
+            Đã vào Danh sách? Xem thứ hạng
+          </button>
+          <button (click)="toggleRegisterFormFn()" class="btn w-full">Đăng ký tham gia</button>
         </div>
       </div>
-      <div class="card-wrapper">
-        <img src="/assets/why-2.svg" alt="Vô hạn bài tập" />
-        <div class="card-text">
-          <p>
-            <strong class="text-orange">Vô hạn bài tập</strong> để ôn luyện do AI thiết kế,<br />đảm bảo không bị trùng
-            và nhàm chán
-          </p>
+      <h4 class="text-white mt-6 w-10/12 md:hidden">
+        Tham gia <span class="text-lightOrange-3">"Danh sách chờ"</span> để cùng bay vào ngân hà tri thức và nhận các
+        phần quà hấp dẫn
+      </h4>
+      <span class="hidden md:block text-white !max-w-[600px] mt-24 text-4xl font-bold leading-[140%]"
+        >Tham gia <span class="text-lightOrange-3">"Danh sách chờ"</span> để cùng bay vào ngân hà tri thức và nhận các
+        phần quà hấp dẫn</span
+      >
+      <button (click)="toggleRegisterFormFn()" class="btn mt-4 w-full md:!max-w-[400px] md:mt-11">
+        Đăng ký tham gia
+      </button>
+      <button *ngIf="!isLogedIn" (click)="toggleLoginFormFn()" class="btn btn-rounded mt-4 w-full md:hidden">
+        Đã vào Danh sách? Xem thứ hạng
+      </button>
+      <button
+        (click)="toggleRuleFn(true)"
+        class="btn !bg-lightBlue-2 !border-lightBlue-2 mt-4 w-full md:!max-w-[400px]"
+      >
+        Xem thể lệ và thông tin quà tặng
+      </button>
+    </section>
+    <section class="who">
+      <div class="flex flex-col gap-6 mt-28 md:mt-32 max-w-[315px] md:max-w-[680px]">
+        <h4 class="md:hidden">Kyons là ai?</h4>
+        <h1 class="hidden md:block">Kyons là ai?</h1>
+        <p>
+          Kyons™ là nền tảng học tập ứng dụng trí tuệ nhân tạo (AI) giúp bạn tập trung học những kiến thức mình chưa
+          vững để đạt được kết quả cao nhất trong thời gian ngắn nhất!
+        </p>
+      </div>
+      <div class="mt-36 flex flex-col items-stretch text-center justify-center gap-7 md:gap-14">
+        <h6 class="md:hidden">Vì sao nên sử dụng Kyons?</h6>
+        <h1 class="hidden md:block">Vì sao nên sử dụng Kyons?</h1>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div class="card-wrapper">
+            <img src="/assets/why-1.jpg" alt="Thi thử với AI" />
+            <div class="card-text">
+              <p>
+                <strong class="text-orange">Thi thử với AI</strong>, định lượng kiến thức<br />một cách thông minh, giúp
+                thiết kế lộ trình học nhanh chóng nhưng vô cùng hiệu quả
+              </p>
+            </div>
+          </div>
+          <div class="card-wrapper">
+            <img src="/assets/why-2.jpg" alt="Vô hạn bài tập" />
+            <div class="card-text">
+              <p>
+                <strong class="text-orange">Vô hạn bài tập</strong> để ôn luyện do AI thiết kế,<br />đảm bảo không bị
+                trùng và nhàm chán
+              </p>
+            </div>
+          </div>
+          <div class="card-wrapper">
+            <img src="/assets/why-3.jpg" alt="Ôn đúng chỗ “lủng”" />
+            <div class="card-text">
+              <p>
+                <strong class="text-orange">Ôn đúng chỗ “lủng”</strong>, cải thiện điểm số<br />trong thời gian ngắn
+                nhất
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card-wrapper">
-        <img src="/assets/why-3.svg" alt="Ôn đúng chỗ “lủng”" />
-        <div class="card-text">
-          <p>
-            <strong class="text-orange">Ôn đúng chỗ “lủng”</strong>, cải thiện điểm số<br />trong thời gian ngắn nhất
-          </p>
-        </div>
+      <div class="h-28"></div>
+    </section>
+    <!-- <section class="register">
+      <div class="flex flex-col gap-6 mt-20">
+        <h6 class="text-white">
+          Để lại thông tin để được cập nhật<br />những
+          <span class="text-lightOrange-3">thông tin mới nhất</span> về<br />Kyons một cách
+          <span class="text-lightOrange-3">nhanh nhất</span>
+        </h6>
+        <button class="btn">Đăng ký tham gia</button>
+        <a href="">Xem thông tin chi tiết quà tặng</a>
       </div>
-    </div>
-  </section>
-  <!-- <section class="register">
-    <div class="flex flex-col gap-6 mt-20">
-      <h6 class="text-white">
-        Để lại thông tin để được cập nhật<br />những
-        <span class="text-lightOrange-3">thông tin mới nhất</span> về<br />Kyons một cách
-        <span class="text-lightOrange-3">nhanh nhất</span>
-      </h6>
-      <button class="btn">Đăng ký tham gia</button>
-      <a href="">Xem thông tin chi tiết quà tặng</a>
-    </div>
-  </section> -->
-  <section class="contact">
-    <div class="flex flex-col gap-6 items-stretch justify-center text-center">
-      <!-- <h5 class="text-orange">Liên hệ với chúng tôi</h5>
-      <p class="text-white">Nếu bạn quan tâm đến Kyons, xin vui lòng để lại thông tin. Kyons sẽ liên hệ với bạn.</p>
-      <div class="flex flex-col gap-4">
-        <select name="" id="">
-          <option value="" disabled>Bạn là *</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
+    </section> -->
+    <section class="contact">
+      <div class="flex flex-col gap-6 items-stretch justify-center text-center">
+        <!-- <h5 class="text-orange">Liên hệ với chúng tôi</h5>
+        <p class="text-white">Nếu bạn quan tâm đến Kyons, xin vui lòng để lại thông tin. Kyons sẽ liên hệ với bạn.</p>
+        <div class="flex flex-col gap-4">
+          <select name="" id="">
+            <option value="" disabled>Bạn là *</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+          </select>
+          <input type="text" placeholder="Email *" />
+          <input type="text" placeholder="Tên của bạn" />
+          <input type="text" placeholder="Lời nhắn *" />
+        </div>
+        <button class="btn">Gửi tin nhắn</button> -->
+        <h5 class="text-white leading-8 font-bold">
+          Nếu bạn có thắc mắc khác cần nhắn Kyons, hãy gửi về hộp thư
+          <a href="mailto:contact@kyons.vn">contact@kyons.vn</a>. Kyons sẽ phản hồi trong thời gian sớm nhất!
+        </h5>
+      </div>
+    </section>
+  </div>
+  <div *ngIf="showRegisterForm" class="modal">
+    <form class="gap-6" [formGroup]="signUpForm">
+      <h4>Đăng ký tham gia “Danh sách chờ”</h4>
+      <div class="flex flex-col">
+        <span>Email</span>
+        <input type="text" formControlName="email" autocomplete="email" placeholder="Ví dụ: abc@gmail.com" />
+        <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập email</span>
+        <span *ngIf="isTouched && (email.errors?.['email']||email.errors?.['pattern'])" class="error">Email sai!</span>
+        <span *ngIf="isTouched && emailExistError" class="error">Email đã tồn tại! </span>
+      </div>
+      <div class="flex flex-col">
+        <span>Bạn là học sinh khối mấy?</span>
+        <select formControlName="class">
+          <option value="10">Khối 10</option>
+          <option value="11">Khối 11</option>
+          <option value="12">Khối 12</option>
         </select>
-        <input type="text" placeholder="Email *" />
-        <input type="text" placeholder="Tên của bạn" />
-        <input type="text" placeholder="Lời nhắn *" />
       </div>
-      <button class="btn">Gửi tin nhắn</button> -->
-      <h5 class="text-white leading-8 font-bold">
-        Nếu bạn có thắc mắc khác cần nhắn Kyons, hãy gửi về hộp thư
-        <a href="mailto:contact@kyons.vn">contact@kyons.vn</a>. Kyons sẽ phản hồi trong thời gian sớm nhất!
+      <div class="flex flex-col gap-2">
+        <button [disabled]="isLoading" (click)="register()" class="btn">Đăng ký</button>
+        <button (click)="toggleRegisterFormFn(false)" class="btn btn-rounded">Huỷ và đóng hộp thoại</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="showLoginForm" class="modal">
+    <form class="gap-6" [formGroup]="signInForm">
+      <h4>Đăng nhập</h4>
+      <p>Đăng nhập để xem thứ hạng và phần quà bạn có thể nhận được</p>
+      <div class="flex flex-col">
+        <span>Email</span>
+        <input type="text" placeholder="Nhập email đã đăng ký" formControlName="email" autocomplete="email" />
+        <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập Email</span>
+        <span *ngIf="isTouched && (email.errors?.['email']||email.errors?.['pattern'])" class="error">Email sai!</span>
+      </div>
+      <div class="flex flex-col">
+        <span>Mã đăng nhập</span>
+        <div class="relative w-full">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Nhập mã đăng nhập"
+            formControlName="password"
+            autocomplete="current-password"
+            class="w-full"
+          />
+          <div
+            (click)="showPassword = !showPassword"
+            class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
+          >
+            <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
+            <i *ngIf="!showPassword" class="icon-Visibility"></i>
+          </div>
+        </div>
+        <span *ngIf="isTouched && password.errors?.['required']" class="error">Chưa nhập mật khẩu</span>
+        <span *ngIf="isTouched && wrongPassword" class="error">Email hoặc mật khẩu chưa đúng</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button (click)="logIn()" class="btn">Đăng nhập</button>
+        <button (click)="toggleLoginFormFn(false)" class="btn btn-rounded">Huỷ và đóng hộp thoại</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="showRegisterSuccess" class="modal">
+    <div class="gap-6">
+      <h6>Đăng ký thành công!</h6>
+      <p>
+        Một mã đăng nhập đã được gửi vào email của bạn. Bạn dùng mã đó để đăng nhập, xem thứ hạng và phần thưởng nhé.
+      </p>
+      <div class="grid grid-cols-2 gap-2">
+        <button (click)="toggleRegisterSuccessFn(false)" class="btn btn-rounded">Đóng</button>
+        <button (click)="showRegisterSuccess = false; showLoginForm = true" class="btn">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLogedIn" style="background: #2c3d5b">
+  <section class="loged-in">
+    <div class="w-full flex justify-between">
+      <img class="w-[120px] md:w-[184px]" src="/assets/logo-horizontal.svg" alt="Logo" />
+      <button (click)="logOut()" class="btn">Đăng xuất</button>
+    </div>
+    <div class="hi">Xin chào<br />{{ email.value }}</div>
+  </section>
+  <!-- <section> -->
+  <div class="light-border-box absolute top-[200px] md:top-[440px] right-6 left-6">
+    <div class="md:gap-16 md:py-14">
+      <div
+        class="flex flex-col items-center gap-6 md:flex-row md:border-l-orange md:border-r-orange rounded-2xl md:border-l-8 md:border-r-8 md:px-20 md:pt-6 md:pb-0"
+      >
+        <div class="flex flex-col items-center">
+          <h6 class="md:hidden">Thứ hạng hiện tại</h6>
+          <h3 class="hidden md:block">Thứ hạng hiện tại</h3>
+          <span class="text-7xl jura leading-normal md:text-9xl md:leading-snug">{{ rank }}</span>
+        </div>
+        <div class="border-2 border-lightOrange-3 w-32 rounded-sm md:rotate-90"></div>
+        <div class="flex flex-col items-center">
+          <h6 class="md:hidden">Điểm số của bạn</h6>
+          <h3 class="hidden md:block">Điểm số của bạn</h3>
+          <span class="text-7xl jura leading-normal md:text-9xl md:leading-snug">{{ point }}</span>
+        </div>
+      </div>
+      <h6 *ngIf="imageRank !== 's'" class="text-center font-bold md:hidden">
+        Giới thiệu thêm <strong class="text-orange">{{ pointUpRank }}</strong> bạn để tiến lên hạng tiếp theo nhé!
+      </h6>
+      <h5 *ngIf="imageRank !== 's'" class="text-center font-bold hidden md:block leading-loose">
+        Giới thiệu thêm <strong class="text-orange">{{ pointUpRank }}</strong> bạn để tiến lên hạng tiếp theo nhé!
       </h5>
     </div>
+  </div>
+  <!-- </section> -->
+  <section class="up-rank">
+    <div class="h-[240px]"></div>
+    <h6 class="md:hidden">Với thứ hạng này, bạn sẽ nhận được</h6>
+    <h3 class="hidden md:block">Với thứ hạng này, bạn sẽ nhận được</h3>
+    <div class="w-full mt-4 md:mt-7">
+      <div class="w-full relative flex flex-col items-center">
+        <img class="absolute top-[-75px] right-[-90px]" src="/assets/planet-2.svg" alt="" />
+        <img class="absolute left-[-60px] w-[200px]" src="/assets/planet-3.svg" alt="" />
+        <img
+          class="absolute"
+          [src]="imageRankFull"
+          alt=""
+          sizes="(max-width: 767px) 213px,
+        463px"
+          [srcset]="imageRankXs + ' 213w, ' + imageRankFull + ' 463w'"
+        />
+      </div>
+    </div>
+    <div
+      class="bg-blueGrey-800 rounded-lg px-6 pt-[130px] md:pt-[200px] pb-10 leading-relaxed mt-[100px] md:mt-[300px] md:max-w-[800px]"
+    >
+      <div *ngIf="imageRank === 'a'" class="text-center leading-6">
+        <small>(Dành cho top 2 - 100)</small>
+        <p></p>
+        <p>
+          Voucher GotIt 200K sử dụng tại nhiều thương hiệu nổi tiếng (Phúc Long, Starbucks, CGV, Grab, Shopee,
+          Lazada,...) 08 Bộ Mock-Test (bài kiểm tra thử) 01 tháng sử dụng Kyons miễn phí Trở thành Kyons Pioneer, nhận
+          ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons Bộ template Powerpoint độc quyền do
+          Kyons thiết kế
+        </p>
+        <p>08 Bộ Mock-Test (bài kiểm tra thử)</p>
+        <p>01 tháng sử dụng Kyons miễn phí</p>
+        <p>Trở thành Kyons Pioneer, nhận ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons</p>
+        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
+        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
+      </div>
+      <div *ngIf="imageRank === 'b'" class="text-center leading-6">
+        <small>(Dành cho top 101 - 500)</small>
+        <p></p>
+        <p>06 Bộ Mock-Test (bài kiểm tra thử)</p>
+        <p>01 tháng sử dụng Kyons miễn phí</p>
+        <p>Giảm giá 10% trong vòng 1 năm khi sử dụng các dịch vụ của Kyons</p>
+        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
+        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
+      </div>
+      <div *ngIf="imageRank === 'c'" class="text-center leading-6">
+        <small>(Dành cho top 501 - 1000)</small>
+        <p></p>
+        <p>06 Bộ Mock-Test (bài kiểm tra thử)</p>
+        <p>01 tháng sử dụng Kyons miễn phí</p>
+        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
+      </div>
+      <div *ngIf="imageRank === 'd'" class="text-center leading-6">
+        <small>(Dành cho top 1001+)</small>
+        <p></p>
+        <p>04 Bộ Mock-Test (bài kiểm tra thử)</p>
+        <p>14 ngày sử dụng Kyons miễn phí</p>
+        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
+      </div>
+      <div *ngIf="imageRank === 's'" class="text-center leading-6">
+        <small>(Dành cho top 1 server)</small>
+        <p></p>
+        <p>01 Combo quà tặng Razer nâng cấp bàn học gồm: Bàn phím, chuột, và headphone</p>
+        <p>01 tháng tự do làm Mock-Test (bài kiểm tra thử) KHÔNG GIỚI HẠN số bộ đề</p>
+        <p>01 tháng sử dụng Kyons miễn phí</p>
+        <p>Trở thành Kyons Pioneer, nhận ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons</p>
+        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
+        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
+      </div>
+    </div>
+    <div class="h-40"></div>
   </section>
-  <footer>
-    <section>
-      <div class="flex flex-col w-full items-stretch">
-        <table class="w-full text-start align-top">
-          <tbody>
-            <tr>
-              <td class="align-top"><i class="icon-Location mr-2"></i></td>
-              <td>
-                <strong>Công ty TNHH Kyons</strong><br />L17-11, Vincom Center, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận
-                1, TP.HCM
-              </td>
-            </tr>
-            <tr>
-              <td class="align-top"><i class="icon-Phone"></i></td>
-              <td>090.664.1611</td>
-            </tr>
-            <tr>
-              <td class="h-6"></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <div class="flex items-center gap-2">
-                  <img src="/assets/icons-linkedin.svg" alt="Youtube Icon" />
+  <section class="contact relative md:h-[489px]">
+    <div class="light-border-box absolute top-[-100px] md:mt-0 right-6 left-6">
+      <div class="flex flex-col md:!py-20 items-center md:gap-8">
+        <div class="h7 md:hidden">Sử dụng đường dẫn này để mời bạn bè!</div>
+        <h3 class="hidden md:block md:max-w-[600px]">Sử dụng đường dẫn này để mời bạn bè!</h3>
+        <div class="mt-4 w-full flex gap-2 md:max-w-[600px]">
+          <input type="text" readonly [value]="shareLink" class="flex-1" />
+          <button (click)="copy()" class="btn"><i class="icon-Duplicate"></i>&nbsp;Copy</button>
+        </div>
+        <div class="mt-6 text-center">
+          <p>Chia sẻ qua</p>
+          <img (click)="share()" class="cursor-pointer inline-block" src="/assets/fb-share-btn.svg" alt="" />
+        </div>
+        <button (click)="toggleRuleFn()" class="btn !bg-lightBlue-2 !border-lightBlue-2 mt-4 w-full md:max-w-[400px]">
+          Xem thể lệ và thông tin quà tặng
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+<div *ngIf="showRule" class="modal !justify-start">
+  <div class="gap-4">
+    <img src="/assets/rule-1-full.jpg" alt="Khám phá ngân hà tri thức nhận muôn vàn quà hay" class="rounded-lg" />
+    <div class="flex flex-col gap-2">
+      <h6>Thử thách từ Kyons</h6>
+      <span>
+        <strong class="leading-7">Quy tắc chung:</strong>
+        <p>
+          Hoạt động “Danh sách chờ” sẽ có một số thử thách để các bạn thực hiện và tích điểm. Dựa vào số điểm, hệ thống
+          sẽ tự động xếp hạng cho các bạn. Thứ hạng càng cao, giá trị phần thưởng mà các bạn nhận được sẽ càng lớn.
+        </p>
+      </span>
+      <span>
+        <strong class="leading-7">Các cách cải thiện thứ hạng:</strong>
+        <ul class="list-inside list-disc pl-2">
+          <li>
+            Thử thách 1: Nhấn nút
+            <img src="/assets/fb-share-btn.svg" alt="Share Facebook Button" class="w-6 inline rounded-sm" /> để chia sẻ
+            lên trang cá nhân Facebook ở chế độ công khai và nhận ngay 2 điểm thưởng sau khi chia sẻ thành công bạn nhé.
+          </li>
+          <li>
+            Thử thách 2: Mỗi lần mời thành công 1 người bạn tham gia "Danh sách chờ" bạn sẽ nhận ngay 1 điểm thưởng. Lưu
+            ý điểm thưởng chỉ được cộng cho bạn sau khi người được mời đăng ký thành công "Danh sách chờ" và nhấn vào
+            đường dẫn trong email "Xác nhận lời mời"
+          </li>
+        </ul>
+      </span>
+      <div class="flex flex-col gap-3">
+        <strong>Các phần quà ở các mốc</strong>
+        <img src="/assets/rule-2-full.jpg" alt="Các phần quà ở các mốc" class="rounded-lg" />
+        <p>
+          Ngoài ra, khi tham gia, bạn chắc chắn nhận được <strong class="text-orange">phần quà bí mật</strong> theo khối
+          lớp nữa đó!
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <button
+        *ngIf="!isLogedIn"
+        (click)="showRule = false; showRegisterForm = true; this.isTouched = false; this.signUpForm.markAsUntouched()"
+        class="btn"
+      >
+        Đăng ký để thực hiện ngay!
+      </button>
+      <button (click)="toggleRuleFn(false)" class="btn btn-rounded">Đóng</button>
+    </div>
+  </div>
+</div>
+<footer>
+  <section>
+    <div class="flex flex-col w-full items-stretch">
+      <table class="w-full text-start align-top">
+        <tbody>
+          <tr>
+            <td class="align-top w-5"><i class="icon-Location mr-2"></i></td>
+            <td>
+              <div class="flex items-stretch">
+                <div class="flex-1">
+                  <strong>Công ty TNHH Kyons</strong><br />L17-11, Vincom Center, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận
+                  1, TP.HCM
+                </div>
+                <div class="gap-2 hidden md:flex">
+                  <a href="https://www.linkedin.com/company/kyons/" target="_blank"
+                    ><img src="/assets/icons-linkedin.svg" alt="LinkedIn Icon"
+                  /></a>
                   <a
                     style="color: white !important; text-decoration: none !important"
                     href="https://www.facebook.com/groups/605349140894461"
+                    target="_blank"
                     ><i class="icon-Facebook-icon"></i
                   ></a>
-                  <img src="/assets/icons-youtube.svg" alt="Youtube Icon" />
-                  <img src="/assets/icons-zalo.svg" alt="Youtube Icon" />
                 </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section class="!items-start">© Bản quyền trang web thuộc về công ty TNHH Kyons.</section>
-  </footer>
-</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="h-2"></td>
+          </tr>
+          <tr>
+            <td class="align-top"><i class="icon-Phone"></i></td>
+            <td>(028) 6270 6820</td>
+          </tr>
+          <tr class="md:hidden">
+            <td class="h-6"></td>
+          </tr>
+          <tr class="md:hidden">
+            <td colspan="2">
+              <div class="flex items-center gap-2">
+                <a href="https://www.linkedin.com/company/kyons/" target="_blank"
+                  ><img src="/assets/icons-linkedin.svg" alt="LinkedIn Icon"
+                /></a>
+                <a
+                  style="color: white !important; text-decoration: none !important"
+                  href="https://www.facebook.com/groups/605349140894461"
+                  target="_blank"
+                  ><i class="icon-Facebook-icon"></i
+                ></a>
+                <!-- <img src="/assets/icons-youtube.svg" alt="Youtube Icon" />
+                <img src="/assets/icons-zalo.svg" alt="Youtube Icon" /> -->
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="!items-start !text-left">© Bản quyền trang web thuộc về công ty TNHH Kyons.</section>
+</footer>

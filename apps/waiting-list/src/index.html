@@ -12,12 +12,21 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Image og tag -->
+    <meta property="og:url" content="https://student.kyons.vn/waitlist/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Khám phá ngân hà tri thức nhận muôn vàn quà hay" />
+    <meta
+      property="og:description"
+      content="Tham gia 'Danh sách chờ' để cùng bay vào ngân hà tri thức và nhận các phần
+    quà hấp dẫn"
+    />
+    <meta property="og:image" content="https://student.kyons.vn/assets/rule-1-full.jpg" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Roboto:wght@300;400;500&family=Jura:wght@700&display=swap"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <script>
       // if (window.screen.width <= 768) {
@@ -44,6 +53,28 @@
     </script> -->
   </head>
   <body>
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '2462061537303147',
+          xfbml: true,
+          version: 'v16.0',
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, 'script', 'facebook-jssdk');
+    </script>
     <div id="loading">
       <lottie-player
         src="/assets/animations/loading.json"

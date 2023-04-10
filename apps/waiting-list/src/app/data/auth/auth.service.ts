@@ -11,7 +11,7 @@ const EMAIL_KEY = 'email';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService implements IAuthService {
+class AuthService implements IAuthService {
   constructor(
     private http: HttpClient,
   ) { }
@@ -57,3 +57,5 @@ export class AuthService implements IAuthService {
     return window.localStorage.getItem(EMAIL_KEY);
   }
 }
+export { TOKEN_KEY, EMAIL_KEY, AuthService };
+

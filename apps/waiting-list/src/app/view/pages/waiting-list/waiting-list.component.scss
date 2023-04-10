@@ -1,23 +1,52 @@
 .home {
   @apply h-screen;
-  background-image: url('/assets/bg-home-xs.jpg');
+  background-image: url('/assets/bg-home-full.jpg');
   background-size: cover;
   background-position-x: 66.66%;
   background-repeat: no-repeat;
   @media screen and (min-width: 768px) {
     background-image: url('/assets/bg-home-full.jpg');
+    max-width: 100%;
+    max-height: 100vh;
+    & > * {
+      max-width: 1200px;
+    }
   }
 }
 section {
-  @apply p-6 flex flex-col justify-start items-center text-center;
+  @apply p-6 flex flex-col justify-start items-center text-center md:max-w-[1200px] md:mx-auto;
 }
 a {
   @apply text-lightOrange-3 #{!important};
 }
+.icon-Facebook-icon::before {
+  display: block;
+  font-size: 15px;
+}
+[class^='icon-'],
+[class*=' icon-'] {
+  line-height: 0.9;
+}
+.btn,
+input[type='text'],
+input[type='password'],
+input[type='number'] {
+  height: 40px;
+}
 .who {
-  background-image: url('/assets/bg-planets-xs.svg');
-  background-position-y: 4%;
+  background-image: url('/assets/bg-planet-1-xs.svg'), url('/assets/bg-planet-2-xs.svg');
+  background-position-x: 100%, 0;
+  background-position-y: 46px, 273px;
   background-repeat: no-repeat;
+  @media screen and (min-width: 768px) {
+    max-width: 100%;
+    max-height: unset;
+    background-image: url('/assets/planet-1.svg'), url('/assets/planet-2.svg'), url('/assets/planet-3.svg'),
+      url('/assets/planet-4.svg');
+    background-position-x: 25%, 85%, 5%, 72%;
+    background-position-y: 75px, 46px, 203px, 315px;
+    background-repeat: no-repeat;
+  }
 }
 .register {
   background-image: url('/assets/bg-register-xs.svg');
@@ -26,23 +55,126 @@ a {
   height: 400px;
 }
 .contact {
-  background-image: url('/assets/bg-contact-xs.svg');
+  @apply py-20 min-h-[250px];
+  background-image: url('/assets/bg-contact-xs.jpg');
   background-size: cover;
   background-repeat: no-repeat;
-  @apply py-20;
+  background-position: center;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  @media screen and (min-width: 768px) {
+    background-image: url('/assets/bg-contact-full.jpg');
+    max-width: 100%;
+    & > * {
+      max-width: 600px;
+    }
+    .light-border-box {
+      max-width: 1000px;
+    }
+  }
 }
-
 footer {
   @apply text-blueGrey-100 bg-blueGrey-800;
 }
 .card-wrapper {
+  @apply flex flex-col;
   img {
-    @apply w-full;
+    @apply w-full rounded-lg;
   }
   .card-text {
-    @apply rounded-lg p-6 flex flex-col gap-6 text-white bg-primaryBlue;
+    @apply rounded-lg p-6 flex flex-col justify-center gap-6 text-white bg-primaryBlue flex-1;
+    // Cross browser gradient of linear-gradient(10deg, #2C3D5B 77%, #FB923C 100%);
+    background: #2c3d5b;
+    background: -moz-linear-gradient(10deg, #2c3d5b 77%, #fb923c 100%);
+    background: -webkit-linear-gradient(10deg, #2c3d5b 77%, #fb923c 100%);
+    background: linear-gradient(10deg, #2c3d5b 77%, #fb923c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2C3D5B",endColorstr="#FB923C",GradientType=1);
+    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.3);
   }
 }
 input::placeholder {
   @apply text-blueGrey-400;
+}
+.error {
+  font-size: 12px;
+  line-height: 150%;
+  color: #ff5959;
+}
+.hi {
+  @apply pt-5 break-words max-w-full;
+  font-family: 'Jura', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 127%;
+  /* or 30px */
+
+  text-align: center;
+
+  color: #ffffff;
+
+  /* Light blue/Light blue 1 */
+
+  text-shadow: 0 0 3px #06a5ff;
+  @media screen and (min-width: 768px) {
+    font-size: 48px;
+    line-height: 72px;
+  }
+}
+.loged-in {
+  background-image: url('/assets/bg-loged-in-top-xs.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 366px;
+  @media screen and (min-width: 768px) {
+    max-width: 100%;
+    height: 676px;
+    background-image: url('/assets/bg-loged-in-top-full.jpg');
+  }
+}
+.jura {
+  font-family: 'Jura';
+  font-style: normal;
+  font-weight: 700;
+}
+.up-rank {
+  @apply text-white overflow-hidden;
+  // Cross browser gradient: linear-gradient(24.34deg, #2C3D5B 80.64%, #FB923C 106.05%);
+  background: #2c3d5b;
+  background: -moz-linear-gradient(24.34deg, #2c3d5b 80.64%, #fb923c 106.05%);
+  background: -webkit-linear-gradient(24.34deg, #2c3d5b 80.64%, #fb923c 106.05%);
+  background: linear-gradient(24.34deg, #2c3d5b 80.64%, #fb923c 106.05%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2C3D5B",endColorstr="#FB923C",GradientType=1);
+  @media screen and (min-width: 768px) {
+    max-width: 100%;
+  }
+}
+.shadow-4 {
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.3);
+}
+.light-border-box {
+  @apply rounded-lg border-l-10 border-r-10 border-lightBlue-3 shadow-4;
+  & > div {
+    @apply bg-white w-full px-4 py-8 flex flex-col items-center;
+  }
+  @media screen and (min-width: 768px) {
+    @apply max-w-[1000px] mx-auto;
+    // & > div {
+    //   @apply ;
+    // }
+  }
+}
+.modal {
+  @apply fixed top-0 w-full h-screen flex flex-col justify-center items-center p-6 bg-black bg-opacity-80;
+  & > div,
+  & > form {
+    @apply bg-white rounded-lg p-4 w-full flex flex-col max-h-[calc(100vh_-_8rem)] overflow-y-auto md:max-w-[700px];
+  }
+}
+input.ng-invalid {
+  @apply border-blueGrey-400;
+  &.ng-touched {
+    @apply border-red-0;
+  }
 }

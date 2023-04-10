@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharePipesModule } from '@kyonsvn/share-pipes';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { DragScrollModule } from 'ngx-drag-scroll';
 // import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
 // import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
 import player from 'lottie-web/build/player/lottie_light';
@@ -123,7 +122,6 @@ registerLocaleData(localeEN, 'en');
     SvgModule,
     IvyCarouselModule,
     SharePipesModule,
-    DragScrollModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   exports: [MaterialModule, SvgModule],

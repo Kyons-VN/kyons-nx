@@ -38,8 +38,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "3kb",
+              "maximumError": "5kb"
             }
           ],
           "fileReplacements": [
@@ -50,13 +50,42 @@
           ],
           "outputHashing": "all"
         },
+        "stg": {
+          "outputPath": "dist/apps/waiting-list/stg",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "2mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "3kb",
+              "maximumError": "5kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/waiting-list/src/environments/environment.ts",
+              "with": "apps/waiting-list/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
         "dev": {
+          "outputPath": "dist/apps/waiting-list/dev",
           "buildOptimizer": false,
           "optimization": false,
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/waiting-list/src/environments/environment.ts",
+              "with": "apps/waiting-list/src/environments/environment.dev.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "prod"
