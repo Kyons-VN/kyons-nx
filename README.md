@@ -100,8 +100,7 @@ Visit [Nx Cloud](https://nx.app/) to learn more.
 ## wsl deploy AWS command:
 
 ```
-AWS_PROFILE=kyons-importer aws s3 rm s3://student.kyons.vn/index.html
-AWS_PROFILE=kyons-importer aws s3 rm s3://student.kyons.vn/
+AWS_PROFILE=kyons-importer aws s3 rm --recursive s3://student.kyons.vn/
 AWS_PROFILE=kyons-importer aws s3 cp --recursive ./prod s3://student.kyons.vn
 ```
 

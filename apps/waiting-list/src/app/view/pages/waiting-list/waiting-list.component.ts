@@ -11,11 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 import { EMAIL_KEY, TOKEN_KEY } from '@data/auth/auth.service';
 import { SERVER_API } from '@data/auth/interceptor';
 import { environment } from '@environments/environment';
+import { RankTextComponent } from '@view/components/rank-ss/rank-ss.component';
 import { FacebookModule, FacebookService } from 'ngx-facebook';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FacebookModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FacebookModule, FormsModule, ReactiveFormsModule, RankTextComponent],
   templateUrl: './waiting-list.component.html',
   styleUrls: ['./waiting-list.component.scss'],
 })
@@ -155,6 +156,7 @@ export class WaitingListComponent implements OnInit {
     this.http.get(SERVER_API + '/waitlist/subscriber', { params: params }).subscribe({
       next: (res: any) => {
         console.log(res);
+        // res = { "id": 49, "email": "binhhm2009@gmail.com", "rank": 1001, "invitation_code": "WLT-e58bc8eb-a923-4b67-8f50-f01f0be79374", "point": 0, "point_up_rank": 1, "shared_fb": false }
         this.invitationCode = res.invitation_code;
         this.point = res.point;
         this.pointUpRank = res.point_up_rank;
@@ -163,11 +165,12 @@ export class WaitingListComponent implements OnInit {
         this.isLogedIn = true;
         this.isLoading = false;
         this.shareLink = environment.origin + '/waitlist?code=' + this.invitationCode;
-        this.imageRank = 's';
-        if (this.rank > 1 && this.rank <= 100) this.imageRank = 'a';
+        this.imageRank = 'd';
+        if (this.rank == 1) this.imageRank = 'ss';
+        else if (this.rank > 1 && this.rank <= 10) this.imageRank = 's';
+        else if (this.rank > 10 && this.rank <= 100) this.imageRank = 'a';
         else if (this.rank > 100 && this.rank <= 500) this.imageRank = 'b';
-        else if (this.rank > 500 && this.rank <= 100) this.imageRank = 'c';
-        else if (this.rank > 1000) this.imageRank = 'd';
+        else if (this.rank > 500 && this.rank <= 1000) this.imageRank = 'c';
         this.imageRankFull = `/assets/up-rank-${this.imageRank}-full.png`;
         this.imageRankXs = `/assets/up-rank-${this.imageRank}-xs.png`;
         this.toggleLoginFormFn(false);
@@ -196,7 +199,7 @@ export class WaitingListComponent implements OnInit {
       this.signInForm.markAsUntouched();
       this.signUpForm.markAsUntouched();
     }
-    enable ? document.body.style.overflow = 'hidden' : document.body.removeAttribute('style');
+    enable ? document.body.classList.add('modal-open') : document.body.classList.remove('modal-open');
   }
   copy() {
     this.clipboard.copy(this.shareLink ?? '');

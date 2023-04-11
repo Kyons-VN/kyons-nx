@@ -116,7 +116,8 @@
         <span>Email</span>
         <input type="text" formControlName="email" autocomplete="email" placeholder="Ví dụ: abc@gmail.com" />
         <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập email</span>
-        <span *ngIf="isTouched && (email.errors?.['email']||email.errors?.['pattern'])" class="error">Email sai!</span>
+        <span *ngIf="isTouched && email.errors?.['email']" class="error">Email sai!</span>
+        <span *ngIf="isTouched && email.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
         <span *ngIf="isTouched && emailExistError" class="error">Email đã tồn tại! </span>
       </div>
       <div class="flex flex-col">
@@ -141,7 +142,8 @@
         <span>Email</span>
         <input type="text" placeholder="Nhập email đã đăng ký" formControlName="email" autocomplete="email" />
         <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập Email</span>
-        <span *ngIf="isTouched && (email.errors?.['email']||email.errors?.['pattern'])" class="error">Email sai!</span>
+        <span *ngIf="isTouched && email.errors?.['email']" class="error">Email sai!</span>
+        <span *ngIf="isTouched && email.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
       </div>
       <div class="flex flex-col">
         <span>Mã đăng nhập</span>
@@ -209,11 +211,17 @@
           <span class="text-7xl jura leading-normal md:text-9xl md:leading-snug">{{ point }}</span>
         </div>
       </div>
-      <h6 *ngIf="imageRank !== 's'" class="text-center font-bold md:hidden">
+      <h6 *ngIf="imageRank !== 'ss'" class="text-center font-bold md:hidden">
         Giới thiệu thêm <strong class="text-orange">{{ pointUpRank }}</strong> bạn để tiến lên hạng tiếp theo nhé!
       </h6>
-      <h5 *ngIf="imageRank !== 's'" class="text-center font-bold hidden md:block leading-loose">
+      <h6 *ngIf="imageRank === 'ss'" class="text-center font-bold md:hidden">
+        Chúc mừng bạn đã trở thành Top 1 server, hãy tiếp tục mời thêm bạn bè tham gia để giữ vững vị trí nhé!
+      </h6>
+      <h5 *ngIf="imageRank !== 'ss'" class="text-center font-bold hidden md:block leading-loose">
         Giới thiệu thêm <strong class="text-orange">{{ pointUpRank }}</strong> bạn để tiến lên hạng tiếp theo nhé!
+      </h5>
+      <h5 *ngIf="imageRank === 'ss'" class="text-center font-bold hidden md:block leading-loose">
+        Chúc mừng bạn đã trở thành Top 1 server, hãy tiếp tục mời thêm bạn bè tham gia để giữ vững vị trí nhé!
       </h5>
     </div>
   </div>
@@ -239,54 +247,7 @@
     <div
       class="bg-blueGrey-800 rounded-lg px-6 pt-[130px] md:pt-[200px] pb-10 leading-relaxed mt-[100px] md:mt-[300px] md:max-w-[800px]"
     >
-      <div *ngIf="imageRank === 'a'" class="text-center leading-6">
-        <small>(Dành cho top 2 - 100)</small>
-        <p></p>
-        <p>
-          Voucher GotIt 200K sử dụng tại nhiều thương hiệu nổi tiếng (Phúc Long, Starbucks, CGV, Grab, Shopee,
-          Lazada,...) 08 Bộ Mock-Test (bài kiểm tra thử) 01 tháng sử dụng Kyons miễn phí Trở thành Kyons Pioneer, nhận
-          ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons Bộ template Powerpoint độc quyền do
-          Kyons thiết kế
-        </p>
-        <p>08 Bộ Mock-Test (bài kiểm tra thử)</p>
-        <p>01 tháng sử dụng Kyons miễn phí</p>
-        <p>Trở thành Kyons Pioneer, nhận ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons</p>
-        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
-        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
-      </div>
-      <div *ngIf="imageRank === 'b'" class="text-center leading-6">
-        <small>(Dành cho top 101 - 500)</small>
-        <p></p>
-        <p>06 Bộ Mock-Test (bài kiểm tra thử)</p>
-        <p>01 tháng sử dụng Kyons miễn phí</p>
-        <p>Giảm giá 10% trong vòng 1 năm khi sử dụng các dịch vụ của Kyons</p>
-        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
-        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
-      </div>
-      <div *ngIf="imageRank === 'c'" class="text-center leading-6">
-        <small>(Dành cho top 501 - 1000)</small>
-        <p></p>
-        <p>06 Bộ Mock-Test (bài kiểm tra thử)</p>
-        <p>01 tháng sử dụng Kyons miễn phí</p>
-        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
-      </div>
-      <div *ngIf="imageRank === 'd'" class="text-center leading-6">
-        <small>(Dành cho top 1001+)</small>
-        <p></p>
-        <p>04 Bộ Mock-Test (bài kiểm tra thử)</p>
-        <p>14 ngày sử dụng Kyons miễn phí</p>
-        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
-      </div>
-      <div *ngIf="imageRank === 's'" class="text-center leading-6">
-        <small>(Dành cho top 1 server)</small>
-        <p></p>
-        <p>01 Combo quà tặng Razer nâng cấp bàn học gồm: Bàn phím, chuột, và headphone</p>
-        <p>01 tháng tự do làm Mock-Test (bài kiểm tra thử) KHÔNG GIỚI HẠN số bộ đề</p>
-        <p>01 tháng sử dụng Kyons miễn phí</p>
-        <p>Trở thành Kyons Pioneer, nhận ưu đãi độc quyền giảm giá 10% trọn đời khi sử dụng các dịch vụ của Kyons</p>
-        <p>Bộ template Powerpoint độc quyền do Kyons thiết kế</p>
-        <p><strong class="text-orange">Phần quà bí mật</strong> theo khối lớp</p>
-      </div>
+      <wl-rank-text [imageRank]="imageRank ?? ''"></wl-rank-text>
     </div>
     <div class="h-40"></div>
   </section>
@@ -312,7 +273,7 @@
 </div>
 <div *ngIf="showRule" class="modal !justify-start">
   <div class="gap-4">
-    <img src="/assets/rule-1-full.jpg" alt="Khám phá ngân hà tri thức nhận muôn vàn quà hay" class="rounded-lg" />
+    <img src="/assets/rule-full.jpg" alt="Khám phá ngân hà tri thức nhận muôn vàn quà hay" class="rounded-lg" />
     <div class="flex flex-col gap-2">
       <h6>Thử thách từ Kyons</h6>
       <span>
@@ -339,22 +300,73 @@
       </span>
       <div class="flex flex-col gap-3">
         <strong>Các phần quà ở các mốc</strong>
-        <img src="/assets/rule-2-full.jpg" alt="Các phần quà ở các mốc" class="rounded-lg" />
-        <p>
-          Ngoài ra, khi tham gia, bạn chắc chắn nhận được <strong class="text-orange">phần quà bí mật</strong> theo khối
-          lớp nữa đó!
-        </p>
+        <div class="rounded-lg bg-gradient flex flex-col gap-2 text-white p-2">
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0">
+              <img src="/assets/badge-ss.png" alt="Rank SS" width="auto" height="105px" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC SS</h6>
+              <wl-rank-text imageRank="ss" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0 flex justify-center">
+              <img src="/assets/badge-s.png" alt="Rank S" width="auto" height="105px" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC S</h6>
+              <wl-rank-text imageRank="s" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0 flex justify-center">
+              <img src="/assets/badge-a.png" alt="Rank 1" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC A</h6>
+              <wl-rank-text imageRank="a" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0 flex justify-center">
+              <img src="/assets/badge-b.png" alt="Rank 1" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC B</h6>
+              <wl-rank-text imageRank="b" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0 flex justify-center">
+              <img src="/assets/badge-c.png" alt="Rank 1" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC C</h6>
+              <wl-rank-text imageRank="c" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+          <div class="rounded-lg bg-blueGrey-800 p-4 flex flex-col md:flex-row items-center md:items-start gap-4">
+            <div class="basis-[106px] md:basis-[180px] grow-0 shrink-0 flex justify-center">
+              <img src="/assets/badge-d.png" alt="Rank 1" />
+            </div>
+            <div class="w-full">
+              <h6>CÚ NHẢY BẬC D</h6>
+              <wl-rank-text imageRank="d" class="text-left"></wl-rank-text>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="flex flex-col gap-2">
-      <button
-        *ngIf="!isLogedIn"
-        (click)="showRule = false; showRegisterForm = true; this.isTouched = false; this.signUpForm.markAsUntouched()"
-        class="btn"
-      >
-        Đăng ký để thực hiện ngay!
-      </button>
-      <button (click)="toggleRuleFn(false)" class="btn btn-rounded">Đóng</button>
+      <div class="flex flex-col gap-2">
+        <button
+          *ngIf="!isLogedIn"
+          (click)="showRule = false; showRegisterForm = true; this.isTouched = false; this.signUpForm.markAsUntouched()"
+          class="btn"
+        >
+          Đăng ký để thực hiện ngay!
+        </button>
+        <button (click)="toggleRuleFn(false)" class="btn btn-rounded">Đóng</button>
+      </div>
     </div>
   </div>
 </div>
@@ -377,7 +389,7 @@
                   /></a>
                   <a
                     style="color: white !important; text-decoration: none !important"
-                    href="https://www.facebook.com/groups/605349140894461"
+                    href="https://www.facebook.com/KyonsVN"
                     target="_blank"
                     ><i class="icon-Facebook-icon"></i
                   ></a>
@@ -403,7 +415,7 @@
                 /></a>
                 <a
                   style="color: white !important; text-decoration: none !important"
-                  href="https://www.facebook.com/groups/605349140894461"
+                  href="https://www.facebook.com/KyonsVN"
                   target="_blank"
                   ><i class="icon-Facebook-icon"></i
                 ></a>
