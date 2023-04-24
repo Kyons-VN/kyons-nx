@@ -2,8 +2,8 @@
 section {
   @apply p-6 flex flex-col justify-start items-center text-center md:max-w-[1200px] md:mx-auto;
 }
-a {
-  @apply text-lightOrange-3 #{!important};
+a:not(.btn):not(.btn-rounded) {
+  @apply text-orange #{!important};
 }
 [class^='icon-'],
 [class*=' icon-'] {
@@ -58,4 +58,7 @@ input::placeholder {
 }
 body {
   @apply text-base;
+}
+.col {
+  @apply flex flex-col;
 }

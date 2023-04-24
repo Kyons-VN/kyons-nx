@@ -1,0 +1,74 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Thể tích khối cầu",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Cho khối cầu có thể tích là <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682025734image.png\"></p><p>Bán kính R của khối cầu là</p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p><img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682025851image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p><img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682025905image.png\"></p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059688image.png\"></p><p>=&gt; <img class=\"image_resized\" style=\"width:75px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059764image.png\"></p><p>=&gt; <img class=\"image_resized\" style=\"width:98px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059826image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p><img class=\"image_resized\" style=\"width:89px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682025951image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p><img class=\"image_resized\" style=\"width:77px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026027image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Cho khối cầu <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026195image.png\"> có bán kính <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026322image.png\">&nbsp;</p><p>Cho khối cầu <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026250image.png\"> có bán kính <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026300image.png\"></p><p>Biết <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026392image.png\"></p><p>Tính tỉ số diện tích mặt cầu <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026195image.png\">so với <img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682026250image.png\"></p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p>0.5</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "2",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "0.25",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "4",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:250px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682060135image.png\"></p>",
+                    "is_correct": true
+                }
+            ]
+        }
+    ]
+}

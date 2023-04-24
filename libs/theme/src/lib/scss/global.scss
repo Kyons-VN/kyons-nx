@@ -85,6 +85,9 @@ a:not(.btn):not(.btn-rounded):not(.no-underline):not(.menu-item) {
 .btn,
 .btn-rounded {
   @apply rounded-md h-10 px-5 flex items-center justify-center cursor-pointer border font-bold whitespace-nowrap;
+  &.btn-icon {
+    @apply w-12 h-12;
+  }
 }
 .btn {
   &.secondary {
@@ -247,10 +250,4 @@ table {
 }
 .cdk-overlay-container .mat-dialog-container {
   @apply rounded-lg;
-}
-.progress-container {
-  @apply h-2 rounded-md bg-blueGrey-100 w-full;
-  .progressing {
-    @apply h-2 rounded-md bg-lightBlue-1 w-full;
-  }
 }

@@ -115,9 +115,9 @@
       <div class="flex flex-col">
         <span>Email</span>
         <input type="text" formControlName="email" autocomplete="email" placeholder="Ví dụ: abc@gmail.com" />
-        <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập email</span>
-        <span *ngIf="isTouched && email.errors?.['email']" class="error">Email sai!</span>
-        <span *ngIf="isTouched && email.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
+        <span *ngIf="isTouched && emailSignUp.errors?.['required']" class="error">Chưa nhập email</span>
+        <span *ngIf="isTouched && emailSignUp.errors?.['email']" class="error">Email sai!</span>
+        <span *ngIf="isTouched && emailSignUp.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
         <span *ngIf="isTouched && emailExistError" class="error">Email đã tồn tại! </span>
       </div>
       <div class="flex flex-col">
@@ -141,9 +141,9 @@
       <div class="flex flex-col">
         <span>Email</span>
         <input type="text" placeholder="Nhập email đã đăng ký" formControlName="email" autocomplete="email" />
-        <span *ngIf="isTouched && email.errors?.['required']" class="error">Chưa nhập Email</span>
-        <span *ngIf="isTouched && email.errors?.['email']" class="error">Email sai!</span>
-        <span *ngIf="isTouched && email.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
+        <span *ngIf="isTouched && emailSignIn.errors?.['required']" class="error">Chưa nhập Email</span>
+        <span *ngIf="isTouched && emailSignIn.errors?.['email']" class="error">Email sai!</span>
+        <span *ngIf="isTouched && emailSignIn.errors?.['pattern']" class="error">Email không được bao gồm dấu +</span>
       </div>
       <div class="flex flex-col">
         <span>Mã đăng nhập</span>
@@ -191,7 +191,7 @@
       <img class="w-[120px] md:w-[184px]" src="/assets/logo-horizontal.svg" alt="Logo" />
       <button (click)="logOut()" class="btn">Đăng xuất</button>
     </div>
-    <div class="hi">Xin chào<br />{{ email.value }}</div>
+    <div class="hi">Xin chào<br />{{ emailSignIn.value }}</div>
   </section>
   <!-- <section> -->
   <div class="light-border-box absolute top-[200px] md:top-[440px] right-6 left-6">
@@ -292,9 +292,9 @@
             lên trang cá nhân Facebook ở chế độ công khai và nhận ngay 2 điểm thưởng sau khi chia sẻ thành công bạn nhé.
           </li>
           <li>
-            Thử thách 2: Mỗi lần mời thành công 1 người bạn tham gia "Danh sách chờ" bạn sẽ nhận ngay 1 điểm thưởng. Lưu
-            ý điểm thưởng chỉ được cộng cho bạn sau khi người được mời đăng ký thành công "Danh sách chờ" và nhấn vào
-            đường dẫn trong email "Xác nhận lời mời"
+            Thử thách 2: Mỗi lần mời thành công 1 người bạn tham gia "Danh sách chờ" bạn sẽ nhận 1 điểm thưởng. Lưu ý
+            điểm thưởng chỉ được cộng cho bạn sau khi người được mời đăng ký thành công "Danh sách chờ" và đăng nhập vào
+            hệ thống để xem thứ hạng.
           </li>
         </ul>
       </span>

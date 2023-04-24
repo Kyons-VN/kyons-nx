@@ -63,7 +63,7 @@ export class SignUpComponent implements OnInit {
   tosChecked = new FormControl<boolean>(false, [
     Validators.requiredTrue
   ]);
-  @ViewChild('tosIframe') public tosIframe!: ElementRef<any>;
+  @ViewChild('tosIframe') public tosIframe!: ElementRef<never>;
   currentUrl = '';
 
   // @HostListener('window:beforeunload', ['$event'])
@@ -117,6 +117,7 @@ export class SignUpComponent implements OnInit {
     this.loading.show();
     this.processing = true;
     this.authService.signUp(this.email.value, this.firstName.value, this.lastName.value, this.password.value, this.tosChecked.value ?? false, this.ref).subscribe({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       next: (res: any) => {
         if (res['success']) {
           this.step = 1;

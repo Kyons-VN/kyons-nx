@@ -15,3 +15,4 @@ function search(str: string, regexStr: string) {
 }
 
 export { notHaveDigit, notHaveUppercase, notHaveSpecial, search };
+

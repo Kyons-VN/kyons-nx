@@ -1,0 +1,74 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Cấp số nhân",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Cho cấp số nhân có</p><p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023299image.png\"></p><p><img class=\"image_resized\" style=\"width:68px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023348image.png\"></p><p>Tìm q và <img class=\"image_resized\" style=\"width:20px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023669image.png\"> của cấp số nhân</p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023768image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023828image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023901image.png\"></p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682064887image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682064993image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682065043image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:135px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682065181image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p><img class=\"image_resized\" style=\"width:115px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682023961image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Cho dãy số</p><p><img class=\"image_resized\" style=\"width:80px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024221image.png\"></p><p>Tính tổng&nbsp;</p><p><img class=\"image_resized\" style=\"width:220px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024406image.png\"></p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024648image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024730image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024783image.png\"></p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682065503image.png\"></p><p>Dãy số là cấp số nhân với <img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682065649image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682065828image.png\">lập thành dãy cấp số nhân mới với <img class=\"image_resized\" style=\"width:210px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682066224image.png\"></p><p>Nên ta có</p><p><img class=\"image_resized\" style=\"width:230px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682066564image.png\"></p><p>&nbsp;</p><p>&nbsp;</p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "<p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682024825image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        }
+    ]
+}

@@ -8,12 +8,15 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
       "@view/*": ["apps/waiting-list/src/app/view/*"],
       "@data/*": ["apps/waiting-list/src/app/data/*"],
       "@domain/*": ["apps/waiting-list/src/app/domain/*"],
       "@utils/*": ["libs/share-utils/src/lib/*"],
       "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@share-components": ["libs/share-components/src/index.ts"],
       "@environments/*": ["apps/waiting-list/src/environments/*"],
       "@theme/*": ["libs/theme/*"],
       "@assets/*": ["libs/theme/src/lib/assets/*"]

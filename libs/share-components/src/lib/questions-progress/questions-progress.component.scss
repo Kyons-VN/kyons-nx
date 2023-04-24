@@ -1,0 +1,12 @@
+.progress-wrapper {
+  @apply flex gap-2 items-center;
+  .progress-container {
+    @apply rounded-md bg-blueGrey-300 w-full;
+    .progressing {
+      @apply h-2 rounded-md bg-lightBlue-1 w-full;
+    }
+    .label {
+      @apply basis-[100px];
+    }
+  }
+}

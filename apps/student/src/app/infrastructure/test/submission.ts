@@ -40,5 +40,4 @@ export class Submission implements ISubmission {
     result.submission = submission;
     return result;
   }
-
 }

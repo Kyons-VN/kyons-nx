@@ -34,7 +34,12 @@ export class WaitingListComponent implements OnInit {
   signInForm!: FormGroup;
   signUpForm!: FormGroup;
   showPassword = false;
-  email: FormControl = new FormControl('', [
+  emailSignIn: FormControl = new FormControl(null, [
+    Validators.required,
+    Validators.email,
+    Validators.pattern(/^((?!\+).)*$/)
+  ]);
+  emailSignUp: FormControl = new FormControl(null, [
     Validators.required,
     Validators.email,
     Validators.pattern(/^((?!\+).)*$/)
@@ -59,13 +64,13 @@ export class WaitingListComponent implements OnInit {
   imageRankXs?: string;
 
   ngOnInit() {
-    this.email.setValue(window.localStorage.getItem(EMAIL_KEY));
+    this.emailSignIn.setValue(window.localStorage.getItem(EMAIL_KEY));
     this.password.setValue(window.localStorage.getItem(TOKEN_KEY));
-    if (this.email.value && this.password.value) {
-      this.logInService(this.email.value, this.password.value);
+    if (this.emailSignIn.value && this.password.value) {
+      this.logInService(this.emailSignIn.value, this.password.value);
     }
     this.signInForm = this.fb.group({});
-    this.signInForm.addControl('email', this.email);
+    this.signInForm.addControl('email', this.emailSignIn);
     this.signInForm.addControl('password', this.password);
     this.signInForm.get('email')?.valueChanges.subscribe(() => {
       this.wrongPassword = false;
@@ -75,7 +80,7 @@ export class WaitingListComponent implements OnInit {
     })
 
     this.signUpForm = this.fb.group({});
-    this.signUpForm.addControl('email', this.email);
+    this.signUpForm.addControl('email', this.emailSignUp);
     this.signUpForm.addControl('class', this.class);
     this.signUpForm.get('email')?.valueChanges.subscribe(() => {
       this.emailExistError = false;
@@ -101,6 +106,7 @@ export class WaitingListComponent implements OnInit {
   }
   register() {
     this.isTouched = true;
+    // if (!this.signUpForm.touched) this.signUpForm.markAllAsTouched();
     if (this.signUpForm.invalid) return;
     console.log(this.signUpForm.value);
     this.isLoading = true;
@@ -133,7 +139,7 @@ export class WaitingListComponent implements OnInit {
   }
   share() {
     if (!this.sharedFb) {
-      const params = new HttpParams().set('email', this.email.value).set('login_code', this.password.value);
+      const params = new HttpParams().set('email', this.emailSignIn.value).set('login_code', this.password.value);
       this.http.put(SERVER_API + '/waitlist/subscriber/shared_fb', params).subscribe({});
       this.sharedFb = true;
     }
@@ -147,6 +153,7 @@ export class WaitingListComponent implements OnInit {
   }
   logIn() {
     this.isTouched = true;
+    // if (!this.signInForm.touched) this.signInForm.markAllAsTouched();
     if (this.signInForm.invalid) return;
     this.isLoading = true;
     this.logInService(this.signInForm.value.email, this.signInForm.value.password);

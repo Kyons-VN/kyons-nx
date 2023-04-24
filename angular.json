@@ -4,6 +4,7 @@
   "projects": {
     "school": "apps/school",
     "school-e2e": "apps/school-e2e",
+    "share-components": "libs/share-components",
     "share-directives": "libs/share-directives",
     "share-pipes": "libs/share-pipes",
     "share-utils": "libs/share-utils",

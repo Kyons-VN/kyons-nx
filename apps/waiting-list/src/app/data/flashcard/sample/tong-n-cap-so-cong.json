@@ -1,0 +1,74 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Cấp số cộng",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Cho cấp số cộng <img class=\"image_resized\" style=\"width:25px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022030image.png\"> có</p><p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022108image.png\"></p><p><img class=\"image_resized\" style=\"width:85px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022183image.png\"></p><p>Tổng của 20 số hạng đầu tiên của cấp số cộng là</p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p><img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022329image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p><img class=\"image_resized\" style=\"width:85px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022450image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p><img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022527image.png\"></p>",
+                    "explanation": "<p><img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682063893image.png\"></p><p>=&gt; <img class=\"image_resized\" style=\"width:290px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682064025image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p><img class=\"image_resized\" style=\"width:85px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022576image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Cho cấp số cộng <img class=\"image_resized\" style=\"width:25px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022030image.png\"> có</p><p><img class=\"image_resized\" style=\"width:92px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022654image.png\"></p><p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682022735image.png\"></p><p>Khẳng định nào sau đây sai?</p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p>Số hạng thứ 2 của cấp số cộng này là: 1,4</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "<p>Số hạng thứ 3 của cấp số cộng này là: 2,5</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "<p>Số hạng thứ 4 của cấp số cộng này là: 3,6</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "<p>Số hạng thứ 7 của cấp số cộng này là: 7,7</p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682064187image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682064459image.png\"></p><p>Vậy số hạng thứ 8 của cấp số cộng này là: 1,1</p>",
+                    "is_correct": true
+                }
+            ]
+        }
+    ]
+}
