@@ -28,13 +28,7 @@
     />
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <script>
-      // if (window.screen.width <= 768) {
-      //   if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
-      //   // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
-      // }
-    </script>
-    <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <!-- Hotjar Tracking Code for Kyons Student app -->
     <script>
       (function (h, o, t, j, a, r) {
@@ -51,6 +45,22 @@
         a.appendChild(r);
       })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
     </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9KLWNY817"></script>
+    <!-- Google Tag Manager -->
+    <script hoist>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-TDSHFXH');
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
   <body>
     <script>
@@ -76,14 +86,14 @@
       })(document, 'script', 'facebook-jssdk');
     </script>
     <div id="loading">
-      <!-- <lottie-player
+      <lottie-player
         src="/assets/animations/loading.json"
         background="transparent"
         speed="1"
         style="width: 200px; height: 200px"
         loop
         autoplay
-      ></lottie-player> -->
+      ></lottie-player>
       <!-- <div id="circle-loading">
         <span></span>
         <span></span>
@@ -107,5 +117,15 @@
       </style>
     </div>
     <wl-root> </wl-root>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TDSHFXH"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>

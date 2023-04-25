@@ -24,7 +24,12 @@
           <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
         </div>
         <div class="flex gap-2 items-center">
-          <button *ngIf="testProgress.isComplete() && showResult" (click)="showWaitlistPopup = true" class="btn">
+          <button
+            id="continue"
+            *ngIf="testProgress.isComplete() && showResult"
+            (click)="showWaitlistPopup = true"
+            class="btn"
+          >
             Tiếp
           </button>
           <button
@@ -96,7 +101,7 @@
         <p><em>Bí mật nè: tham gia danh sách chờ được nhận quà đó!</em></p>
       </div>
       <div class="col gap-2">
-        <a [routerLink]="['/waitlist']" class="btn btn-large w-full">Tới luôn nha</a>
+        <a id="register" [routerLink]="['/waitlist']" class="btn btn-large w-full">Tới luôn nha</a>
         <button class="btn btn-rounded btn-large w-full" (click)="showWaitlistPopup = false">Đóng</button>
       </div>
     </div>
