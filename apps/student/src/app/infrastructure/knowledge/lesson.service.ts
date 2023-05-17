@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import ILessonService from '@domain/knowledge/i-lesson-service';
 import { MockTestItem } from '@infrastructure/test/test-content';
+import { SubmissionHtml, TestReviewHtml } from '@share-utils/data';
 import { Observable, catchError, map } from 'rxjs';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
@@ -165,6 +166,39 @@ export class LessonService implements ILessonService {
       // catchError(DBHelper.handleError('GET lesson_detail')),
       map((res: any) => {
         return LessonGroup.fromJson(id, res);
+      })
+    );
+  }
+
+  submitExercise(lessonId: string, submission: SubmissionHtml) {
+    return this.http
+      .post(SERVER_API + `/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
+      .pipe(
+        catchError(DBHelper.handleError('GET submit_answers', Error('Server Error'))),
+        map((res: any) => {
+          res = {};
+          res.data = {
+            lesson_percentage: 60,
+            result: [
+              {
+                id: 15307291,
+                answer_status: true,
+                explanation:
+                  '<div><div>\n\t\t\t<style type="text/css">\n\t\t\t\t.kLnDsmZC8c49r2Ntz8LHD{display:table;margin-top:0}._33s8iDB86ShboS4mZ56Q4l{margin-left:.7em;width:calc(100% - 3em)}@media screen and (max-width:768px){.kLnDsmZC8c49r2Ntz8LHD{font-size:14px}}.dottedText .JXGtext {transform: rotate(-24deg) !important;}\n\t\t\t</style>\n\t\t\t<div><div class="_33s8iDB86ShboS4mZ56Q4l"><div class="solution"><div></div><div></div><p class="kLnDsmZC8c49r2Ntz8LHD"><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mtext></mrow><annotation encoding="application/x-tex">~~~~~~</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo></mrow><annotation encoding="application/x-tex">=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1444</mn></mrow><annotation encoding="application/x-tex">1444</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mord">4</span><span class="mord">4</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>+</mo></mrow><annotation encoding="application/x-tex">+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>56.25</mn></mrow><annotation encoding="application/x-tex">56.25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">5</span><span class="mord">6</span><span class="mord">.</span><span class="mord">2</span><span class="mord">5</span></span></span></span></span><span>&nbsp;</span><span> </span></p><p class="kLnDsmZC8c49r2Ntz8LHD"><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mtext></mrow><annotation encoding="application/x-tex">~~~~~~</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo></mrow><annotation encoding="application/x-tex">=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1500.25</mn></mrow><annotation encoding="application/x-tex">1500.25</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">0</span><span class="mord">0</span><span class="mord">.</span><span class="mord">2</span><span class="mord">5</span></span></span></span></span><span>&nbsp;</span><span> </span></p><p class="kLnDsmZC8c49r2Ntz8LHD"><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mtext></mrow><annotation encoding="application/x-tex">~~~~~~</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;vertical-align:0em;"></span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span><span class="mspace nobreak">&nbsp;</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo></mrow><annotation encoding="application/x-tex">=</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span></span></span></span></span><span>&nbsp;</span><span> &nbsp;</span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>38.73</mn></mrow><annotation encoding="application/x-tex">38.73</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">.</span><span class="mord">7</span><span class="mord">3</span></span></span></span></span><span>&nbsp;</span><span> </span></p><div></div></div><div></div></div></div>\n\t\t</div></div>',
+              },
+            ],
+          };
+          return res.data;
+        })
+      );
+  }
+
+  getReviewHtml(lessonId: string) {
+    return this.http.get(SERVER_API + `/students/practice_test/lesson/${lessonId}/review`).pipe(
+      catchError(DBHelper.handleError('GET practice_test/review', [])),
+      map((res: any) => {
+        // res = mockTestReviewJson;
+        return TestReviewHtml.fromJson(res);
       })
     );
   }

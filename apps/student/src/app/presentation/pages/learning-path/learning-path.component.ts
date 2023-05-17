@@ -288,6 +288,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         return;
       },
       error: err => {
+        console.log(err);
         this.learingPathError = true;
       },
     });
@@ -296,6 +297,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         this.probabilityIndex = result;
       },
       error: err => {
+        console.log(err);
         this.learingPathError = true;
       },
     });
@@ -379,7 +381,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     if (lesson.isNew && this.subscriptionExpired) {
       this.showSubscriptionExpired = true;
     } else {
-      this.router.navigate([this.paths.lessonPage.path, lesson.id]);
+      this.router.navigate([this.paths.lessonPage.path.replace(':id', lesson.id)]);
     }
   }
 
@@ -387,5 +389,19 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate([this.paths.mockTestResult.path.replace(':id', mockTestId)], {
       queryParams: { learning_goal_id: this.selectedStudentLearningGoal.id },
     });
+  }
+
+  onLessonBlockClick(lesson: LessonItem) {
+    if (lesson.isNew) {
+      this.router.navigate([this.paths.lessonPage.path.replace(':id', lesson.id)]);
+    } else {
+      this.router.navigate([this.paths.lessonReviewPage.path.replace(':id', lesson.id)]);
+    }
+  }
+
+  onLastLessonBlockClick() {
+    if (this.learningGoalPath.isCompleted()) {
+      this.router.navigate([this.paths.learningPathComplete.path]);
+    }
   }
 }

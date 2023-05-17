@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Progress, SubmissionHtml, TestContentHtml, answerPrefixes } from '@share-utils/data';
+import { Progress, QuestionHtml, SubmissionHtml, answerPrefixes } from '@share-utils/data';
 import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 import { Subscription } from 'rxjs';
 // import {
@@ -26,8 +26,8 @@ export class TestContentHtmlComponent implements OnInit, OnDestroy {
   progress = new Progress();
   @Output() progressEvent = new EventEmitter<Progress>();
 
-  @Input() content!: TestContentHtml;
-  @Output() contentEvent = new EventEmitter<TestContentHtml>();
+  @Input() questions!: QuestionHtml[];
+  @Output() contentEvent = new EventEmitter<QuestionHtml[]>();
 
   @Input() submission!: SubmissionHtml;
   @Output() submissionEvent = new EventEmitter<SubmissionHtml>();
@@ -40,7 +40,7 @@ export class TestContentHtmlComponent implements OnInit, OnDestroy {
   keyEvent(e: KeyboardEvent) {
     if (!this.isActive) return;
 
-    const question = this.content.questions[this.currentIndex];
+    const question = this.questions[this.currentIndex];
     const answers = question.answers;
     const currentSubmitDataLength = Object.keys(this.submission.submitData).length;
     if (['1', '2', '3', '4'].includes(e.key)) {
@@ -53,7 +53,7 @@ export class TestContentHtmlComponent implements OnInit, OnDestroy {
       }
     }
     if (e.key == ' ') {
-      if (currentSubmitDataLength == this.content.questions.length) {
+      if (currentSubmitDataLength == this.questions.length) {
         this.completeCallback.emit();
       } else {
         if (this.progress.value > this.currentIndex) {
@@ -76,7 +76,7 @@ export class TestContentHtmlComponent implements OnInit, OnDestroy {
   updateProgress(nextProgressValue: number) {
     if (!this._addedList.includes(nextProgressValue)) {
       this._addedList.push(nextProgressValue);
-      const newProgress = Progress.from(this.progress.value + 1, this.content.questions.length);
+      const newProgress = Progress.from(this.progress.value + 1, this.questions.length);
       this.progress = newProgress;
       this.progressEvent.emit(this.progress);
     }

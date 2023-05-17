@@ -10,7 +10,7 @@ import { UserService } from '../user/user.service';
 import { Submission } from './submission';
 import { TestContent, TestResult } from './test-content';
 
-import { MockTestResult, SubmissionHtml, TestContentHtml, TestReviewHtml } from '@share-utils/data';
+import { ExerciseHtml, MockTestResult, SubmissionHtml, TestContentHtml, TestReviewHtml } from '@share-utils/data';
 
 @Injectable({
   providedIn: 'root',
@@ -57,13 +57,13 @@ export class TestService {
     );
   }
 
-  getExercise(lessonId: string, learningGoalId: string): Observable<TestContent> {
-    // TODO: remove learning_goal_id
-    const params = new HttpParams().set('lesson_id', lessonId).set('learning_goal_id', learningGoalId);
-    return this.http.get(SERVER_API + '/test/get_lesson_exercise', { params: params }).pipe(
+  getExercise(lessonId: string): Observable<ExerciseHtml> {
+    return this.http.get(SERVER_API + `/students/practice_test/get/adaptive_question/${lessonId}`).pipe(
       catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
       map((dataObject: any) => {
-        return TestContent.fromJson(dataObject);
+        const result = ExerciseHtml.fromJson(dataObject);
+        result.progress = dataObject['lesson_percentage'];
+        return result;
       })
     );
   }

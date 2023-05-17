@@ -68,4 +68,8 @@ export class HomeComponent implements OnInit {
     this.knowledgeService.selectStudentLearningGoal(learningGoal);
     this.router.navigate([this.paths.learningPath.path]);
   }
+  goToLastestLearningGoal() {
+    this.knowledgeService.selectStudentLearningGoal(this.learnings[0]);
+    this.router.navigate([this.paths.learningPath.path]);
+  }
 }

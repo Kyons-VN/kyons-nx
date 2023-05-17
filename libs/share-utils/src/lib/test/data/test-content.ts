@@ -61,25 +61,51 @@ export class TestContentHtml {
   }
 }
 
+export class ExerciseHtml {
+  progress?: number;
+  questions: QuestionHtml[];
+  constructor({ questions }: { questions: QuestionHtml[] }) {
+    this.questions = questions;
+  }
+  static fromJson(dataObject: any): ExerciseHtml {
+    const _ = pick(dataObject, ['questions']);
+    _.questions = (dataObject['questions'] as any[]).map((questionObject: any) =>
+      QuestionHtml.fromJson(questionObject)
+    );
+    return new ExerciseHtml(_);
+  }
+
+  static empty() {
+    return new ExerciseHtml({ questions: [] });
+  }
+}
+
 export class QuestionHtml {
   id: string;
   content: string;
   answers = ['0', '1', '2', '3'];
   html: string;
   form?: HTMLFormElement;
+  hint?: string;
 
-  constructor({ id, content, html }: { id: string; content: string; html: string }) {
+  constructor({ id, content, html, hint }: { id: string; content: string; html: string; hint?: string }) {
     this.id = id;
     this.content = content;
     this.html = html;
+    this.hint = hint;
   }
 
   static fromJson(dataObject: any): QuestionHtml {
-    const _ = pick(dataObject, ['id', 'content', 'html']);
+    const _ = pick(dataObject, ['id', 'content', 'html', 'hint']);
     _.id = (_.id as number).toString();
     _.content = dataObject['question'] ?? '';
     _.html = dataObject['answers'] ?? '';
+    _.hint = dataObject['hint'];
     return new QuestionHtml(_);
+  }
+
+  static empty() {
+    return new QuestionHtml({ id: '', content: '', html: '' });
   }
 }
 
@@ -236,12 +262,22 @@ export class QuestionReviewHtml {
   }
 
   static fromJson(dataObject: any): QuestionReviewHtml {
-    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect']);
+    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect', 'hint']);
     _.id = dataObject['id'].toString();
     _.question = dataObject['question'] ?? '';
     _.answers = dataObject['answers'] ?? '';
     _.explanation = dataObject['explanation'] ?? '';
-    _.isCorrect = dataObject['answers_status'] ?? false;
+    _.isCorrect = dataObject['answer_status'] ?? dataObject['answers_status'] ?? false;
     return new QuestionReviewHtml(_);
+  }
+
+  static empty(): QuestionReviewHtml {
+    return new QuestionReviewHtml({
+      id: '',
+      question: '',
+      answers: '',
+      explanation: '',
+      isCorrect: false,
+    });
   }
 }

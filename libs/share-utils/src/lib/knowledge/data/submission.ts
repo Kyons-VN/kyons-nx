@@ -68,6 +68,9 @@ export class SubmissionHtml {
   public hasAnswer(questionId: string): boolean {
     return this.submitData[questionId] !== undefined;
   }
+  reset() {
+    this._submitData = {};
+  }
 
   public toJson(): any {
     const result: any = {};
@@ -80,6 +83,7 @@ export class SubmissionHtml {
     const submission = Object.keys(this.submitData).map(questionId => {
       return {
         id: Number(questionId),
+        question: Number(questionId),
         user_response: `[[${this.submitData[questionId]}]]` as string,
         user_response_ui: [[this.submitData[questionId]]] as string[][],
         time_taken: Math.floor((this.end.getTime() - this.start.getTime()) / 1000),

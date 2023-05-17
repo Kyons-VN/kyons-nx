@@ -11,4 +11,5 @@ import { Progress } from '@share-utils/knowledge/data/progress';
 })
 export class QuestionsProgressComponent {
   @Input() progress = Progress.from(0, 3);
+  @Input() hideLabel = false;
 }

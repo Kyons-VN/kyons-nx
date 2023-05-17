@@ -8,6 +8,7 @@ import { FinalExamComponent } from './pages/final-exam/final-exam.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
+import { LessonReviewPageComponent } from './pages/lesson-page/review/lesson-review-page.component';
 import { MockTestResultComponent } from './pages/mock-test/result/mock-test-result.component';
 import { MockTestReviewComponent } from './pages/mock-test/review/mock-test-review.component';
 import { MockTestSelectProgramComponent } from './pages/mock-test/select-program/select-program.component';
@@ -36,8 +37,9 @@ class AppPaths {
   test = { name: 'Test', path: '/test/' };
   // diagnosticTest = { name: '', path: '/diagnostic-test/' };
   learningPath = { name: '', path: '/learning-path/' };
-  lessonPage = { name: '', path: '/learning-path/lesson-page/' };
-  // diagnosticTestComplete = { name: '', path: '/diagnostic-test/test-complete/' };
+  lessonPage = { name: '', path: '/learning-path/lesson-page/:id' };
+  lessonReviewPage = { name: '', path: '/learning-path/lesson-page/:id/review' };
+  learningPathComplete = { name: '', path: '/learning-path/complete/' };
   // waitingForTutor = { name: '', path: '/waiting-for-tutor/' };
   profile = { name: '', path: '/profile/' };
   pageNotfound = { name: '', path: '/page-not-found/' };
@@ -71,6 +73,7 @@ const routes: Routes = [
         children: [
           { path: '', component: LearningPathComponent },
           { path: 'lesson-page/:id', component: LessonPageComponent },
+          { path: 'lesson-page/:id/review', component: LessonReviewPageComponent },
           {
             path: 'complete',
             loadComponent: () =>

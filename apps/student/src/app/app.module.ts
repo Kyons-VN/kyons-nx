@@ -17,7 +17,6 @@ import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/di
 import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
-import { LessonPageComponent } from './presentation/pages/lesson-page/lesson-page.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
@@ -74,10 +73,7 @@ registerLocaleData(localeEN, 'en');
     LayoutDefaultComponent,
     LayoutFullComponent,
     LearningPathComponent,
-    LessonPageComponent,
-    // LoadingComponent,
     MockTestSelectProgramComponent,
-    // MockTestTestComponent,
     NewLessonPageComponent,
     NewUserComponent,
     PackagePageComponent,

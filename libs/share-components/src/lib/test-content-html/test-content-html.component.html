@@ -1,7 +1,7 @@
-<div *ngIf="content" class="w-full">
+<div *ngIf="questions" class="w-full">
   <div class="mt-2">
     <div
-      *ngFor="let question of content.questions; let qi = index"
+      *ngFor="let question of questions; let qi = index"
       [ngClass]="{ 'block ': qi === currentIndex, 'hidden ': qi !== currentIndex }"
     >
       <p><span [innerHTML]="question.content | safeHtml"></span></p>

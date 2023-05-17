@@ -141,6 +141,10 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
   line-height: 100%;
 }
 
+.btn.secondary:not(:disabled) {
+  @apply bg-lightBlue-1 border-lightBlue-1 text-white;
+}
+
 select {
   @apply bg-white border border-blueGrey-400 rounded-md;
 }

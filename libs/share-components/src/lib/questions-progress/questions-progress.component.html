@@ -1,6 +1,6 @@
 <div class="progress-wrapper">
   <div class="progress-container">
-    <div class="progressing" [ngStyle]="{width: (progress.value / progress.total) * 100 + '%'}"></div>
+    <div class="progressing" [ngStyle]="{ width: (progress.value / progress.total) * 100 + '%' }"></div>
   </div>
-  <span class="label">{{ progress.label }}&nbsp;</span>
+  <span *ngIf="!hideLabel" class="label">{{ progress.label }}&nbsp;</span>
 </div>

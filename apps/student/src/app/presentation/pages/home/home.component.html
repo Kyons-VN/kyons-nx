@@ -190,7 +190,7 @@
       <button
         class="btn-extra-large flex justify-between w-full bg-blue-gradient"
         [disabled]="learnings.length === 0"
-        [routerLink]="paths.learningPath.path"
+        (click)="goToLastestLearningGoal()"
       >
         <span>Tiếp tục học bài trước đó</span>
         <i class="icon-ArrowForward"></i>

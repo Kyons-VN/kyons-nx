@@ -1,10 +1,11 @@
+<student-loading *ngIf="isLoading"></student-loading>
 <div class="flex w-full justify-center">
   <div class="col gap-4 w-full max-w-[1122px] p-12 h-screen">
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
         <button (click)="backToResult()" class="no-underline flex gap-2 items-center text-orange">
           <i class="icon-ArrowLeft"></i>
-          <span>Về Điểm bài kiểm tra</span>
+          <span>Về lộ trình học</span>
         </button>
         <h4>Đáp án bài kiểm tra</h4>
       </div>
@@ -25,12 +26,12 @@
     >
       <div class="flex items-center justify-between w-full">
         <h6>
-          Câu {{ currentQuestionIndex + 1 }}/50 -
-          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
+          Câu {{ currentQuestionIndex + 1 }}/50
+          <!-- <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
             >Không phải đáp án đúng rồi!</span
           ><span *ngIf="questions[currentQuestionIndex].isCorrectAnswer" class="text-darkEmerald"
             >Đáp án chính xác!</span
-          >
+          > -->
         </h6>
         <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded">Báo lỗi</a>
       </div>
@@ -51,13 +52,10 @@
           <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
           <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
             <button
-              class="btn-rounded btn-icon"
+              class="btn btn-icon fill-black"
               *ngFor="let question of questions; index as i"
               [ngClass]="{
-                'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
-                'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
-                'outline-green': question.isCorrectAnswer,
-                'outline-red': !question.isCorrectAnswer
+                'fill-blue': i === currentQuestionIndex
               }"
               (click)="currentQuestionIndex = i"
             >
@@ -75,8 +73,7 @@
         </button>
       </div>
     </div>
-    <student-loading *ngIf="isLoading"></student-loading>
-    <div class="flex bg-lightOrange-4 w-full h-[56px] items-center justify-between px-6 rounded-lg">
+    <!-- <div class="flex bg-lightOrange-4 w-full h-[56px] items-center justify-between px-6 rounded-lg">
       <span><b class="text-orange">Bạn muốn cải thiện điểm số?</b> Bấm <b>Tạo lộ trình học</b> để bắt đầu ngay!</span>
       <button
         [disabled]="status !== MockTestStatus.learning_path_received"
@@ -85,6 +82,6 @@
       >
         Tạo lộ trình học
       </button>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -33,13 +33,15 @@
                     class="absolute path"
                   ></div> -->
                   <div *ngIf="i !== 0" class="absolute path"></div>
-                  <div
+                  <button
                     *ngIf="lessons[i + bi * 3].name !== ''"
                     class="lesson-block"
                     [ngClass]="{
                       'complete-block': !lessons[i + bi * 3].isNew,
                       'new-block': lessons[i + bi * 3].isNew
                     }"
+                    (click)="onLessonBlockClick(lessons[i + bi * 3])"
+                    tabindex="0"
                   >
                     <div class="h7">{{ lessons[i + bi * 3].name }}</div>
                     <span *ngIf="!lessons[i + bi * 3].isNew" class="h-7 w-full text-right italic font-bold"
@@ -59,17 +61,19 @@
                         innerStrokeColor="var(--color-blueGrey-300)"
                       ></circle-progress>
                     </div>
-                  </div>
+                  </button>
                   <!-- <div class="absolute path"></div> -->
                 </ng-template>
                 <div *ngIf="i + bi * 3 === lessons.length && i !== 0" class="absolute path last"></div>
-                <div
+                <button
                   *ngIf="i + bi * 3 === lessons.length"
                   class="lesson-block"
                   [ngClass]="{
                     'waiting-block': lessons[lessons.length - 1].isNew,
                     'finish-block': !lessons[lessons.length - 1].isNew
                   }"
+                  (click)="onLastLessonBlockClick()"
+                  tabindex="0"
                 >
                   <span *ngIf="!lessons[lessons.length - 1].isNew" class="h7 w-full text-center !mt-[-10px]"
                     >Tới cuối đường</span
@@ -78,7 +82,7 @@
                   <div class="flex w-full justify-center relative">
                     <i class="icon-Lock text-5xl mt-[-74px] absolute"></i>
                   </div>
-                </div>
+                </button>
               </ng-template>
             </div>
           </div>

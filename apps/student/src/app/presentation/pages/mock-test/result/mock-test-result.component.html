@@ -18,27 +18,6 @@
     <div class="col p-6 bg-white rounded-lg gap-6">
       <div class="flex items-center justify-between w-full gap-8">
         <circle-progress
-          *ngIf="testResult.status === 0"
-          [percent]="0"
-          [subtitle]="'--'"
-          [animateTitle]="false"
-          [lazy]="false"
-          title="Điểm số"
-          titleFontSize="12px"
-          titleFontWeight="bold"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          [radius]="75"
-          outerStrokeColor="var(--color-blueGrey-300)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [animation]="false"
-          [innerStrokeWidth]="20"
-          [outerStrokeWidth]="20"
-          [space]="-20"
-        ></circle-progress>
-        <circle-progress
-          *ngIf="testResult.status !== 0"
           [percent]="testResult.score * 10"
           [subtitle]="testResult.score.toString() + '/10'"
           [animateTitle]="false"

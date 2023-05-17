@@ -23,6 +23,10 @@ export class LearningGoalPath implements ILearningGoalPath {
     return this.lessonCategories.length == 0;
   }
 
+  isCompleted() {
+    return this.progress == 100;
+  }
+
   getCategories() {
     return this.lessonCategories.map(l => l.category);
   }
