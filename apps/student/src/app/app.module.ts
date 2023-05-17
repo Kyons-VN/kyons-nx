@@ -3,25 +3,21 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharePipesModule } from '@kyonsvn/share-pipes';
-import { NgCircleProgressModule } from 'ng-circle-progress';
-// import { KeysPipe } from '../../../../libs/share-pipes/keys.pipe';
-// import { OrderByPipe } from '../../../../libs/share-pipes/order-by.pipe';
+import { FilterPipe, SafeHtmlPipe, SharePipesModule } from '@kyonsvn/share-pipes';
 import player from 'lottie-web/build/player/lottie_light';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LottieModule } from 'ngx-lottie';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { authInterceptorProviders } from './infrastructure/auth/interceptor';
+import { DEFAULT_TIMEOUT, authInterceptorProviders } from './infrastructure/auth/interceptor';
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
 import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/diagnostic-test.component';
 import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
-import { HomeComponent } from './presentation/pages/home/home.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './presentation/pages/lesson-page/lesson-page.component';
-import { MockTestTestComponent } from './presentation/pages/mock-test/test/mock-test-test.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
@@ -51,7 +47,13 @@ export function playerFactory() {
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeVN from '@angular/common/locales/vi';
+import { LayoutFullComponent } from '@presentation/layouts/full/layout-full.component';
+import { MockTestReviewComponent } from '@presentation/pages/mock-test/review/mock-test-review.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
+import { NgChartsModule } from 'ng2-charts';
+import { LayoutDefaultComponent } from './presentation/layouts/default/layout-default.component';
+import { AdaptiveTestComponent } from './presentation/pages/adaptive-test/adaptive-test.component';
+import { MockTestResultComponent } from './presentation/pages/mock-test/result/mock-test-result.component';
 import { MockTestSelectProgramComponent } from './presentation/pages/mock-test/select-program/select-program.component';
 import { NewUserComponent } from './presentation/pages/new-user/new-user.component';
 
@@ -60,38 +62,42 @@ registerLocaleData(localeEN, 'en');
 
 @NgModule({
   declarations: [
+    AccountPageComponent,
     AppComponent,
-    HomeComponent,
-    TopMenuComponent,
-    SubjectCardComponent,
-    ClassProgramComponent,
-    PageNotFoundComponent,
-    TestComponent,
     AppInputComponent,
-    DiagnosticTestComponent,
-    LearningPathComponent,
-    QuestionsProgressComponent,
-    LessonPageComponent,
-    InputRadioComponent,
-    SignOutComponent,
-    ProfileComponent,
-    KnowledgeComponent,
-    RatingTutorComponent,
+    ClassProgramComponent,
     ConfirmDialogComponent,
+    DiagnosticTestComponent,
+    FinalExamComponent,
+    InputRadioComponent,
+    KnowledgeComponent,
+    LayoutDefaultComponent,
+    LayoutFullComponent,
+    LearningPathComponent,
+    LessonPageComponent,
+    // LoadingComponent,
+    MockTestSelectProgramComponent,
+    // MockTestTestComponent,
+    NewLessonPageComponent,
+    NewUserComponent,
+    PackagePageComponent,
+    PageNotFoundComponent,
+    ProfileComponent,
+    QuestionsProgressComponent,
+    RatingTutorComponent,
+    ScoreBarComponent,
+    SelectTopicComponent,
+    SignOutComponent,
+    SubjectCardComponent,
+    TestComponent,
     TestContentComponent,
     TestReviewComponent,
-    ScoreBarComponent,
+    TopMenuComponent,
     TrackingComponent,
     TrackingLessonComponent,
-    NewLessonPageComponent,
-    FinalExamComponent,
-    LoadingComponent,
-    PackagePageComponent,
-    MockTestTestComponent,
-    AccountPageComponent,
-    MockTestSelectProgramComponent,
-    SelectTopicComponent,
-    NewUserComponent,
+    MockTestResultComponent,
+    MockTestReviewComponent,
+    AdaptiveTestComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -123,9 +129,17 @@ registerLocaleData(localeEN, 'en');
     IvyCarouselModule,
     SharePipesModule,
     LottieModule.forRoot({ player: playerFactory }),
+    LoadingComponent,
+    NgChartsModule,
+    FilterPipe,
+    SafeHtmlPipe,
   ],
   exports: [MaterialModule, SvgModule],
-  providers: [authInterceptorProviders, { provide: LOCALE_ID, useValue: 'vi' }],
+  providers: [
+    authInterceptorProviders,
+    { provide: LOCALE_ID, useValue: 'vi' },
+    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }],
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

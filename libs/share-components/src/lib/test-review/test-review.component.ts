@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'kyonsvn-test-review',
@@ -12,13 +6,13 @@ import {
   styleUrls: ['./test-review.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TestReviewComponent implements OnInit {
+export class TestReviewHtmlComponent implements OnInit {
   @HostBinding('class') class = 'flex flex-col gap-4';
 
   @Input() reviewRenderObject!: any[];
 
   ngOnInit(): void {
-    this.reviewRenderObject = this.reviewRenderObject.map((review) => {
+    this.reviewRenderObject = this.reviewRenderObject.map(review => {
       review.isOpen = false;
       return review;
     });

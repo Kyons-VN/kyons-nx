@@ -1,0 +1,74 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Nguyên hàm",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Tìm</p><p>&nbsp;<img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682006139image.png\"></p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p><img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009111image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p><img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009198image.png\"></p>",
+                    "explanation": "<p>Đặt <img class=\"image_resized\" style=\"width:160px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682007810image.png\"></p><p>=&gt; <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682007839image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:250px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682008345image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:600px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682008807image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p><img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009278image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p><img class=\"image_resized\" style=\"width:170px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009347image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Tìm nguyên hàm của</p><p>&nbsp;<img class=\"image_resized\" style=\"width:140px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009504image.png\"></p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p><img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682010152image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "<p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682010038image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "<p><img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009974image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "<p><img class=\"image_resized\" style=\"width:65px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009865image.png\"></p>",
+                    "explanation": "<p><img class=\"image_resized\" style=\"width:600px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682009750image.png\"></p>",
+                    "is_correct": true
+                }
+            ]
+        }
+    ]
+}

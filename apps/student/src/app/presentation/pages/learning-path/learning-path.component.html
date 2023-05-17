@@ -1,174 +1,316 @@
-<div class="h-full">
-  <div *ngIf="!processing && !nextStep" class="flex flex-col gap-6 py-6 px-11 min-h-full">
-    <div class="flex flex-row items-center gap-6">
-      <a class="no-underline text-orange" [routerLink]="paths.home.path"
-        ><i class="icon-ArrowLeft text-[20px]"></i> Trở về</a
-      >
-      <h2>Tiếng Anh</h2>
-    </div>
-    <div class="flex flex-row gap-6 p-2 rounded bg-white">
-      <select [(ngModel)]="selectedCategoryIdMod">
-        <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
-      </select>
-      <div class="flex flex-col flex-1">
-        <div class="h8">{{ selectedLearningGoal.name }}</div>
-        <div class="flex gap-4 items-center w-full">
-          <div class="progress-container flex-1">
-            <div class="progressing" [ngStyle]="{width: learningGoalPath.progress + '%'}"></div>
-          </div>
-          <div class="h7">{{ learningGoalPath.progress }}%</div>
-        </div>
+<div class="flex w-full h-screen">
+  <div class="col flex-1 gap-6 items-center py-16 px-8 bg-image">
+    <div class="flex gap-6 p-6 bg-white rounded-2xl shadow-3 w-[520px]">
+      <img src="/assets/images/Subject.svg" alt="" />
+      <div class="col gap-2">
+        <span>Đây là lộ trình học tập để bạn đạt mục tiêu:</span>
+        <h5 class="text-orange">{{ selectedStudentLearningGoal.name }}</h5>
+        <span class="h7">{{ selectedStudentLearningGoal.programName }}</span>
       </div>
     </div>
-    <div
-      class="mx-[-2.75rem] px-11 flex overflow-hidden relative mt-[-2.5rem]"
-      (wheel)="onScroll($event)"
-      style="height: calc(256px + 2.75 * 2rem)"
-    >
-      <!-- <div
-        class="absolute w-auto border-2 border-orange border-dashed mx-[-2.75rem] top-1/2 z-1"
-        style="left: 0"
-        [ngStyle]="{ right: -scrollDistance + 256 / 2 + 'px' }"
-      ></div> -->
-
-      <div
-        #widgetsWrapper
-        class="flex z-2 absolute overflow-x-scroll w-full top-11 bottom-[-17px] left-0 right-0"
-        style="gap: 1.5rem"
-      >
-        <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
+    <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full" (wheel)="onScroll($event)">
+      <div *ngIf="mockTests.length !== 0; else learingPathEmptyTemplate" class="w-full flex items-start justify-center">
         <div
-          (click)="goToLesson(lesson)"
-          class="small-card cursor-pointer hover:shadow-3"
-          [ngClass]="{
-            'bg-secondaryBlue': !lesson.isNew,
-            'bg-primaryBlue': lesson.isNew
-          }"
-          *ngFor="let lesson of lessons; index as i"
+          *ngIf="lessons.length !== 0 && !showActivateLearningPathBtn"
+          #widgetsWrapper
+          class="w-[760px] flex items-start justify-center"
         >
-          <div class="flex flex-col gap-2">
-            <h6>Bài số {{ i + 1 }}</h6>
-          </div>
-        </div>
-        <div class="" *ngIf="learningGoalPath.progress === 100; else elseBlock1">
           <div
-            [routerLink]="[this.paths.finalExam.path, selectedProgram.id]"
-            class="bg-lightBlue-1 small-card !text-white cursor-pointer flex flex-col items-center justify-center gap-3"
+            class="hide-scrollbar hidden md:flex flex-col gap-[46px] h-[calc(100vh_-_280px)] overflow-y-auto px-[56px] py-8"
           >
-            <h6>Chúc mừng</h6>
+            <div
+              *ngFor="let block of lessonBlockOf3OnMDScreen; index as bi"
+              class="flex gap-6"
+              [ngClass]="{
+                even: bi % 2 === 0,
+                odd: bi % 2 !== 0
+              }"
+            >
+              <ng-template ngFor let-i [ngForOf]="blockOf3">
+                <ng-template [ngIf]="i + bi * 3 < lessons.length">
+                  <!-- <div
+                    *ngIf="bi % 2 !== 0 && i !== 0 && lessons[i + bi * 3 + 1] !== undefined"
+                    class="absolute path"
+                  ></div> -->
+                  <div *ngIf="i !== 0" class="absolute path"></div>
+                  <div
+                    *ngIf="lessons[i + bi * 3].name !== ''"
+                    class="lesson-block"
+                    [ngClass]="{
+                      'complete-block': !lessons[i + bi * 3].isNew,
+                      'new-block': lessons[i + bi * 3].isNew
+                    }"
+                  >
+                    <div class="h7">{{ lessons[i + bi * 3].name }}</div>
+                    <span *ngIf="!lessons[i + bi * 3].isNew" class="h-7 w-full text-right italic font-bold"
+                      >Hoàn tất</span
+                    >
+                    <div class="flex w-full justify-end">
+                      <circle-progress
+                        *ngIf="lessons[i + bi * 3].isNew"
+                        [percent]="lessons[i + bi * 3].progress!"
+                        [title]="lessons[i + bi * 3].progress! + '%'"
+                        [showSubtitle]="false"
+                        [radius]="32"
+                        titleFontSize="16px"
+                        titleFontWeight="bold"
+                        outerStrokeColor="var(--color-white)"
+                        titleColor="var(--color-white)"
+                        innerStrokeColor="var(--color-blueGrey-300)"
+                      ></circle-progress>
+                    </div>
+                  </div>
+                  <!-- <div class="absolute path"></div> -->
+                </ng-template>
+                <div *ngIf="i + bi * 3 === lessons.length && i !== 0" class="absolute path last"></div>
+                <div
+                  *ngIf="i + bi * 3 === lessons.length"
+                  class="lesson-block"
+                  [ngClass]="{
+                    'waiting-block': lessons[lessons.length - 1].isNew,
+                    'finish-block': !lessons[lessons.length - 1].isNew
+                  }"
+                >
+                  <span *ngIf="!lessons[lessons.length - 1].isNew" class="h7 w-full text-center !mt-[-10px]"
+                    >Tới cuối đường</span
+                  >
+                  <span *ngIf="lessons[lessons.length - 1].isNew" class="h7">(Đang chờ được khám phá...)</span>
+                  <div class="flex w-full justify-center relative">
+                    <i class="icon-Lock text-5xl mt-[-74px] absolute"></i>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
           </div>
         </div>
-        <ng-template #elseBlock1>
-          <div class="" *ngIf="!learningGoalCategory.isCompleted; else elseBlock2">
-            <div
-              *ngIf="userType === 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-              class="small-card bg-orange !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-              [routerLink]="paths.newLesson.path"
-            >
-              <i class="icon-Add text-5xl"></i>
-              <h6>Tạo bài học mới</h6>
-            </div>
-            <div
-              *ngIf="userType !== 'self_study' && (lessons.length === 0 || !lessons[lessons.length - 1].isNew)"
-              class="small-card bg-blueGrey-300 !text-primaryBlue cursor-wait flex flex-col items-center justify-center gap-3"
-            >
-              <h6>Kyons đang chuẩn bị bài học cho bạn</h6>
-            </div>
+        <div *ngIf="showActivateLearningPathBtn" class="">
+          <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
+            <h5 class="text-white">Bạn chưa tạo lộ trình học!</h5>
+            <h6 class="h6 text-white">bấm vào nút bên dưới để bắt đầu học thôi</h6>
+            <button (click)="activateLearningPath()" class="btn">Tạo lộ trình học</button>
           </div>
-          <ng-template #elseBlock2>
-            <div
-              (click)="showNextStep()"
-              class="bg-lightBlue-1 small-card !text-white cursor-pointer flex flex-col items-center justify-center gap-3"
-            >
-              <h6>Trạm cuối rồi</h6>
-            </div>
-          </ng-template>
-        </ng-template>
-        <!-- <div
-        class="small-card bg-lightBlue-1 !text-white cursor-pointer hover:shadow-3 flex flex-col items-center justify-center gap-3"
-        [routerLink]="[this.paths.finalExam.path, selectedProgram.id]"
-      >
-        <h6>Bài kiểm tra cuối khoá</h6>
-      </div> -->
-
-        <div class="w-5 h-full flex-shrink-0">&nbsp;</div>
-      </div>
-    </div>
-    <div class="self-end flex">
-      <div class="flex gap-3">
-        <div
-          (click)="scrollLeft()"
-          class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M10 12L6 8L10 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-        <div
-          (click)="scrollRight()"
-          class="bg-orange rounded-md w-6 h-6 items-center justify-center flex cursor-pointer"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M6 12L10 8L6 4" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
         </div>
       </div>
+      <ng-template #learingPathEmptyTemplate>
+        <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
+          <h5 class="text-blueGrey-500">Meo meo meo meo, trả lại tâm trí tôi đây...</h5>
+          <h6 class="h6 text-white">Bạn đợi một chút để AI của Kyons trả lại lộ trình học tập cho bạn nhé ><</h6>
+        </div>
+      </ng-template>
     </div>
+    <ng-template #learingPathErrorTemplate>
+      <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
+        <h5 class="text-blueGrey-500">Meo meo meo meo, trả lại tâm trí tôi đây...</h5>
+        <h6 class="h6 text-white">Bạn đợi một chút để AI của Kyons trả lại lộ trình học tập cho bạn nhé ><</h6>
+      </div>
+    </ng-template>
   </div>
-  <!-- <ng-template #elseBlock>
-    <div class="bg-image h-full">
-      <div class="h-28 hidden md:flex"></div>
-      <div class="flex flex-col sm:w-full md:w-1/2 py-28 px-11 gap-6">
-        <div class="flex flex-col gap-2">
-          <h1>Bạn đã hoàn thành bài kiểm tra</h1>
-          <h3 *ngIf="userType !== 'self_study'" class="text-secondaryBlue">
-            Kyons đang chuẩn bị giáo trình cho bạn. Xin vui lòng đợi.
-          </h3>
-          <h3 *ngIf="userType === 'self_study'" class="text-secondaryBlue">Bạn có thể chọn bài học tiếp theo.</h3>
+  <div class="col items-stretch w-[614px] p-8 h-screen overflow-y-auto gap-8">
+    <div class="flex justify-end">
+      <div class="flex gap-2">
+        <div [routerLink]="paths.home.path" class="menu-item">
+          <img src="/assets/images/Home.svg" alt="" />
+          <span>Trang chủ</span>
         </div>
-        <div *ngIf="userType === 'self_study'" class="self-center flex gap-2">
-          <a class="btn primary" [routerLink]="paths.newLesson.path">Tạo bài học</a>
+        <div [routerLink]="paths.package.path" class="menu-item">
+          <img src="/assets/images/Store.svg" alt="" />
+          <span>Thanh toán</span>
         </div>
       </div>
     </div>
-  </ng-template> -->
-  <div *ngIf="nextStep" class="w-full h-full flex flex-col items-center justify-start p-6 md:p-11">
-    <div class="flex flex-col w-full md:w-1/2 gap-6 items-center">
-      <img src="assets/images/End Path.svg" class="w-[150px] h-[150px]" />
-      <div class="flex flex-col bg-white rounded-lg p-6 gap-6">
-        <h4>Chúc mừng bạn đã đến trạm cuối của {{ learningGoalCategory.category.name }}!</h4>
-        <div class="">
-          <p>
-            Bạn đã hoàn thành 1 phần trong <strong>{{ selectedLearningGoal.name }}</strong> rồi. Tiếp tục chinh phục
-            những cung đường còn lại nhé!
-          </p>
-        </div>
-        <div class="flex flex-col gap-2">
-          <button
-            *ngFor="let cat of unCompletedCategories"
-            (click)="selectedCategoryIdMod = cat.category.id; nextStep = false"
-            class="btn"
-          >
-            Tiếp tục học {{ cat.category.name }}
-          </button>
-        </div>
+    <div class="col gap-4">
+      <div class="flex justify-between items-center">
+        <h5>Theo dõi quá trình học</h5>
+        <a
+          (click)="showWhatIsProbabilityIndex = true"
+          class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
+        >
+          <i class="icon-Help"></i>
+          <span class="underline">Đây là gì?</span>
+        </a>
       </div>
+      <div class="flex justify-between items-center bg-white rounded-2xl p-6">
+        <circle-progress
+          *ngIf="!learningGoalPath.isEmpty()"
+          [percent]="learningGoalPath.progress"
+          title="Tiến độ học"
+          titleFontSize="14px"
+          titleColor="var(--color-primaryBlue)"
+          [subtitle]="learningGoalPath.progress + '%'"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          titleFontWeight="bold"
+          [radius]="80"
+          outerStrokeColor="var(--color-lightOrange-1)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [outerStrokeWidth]="24"
+          innerStrokeWidth="24"
+          [space]="-24"
+        ></circle-progress>
+        <circle-progress
+          *ngIf="learningGoalPath.isEmpty()"
+          [percent]="0"
+          title="Tiến độ học"
+          titleFontSize="14px"
+          titleColor="var(--color-primaryBlue)"
+          [subtitle]="'--'"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          titleFontWeight="bold"
+          [radius]="80"
+          outerStrokeColor="var(--color-blueGrey-300)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [outerStrokeWidth]="24"
+          innerStrokeWidth="24"
+          [space]="-24"
+        ></circle-progress>
+        <div class="w-0 h-[156px] border border-r-blueGrey-300"></div>
+        <circle-progress
+          *ngIf="!probabilityIndex"
+          [percent]="0"
+          title="Tỉ lệ thành công"
+          titleFontSize="14px"
+          titleColor="var(--color-primaryBlue)"
+          [subtitle]="'--'"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          titleFontWeight="bold"
+          [radius]="80"
+          outerStrokeColor="var(--color-blueGrey-300)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [outerStrokeWidth]="24"
+          innerStrokeWidth="24"
+          [space]="-24"
+        ></circle-progress>
+        <circle-progress
+          *ngIf="probabilityIndex"
+          [percent]="probabilityIndex"
+          title="Tỉ lệ thành công"
+          titleFontSize="14px"
+          titleColor="var(--color-primaryBlue)"
+          [subtitle]="probabilityIndex + '%'"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          titleFontWeight="bold"
+          [radius]="80"
+          outerStrokeColor="var(--color-lightBlue-1)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [outerStrokeWidth]="24"
+          innerStrokeWidth="24"
+          [space]="-24"
+        ></circle-progress>
+      </div>
+    </div>
+    <div class="col gap-4">
+      <div class="flex justify-between items-center">
+        <h5>Bài kiểm tra thông minh</h5>
+        <a
+          (click)="showWhatIsMockTest = true"
+          class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
+        >
+          <i class="icon-Help"></i>
+          <span class="underline">Đây là gì?</span>
+        </a>
+      </div>
+    </div>
+    <div class="col bg-white rounded-2xl overflow-hidden shrink-0">
+      <mat-table [dataSource]="dataSource" matSort class="h-[248px]">
+        <!-- Age Definition -->
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+            <span class="caption font-bold text-blueGrey-500">Tên bài kiểm tra</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <a class="cursor-pointer" (click)="goToMockTest(row.id)">Bài kiếm tra số {{ row.index + 1 }}</a>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Title Definition -->
+        <ng-container matColumnDef="score">
+          <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+            <span class="caption font-bold text-blueGrey-500">Điểm số</span>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.score }} </mat-cell>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <mat-header-row *matHeaderRowDef="['index', 'score']; sticky: true" class="ASD"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['index', 'score']"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[4]" aria-label="Select page of periodic elements"> </mat-paginator>
+      <button [routerLink]="paths.mockTest.path" class="btn btn-large w-full !rounded-none">
+        Tạo bài kiểm tra thông minh mới
+      </button>
+    </div>
+    <div class="flex justify-center rounded-2xl shadow-3 bg-gradient pt-6 pr-6 text-white">
+      <canvas
+        #myCanvas
+        baseChart
+        width="500"
+        height="300"
+        [type]="'line'"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [legend]="false"
+      >
+      </canvas>
     </div>
   </div>
 </div>
 <div
-  *ngIf="showSubscriptionExpired"
-  class="absolute left-0 top-0 w-full h-full flex flex-col items-center justify-center"
+  *ngIf="showWhatIsProbabilityIndex"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
-  <div class="w-full md:w-[400px] bg-white rounded-lg p-8 flex flex-col gap-6">
-    <div class="flex flex-col gap-2">
-      <div class="h7">Bạn đã hết gói bài học</div>
-      <span>Để tạo bài học mới, bạn cần mua thêm gói bài học của Kyons nhé!</span>
-    </div>
-    <div class="flex justify-between">
-      <button (click)="showSubscriptionExpired = false" class="btn-rounded">Đóng thông báo</button>
-      <a class="btn" [routerLink]="paths.package.path">Mua gói</a>
-    </div>
+  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px]">
+    <h4>Theo dõi quá trình học</h4>
+    <p>
+      Để có thể đạt được mục tiêu lớn mà bạn đặt ra trong học tập, trước tiên hệ thống của Kyons sẽ chia mục tiêu ấy
+      thành <b class="text-orange">nhiều mục tiêu nhỏ</b> và cụ thể hơn ứng với từng dạng kiến thức, và sắp xếp chúng
+      thành một <b class="text-orange">lộ trình học</b>.
+    </p>
+    <p>
+      Và để đạt được những mục tiêu nhỏ ấy, bạn cần phải <b class="text-lightBlue-1">làm bài tập liên tục</b> cho đến
+      khi hệ thống AI của Kyons xác định mức độ vững vàng kiến thức đó của bạn và sẽ mở khóa mục tiêu tiếp theo. Sau khi
+      hoàn thành tất cả các mục tiêu nhỏ thì cũng là lúc bạn hoàn tất lộ trình học và đạt được mục tiêu lớn của mình.
+    </p>
+    <p>
+      Để theo dõi quá trình học của bản thân, bạn có thể quan sát chỉ số <b class="text-lightBlue-1">“Tiến độ học”</b>.
+      Ngoài ra, hệ thống còn có một chỉ số đặc biệt hơn đó là <b class="text-lightBlue-1">“Tỉ lệ thành công”</b>, thể
+      hiện khả năng bạn có thể hoàn thành mục tiêu lớn dựa trên số lượng kiến thức mà bạn đã học so với toàn bộ kiến
+      thức có thể ra trong bài kiểm tra.
+    </p>
+    <button (click)="showWhatIsProbabilityIndex = false" class="btn w-full">Đã hiểu</button>
   </div>
-  <div class="h-1/3"></div>
+</div>
+<div
+  *ngIf="showWhatIsMockTest"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px]">
+    <h4>Bài kiểm tra thông minh</h4>
+    <p>
+      <b class="text-orange">Bài kiểm tra thử thông minh</b> (Smart Mock Test) do công nghệ AI của Kyons tạo ra nhằm mục
+      đích đánh giá khả năng đạt được mục tiêu học tập của bạn. Từ đó, hệ thống sẽ thiết kế lộ trình học tập dành riêng
+      cho bạn để tập trung cải thiện những kiến thức còn yếu.
+    </p>
+    <p>
+      Với mỗi mục tiêu học tập, bạn sẽ có thể tạo <b class="text-orange">không giới hạn</b> số lượng bài kiểm tra thử
+      thông minh!
+    </p>
+    <p>
+      Bởi vì kết quả mỗi bài kiểm tra được tạo ra sẽ khác nhau nên mỗi bài kiểm tra sẽ có một lộ trình học tương ứng.
+      Bạn chỉ cần chọn <b class="text-lightBlue-1">một lộ trình mà bạn nghĩ rằng sát với khả năng của mình nhất</b> để
+      bắt đầu, bằng cách nhấn vào tên bài kiểm tra.
+    </p>
+    <p>
+      Lưu ý: Sau khi chọn một lộ trình học, bạn hoàn toàn có thể
+      <b class="text-lightBlue-1">thay đổi sang lộ trình học khác</b>. Vì thế, hãy cứ trải nghiệm Kyons để hiểu rõ kiến
+      thức mình đang còn yếu nằm ở đâu nhé! Chúc bạn học tập thật tốt nha.
+    </p>
+    <button (click)="showWhatIsMockTest = false" class="btn w-full">Đã hiểu</button>
+  </div>
 </div>

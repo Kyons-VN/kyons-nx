@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
   serverApi: 'https://student-api-dev.kyons.vn',

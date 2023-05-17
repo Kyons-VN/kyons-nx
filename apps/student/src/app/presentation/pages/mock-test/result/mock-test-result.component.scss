@@ -1,0 +1,14 @@
+.stats {
+  background: #0f172a;
+  background: -moz-linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  background: -webkit-linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  background: linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0f172a",endColorstr="#315d93",GradientType=1);
+
+  .stat {
+    @apply rounded-full;
+    &.active {
+      @apply bg-white;
+    }
+  }
+}

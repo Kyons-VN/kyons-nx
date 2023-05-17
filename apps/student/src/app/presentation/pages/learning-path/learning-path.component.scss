@@ -1,12 +1,119 @@
 .bg-image {
-  background-image: url('../../../../assets/images/Waiting.svg');
-  @media (max-width: 767px) {
-    background-position: center bottom;
-    background-size: contain;
-  }
-  @media (min-width: 768px) and (max-width: 992px) {
-    background-size: 60%;
-  }
-  background-position: 100% 4rem;
+  background: url('/assets/images/Group 1454.svg'), linear-gradient(11.37deg, #10182b 66.9%, #315d93 108.07%);
+  background-position: center, center;
   background-repeat: no-repeat;
+  background-size: 90%, cover;
 }
+.bg-gradient {
+  background: linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+}
+.lesson-block {
+  @apply w-[200px] h-[200px] aspect-square rounded-2xl flex flex-col items-stretch justify-between pt-8 pb-4 px-4 bg-no-repeat text-white relative;
+  background-position: top right;
+  z-index: 1;
+}
+.new-block {
+  @apply bg-blue-500;
+  background-image: url('/assets/images/NewBlock.webp');
+  box-shadow: 0px 9px 22px 1px rgba(6, 165, 255, 0.7);
+}
+.complete-block {
+  @apply bg-emerald-0;
+  background-image: url('/assets/images/CompleteBlock.webp');
+  box-shadow: 0px 9px 22px 1px rgba(52, 211, 153, 0.7);
+}
+.waiting-block {
+  @apply bg-blueGrey-400;
+  background-image: url('/assets/images/WaitingBlock.webp');
+}
+.finish-block {
+  @apply bg-blueGrey-400;
+  background: url('/assets/images/FinishBlock.webp'),
+    radial-gradient(69.35% 75.69% at 47.67% 67.88%, #1e293b 0%, #2a4a73 80%, #315d93 100%);
+  box-shadow: 0px 9px 22px rgba(251, 146, 60, 0.5);
+}
+.even,
+.odd {
+  @apply relative;
+}
+.even,
+.odd {
+  .path:nth-child(2),
+  .path:nth-child(4) {
+    content: '';
+    display: block;
+    background-image: url('/assets/images/BlockPath.svg');
+    background-size: 30px 24px;
+    width: 30px;
+    height: 24px;
+    position: absolute;
+    top: calc(50% - 12px);
+    z-index: 0;
+  }
+}
+
+.even {
+  .path:nth-child(2) {
+    left: 196px;
+  }
+  .path:nth-child(4) {
+    right: 196px;
+  }
+}
+
+.odd {
+  @apply flex-row-reverse;
+  .path:nth-child(2) {
+    right: 196px;
+  }
+  .path:nth-child(4) {
+    left: 196px;
+  }
+}
+// .odd:nth-child(2n + 2) {
+//   background-color: red;
+// }
+// .odd:nth-child(2n + 1) {
+//   background-color: blue;
+// }
+
+.even:not(:first-child)::before {
+  content: '';
+  display: block;
+  background-image: url('/assets/images/BlockPathCurve.svg');
+  background-repeat: no-repeat;
+  background-size: 56px 270px;
+  width: 56px;
+  height: 270px;
+  position: absolute;
+  z-index: 0;
+  left: -56px;
+  top: -160px;
+}
+
+.odd::after {
+  content: '';
+  display: block;
+  background-image: url('/assets/images/BlockPathCurve.svg');
+  background-repeat: no-repeat;
+  background-size: 56px 279px;
+  width: 56px;
+  height: 279px;
+  position: absolute;
+  z-index: 0;
+  rotate: 180deg;
+  right: -56px;
+  top: -160px;
+}
+
+// <svg xmlns="http://www.w3.org/2000/svg" width="56" height="279" viewBox="0 0 56 279" fill="none">
+// <path d="M56 12C31.6995 12 12 31.699 12 56V213C12 237.301 31.6995 267 56 267" stroke="#315D93" stroke-width="23"/>
+// </svg>
+
+// <svg xmlns="http://www.w3.org/2000/svg" width="56" height="279" viewBox="0 0 56 279" fill="none">
+// <path d="M0 12C24.301 12 44 31.6995 44 56V204C44 228.301 24.301 248 0 248" stroke="#315D93" stroke-width="24"/>
+// </svg>
+
+// <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 30 24" fill="none">
+// <line x1="0" y1="12" x2="30" y2="12" stroke="#315D93" stroke-width="24"/>
+// </svg>

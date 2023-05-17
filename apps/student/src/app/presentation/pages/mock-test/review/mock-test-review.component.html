@@ -1,0 +1,90 @@
+<div class="flex w-full justify-center">
+  <div class="col gap-4 w-full max-w-[1122px] p-12">
+    <div class="flex items-center justify-between w-full">
+      <div class="flex gap-4 items-center">
+        <button (click)="backToResult()" class="no-underline flex gap-2 items-center text-orange">
+          <i class="icon-ArrowLeft"></i>
+          <span>Về Điểm bài kiểm tra</span>
+        </button>
+        <h4>Đáp án bài kiểm tra</h4>
+      </div>
+      <div class="flex gap-2">
+        <div class="menu-item" [routerLink]="paths.home.path">
+          <img src="/assets/images/Home.svg" alt="" />
+          <span>Trang chủ</span>
+        </div>
+        <div class="menu-item" [routerLink]="paths.package.path">
+          <img src="/assets/images/Store.svg" alt="" />
+          <span>Thanh toán</span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="col rounded-lg bg-white p-4 overflow-y-auto md:overflow-hidden md:flex-1 max-h-[calc(100vh_-_200px) md:max-h-fit]"
+      *ngIf="!isLoading"
+    >
+      <div class="flex items-center justify-between w-full">
+        <h6>
+          Câu {{ currentQuestionIndex + 1 }}/50 -
+          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
+            >Không phải đáp án đúng rồi!</span
+          ><span *ngIf="questions[currentQuestionIndex].isCorrectAnswer" class="text-darkEmerald"
+            >Đáp án chính xác!</span
+          >
+        </h6>
+        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded">Báo lỗi</a>
+      </div>
+      <div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
+        <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span>
+        <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
+        <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span>
+      </div>
+    </div>
+    <div class="justify-between hidden md:flex flex-col gap-3">
+      <!-- <div class="hidden md:flex flex-1 gap-2">
+        <strong class="uppercase">Phím tắt:</strong>
+        <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
+      </div> -->
+      <div class="flex gap-4 items-center w-full overflow-hidden">
+        <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn">Câu trước</button>
+        <div class="flex-1 flex gap-1 w-full overflow-hidden">
+          <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
+          <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
+            <button
+              class="btn-rounded btn-icon"
+              *ngFor="let question of questions; index as i"
+              [ngClass]="{
+                'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
+                'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
+                'outline-green': question.isCorrectAnswer,
+                'outline-red': !question.isCorrectAnswer
+              }"
+              (click)="currentQuestionIndex = i"
+            >
+              {{ i + 1 }}
+            </button>
+          </div>
+          <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ArrowRight"></i></button>
+        </div>
+        <button
+          [disabled]="currentQuestionIndex === questions.length - 1"
+          (click)="scrollRight()"
+          class="btn bg-lightBlue-1"
+        >
+          Câu kế tiếp
+        </button>
+      </div>
+    </div>
+    <student-loading *ngIf="isLoading"></student-loading>
+    <div class="flex bg-lightOrange-4 w-full h-[56px] items-center justify-between px-6 rounded-lg">
+      <span><b class="text-orange">Bạn muốn cải thiện điểm số?</b> Bấm <b>Tạo lộ trình học</b> để bắt đầu ngay!</span>
+      <button
+        [disabled]="status !== MockTestStatus.learning_path_received"
+        (click)="activateLearningPath()"
+        class="btn"
+      >
+        Tạo lộ trình học
+      </button>
+    </div>
+  </div>
+</div>

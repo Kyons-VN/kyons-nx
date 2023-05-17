@@ -59,10 +59,8 @@ export class SelectTopicComponent implements OnInit {
     }
     this.loading.show();
     this.testService.submitTopics(this.learningGoalId, this.topics.filter((lG) => lG.checked === true).map((topic) => topic.id)).subscribe({
-      next: (learningGoal) => {
-        this.loading.hide();
-        this.knowledgeService.selectLearningGoad(learningGoal);
-        this.router.navigate([this.paths.mockTestTest.path.replace(':id', learningGoal.id)]);
+      next: (testId) => {
+        this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
       },
     });
   }

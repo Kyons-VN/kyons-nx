@@ -1,0 +1,39 @@
+.bg-gradient {
+  background: #f1f5f9;
+  background: -moz-linear-gradient(177.7deg, #f1f5f9 85.73%, #98d7fa 142.42%);
+  background: -webkit-linear-gradient(177.7deg, #f1f5f9 85.73%, #98d7fa 142.42%);
+  background: linear-gradient(177.7deg, #f1f5f9 85.73%, #98d7fa 142.42%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f1f5f9",endColorstr="#98d7fa",GradientType=1);
+}
+.bg-rocket {
+  @apply bg-no-repeat bg-bottom bg-cover bg-[url('/assets/images/kyons-app-banner.webp')] w-[479px];
+}
+.bg-rocket-xs {
+  @apply bg-no-repeat bg-bottom bg-cover bg-[url('/assets/images/kyons-app-banner-xs.webp')] w-full;
+  aspect-ratio: 375/181;
+}
+.stats {
+  background: #0f172a;
+  background: -moz-linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  background: -webkit-linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  background: linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0f172a",endColorstr="#315d93",GradientType=1);
+
+  .stat {
+    @apply rounded-full;
+    &.active {
+      @apply bg-white;
+    }
+  }
+}
+.bg-mess {
+  aspect-ratio: 375/252;
+  @apply bg-[url('/assets/images/mess-xs.webp')] md:bg-[url('/assets/images/mess.webp')] bg-no-repeat bg-cover md:bg-contain bg-center md:min-h-[216px] md:aspect-auto;
+}
+
+student-top-menu {
+  display: none;
+}
+.drop-menu-item {
+  @apply flex h-16 p-6 no-underline text-primaryBlue;
+}

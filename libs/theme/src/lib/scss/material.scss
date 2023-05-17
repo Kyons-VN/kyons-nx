@@ -1,4 +1,4 @@
-@use '@angular/material' as mat;
+// @use '@angular/material' as mat;
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
   // @apply px-3 py-2 h-10;
@@ -57,4 +57,7 @@ body .mat-tooltip {
       transform: rotate(90deg);
     }
   }
+}
+.mdc-data-table__header-cell {
+  @apply border-b-2 border-blueGrey-200 #{!important};
 }

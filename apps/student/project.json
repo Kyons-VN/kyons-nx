@@ -15,8 +15,16 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/student/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/student/src/favicon.ico", "apps/student/src/assets"],
-        "styles": ["apps/student/src/styles.scss"],
+        "assets": [
+          "apps/student/src/favicon.ico",
+          "apps/student/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/theme/src/assets/",
+            "output": "/assets/"
+          }
+        ],
+        "styles": ["libs/theme/src/styles.scss", "apps/student/src/styles.scss"],
         "scripts": [],
         "allowedCommonJsDependencies": ["lottie-web"]
       },
@@ -89,19 +97,13 @@
           "index": "apps/student/src/environments/test/index.html"
         },
         "dev": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
           "outputPath": "dist/apps/student/dev",
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "2mb",
-              "maximumError": "2mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
-            }
-          ],
           "fileReplacements": [
             {
               "replace": "apps/student/src/environments/environment.ts",
@@ -147,11 +149,11 @@
         "production": {
           "browserTarget": "student:build:production"
         },
-        "development": {
-          "browserTarget": "student:build:development"
+        "dev": {
+          "browserTarget": "student:build:dev"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "dev"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

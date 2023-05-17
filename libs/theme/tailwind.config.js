@@ -1,5 +1,5 @@
-const {createGlobPatternsForDependencies} = require('@nrwl/angular/tailwind');
-const {join} = require('path');
+const { createGlobPatternsForDependencies } = require('@nrwl/angular/tailwind');
+const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -72,6 +72,10 @@ module.exports = {
         1: '0px 3px 5px rgba(0, 0, 0, 0.1)',
         2: '0px 5px 10px rgba(0, 0, 0, 0.15)',
         3: '0px 15px 15px rgba(0, 0, 0, 0.3)',
+        4: '0px 9px 19px 1px rgba(49, 93, 147, 0.1)',
+        lightBlue1: '0px 9px 22px 1px rgba(6, 165, 255, 0.7)',
+        emerald: '0px 9px 22px 1px rgba(52, 211, 153, 0.7)',
+        lightOrange1: '0px 9px 22px rgba(251, 146, 60, 0.5)',
       },
       borderWidth: {
         10: '10px',

@@ -1,3 +1,4 @@
+export * from './lib/filter.pipe';
 export * from './lib/keys.pipe';
 export * from './lib/order-by-sa.pipe';
 export * from './lib/order-by.pipe';

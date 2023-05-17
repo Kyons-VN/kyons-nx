@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { AnimationOptions } from 'ngx-lottie';
+import { AnimationOptions, LottieModule } from 'ngx-lottie';
 
 @Component({
+  standalone: true,
+  imports: [LottieModule],
   selector: 'student-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],

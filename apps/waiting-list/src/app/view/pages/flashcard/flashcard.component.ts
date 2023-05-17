@@ -4,7 +4,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FlashcardService } from '@data/flashcard/flashcard.service';
 import { QuestionsProgressComponent, TestContentComponent } from '@share-components';
-import { Progress, Submission, TestContent } from '@utils/data';
+import { Progress, Submission, TestContent } from '@share-utils/data';
 
 @Component({
   standalone: true,

@@ -1,13 +1,14 @@
 import {
+  HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest, HTTP_INTERCEPTORS
+  HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, lastValueFrom, Observable, of, throwError } from 'rxjs';
+import { Observable, catchError, lastValueFrom, of, throwError, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AppPaths } from '../../presentation/routes';
 import { NavigationService } from '../navigation/navigation.service';
@@ -16,71 +17,70 @@ import { AuthService } from './auth.service';
 const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
 export const SERVER_API = environment.serverApi;
 
+export const DEFAULT_TIMEOUT = new InjectionToken<number>('defaultTimeout');
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   paths: AppPaths;
   constructor(
     private auth: AuthService,
     private router: Router,
-    navService: NavigationService
+    navService: NavigationService,
+    @Inject(DEFAULT_TIMEOUT) protected defaultTimeout: number
   ) {
     this.paths = navService.paths;
   }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.auth.getToken();
     const contentType = req.headers.get('Content-Type') ?? 'application/json';
     if (token !== '') {
       authReq = req.clone({
-        headers: req.headers
-          .set(TOKEN_HEADER_KEY, 'Bearer ' + token)
-          .set('Content-Type', contentType),
+        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set('Content-Type', contentType),
       });
     }
-    return next.handle(authReq).pipe(
-      catchError((error: HttpErrorResponse) => {
-        let errorMsg = '';
-        if (error.error instanceof ErrorEvent) {
-          console.log('this is client side error');
-          errorMsg = `Error: ${error.error.message}`;
-        } else {
-          console.log('this is server side error');
-          errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
-          if (error.status === 401) {
-            this.auth.removeToken();
-            const refreshToken = this.auth.getRefreshToken();
-            if (refreshToken && refreshToken !== 'undefined') {
-              lastValueFrom(
-                this.auth.refreshToken(refreshToken)
-              ).then((value) => {
-                console.log(value);
-                this.auth.setToken(value);
-                authReq = req.clone({
-                  headers: req.headers
-                    .set(TOKEN_HEADER_KEY, 'Bearer ' + value)
-                    .set('Content-Type', contentType),
+    const timeoutValue = req.headers.get('timeout') || this.defaultTimeout;
+    const timeoutValueNumeric = Number(timeoutValue);
+    return next
+      .handle(authReq)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          let errorMsg = '';
+          if (error.error instanceof ErrorEvent) {
+            console.log('this is client side error');
+            errorMsg = `Error: ${error.error.message}`;
+          } else {
+            console.log('this is server side error');
+            errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            if (error.status === 401) {
+              this.auth.removeToken();
+              const refreshToken = this.auth.getRefreshToken();
+              if (refreshToken && refreshToken !== 'undefined') {
+                lastValueFrom(this.auth.refreshToken(refreshToken)).then(value => {
+                  console.log(value);
+                  this.auth.setToken(value);
+                  authReq = req.clone({
+                    headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value).set('Content-Type', contentType),
+                  });
+                  next.handle(authReq).subscribe({
+                    error: e => {
+                      console.log(e);
+                      this.forceSignOut();
+                    },
+                  });
                 });
-                next.handle(authReq).subscribe({
-                  error: (e) => {
-                    console.log(e);
-                    this.forceSignOut();
-                  },
-                });
-              });
-            } else {
-              // this.forceSignOut();
-              console.log('forceSignOut');
-            }
-          }// else this.redirectToHome();
-        }
-        console.log(errorMsg);
-        return throwError(() => error.error);
-      })
-    );
+              } else {
+                // this.forceSignOut();
+                console.log('forceSignOut');
+              }
+            } // else this.redirectToHome();
+          }
+          // console.log(errorMsg);
+          return throwError(() => error.error);
+        })
+      )
+      .pipe(timeout(timeoutValueNumeric));
   }
 
   handleError<T>(operation = 'operation', result?: T) {
@@ -118,6 +118,4 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-export const authInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-];
+export const authInterceptorProviders = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];

@@ -1,3 +1,4 @@
+import { IMockTestItem, MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { environment } from '@environments/environment';
 import { pick } from 'lodash-es';
 import {
@@ -7,7 +8,7 @@ import {
   IQuestion,
   ITestContent,
   ITestResult,
-  TestType
+  TestType,
 } from '../../domain/knowledge/i-test';
 import { Category } from '../knowledge/category';
 import { Topic } from '../knowledge/topic';
@@ -16,33 +17,35 @@ class TestContent implements ITestContent {
   id: string;
   questions: Question[];
   done: boolean;
+  status: MockTestStatus = MockTestStatus.new;
   constructor({
     id,
     content,
     done,
+    status,
   }: {
     id: string;
     content: Question[];
     done: boolean;
+    status: MockTestStatus;
   }) {
     this.id = id;
     this.questions = content;
     this.done = done;
+    this.status = status;
   }
   static fromJson(dataObject: any): TestContent {
-    const _ = pick(dataObject, ['id', 'content', 'test_id', 'data', 'done']);
+    const _ = pick(dataObject, ['id', 'content', 'test_id', 'data', 'done', 'status']);
     _.id = _.test_id ?? '';
     _.content = [];
-    _.content =
-      _.data !== undefined
-        ? _.data.map((questionObject: any) => Question.fromJson(questionObject))
-        : [];
+    _.content = _.data !== undefined ? _.data.map((questionObject: any) => Question.fromJson(questionObject)) : [];
+    _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
 
     return new TestContent(_);
   }
 
   static empty(): TestContent {
-    return new TestContent({ id: '', content: [], done: false });
+    return new TestContent({ id: '', content: [], done: false, status: MockTestStatus.new });
   }
 }
 
@@ -88,9 +91,7 @@ class Question implements IQuestion {
     ]);
     _.id = (_.id as number).toString();
     _.answers = [];
-    _.answers = _.answer_keys.map((answerObject: any) =>
-      Answer.fromJson(answerObject)
-    );
+    _.answers = _.answer_keys.map((answerObject: any) => Answer.fromJson(answerObject));
     _.category = Category.fromJson({
       id: _.category_id,
       name: _.category_name,
@@ -105,17 +106,7 @@ class Answer implements IAnswer {
   order: number;
   value: string;
   content: string;
-  constructor({
-    id,
-    order,
-    value,
-    content,
-  }: {
-    id: string;
-    order: number;
-    value: string;
-    content: string;
-  }) {
+  constructor({ id, order, value, content }: { id: string; order: number; value: string; content: string }) {
     this.id = id;
     this.order = order;
     this.value = value;
@@ -160,13 +151,7 @@ class AnswerResult implements IAnswerResult {
 class AnswerReview implements IAnswerReview {
   selectedAnswers: string[];
   rightAnswers: string[];
-  constructor({
-    selectedAnswers,
-    rightAnswers,
-  }: {
-    selectedAnswers: string[];
-    rightAnswers: string[];
-  }) {
+  constructor({ selectedAnswers, rightAnswers }: { selectedAnswers: string[]; rightAnswers: string[] }) {
     this.selectedAnswers = selectedAnswers;
     this.rightAnswers = rightAnswers;
   }
@@ -215,50 +200,35 @@ class TestResult implements ITestResult {
     order_number: number;
     mocktest_referral?: string;
   }): TestResult {
-    const maxScore = result.reduce(
+    const maxScore = result.reduce((pre: { [key: string]: number }, element: { [key: string]: any }) => {
+      pre[element['category_id'].toString()] = (pre[element['category_id'].toString()] ?? 0) + 1;
+      return pre;
+    }, {});
+    maxScore['total'] = result.length;
+    const categoryToScoreMap: { [key: string]: number } = result.reduce(
       (pre: { [key: string]: number }, element: { [key: string]: any }) => {
-        pre[element['category_id'].toString()] =
-          (pre[element['category_id'].toString()] ?? 0) + 1;
+        pre[element['category_id'].toString()] = (pre[element['category_id'].toString()] ?? 0) + element['score'];
         return pre;
       },
       {}
     );
-    maxScore['total'] = result.length;
-    const categoryToScoreMap: { [key: string]: number } = result
-      .reduce(
-        (pre: { [key: string]: number }, element: { [key: string]: any }) => {
-          pre[element['category_id'].toString()] =
-            (pre[element['category_id'].toString()] ?? 0) + element['score'];
-          return pre;
-        },
-        {}
-      );
     const topicToScoreMap: { [key: string]: number } = result
       // .filter(r => r.score == 1)
-      .reduce(
-        (pre: { [key: string]: number }, element: { [key: string]: any }) => {
-          pre[element['topic_id'].toString()] =
-            (pre[element['topic_id'].toString()] ?? 0) + element['score'];
-          return pre;
-        },
-        {}
-      );
+      .reduce((pre: { [key: string]: number }, element: { [key: string]: any }) => {
+        pre[element['topic_id'].toString()] = (pre[element['topic_id'].toString()] ?? 0) + element['score'];
+        return pre;
+      }, {});
     const topicWrongQuestionMap: { [key: string]: string[] } = result.reduce(
       (pre: { [key: string]: string[] }, element: { [key: string]: any }) => {
         if (element['score'] == 0) {
-          pre[element['topic_id'].toString()] =
-            pre[element['topic_id'].toString()] ?? [];
-          pre[element['topic_id'].toString()].push(
-            element['question_id'].toString()
-          );
+          pre[element['topic_id'].toString()] = pre[element['topic_id'].toString()] ?? [];
+          pre[element['topic_id'].toString()].push(element['question_id'].toString());
         }
         return pre;
       },
       {}
     );
-    const resultScore = result
-      .map((r) => r['score'])
-      .reduce((pre, current) => pre + current);
+    const resultScore = result.map(r => r['score']).reduce((pre, current) => pre + current);
 
     const answerResult = new AnswerResult({
       categories: categoryToScoreMap,
@@ -269,9 +239,7 @@ class TestResult implements ITestResult {
     });
 
     const answerReview = new AnswerReview({
-      selectedAnswers: review['selected_answer'].map((e: number) =>
-        e.toString()
-      ),
+      selectedAnswers: review['selected_answer'].map((e: number) => e.toString()),
       rightAnswers: review['right_answer'].map((e: number) => e.toString()),
     });
 
@@ -280,7 +248,7 @@ class TestResult implements ITestResult {
       result: answerResult,
       review: answerReview,
       type: <TestType>TestType[type as keyof typeof TestType],
-      ordinalNumber: order_number
+      ordinalNumber: order_number,
     });
 
     if (testResult.type == TestType.Mock) {
@@ -304,6 +272,39 @@ class TestResult implements ITestResult {
   }
 }
 
-const answerPrefixes = ['A. ', 'B. ', 'C. ', 'D. ', 'E. ', 'F. '];
-export { TestContent, answerPrefixes, TestResult, AnswerResult };
+class MockTestItem implements IMockTestItem {
+  id: string;
+  createdDate: Date;
+  status: MockTestStatus;
+  score?: number;
+  index?: number;
+  constructor({
+    id,
+    createdDate,
+    status,
+    score,
+    index,
+  }: {
+    id: string;
+    createdDate: Date;
+    status: MockTestStatus;
+    score?: number;
+    index?: number;
+  }) {
+    this.id = id;
+    this.createdDate = createdDate;
+    this.status = status;
+    this.score = score;
+    this.index = index;
+  }
+  static fromJson(dataObject: any, index?: number): MockTestItem {
+    const _ = pick(dataObject, ['id', 'createdDate', 'status', 'score', 'index']);
+    _.createdDate = new Date(dataObject['created_date']);
+    _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
+    _.index = index;
+    return new MockTestItem(_);
+  }
+}
 
+const answerPrefixes = ['A. ', 'B. ', 'C. ', 'D. ', 'E. ', 'F. '];
+export { TestContent, answerPrefixes, TestResult, AnswerResult, MockTestItem };

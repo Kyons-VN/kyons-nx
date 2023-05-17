@@ -146,12 +146,20 @@ $student-theme: mat.define-light-theme(
 @layer base {
   :root,
   ::after {
-    --color-primaryBlue: #2c3d5b;
+    --color-primaryBlue: theme('colors.primaryBlue');
+    --color-orange: theme('colors.orange');
+    --color-lightBlue-1: theme('colors.lightBlue.1');
+    --color-lightOrange-1: theme('colors.lightOrange.1');
+    --color-blueGrey-300: theme('colors.blueGrey.300');
+    --color-blueGrey-400: theme('colors.blueGrey.400');
+    --color-blueGrey-500: theme('colors.blueGrey.500');
+    --color-blueGrey-700: theme('colors.blueGrey.700');
+    --color-white: theme('colors.white');
   }
 }
 
 @import 'libs/theme/src/lib/scss/font.scss';
-// @import 'libs/theme/src/lib/scss/material.scss';
+@import 'libs/theme/src/lib/scss/material.scss';
 @import 'libs/theme/src/lib/scss/global.scss';
 @import 'libs/theme/src/lib/scss/md.scss';
 @import 'libs/theme/src/lib/scss/lg.scss';

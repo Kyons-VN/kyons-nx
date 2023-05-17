@@ -14,20 +14,24 @@ import { Topic } from './topic';
 class LessonItem implements ILessonItem {
   id: string;
   name: string;
-  isNew?: boolean;
+  isNew: boolean;
+  progress?: number;
 
   constructor({
     id,
     isNew,
     name,
+    progress
   }: {
     id: string;
-    isNew?: boolean;
+    isNew: boolean;
     name: string;
+    progress?: number;
   }) {
     this.id = id;
-    if (isNew) this.isNew = isNew;
+    this.isNew = isNew;
     this.name = name;
+    this.progress = progress;
   }
 
   static fromJson(dataObject: any): LessonItem {
@@ -35,10 +39,21 @@ class LessonItem implements ILessonItem {
       'name',
       'id',
       'isNew',
+      'progress',
     ]);
-    _.isNew = dataObject['new'] ?? undefined;
+    _.isNew = dataObject['new'] ?? false;
+    _.progress = dataObject['lesson_percentage'];
     return new LessonItem(_);
   }
+
+  static waiting(): LessonItem {
+    return new LessonItem({ id: '-1', isNew: false, name: 'NEW' });
+  }
+
+  static complete(): LessonItem {
+    return new LessonItem({ id: '-2', isNew: false, name: 'COMPLETE' });
+  }
+
 }
 
 class LearningPath implements ILearningPath {

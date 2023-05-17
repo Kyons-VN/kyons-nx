@@ -4,7 +4,7 @@
       <a
         [routerLink]="'/'"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}"
+        [routerLinkActiveOptions]="{ exact: true }"
         class="menu-item"
         (isActiveChange)="(this.ngOnInit)"
       >
@@ -149,7 +149,8 @@
     </li> -->
   </ul>
   <div class="flex-1"></div>
-  <button #toggleButton (click)="showSubmenu = !showSubmenu" class="font-bold">
+  <div *ngIf="showSubmenu" class="fixed w-full h-full top-0 left-0 z-10" (click)="showSubmenu = false"></div>
+  <button #toggleButton (click)="showSubmenu = !showSubmenu" class="font-bold z-20 flex items-center">
     Chào {{ username }}
     <img
       class="inline pointer-events-none transition-transform"
@@ -160,7 +161,7 @@
   <ul #menu class="flex items-center p-6 gap-6">
     <li class="flex items-center gap-5 cursor-pointer relative">
       <ul
-        [ngStyle]="{display: showSubmenu ? 'flex' : 'none'}"
+        [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
         class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
       >
         <li [routerLink]="paths.account.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">

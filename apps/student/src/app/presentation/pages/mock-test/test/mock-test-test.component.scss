@@ -1,0 +1,10 @@
+.outline-blue {
+  @apply border-lightBlue-1 text-lightBlue-1;
+}
+.fill-blue {
+  @apply bg-lightBlue-1 text-white;
+}
+.fill-blue.fill-black,
+.fill-black {
+  @apply bg-primaryBlue text-white;
+}

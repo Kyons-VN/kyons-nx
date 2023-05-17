@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Progress } from '@utils/knowledge/data/progress';
+import { Progress } from '@share-utils/knowledge/data/progress';
 
 @Component({
   standalone: true,

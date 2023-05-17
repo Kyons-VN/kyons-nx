@@ -1,0 +1,75 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Xác suất",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Một công ty có 20 nhân viên, trong đó có 8 nhân viên chính thức và 7 nhân viên part-time và 5 nhân viên thực tập. Quản lý chọn ngẫu nhiên 3 người để chạy dự án. Tính xác suất để 3 người được chọn không quá 2 nhóm</p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021193image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021270image.png\"></p>",
+                    "explanation": "<p>Chọn 3 người gồm đủ 3 nhóm có số cách chọn là</p><p><img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062295image.png\"></p><p>Chọn 3 người bất kỳ có số &nbsp;cách chọn là</p><p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062482image.png\"></p><p>Xác xuất để 3 người được chọn được không quá 2 nhóm là</p><p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062803image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021317image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021354image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Một ngân hàng đề thi gồm 100 câu hỏi, mỗi đề thi có 5 câu. Một học sinh học thuộc 80 câu. Tính xác suất để học sinh đó rút ngẫu nhiên được một đề thi có 4 câu học thuộc.</p>",
+            "explanation": "<p>Chọn 5 câu từ bộ 100 câu để tạo bài thi có các cách chọn</p><p><img class=\"image_resized\" style=\"width:38px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682063150image.png\"></p><p>&nbsp;Chọn sao cho đề thi có 4 câu học sinh đã thuộc và 1 câu học sinh chưa thuộc</p><p>&nbsp;<img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682063268image.png\"></p><p>Vậy xác suất là</p><p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682063359image.png\"></p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021520image.png\"></p>",
+                    "explanation": "<p>Chọn 3 người gồm đủ 3 nhóm có số cách chọn là</p><p><img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062295image.png\"></p><p>Chọn 3 người bất kỳ có số &nbsp;cách chọn là</p><p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062482image.png\"></p><p>Xác xuất để 3 người được chọn được không quá 2 nhóm là</p><p><img class=\"image_resized\" style=\"width:110px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682062803image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021646image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021709image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682021746image.png\"></p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        }
+    ]
+}

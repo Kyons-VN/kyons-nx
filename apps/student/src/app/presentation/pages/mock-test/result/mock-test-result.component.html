@@ -1,0 +1,162 @@
+<div *ngIf="testResult" class="flex w-full justify-center">
+  <div class="col gap-8 w-full max-w-[1122px] p-12">
+    <div class="flex items-center justify-between w-full">
+      <div class="flex gap-4 items-center">
+        <h4>Điểm bài kiểm tra</h4>
+      </div>
+      <div class="flex gap-2">
+        <div class="menu-item" [routerLink]="paths.home.path">
+          <img src="/assets/images/Home.svg" alt="" />
+          <span>Trang chủ</span>
+        </div>
+        <div class="menu-item" [routerLink]="paths.package.path">
+          <img src="/assets/images/Store.svg" alt="" />
+          <span>Thanh toán</span>
+        </div>
+      </div>
+    </div>
+    <div class="col p-6 bg-white rounded-lg gap-6">
+      <div class="flex items-center justify-between w-full gap-8">
+        <circle-progress
+          *ngIf="testResult.status === 0"
+          [percent]="0"
+          [subtitle]="'--'"
+          [animateTitle]="false"
+          [lazy]="false"
+          title="Điểm số"
+          titleFontSize="12px"
+          titleFontWeight="bold"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          [radius]="75"
+          outerStrokeColor="var(--color-blueGrey-300)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [animation]="false"
+          [innerStrokeWidth]="20"
+          [outerStrokeWidth]="20"
+          [space]="-20"
+        ></circle-progress>
+        <circle-progress
+          *ngIf="testResult.status !== 0"
+          [percent]="testResult.score * 10"
+          [subtitle]="testResult.score.toString() + '/10'"
+          [animateTitle]="false"
+          [lazy]="false"
+          title="Điểm số"
+          titleFontSize="12px"
+          titleFontWeight="bold"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          [radius]="75"
+          outerStrokeColor="var(--color-lightOrange-1)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [innerStrokeWidth]="20"
+          [outerStrokeWidth]="20"
+          [space]="-20"
+        ></circle-progress>
+        <circle-progress
+          *ngIf="!probabilityIndex"
+          [percent]="0"
+          [subtitle]="'--'"
+          [animateTitle]="false"
+          [lazy]="false"
+          title="Tỉ lệ thành công"
+          titleFontSize="12px"
+          titleFontWeight="bold"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          [radius]="75"
+          outerStrokeColor="var(--color-blueGrey-300)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [animation]="false"
+          [innerStrokeWidth]="20"
+          [outerStrokeWidth]="20"
+          [space]="-20"
+        ></circle-progress>
+        <circle-progress
+          *ngIf="probabilityIndex"
+          [percent]="probabilityIndex"
+          [subtitle]="probabilityIndex + '%'"
+          [animateTitle]="false"
+          [lazy]="false"
+          title="Tỉ lệ thành công"
+          titleFontSize="12px"
+          titleFontWeight="bold"
+          subtitleFontSize="30px"
+          subtitleFontWeight="bold"
+          subtitleColor="var(--color-primaryBlue)"
+          [radius]="75"
+          outerStrokeColor="var(--color-lightBlue-1)"
+          innerStrokeColor="var(--color-blueGrey-300)"
+          [innerStrokeWidth]="20"
+          [outerStrokeWidth]="20"
+          [space]="-20"
+        ></circle-progress>
+        <div class="w-[411px] col gap-6">
+          <span
+            ><strong class="text-orange">Bạn muốn cải thiện điểm số?</strong><br />AI của Kyons sẽ tạo lộ trình học dựa
+            vào những điểm thiếu sót của bạn.<br />Bấm <strong>Tạo lộ trình học</strong> để bắt đầu ngay!</span
+          >
+          <div class="flex items-center justify-between w-full">
+            <button (click)="review()" class="btn-rounded">Xem lại đáp án bài kiểm tra</button>
+            <button
+              [disabled]="testResult.status !== MockTestStatus.learning_path_received"
+              (click)="activateLearningPath()"
+              class="btn"
+            >
+              Tạo lộ trình học
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stats text-white items-center shadow-4 rounded-2xl md:h-[296px] flex flex-col md:flex-row">
+      <div class="flex-1 flex items-center justify-center p-3">
+        <img src="/assets/images/Spider chart.svg" alt="" class="w-[179px] md:w-auto" />
+      </div>
+      <div class="h-[150px] border-r border-solid border-blueGrey-600 hidden md:block"></div>
+      <div class="w-[222px] border-t border-solid border-blueGrey-600 md:hidden"></div>
+      <div class="flex-1 h-full col gap-6 md:gap-0 items-center justify-start p-14 pt-6 md:pt-14">
+        <div class="flex gap-4">
+          <img
+            width="32px"
+            height="32px"
+            *ngFor="let o of over; index as i"
+            [src]="'/assets/images/' + (o || activeStat === i ? stats[i] : statsBW[i]) + '.svg'"
+            alt=""
+            (mouseover)="over[i] = true"
+            (mouseout)="over[i] = false"
+            class="cursor-pointer stat"
+            [ngClass]="{ active: activeStat === i }"
+            (click)="activeStat = i"
+          />
+        </div>
+        <div class="flex-1 text-base font-bold flex items-center text-center">
+          Tính năng bí mật sắp<br />được bật mí 🥳
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-6 items-center justify-between">
+      <button
+        [routerLink]="paths.mockTest.path"
+        class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow"
+      >
+        <div class="col gap-2 items-start">
+          <b>Bài kiểm tra quá dễ?</b>
+          <span>Bạn có thể lựa chọn lại mục tiêu học tập</span>
+        </div>
+        <i class="icon-btn icon-ArrowRight text-[24px]"></i>
+      </button>
+      <button class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow">
+        <div class="col gap-2 items-start">
+          <b>Gửi thử thách nhận quà!</b>
+          <span>Nhận quà khi gửi bài kiểm tra cho bạn bè</span>
+        </div>
+        <i class="icon-btn icon-ArrowRight text-[24px]"></i>
+      </button>
+    </div>
+  </div>
+</div>

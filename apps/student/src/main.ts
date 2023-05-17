@@ -9,21 +9,21 @@ if (environment.production) {
 }
 
 function bootstrap() {
-  if (window.screen.width <= 768) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/assets/mobile-iframe.html');
-    xhr.onload = function () {
-      const pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
-      const html = pattern.exec(xhr.responseText);
-      if (html) {
-        window.document.body.innerHTML = html[1];
-      }
-    };
-    xhr.send();
-    return;
-    // if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
-    // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
-  }
+  // if (window.screen.width <= 768) {
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open('GET', '/assets/mobile-iframe.html');
+  //   xhr.onload = function () {
+  //     const pattern = /<body[^>]*>((.|[\n\r])*)<\/body>/im;
+  //     const html = pattern.exec(xhr.responseText);
+  //     if (html) {
+  //       window.document.body.innerHTML = html[1];
+  //     }
+  //   };
+  //   xhr.send();
+  //   return;
+  // if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
+  // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
+  // }
   platformBrowserDynamic()
     .bootstrapModule(AppModule, {
       providers: [{ provide: LOCALE_ID, useValue: 'vi-VN' }, { provide: DEFAULT_CURRENCY_CODE, useValue: 'VND' }]

@@ -1,0 +1,74 @@
+{
+    "test_id": 1,
+    "learning_point_name": "Thể tích hình trụ",
+    "data": [
+        {
+            "id": 1,
+            "content": "<p>Một hình trụ (T) có chu vi đáy là 8π và chiều cao h = 10. Tính thể tích hình trụ</p>",
+            "answer_keys": [
+                {
+                    "id": 1,
+                    "value": "1",
+                    "content": "<p>80π</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 2,
+                    "value": "2",
+                    "content": "<p>40π</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 3,
+                    "value": "3",
+                    "content": "<p>160π</p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:180px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058599image.png\"></p><p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058683image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 4,
+                    "value": "4",
+                    "content": "<p>150π</p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": "<p>Chiều cao của 1 hình trụ bằng bán kính đường tròn đáy. Diện tích xung quanh của hình trụ là <img class=\"image_resized\" style=\"width:63px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682025388image.png\">. Tính thể tích hình trụ</p>",
+            "answer_keys": [
+                {
+                    "id": 5,
+                    "value": "5",
+                    "content": "<p>1000π</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 6,
+                    "value": "6",
+                    "content": "<p>100π</p>",
+                    "explanation": "<p>Ta có</p><p><img class=\"image_resized\" style=\"width:53px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059182image.png\"></p><p>Vậy nên</p><p><img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059121image.png\"></p><p><img class=\"image_resized\" style=\"width:300px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682059259image.png\"></p>",
+                    "is_correct": true
+                },
+                {
+                    "id": 7,
+                    "value": "7",
+                    "content": "<p>500π</p>",
+                    "explanation": "",
+                    "is_correct": false
+                },
+                {
+                    "id": 8,
+                    "value": "8",
+                    "content": "<p>Đáp án khác</p>",
+                    "explanation": "",
+                    "is_correct": false
+                }
+            ]
+        }
+    ]
+}

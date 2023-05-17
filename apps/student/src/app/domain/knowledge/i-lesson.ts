@@ -4,7 +4,8 @@ import { ITopic } from './i-topic';
 interface ILessonItem {
   id: string;
   name: string;
-  isNew?: boolean;
+  isNew: boolean;
+  progress?: number;
 }
 
 interface ILessonGroup {
