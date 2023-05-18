@@ -1,24 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  Input,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { TrackingService } from '@infrastructure/tracking/tracking.service';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule],
   selector: 'student-tracking-lesson',
   template: `<ng-container></ng-container>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackingLessonComponent implements OnInit, OnDestroy {
   _isMouseActive = false;
   _mouseInactiveTimeout: any;
   _trackingInterval: any;
 
-  constructor(private service: TrackingService) { }
+  constructor(private service: TrackingService) {}
 
   @Input() lessonId!: string;
   @Input() trackingType!: string;

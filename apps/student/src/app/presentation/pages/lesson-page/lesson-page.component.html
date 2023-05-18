@@ -36,12 +36,12 @@
           <a class="btn-rounded btn-icon" href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank"
             ><i class="icon-Error"></i
           ></a>
-          <button *ngIf="!questionReview" class="btn btn-icon" (click)="showHint = true">
+          <button [disabled]="questionReview" class="btn btn-icon" (click)="showHint = true">
             <i class="icon-Lightbulb text-white"></i>
           </button>
         </div>
       </div>
-      <div class="col gap-2 flex-1 overflow-auto">
+      <div #scrollTopElm class="col gap-2 flex-1 overflow-auto">
         <h6 *ngIf="questionReview">
           <span *ngIf="!questionReview.isCorrectAnswer" class="text-red-0">Không phải đáp án đúng rồi!</span
           ><span *ngIf="questionReview.isCorrectAnswer" class="text-darkEmerald">Đáp án chính xác!</span>
@@ -88,7 +88,9 @@
           <button [disabled]="progress.value === 0" [routerLink]="['review']" class="btn secondary">
             Xem lại các dạng bài
           </button>
-          <button *ngIf="!questionReview" (click)="testComplete()" class="btn">Nộp bài</button>
+          <button *ngIf="!questionReview" [disabled]="isSubmitting" (click)="testComplete()" class="btn">
+            Nộp bài
+          </button>
           <button *ngIf="questionReview" (click)="nextQuestion()" class="btn">Câu kế tiếp</button>
         </div>
       </div>
@@ -175,9 +177,9 @@
     <div class="col w-full gap-6 justify-center items-stretch">
       <img class="w-[150px] self-center" src="/assets/images/lesson-success.webp" alt="" />
       <h5 class="w-full">Xin chúc mừng, bạn vừa hoàn thành xuất sắc {{ lesson.name }} rồi đó!</h5>
-      <p [innerHTML]="question.hint | safeHtml"></p>
       <button [routerLink]="paths.learningPath.path" class="btn w-full">Quay lại Lộ trình học</button>
       <button [routerLink]="['review']" class="btn-rounded w-full">Xem lại các bài tập đã làm</button>
     </div>
   </div>
 </div>
+<student-tracking-lesson trackingType="practice" [lessonId]="lessonId"></student-tracking-lesson>

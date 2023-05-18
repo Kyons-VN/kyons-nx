@@ -36,7 +36,6 @@ import { ScoreBarComponent } from './presentation/share-components/score-bar/sco
 import { TestContentComponent } from './presentation/share-components/test-content/test-content.component';
 import { TestReviewComponent } from './presentation/share-components/test-review/test-review.component';
 import { TopMenuComponent } from './presentation/share-components/top-menu/top-menu.component';
-import { TrackingLessonComponent } from './presentation/share-components/tracking/tracking-lesson.component';
 import { TrackingComponent } from './presentation/share-components/tracking/tracking.component';
 
 export function playerFactory() {
@@ -90,7 +89,7 @@ registerLocaleData(localeEN, 'en');
     TestReviewComponent,
     TopMenuComponent,
     TrackingComponent,
-    TrackingLessonComponent,
+    // TrackingLessonComponent,
     MockTestResultComponent,
     MockTestReviewComponent,
     AdaptiveTestComponent,

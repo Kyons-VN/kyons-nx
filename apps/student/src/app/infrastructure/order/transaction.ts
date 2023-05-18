@@ -1,5 +1,5 @@
-import { formatedDate, formatedPrice } from "@utils/formats";
-import pick from "lodash-es/pick";
+import { formattedDate, formattedPrice } from '@utils/formats';
+import pick from 'lodash-es/pick';
 
 export class Transaction {
   id: string;
@@ -7,7 +7,19 @@ export class Transaction {
   amount: number;
   packageName: string;
   createdAt: Date;
-  constructor({ id, quantity, amount, packageName, createdAt, }: { id: string, quantity: number, amount: number, packageName: string, createdAt: Date }) {
+  constructor({
+    id,
+    quantity,
+    amount,
+    packageName,
+    createdAt,
+  }: {
+    id: string;
+    quantity: number;
+    amount: number;
+    packageName: string;
+    createdAt: Date;
+  }) {
     this.id = id;
     this.quantity = quantity;
     this.amount = amount;
@@ -16,13 +28,7 @@ export class Transaction {
   }
 
   static fromJson(data: any): Transaction {
-    const _ = pick(data, [
-      'id',
-      'quantity',
-      'amount',
-      'packageName',
-      'createdAt',
-    ]);
+    const _ = pick(data, ['id', 'quantity', 'amount', 'packageName', 'createdAt']);
     _.id = String(data['id']);
     _.packageName = data['package_name'];
     _.createdAt = new Date(data['created_at']);
@@ -35,10 +41,12 @@ export class Transaction {
   }
 
   formatedTime() {
-    return formatedDate(this.createdAt);
+    return formattedDate(this.createdAt);
   }
 
-  formatedAmount() { return formatedPrice(this.amount) };
+  formatedAmount() {
+    return formattedPrice(this.amount);
+  }
 }
 
 export class TransactionList {
@@ -49,6 +57,6 @@ export class TransactionList {
     this.list = list;
   }
   static empty() {
-    return new TransactionList({ total: 0, list: ([] as Transaction[]) });
+    return new TransactionList({ total: 0, list: [] as Transaction[] });
   }
 }

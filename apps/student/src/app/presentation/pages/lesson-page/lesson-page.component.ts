@@ -8,6 +8,7 @@ import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
+import { TrackingLessonComponent } from '@presentation/share-components/tracking/tracking-lesson.component';
 import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
 import { ExerciseHtml, Progress, QuestionHtml, QuestionReviewHtml, SubmissionHtml } from '@share-utils/data';
 import { SafeHtmlPipe } from 'dist/libs/share-pipes';
@@ -21,6 +22,7 @@ import { SafeHtmlPipe } from 'dist/libs/share-pipes';
     QuestionsProgressComponent,
     MatTooltipModule,
     SafeHtmlPipe,
+    TrackingLessonComponent,
   ],
   templateUrl: './lesson-page.component.html',
   styleUrls: ['./lesson-page.component.scss'],
@@ -47,8 +49,10 @@ export class LessonPageComponent implements OnInit {
   showHint = false;
   lesson: Lesson = Lesson.empty();
   showComplete = false;
+  isSubmitting = false;
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
+  @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
 
   ngOnInit(): void {
     this.loading.show();
@@ -68,50 +72,60 @@ export class LessonPageComponent implements OnInit {
         this.question = exercise.questions[0];
         this.progress.value = exercise.progress ?? 0;
         this.progressStr = (exercise.progress ?? 0).toFixed(2);
-        if (exercise.progress == 100) {
-          this.showComplete = true;
-        }
         this.loading.hide();
+        setTimeout(() => {
+          console.log('setTimeout');
+          const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form');
+          records.forEach((form, index) => {
+            this.exercise.questions[index].form = form;
+            form.addEventListener('click', () => {
+              const results: string[][] = [];
+              for (const form of records) {
+                const data = new FormData(form);
+                const result = data.get('objective_type_select');
+                typeof result == 'string' ? results.push([result]) : results.push([]);
+              }
+              const questionId = this.exercise.questions[0].id;
+              this.submission.reset();
+              this.submission.submitData[questionId] = results[0][0];
+            });
+          });
+        }, 100);
       },
       error: e => {
         console.log(e);
         this.loading.hide();
+        if (e.error_code == 'NotFound') {
+          this.progress.value = 100;
+          this.progressStr = '100.00';
+          this.showComplete = true;
+        }
       },
     });
-    setTimeout(() => {
-      console.log('setTimeout');
-      const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form');
-      records.forEach((form, index) => {
-        this.exercise.questions[index].form = form;
-        form.addEventListener('click', () => {
-          const results: string[][] = [];
-          for (const form of records) {
-            const data = new FormData(form);
-            const result = data.get('objective_type_select');
-            typeof result == 'string' ? results.push([result]) : results.push([]);
-          }
-          const questionId = this.exercise.questions[0].id;
-          this.submission.reset();
-          this.submission.submitData[questionId] = results[0][0];
-        });
-      });
-    }, 500);
   }
 
   testComplete() {
+    if (this.isSubmitting) return;
     if (!this.submission.hasAnswer(this.exercise.questions[0].id)) {
       this.showIncomplete = true;
       return;
     } else {
+      this.isSubmitting = true;
       this.lessonService.submitExercise(this.lessonId, this.submission).subscribe({
         next: result => {
           console.log(result);
           this.progress.value = result['lesson_percentage'];
           this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
-          this.questionReview = result['result'][0];
+          this.questionReview = QuestionReviewHtml.fromJson(result['result'][0]);
+          if (result['lesson_percentage'] == 100) {
+            this.showComplete = true;
+          }
+          this.isSubmitting = false;
+          this.scrollTopElm.nativeElement.scrollTop = 0;
         },
         error: (e: any) => {
           console.log(e);
+          this.isSubmitting = false;
         },
       });
     }

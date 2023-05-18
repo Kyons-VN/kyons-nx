@@ -176,17 +176,22 @@ export class MockTestTestComponent implements OnInit {
         } else {
           setTimeout(() => {
             const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
-            records.forEach((form, index) => {
+            Array.from(records).map((form, index) => {
               this.testContent.questions[index].form = form;
               form.addEventListener('click', () => {
                 const results: string[][] = [];
                 for (const form of records) {
                   const data = new FormData(form);
                   const result = data.get('objective_type_select');
-                  typeof result == 'string' ? results.push([result]) : results.push([]);
+                  if (typeof result == 'string') {
+                    results.push([result]);
+                  } else {
+                    results.push([]);
+                  }
                 }
                 const questionId = this.testContent.questions[this.currentTestIndex].id;
                 this.testSubmission.submitData[questionId] = results[this.currentTestIndex][0];
+                console.log(results[this.currentTestIndex][0]);
               });
             });
           }, 1000);
@@ -237,7 +242,8 @@ export class MockTestTestComponent implements OnInit {
     return Math.round(value);
   }
 
-  async testComplete() {
+  testComplete() {
+    if (this.isSubmitting) return;
     // for (const input of a) {
     //   console.log(input.checked);
     //   input.
@@ -269,17 +275,24 @@ export class MockTestTestComponent implements OnInit {
       this.showHavingTime = true;
       return;
     }
-    const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
-    console.log(records);
-    const results: string[][] = [];
-    for (const form of records) {
-      const data = new FormData(form);
-      const result = data.get('objective_type_select');
-      typeof result == 'string' ? results.push([result]) : results.push([]);
-    }
     if (this.isSubmitting) return;
     this.isSubmitting = true;
     this.loading.show();
+    const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
+    const results: string[][] = [];
+    Array.from(records).map((r, i) => {
+      const data = new FormData(r);
+      const result = data.get('objective_type_select');
+      if (typeof result == 'string') {
+        results.push([result]);
+      } else {
+        results.push(['5']);
+      }
+      const questionId = this.testContent.questions[i].id;
+      this.testSubmission.submitData[questionId] = results[i][0];
+      i++;
+    });
+    console.log(this.testSubmission.toJson());
     this.testSubmission.end = new Date();
     this.testService.submitTestHtml(this.testSubmission).subscribe({
       next: (result: any) => {

@@ -209,7 +209,7 @@
         ></circle-progress>
       </div>
     </div>
-    <div class="col gap-4">
+    <div class="col gap-4" [ngClass]="{ 'bg-robot': hasNewMockTest }">
       <div class="flex justify-between items-center">
         <h5>Bài kiểm tra thông minh</h5>
         <a
@@ -220,6 +220,28 @@
           <span class="underline">Đây là gì?</span>
         </a>
       </div>
+      <div *ngIf="hasNewMockTest" class="p-6 col gap-2 bg-blue-gradient rounded-2xl shadow-4">
+        <div class="flex px-4 justify-between text-white">
+          <span class="caption font-bold">Bài kiểm tra chưa hoàn tất</span>
+          <span class="caption font-bold">Ngày tạo</span>
+        </div>
+        <div class="col gap-1">
+          <ng-container *ngFor="let item of mockTests">
+            <div
+              class="flex p-4 justify-between bg-white-gradient rounded-xl"
+              *ngIf="item.status === MockTestStatus.active"
+            >
+              <div class="flex gap-2 items-center">
+                <a (click)="goToMockTest(item)" class="!text-primaryBlue cursor-pointer"
+                  >Bài kiểm tra số {{ item.index! + 1 }}</a
+                >
+                <i class="icon-ArrowRight text-[16px]"></i>
+              </div>
+              <span>{{ item.getFormattedDate() }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </div>
     <div class="col bg-white rounded-2xl overflow-hidden shrink-0">
       <mat-table [dataSource]="dataSource" matSort class="h-[248px]">
@@ -229,7 +251,18 @@
             <span class="caption font-bold text-blueGrey-500">Tên bài kiểm tra</span>
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
-            <a class="cursor-pointer" (click)="goToMockTest(row.id)">Bài kiếm tra số {{ row.index + 1 }}</a>
+            <div class="flex gap-2 items-center" *ngIf="row.status !== MockTestStatus.learning_path_activated">
+              <a (click)="goToMockTest(row)" class="!text-primaryBlue cursor-pointer"
+                >Bài kiểm tra số {{ row.index! + 1 }}</a
+              >
+              <i class="icon-ArrowRight text-[16px]"></i>
+            </div>
+            <a
+              *ngIf="row.status === MockTestStatus.learning_path_activated"
+              (click)="goToMockTest(row)"
+              class="no-underline font-bold"
+              >Bài kiểm tra số {{ row.index! + 1 }}</a
+            >
           </mat-cell>
         </ng-container>
 

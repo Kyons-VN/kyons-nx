@@ -24,7 +24,6 @@ import { LessonItem } from '@infrastructure/knowledge/lesson';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { OrderService } from '@infrastructure/order/order.service';
 import { MockTestItem } from '@infrastructure/test/test-content';
 import { TestService } from '@infrastructure/test/test.service';
 import { UserService } from '@infrastructure/user/user.service';
@@ -33,7 +32,7 @@ import { MockTestStatus } from '@share-utils/domain';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
-import { Subscription, interval } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './learning-path.component.html',
@@ -49,15 +48,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   testService = inject(TestService);
   loading = inject(LoadingOverlayService);
   http = inject(HttpClient);
-  constructor(
-    userService: UserService,
-    private knowledgeService: KnowledgeService,
-    private router: Router,
-    private orderService: OrderService
-  ) {
-    // this.selectedProgram = knowledgeService.getSelectedProgram();
-  }
-  // route = inject(ActivatedRoute);
+  knowledgeService = inject(KnowledgeService);
+  router = inject(Router);
 
   @HostBinding('class') class = 'h-full';
 
@@ -87,6 +79,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   isLoadingResults = true;
   isRateLimitReached = false;
   dataSource: MatTableDataSource<MockTestItem> = new MatTableDataSource<MockTestItem>([]);
+  hasNewMockTest = false;
   get selectedCategoryIdMod() {
     return this.selectedCategoryId;
   }
@@ -178,6 +171,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     },
   };
   showActivateLearningPathBtn = false;
+  MockTestStatus = MockTestStatus;
 
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator: MatPaginator = new MatPaginator(
@@ -207,9 +201,9 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
       this.router.navigate([this.paths.home.path]);
       return;
     }
-    const requestInterval = interval(5000);
     this._getLearningPathData();
-    this.interval = requestInterval.subscribe(() => this._getLearningPathData());
+    // const requestInterval = interval(5000);
+    // this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
     this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
       next: result => {
@@ -233,7 +227,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     this.lessonService.getLearningGoalMockTest(this.selectedStudentLearningGoal.id).subscribe({
       next: (mockTests: MockTestItem[]) => {
         this.mockTests = mockTests;
-        this.dataSource = new MatTableDataSource(mockTests);
+        this.hasNewMockTest = mockTests.some(x => x.status == MockTestStatus.active);
+        this.dataSource = new MatTableDataSource(mockTests.filter(x => x.status != MockTestStatus.active));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
@@ -385,10 +380,14 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  goToMockTest(mockTestId: string) {
-    this.router.navigate([this.paths.mockTestResult.path.replace(':id', mockTestId)], {
-      queryParams: { learning_goal_id: this.selectedStudentLearningGoal.id },
-    });
+  goToMockTest(mockTest: MockTestItem) {
+    if (mockTest.status == MockTestStatus.active) {
+      this.router.navigate([this.paths.mockTestTest.path.replace(':id', mockTest.id)]);
+    } else {
+      this.router.navigate([this.paths.mockTestResult.path.replace(':id', mockTest.id)], {
+        queryParams: { learning_goal_id: this.selectedStudentLearningGoal.id },
+      });
+    }
   }
 
   onLessonBlockClick(lesson: LessonItem) {
@@ -403,5 +402,9 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.learningGoalPath.isCompleted()) {
       this.router.navigate([this.paths.learningPathComplete.path]);
     }
+  }
+
+  filterCallback(mockTest: MockTestItem) {
+    return mockTest.status == MockTestStatus.active;
   }
 }

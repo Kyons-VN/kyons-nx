@@ -267,7 +267,7 @@ export class QuestionReviewHtml {
     _.question = dataObject['question'] ?? '';
     _.answers = dataObject['answers'] ?? '';
     _.explanation = dataObject['explanation'] ?? '';
-    _.isCorrect = dataObject['answer_status'] ?? dataObject['answers_status'] ?? false;
+    _.isCorrect = dataObject['answer_status'] as boolean;
     return new QuestionReviewHtml(_);
   }
 

@@ -46,24 +46,22 @@ export class AuthInterceptor implements HttpInterceptor {
       .handle(authReq)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          let errorMsg = '';
           if (error.error instanceof ErrorEvent) {
             console.log('this is client side error');
-            errorMsg = `Error: ${error.error.message}`;
           } else {
             console.log('this is server side error');
-            errorMsg = `Error Code: ${error.status},  Message: ${error.message}`;
             if (error.status === 401) {
               this.auth.removeToken();
               const refreshToken = this.auth.getRefreshToken();
               if (refreshToken && refreshToken !== 'undefined') {
-                lastValueFrom(this.auth.refreshToken(refreshToken)).then(value => {
-                  console.log(value);
-                  this.auth.setToken(value);
+                lastValueFrom(this.auth.refreshToken(refreshToken)).then((value: any) => {
+                  this.auth.setToken(value.access_token);
                   authReq = req.clone({
-                    headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value).set('Content-Type', contentType),
+                    headers: req.headers
+                      .set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token)
+                      .set('Content-Type', contentType),
                   });
-                  next.handle(authReq).subscribe({
+                  return next.handle(authReq).subscribe({
                     error: e => {
                       console.log(e);
                       this.forceSignOut();

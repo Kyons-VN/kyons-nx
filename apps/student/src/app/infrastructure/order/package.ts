@@ -1,5 +1,5 @@
-import pick from "lodash-es/pick";
-import { formatedPrice } from "../../utils/formats";
+import pick from 'lodash-es/pick';
+import { formattedPrice } from '../../utils/formats';
 
 class Package {
   id: string;
@@ -10,10 +10,28 @@ class Package {
   price: number;
   formatedSalePrice: string;
   salePrice: number;
-  formatedPrice: string;
+  formattedPrice: string;
   items: PackageItem[];
 
-  constructor({ id, name, description, discount, limit, items, price, salePrice }: { id: string, name: string, description: string, discount: Discount, limit: number, items: PackageItem[], price: number, salePrice: number }) {
+  constructor({
+    id,
+    name,
+    description,
+    discount,
+    limit,
+    items,
+    price,
+    salePrice,
+  }: {
+    id: string;
+    name: string;
+    description: string;
+    discount: Discount;
+    limit: number;
+    items: PackageItem[];
+    price: number;
+    salePrice: number;
+  }) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -21,9 +39,9 @@ class Package {
     this.limit = limit;
     this.items = items;
     this.price = price;
-    this.formatedPrice = formatedPrice(this.price);
+    this.formattedPrice = formattedPrice(this.price);
     this.salePrice = salePrice;
-    this.formatedSalePrice = formatedPrice(this.salePrice);
+    this.formatedSalePrice = formattedPrice(this.salePrice);
   }
 
   static fromJson(dataObject: any): Package {
@@ -37,12 +55,15 @@ class Package {
   }
 }
 
-enum DiscountType { amount, percentage }
+enum DiscountType {
+  amount,
+  percentage,
+}
 
 class Discount {
   type: DiscountType;
   amount: number;
-  constructor({ type, amount }: { type: DiscountType, amount: number }) {
+  constructor({ type, amount }: { type: DiscountType; amount: number }) {
     this.type = type;
     this.amount = amount;
   }
@@ -55,13 +76,15 @@ class Discount {
 }
 
 enum PackageServiceType {
-  mock_test, subscription, tutor_advice
+  mock_test,
+  subscription,
+  tutor_advice,
 }
 
 class PackageItem {
   id: string;
   service: PackageService;
-  constructor({ id, service }: { id: string, service: PackageService }) {
+  constructor({ id, service }: { id: string; service: PackageService }) {
     this.id = id;
     this.service = service;
   }
@@ -77,7 +100,7 @@ class PackageService {
   type: PackageServiceType;
   name: string;
   amount: number;
-  constructor({ type, name, amount }: { type: PackageServiceType, name: string, amount: number }) {
+  constructor({ type, name, amount }: { type: PackageServiceType; name: string; amount: number }) {
     this.type = type;
     this.name = name;
     this.amount = amount;
@@ -92,4 +115,3 @@ class PackageService {
 }
 
 export { Package, PackageItem, PackageService, PackageServiceType, Discount, DiscountType };
-

@@ -101,6 +101,9 @@ export class ClassProgramComponent implements OnInit {
             next: testId => {
               this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
             },
+            error: err => {
+              this.hasError = err.error_code;
+            },
           });
         }
       }

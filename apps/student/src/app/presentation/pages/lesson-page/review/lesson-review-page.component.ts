@@ -55,15 +55,6 @@ export class LessonReviewPageComponent implements OnInit {
         //
       },
     });
-    this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
-      next: result => {
-        this.status = result.status;
-        return;
-      },
-      error: e => {
-        //
-      },
-    });
   }
 
   previousPage() {

@@ -59,7 +59,7 @@ export class TestService {
 
   getExercise(lessonId: string): Observable<ExerciseHtml> {
     return this.http.get(SERVER_API + `/students/practice_test/get/adaptive_question/${lessonId}`).pipe(
-      catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
+      // catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
       map((dataObject: any) => {
         const result = ExerciseHtml.fromJson(dataObject);
         result.progress = dataObject['lesson_percentage'];

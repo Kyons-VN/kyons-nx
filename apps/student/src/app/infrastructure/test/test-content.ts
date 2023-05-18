@@ -1,5 +1,6 @@
 import { IMockTestItem, MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { environment } from '@environments/environment';
+import { formattedDate } from '@utils/formats';
 import { pick } from 'lodash-es';
 import {
   IAnswer,
@@ -303,6 +304,10 @@ class MockTestItem implements IMockTestItem {
     _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
     _.index = index;
     return new MockTestItem(_);
+  }
+
+  getFormattedDate() {
+    return formattedDate(this.createdDate);
   }
 }
 

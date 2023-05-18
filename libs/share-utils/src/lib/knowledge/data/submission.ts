@@ -63,7 +63,7 @@ export class SubmissionHtml {
     return this._submitData;
   }
   public set submitData(value: { [questionId: string]: string }) {
-    this._submitData = value;
+    this._submitData = { ...this._submitData, ...value };
   }
   public hasAnswer(questionId: string): boolean {
     return this.submitData[questionId] !== undefined;

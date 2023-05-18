@@ -113,8 +113,12 @@
           <i class="icon-Add text-[22px]"></i>Tạo mục tiêu học tập mới
         </button>
       </div>
-      <div *ngIf="learnings.length === 0; else elseBlock" class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-16px]">
+      <div
+        *ngIf="learnings.length === 0; else elseBlock"
+        class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-16px] md:relative"
+      >
         <img class="md:hidden" src="/assets/images/pointer-xs.webp" alt="" />
+        <img class="hidden md:block absolute top-[10px] right-[122px]" src="/assets/images/pointer.webp" alt="" />
         <h5 class="text-orange">Bạn chưa có Mục tiêu học tập!</h5>
         <p class="max-w-[435px] text-center">
           Kyons cần biết mục tiêu học tập để tạo ra bài tập vừa với trình độ của bạn. Bấm vào nút này để Tạo mục tiêu

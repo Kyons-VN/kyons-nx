@@ -52,7 +52,7 @@
             <td>{{ p.name }}</td>
             <td class="ck-content" [innerHTML]="p.description"></td>
             <td align="right">
-              <span *ngIf="p.price !== p.salePrice" class="line-through">{{ p.formatedPrice }}</span
+              <span *ngIf="p.price !== p.salePrice" class="line-through">{{ p.formattedPrice }}</span
               ><br /><strong>{{ p.formatedSalePrice }}</strong>
             </td>
             <td align="right">
