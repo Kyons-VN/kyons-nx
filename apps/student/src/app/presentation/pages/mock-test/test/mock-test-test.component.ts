@@ -86,16 +86,6 @@ export class MockTestTestComponent implements OnInit {
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
     this.learningGoal = this.knowledgeService.getSelectedLearningGoal();
     this.getMockTestHtml();
-    setTimeout(() => {
-      setInterval(() => {
-        this.counter -= 1000;
-        this.counterTime = new Date(this.counter);
-        this.counter--;
-        if (this.counter === 0) {
-          this.testComplete();
-        }
-      }, 1000);
-    }, 2000);
   }
 
   // ngAfterViewInit(): void {
@@ -117,6 +107,22 @@ export class MockTestTestComponent implements OnInit {
         this.testContent = value;
         this.testSubmission.testId = this.testContent.id;
         this.testProgress = Progress.from(0, value.questions.length);
+        this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
+          next: mockTest => {
+            const duration = 90 * 60 * 1000;
+            this.counter = mockTest.createdAt.getTime() + duration - Date.now();
+            this.counterTime = new Date(this.counter);
+            // setTimeout(() => {
+            setInterval(() => {
+              this.counter -= 1000;
+              this.counterTime = new Date(this.counter);
+              if (this.counter < 0) {
+                this.testComplete();
+              }
+            }, 1000);
+            // }, 2000);
+          },
+        });
       },
       error: err => {
         this.hasError = err.error_code;

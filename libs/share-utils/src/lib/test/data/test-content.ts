@@ -162,17 +162,30 @@ export class MockTestResult {
   score: number;
   status: MockTestStatus;
   shareReferral?: string;
+  createdAt: Date;
 
-  constructor({ id, score, status }: { id: string; score: number; status: MockTestStatus }) {
+  constructor({
+    id,
+    score,
+    status,
+    createdAt,
+  }: {
+    id: string;
+    score: number;
+    status: MockTestStatus;
+    createdAt: Date;
+  }) {
     this.id = id;
     this.score = score;
     this.status = status;
+    this.createdAt = createdAt;
   }
 
   static fromJson(dataObject: any): MockTestResult {
-    const _ = pick(dataObject, ['id', 'score', 'status']);
+    const _ = pick(dataObject, ['id', 'score', 'status', 'createdAt']);
     _.id = dataObject['id'].toString();
     _.score = dataObject['score'] ?? 0;
+    _.createdAt = new Date(dataObject['created_at']);
     _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
     const shareReferral = dataObject['mocktest_referral'] ?? '';
     const result = new MockTestResult(_);

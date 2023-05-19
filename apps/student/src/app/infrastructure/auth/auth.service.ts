@@ -21,31 +21,29 @@ export class AuthService implements IAuthService {
     private http: HttpClient,
     private userService: UserService,
     private trackingService: TrackingService,
-    private knowledgeService: KnowledgeService,
-  ) { }
+    private knowledgeService: KnowledgeService
+  ) {}
 
   signIn(credential: IAuthCredential) {
-    return this.http
-      .post(SERVER_API + '/auth/sign_in', credential.toJson())
-      .pipe(
-        catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
-        map((data: any) => {
-          if (TOKEN_KEY in data && REFRESH_TOKEN_KEY in data) {
-            if (data[USER_ROLE] !== environment.name)
-              return {
-                error: true,
-                message: 'Domain specific error.',
-              };
-            this.setToken(data);
-            this.userService.updateCurrentUser(data['sub'], data['email']);
-            this.trackingService.init();
-          } else {
-            data.error = true;
-            data.message = data;
-          }
-          return data;
-        })
-      );
+    return this.http.post(SERVER_API + '/auth/sign_in', credential.toJson()).pipe(
+      catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
+      map((data: any) => {
+        if (TOKEN_KEY in data && REFRESH_TOKEN_KEY in data) {
+          if (data[USER_ROLE] !== environment.name)
+            return {
+              error: true,
+              message: 'Domain specific error.',
+            };
+          this.setToken(data);
+          this.userService.updateCurrentUser(data['sub'], data['email']);
+          this.trackingService.init();
+        } else {
+          data.error = true;
+          data.message = data;
+        }
+        return data;
+      })
+    );
   }
 
   signOut() {
@@ -66,7 +64,6 @@ export class AuthService implements IAuthService {
 
   public setToken(data: any) {
     window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
-    window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
   }
 
   public removeToken() {

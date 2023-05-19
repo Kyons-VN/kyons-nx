@@ -153,9 +153,20 @@ export class SignUpComponent implements OnInit, AfterViewInit {
           this.loading.hide();
         },
         error: err => {
-          // TODO: Define error resposes
           console.log(err);
           this.errorMessage = 'Có lỗi, xin thử lại';
+          if (err.error.error_code == 'InvalidParam') {
+            this.step = 0;
+            if (err.error.invalid_param == 'email') {
+              setTimeout(() => {
+                this.email.setErrors({
+                  serverReject: true,
+                });
+                this.email.markAsTouched({ onlySelf: true });
+              }, 100);
+              this.errorMessage = 'Email không thể có dấu + hoặc dấu .';
+            }
+          }
           this.processing = false;
           this.loading.hide();
         },

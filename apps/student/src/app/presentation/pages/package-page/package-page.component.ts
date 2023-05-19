@@ -5,6 +5,7 @@ import Balance from '@infrastructure/order/balance';
 import { OrderService } from '@infrastructure/order/order.service';
 import { Package } from '@infrastructure/order/package';
 import { AppPaths } from '@presentation/routes';
+import { Subscription, interval, lastValueFrom } from 'rxjs';
 
 @Component({
   templateUrl: './package-page.component.html',
@@ -27,30 +28,31 @@ export class PackagePageComponent implements OnInit {
   selectedPackage!: Package;
   quantity = 1;
   balance = Balance.empty();
+  interval!: Subscription;
 
   ngOnInit(): void {
-    this.getBalance();
     this.orderService.getPackages().subscribe({
       next: (packages: Package[]) => {
         this.packages = packages;
       },
-      error: (err) => {
-        // TODO: Define error resposes
+      error: () => {
         this.errorMessage = 'Có lỗi, vui lòng thử lại';
-      }
+      },
     });
+    const requestInterval = interval(10000);
+    this.getBalance();
+    this.interval = requestInterval.subscribe(() => this.getBalance());
   }
 
   getBalance() {
-    this.orderService.getBalance().subscribe({
-      next: (balance: Balance) => {
+    lastValueFrom(this.orderService.getBalance()).then(
+      (balance: Balance) => {
         this.balance = balance;
       },
-      error: (err) => {
-        // TODO: Define error resposes
+      () => {
         this.errorMessage = 'Có lỗi, vui lòng thử lại';
       }
-    });
+    );
   }
 
   buyPackage(pack: Package) {
@@ -67,20 +69,18 @@ export class PackagePageComponent implements OnInit {
         this.getBalance();
         this.loading.hide();
       },
-      error: (err) => {
+      error: err => {
         // TODO: Define error resposes
         if (err.error_code == 'BalanceLow') {
           this.errorMessage = 'Tài khoản của bạn hiện không đủ số dư để thanh toán. Vui lòng nạp thêm tiền vào Kyons';
-        }
-        else if (err.error_code == 'OverLimit') {
+        } else if (err.error_code == 'OverLimit') {
           this.errorMessage = `Bạn chỉ có thể mua tối đa ${this.selectedPackage.limit} gói`;
-        }
-        else {
+        } else {
           this.errorMessage = 'Có lỗi, vui lòng thử lại';
         }
         this.step = 3;
         this.loading.hide();
-      }
+      },
     });
   }
 
@@ -88,5 +88,4 @@ export class PackagePageComponent implements OnInit {
     this.step = 0;
     this.quantity = 1;
   }
-
 }

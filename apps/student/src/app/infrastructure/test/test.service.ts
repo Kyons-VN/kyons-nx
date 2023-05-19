@@ -197,15 +197,6 @@ export class TestService {
     return this.http.get(SERVER_API + `/students/mock_tests/${mockTestId}`).pipe(
       catchError(DBHelper.handleError('GET mock_tests', [])),
       map((res: any) => {
-        // res = {
-        //   data: {
-        //     id: 1,
-        //     created_date: '2023-01-01 15:50:45',
-        //     status: 'learning_path_activated',
-        //     score: 7,
-        //     share_referral: 'asd',
-        //   },
-        // };
         return MockTestResult.fromJson(res);
       })
     );

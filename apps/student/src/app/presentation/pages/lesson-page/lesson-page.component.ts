@@ -50,6 +50,7 @@ export class LessonPageComponent implements OnInit {
   lesson: Lesson = Lesson.empty();
   showComplete = false;
   isSubmitting = false;
+  currentForm!: HTMLFormElement;
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
@@ -79,17 +80,19 @@ export class LessonPageComponent implements OnInit {
           records.forEach((form, index) => {
             this.exercise.questions[index].form = form;
             form.addEventListener('click', () => {
-              const results: string[][] = [];
-              for (const form of records) {
-                const data = new FormData(form);
-                const result = data.get('objective_type_select');
-                typeof result == 'string' ? results.push([result]) : results.push([]);
-              }
+              this.currentForm = form;
+              // const results: string[][] = [];
+              // for (const form of records) {
+              const data = new FormData(form);
+              const result = data.get('objective_type_select');
+              // typeof result == 'string' ? results.push([result]) : results.push([]);
+              // }
               const questionId = this.exercise.questions[0].id;
               this.submission.reset();
-              this.submission.submitData[questionId] = results[0][0];
+              this.submission.submitData[questionId] = result?.toString() ?? '';
             });
           });
+          this.scrollTopElm.nativeElement.scrollTop = 0;
         }, 100);
       },
       error: e => {
@@ -122,6 +125,9 @@ export class LessonPageComponent implements OnInit {
           }
           this.isSubmitting = false;
           this.scrollTopElm.nativeElement.scrollTop = 0;
+          this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
+            input.setAttribute('disabled', 'disabled');
+          });
         },
         error: (e: any) => {
           console.log(e);
