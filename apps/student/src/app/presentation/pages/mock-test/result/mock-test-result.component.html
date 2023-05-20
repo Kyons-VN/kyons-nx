@@ -1,10 +1,20 @@
 <div *ngIf="testResult" class="flex w-full justify-center">
-  <div class="col gap-8 w-full max-w-[1122px] p-12">
+  <div class="col gap-6 md:gap-8 w-full max-w-[1122px] p-6 md:p-12">
+    <div class="gap-2 flex md:hidden justify-end">
+      <div class="menu-item" [routerLink]="paths.home.path">
+        <img src="/assets/images/Home.svg" alt="" />
+        <span>Trang chủ</span>
+      </div>
+      <div class="menu-item" [routerLink]="paths.package.path">
+        <img src="/assets/images/Store.svg" alt="" />
+        <span>Thanh toán</span>
+      </div>
+    </div>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
         <h4>Điểm bài kiểm tra</h4>
       </div>
-      <div class="flex gap-2">
+      <div class="gap-2 hidden md:flex">
         <div class="menu-item" [routerLink]="paths.home.path">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
@@ -16,75 +26,84 @@
       </div>
     </div>
     <div class="col p-6 bg-white rounded-lg gap-6">
-      <div class="flex items-center justify-between w-full gap-8">
-        <circle-progress
-          [percent]="testResult.score * 10"
-          [subtitle]="testResult.score.toString() + '/10'"
-          [animateTitle]="false"
-          [lazy]="false"
-          title="Điểm số"
-          titleFontSize="12px"
-          titleFontWeight="bold"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          [radius]="75"
-          outerStrokeColor="var(--color-lightOrange-1)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [innerStrokeWidth]="20"
-          [outerStrokeWidth]="20"
-          [space]="-20"
-        ></circle-progress>
-        <circle-progress
-          *ngIf="!probabilityIndex"
-          [percent]="0"
-          [subtitle]="'--'"
-          [animateTitle]="false"
-          [lazy]="false"
-          title="Tỉ lệ thành công"
-          titleFontSize="12px"
-          titleFontWeight="bold"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          [radius]="75"
-          outerStrokeColor="var(--color-blueGrey-300)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [animation]="false"
-          [innerStrokeWidth]="20"
-          [outerStrokeWidth]="20"
-          [space]="-20"
-        ></circle-progress>
-        <circle-progress
-          *ngIf="probabilityIndex"
-          [percent]="probabilityIndex"
-          [subtitle]="probabilityIndex + '%'"
-          [animateTitle]="false"
-          [lazy]="false"
-          title="Tỉ lệ thành công"
-          titleFontSize="12px"
-          titleFontWeight="bold"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          [radius]="75"
-          outerStrokeColor="var(--color-lightBlue-1)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [innerStrokeWidth]="20"
-          [outerStrokeWidth]="20"
-          [space]="-20"
-        ></circle-progress>
-        <div class="w-[411px] col gap-6">
+      <div class="col md:flex-row items-center justify-between w-full gap-8">
+        <div class="flex items-center justify-between flex-shrink flex-grow-0 gap-6 md:gap-8">
+          <div class="h-[132px] lg:w-[198px] aspect-square">
+            <circle-progress
+              [percent]="testResult.score * 10"
+              [subtitle]="testResult.score.toString() + '/10'"
+              [animateTitle]="false"
+              [lazy]="false"
+              title="Điểm số"
+              titleFontSize="12px"
+              titleFontWeight="bold"
+              subtitleFontSize="30px"
+              subtitleFontWeight="bold"
+              subtitleColor="var(--color-primaryBlue)"
+              [radius]="75"
+              outerStrokeColor="var(--color-lightOrange-1)"
+              innerStrokeColor="var(--color-blueGrey-300)"
+              [innerStrokeWidth]="20"
+              [outerStrokeWidth]="20"
+              [space]="-20"
+              [responsive]="true"
+            ></circle-progress>
+          </div>
+          <div class="h-[132px] lg:w-[198px] aspect-square">
+            <circle-progress
+              *ngIf="!probabilityIndex"
+              [percent]="0"
+              [subtitle]="'--'"
+              [animateTitle]="false"
+              [lazy]="false"
+              title="Tỉ lệ thành công"
+              titleFontSize="12px"
+              titleFontWeight="bold"
+              subtitleFontSize="30px"
+              subtitleFontWeight="bold"
+              subtitleColor="var(--color-primaryBlue)"
+              [radius]="75"
+              outerStrokeColor="var(--color-blueGrey-300)"
+              innerStrokeColor="var(--color-blueGrey-300)"
+              [animation]="false"
+              [innerStrokeWidth]="20"
+              [outerStrokeWidth]="20"
+              [space]="-20"
+              [responsive]="true"
+            ></circle-progress>
+            <circle-progress
+              *ngIf="probabilityIndex"
+              [percent]="probabilityIndex"
+              [subtitle]="probabilityIndex + '%'"
+              [animateTitle]="false"
+              [lazy]="false"
+              title="Tỉ lệ thành công"
+              titleFontSize="12px"
+              titleFontWeight="bold"
+              subtitleFontSize="30px"
+              subtitleFontWeight="bold"
+              subtitleColor="var(--color-primaryBlue)"
+              [radius]="75"
+              outerStrokeColor="var(--color-lightBlue-1)"
+              innerStrokeColor="var(--color-blueGrey-300)"
+              [innerStrokeWidth]="20"
+              [outerStrokeWidth]="20"
+              [space]="-20"
+              [responsive]="true"
+            ></circle-progress>
+          </div>
+        </div>
+        <div class="w-full md:w-[411px] col gap-6">
           <span
             ><strong class="text-orange">Bạn muốn cải thiện điểm số?</strong><br />AI của Kyons sẽ tạo lộ trình học dựa
             vào những điểm thiếu sót của bạn.<br />Bấm <strong>Tạo lộ trình học</strong> để bắt đầu ngay!</span
           >
-          <div class="flex items-center justify-between w-full">
-            <button (click)="review()" class="btn-rounded">Xem lại đáp án bài kiểm tra</button>
+          <div class="col md:flex-row gap-2 md:items-center items-stretch justify-between w-full">
+            <button (click)="review()" class="btn-rounded order-2 md:order-1">Xem lại đáp án bài kiểm tra</button>
             <button
               [disabled]="testResult.status !== MockTestStatus.learning_path_received"
               (click)="activateLearningPath()"
-              class="btn"
+              class="btn order-1 md:order-2"
             >
               Tạo lộ trình học
             </button>
@@ -118,23 +137,25 @@
         </div>
       </div>
     </div>
-    <div class="flex gap-6 items-center justify-between">
+    <div class="col md:flex-row gap-6 items-stretch md:items-center justify-between">
       <button
         [routerLink]="paths.mockTest.path"
-        class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow"
+        class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow order-2 md:order-1"
       >
         <div class="col gap-2 items-start">
           <b>Bài kiểm tra quá dễ?</b>
-          <span>Bạn có thể lựa chọn lại mục tiêu học tập</span>
+          <span class="text-left">Bạn có thể lựa chọn lại mục tiêu học tập</span>
         </div>
-        <i class="icon-btn icon-ArrowRight text-[24px]"></i>
+        <i class="icon-btn icon-ArrowRight"></i>
       </button>
-      <button class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow">
+      <button
+        class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow order-1 md:order-2"
+      >
         <div class="col gap-2 items-start">
-          <b>Gửi thử thách nhận quà!</b>
-          <span>Nhận quà khi gửi bài kiểm tra cho bạn bè</span>
+          <b>Thách thức bạn thân nhận quà!</b>
+          <span class="text-left">Nhận quà từ Kyons khi gửi bài kiểm tra cho bạn bè</span>
         </div>
-        <i class="icon-btn icon-ArrowRight text-[24px]"></i>
+        <i class="icon-btn icon-ArrowRight"></i>
       </button>
     </div>
   </div>

@@ -14,7 +14,7 @@ import {
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SERVER_API } from '@infrastructure/auth/interceptor';
 import { Category } from '@infrastructure/knowledge/category';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
@@ -50,6 +50,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   http = inject(HttpClient);
   knowledgeService = inject(KnowledgeService);
   router = inject(Router);
+  route = inject(ActivatedRoute);
 
   @HostBinding('class') class = 'h-full';
 
@@ -80,6 +81,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   isRateLimitReached = false;
   dataSource: MatTableDataSource<MockTestItem> = new MatTableDataSource<MockTestItem>([]);
   hasNewMockTest = false;
+  shouldScrollBottom = true;
   get selectedCategoryIdMod() {
     return this.selectedCategoryId;
   }
@@ -172,13 +174,16 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   showActivateLearningPathBtn = false;
   MockTestStatus = MockTestStatus;
+  activeTab = parseInt(this.route.snapshot.queryParams['active_tab'] ?? '0');
 
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator: MatPaginator = new MatPaginator(
     new MatPaginatorIntl(),
     ChangeDetectorRef.prototype
   );
-  @ViewChild('myCanvas') canvas!: ElementRef;
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef;
+  @ViewChild('scrollBottomElm') scrollBottomElm!: ElementRef;
+  @ViewChild('scrollBottomXSElm') scrollBottomXSElm!: ElementRef;
 
   // const ELEMENT_DATA: MockTestItem[] = [];
 
@@ -234,7 +239,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.lineChartData.datasets[0].data = mockTests.map(x => x.score ?? 0);
         this.lineChartData.labels = mockTests.map(x => ((x.index ?? 0) + 1).toString());
-        const gradient = this.canvas.nativeElement.getContext('2d').createLinearGradient(0, 0, 0, 600);
+        const gradient = this.chartCanvas.nativeElement.getContext('2d').createLinearGradient(0, 0, 0, 600);
         gradient.addColorStop(0, 'rgba(6, 165, 255, 0.3)');
         gradient.addColorStop(1, 'rgba(6, 165, 255, 0)');
         this.lineChartData.datasets[0].backgroundColor = gradient;
@@ -255,18 +260,14 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
           next: (learningGoalPath: LearningGoalPath) => {
             this.learningGoalPath = learningGoalPath;
             this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
-            // if (this.lessons[this.lessons.length - 1].isNew) {
-            //   setTimeout(() => {
-            //     this.lessons.push(LessonItem.waiting());
-            //   }, 5000);
-            // }
-            // else {
-            //   this.lessons.push(LessonItem.complete());
-            // }
             const totalLessonBlockOf3OnMDScreen = Math.ceil((this.lessons.length + 1) / 3);
             this.lessonBlockOf3OnMDScreen = Array.from(Array(totalLessonBlockOf3OnMDScreen).keys());
             const totalLessonBlockOf2OnXSScreen = Math.ceil((this.lessons.length + 1) / 2);
             this.lessonBlockOf2OnXSScreen = Array.from(Array(totalLessonBlockOf2OnXSScreen).keys());
+            setTimeout(() => {
+              this.scrollBottomElm.nativeElement.scrollTop = this.scrollBottomElm.nativeElement.scrollHeight;
+              this.scrollBottomXSElm.nativeElement.scrollTop = this.scrollBottomXSElm.nativeElement.scrollHeight;
+            }, 500);
           },
           error: err => {
             if (err.error == undefined || err.error.error_code == undefined) {

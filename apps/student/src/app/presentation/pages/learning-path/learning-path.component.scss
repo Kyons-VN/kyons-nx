@@ -8,29 +8,30 @@
   background: linear-gradient(1.96deg, #0f172a 82.21%, #315d93 125.33%);
 }
 .lesson-block {
-  @apply w-[200px] h-[200px] aspect-square rounded-2xl flex flex-col items-stretch justify-between pt-8 pb-4 px-4 bg-no-repeat text-white relative;
-  background-position: top right;
+  @apply w-[130px] md:w-[200px] h-[130px] md:h-[200px] aspect-square rounded-2xl flex flex-col items-stretch justify-between pt-5 md:pt-8 pb-4 px-4 bg-no-repeat text-white relative bg-right-top;
+  background-size: 100%;
   z-index: 1;
-}
-.new-block {
-  @apply bg-blue-500;
-  background-image: url('/assets/images/NewBlock.webp');
-  box-shadow: 0px 9px 22px 1px rgba(6, 165, 255, 0.7);
-}
-.complete-block {
-  @apply bg-emerald-0;
-  background-image: url('/assets/images/CompleteBlock.webp');
-  box-shadow: 0px 9px 22px 1px rgba(52, 211, 153, 0.7);
-}
-.waiting-block {
-  @apply bg-blueGrey-400 cursor-default;
-  background-image: url('/assets/images/WaitingBlock.webp');
-}
-.finish-block {
-  @apply bg-blueGrey-400;
-  background: url('/assets/images/FinishBlock.webp'),
-    radial-gradient(69.35% 75.69% at 47.67% 67.88%, #1e293b 0%, #2a4a73 80%, #315d93 100%);
-  box-shadow: 0px 9px 22px rgba(251, 146, 60, 0.5);
+  &.new-block {
+    @apply bg-blue-500;
+    background-image: url('/assets/images/NewBlock.webp');
+    box-shadow: 0px 9px 22px 1px rgba(6, 165, 255, 0.7);
+  }
+  &.complete-block {
+    @apply bg-emerald-0;
+    background-image: url('/assets/images/CompleteBlock.webp');
+    box-shadow: 0px 9px 22px 1px rgba(52, 211, 153, 0.7);
+  }
+  &.waiting-block {
+    @apply bg-blueGrey-400 cursor-default;
+    background-image: url('/assets/images/WaitingBlock.webp');
+  }
+  &.finish-block {
+    @apply bg-blueGrey-400;
+    background: url('/assets/images/FinishBlock.webp'),
+      radial-gradient(69.35% 75.69% at 47.67% 67.88%, #1e293b 0%, #2a4a73 80%, #315d93 100%);
+    background-size: contain;
+    box-shadow: 0px 9px 22px rgba(251, 146, 60, 0.5);
+  }
 }
 .even,
 .odd {
@@ -54,7 +55,7 @@
 
 .even {
   .path:nth-child(2) {
-    left: 196px;
+    @apply left-[120px] md:left-[196px];
   }
   .path:nth-child(4) {
     right: 196px;
@@ -64,7 +65,7 @@
 .odd {
   @apply flex-row-reverse;
   .path:nth-child(2) {
-    right: 196px;
+    @apply right-[120px] md:right-[196px];
   }
   .path:nth-child(4) {
     left: 196px;
@@ -76,34 +77,42 @@
 // .odd:nth-child(2n + 1) {
 //   background-color: blue;
 // }
-
+$w-md: 56px;
+$w: 56px * 0.75;
+$h-md: 270px;
+$h: 270px * 0.75;
 .even:not(:first-child)::before {
   content: '';
-  display: block;
-  background-image: url('/assets/images/BlockPathCurve.svg');
-  background-repeat: no-repeat;
-  background-size: 56px 270px;
-  width: 56px;
-  height: 270px;
-  position: absolute;
-  z-index: 0;
-  left: -56px;
-  top: -160px;
+  @apply block bg-[url('/assets/images/BlockPathCurve.svg')] bg-no-repeat absolute z-0;
+  background-size: $w-md $h-md;
+  width: $w-md;
+  height: $h-md;
+  left: -$w-md;
+  top: -164px;
+  @media screen and (max-width: 767px) {
+    background-size: $w $h;
+    width: $w;
+    height: $h;
+    left: -28px;
+    top: -120px;
+  }
 }
 
 .odd::after {
   content: '';
-  display: block;
-  background-image: url('/assets/images/BlockPathCurve.svg');
-  background-repeat: no-repeat;
-  background-size: 56px 279px;
-  width: 56px;
-  height: 279px;
-  position: absolute;
-  z-index: 0;
-  rotate: 180deg;
-  right: -56px;
-  top: -160px;
+  @apply block bg-[url('/assets/images/BlockPathCurve.svg')] bg-no-repeat absolute z-0 rotate-180;
+  background-size: $w-md $h-md;
+  width: $w-md;
+  height: $h-md;
+  right: -$w-md;
+  top: -164px;
+  @media screen and (max-width: 767px) {
+    background-size: $w $h;
+    width: $w;
+    height: $h;
+    right: -28px;
+    top: -120px;
+  }
 }
 .bg-robot {
   background-image: url('/assets/images/robot.webp');
@@ -127,3 +136,6 @@
 // <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 30 24" fill="none">
 // <line x1="0" y1="12" x2="30" y2="12" stroke="#315D93" stroke-width="24"/>
 // </svg>
+.xs-hidden {
+  @apply hidden sm:flex;
+}

@@ -1,6 +1,7 @@
+import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SERVER_API } from '@infrastructure/auth/interceptor';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
@@ -9,8 +10,11 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { TestService } from '@infrastructure/test/test.service';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
+import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, RouterModule, SafeHtmlPipe],
   templateUrl: './mock-test-review.component.html',
   styleUrls: ['./mock-test-review.component.scss'],
 })
@@ -23,6 +27,7 @@ export class MockTestReviewComponent implements OnInit {
   lessonService = inject(LessonService);
   http = inject(HttpClient);
   loading = inject(LoadingOverlayService);
+  location = inject(Location);
 
   questions: QuestionReviewHtml[] = [];
   currentQuestion!: QuestionReviewHtml;
@@ -33,21 +38,21 @@ export class MockTestReviewComponent implements OnInit {
   MockTestStatus = MockTestStatus;
 
   @ViewChild('scrollElm') scrollElm!: ElementRef;
-  @ViewChild('scrollXsElm') scrollXsElm!: ElementRef;
 
   ngOnInit(): void {
+    this.loading.show();
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
     let learningGoalId = this.route.snapshot.queryParamMap.get('learning_goal_id') ?? '';
     if (learningGoalId === '') {
       learningGoalId = this.knowledgeService.getSelectedLearningGoal().id;
     }
-    this.testService.getMockTestReviewHtml(this.mockTestId, learningGoalId).subscribe({
+    this.testService.getMockTestReviewHtml(this.mockTestId).subscribe({
       next: (result: any) => {
         console.log(result);
         this.questions = result.data;
         this.currentQuestion = this.questions[0];
         this.isLoading = false;
-        //
+        this.loading.hide();
       },
       error: (e: any) => {
         //
@@ -73,11 +78,10 @@ export class MockTestReviewComponent implements OnInit {
 
   scrollLeft() {
     this.currentQuestionIndex--;
-    this._centerCurrentIndexXs();
+    this._centerCurrentIndex();
   }
   scrollRight() {
     this.currentQuestionIndex++;
-    this._centerCurrentIndexXs();
     this._centerCurrentIndex();
   }
 
@@ -86,21 +90,13 @@ export class MockTestReviewComponent implements OnInit {
   }
 
   _centerCurrentIndex() {
+    if (this.scrollElm === undefined) return;
     const currentElm = this.scrollElm.nativeElement.querySelectorAll('button')[this.currentQuestionIndex];
     const currentElmLeft = currentElm.offsetLeft - this.scrollElm.nativeElement.offsetLeft;
     const currentElmWidth = currentElm.offsetWidth;
     const currentElmCenter = currentElmLeft + currentElmWidth / 2;
     const scrollElmWidth = this.scrollElm.nativeElement.offsetWidth;
     this.scrollElm.nativeElement.scrollLeft = currentElmCenter - scrollElmWidth / 2;
-  }
-
-  _centerCurrentIndexXs() {
-    const currentElm = this.scrollXsElm.nativeElement.querySelectorAll('button')[this.currentQuestionIndex];
-    const currentElmLeft = currentElm.offsetLeft - this.scrollXsElm.nativeElement.offsetLeft;
-    const currentElmWidth = currentElm.offsetWidth;
-    const currentElmCenter = currentElmLeft + currentElmWidth / 2;
-    const scrollElmWidth = this.scrollXsElm.nativeElement.offsetWidth;
-    this.scrollXsElm.nativeElement.scrollLeft = currentElmCenter - scrollElmWidth / 2;
   }
 
   activateLearningPath() {
@@ -132,5 +128,9 @@ export class MockTestReviewComponent implements OnInit {
         });
       },
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

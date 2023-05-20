@@ -127,7 +127,7 @@ export class TestService {
     };
 
     return this.http.post(SERVER_API + '/students/learning_goal/submit', params).pipe(
-      catchError(DBHelper.handleError('GET submitTopics', Error('Server Error'))),
+      // catchError(DBHelper.handleError('GET submitTopics', Error('Server Error'))),
       map((res: any) => {
         return res['test_id'];
       })
@@ -183,9 +183,9 @@ export class TestService {
       );
   }
 
-  getMockTestReviewHtml(mockTestId: string, learningGoalId: string) {
+  getMockTestReviewHtml(mockTestId: string) {
     return this.http.get(SERVER_API + `/students/mock_tests/${mockTestId}/review`).pipe(
-      catchError(DBHelper.handleError('GET mock_tests/review', [])),
+      catchError(DBHelper.handleError('GET mock_tests/review', TestReviewHtml.empty())),
       map((res: any) => {
         // res = mockTestReviewJson;
         return TestReviewHtml.fromJson(res);
@@ -193,9 +193,9 @@ export class TestService {
     );
   }
 
-  getMockTestResultHtml(mockTestId: string, learningGoalId?: string) {
+  getMockTestResultHtml(mockTestId: string) {
     return this.http.get(SERVER_API + `/students/mock_tests/${mockTestId}`).pipe(
-      catchError(DBHelper.handleError('GET mock_tests', [])),
+      catchError(DBHelper.handleError('GET mock_tests', MockTestResult.empty())),
       map((res: any) => {
         return MockTestResult.fromJson(res);
       })

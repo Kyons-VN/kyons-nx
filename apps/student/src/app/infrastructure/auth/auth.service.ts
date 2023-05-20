@@ -35,6 +35,7 @@ export class AuthService implements IAuthService {
               message: 'Domain specific error.',
             };
           this.setToken(data);
+          this.setRefreshToken(data);
           this.userService.updateCurrentUser(data['sub'], data['email']);
           this.trackingService.init();
         } else {
@@ -48,6 +49,7 @@ export class AuthService implements IAuthService {
 
   signOut() {
     this.removeToken();
+    this.removeRefreshToken();
     this.userService.removeCurrentUser();
     this.trackingService.resetTracking();
     this.knowledgeService.removeSelectedProgram();
@@ -66,9 +68,16 @@ export class AuthService implements IAuthService {
     window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
   }
 
+  public setRefreshToken(data: any) {
+    window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
+  }
+
   public removeToken() {
     window.localStorage.removeItem(TOKEN_KEY);
-    // window.localStorage.removeItem(REFRESH_TOKEN_KEY);
+  }
+
+  public removeRefreshToken() {
+    window.localStorage.removeItem(REFRESH_TOKEN_KEY);
   }
 
   refreshToken(refreshToken: string) {

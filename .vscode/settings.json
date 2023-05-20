@@ -1,0 +1,9 @@
+{
+  "search.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/angular": true,
+    "**/apps/school": true
+  }
+}

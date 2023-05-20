@@ -74,8 +74,14 @@
         <div class="h7">Chưa hoàn tất bài kiểm tra thông minh</div>
         <span>Bạn có một bào kiểm tra thông minh chưa hoàn tất, vui lòng vào lộ trình học để tiếp tục làm bài</span>
       </div>
-      <div class="flex justify-between">
-        <a class="btn" [routerLink]="paths.learningPath.path">Đến lộ trình học</a>
+      <div class="w-full">
+        <a
+          class="btn"
+          [routerLink]="paths.learningPath.path"
+          fragment="mockTestAnchor"
+          [queryParams]="{ active_tab: 1 }"
+          >Đến lộ trình học</a
+        >
       </div>
     </div>
     <div class="h-1/3"></div>

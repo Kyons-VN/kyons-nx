@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -29,6 +29,8 @@ export class LessonReviewPageComponent implements OnInit {
   lessonService = inject(LessonService);
   http = inject(HttpClient);
   loading = inject(LoadingOverlayService);
+  location = inject(Location);
+  learningGoal = this.knowledgeService.getStudentLearningGoal();
 
   questions: QuestionReviewHtml[] = [];
   currentQuestion!: QuestionReviewHtml;
@@ -39,7 +41,6 @@ export class LessonReviewPageComponent implements OnInit {
   MockTestStatus = MockTestStatus;
 
   @ViewChild('scrollElm') scrollElm!: ElementRef;
-  @ViewChild('scrollXsElm') scrollXsElm!: ElementRef;
 
   ngOnInit(): void {
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
@@ -66,16 +67,11 @@ export class LessonReviewPageComponent implements OnInit {
 
   scrollLeft() {
     this.currentQuestionIndex--;
-    this._centerCurrentIndexXs();
+    this._centerCurrentIndex();
   }
   scrollRight() {
     this.currentQuestionIndex++;
-    this._centerCurrentIndexXs();
     this._centerCurrentIndex();
-  }
-
-  backToResult() {
-    this.router.navigate([this.paths.learningPath.path]);
   }
 
   _centerCurrentIndex() {
@@ -85,15 +81,6 @@ export class LessonReviewPageComponent implements OnInit {
     const currentElmCenter = currentElmLeft + currentElmWidth / 2;
     const scrollElmWidth = this.scrollElm.nativeElement.offsetWidth;
     this.scrollElm.nativeElement.scrollLeft = currentElmCenter - scrollElmWidth / 2;
-  }
-
-  _centerCurrentIndexXs() {
-    const currentElm = this.scrollXsElm.nativeElement.querySelectorAll('button')[this.currentQuestionIndex];
-    const currentElmLeft = currentElm.offsetLeft - this.scrollXsElm.nativeElement.offsetLeft;
-    const currentElmWidth = currentElm.offsetWidth;
-    const currentElmCenter = currentElmLeft + currentElmWidth / 2;
-    const scrollElmWidth = this.scrollXsElm.nativeElement.offsetWidth;
-    this.scrollXsElm.nativeElement.scrollLeft = currentElmCenter - scrollElmWidth / 2;
   }
 
   activateLearningPath() {
@@ -125,5 +112,9 @@ export class LessonReviewPageComponent implements OnInit {
         });
       },
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

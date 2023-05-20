@@ -46,7 +46,6 @@ import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeVN from '@angular/common/locales/vi';
 import { LayoutFullComponent } from '@presentation/layouts/full/layout-full.component';
-import { MockTestReviewComponent } from '@presentation/pages/mock-test/review/mock-test-review.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
 import { NgChartsModule } from 'ng2-charts';
 import { LayoutDefaultComponent } from './presentation/layouts/default/layout-default.component';
@@ -89,9 +88,7 @@ registerLocaleData(localeEN, 'en');
     TestReviewComponent,
     TopMenuComponent,
     TrackingComponent,
-    // TrackingLessonComponent,
     MockTestResultComponent,
-    MockTestReviewComponent,
     AdaptiveTestComponent,
   ],
   imports: [

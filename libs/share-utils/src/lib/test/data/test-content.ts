@@ -194,6 +194,10 @@ export class MockTestResult {
     }
     return result;
   }
+
+  static empty(): MockTestResult {
+    return new MockTestResult({ id: '', score: 0, status: MockTestStatus.new, createdAt: new Date() });
+  }
 }
 
 // class MockTestItem implements IMockTestItem {
@@ -245,6 +249,10 @@ export class TestReviewHtml {
         .map((questionObject: any) => QuestionReviewHtml.fromJson(questionObject))
         .sort((a, b) => a.id.localeCompare(b.id)) ?? [];
     return new TestReviewHtml(data);
+  }
+
+  static empty() {
+    return new TestReviewHtml([]);
   }
 }
 

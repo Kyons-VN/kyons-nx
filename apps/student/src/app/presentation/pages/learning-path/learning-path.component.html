@@ -1,6 +1,35 @@
-<div class="flex w-full h-screen">
-  <div class="col flex-1 gap-6 items-center py-16 px-8 bg-image">
-    <div class="flex gap-6 p-6 bg-white rounded-2xl shadow-3 w-[520px]">
+<div class="xl:flex-row w-full xl:h-screen col relative">
+  <div class="p-6 absolute w-full top-[68px]">
+    <div class="col w-full sm:hidden bg-white rounded-2xl p-4 gap-4 h-[264px]">
+      <div class="flex justify-between gap-1">
+        <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0">Lộ trình học</div>
+        <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 1 }" (click)="activeTab = 1">
+          Chi tiết tiến độ
+        </div>
+      </div>
+      <div class="col gap-4 w-full">
+        <span>Đây là lộ trình học tập để bạn đạt mục tiêu:</span>
+        <div class="col gap-2 justify-center w-full items-center">
+          <img src="/assets/images/subject.webp" alt="" width="80" height="80" />
+          <h6 class="text-orange">{{ selectedStudentLearningGoal.name }}</h6>
+          <b>{{ selectedStudentLearningGoal.programName }}</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gap-2 flex xl:hidden p-6 justify-end">
+    <div [routerLink]="paths.home.path" class="menu-item">
+      <img src="/assets/images/Home.svg" alt="" />
+      <span>Trang chủ</span>
+    </div>
+    <div [routerLink]="paths.package.path" class="menu-item">
+      <img src="/assets/images/Store.svg" alt="" />
+      <span>Thanh toán</span>
+    </div>
+  </div>
+  <div class="col flex-1 gap-6 items-center py-16 px-8 bg-image" [ngClass]="{ 'xs-hidden': activeTab !== 0 }">
+    <div class="block sm:hidden h-[264px]"></div>
+    <div class="hidden sm:flex gap-6 p-6 bg-white rounded-2xl shadow-3 w-[520px]">
       <img src="/assets/images/Subject.svg" alt="" />
       <div class="col gap-2">
         <span>Đây là lộ trình học tập để bạn đạt mục tiêu:</span>
@@ -13,14 +42,15 @@
         <div
           *ngIf="lessons.length !== 0 && !showActivateLearningPathBtn"
           #widgetsWrapper
-          class="w-[760px] flex items-start justify-center"
+          class="w-[328px] md:w-[760px]"
         >
           <div
-            class="hide-scrollbar hidden md:flex flex-col gap-[46px] h-[calc(100vh_-_280px)] overflow-y-auto px-[56px] py-8"
+            #scrollBottomElm
+            class="hidden md:flex w-full hide-scrollbar flex-col gap-[50px] h-[calc(100vh_-_280px)] overflow-y-auto px-[56px] py-8"
           >
             <div
               *ngFor="let block of lessonBlockOf3OnMDScreen; index as bi"
-              class="flex gap-6"
+              class="hidden md:flex gap-[24px]"
               [ngClass]="{
                 even: bi % 2 === 0,
                 odd: bi % 2 !== 0
@@ -86,6 +116,84 @@
               </ng-template>
             </div>
           </div>
+          <div
+            #scrollBottomXSElm
+            class="md:hidden w-full hide-scrollbar flex flex-col gap-[38px] flex-shrink-0 h-[70vh] max-h-[500px] overflow-y-auto px-[28px] py-8"
+          >
+            <div
+              *ngFor="let block of lessonBlockOf2OnXSScreen; index as bi"
+              class="flex md:hidden gap-[12px]"
+              [ngClass]="{
+                even: bi % 2 === 0,
+                odd: bi % 2 !== 0
+              }"
+            >
+              <ng-template ngFor let-i [ngForOf]="blockOf2">
+                <ng-template [ngIf]="i + bi * 2 < lessons.length">
+                  <!-- <div
+                    *ngIf="bi % 2 !== 0 && i !== 0 && lessons[i + bi * 3 + 1] !== undefined"
+                    class="absolute path"
+                  ></div> -->
+                  <div *ngIf="i !== 0" class="absolute path"></div>
+                  <button
+                    *ngIf="lessons[i + bi * 2].name !== ''"
+                    class="lesson-block"
+                    [ngClass]="{
+                      'complete-block': !lessons[i + bi * 2].isNew,
+                      'new-block': lessons[i + bi * 2].isNew
+                    }"
+                    (click)="onLessonBlockClick(lessons[i + bi * 2])"
+                    tabindex="0"
+                  >
+                    <div class="text-[12px] md:h7">{{ lessons[i + bi * 2].name }}</div>
+                    <span
+                      *ngIf="!lessons[i + bi * 2].isNew"
+                      class="text-[12px] md:h7 w-full text-right italic font-bold"
+                      >Hoàn tất</span
+                    >
+                    <div *ngIf="lessons[i + bi * 2].isNew" class="flex w-full justify-end">
+                      <circle-progress
+                        *ngIf="lessons[i + bi * 2].isNew"
+                        [percent]="lessons[i + bi * 2].progress!"
+                        [title]="lessons[i + bi * 2].progress! + '%'"
+                        [showSubtitle]="false"
+                        [radius]="32"
+                        titleFontSize="16px"
+                        titleFontWeight="bold"
+                        outerStrokeColor="var(--color-white)"
+                        titleColor="var(--color-white)"
+                        innerStrokeColor="var(--color-blueGrey-300)"
+                      ></circle-progress>
+                    </div>
+                  </button>
+                  <!-- <div class="absolute path"></div> -->
+                </ng-template>
+                <div *ngIf="i + bi * 2 === lessons.length && i !== 0" class="absolute path last"></div>
+                <button
+                  *ngIf="i + bi * 2 === lessons.length"
+                  class="lesson-block"
+                  [ngClass]="{
+                    'waiting-block': lessons[lessons.length - 1].isNew,
+                    'finish-block': !lessons[lessons.length - 1].isNew
+                  }"
+                  (click)="onLastLessonBlockClick()"
+                  tabindex="0"
+                >
+                  <b
+                    *ngIf="!lessons[lessons.length - 1].isNew"
+                    class="text-[12px] md:text-[16px] w-full text-center !mt-[-10px]"
+                    >Tới cuối đường</b
+                  >
+                  <b *ngIf="lessons[lessons.length - 1].isNew" class="text-[12px] md:text-[16px]"
+                    >(Đang chờ được khám phá...)</b
+                  >
+                  <div *ngIf="lessons[lessons.length - 1].isNew" class="flex w-full justify-center relative">
+                    <i class="icon-Lock text-5xl mt-[-44px] absolute"></i>
+                  </div>
+                </button>
+              </ng-template>
+            </div>
+          </div>
         </div>
         <div *ngIf="showActivateLearningPathBtn" class="">
           <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
@@ -109,8 +217,12 @@
       </div>
     </ng-template>
   </div>
-  <div class="col items-stretch w-[614px] p-8 h-screen overflow-y-auto gap-8">
-    <div class="flex justify-end">
+  <div
+    class="col items-stretch md:self-center md:w-[614px] p-6 md:p-8 xl:h-screen overflow-y-auto gap-8"
+    [ngClass]="{ 'xs-hidden': activeTab !== 1 }"
+  >
+    <div class="block sm:hidden h-[264px]"></div>
+    <div class="justify-end hidden xl:flex">
       <div class="flex gap-2">
         <div [routerLink]="paths.home.path" class="menu-item">
           <img src="/assets/images/Home.svg" alt="" />
@@ -122,9 +234,10 @@
         </div>
       </div>
     </div>
-    <div class="col gap-4">
+    <div class="col gap-4" id="mockTestAnchor">
       <div class="flex justify-between items-center">
-        <h5>Theo dõi quá trình học</h5>
+        <h5 class="hidden md:block">Theo dõi quá trình học</h5>
+        <div class="h7 md:hidden">Theo dõi quá trình học</div>
         <a
           (click)="showWhatIsProbabilityIndex = true"
           class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
@@ -134,84 +247,93 @@
         </a>
       </div>
       <div class="flex justify-between items-center bg-white rounded-2xl p-6">
-        <circle-progress
-          *ngIf="!learningGoalPath.isEmpty()"
-          [percent]="learningGoalPath.progress"
-          title="Tiến độ học"
-          titleFontSize="14px"
-          titleColor="var(--color-primaryBlue)"
-          [subtitle]="learningGoalPath.progress + '%'"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          titleFontWeight="bold"
-          [radius]="80"
-          outerStrokeColor="var(--color-lightOrange-1)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [outerStrokeWidth]="24"
-          innerStrokeWidth="24"
-          [space]="-24"
-        ></circle-progress>
-        <circle-progress
-          *ngIf="learningGoalPath.isEmpty()"
-          [percent]="0"
-          title="Tiến độ học"
-          titleFontSize="14px"
-          titleColor="var(--color-primaryBlue)"
-          [subtitle]="'--'"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          titleFontWeight="bold"
-          [radius]="80"
-          outerStrokeColor="var(--color-blueGrey-300)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [outerStrokeWidth]="24"
-          innerStrokeWidth="24"
-          [space]="-24"
-        ></circle-progress>
+        <div class="w-[132px] md:w-[198px] aspect-square">
+          <circle-progress
+            *ngIf="!learningGoalPath.isEmpty()"
+            [percent]="learningGoalPath.progress"
+            title="Tiến độ học"
+            titleFontSize="14px"
+            titleColor="var(--color-primaryBlue)"
+            [subtitle]="learningGoalPath.progress + '%'"
+            subtitleFontSize="30px"
+            subtitleFontWeight="bold"
+            subtitleColor="var(--color-primaryBlue)"
+            titleFontWeight="bold"
+            [radius]="80"
+            outerStrokeColor="var(--color-lightOrange-1)"
+            innerStrokeColor="var(--color-blueGrey-300)"
+            [outerStrokeWidth]="24"
+            innerStrokeWidth="24"
+            [space]="-24"
+            [responsive]="true"
+          ></circle-progress>
+          <circle-progress
+            *ngIf="learningGoalPath.isEmpty()"
+            [percent]="0"
+            title="Tiến độ học"
+            titleFontSize="14px"
+            titleColor="var(--color-primaryBlue)"
+            [subtitle]="'--'"
+            subtitleFontSize="30px"
+            subtitleFontWeight="bold"
+            subtitleColor="var(--color-primaryBlue)"
+            titleFontWeight="bold"
+            [radius]="80"
+            outerStrokeColor="var(--color-blueGrey-300)"
+            innerStrokeColor="var(--color-blueGrey-300)"
+            [outerStrokeWidth]="24"
+            innerStrokeWidth="24"
+            [space]="-24"
+            [responsive]="true"
+          ></circle-progress>
+        </div>
         <div class="w-0 h-[156px] border border-r-blueGrey-300"></div>
-        <circle-progress
-          *ngIf="!probabilityIndex"
-          [percent]="0"
-          title="Tỉ lệ thành công"
-          titleFontSize="14px"
-          titleColor="var(--color-primaryBlue)"
-          [subtitle]="'--'"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          titleFontWeight="bold"
-          [radius]="80"
-          outerStrokeColor="var(--color-blueGrey-300)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [outerStrokeWidth]="24"
-          innerStrokeWidth="24"
-          [space]="-24"
-        ></circle-progress>
-        <circle-progress
-          *ngIf="probabilityIndex"
-          [percent]="probabilityIndex"
-          title="Tỉ lệ thành công"
-          titleFontSize="14px"
-          titleColor="var(--color-primaryBlue)"
-          [subtitle]="probabilityIndex + '%'"
-          subtitleFontSize="30px"
-          subtitleFontWeight="bold"
-          subtitleColor="var(--color-primaryBlue)"
-          titleFontWeight="bold"
-          [radius]="80"
-          outerStrokeColor="var(--color-lightBlue-1)"
-          innerStrokeColor="var(--color-blueGrey-300)"
-          [outerStrokeWidth]="24"
-          innerStrokeWidth="24"
-          [space]="-24"
-        ></circle-progress>
+        <div class="w-[132px] md:w-[198px] aspect-square">
+          <circle-progress
+            *ngIf="!probabilityIndex"
+            [percent]="0"
+            title="Tỉ lệ thành công"
+            titleFontSize="14px"
+            titleColor="var(--color-primaryBlue)"
+            [subtitle]="'--'"
+            subtitleFontSize="30px"
+            subtitleFontWeight="bold"
+            subtitleColor="var(--color-primaryBlue)"
+            titleFontWeight="bold"
+            [radius]="80"
+            outerStrokeColor="var(--color-blueGrey-300)"
+            innerStrokeColor="var(--color-blueGrey-300)"
+            [outerStrokeWidth]="24"
+            innerStrokeWidth="24"
+            [space]="-24"
+            [responsive]="true"
+          ></circle-progress>
+          <circle-progress
+            *ngIf="probabilityIndex"
+            [percent]="probabilityIndex"
+            title="Tỉ lệ thành công"
+            titleFontSize="14px"
+            titleColor="var(--color-primaryBlue)"
+            [subtitle]="probabilityIndex + '%'"
+            subtitleFontSize="30px"
+            subtitleFontWeight="bold"
+            subtitleColor="var(--color-primaryBlue)"
+            titleFontWeight="bold"
+            [radius]="80"
+            outerStrokeColor="var(--color-lightBlue-1)"
+            innerStrokeColor="var(--color-blueGrey-300)"
+            [outerStrokeWidth]="24"
+            innerStrokeWidth="24"
+            [space]="-24"
+            [responsive]="true"
+          ></circle-progress>
+        </div>
       </div>
     </div>
-    <div class="col gap-4" [ngClass]="{ 'bg-robot': hasNewMockTest }">
+    <div class="col gap-4" [ngClass]="{ 'md:bg-robot': hasNewMockTest }">
       <div class="flex justify-between items-center">
-        <h5>Bài kiểm tra thông minh</h5>
+        <h5 class="hidden md:block">Bài kiểm tra thông minh</h5>
+        <span class="md:hidden h7">Bài kiểm tra thông minh</span>
         <a
           (click)="showWhatIsMockTest = true"
           class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
@@ -257,12 +379,10 @@
               >
               <i class="icon-ArrowRight text-[16px]"></i>
             </div>
-            <a
-              *ngIf="row.status === MockTestStatus.learning_path_activated"
-              (click)="goToMockTest(row)"
-              class="no-underline font-bold"
-              >Bài kiểm tra số {{ row.index! + 1 }}</a
-            >
+            <div class="flex gap-2 items-center" *ngIf="row.status === MockTestStatus.learning_path_activated">
+              <a (click)="goToMockTest(row)" class="no-underline font-bold">Bài kiểm tra số {{ row.index! + 1 }}</a>
+              <i class="icon-ArrowRight text-[16px]"></i>
+            </div>
           </mat-cell>
         </ng-container>
 
@@ -271,7 +391,9 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
             <span class="caption font-bold text-blueGrey-500">Điểm số</span>
           </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{ row.score }} </mat-cell>
+          <mat-cell *matCellDef="let row">
+            <b class="w-[48px] text-center">{{ row.score }}</b>
+          </mat-cell>
         </ng-container>
 
         <!-- Header and Row Declarations -->
@@ -285,7 +407,7 @@
     </div>
     <div class="flex justify-center rounded-2xl shadow-3 bg-gradient pt-6 pr-6 text-white">
       <canvas
-        #myCanvas
+        #chartCanvas
         baseChart
         width="500"
         height="300"
@@ -300,9 +422,9 @@
 </div>
 <div
   *ngIf="showWhatIsProbabilityIndex"
-  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
+  class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
-  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px]">
+  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px] max-h-screen overflow-auto">
     <h4>Theo dõi quá trình học</h4>
     <p>
       Để có thể đạt được mục tiêu lớn mà bạn đặt ra trong học tập, trước tiên hệ thống của Kyons sẽ chia mục tiêu ấy
@@ -325,9 +447,9 @@
 </div>
 <div
   *ngIf="showWhatIsMockTest"
-  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
+  class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
-  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px]">
+  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px max-h-screen overflow-auto]">
     <h4>Bài kiểm tra thông minh</h4>
     <p>
       <b class="text-orange">Bài kiểm tra thử thông minh</b> (Smart Mock Test) do công nghệ AI của Kyons tạo ra nhằm mục

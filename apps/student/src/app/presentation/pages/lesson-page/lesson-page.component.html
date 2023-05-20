@@ -1,14 +1,20 @@
 <div class="w-full h-screen bg-blueGrey-100 flex justify-center">
   <div class="w-full max-w-[894px] col gap-4 p-6 h-screen">
+    <button [routerLink]="paths.learningPath.path" class="icon-btn self-end md:hidden">
+      <i class="icon-Close"></i>
+    </button>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
-        <button [routerLink]="paths.learningPath.path" class="no-underline flex gap-2 items-center text-orange">
+        <button
+          [routerLink]="paths.learningPath.path"
+          class="no-underline gap-2 items-center text-orange hidden md:flex"
+        >
           <i class="icon-ArrowLeft"></i>
           <span>Về lộ trình học</span>
         </button>
         <h4>{{ learningGoal.name }}</h4>
       </div>
-      <div class="flex gap-2">
+      <!-- <div class="flex gap-2">
         <div class="menu-item" [routerLink]="paths.home.path">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
@@ -17,15 +23,16 @@
           <img src="/assets/images/Store.svg" alt="" />
           <span>Thanh toán</span>
         </div>
-      </div>
+      </div> -->
     </div>
     <div
       #exerciseElm
       class="col rounded-lg bg-white p-4 gap-4 overflow-y-auto md:overflow-hidden md:flex-1 h-[calc(100vh_-_200px)]"
     >
-      <div class="flex w-full items-center justify-center gap-6">
+      <div class="flex w-full items-end justify-center gap-6">
         <div class="col gap-1 w-full">
-          <h6>{{ progressStr }}%</h6>
+          <h6 class="hidden md:block">{{ progressStr }}%</h6>
+          <span class="h8 md:hidden">{{ progressStr }}%</span>
           <kyonsvn-questions-progress
             [progress]="progress"
             class="w-full"
@@ -43,7 +50,7 @@
       </div>
       <div #scrollTopElm class="col gap-2 flex-1 overflow-auto">
         <h6 *ngIf="questionReview">
-          <span *ngIf="!questionReview.isCorrectAnswer" class="text-red-0">Không phải đáp án đúng rồi!</span
+          <span *ngIf="!questionReview.isCorrectAnswer" class="text-red-0">Không phải đáp án đúng!</span
           ><span *ngIf="questionReview.isCorrectAnswer" class="text-darkEmerald">Đáp án chính xác!</span>
         </h6>
         <p><span [innerHTML]="question.content | safeHtml"></span></p>
@@ -100,7 +107,10 @@
       <button class="btn btn-large" (click)="showWaitlistPopup = true">Đăng ký Danh sách chờ của Kyons!</button>
     </div> -->
     <div class="md:hidden w-full flex items-center justify-between gap-2 mb-20">
-      <div class="flex gap-2 items-center w-full">
+      <div class="flex gap-2 items-center w-full justify-between">
+        <button [disabled]="progress.value === 0" [routerLink]="['review']" class="btn btn-icon btn-large secondary">
+          <i class="icon-Preview"></i>
+        </button>
         <!-- <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn btn-icon">
           <i class="icon-ArrowLeft"></i>
         </button> -->
@@ -130,8 +140,11 @@
             {{ i + 1 }}
           </button>
         </div> -->
-        <button *ngIf="!questionReview" (click)="testComplete()" class="btn btn-icon">
-          <i class="icon-Submit"></i>
+        <button *ngIf="questionReview" (click)="nextQuestion()" class="btn btn-icon btn-large">
+          <i class="icon-ArrowRight"></i>
+        </button>
+        <button *ngIf="!questionReview" (click)="testComplete()" class="btn btn-icon btn-large">
+          <i class="icon-ArrowRight"></i>
         </button>
         <!-- <button
           *ngIf="currentTestIndex !== testContent.questions.length - 1"

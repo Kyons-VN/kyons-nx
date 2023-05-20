@@ -5,6 +5,7 @@ import { Subject } from '@domain/subject/subject';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
+import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 
@@ -28,6 +29,7 @@ export class ClassProgramComponent implements OnInit {
   router = inject(Router);
   knowledgeService = inject(KnowledgeService);
   location = inject(Location);
+  loading = inject(LoadingOverlayService);
 
   selectedSubject: null | Subject = null;
   emptyProgram = emptyProgramObject;
@@ -91,6 +93,7 @@ export class ClassProgramComponent implements OnInit {
   submit() {
     if (this.selectedProgram != null) {
       this.isLoading = true;
+      this.loading.show();
       this.knowledgeService.selectProgram(this.selectedProgram);
       this.knowledgeService.selectLearningGoal(this.selectedTarget);
       if (this.type == SubmitType.mock_test) {
@@ -99,9 +102,12 @@ export class ClassProgramComponent implements OnInit {
         } else {
           this.testService.submitTopics(this.selectedTarget.id, []).subscribe({
             next: testId => {
+              this.isLoading = false;
               this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
             },
             error: err => {
+              this.isLoading = false;
+              this.loading.hide();
               this.hasError = err.error_code;
             },
           });

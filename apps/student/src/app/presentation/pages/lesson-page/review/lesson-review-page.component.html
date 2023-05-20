@@ -1,15 +1,16 @@
 <student-loading *ngIf="isLoading"></student-loading>
 <div class="flex w-full justify-center">
-  <div class="col gap-4 w-full max-w-[1122px] p-12 h-screen">
+  <div class="col gap-4 w-full max-w-[1122px] p-6 md:p-12 h-screen">
+    <button (click)="goBack()" class="icon-btn self-end md:hidden"><i class="icon-Close"></i></button>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
-        <button (click)="backToResult()" class="no-underline flex gap-2 items-center text-orange">
+        <button (click)="goBack()" class="no-underline gap-2 items-center text-orange hidden md:flex">
           <i class="icon-ArrowLeft"></i>
           <span>Về lộ trình học</span>
         </button>
-        <h4>Đáp án bài kiểm tra</h4>
+        <h4>{{ learningGoal.name }}</h4>
       </div>
-      <div class="flex gap-2">
+      <div class="hidden md:flex gap-2">
         <div class="menu-item" [routerLink]="paths.home.path">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
@@ -28,12 +29,15 @@
         <h6>
           Câu {{ currentQuestionIndex + 1 }}
           <!-- <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
-            >Không phải đáp án đúng rồi!</span
+            >Không phải đáp án đúng!</span
           ><span *ngIf="questions[currentQuestionIndex].isCorrectAnswer" class="text-darkEmerald"
             >Đáp án chính xác!</span
           > -->
         </h6>
-        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded">Báo lỗi</a>
+        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded hidden md:flex">Báo lỗi</a>
+        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded btn-icon block md:hidden"
+          ><i class="icon-Error"></i
+        ></a>
       </div>
       <div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
         <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span>
@@ -41,16 +45,27 @@
         <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span>
       </div>
     </div>
-    <div class="justify-between hidden md:flex flex-col gap-3">
+    <div class="w-full">
       <!-- <div class="hidden md:flex flex-1 gap-2">
         <strong class="uppercase">Phím tắt:</strong>
         <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
       </div> -->
-      <div class="flex gap-4 items-center w-full overflow-hidden">
-        <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn">Câu trước</button>
+      <div class="flex gap-2 md:gap-4 items-center w-full overflow-hidden">
+        <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn hidden md:flex">
+          Câu trước
+        </button>
+        <button
+          (click)="scrollLeft()"
+          [disabled]="currentQuestionIndex === 0"
+          class="btn btn-icon btn-large flex md:hidden"
+        >
+          <i class="icon-ArrowLeft"></i>
+        </button>
         <div class="flex-1 flex gap-1 w-full overflow-hidden">
-          <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
-          <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
+          <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
+            <i class="icon-ArrowLeft"></i>
+          </button>
+          <div #scrollElm class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
             <button
               class="btn btn-icon fill-black"
               *ngFor="let question of questions; index as i"
@@ -62,14 +77,23 @@
               {{ i + 1 }}
             </button>
           </div>
-          <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ArrowRight"></i></button>
+          <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
+            <i class="icon-ArrowRight"></i>
+          </button>
         </div>
         <button
           [disabled]="currentQuestionIndex === questions.length - 1"
           (click)="scrollRight()"
-          class="btn bg-lightBlue-1"
+          class="btn hidden md:flex"
         >
           Câu kế tiếp
+        </button>
+        <button
+          (click)="scrollRight()"
+          [disabled]="currentQuestionIndex === questions.length - 1"
+          class="btn btn-icon btn-large flex md:hidden"
+        >
+          <i class="icon-ArrowRight"></i>
         </button>
       </div>
     </div>

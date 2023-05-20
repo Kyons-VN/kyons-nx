@@ -88,13 +88,33 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
 }
 .btn,
 .btn-rounded {
-  @apply rounded-md h-[40px] px-[20px] flex items-center justify-center cursor-pointer border font-bold whitespace-nowrap gap-2;
+  @apply rounded-md h-[40px] px-[20px] flex items-center justify-center cursor-pointer border whitespace-nowrap gap-2;
   &.btn-icon {
     @apply w-[40px] h-[40px];
+    &.btn-large {
+      @apply w-[48px] h-[48px];
+      i {
+        @apply text-[24px];
+      }
+    }
+    i {
+      @apply text-[16px];
+    }
+  }
+  &.hidden {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .btn,
+  .btn-rounded {
+    &.hidden.md\:flex {
+      display: flex;
+    }
   }
 }
 .icon-btn {
-  @apply text-orange w-[24px] h-[24px] flex items-center justify-center no-underline;
+  @apply text-orange w-[24px] h-[24px] flex items-center justify-center no-underline text-[24px];
   i {
     @apply text-[24px];
   }
@@ -127,7 +147,7 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
 
 .btn.btn-small,
 .btn-rounded.btn-small {
-  @apply px-1 py-2 h-8;
+  @apply px-1 py-2 h-[32px];
 
   font-size: 0.875rem;
   line-height: 100%;
@@ -135,7 +155,7 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
 
 .btn.btn-large,
 .btn-rounded.btn-large {
-  @apply p-5 h-12;
+  @apply p-5 h-[48px];
 
   font-size: 0.875rem;
   line-height: 100%;
@@ -310,4 +330,10 @@ table {
 .hide-scrollbar::-webkit-scrollbar,
 .katex-html {
   display: none; /* Safari and Chrome */
+}
+.tab-menu {
+  @apply h-[40px] flex items-center justify-center text-blueGrey-500 rounded-2xl cursor-pointer font-bold px-2 py-[10px];
+  &.active {
+    @apply bg-lightBlue-5 text-lightBlue-1;
+  }
 }

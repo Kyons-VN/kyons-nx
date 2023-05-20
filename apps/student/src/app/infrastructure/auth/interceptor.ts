@@ -51,27 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             console.log('this is server side error');
             if (error.status === 401) {
-              this.auth.removeToken();
-              const refreshToken = this.auth.getRefreshToken();
-              if (refreshToken && refreshToken !== 'undefined') {
-                lastValueFrom(this.auth.refreshToken(refreshToken)).then((value: any) => {
-                  this.auth.setToken(value.access_token);
-                  authReq = req.clone({
-                    headers: req.headers
-                      .set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token)
-                      .set('Content-Type', contentType),
-                  });
-                  return next.handle(authReq).subscribe({
-                    error: e => {
-                      console.log(e);
-                      this.forceSignOut();
-                    },
-                  });
-                });
-              } else {
-                // this.forceSignOut();
-                console.log('forceSignOut');
-              }
+              this.handleRefreshToken(authReq, req, next, contentType);
             } // else this.redirectToHome();
           }
           // console.log(errorMsg);
@@ -88,17 +68,17 @@ export class AuthInterceptor implements HttpInterceptor {
 
       // TODO: better job of transforming error for user consumption
       console.log(`${operation} failed: ${error.message}`);
-      if (error.status === 401) {
-        const refreshToken = this.auth.getRefreshToken();
-        if (refreshToken !== null) {
-          const result = lastValueFrom(this.auth.refreshToken(refreshToken));
-          console.log(result);
-          if (result != null) this.auth.setToken(result);
-          else this.forceSignOut();
-        } else {
-          this.forceSignOut();
-        }
-      }
+      // if (error.status === 401) {
+      //   const refreshToken = this.auth.getRefreshToken();
+      //   if (refreshToken !== null) {
+      //     const result = lastValueFrom(this.auth.refreshToken(refreshToken));
+      //     console.log(result);
+      //     if (result != null) this.auth.setToken(result);
+      //     else this.forceSignOut();
+      //   } else {
+      //     this.forceSignOut();
+      //   }
+      // }
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
@@ -113,6 +93,37 @@ export class AuthInterceptor implements HttpInterceptor {
 
   private redirectToHome() {
     this.router.navigate([this.paths.home.path]);
+  }
+
+  handleRefreshToken(authReq: HttpRequest<any>, req: HttpRequest<any>, next: HttpHandler, contentType: string) {
+    const refreshToken = this.auth.getRefreshToken();
+    if (refreshToken && refreshToken !== 'undefined') {
+      lastValueFrom(this.auth.refreshToken(refreshToken)).then(
+        (value: any) => {
+          if (value.access_token === undefined || value.access_token === null || value.access_token === 'undefined') {
+            this.forceSignOut();
+            return;
+          }
+          this.auth.setToken(value.access_token);
+          authReq = req.clone({
+            headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token).set('Content-Type', contentType),
+          });
+          return next.handle(authReq).subscribe({
+            error: e => {
+              console.log(e);
+              this.forceSignOut();
+            },
+          });
+        },
+        e => {
+          console.log(e);
+          this.forceSignOut();
+        }
+      );
+    } else {
+      this.forceSignOut();
+      console.log('forceSignOut');
+    }
   }
 }
 

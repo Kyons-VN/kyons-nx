@@ -43,7 +43,7 @@
       <button
         class="btn-extra-large flex justify-between w-full bg-blue-gradient text-white"
         [disabled]="learnings.length === 0"
-        [routerLink]="paths.learningPath.path"
+        (click)="goToLastestLearningGoal()"
       >
         <span>Tiếp tục học bài trước đó</span>
         <i class="icon-ArrowForward"></i>
@@ -126,7 +126,7 @@
         </p>
       </div>
       <ng-template #elseBlock>
-        <div class="grid grid-col-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        <div class="grid grid-col-1 xl:grid-cols-2 gap-x-6 gap-y-4">
           <div (click)="selectLearningGoal(item)" *ngFor="let item of learnings" class="learning-goal-item">
             <img src="/assets/images/Subject.svg" alt="" />
             <div class="col gap-0.5 flex-1">
