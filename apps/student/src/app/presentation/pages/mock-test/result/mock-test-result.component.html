@@ -1,6 +1,6 @@
 <div *ngIf="testResult" class="flex w-full justify-center">
   <div class="col gap-6 md:gap-8 w-full max-w-[1122px] p-6 md:p-12">
-    <div class="gap-2 flex md:hidden justify-end">
+    <div class="gap-2 flex md:hidden justify-center">
       <div class="menu-item" [routerLink]="paths.home.path">
         <img src="/assets/images/Home.svg" alt="" />
         <span>Trang chủ</span>
@@ -65,11 +65,11 @@
               [radius]="75"
               outerStrokeColor="var(--color-blueGrey-300)"
               innerStrokeColor="var(--color-blueGrey-300)"
-              [animation]="false"
               [innerStrokeWidth]="20"
               [outerStrokeWidth]="20"
               [space]="-20"
               [responsive]="true"
+              [lazy]="false"
             ></circle-progress>
             <circle-progress
               *ngIf="probabilityIndex"

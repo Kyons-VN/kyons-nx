@@ -21,22 +21,20 @@
       </div>
     </div>
     <div
-      class="col rounded-lg bg-white p-4 gap-4 overflow-y-auto md:overflow-hidden md:flex-1 h-[calc(100vh_-_200px)]"
+      class="col rounded-lg bg-white p-4 gap-4 overflow-y-auto md:overflow-hidden md:flex-1 h-[calc(100vh_-_280px)]"
       *ngIf="!isLoading"
     >
       <div class="flex items-start justify-between w-full">
         <h6 class="hidden md:flex">
           Câu {{ currentQuestionIndex + 1 }}/{{ questions.length }}&nbsp;-&nbsp;
-          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
-            >Không phải đáp án đúng!</span
+          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0">Chưa phải đáp án đúng!</span
           ><span *ngIf="questions[currentQuestionIndex].isCorrectAnswer" class="text-darkEmerald"
             >Đáp án chính xác!</span
           >
         </h6>
         <span class="h8 md:hidden">
           Câu {{ currentQuestionIndex + 1 }}/{{ questions.length }}&nbsp;-&nbsp;
-          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0"
-            >Không phải đáp án đúng!</span
+          <span *ngIf="!questions[currentQuestionIndex].isCorrectAnswer" class="text-red-0">Chưa phải đáp án đúng!</span
           ><span *ngIf="questions[currentQuestionIndex].isCorrectAnswer" class="text-darkEmerald"
             >Đáp án chính xác!</span
           >

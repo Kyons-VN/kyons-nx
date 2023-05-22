@@ -1,3 +1,9 @@
 .bg-img {
-  @apply bg-[url('/assets/images/finish-learninggoal.webp')] bg-cover bg-center;
+  @apply bg-cover bg-center bg-no-repeat;
+  @media screen and (min-width: 768px) {
+    background-image: url('/assets/images/finish-learninggoal.webp');
+  }
+  @media screen and (max-width: 767px) {
+    background-image: url('/assets/images/finish-learninggoal-xs.webp');
+  }
 }

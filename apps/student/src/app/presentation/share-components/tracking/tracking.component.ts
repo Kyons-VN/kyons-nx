@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostListener,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { TrackingService } from '@infrastructure/tracking/tracking.service';
 
 @Component({
@@ -17,10 +11,12 @@ export class TrackingComponent implements OnInit, OnDestroy {
   _mouseInactiveTimeout: any;
   _trackingInterval: any;
 
-  constructor(private service: TrackingService) { }
+  constructor(private service: TrackingService) {}
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove() {
+    const isLocalhost = window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1/';
+    if (isLocalhost) return;
     if (!this._isMouseActive) {
       // this.service.resetTrackingOnApp();
       this._isMouseActive = true;
@@ -37,6 +33,8 @@ export class TrackingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const isLocalhost = window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1/';
+    if (isLocalhost) return;
     this._isMouseActive = false;
     this._trackingInterval = setInterval(() => {
       if (this._isMouseActive) this.service.updateTrackOnApp();

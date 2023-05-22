@@ -67,6 +67,8 @@ export class LessonPageComponent implements OnInit {
   }
 
   _getQuestion() {
+    this.isSubmitting = true;
+    console.log('nextQuestion');
     this.testService.getExercise(this.route.snapshot.params['id']).subscribe({
       next: (exercise: ExerciseHtml) => {
         this.exercise = exercise;
@@ -75,25 +77,35 @@ export class LessonPageComponent implements OnInit {
         this.progressStr = (exercise.progress ?? 0).toFixed(2);
         this.loading.hide();
         setTimeout(() => {
-          console.log('setTimeout');
-          const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form');
-          records.forEach((form, index) => {
-            this.exercise.questions[index].form = form;
-            form.addEventListener('click', () => {
-              this.currentForm = form;
+          // console.log('setTimeout');
+          const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form>div>div');
+          console.log(records.length);
+          records.forEach((div, index) => {
+            // this.exercise.questions[index].form = div.parentNode?.parentNode as HTMLFormElement;
+            div.addEventListener('click', e => {
+              // if (this.isSubmitting) return;
+              // console.log(div.getAttribute('data-index'));
               // const results: string[][] = [];
               // for (const form of records) {
-              const data = new FormData(form);
-              const result = data.get('objective_type_select');
+              // const data = new FormData(form);
+              const result = div.getAttribute('data-index');
               // typeof result == 'string' ? results.push([result]) : results.push([]);
               // }
+              // if (result == null) return;
               const questionId = this.exercise.questions[0].id;
               this.submission.reset();
               this.submission.submitData[questionId] = result?.toString() ?? '';
+              console.log(result);
+              const form = div.parentElement?.parentElement as HTMLFormElement;
+              this.currentForm = form;
             });
           });
+        }, 1000);
+        setTimeout(() => {
           this.scrollTopElm.nativeElement.scrollTop = 0;
-        }, 100);
+          this.scrollTopElm.nativeElement.scrollLeft = 0;
+          this.isSubmitting = false;
+        }, 2000);
       },
       error: e => {
         console.log(e);
@@ -103,20 +115,29 @@ export class LessonPageComponent implements OnInit {
           this.progressStr = '100.00';
           this.showComplete = true;
         }
+        this.isSubmitting = false;
       },
     });
   }
 
   testComplete() {
     if (this.isSubmitting) return;
+    const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form');
+    const data = new FormData(records[0]);
+    const result = data.get('objective_type_select');
+    console.log(result);
     if (!this.submission.hasAnswer(this.exercise.questions[0].id)) {
       this.showIncomplete = true;
       return;
     } else {
       this.isSubmitting = true;
+      console.log('testComplete');
+      this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
+        input.setAttribute('disabled', 'disabled');
+      });
       this.lessonService.submitExercise(this.lessonId, this.submission).subscribe({
         next: result => {
-          console.log(result);
+          console.log(result.result[0].answer_status);
           this.progress.value = result['lesson_percentage'];
           this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
           this.questionReview = QuestionReviewHtml.fromJson(result['result'][0]);
@@ -125,9 +146,7 @@ export class LessonPageComponent implements OnInit {
           }
           this.isSubmitting = false;
           this.scrollTopElm.nativeElement.scrollTop = 0;
-          this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
-            input.setAttribute('disabled', 'disabled');
-          });
+          this.scrollTopElm.nativeElement.scrollLeft = 0;
         },
         error: (e: any) => {
           console.log(e);
@@ -138,6 +157,10 @@ export class LessonPageComponent implements OnInit {
   }
 
   nextQuestion() {
+    this.currentForm.querySelectorAll('input[type="radio"]').forEach(input => {
+      input.removeAttribute('disabled');
+    });
+    this.currentForm.reset();
     this.questionReview = null;
     this._getQuestion();
   }

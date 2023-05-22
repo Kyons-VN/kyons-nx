@@ -6,6 +6,9 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+a {
+  @apply cursor-pointer;
+}
 .card {
   @apply rounded-lg p-6 flex flex-col gap-6;
   min-width: 324px;
@@ -336,4 +339,14 @@ table {
   &.active {
     @apply bg-lightBlue-5 text-lightBlue-1;
   }
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+object,
+svg {
+  pointer-events: none;
 }

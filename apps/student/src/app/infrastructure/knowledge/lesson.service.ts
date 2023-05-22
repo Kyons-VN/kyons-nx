@@ -174,7 +174,7 @@ export class LessonService implements ILessonService {
     return this.http
       .post(SERVER_API + `/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
       .pipe(
-        catchError(DBHelper.handleError('GET submit_answers', Error('Server Error'))),
+        catchError(DBHelper.handleError('GET submit_answers', Error)),
         map((res: any) => {
           return res.data;
         })

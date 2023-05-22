@@ -179,12 +179,18 @@
   <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
     <img src="assets/images/New Account.svg" />
     <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
-      <h4 class="text-primaryBlue">Chúc mừng bạn đã tạo tài khoản thành công!</h4>
+      <h4 class="text-primaryBlue">Cảm ơn bạn đã tạo tài khoản cùng Kyons!</h4>
       <div class="flex flex-col gap-2">
-        <span>Hãy kiểm tra email để xác nhận tài khoản và đăng nhập vào Kyons.</span>
-        <span>Tụi mình đã sẵn sàng để giúp bạn học ‘’ích’’ hơn rồi đó!</span>
+        <span
+          >Mật khẩu đăng nhập tạm thời đã được gửi đến địa chỉ email <b>{{ email.value }}</b
+          >. Bạn hãy kiểm tra hộp thư (cả mục Spam và quảng cáo) và sử dụng mật khẩu đó để đăng nhập vào hệ thống.</span
+        >
+        <span
+          >Trong trường hợp vẫn chưa nhận được bất kì email nào từ Kyons, bạn vui lòng liên hệ với tụi mình tại
+          <a href="https://www.facebook.com/KyonsVN" target="_blank">facebook.com/KyonsVN</a> để được hỗ trợ nhé!</span
+        >
       </div>
-      <a class="btn" [routerLink]="paths.signIn.path">Trở về trang đăng nhập</a>
+      <a class="btn" [routerLink]="paths.signIn.path">Đăng nhập ngay thôi</a>
     </div>
   </div>
 </div>

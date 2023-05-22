@@ -166,6 +166,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
               }, 100);
               this.errorMessage = 'Email không thể có dấu + hoặc dấu .';
             }
+          } else if (err.error.error_code == 'UsernameExistsException') {
+            this.step = 0;
+            this.errorMessage = 'Email này đã được dùng để tạo tài khoản.';
           }
           this.processing = false;
           this.loading.hide();

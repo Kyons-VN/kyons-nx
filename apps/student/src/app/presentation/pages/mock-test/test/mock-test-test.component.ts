@@ -117,15 +117,19 @@ export class MockTestTestComponent implements OnInit {
               this.counter -= 1000;
               this.counterTime = new Date(this.counter);
               if (this.counter < 0) {
+                this.ignoreHavingTime = true;
+                this.ignoreIncomplete = true;
                 this.testComplete();
               }
             }, 1000);
             // }, 2000);
+            this.loading.hide();
           },
         });
       },
       error: err => {
         this.hasError = err.error_code;
+        this.loading.hide();
       },
       complete: () => {
         if (this.complete) {

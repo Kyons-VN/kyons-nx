@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="gap-2 flex xl:hidden p-6 justify-end">
+  <div class="gap-2 flex xl:hidden p-6 justify-center">
     <div [routerLink]="paths.home.path" class="menu-item">
       <img src="/assets/images/Home.svg" alt="" />
       <span>Trang chủ</span>
@@ -143,9 +143,11 @@
                       'new-block': lessons[i + bi * 2].isNew
                     }"
                     (click)="onLessonBlockClick(lessons[i + bi * 2])"
-                    tabindex="0"
+                    [title]="lessons[i + bi * 2].name"
                   >
-                    <div class="text-[12px] md:h7">{{ lessons[i + bi * 2].name }}</div>
+                    <div class="text-[12px] md:h7 text-ellipsis line-clamp-3 font-bold">
+                      {{ lessons[i + bi * 2].name }}
+                    </div>
                     <span
                       *ngIf="!lessons[i + bi * 2].isNew"
                       class="text-[12px] md:h7 w-full text-right italic font-bold"
@@ -157,12 +159,16 @@
                         [percent]="lessons[i + bi * 2].progress!"
                         [title]="lessons[i + bi * 2].progress! + '%'"
                         [showSubtitle]="false"
-                        [radius]="32"
-                        titleFontSize="16px"
+                        [radius]="20"
+                        titleFontSize="12px"
                         titleFontWeight="bold"
                         outerStrokeColor="var(--color-white)"
                         titleColor="var(--color-white)"
                         innerStrokeColor="var(--color-blueGrey-300)"
+                        innerStrokeWidth="4"
+                        [outerStrokeWidth]="4"
+                        [space]="-4"
+                        [lazy]="false"
                       ></circle-progress>
                     </div>
                   </button>
@@ -266,6 +272,7 @@
             innerStrokeWidth="24"
             [space]="-24"
             [responsive]="true"
+            [lazy]="false"
           ></circle-progress>
           <circle-progress
             *ngIf="learningGoalPath.isEmpty()"
@@ -326,6 +333,7 @@
             innerStrokeWidth="24"
             [space]="-24"
             [responsive]="true"
+            [lazy]="false"
           ></circle-progress>
         </div>
       </div>
@@ -424,7 +432,9 @@
   *ngIf="showWhatIsProbabilityIndex"
   class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
-  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px] max-h-screen overflow-auto">
+  <div
+    class="absolute top-0 md:static col rounded-2xl bg-white gap-6 p-6 max-w-[700px] max-h-[calc(100vh_-_8rem)] overflow-auto"
+  >
     <h4>Theo dõi quá trình học</h4>
     <p>
       Để có thể đạt được mục tiêu lớn mà bạn đặt ra trong học tập, trước tiên hệ thống của Kyons sẽ chia mục tiêu ấy
@@ -442,14 +452,16 @@
       hiện khả năng bạn có thể hoàn thành mục tiêu lớn dựa trên số lượng kiến thức mà bạn đã học so với toàn bộ kiến
       thức có thể ra trong bài kiểm tra.
     </p>
-    <button (click)="showWhatIsProbabilityIndex = false" class="btn w-full">Đã hiểu</button>
+    <button (click)="showWhatIsProbabilityIndex = false" class="btn w-full shrink-0">Đã hiểu</button>
   </div>
 </div>
 <div
   *ngIf="showWhatIsMockTest"
   class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
-  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px max-h-screen overflow-auto]">
+  <div
+    class="absolute top-0 md:static col rounded-2xl bg-white gap-6 p-6 max-w-[700px] max-h-[calc(100vh_-_8rem)] overflow-auto"
+  >
     <h4>Bài kiểm tra thông minh</h4>
     <p>
       <b class="text-orange">Bài kiểm tra thử thông minh</b> (Smart Mock Test) do công nghệ AI của Kyons tạo ra nhằm mục
@@ -470,6 +482,6 @@
       <b class="text-lightBlue-1">thay đổi sang lộ trình học khác</b>. Vì thế, hãy cứ trải nghiệm Kyons để hiểu rõ kiến
       thức mình đang còn yếu nằm ở đâu nhé! Chúc bạn học tập thật tốt nha.
     </p>
-    <button (click)="showWhatIsMockTest = false" class="btn w-full">Đã hiểu</button>
+    <button (click)="showWhatIsMockTest = false" class="btn w-full shrink-0">Đã hiểu</button>
   </div>
 </div>
