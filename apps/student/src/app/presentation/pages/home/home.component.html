@@ -3,7 +3,7 @@
     <div class="bg-rocket-xs text-white px-4 py-8">
       <div class="flex justify-between items-center relative">
         <div class="flex gap-3 items-center">
-          <img src="/assets/images/avatar.webp" alt="" />
+          <img src="/assets/images/Avatar.svg" alt="" />
           <h4>Xin chào!</h4>
         </div>
         <button (click)="showSubmenu = !showSubmenu">
@@ -16,17 +16,20 @@
               [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
               class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
             >
+              <a [routerLink]="paths.profile.path" class="drop-menu-item">
+                <li>Thông tin cá nhân</li>
+              </a>
               <a [routerLink]="paths.account.path" class="drop-menu-item">
-                <li>Tài khoản</li>
+                <li>Tài khoản của bạn</li>
               </a>
               <li class="border-t border-blueGrey-300"></li>
               <!-- <li [routerLink]="'/knowledge'">
                 <a class="h-5 text-primaryBlue">Cây kiến thức</a>
               </li>
               <li class="border-t border-blueGrey-300"></li> -->
-              <li [routerLink]="paths.signOut.path">
-                <span class="drop-menu-item">Thoát</span>
-              </li>
+              <a [routerLink]="paths.signOut.path" class="drop-menu-item">
+                <li>Thoát</li>
+              </a>
             </ul>
           </li>
           <!-- <li>
@@ -157,7 +160,7 @@
   <div class="hidden md:flex flex-col p-11 bg-rocket text-white">
     <div class="flex justify-between items-center relative">
       <div class="flex gap-3 items-center">
-        <img src="/assets/images/avatar.webp" alt="" />
+        <img src="/assets/images/Avatar.svg" alt="" />
         <h4>Xin chào!</h4>
       </div>
       <i (click)="showSubmenu = !showSubmenu" class="cursor-pointer icon-Settings text-[40px]"></i>
@@ -167,17 +170,20 @@
             [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
             class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
           >
-            <li [routerLink]="paths.account.path">
-              <span class="drop-menu-item">Tài khoản</span>
-            </li>
+            <a [routerLink]="paths.profile.path" class="drop-menu-item">
+              <li>Thông tin cá nhân</li>
+            </a>
+            <a [routerLink]="paths.account.path" class="drop-menu-item">
+              <li>Tài khoản của bạn</li>
+            </a>
             <li class="border-t border-blueGrey-300"></li>
             <!-- <li [routerLink]="'/knowledge'">
               <a class="h-5 text-primaryBlue">Cây kiến thức</a>
             </li>
             <li class="border-t border-blueGrey-300"></li> -->
-            <li [routerLink]="paths.signOut.path">
-              <span class="drop-menu-item">Thoát</span>
-            </li>
+            <a [routerLink]="paths.signOut.path" class="drop-menu-item">
+              <li>Thoát</li>
+            </a>
           </ul>
         </li>
         <!-- <li>

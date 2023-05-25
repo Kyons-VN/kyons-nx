@@ -13,14 +13,12 @@ import { DEFAULT_TIMEOUT, authInterceptorProviders } from './infrastructure/auth
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
-import { DiagnosticTestComponent } from './presentation/pages/diagnostic-test/diagnostic-test.component';
 import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
-import { ProfileComponent } from './presentation/pages/profile/profile.component';
 import { RatingTutorComponent } from './presentation/pages/rating-tutor/rating-tutor.component';
 import { SignOutComponent } from './presentation/pages/sign-out/sign-out.component';
 import { TestComponent } from './presentation/pages/test/test.component';
@@ -64,7 +62,6 @@ registerLocaleData(localeEN, 'en');
     AppInputComponent,
     ClassProgramComponent,
     ConfirmDialogComponent,
-    DiagnosticTestComponent,
     FinalExamComponent,
     InputRadioComponent,
     KnowledgeComponent,
@@ -76,7 +73,7 @@ registerLocaleData(localeEN, 'en');
     NewUserComponent,
     PackagePageComponent,
     PageNotFoundComponent,
-    ProfileComponent,
+    // ProfileComponent,
     QuestionsProgressComponent,
     RatingTutorComponent,
     ScoreBarComponent,

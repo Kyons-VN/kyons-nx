@@ -1,6 +1,6 @@
 <div class="xl:flex-row w-full xl:h-screen col relative">
-  <div class="p-6 absolute w-full top-[68px]">
-    <div class="col w-full sm:hidden bg-white rounded-2xl p-4 gap-4 h-[264px]">
+  <div class="p-6 absolute w-full top-[68px] sm:hidden">
+    <div class="col w-full bg-white rounded-2xl p-4 gap-4 h-[264px]">
       <div class="flex justify-between gap-1">
         <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0">Lộ trình học</div>
         <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 1 }" (click)="activeTab = 1">

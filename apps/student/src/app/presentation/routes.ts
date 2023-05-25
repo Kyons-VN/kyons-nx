@@ -18,6 +18,7 @@ import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.com
 import { NewUserComponent } from './pages/new-user/new-user.component';
 import { PackagePageComponent } from './pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignOutComponent } from './pages/sign-out/sign-out.component';
 import { TestComponent } from './pages/test/test.component';
@@ -109,11 +110,11 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     canActivate: [AuthGuard],
     children: [
-      // {
-      //   path: 'profile',
-      //   component: ProfileComponent,
-      //   canActivate: [AuthGuard],
-      // },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+      },
       // {
       //   path: 'knowledge',
       //   component: KnowledgeComponent,

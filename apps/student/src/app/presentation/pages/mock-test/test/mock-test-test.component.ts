@@ -15,6 +15,8 @@ import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-com
 import { MockTestHtmlStatus, MockTestResult, Progress, SubmissionHtml, TestContentHtml } from '@share-utils/data';
 import { Observable, fromEvent } from 'rxjs';
 
+const TEST_DURATION = 90 * 60 * 1000;
+
 @Component({
   standalone: true,
   imports: [
@@ -64,7 +66,7 @@ export class MockTestTestComponent implements OnInit {
   shareLink = '';
   isCopied = false;
   isPending = true;
-  counter = 90 * 60 * 1000;
+  counter = 0;
   counterTime = new Date(this.counter);
   Math = Math;
   showIncomplete = false;
@@ -109,8 +111,7 @@ export class MockTestTestComponent implements OnInit {
         this.testProgress = Progress.from(0, value.questions.length);
         this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
           next: mockTest => {
-            const duration = 90 * 60 * 1000;
-            this.counter = mockTest.createdAt.getTime() + duration - Date.now();
+            this.counter = mockTest.createdAt.getTime() + TEST_DURATION - Date.now();
             this.counterTime = new Date(this.counter);
             // setTimeout(() => {
             setInterval(() => {

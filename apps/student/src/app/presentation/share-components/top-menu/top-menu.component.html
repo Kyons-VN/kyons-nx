@@ -139,8 +139,11 @@
         [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
         class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
       >
+        <li [routerLink]="paths.profile.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
+          <span class="drop-menu-item">Thông tin cá nhân</span>
+        </li>
         <li [routerLink]="paths.account.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
-          <span class="drop-menu-item">Tài khoản</span>
+          <span class="drop-menu-item">Tài khoản của bạn</span>
         </li>
         <li class="border-t border-blueGrey-300"></li>
         <!-- <li [routerLink]="'/knowledge'">

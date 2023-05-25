@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, firstValueFrom } from 'rxjs';
+import { User } from '@domain/user/user';
+import { catchError, firstValueFrom, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
@@ -29,7 +30,7 @@ export class UserService {
           window.localStorage.setItem(CURRENT_USER, JSON.stringify(res));
           resolve(true);
         },
-        (msg) => {
+        msg => {
           // Error
           reject(msg);
         }
@@ -39,26 +40,30 @@ export class UserService {
   }
 
   getUsername() {
-    const currentUser = JSON.parse(
-      window.localStorage.getItem(CURRENT_USER) ?? '{}'
-    );
+    const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
     return currentUser.first_name;
   }
   getUserType() {
-    const currentUser = JSON.parse(
-      window.localStorage.getItem(CURRENT_USER) ?? '{}'
-    );
+    const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
     return currentUser.study_type;
   }
 
   getUserId() {
-    const currentUser = JSON.parse(
-      window.localStorage.getItem(CURRENT_USER) ?? '{}'
-    );
+    const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
     return currentUser.uuid;
   }
 
   removeCurrentUser() {
     window.localStorage.removeItem(CURRENT_USER);
+  }
+
+  getUserInfo(userId: string) {
+    const params = new HttpParams().set('id', userId);
+    return this.http.get(SERVER_API + '/auth/get_user', { params: params }).pipe(
+      catchError(DBHelper.handleError('GET get_user', null)),
+      map((res: any) => {
+        return User.fromJson(res);
+      })
+    );
   }
 }
