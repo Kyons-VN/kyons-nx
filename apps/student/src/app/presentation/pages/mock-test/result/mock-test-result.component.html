@@ -1,28 +1,28 @@
 <div *ngIf="testResult" class="flex w-full justify-center">
   <div class="col gap-6 md:gap-8 w-full max-w-[1122px] p-6 md:p-12">
     <div class="gap-2 flex md:hidden justify-center">
-      <div class="menu-item" [routerLink]="paths.home.path">
+      <a [routerLink]="paths.home.path" class="menu-item">
         <img src="/assets/images/Home.svg" alt="" />
         <span>Trang chủ</span>
-      </div>
-      <div class="menu-item" [routerLink]="paths.package.path">
-        <img src="/assets/images/Store.svg" alt="" />
-        <span>Thanh toán</span>
-      </div>
+      </a>
+      <a [routerLink]="paths.account.path" class="menu-item">
+        <img src="/assets/images/Profile.svg" alt="" />
+        <span>Tài khoản</span>
+      </a>
     </div>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
         <h4>Điểm bài kiểm tra</h4>
       </div>
       <div class="gap-2 hidden md:flex">
-        <div class="menu-item" [routerLink]="paths.home.path">
+        <a [routerLink]="paths.home.path" class="menu-item">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
-        </div>
-        <div class="menu-item" [routerLink]="paths.package.path">
-          <img src="/assets/images/Store.svg" alt="" />
-          <span>Thanh toán</span>
-        </div>
+        </a>
+        <a [routerLink]="paths.account.path" class="menu-item">
+          <img src="/assets/images/Profile.svg" alt="" />
+          <span>Tài khoản</span>
+        </a>
       </div>
     </div>
     <div class="col p-6 bg-white rounded-lg gap-6">

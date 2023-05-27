@@ -58,14 +58,14 @@
       <div class="flex justify-between">
         <img src="/assets/images/logo-h.svg" alt="" width="126px" />
         <div class="flex gap-2">
-          <div class="menu-item active">
+          <a class="menu-item active">
             <img src="/assets/images/Home.svg" alt="" />
             <span>Trang chủ</span>
-          </div>
-          <div [routerLink]="paths.package.path" class="menu-item">
-            <img src="/assets/images/Store.svg" alt="" />
-            <span>Thanh toán</span>
-          </div>
+          </a>
+          <a [routerLink]="paths.account.path" class="menu-item">
+            <img src="/assets/images/Profile.svg" alt="" />
+            <span>Tài khoản</span>
+          </a>
         </div>
       </div>
     </div>

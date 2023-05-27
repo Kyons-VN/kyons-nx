@@ -18,14 +18,14 @@
     </div>
   </div>
   <div class="gap-2 flex xl:hidden p-6 justify-center">
-    <div [routerLink]="paths.home.path" class="menu-item">
+    <a [routerLink]="paths.home.path" class="menu-item">
       <img src="/assets/images/Home.svg" alt="" />
       <span>Trang chủ</span>
-    </div>
-    <div [routerLink]="paths.package.path" class="menu-item">
-      <img src="/assets/images/Store.svg" alt="" />
-      <span>Thanh toán</span>
-    </div>
+    </a>
+    <a [routerLink]="paths.account.path" class="menu-item">
+      <img src="/assets/images/Profile.svg" alt="" />
+      <span>Tài khoản</span>
+    </a>
   </div>
   <div class="col flex-1 gap-6 items-center py-16 px-8 bg-image" [ngClass]="{ 'xs-hidden': activeTab !== 0 }">
     <div class="block sm:hidden h-[264px]"></div>
@@ -230,14 +230,14 @@
     <div class="block sm:hidden h-[264px]"></div>
     <div class="justify-end hidden xl:flex">
       <div class="flex gap-2">
-        <div [routerLink]="paths.home.path" class="menu-item">
+        <a [routerLink]="paths.home.path" class="menu-item">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
-        </div>
-        <div [routerLink]="paths.package.path" class="menu-item">
-          <img src="/assets/images/Store.svg" alt="" />
-          <span>Thanh toán</span>
-        </div>
+        </a>
+        <a [routerLink]="paths.account.path" class="menu-item">
+          <img src="/assets/images/Profile.svg" alt="" />
+          <span>Tài khoản</span>
+        </a>
       </div>
     </div>
     <div class="col gap-4" id="mockTestAnchor">

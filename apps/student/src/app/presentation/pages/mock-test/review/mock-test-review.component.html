@@ -10,14 +10,14 @@
         <h4>Đáp án bài kiểm tra</h4>
       </div>
       <div class="gap-2 hidden md:flex">
-        <button class="menu-item" [routerLink]="paths.home.path">
+        <a [routerLink]="paths.home.path" class="menu-item">
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
-        </button>
-        <button class="menu-item" [routerLink]="paths.package.path">
-          <img src="/assets/images/Store.svg" alt="" />
-          <span>Thanh toán</span>
-        </button>
+        </a>
+        <a [routerLink]="paths.account.path" class="menu-item">
+          <img src="/assets/images/Profile.svg" alt="" />
+          <span>Tài khoản</span>
+        </a>
       </div>
     </div>
     <div
