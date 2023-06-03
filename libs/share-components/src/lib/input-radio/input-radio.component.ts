@@ -16,4 +16,8 @@ export class InputRadioComponent {
   @Input() disabled!: boolean;
   @Input() checked!: boolean;
   @Input() color!: string;
+  // el: HTMLElement;
+  // constructor(ref: ElementRef<HTMLElement>) {
+  //   this.el = ref.nativeElement;
+  // }
 }

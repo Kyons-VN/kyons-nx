@@ -1,4 +1,15 @@
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 // import { Submission } from '@infrastructure/test/submission';
 // import {
 //   answerPrefixes,
@@ -9,19 +20,67 @@ import { OrderBySAPipe, SafeHtmlPipe } from '@kyonsvn/share-pipes';
 import { Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';
+import { TutorialComponent } from '../tutorial/tutorial.component';
+
+export class AnswerTutorialScript {
+  value: string;
+  tooltipContent: string;
+  tooltipPosition: 'top' | 'bottom';
+  event: [string, () => void] | null;
+  constructor({
+    value,
+    tooltipContent,
+    tooltipPosition,
+    event,
+  }: {
+    value: string;
+    tooltipContent: string;
+    tooltipPosition?: 'top' | 'bottom';
+    event?: [string, () => void];
+  }) {
+    this.value = value;
+    this.tooltipContent = tooltipContent;
+    this.tooltipPosition = tooltipPosition ?? 'top';
+    this.event = event ?? null;
+  }
+}
+
+export class QuestionTutorialScript {
+  tooltipContent: string;
+  scripts: AnswerTutorialScript[];
+  delay: number;
+  skipCallback: () => void;
+  constructor(
+    tooltipContent: string | null,
+    scripts: AnswerTutorialScript[],
+    skipCallback: () => void,
+    delay?: number
+  ) {
+    this.tooltipContent = tooltipContent ?? 'Đọc câu hỏi và chọn đáp án phù hợp';
+    this.scripts = scripts;
+    this.skipCallback = skipCallback;
+    this.delay = delay ?? 0;
+  }
+}
 
 @Component({
   standalone: true,
-  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe],
+  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent],
   selector: 'kyonsvn-test-content',
   templateUrl: './test-content.component.html',
   styleUrls: ['./test-content.component.scss'],
 })
-export class TestContentComponent implements OnInit, OnDestroy {
+export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
   _addedList: number[] = [];
   answerPrefixes!: string[];
   conponentId = '';
   subscription!: Subscription;
+  showTutorialWithDelay = false;
+
+  @Input() showTutorial = false;
+  @Input() tutorialScript!: QuestionTutorialScript;
+  scriptElements!: HTMLElement[];
+  scriptEvents!: ([string, () => void] | null)[];
 
   @Input() showResult = false;
   @Output() showResultEvent = new EventEmitter<boolean>();
@@ -42,6 +101,8 @@ export class TestContentComponent implements OnInit, OnDestroy {
 
   @Output() completeCallback = new EventEmitter<void>();
 
+  @Input() backTutorial?: () => void;
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(e: KeyboardEvent) {
     if (!this.isActive) return;
@@ -54,7 +115,7 @@ export class TestContentComponent implements OnInit, OnDestroy {
         return;
       }
       // this.submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
-      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id)
+      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id);
 
       if (currentSubmitDataLength != Object.keys(this.submission.submitData).length) {
         // this.progress.next();
@@ -66,15 +127,13 @@ export class TestContentComponent implements OnInit, OnDestroy {
         this.showResult = true;
         this.showResultEvent.emit(this.showResult);
         return;
-      }
-      else {
+      } else {
         this.showResult = false;
         this.showResultEvent.emit(this.showResult);
       }
       if (currentSubmitDataLength == this.content.questions.length) {
         this.completeCallback.emit();
-      }
-      else {
+      } else {
         if (this.progress.value > this.currentIndex) {
           this.currentIndex++;
           this.currentIndexEvent.emit(this.currentIndex);
@@ -86,6 +145,59 @@ export class TestContentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.answerPrefixes = answerPrefixes;
     this.conponentId = new Date().getTime().toString();
+    // if (this.showTutorial) {
+    //   setTimeout(() => {
+    //     this.content.questions.map((question, index) => {
+    //       question.answers.map(answer => {
+    //         if (this.tutorialScript.scripts[index].value == answer.value) {
+    //           const elm = new ElementRef(document.getElementById(`${this.conponentId}-${question.id}-${answer.id}`));
+    //           if (elm.nativeElement == null) return;
+    //           elm.nativeElement?.setAttribute(
+    //             'data-tooltip-content',
+    //             this.tutorialScript.scripts[index].tooltipContent
+    //           );
+    //           this.scriptElements.push(elm.nativeElement);
+    //           this.scriptEvents.push(this.tutorialScript.scripts[index].event ?? null);
+    //         }
+    //       });
+    //     });
+    //   }, this.tutorialScript.delay);
+    // }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['showTutorial'] && changes['showTutorial'].currentValue) {
+      // setTimeout(() => {
+      // this.showTutorialWithDelay = true;
+      const scriptElements: HTMLElement[] = [];
+      const scriptEvents: ([string, () => void] | null)[] = [];
+      this.content.questions.map((question, index) => {
+        question.answers.map(answer => {
+          if (!this.tutorialScript.scripts[index]) return;
+          if (this.currentIndex !== index) return;
+          if (this.tutorialScript.scripts[index].value == answer.value) {
+            // const questionElm = new ElementRef(document.getElementById(`qtutorial-${question.id}`));
+            const answerElm = new ElementRef(document.getElementById(`atutorial-${answer.id}`));
+            if (answerElm.nativeElement == null) return;
+            // if (questionElm.nativeElement == null) return;
+            // questionElm.nativeElement?.setAttribute('data-tooltip-content', this.tutorialScript.tooltipContent);
+            answerElm.nativeElement?.setAttribute(
+              'data-tooltip-content',
+              this.tutorialScript.scripts[index].tooltipContent
+            );
+            // scriptElements.push(questionElm.nativeElement);
+            scriptElements.push(answerElm.nativeElement);
+            scriptEvents.push(this.tutorialScript.scripts[index].event);
+          }
+        });
+      });
+      this.scriptElements = scriptElements;
+      scriptEvents.push(null);
+      this.scriptEvents = scriptEvents;
+      // }, 1000);
+    } else if (changes['showTutorial'] && !changes['showTutorial'].currentValue) {
+      this.showTutorialWithDelay = false;
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,74 +1,74 @@
 {
-    "test_id": 1,
-    "learning_point_name": "Công thức Logarit",
-    "data": [
-      {
-        "id": 1,
-        "content": "<p>Giải phương trình <img class=\"image_resized\" style=\"width: 135px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681956061image.png\"></p>",
-        "answer_keys": [
-          {
-            "id": 1,
-            "value": "1",
-            "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681965621image.png\"</p>",
-            "explanation": "",
-            "is_correct": false
-          },
-          {
-            "id": 2,
-            "value": "2",
-            "content": "<p><img class=\"image_resized\" style=\"width:42px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681965218image.png\"></p>",
-            "explanation": "",
-            "is_correct": false
-          },
-          {
-            "id": 3,
-            "value": "3",
-            "content": "<p><img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058210image.png\"> và <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058244image.png\"></p>",
-            "explanation": "",
-            "is_correct": false
-          },
-          {
-            "id": 4,
-            "value": "4",
-            "content": "<p class=\"MsoNormal\">Phương trình vô nghiệm</p>",
-            "explanation": "<p>Áp dụng công thức <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967575image.png\"> cho <img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967583image.png\">, ta có</p><p><img class=\"image_resized\" style=\"width:180px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967596image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967618image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967626image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:250px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967656image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967662image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:190px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967671image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967682image.png\"></p><p>Giải phương trình bậc 2 ta có kết quả là phương trình này vô nghiệm</p>",
-            "is_correct": true
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "content": "<p>Cho</p><p>&nbsp;<img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681975530image.png\"></p><p>&nbsp;<img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682027890image.png\"></p><p>Mệnh đề nào sau đây là đúng</p>",
-        "answer_keys": [
-          {
-            "id": 5,
-            "value": "5",
-            "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682028113image.png\"></p>",
-            "explanation": "",
-            "is_correct": false
-          },
-          {
-            "id": 6,
-            "value": "6",
-            "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977825image.png\"></p>",
-            "explanation": "",
-            "is_correct": false
-          },
-          {
-            "id": 7,
-            "value": "7",
-            "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977994image.png\"></p>",
-            "explanation": "<p>Đặt <img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976018image.png\"</p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:230px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976323image.png\"> &nbsp;ta có:</p><p>&nbsp;<img class=\"image_resized\" style=\"width:160px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976492image.png\"></p><p>&nbsp;Áp dụng công thức <img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976647image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:160px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976722image.png\"></p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:230px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976804image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:320px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976889image.png\"></p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976963image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:420px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977051image.png\"></p><p>&nbsp;Vậy đáp án là <img class=\"image_resized\" style=\"width:95px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977161image.png\"></p>",
-            "is_correct": true
-          },
-          {
-            "id": 8,
-            "value": "8",
-            "content": "<p>Tất cả đều không đúng</p>",
-            "explanation": "",
-            "is_correct": false
-          }
-        ]
-      }
-    ]
-  }
+  "test_id": 1,
+  "learning_point_name": "Công thức Logarit",
+  "data": [
+    {
+      "id": 1,
+      "content": "<p>Giải phương trình <img class=\"image_resized\" style=\"width: 135px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681956061image.png\"></p>",
+      "answers": [
+        {
+          "id": 1,
+          "value": "1",
+          "content": "<p><img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681965621image.png\"</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 2,
+          "value": "2",
+          "content": "<p><img class=\"image_resized\" style=\"width:42px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681965218image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 3,
+          "value": "3",
+          "content": "<p><img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058210image.png\"> và <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682058244image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 4,
+          "value": "4",
+          "content": "<p class=\"MsoNormal\">Phương trình vô nghiệm</p>",
+          "explanation": "<p>Áp dụng công thức <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967575image.png\"> cho <img class=\"image_resized\" style=\"width:50px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967583image.png\">, ta có</p><p><img class=\"image_resized\" style=\"width:180px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967596image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967618image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:240px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967626image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:250px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967656image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:200px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967662image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:190px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967671image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:150px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681967682image.png\"></p><p>Giải phương trình bậc 2 ta có kết quả là phương trình này vô nghiệm</p>",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "<p>Cho</p><p>&nbsp;<img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681975530image.png\"></p><p>&nbsp;<img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682027890image.png\"></p><p>Mệnh đề nào sau đây là đúng</p>",
+      "answers": [
+        {
+          "id": 5,
+          "value": "5",
+          "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682028113image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 6,
+          "value": "6",
+          "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977825image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 7,
+          "value": "7",
+          "content": "<p><img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977994image.png\"></p>",
+          "explanation": "<p>Đặt <img class=\"image_resized\" style=\"width:90px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976018image.png\"</p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:230px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976323image.png\"> &nbsp;ta có:</p><p>&nbsp;<img class=\"image_resized\" style=\"width:160px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976492image.png\"></p><p>&nbsp;Áp dụng công thức <img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976647image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:160px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976722image.png\"></p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:230px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976804image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:320px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976889image.png\"></p><p>Áp dụng công thức <img class=\"image_resized\" style=\"width:120px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681976963image.png\"> ta có</p><p>&nbsp;<img class=\"image_resized\" style=\"width:420px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977051image.png\"></p><p>&nbsp;Vậy đáp án là <img class=\"image_resized\" style=\"width:95px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1681977161image.png\"></p>",
+          "is_correct": true
+        },
+        {
+          "id": 8,
+          "value": "8",
+          "content": "<p>Tất cả đều không đúng</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    }
+  ]
+}

@@ -2,11 +2,13 @@ import { CommonModule, Location } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, HostBinding, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { RedirectAfterLogin } from '@domain/navigation/i-redirect';
 import { environment } from '@environments/environment';
 import { AuthService } from '@infrastructure/auth/auth.service';
 import { AuthCredential } from '@infrastructure/auth/credential';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { UserService } from '@infrastructure/user/user.service';
 import { FormControlStatus } from '@utils/form';
 
 @Component({
@@ -23,7 +25,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   authService = inject(AuthService);
   router = inject(Router);
   loading = inject(LoadingOverlayService);
-  // knowledgeService = inject(KnowledgeService);
+  userService = inject(UserService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -77,18 +79,12 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
           if (result.success) {
             this.location.replaceState('/');
             const redirectPath = this.navService.getRouteAfterLogin(result.redirect_after_auth);
-            // const selectedProgram = result.program ? Program.fromJson(result.program) : null;
-            // if (selectedProgram) {
-            //   if (result.learning_goal) {
-            //     selectedProgram.learningGoal = LearningGoal.fromJson(result.learning_goal);
-            //   }
-            //   this.knowledgeService.selectProgram(selectedProgram);
-            // }
-            // const learningGoal = selectedProgram ? selectedProgram.learningGoal : null;
-
+            if (result.redirect_after_auth == RedirectAfterLogin[RedirectAfterLogin.HomeAppTutorial]) {
+              this.userService.setForceCompleteTutorial();
+            }
             this.loading.show();
             setTimeout(() => {
-              this.router.navigate([redirectPath]);
+              this.router.navigate([redirectPath[0]], redirectPath[1]);
             }, 600);
           } else {
             this.processing = false;

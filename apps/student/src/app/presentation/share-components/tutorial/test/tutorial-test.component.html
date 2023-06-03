@@ -1,0 +1,291 @@
+<div class="w-full h-screen bg-blueGrey-100 flex justify-center">
+  <div class="w-full max-w-[894px] col gap-4 p-6">
+    <div class="flex gap-2 justify-between">
+      <h4 class="hidden md:block">Mục tiêu của bạn: {{ learningGoal.name }}</h4>
+      <div class="h8 md:hidden">Mục tiêu của bạn: {{ learningGoal.name }}</div>
+      <strong
+        #timeElm
+        data-tooltip-position="bottom"
+        data-tooltip-content="Bắt đầu tình giờ"
+        class="text-lightBlue-1 w-[45px] flex justify-between items-center bg-blueGrey-100"
+      >
+        <span>{{ Math.floor(counter / (60 * 1000)) }}:</span>
+        <span>{{
+          counterTime.getSeconds() < 10 ? '0' + counterTime.getSeconds() : counterTime.getSeconds()
+        }}</span></strong
+      >
+    </div>
+    <!-- <kyonsvn-questions-progress class="w-full" [progress]="testProgress"></kyonsvn-questions-progress> -->
+    <div
+      #testContentElm
+      class="col rounded-lg bg-white p-4 overflow-y-auto md:overflow-hidden md:flex-1 max-h-[calc(100vh_-_200px)] md:max-h-fit"
+    >
+      <div class="flex w-full justify-end gap-2">
+        <button
+          #submitNow
+          data-tooltip-content="Bạn có thể ấn vào nút này để nộp bài ngay dù chưa hoàn tất bài kiểm tra"
+          data-tooltip-position="bottom"
+          class="btn-rounded btn-icon"
+          (click)="testComplete()"
+        >
+          <i class="icon-Submit"></i>
+        </button>
+        <a
+          #report
+          data-tooltip-content="Nếu thấy câu hỏi bị sai hoặc làm bạn khó hiểu, hãy báo cho Kyons!"
+          data-tooltip-position="bottom"
+          class="btn-rounded btn-icon"
+          href="https://forms.gle/b36mTdMWNRY1qkZh7"
+          target="_blank"
+          ><i class="icon-Error"></i
+        ></a>
+      </div>
+      <kyonsvn-test-content
+        *ngIf="!isPending"
+        [content]="testContent"
+        [submission]="testSubmission"
+        (progressEvent)="updateProgress($event)"
+        (submissionEvent)="updateSubmission($event)"
+        [currentIndex]="currentTestIndex"
+        (currentIndexEvent)="currentTestIndex = $event"
+        [isActive]="true"
+        (completeCallback)="testComplete()"
+        [showResult]="showResult"
+        (showResultEvent)="showResult = $event"
+        class="flex md:flex-1"
+        [showTutorial]="tutorialPart === 1 || tutorialPart === 3 || tutorialPart === 5"
+        [tutorialScript]="tutorialScript"
+        [backTutorial]="preTutorial"
+      ></kyonsvn-test-content>
+      <div class="justify-between hidden md:flex flex-col gap-3">
+        <!-- <div class="hidden md:flex flex-1 gap-2">
+          <strong class="uppercase">Phím tắt:</strong>
+          <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
+        </div> -->
+        <div class="flex gap-4 items-center w-full overflow-hidden">
+          <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn">Câu trước</button>
+          <div
+            class="flex-1 flex gap-1 w-full overflow-hidden"
+            #navigation
+            data-tooltip-content="Bạn cũng có thể chuyển đến câu hỏi mong muốn bằng cách nhấn vào số của câu hỏi"
+          >
+            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
+            <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
+              <button
+                class="btn-rounded btn-icon"
+                *ngFor="let question of testContent.questions; index as i"
+                [ngClass]="{
+                  'fill-blue': i === currentTestIndex,
+                  'outline-blue': i !== currentTestIndex,
+                  'fill-black': testSubmission.hasAnswer(question.id)
+                }"
+                (click)="currentTestIndex = i"
+              >
+                {{ i + 1 }}
+              </button>
+            </div>
+            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ArrowRight"></i></button>
+          </div>
+          <button
+            [ngClass]="{ hidden: currentTestIndex === testContent.questions.length - 1 }"
+            (click)="scrollRight()"
+            class="btn"
+            #nextElm
+            data-tooltip-content="Bấm chọn nút này để chuyển sang câu hỏi tiếp theo nhé!"
+          >
+            Câu kế tiếp
+          </button>
+          <button
+            [ngClass]="{ hidden: currentTestIndex !== testContent.questions.length - 1 }"
+            #submit
+            data-tooltip-content="Bấm chọn nút này nộp bài bạn nhé!"
+            (click)="testComplete()"
+            class="btn"
+          >
+            Nộp bài
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="ads-md">
+      <span class="text-white">Muốn luyện tập với vô hạn câu hỏi được tạo ra bởi Trí tuệ nhân tạo (AI)?</span>
+      <button class="btn btn-large" (click)="showWaitlistPopup = true">Đăng ký Danh sách chờ của Kyons!</button>
+    </div> -->
+    <div class="md:hidden w-full flex items-center justify-between gap-2 mb-20">
+      <div
+        #navigationXs
+        data-tooltip-content="Bạn cũng có thể chuyển đến câu hỏi mong muốn bằng cách nhấn vào số của câu hỏi"
+        class="flex gap-2 items-center w-full"
+      >
+        <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn btn-icon">
+          <i class="icon-ArrowLeft"></i>
+        </button>
+        <!-- <a
+          class="btn-rounded btn-icon order-1 md:order-1"
+          href="https://forms.gle/b36mTdMWNRY1qkZh7"
+          target="_blank"
+          #tooltip="matTooltip"
+          matTooltip="Nội dung “có vấn đề”? Thông báo cho Kyons liền tay!"
+          matTooltipPosition="above"
+          matTooltipHideDelay="5000"
+          matTooltipClass="above"
+          aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+          ><i class="icon-Error"></i
+        ></a> -->
+        <div #scrollXsElm class="max-w-[calc(100%_-_92px)] overflow-x-auto flex gap-[4px] hide-scrollbar">
+          <button
+            class="btn-rounded btn-icon"
+            *ngFor="let question of testContent.questions; index as i"
+            [ngClass]="{
+              'fill-blue': i === currentTestIndex,
+              'outline-blue': i !== currentTestIndex,
+              'fill-black': testSubmission.hasAnswer(question.id)
+            }"
+            (click)="currentTestIndex = i"
+          >
+            {{ i + 1 }}
+          </button>
+        </div>
+        <button
+          [ngClass]="{ hidden: currentTestIndex !== testContent.questions.length - 1 }"
+          #submitXs
+          data-tooltip-content="Bấm chọn nút này nộp bài bạn nhé!"
+          (click)="testComplete()"
+          class="btn btn-icon"
+        >
+          <i class="icon-Submit"></i>
+        </button>
+        <button
+          [ngClass]="{ hidden: currentTestIndex === testContent.questions.length - 1 }"
+          (click)="scrollRight()"
+          [disabled]="currentTestIndex === testContent.questions.length - 1"
+          class="btn btn-icon"
+          #nextElmXs
+          data-tooltip-content="Bấm chọn nút này để chuyển sang câu hỏi tiếp theo nhé!"
+        >
+          <i class="icon-ArrowRight"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<student-loading *ngIf="isPending"></student-loading>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 0"
+  [scriptElements]="[timeElm]"
+  [scriptEvents]="[['click', startTime], null]"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 2"
+  [scriptElements]="[nextElm]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="hidden md:block"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 2"
+  [scriptElements]="[nextElmXs]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="md:hidden"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 4"
+  [scriptElements]="[navigation]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="hidden md:block"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 4"
+  [scriptElements]="[navigationXs]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="md:hidden"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 5"
+  [scriptElements]="[report]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 6"
+  [scriptElements]="[submit]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="hidden md:block"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 6"
+  [scriptElements]="[submitXs]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  class="md:hidden"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="tutorialPart === 6"
+  [scriptElements]="[submitNow]"
+  [scriptEvents]="[['click', nextTutorial], null]"
+  [back]="preTutorial"
+  [isOverlap]="true"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>
+<div
+  *ngIf="showHavingTime"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+    <img src="/assets/images/testsubmit.webp" alt="" />
+    <div class="col w-full gap-6">
+      <h5>Vẫn còn thời gian kiểm tra, bạn muốn nộp bài luôn?</h5>
+      <span
+        >Hãy xem bài kiểm tra thử này giống như kỳ thi thiệt mà làm bài thật nghiêm túc và tránh bị sai nhảm nha bạn ơi.
+        Càng cẩn thận, lộ trình học của Kyons tạo ra sẽ càng phù hợp với khả năng của bạn đó!</span
+      >
+      <button (click)="ignoreHavingTime = true; submitHavingTime()" class="btn w-full">Nộp bài luôn</button>
+      <button (click)="showHavingTime = false; ignoreIncomplete = false" class="btn-rounded w-full">
+        Cho mình kiểm tra lại
+      </button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showIncomplete"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+    <img src="/assets/images/warning.webp" alt="" />
+    <div class="col w-full gap-6">
+      <h5>Bạn vừa bỏ sót vài câu kìa!</h5>
+      <p>
+        Bạn đã bỏ sót vài câu kìa! Nếu bạn vẫn chọn nộp bài thì những câu đó sẽ tính là sai và ảnh hưởng đến lộ trình
+        học tập của bạn đó.
+      </p>
+      <p>Chắc chắn muốn nộp bài chứ?</p>
+      <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn w-full">Để mình làm tiếp</button>
+      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-rounded w-full">Nộp bài luôn</button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="hasError === 'SubmittedMockTest'"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[500px] items-center">
+    <div class="col w-full gap-6">
+      <h5 class="w-full text-center">Bài kiểm tra đã hoàn thành</h5>
+      <p></p>
+      <button (click)="goToResult()" class="btn w-full">Xem kết quả</button>
+      <button (click)="goToReview()" class="btn w-full">Xem đáp án</button>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignOutComponent } from './pages/sign-out/sign-out.component';
 import { TestComponent } from './pages/test/test.component';
+import { TutorialLessonComponent } from './share-components/tutorial/lesson/tutorial-lesson.component';
+import { TutorialTestComponent } from './share-components/tutorial/test/tutorial-test.component';
 
 /**
  * This routes will be used to genarate the app's sitemap.
@@ -39,6 +41,7 @@ class AppPaths {
   // diagnosticTest = { name: '', path: '/diagnostic-test/' };
   learningPath = { name: '', path: '/learning-path/' };
   lessonPage = { name: '', path: '/learning-path/lesson-page/:id' };
+  lessonPageTutorial = { name: '', path: '/learning-path/lesson-page-tutorial' };
   lessonReviewPage = { name: '', path: '/learning-path/lesson-page/:id/review' };
   learningPathComplete = { name: '', path: '/learning-path/complete/' };
   // waitingForTutor = { name: '', path: '/waiting-for-tutor/' };
@@ -54,6 +57,7 @@ class AppPaths {
   mockTestReview = { name: '', path: '/mock-test/:id/review/' };
   mockTestSelect = { name: '', path: '/mock-test/:id/select/' };
   mockTestTest = { name: '', path: '/mock-test/:id/test/' };
+  mockTestTestTutorial = { name: '', path: '/mock-test/tutorial/1' };
   mockTestShare = { name: '', path: '/share-mocktest/:ref' };
   newUser = { name: '', path: '/new-user/' };
   termsOfService = { name: '', path: '/terms-of-service' };
@@ -75,6 +79,7 @@ const routes: Routes = [
           { path: '', component: LearningPathComponent },
           { path: 'lesson-page/:id', component: LessonPageComponent },
           { path: 'lesson-page/:id/review', component: LessonReviewPageComponent },
+          { path: 'lesson-page-tutorial', component: TutorialLessonComponent },
           {
             path: 'complete',
             loadComponent: () =>
@@ -100,6 +105,10 @@ const routes: Routes = [
           { path: 'select/:id', component: SelectTopicComponent },
           { path: 'test/:id', component: MockTestTestComponent },
           { path: 'share/:id', component: MockTestShareComponent },
+          {
+            path: 'tutorial/:id',
+            component: TutorialTestComponent,
+          },
         ],
       },
       { path: 'share-mocktest/:ref', component: MockTestShareComponent },

@@ -15,7 +15,6 @@ import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
 import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
 import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
-import { LearningPathComponent } from './presentation/pages/learning-path/learning-path.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
@@ -24,7 +23,6 @@ import { SignOutComponent } from './presentation/pages/sign-out/sign-out.compone
 import { TestComponent } from './presentation/pages/test/test.component';
 import { AppInputComponent } from './presentation/share-components/app-input/app-input.component';
 import { IvyCarouselModule } from './presentation/share-components/carousel/carousel.module';
-import { ClassProgramComponent } from './presentation/share-components/class-program/class-program.component';
 import { ConfirmDialogComponent } from './presentation/share-components/confirm-dialog/confirm-dialog.component';
 import { InputRadioComponent } from './presentation/share-components/input-radio/input-radio.component';
 import { LoadingComponent } from './presentation/share-components/loading/loading.component';
@@ -48,8 +46,6 @@ import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic
 import { NgChartsModule } from 'ng2-charts';
 import { LayoutDefaultComponent } from './presentation/layouts/default/layout-default.component';
 import { AdaptiveTestComponent } from './presentation/pages/adaptive-test/adaptive-test.component';
-import { MockTestResultComponent } from './presentation/pages/mock-test/result/mock-test-result.component';
-import { MockTestSelectProgramComponent } from './presentation/pages/mock-test/select-program/select-program.component';
 import { NewUserComponent } from './presentation/pages/new-user/new-user.component';
 
 registerLocaleData(localeVN, 'vi');
@@ -60,15 +56,13 @@ registerLocaleData(localeEN, 'en');
     AccountPageComponent,
     AppComponent,
     AppInputComponent,
-    ClassProgramComponent,
     ConfirmDialogComponent,
     FinalExamComponent,
     InputRadioComponent,
     KnowledgeComponent,
     LayoutDefaultComponent,
     LayoutFullComponent,
-    LearningPathComponent,
-    MockTestSelectProgramComponent,
+    // LearningPathComponent,
     NewLessonPageComponent,
     NewUserComponent,
     PackagePageComponent,
@@ -85,7 +79,7 @@ registerLocaleData(localeEN, 'en');
     TestReviewComponent,
     TopMenuComponent,
     TrackingComponent,
-    MockTestResultComponent,
+    // MockTestResultComponent,
     AdaptiveTestComponent,
   ],
   imports: [

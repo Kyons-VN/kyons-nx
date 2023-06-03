@@ -66,4 +66,8 @@ export class UserService {
       })
     );
   }
+
+  setForceCompleteTutorial(forceComplete: boolean = true) {
+    window.localStorage.setItem('forceCompleteTutorial', forceComplete.toString());
+  }
 }

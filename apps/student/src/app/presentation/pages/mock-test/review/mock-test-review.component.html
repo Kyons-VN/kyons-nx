@@ -1,9 +1,23 @@
 <div class="flex w-full justify-center">
   <div class="col gap-4 w-full max-w-[1122px] p-6 md:p-12 h-screen">
-    <button (click)="goBack()" class="icon-btn self-end md:hidden"><i class="icon-Close"></i></button>
+    <button
+      #backXs
+      data-tooltip-content="Bấm vào đây để quay lại trang đáp án bài kiểm tra nhé!"
+      data-tooltip-position="bottom"
+      (click)="backToResult()"
+      class="icon-btn self-end md:hidden bg-blueGrey-100"
+    >
+      <i class="icon-Close"></i>
+    </button>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
-        <button (click)="backToResult()" class="no-underline gap-2 items-center text-orange hidden md:flex">
+        <button
+          #back
+          data-tooltip-content="Bấm vào đây để quay lại trang đáp án bài kiểm tra nhé!"
+          data-tooltip-position="bottom"
+          (click)="backToResult()"
+          class="no-underline gap-2 items-center text-orange hidden md:flex bg-blueGrey-100"
+        >
           <i class="icon-ArrowLeft"></i>
           <span>Về Điểm bài kiểm tra</span>
         </button>
@@ -70,7 +84,11 @@
           <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
             <i class="icon-ArrowLeft"></i>
           </button>
-          <div #scrollElm class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
+          <div
+            #scrollElm
+            data-tooltip-content="Bạn có thể chuyển đến đáp án mong muốn bằng cách nhấn vào số của câu hỏi"
+            class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
+          >
             <button
               class="btn-rounded btn-icon"
               *ngFor="let question of questions; index as i"
@@ -117,3 +135,17 @@
     </div>
   </div>
 </div>
+<kyonsvn-tutorial
+  *ngIf="showTutorial"
+  [scriptElements]="[scrollElm, back]"
+  [scriptEvents]="[['click', emptyFunc], ['click', nextTutorial], null]"
+  class="hidden md:block"
+></kyonsvn-tutorial>
+<kyonsvn-tutorial
+  *ngIf="showTutorial"
+  (skipCallback)="skip()"
+  [scriptElements]="[scrollElm, backXs]"
+  [scriptEvents]="[['click', emptyFunc], ['click', nextTutorial], null]"
+  class="md:hidden"
+  (skipCallback)="skip()"
+></kyonsvn-tutorial>

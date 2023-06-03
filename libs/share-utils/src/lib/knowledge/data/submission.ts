@@ -25,6 +25,9 @@ export class Submission implements ISubmission {
   public set submitData(value: { [questionId: string]: string }) {
     this._submitData = value;
   }
+  public hasAnswer(questionId: string): boolean {
+    return this.submitData[questionId] !== undefined;
+  }
 
   public toJson(): any {
     const result: any = {};

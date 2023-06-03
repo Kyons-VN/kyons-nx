@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
@@ -5,7 +6,6 @@ import {
   Component,
   ElementRef,
   HostBinding,
-  HostListener,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -14,7 +14,7 @@ import {
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SERVER_API } from '@infrastructure/auth/interceptor';
 import { Category } from '@infrastructure/knowledge/category';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
@@ -26,31 +26,36 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { MockTestItem } from '@infrastructure/test/test-content';
 import { TestService } from '@infrastructure/test/test.service';
+import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
 import { UserService } from '@infrastructure/user/user.service';
+import { TutorialComponent } from '@share-components';
 import { MockTestStatus } from '@share-utils/domain';
-// import { MockTestStatus } from '@share-utils/domain';
 import { ChartConfiguration } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
-import { Subscription } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
+import { MaterialModule } from '../../../material.module';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule, MaterialModule, NgChartsModule],
   templateUrl: './learning-path.component.html',
   styleUrls: ['./learning-path.component.scss'],
 })
 export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   paths = inject(NavigationService).paths;
   lessonService = inject(LessonService);
-  userType = inject(UserService).getUserType();
-  // selectedProgram: Program;
+  userService = inject(UserService);
+  userType = this.userService.getUserType();
   selectedStudentLearningGoal!: StudentLearningGoal;
-  selectedCategoryId!: string;
   testService = inject(TestService);
   loading = inject(LoadingOverlayService);
   http = inject(HttpClient);
   knowledgeService = inject(KnowledgeService);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  tutorialService = inject(TutorialService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -64,7 +69,6 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   learningGoalCategory = LearningGoalCategory.empty();
   learningGoalPath = LearningGoalPath.empty();
   nextStep = false;
-  // unCompletedCategories: LearningGoalCategory[] = [];
   completeStep = false;
   subscriptionExpired = false;
   showSubscriptionExpired = false;
@@ -82,9 +86,6 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSource: MatTableDataSource<MockTestItem> = new MatTableDataSource<MockTestItem>([]);
   hasNewMockTest = false;
   shouldScrollBottom = true;
-  get selectedCategoryIdMod() {
-    return this.selectedCategoryId;
-  }
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   public lineChartData: ChartConfiguration['data'] = {
@@ -175,6 +176,11 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   showActivateLearningPathBtn = false;
   MockTestStatus = MockTestStatus;
   activeTab = parseInt(this.route.snapshot.queryParams['active_tab'] ?? '0');
+  showTutorial = false;
+  tutorialPart = 0;
+  scriptElements: HTMLElement[] = [];
+  scriptXsElements: HTMLElement[] = [];
+  showCompleteTutorial = false;
 
   @ViewChild(MatSort) sort: MatSort = new MatSort();
   @ViewChild(MatPaginator) paginator: MatPaginator = new MatPaginator(
@@ -185,35 +191,67 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('scrollBottomElm') scrollBottomElm!: ElementRef;
   @ViewChild('scrollBottomXSElm') scrollBottomXSElm!: ElementRef;
 
-  // const ELEMENT_DATA: MockTestItem[] = [];
-
-  // set selectedCategoryIdMod(newValue) {
-  //   this.selectedCategoryId = newValue;
-  //   this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
-  //   this.lessons = this.learningGoalCategory.lessons;
-  //   this.knowledgeService.selectCategoryId(this.selectedCategoryId);
-
-  //   this.scrollToEndOfLessons();
-  // }
-
-  // @ViewChild('widgetsWrapper', { read: ElementRef })
-  // public widgetsWrapper!: ElementRef<any>;
-
   ngOnInit(): void {
-    this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
-    this.selectedCategoryId = this.knowledgeService.getSelectedCategoryId();
-    if (this.selectedStudentLearningGoal.isEmpty()) {
-      this.router.navigate([this.paths.home.path]);
-      return;
-    }
-    this._getLearningPathData();
-    // const requestInterval = interval(5000);
-    // this.interval = requestInterval.subscribe(() => this._getLearningPathData());
+    this.route.queryParamMap.subscribe(params => {
+      if (params.get('tutorial') == '1') {
+        this.showTutorial = true;
+        this.selectedStudentLearningGoal = this.tutorialService.getStudentLearningGoal();
+        this.probabilityIndex = this.tutorialService.getProbabilityIndex();
+        this.mockTests = this.tutorialService.getLearningGoalMockTest();
+        this.learningGoalPath = this.tutorialService.getLearningGoalLessons();
+        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+        this._updateLessonsData();
+        setTimeout(() => {
+          this._updateMockTestData(this.mockTests);
+          const lessonElm = new ElementRef(document.getElementById(`lesson-${this.lessons[0].id}`));
+          const lessonXsElm = new ElementRef(document.getElementById(`lessonXs-${this.lessons[0].id}`));
+          if (lessonElm && lessonElm.nativeElement) this.scriptElements.push(lessonElm.nativeElement);
+          if (lessonXsElm && lessonXsElm.nativeElement) this.scriptXsElements.push(lessonXsElm.nativeElement);
+          this.tutorialPart = 1;
+        }, 200);
+      } else if (params.get('tutorial') == '2') {
+        this.showTutorial = true;
+        this.selectedStudentLearningGoal = this.tutorialService.getStudentLearningGoal();
+        this.probabilityIndex = this.tutorialService.getProbabilityIndex2();
+        this.mockTests = this.tutorialService.getLearningGoalMockTest();
+        this.learningGoalPath = this.tutorialService.getLearningGoalLessons2();
+        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+        this._updateLessonsData();
+        setTimeout(() => {
+          this._updateMockTestData(this.mockTests);
+          const lessonElm = new ElementRef(document.getElementsByClassName('finish-block')[0] as HTMLElement);
+          lessonElm.nativeElement.setAttribute(
+            'data-tooltip-content',
+            'Bạn hãy hoàn tất lộ trình học của mình để khám phá điều bất ngờ khi nhấn vào ô cuối cùng này nhé!'
+          );
+          lessonElm.nativeElement.setAttribute('data-tooltip-position', 'bottom');
+          if (lessonElm && lessonElm.nativeElement) this.scriptElements.push(lessonElm.nativeElement);
+          const lessonXsElm = new ElementRef(document.getElementsByClassName('finish-blockXs')[0] as HTMLElement);
+          lessonXsElm.nativeElement.setAttribute(
+            'data-tooltip-content',
+            'Bạn hãy hoàn tất lộ trình học của mình để khám phá điều bất ngờ khi nhấn vào ô cuối cùng này nhé!'
+          );
+          lessonXsElm.nativeElement.setAttribute('data-tooltip-position', 'bottom');
+          if (lessonXsElm && lessonXsElm.nativeElement) this.scriptXsElements.push(lessonXsElm.nativeElement);
+          this.tutorialPart = 2;
+        }, 200);
+      } else {
+        this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
+        // this.selectedCategoryId = this.knowledgeService.getSelectedCategoryId();
+        if (this.selectedStudentLearningGoal.isEmpty()) {
+          this.router.navigate([this.paths.home.path]);
+          return;
+        }
+        this._getLearningPathData();
+        const requestInterval = interval(5000);
+        this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
-    this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
-      next: result => {
-        this.probabilityIndex = result;
-      },
+        this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
+          next: result => {
+            this.probabilityIndex = result;
+          },
+        });
+      }
     });
   }
 
@@ -228,46 +266,54 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
 
+  _updateMockTestData(mockTests: MockTestItem[]) {
+    this.hasNewMockTest = mockTests.some(x => x.status == MockTestStatus.active);
+    this.dataSource = new MatTableDataSource(mockTests.filter(x => x.status != MockTestStatus.active));
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    this.lineChartData.datasets[0].data = mockTests.map(x => x.score ?? 0);
+    this.lineChartData.labels = mockTests.map(x => ((x.index ?? 0) + 1).toString());
+    const gradient = this.chartCanvas.nativeElement.getContext('2d').createLinearGradient(0, 0, 0, 600);
+    gradient.addColorStop(0, 'rgba(6, 165, 255, 0.3)');
+    gradient.addColorStop(1, 'rgba(6, 165, 255, 0)');
+    this.lineChartData.datasets[0].backgroundColor = gradient;
+    this.chart?.update();
+    if (mockTests.length == 1) {
+      if (mockTests[0].status == MockTestStatus.active) {
+        this.router.navigate([this.paths.mockTestTest.path.replace(':id', mockTests[0].id)]);
+        return;
+      } else if (mockTests[0].status == MockTestStatus.learning_path_received) {
+        this.showActivateLearningPathBtn = true;
+      } else {
+        this.showActivateLearningPathBtn = false;
+      }
+    } else {
+      this.showActivateLearningPathBtn = false;
+    }
+  }
+
+  _updateLessonsData() {
+    const totalLessonBlockOf3OnMDScreen = Math.ceil((this.lessons.length + 1) / 3);
+    this.lessonBlockOf3OnMDScreen = Array.from(Array(totalLessonBlockOf3OnMDScreen).keys());
+    const totalLessonBlockOf2OnXSScreen = Math.ceil((this.lessons.length + 1) / 2);
+    this.lessonBlockOf2OnXSScreen = Array.from(Array(totalLessonBlockOf2OnXSScreen).keys());
+    setTimeout(() => {
+      this.scrollBottomElm.nativeElement.scrollTop = this.scrollBottomElm.nativeElement.scrollHeight;
+      this.scrollBottomXSElm.nativeElement.scrollTop = this.scrollBottomXSElm.nativeElement.scrollHeight;
+    }, 500);
+  }
+
   _getLearningPathData() {
     this.lessonService.getLearningGoalMockTest(this.selectedStudentLearningGoal.id).subscribe({
       next: (mockTests: MockTestItem[]) => {
         this.mockTests = mockTests;
-        this.hasNewMockTest = mockTests.some(x => x.status == MockTestStatus.active);
-        this.dataSource = new MatTableDataSource(mockTests.filter(x => x.status != MockTestStatus.active));
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-
-        this.lineChartData.datasets[0].data = mockTests.map(x => x.score ?? 0);
-        this.lineChartData.labels = mockTests.map(x => ((x.index ?? 0) + 1).toString());
-        const gradient = this.chartCanvas.nativeElement.getContext('2d').createLinearGradient(0, 0, 0, 600);
-        gradient.addColorStop(0, 'rgba(6, 165, 255, 0.3)');
-        gradient.addColorStop(1, 'rgba(6, 165, 255, 0)');
-        this.lineChartData.datasets[0].backgroundColor = gradient;
-        this.chart?.update();
-        if (mockTests.length == 1) {
-          if (mockTests[0].status == MockTestStatus.active) {
-            this.router.navigate([this.paths.mockTestTest.path.replace(':id', mockTests[0].id)]);
-            return;
-          } else if (mockTests[0].status == MockTestStatus.learning_path_received) {
-            this.showActivateLearningPathBtn = true;
-          } else {
-            this.showActivateLearningPathBtn = false;
-          }
-        } else {
-          this.showActivateLearningPathBtn = false;
-        }
+        this._updateMockTestData(mockTests);
         this.lessonService.getList(this.selectedStudentLearningGoal.id).subscribe({
           next: (learningGoalPath: LearningGoalPath) => {
             this.learningGoalPath = learningGoalPath;
             this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
-            const totalLessonBlockOf3OnMDScreen = Math.ceil((this.lessons.length + 1) / 3);
-            this.lessonBlockOf3OnMDScreen = Array.from(Array(totalLessonBlockOf3OnMDScreen).keys());
-            const totalLessonBlockOf2OnXSScreen = Math.ceil((this.lessons.length + 1) / 2);
-            this.lessonBlockOf2OnXSScreen = Array.from(Array(totalLessonBlockOf2OnXSScreen).keys());
-            setTimeout(() => {
-              this.scrollBottomElm.nativeElement.scrollTop = this.scrollBottomElm.nativeElement.scrollHeight;
-              this.scrollBottomXSElm.nativeElement.scrollTop = this.scrollBottomXSElm.nativeElement.scrollHeight;
-            }, 500);
+            this._updateLessonsData();
           },
           error: err => {
             if (err.error == undefined || err.error.error_code == undefined) {
@@ -328,57 +374,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  scrollToEndOfLessons() {
-    //   setTimeout(() => {
-    //     this.widgetsWrapper.nativeElement.scrollTo({
-    //       left: this.widgetsWrapper.nativeElement.scrollWidth - this.widgetsWrapper.nativeElement.clientWidth + 44,
-    //     });
-    //   }, 500);
-  }
-
-  @HostListener('scroll', ['$event'])
-  onScroll(event: WheelEvent) {
-    // if (this.detectTouchPad(event)) {
-    //   this.scrollDistance += event.deltaX;
-    //   return;
-    // }
-    // if (event.deltaY > 0) this.scrollRight(event.deltaY);
-    // else this.scrollLeft(event.deltaY);
-  }
-
   ngOnDestroy(): void {
     if (this.interval !== undefined) this.interval.unsubscribe();
-  }
-
-  detectTouchPad(e: any): boolean {
-    let isTouchPad = false;
-    if (e.wheelDeltaY) {
-      if (Math.abs(e.wheelDeltaY) !== 120) {
-        isTouchPad = true;
-      }
-    } else if (e.deltaMode === 0) {
-      isTouchPad = true;
-    }
-    return isTouchPad;
-  }
-
-  onCategoryChange(newValue: string) {
-    this.selectedCategoryId = newValue;
-    this.learningGoalCategory = this.learningGoalPath.getLearningGoalCategoryById(this.selectedCategoryId);
-    this.lessons = this.learningGoalCategory.lessons;
-  }
-
-  // showNextStep() {
-  //   this.unCompletedCategories = this.learningGoalPath.getUncompletedLearningGoalCategories();
-  //   this.nextStep = true;
-  // }
-
-  goToLesson(lesson: LessonItem) {
-    if (lesson.isNew && this.subscriptionExpired) {
-      this.showSubscriptionExpired = true;
-    } else {
-      this.router.navigate([this.paths.lessonPage.path.replace(':id', lesson.id)]);
-    }
   }
 
   goToMockTest(mockTest: MockTestItem) {
@@ -407,5 +404,33 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
 
   filterCallback(mockTest: MockTestItem) {
     return mockTest.status == MockTestStatus.active;
+  }
+
+  skip() {
+    this.router.navigate([this.paths.home.path], { replaceUrl: true });
+  }
+
+  script1 = () => {
+    this.router.navigate([this.paths.lessonPageTutorial.path]);
+  };
+
+  script2 = () => {
+    this.showCompleteTutorial = true;
+    this.showTutorial = false;
+  };
+
+  completeTutorial() {
+    this.loading.show();
+    this.tutorialService.completeTutorial().subscribe({
+      next: () => {
+        this.userService.setForceCompleteTutorial(false);
+        this.loading.hide();
+        this.router.navigate([this.paths.home.path], { replaceUrl: true });
+      },
+      error: err => {
+        console.log(err);
+        this.loading.hide();
+      },
+    });
   }
 }

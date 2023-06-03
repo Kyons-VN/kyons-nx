@@ -1,0 +1,25 @@
+{
+    "id": 1,
+    "start_time": "2023-05-30 0:52:36",
+    "end_time": "2023-05-30 0:55:31",
+    "data": [
+        {
+            "id": 15307928,
+            "user_response": "[[2]]",
+            "user_response_ui": [["2"]],
+            "time_taken": 174
+        },
+        {
+            "id": 15283725,
+            "user_response": "[[0]]",
+            "user_response_ui": [["0"]],
+            "time_taken": 174
+        },
+        {
+            "id": 15307845,
+            "user_response": "[[0]]",
+            "user_response_ui": [["0"]],
+            "time_taken": 174
+        }
+    ]
+}

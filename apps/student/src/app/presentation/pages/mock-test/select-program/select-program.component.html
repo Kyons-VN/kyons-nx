@@ -7,15 +7,21 @@
     <h4 class="mb-0 md:hidden">Chọn chương trình học</h4>
     <div class="rounded-lg p-6 flex flex-col gap-6 bg-white items-start">
       <div class="flex flex-col gap-2 w-full">
-        <select class="form-control w-full" [(ngModel)]="selectedSubject" (ngModelChange)="changeSubject()">
+        <select
+          #turorial1
+          data-tooltip-content="Hãy chọn môn học mà bạn muốn"
+          class="form-control w-full"
+          [(ngModel)]="selectedSubject"
+          (ngModelChange)="changeSubject()"
+        >
           <option [ngValue]="null" disabled selected>Chọn môn</option>
           <option *ngFor="let subject of subjects" [ngValue]="subject">
             {{ subject.label }}
           </option>
         </select>
         <select
-          name="program"
-          id="program"
+          #turorial2
+          data-tooltip-content="Chọn tiếp chương trình học"
           class="form-control w-full"
           [attr.disabled]="this.selectedSubject === null ? 'disabled' : null"
           [(ngModel)]="selectedProgram"
@@ -27,8 +33,8 @@
           </option>
         </select>
         <select
-          name="target"
-          id="target"
+          #turorial3
+          data-tooltip-content="Chọn thêm mục tiêu học tập của bạn"
           class="form-control w-full"
           [(ngModel)]="selectedTarget"
           [attr.disabled]="this.selectedProgram.id === '' ? 'disabled' : null"
@@ -40,6 +46,8 @@
         </select>
       </div>
       <button
+        #turorial4
+        data-tooltip-content="Bấm vào đây để tạo bài kiểm tra thử mới"
         (click)="submit()"
         class="btn primary w-full"
         [attr.disabled]="selectedTarget === emptyLearningGoal || isLoading ? 'disabled' : null"
@@ -47,6 +55,17 @@
         {{ isLoading ? 'Đang xử lý' : 'Bắt đầu' }}
       </button>
       <a [routerLink]="paths.home.path" class="hidden md:block">Về trang chủ</a>
+      <kyonsvn-tutorial
+        *ngIf="showTutorial"
+        (skipCallback)="skip()"
+        [scriptElements]="[turorial1, turorial2, turorial3, turorial4]"
+        [scriptEvents]="[
+          ['change', script1],
+          ['change', script2],
+          ['change', script3],
+          ['click', script4]
+        ]"
+      ></kyonsvn-tutorial>
     </div>
   </div>
   <div

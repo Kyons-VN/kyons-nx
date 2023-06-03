@@ -1,5 +1,5 @@
 <div class="flex items-center">
-  <label class="radio flat">
+  <label class="radio flat" [id]="'atutorial-' + value">
     <input [id]="name + value" type="radio" [name]="name" [disabled]="disabled" [checked]="checked" />
     <span [innerHTML]="label | safeHtml"></span>
   </label>

@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import Balance from '@infrastructure/order/balance';
@@ -11,7 +11,7 @@ import { Subscription, interval, lastValueFrom } from 'rxjs';
   templateUrl: './package-page.component.html',
   styleUrls: ['./package-page.component.scss'],
 })
-export class PackagePageComponent implements OnInit {
+export class PackagePageComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'h-full';
   paths: AppPaths;
   constructor(
@@ -37,6 +37,7 @@ export class PackagePageComponent implements OnInit {
       },
       error: () => {
         this.errorMessage = 'Có lỗi, vui lòng thử lại';
+        this.interval.unsubscribe();
       },
     });
     const requestInterval = interval(10000);
@@ -87,5 +88,9 @@ export class PackagePageComponent implements OnInit {
   close() {
     this.step = 0;
     this.quantity = 1;
+  }
+
+  ngOnDestroy(): void {
+    this.interval.unsubscribe();
   }
 }

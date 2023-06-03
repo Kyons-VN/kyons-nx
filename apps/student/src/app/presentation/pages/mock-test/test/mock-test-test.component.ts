@@ -10,7 +10,6 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
-// import { Progress } from '@presentation/share-components/questions-progress/questions-progress.component';
 import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
 import { MockTestHtmlStatus, MockTestResult, Progress, SubmissionHtml, TestContentHtml } from '@share-utils/data';
 import { Observable, fromEvent } from 'rxjs';

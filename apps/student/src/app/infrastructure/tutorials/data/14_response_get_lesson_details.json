@@ -1,0 +1,18 @@
+[
+    {
+        "category_id": 1,
+        "category_name": "App Guideline",
+        "topic_id": 60,
+        "topic_name": "Số phức",
+        "lessons": [
+            {
+                "id": 276,
+                "content": "",
+                "difficulty_level": 1,
+                "learning_point_id": 266,
+                "learning_point_difficulty_id": 270,
+                "name": "Số phức"
+            }
+        ]
+    }
+]

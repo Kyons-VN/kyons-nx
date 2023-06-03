@@ -4,6 +4,6 @@ enum RedirectAfterLogin {
   MockTest,
   LearningPath,
   ReferralMockTest,
+  HomeAppTutorial,
 }
 export { RedirectAfterLogin };
-

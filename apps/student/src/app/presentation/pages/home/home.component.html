@@ -19,8 +19,13 @@
               <a [routerLink]="paths.profile.path" class="drop-menu-item">
                 <li>Thông tin cá nhân</li>
               </a>
+              <li class="border-t border-blueGrey-300"></li>
               <a [routerLink]="paths.account.path" class="drop-menu-item">
                 <li>Tài khoản của bạn</li>
+              </a>
+              <li class="border-t border-blueGrey-300"></li>
+              <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }" class="drop-menu-item">
+                <li>Hướng dẫn sử dụng</li>
               </a>
               <li class="border-t border-blueGrey-300"></li>
               <!-- <li [routerLink]="'/knowledge'">
@@ -112,7 +117,12 @@
           <span class="h7 md:hidden">Mục tiêu gần đây</span>
           <!-- <a href="">Xem tất cả Mục tiêu học tập</a> -->
         </div>
-        <button [routerLink]="paths.mockTest.path" class="btn gap-2">
+        <button
+          #btnCreateLearningGoal
+          [routerLink]="paths.mockTest.path"
+          class="btn gap-2"
+          data-tooltip-content="Bấm vào đây để tạo mục tiêu học tập mới"
+        >
           <i class="icon-Add text-[22px]"></i>Tạo mục tiêu học tập mới
         </button>
       </div>
@@ -152,6 +162,12 @@
           </div>
         </div>
       </ng-template>
+      <kyonsvn-tutorial
+        *ngIf="showTutorial"
+        (skipCallback)="skip()"
+        [scriptElements]="[btnCreateLearningGoal]"
+        [scriptEvents]="[['click', script]]"
+      ></kyonsvn-tutorial>
     </div>
     <ng-template #loading>
       <student-loading></student-loading>
@@ -173,8 +189,13 @@
             <a [routerLink]="paths.profile.path" class="drop-menu-item">
               <li>Thông tin cá nhân</li>
             </a>
+            <li class="border-t border-blueGrey-300"></li>
             <a [routerLink]="paths.account.path" class="drop-menu-item">
               <li>Tài khoản của bạn</li>
+            </a>
+            <li class="border-t border-blueGrey-300"></li>
+            <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }" class="drop-menu-item">
+              <li>Hướng dẫn sử dụng</li>
             </a>
             <li class="border-t border-blueGrey-300"></li>
             <!-- <li [routerLink]="'/knowledge'">

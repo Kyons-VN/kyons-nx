@@ -1,74 +1,74 @@
 {
-    "test_id": 1,
-    "learning_point_name": "Thể tích khối trụ",
-    "data": [
+  "test_id": 1,
+  "learning_point_name": "Thể tích khối trụ",
+  "data": [
+    {
+      "id": 1,
+      "content": "<p>Trong mặt phẳng Oxy, cho hình phẳng (K) giới hạn bởi các đường <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013325image.png\"> và <img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013395image.png\"></p><p>Thể tích của vật thể tròn xoay khi quay hình (H) quanh trục hoành một vòng</p>",
+      "answers": [
         {
-            "id": 1,
-            "content": "<p>Trong mặt phẳng Oxy, cho hình phẳng (K) giới hạn bởi các đường <img class=\"image_resized\" style=\"width:70px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013325image.png\"> và <img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013395image.png\"></p><p>Thể tích của vật thể tròn xoay khi quay hình (H) quanh trục hoành một vòng</p>",
-            "answer_keys": [
-                {
-                    "id": 1,
-                    "value": "1",
-                    "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014945image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                },
-                {
-                    "id": 2,
-                    "value": "2",
-                    "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014899image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                },
-                {
-                    "id": 3,
-                    "value": "3",
-                    "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014852image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                },
-                {
-                    "id": 4,
-                    "value": "4",
-                    "content": "<p><img class=\"image_resized\" style=\"width:20px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014757image.png\"></p>",
-                    "explanation": "<p>Phương trình hoành độ giao điểm của <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013325image.png\"> và <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013395image.png\"></p><p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014327image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014428image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:300px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014620image.png\"></p>",
-                    "is_correct": true
-                }
-            ]
+          "id": 1,
+          "value": "1",
+          "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014945image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
         },
         {
-            "id": 2,
-            "content": "<p>Cho đường cong <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015233image.png\"> và đường thẳng <img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015292image.png\"></p><p>Tính thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi hai đường trên quanh trục Ox</p>",
-            "answer_keys": [
-                {
-                    "id": 5,
-                    "value": "5",
-                    "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015824image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                },
-                {
-                    "id": 6,
-                    "value": "6",
-                    "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015878image.png\"></p>",
-                    "explanation": "<p>Phương trình hoành độ giao điểm của <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015233image.png\"> và &nbsp;<img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015292image.png\"> là</p><p><img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015440image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:80px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015500image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:400px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015712image.png\"></p>",
-                    "is_correct": true
-                },
-                {
-                    "id": 7,
-                    "value": "7",
-                    "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015928image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                },
-                {
-                    "id": 8,
-                    "value": "8",
-                    "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015974image.png\"></p>",
-                    "explanation": "",
-                    "is_correct": false
-                }
-            ]
+          "id": 2,
+          "value": "2",
+          "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014899image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 3,
+          "value": "3",
+          "content": "<p><img class=\"image_resized\" style=\"width:11px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014852image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 4,
+          "value": "4",
+          "content": "<p><img class=\"image_resized\" style=\"width:20px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014757image.png\"></p>",
+          "explanation": "<p>Phương trình hoành độ giao điểm của <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013325image.png\"> và <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682013395image.png\"></p><p><img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014327image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014428image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:300px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682014620image.png\"></p>",
+          "is_correct": true
         }
-    ]
+      ]
+    },
+    {
+      "id": 2,
+      "content": "<p>Cho đường cong <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015233image.png\"> và đường thẳng <img class=\"image_resized\" style=\"width:45px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015292image.png\"></p><p>Tính thể tích khối tròn xoay tạo thành khi quay hình phẳng giới hạn bởi hai đường trên quanh trục Ox</p>",
+      "answers": [
+        {
+          "id": 5,
+          "value": "5",
+          "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015824image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 6,
+          "value": "6",
+          "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015878image.png\"></p>",
+          "explanation": "<p>Phương trình hoành độ giao điểm của <img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015233image.png\"> và &nbsp;<img class=\"image_resized\" style=\"width:60px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015292image.png\"> là</p><p><img class=\"image_resized\" style=\"width:100px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015440image.png\"></p><p>&lt;=&gt; <img class=\"image_resized\" style=\"width:80px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015500image.png\"></p><p>Ta có <img class=\"image_resized\" style=\"width:400px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015712image.png\"></p>",
+          "is_correct": true
+        },
+        {
+          "id": 7,
+          "value": "7",
+          "content": "<p><img class=\"image_resized\" style=\"width:18px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015928image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 8,
+          "value": "8",
+          "content": "<p><img class=\"image_resized\" style=\"width:27px;\" src=\"https://kyons-stg-images.s3.ap-southeast-1.amazonaws.com/1682015974image.png\"></p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    }
+  ]
 }

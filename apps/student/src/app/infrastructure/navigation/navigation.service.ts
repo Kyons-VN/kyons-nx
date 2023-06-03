@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import { RedirectAfterLogin } from '../../domain/navigation/i-redirect';
 import { AppPaths } from '../../presentation/routes';
 
@@ -11,20 +12,22 @@ export class NavigationService {
     this.paths = new AppPaths();
   }
 
-  getRouteAfterLogin(redirectString: string): string {
+  getRouteAfterLogin(redirectString: string): [string, NavigationExtras | undefined] {
     switch (redirectString) {
       case RedirectAfterLogin[RedirectAfterLogin.HomePage]:
-        return this.paths.home.path;
+        return [this.paths.home.path, undefined];
       case RedirectAfterLogin[RedirectAfterLogin.LearningPath]:
-        return this.paths.learningPath.path;
+        return [this.paths.learningPath.path, undefined];
       case RedirectAfterLogin[RedirectAfterLogin.DiagnosticTest]:
-        return this.paths.classProgram.path;
+        return [this.paths.classProgram.path, undefined];
       case RedirectAfterLogin[RedirectAfterLogin.MockTest]:
-        return this.paths.mockTest.path;
+        return [this.paths.mockTest.path, undefined];
       case RedirectAfterLogin[RedirectAfterLogin.ReferralMockTest]:
-        return this.paths.mockTestTest.path;
+        return [this.paths.mockTestTest.path, undefined];
+      case RedirectAfterLogin[RedirectAfterLogin.HomeAppTutorial]:
+        return [this.paths.home.path, { queryParams: { tutorial: true } }];
       default:
-        return this.paths.home.path;
+        return [this.paths.home.path, undefined];
     }
   }
 }

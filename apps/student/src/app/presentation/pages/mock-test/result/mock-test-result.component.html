@@ -99,8 +99,19 @@
             vào những điểm thiếu sót của bạn.<br />Bấm <strong>Tạo lộ trình học</strong> để bắt đầu ngay!</span
           >
           <div class="col md:flex-row gap-2 md:items-center items-stretch justify-between w-full">
-            <button (click)="review()" class="btn-rounded order-2 md:order-1">Xem lại đáp án bài kiểm tra</button>
             <button
+              #reviewElm
+              data-tooltip-content="Bạn hãy bấm vào đây để xem lại kết quả bài kiểm tra của mình"
+              data-tooltip-position="bottom"
+              (click)="review()"
+              class="btn-rounded order-2 md:order-1"
+            >
+              Xem lại đáp án bài kiểm tra
+            </button>
+            <button
+              #createElm
+              data-tooltip-content="Bạn hãy bấm vào đây để tạo lộ trình học"
+              data-tooltip-position="bottom"
               [disabled]="testResult.status !== MockTestStatus.learning_path_received"
               (click)="activateLearningPath()"
               class="btn order-1 md:order-2"
@@ -158,5 +169,19 @@
         <i class="icon-btn icon-ArrowRight"></i>
       </button>
     </div>
+  </div>
+  <div *ngIf="showTutorial">
+    <kyonsvn-tutorial
+      *ngIf="tutorialPart === 1"
+      [scriptElements]="[reviewElm]"
+      [scriptEvents]="[['click', nextTutorial1], null]"
+      (skipCallback)="skip()"
+    ></kyonsvn-tutorial>
+    <kyonsvn-tutorial
+      *ngIf="tutorialPart === 2"
+      [scriptElements]="[createElm]"
+      [scriptEvents]="[['click', nextTutorial2], null]"
+      (skipCallback)="skip()"
+    ></kyonsvn-tutorial>
   </div>
 </div>

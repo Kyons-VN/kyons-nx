@@ -51,6 +51,7 @@ export class LessonPageComponent implements OnInit {
   showComplete = false;
   isSubmitting = false;
   currentForm!: HTMLFormElement;
+  isCompleted = false;
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
@@ -142,7 +143,7 @@ export class LessonPageComponent implements OnInit {
           this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
           this.questionReview = QuestionReviewHtml.fromJson(result['result'][0]);
           if (result['lesson_percentage'] == 100) {
-            this.showComplete = true;
+            this.isCompleted = true;
           }
           this.isSubmitting = false;
           this.scrollTopElm.nativeElement.scrollTop = 0;
@@ -157,6 +158,10 @@ export class LessonPageComponent implements OnInit {
   }
 
   nextQuestion() {
+    if (this.isCompleted) {
+      this.showComplete = true;
+      return;
+    }
     this.currentForm.querySelectorAll('input[type="radio"]').forEach(input => {
       input.removeAttribute('disabled');
     });

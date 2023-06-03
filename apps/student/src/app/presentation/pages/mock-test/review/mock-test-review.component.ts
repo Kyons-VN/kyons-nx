@@ -8,13 +8,15 @@ import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
+import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
+import { TutorialComponent } from '@share-components';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
 import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, TutorialComponent],
   templateUrl: './mock-test-review.component.html',
   styleUrls: ['./mock-test-review.component.scss'],
 })
@@ -28,6 +30,7 @@ export class MockTestReviewComponent implements OnInit {
   http = inject(HttpClient);
   loading = inject(LoadingOverlayService);
   location = inject(Location);
+  tutorialService = inject(TutorialService);
 
   questions: QuestionReviewHtml[] = [];
   currentQuestion!: QuestionReviewHtml;
@@ -36,19 +39,32 @@ export class MockTestReviewComponent implements OnInit {
   mockTestId!: string;
   status: MockTestStatus = MockTestStatus.active;
   MockTestStatus = MockTestStatus;
+  showTutorial = false;
 
   @ViewChild('scrollElm') scrollElm!: ElementRef;
 
   ngOnInit(): void {
     this.loading.show();
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
-    let learningGoalId = this.route.snapshot.queryParamMap.get('learning_goal_id') ?? '';
-    if (learningGoalId === '') {
-      learningGoalId = this.knowledgeService.getSelectedLearningGoal().id;
+
+    if (this.mockTestId === 'tutorial') {
+      console.log('tutorial');
+      this.showTutorial = true;
+      const result = this.tutorialService.getMockTestReview();
+      this.questions = result.data;
+      this.currentQuestion = this.questions[0];
+      this.status = this.tutorialService.getMockTestResult().status;
+      this.loading.hide();
+      this.isLoading = false;
+      return;
     }
+
+    // let learningGoalId = this.route.snapshot.queryParamMap.get('learning_goal_id') ?? '';
+    // if (learningGoalId === '') {
+    //   learningGoalId = this.knowledgeService.getSelectedLearningGoal().id;
+    // }
     this.testService.getMockTestReviewHtml(this.mockTestId).subscribe({
       next: (result: any) => {
-        console.log(result);
         this.questions = result.data;
         this.currentQuestion = this.questions[0];
         this.isLoading = false;
@@ -132,5 +148,19 @@ export class MockTestReviewComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  emptyFunc = () => {
+    //
+  };
+
+  nextTutorial = () => {
+    this.router.navigate([this.paths.mockTestResult.path.replace(':id', 'tutorial2')]);
+  };
+
+  skip() {
+    window.document.body.removeAttribute('style');
+    this.showTutorial = false;
+    this.router.navigate([this.paths.home.path], { replaceUrl: true });
   }
 }

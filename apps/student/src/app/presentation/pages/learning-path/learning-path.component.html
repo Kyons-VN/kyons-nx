@@ -37,7 +37,7 @@
         <span class="h7">{{ selectedStudentLearningGoal.programName }}</span>
       </div>
     </div>
-    <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full" (wheel)="onScroll($event)">
+    <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full">
       <div *ngIf="mockTests.length !== 0; else learingPathEmptyTemplate" class="w-full flex items-start justify-center">
         <div
           *ngIf="lessons.length !== 0 && !showActivateLearningPathBtn"
@@ -64,6 +64,9 @@
                   ></div> -->
                   <div *ngIf="i !== 0" class="absolute path"></div>
                   <button
+                    [id]="'lesson-' + lessons[i + bi * 3].id"
+                    data-tooltip-content="Bạn hãy bấm vào đây để làm bài tập thực hành theo lộ trình học"
+                    data-tooltip-position="bottom"
                     *ngIf="lessons[i + bi * 3].name !== ''"
                     class="lesson-block"
                     [ngClass]="{
@@ -136,6 +139,9 @@
                   ></div> -->
                   <div *ngIf="i !== 0" class="absolute path"></div>
                   <button
+                    [id]="'lessonXs-' + lessons[i + bi * 2].id"
+                    data-tooltip-content="Bạn hãy bấm vào đây để làm bài tập thực hành theo lộ trình học"
+                    data-tooltip-position="bottom"
                     *ngIf="lessons[i + bi * 2].name !== ''"
                     class="lesson-block"
                     [ngClass]="{
@@ -180,7 +186,7 @@
                   class="lesson-block"
                   [ngClass]="{
                     'waiting-block': lessons[lessons.length - 1].isNew,
-                    'finish-block': !lessons[lessons.length - 1].isNew
+                    'finish-block finish-blockXs': !lessons[lessons.length - 1].isNew
                   }"
                   (click)="onLastLessonBlockClick()"
                   tabindex="0"
@@ -456,6 +462,19 @@
   </div>
 </div>
 <div
+  *ngIf="showCompleteTutorial"
+  class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 max-w-[700px] max-h-[calc(100vh_-_8rem)] overflow-auto">
+    <h4>Và thế là hết... Bây giờ bạn đã biết cách sử dụng Kyons App rồi đó!</h4>
+    <p>
+      Nếu quên, bạn có thể truy cập phần FAQ > “Hướng dẫn sử dụng Kyons App” để xem lại. Chúc bạn học tập thật vui vẻ
+      nha
+    </p>
+    <button (click)="completeTutorial()" class="btn w-full shrink-0">Quay về trang chủ</button>
+  </div>
+</div>
+<div
   *ngIf="showWhatIsMockTest"
   class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center z-[100]"
 >
@@ -484,4 +503,34 @@
     </p>
     <button (click)="showWhatIsMockTest = false" class="btn w-full shrink-0">Đã hiểu</button>
   </div>
+</div>
+<div *ngIf="showTutorial">
+  <kyonsvn-tutorial
+    *ngIf="tutorialPart === 1"
+    (skipCallback)="skip()"
+    [scriptElements]="scriptElements"
+    [scriptEvents]="[['click', script1]]"
+    class="hidden md:block"
+  ></kyonsvn-tutorial>
+  <kyonsvn-tutorial
+    *ngIf="tutorialPart === 1"
+    (skipCallback)="skip()"
+    [scriptElements]="scriptXsElements"
+    [scriptEvents]="[['click', script1]]"
+    class="md:hidden"
+  ></kyonsvn-tutorial>
+  <kyonsvn-tutorial
+    *ngIf="tutorialPart === 2"
+    (skipCallback)="skip()"
+    [scriptElements]="scriptElements"
+    [scriptEvents]="[['click', script2]]"
+    class="hidden md:block"
+  ></kyonsvn-tutorial>
+  <kyonsvn-tutorial
+    *ngIf="tutorialPart === 2"
+    (skipCallback)="skip()"
+    [scriptElements]="scriptXsElements"
+    [scriptEvents]="[['click', script2]]"
+    class="md:hidden"
+  ></kyonsvn-tutorial>
 </div>

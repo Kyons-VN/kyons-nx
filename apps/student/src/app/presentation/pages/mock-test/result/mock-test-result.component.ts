@@ -1,6 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { SERVER_API } from '@infrastructure/auth/interceptor';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
@@ -8,10 +9,15 @@ import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
+import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
+import { TutorialComponent } from '@share-components';
 import { MockTestResult } from '@share-utils/data';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule],
   templateUrl: './mock-test-result.component.html',
   styleUrls: ['./mock-test-result.component.scss'],
 })
@@ -25,6 +31,7 @@ export class MockTestResultComponent implements OnInit {
   loading = inject(LoadingOverlayService);
   lessonService = inject(LessonService);
   http = inject(HttpClient);
+  tutorialService = inject(TutorialService);
 
   mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
   stats = ['Speed', 'Accuracy', 'Deligence', 'Quantity', 'Combo'];
@@ -35,10 +42,26 @@ export class MockTestResultComponent implements OnInit {
   interval!: Subscription;
   learningGoalId!: string;
   MockTestStatus = MockTestStatus;
+  showTutorial = false;
+  tutorialPart = 0;
 
   ngOnInit(): void {
     this.loading.show();
     // const mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
+    if (this.mockTestId === 'tutorial1' || this.mockTestId === 'tutorial2') {
+      console.log('tutorial');
+      this.learningGoalId = this.tutorialService.getSelectedLearningGoal().id;
+      this.probabilityIndex = this.tutorialService.getProbabilityIndex();
+      this.testResult = this.tutorialService.getMockTestResult();
+      this.showTutorial = true;
+      if (this.mockTestId === 'tutorial1') {
+        this.tutorialPart = 1;
+      } else if (this.mockTestId === 'tutorial2') {
+        this.tutorialPart = 2;
+      }
+      this.loading.hide();
+      return;
+    }
     this.learningGoalId = this.route.snapshot.queryParamMap.get('learning_goal_id') ?? '';
     if (this.learningGoalId === '') {
       this.learningGoalId = this.knowledgeService.getSelectedLearningGoal().id;
@@ -121,5 +144,19 @@ export class MockTestResultComponent implements OnInit {
         });
       },
     });
+  }
+
+  nextTutorial1 = () => {
+    this.router.navigate([this.paths.mockTestReview.path.replace(':id', 'tutorial')]);
+  };
+
+  nextTutorial2 = () => {
+    this.router.navigate([this.paths.learningPath.path], { queryParams: { tutorial: 1 } });
+  };
+
+  skip() {
+    window.document.body.removeAttribute('style');
+    this.showTutorial = false;
+    this.router.navigate([this.paths.home.path], { replaceUrl: true });
   }
 }
