@@ -430,3 +430,7 @@ svg {
 kyonsvn-tutorial label.radio {
   @apply bg-white;
 }
+
+.xs-hidden {
+  @apply hidden sm:flex;
+}

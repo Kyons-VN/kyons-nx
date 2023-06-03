@@ -5,16 +5,13 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { AppPaths } from '@presentation/routes';
 
 @Component({
+  standalone: true,
   templateUrl: './sign-out.component.html',
   styleUrls: ['./sign-out.component.scss'],
 })
 export class SignOutComponent implements OnInit {
   paths: AppPaths;
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    navService: NavigationService
-  ) {
+  constructor(private authService: AuthService, private router: Router, navService: NavigationService) {
     this.paths = navService.paths;
   }
 

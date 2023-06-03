@@ -4,7 +4,6 @@ import { LayoutDefaultComponent } from './layouts/default/layout-default.compone
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 import { LeaveGuard } from './leave.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
-import { FinalExamComponent } from './pages/final-exam/final-exam.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
@@ -19,8 +18,6 @@ import { NewUserComponent } from './pages/new-user/new-user.component';
 import { PackagePageComponent } from './pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
-import { SignOutComponent } from './pages/sign-out/sign-out.component';
 import { TestComponent } from './pages/test/test.component';
 import { TutorialLessonComponent } from './share-components/tutorial/lesson/tutorial-lesson.component';
 import { TutorialTestComponent } from './share-components/tutorial/test/tutorial-test.component';
@@ -38,17 +35,13 @@ class AppPaths {
   signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
   classProgram = { name: 'Trang chọn mục tiêu', path: '/mock-test/' };
   test = { name: 'Test', path: '/test/' };
-  // diagnosticTest = { name: '', path: '/diagnostic-test/' };
   learningPath = { name: '', path: '/learning-path/' };
   lessonPage = { name: '', path: '/learning-path/lesson-page/:id' };
   lessonPageTutorial = { name: '', path: '/learning-path/lesson-page-tutorial' };
   lessonReviewPage = { name: '', path: '/learning-path/lesson-page/:id/review' };
   learningPathComplete = { name: '', path: '/learning-path/complete/' };
-  // waitingForTutor = { name: '', path: '/waiting-for-tutor/' };
   profile = { name: '', path: '/profile/' };
   pageNotfound = { name: '', path: '/page-not-found/' };
-  // newLesson = { name: '', path: '/new-lesson/' };
-  // finalExam = { name: '', path: '/final-exam/' };
   resetPassword = { name: '', path: '/reset-password/' };
   account = { name: '', path: '/account/' };
   package = { name: '', path: '/account/package/' };
@@ -124,26 +117,6 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [AuthGuard],
       },
-      // {
-      //   path: 'knowledge',
-      //   component: KnowledgeComponent,
-      //   canActivate: [AuthGuard],
-      // },
-      // {
-      //   path: 'rating-tutor',
-      //   component: RatingTutorComponent,
-      //   canActivate: [AuthGuard],
-      // },
-      // {
-      //   path: 'new-lesson',
-      //   component: NewLessonPageComponent,
-      //   canActivate: [AuthGuard],
-      // },
-      {
-        path: 'final-exam/:programId',
-        component: FinalExamComponent,
-        canActivate: [AuthGuard],
-      },
       {
         path: 'account',
         children: [
@@ -155,8 +128,11 @@ const routes: Routes = [
     ],
   },
   { path: 'test', component: TestComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'sign-out', component: SignOutComponent },
+  { path: 'sign-in', loadComponent: () => import('./pages/sign-in/sign-in.component').then(m => m.SignInComponent) },
+  {
+    path: 'sign-out',
+    loadComponent: () => import('./pages/sign-out/sign-out.component').then(m => m.SignOutComponent),
+  },
   {
     path: 'reset-password',
     loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),

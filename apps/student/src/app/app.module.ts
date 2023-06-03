@@ -13,13 +13,9 @@ import { DEFAULT_TIMEOUT, authInterceptorProviders } from './infrastructure/auth
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
 import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
-import { FinalExamComponent } from './presentation/pages/final-exam/final-exam.component';
-import { KnowledgeComponent } from './presentation/pages/knowledge/knowledge.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
-import { RatingTutorComponent } from './presentation/pages/rating-tutor/rating-tutor.component';
-import { SignOutComponent } from './presentation/pages/sign-out/sign-out.component';
 import { TestComponent } from './presentation/pages/test/test.component';
 import { AppInputComponent } from './presentation/share-components/app-input/app-input.component';
 import { IvyCarouselModule } from './presentation/share-components/carousel/carousel.module';
@@ -57,29 +53,22 @@ registerLocaleData(localeEN, 'en');
     AppComponent,
     AppInputComponent,
     ConfirmDialogComponent,
-    FinalExamComponent,
     InputRadioComponent,
-    KnowledgeComponent,
     LayoutDefaultComponent,
     LayoutFullComponent,
-    // LearningPathComponent,
     NewLessonPageComponent,
     NewUserComponent,
     PackagePageComponent,
     PageNotFoundComponent,
-    // ProfileComponent,
     QuestionsProgressComponent,
-    RatingTutorComponent,
     ScoreBarComponent,
     SelectTopicComponent,
-    SignOutComponent,
     SubjectCardComponent,
     TestComponent,
     TestContentComponent,
     TestReviewComponent,
     TopMenuComponent,
     TrackingComponent,
-    // MockTestResultComponent,
     AdaptiveTestComponent,
   ],
   imports: [

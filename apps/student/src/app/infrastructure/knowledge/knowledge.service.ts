@@ -96,7 +96,7 @@ export class KnowledgeService implements IKnowledgeService {
     return this.http.get(SERVER_API + '/students/master_learning_goals').pipe(
       catchError(DBHelper.handleError('GET learning_goals_list', [])),
       map((res: any) => {
-        if (res.data.length === 0) return [];
+        if (res.data == undefined || res.data.length === 0) return [];
         // res = {
         //   data: [
         //     {

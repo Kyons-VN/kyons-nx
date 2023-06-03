@@ -71,12 +71,7 @@
     left: 196px;
   }
 }
-// .odd:nth-child(2n + 2) {
-//   background-color: red;
-// }
-// .odd:nth-child(2n + 1) {
-//   background-color: blue;
-// }
+
 $w-md: 56px;
 $w: 56px * 0.75;
 $h-md: 270px;
@@ -124,18 +119,4 @@ $h: 270px * 0.75;
 }
 .bg-white-gradient {
   background: linear-gradient(49.92deg, #ffffff 23.44%, #d3efff 100.07%);
-}
-// <svg xmlns="http://www.w3.org/2000/svg" width="56" height="279" viewBox="0 0 56 279" fill="none">
-// <path d="M56 12C31.6995 12 12 31.699 12 56V213C12 237.301 31.6995 267 56 267" stroke="#315D93" stroke-width="23"/>
-// </svg>
-
-// <svg xmlns="http://www.w3.org/2000/svg" width="56" height="279" viewBox="0 0 56 279" fill="none">
-// <path d="M0 12C24.301 12 44 31.6995 44 56V204C44 228.301 24.301 248 0 248" stroke="#315D93" stroke-width="24"/>
-// </svg>
-
-// <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 30 24" fill="none">
-// <line x1="0" y1="12" x2="30" y2="12" stroke="#315D93" stroke-width="24"/>
-// </svg>
-.xs-hidden {
-  @apply hidden sm:flex;
 }
