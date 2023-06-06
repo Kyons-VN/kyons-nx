@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { catchError, map } from 'rxjs';
@@ -7,7 +7,7 @@ import { DBHelper } from '../helper/helper';
 import { KnowledgeService } from '../knowledge/knowledge.service';
 import { TrackingService } from '../tracking/tracking.service';
 import { UserService } from '../user/user.service';
-import { SERVER_API } from './interceptor';
+import { SERVER_API, TOKEN_HEADER_KEY } from './interceptor';
 
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -21,7 +21,8 @@ export class AuthService implements IAuthService {
     private http: HttpClient,
     private userService: UserService,
     private trackingService: TrackingService,
-    private knowledgeService: KnowledgeService
+    private knowledgeService: KnowledgeService,
+    private backend: HttpBackend
   ) {}
 
   signIn(credential: IAuthCredential) {
@@ -81,14 +82,11 @@ export class AuthService implements IAuthService {
   }
 
   refreshToken(refreshToken: string) {
-    return this.http.post(
-      SERVER_API + '/auth/refresh',
-      {},
-      {
-        headers: {
-          Authorization: 'Bearer ' + refreshToken,
-        },
-      }
-    );
+    const http = new HttpClient(this.backend);
+    const contentType = 'application/json';
+    const options = {
+      headers: new HttpHeaders().set(TOKEN_HEADER_KEY, `Bearer ${refreshToken}`).set('Content-Type', contentType),
+    };
+    return http.post(SERVER_API + '/auth/refresh', {}, options);
   }
 }

@@ -14,7 +14,7 @@ import { AppPaths } from '../../presentation/routes';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
 
-const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
+export const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
 export const SERVER_API = environment.serverApi;
 
 export const DEFAULT_TIMEOUT = new InjectionToken<number>('defaultTimeout');
@@ -104,24 +104,27 @@ export class AuthInterceptor implements HttpInterceptor {
             this.forceSignOut();
             return;
           }
-          this.auth.setToken(value.access_token);
+          this.auth.setToken(value);
           authReq = req.clone({
             headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token).set('Content-Type', contentType),
           });
-          return next.handle(authReq).subscribe({
+          next.handle(authReq).subscribe({
             error: e => {
               console.log(e);
+              throwError(() => 'server error');
               this.forceSignOut();
             },
           });
         },
         e => {
           console.log(e);
+          throwError(() => 'Invalid refreshToken');
           this.forceSignOut();
         }
       );
     } else {
-      this.forceSignOut();
+      // this.forceSignOut();
+      throwError(() => 'no refreshToken');
       console.log('forceSignOut');
     }
   }
