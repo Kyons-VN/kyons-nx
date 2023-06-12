@@ -4,6 +4,7 @@ import { LayoutDefaultComponent } from './layouts/default/layout-default.compone
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 import { LeaveGuard } from './leave.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { GiftComponent } from './pages/gift/gift.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
@@ -52,6 +53,7 @@ class AppPaths {
   mockTestTest = { name: '', path: '/mock-test/:id/test/' };
   mockTestTestTutorial = { name: '', path: '/mock-test/tutorial/1' };
   mockTestShare = { name: '', path: '/share-mocktest/:ref' };
+  gift = { name: '', path: '/promotions/:event' };
   newUser = { name: '', path: '/new-user/' };
   termsOfService = { name: '', path: '/terms-of-service' };
 }
@@ -105,6 +107,7 @@ const routes: Routes = [
         ],
       },
       { path: 'share-mocktest/:ref', component: MockTestShareComponent },
+      { path: 'promotions/:event', component: GiftComponent },
     ],
   },
   {

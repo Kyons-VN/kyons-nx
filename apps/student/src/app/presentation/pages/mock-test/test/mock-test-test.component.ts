@@ -9,7 +9,6 @@ import { LessonGroup } from '@infrastructure/knowledge/lesson';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
 import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
 import { MockTestHtmlStatus, MockTestResult, Progress, SubmissionHtml, TestContentHtml } from '@share-utils/data';
 import { Observable, fromEvent } from 'rxjs';
@@ -18,21 +17,13 @@ const TEST_DURATION = 90 * 60 * 1000;
 
 @Component({
   standalone: true,
-  imports: [
-    TestContentHtmlComponent,
-    CommonModule,
-    QuestionsProgressComponent,
-    MatTooltipModule,
-    RouterModule,
-    LoadingComponent,
-  ],
+  imports: [TestContentHtmlComponent, CommonModule, QuestionsProgressComponent, MatTooltipModule, RouterModule],
 
   templateUrl: './mock-test-test.component.html',
   styleUrls: ['./mock-test-test.component.scss'],
 })
 export class MockTestTestComponent implements OnInit {
   paths = inject(NavigationService).paths;
-  // selectedProgram;
   source!: Observable<KeyboardEvent>;
   elm = inject(ElementRef);
   route = inject(ActivatedRoute);
@@ -71,7 +62,7 @@ export class MockTestTestComponent implements OnInit {
   showIncomplete = false;
   showHavingTime = false;
   ignoreIncomplete = false;
-  ignoreHavingTime = false;
+  ignoreHavingTime = true;
   mockTestId!: string;
 
   @ViewChild('testContentElm') testContentElm!: ElementRef;
@@ -79,7 +70,6 @@ export class MockTestTestComponent implements OnInit {
   @ViewChild('scrollXsElm') scrollXsElm!: ElementRef;
 
   ngOnInit(): void {
-    // this.selectedProgram = this.knowledgeService.getSelectedProgram();
     this.source = fromEvent<KeyboardEvent>(document, 'keyup');
     this.route.queryParams.subscribe(params => {
       this.isTest = params['test'] ? params['test'] === 'true' : false;
@@ -94,6 +84,7 @@ export class MockTestTestComponent implements OnInit {
   // }
 
   getMockTestHtml() {
+    this.loading.show();
     if (!this.isPending) return;
     this.testService.getMockTestHtml(this.mockTestId).subscribe({
       next: value => {
@@ -110,7 +101,7 @@ export class MockTestTestComponent implements OnInit {
         this.testProgress = Progress.from(0, value.questions.length);
         this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
           next: mockTest => {
-            this.counter = mockTest.createdAt.getTime() + TEST_DURATION - Date.now();
+            this.counter = TEST_DURATION;
             this.counterTime = new Date(this.counter);
             // setTimeout(() => {
             setInterval(() => {
@@ -281,13 +272,13 @@ export class MockTestTestComponent implements OnInit {
       this.showIncomplete = true;
       return;
     }
-    if (!this.ignoreHavingTime && this.counter > 5 * 60 * 1000) {
-      this.showHavingTime = true;
-      return;
-    }
+    // if (!this.ignoreHavingTime && this.counter > 0) {
+    // this.showHavingTime = true;
+    // return;
+    // }
     if (this.isSubmitting) return;
-    this.isSubmitting = true;
     this.loading.show();
+    this.isSubmitting = true;
     const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
     const results: string[][] = [];
     Array.from(records).map((r, i) => {
@@ -302,13 +293,18 @@ export class MockTestTestComponent implements OnInit {
       this.testSubmission.submitData[questionId] = results[i][0];
       i++;
     });
-    console.log(this.testSubmission.toJson());
     this.testSubmission.end = new Date();
     this.testService.submitTestHtml(this.testSubmission).subscribe({
       next: (result: any) => {
         this.knowledgeService.selectLearningGoal(this.learningGoal);
         this.loading.hide();
-        this.router.navigate([this.paths.mockTestResult.path.replace(':id', this.mockTestId)]);
+        if (result.have_promotion == true) {
+          this.router.navigate([this.paths.gift.path.replace(':event', 'mock_test_submitted')], {
+            queryParams: { continue: this.paths.mockTestResult.path.replace(':id', this.mockTestId) },
+          });
+        } else {
+          this.router.navigate([this.paths.mockTestResult.path.replace(':id', this.mockTestId)]);
+        }
       },
       error: (err: any) => {
         // TODO: Define error resposes
@@ -363,8 +359,8 @@ export class MockTestTestComponent implements OnInit {
   }
 
   submitIncomplete() {
-    if (!this.ignoreHavingTime && this.counter > 5 * 60 * 1000) {
-      this.showHavingTime = true;
+    if (!this.ignoreHavingTime && this.counter > 0) {
+      // this.showHavingTime = true;
     } else {
       this.testComplete();
     }

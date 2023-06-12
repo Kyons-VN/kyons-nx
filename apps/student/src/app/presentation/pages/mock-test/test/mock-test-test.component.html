@@ -125,8 +125,7 @@
     </div>
   </div>
 </div>
-<student-loading *ngIf="isPending"></student-loading>
-<div
+<!-- <div
   *ngIf="showHavingTime"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
@@ -144,7 +143,7 @@
       </button>
     </div>
   </div>
-</div>
+</div> -->
 <div
   *ngIf="showIncomplete"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
@@ -159,7 +158,7 @@
       </p>
       <p>Chắc chắn muốn nộp bài chứ?</p>
       <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn w-full">Để mình làm tiếp</button>
-      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-rounded w-full">Nộp bài luôn</button>
+      <!-- <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-rounded w-full">Nộp bài luôn</button> -->
     </div>
   </div>
 </div>

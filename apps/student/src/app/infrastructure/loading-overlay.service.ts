@@ -32,6 +32,6 @@ export class LoadingOverlayService {
     if (this.overlayRef) {
       this.overlayRef.detach();
     }
-    this._isActive = true;
+    this._isActive = false;
   }
 }
