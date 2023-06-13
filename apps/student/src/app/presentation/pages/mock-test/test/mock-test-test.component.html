@@ -151,12 +151,17 @@
   <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
     <img src="/assets/images/warning.webp" alt="" />
     <div class="col w-full gap-6">
-      <h5>Bạn vừa bỏ sót vài câu kìa!</h5>
-      <p>
-        Bạn đã bỏ sót vài câu kìa! Nếu bạn vẫn chọn nộp bài thì những câu đó sẽ tính là sai và ảnh hưởng đến lộ trình
-        học tập của bạn đó.
-      </p>
-      <p>Chắc chắn muốn nộp bài chứ?</p>
+      <h5>Rất tiếc, hiện tại bạn không thể nộp bài nếu chưa điền hết đáp án</h5>
+      <span>
+        Đừng nóng vội, Kyons biết là bạn đang muốn nộp bài luôn để xem kết quả. Tuy nhiên, Kyons đang có cuộc thi để tìm
+        ra người có số lượng hoàn thành mock-test nhiều nhất và trao thưởng (chi tiết bạn có thể xem lại
+        <a
+          href="https://www.facebook.com/KyonsVN/posts/pfbid02yR6oAhfLKYfZCyLfayPssLNgzzNk1LXtFTmM2UiT2VzFN5TL4aVjoGGMQf9oP3wHl"
+          target="_blank"
+          >Facebook Kyons</a
+        >) nên phải tạm khóa tính năng này để đảm bảo công bằng cho các bạn.
+      </span>
+      <p>Hãy quay lại các câu hỏi còn thiếu đáp án để bổ sung câu trả lời rồi hãy nộp bài bạn nha!</p>
       <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn w-full">Để mình làm tiếp</button>
       <!-- <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-rounded w-full">Nộp bài luôn</button> -->
     </div>
