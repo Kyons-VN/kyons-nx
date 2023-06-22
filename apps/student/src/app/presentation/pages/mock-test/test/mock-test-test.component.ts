@@ -115,6 +115,13 @@ export class MockTestTestComponent implements OnInit {
             }, 1000);
             // }, 2000);
             this.loading.hide();
+            if (this.isTest) {
+              this.testContent.questions.map(question => {
+                question.answers.map((answer, j) => {
+                  if (j === 0) this.testSubmission.submitData[question.id] = '0';
+                });
+              });
+            }
           },
         });
       },
@@ -287,7 +294,7 @@ export class MockTestTestComponent implements OnInit {
       if (typeof result == 'string') {
         results.push([result]);
       } else {
-        results.push(['5']);
+        results.push(['0']);
       }
       const questionId = this.testContent.questions[i].id;
       this.testSubmission.submitData[questionId] = results[i][0];

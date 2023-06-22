@@ -76,6 +76,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     this.signUpForm1.valueChanges.subscribe(() => {
       this.errorMessage = '';
     });
+    this.signUpForm1.get('email')?.valueChanges.subscribe(email => {
+      this.signUpForm1.get('email')?.setValue(email.replace(/[^a-zA-Z0-9@.+]/g, ''), { emitEvent: false });
+    });
     this.currentUrl = window.location.href.replace(window.location.origin, '');
   }
 
