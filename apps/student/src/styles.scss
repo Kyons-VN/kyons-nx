@@ -49,3 +49,7 @@
     @apply h-20 w-20 rounded-2xl;
   }
 }
+
+.katex .katex-mathml msub > mo {
+  line-height: 0;
+}

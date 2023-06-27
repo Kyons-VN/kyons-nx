@@ -122,7 +122,7 @@ export class MockTestResultComponent implements OnInit {
         this.lessonService.activateLearningPath(this.mockTestId).subscribe({
           next: () => {
             this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
+            this.router.navigate([this.paths.learningPath.path]);
           },
           error: e => {
             console.log(e);
