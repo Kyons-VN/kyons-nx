@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Subject } from '@domain/subject/subject';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
-import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
+import { LearningGoal, MockTestTemplate } from '@infrastructure/knowledge/learning-goal';
 import { Program } from '@infrastructure/knowledge/program';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
@@ -18,6 +18,7 @@ enum SubmitType {
 
 const emptyProgramObject = Program.empty();
 const emptyLearningGoalObject = LearningGoal.empty();
+const emptyMockTestTemplateObject = MockTestTemplate.empty();
 
 @Component({
   standalone: true,
@@ -40,14 +41,18 @@ export class MockTestSelectProgramComponent implements OnInit {
   emptyProgram = emptyProgramObject;
   selectedProgram = emptyProgramObject;
   emptyLearningGoal = emptyLearningGoalObject;
-  selectedTarget = emptyLearningGoalObject;
+  selectedLearningGoal = emptyLearningGoalObject;
+  selectedMockTestTemplate = emptyMockTestTemplateObject;
+  emptyMockTestTemplate = emptyMockTestTemplateObject;
   subjects!: Subject[];
   programs: Program[] = [];
-  targets: LearningGoal[] = [];
+  learningGoals: LearningGoal[] = [];
+  mockTestTemplates: MockTestTemplate[] = [];
   hasError = '';
   isLoading = false;
   item: any;
   showTutorial = false;
+  showMockTestTemplate = false;
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -81,10 +86,10 @@ export class MockTestSelectProgramComponent implements OnInit {
   }
 
   changeProgram() {
-    this.selectedTarget = emptyLearningGoalObject;
+    this.selectedLearningGoal = emptyLearningGoalObject;
     this.testService.getLearningGoal(this.selectedProgram).subscribe({
       next: data => {
-        this.targets = data;
+        this.learningGoals = data;
         //
       },
       error: err => {
@@ -110,17 +115,26 @@ export class MockTestSelectProgramComponent implements OnInit {
     // });
   }
 
+  start() {
+    this.showMockTestTemplate = true;
+  }
+
+  changeLearningGoal() {
+    this.selectedMockTestTemplate = emptyMockTestTemplateObject;
+    this.mockTestTemplates = this.selectedLearningGoal.mockTestTemplates;
+  }
+
   submit() {
     if (this.selectedProgram != null) {
       this.isLoading = true;
       this.loading.show();
       this.knowledgeService.selectProgram(this.selectedProgram);
-      this.knowledgeService.selectLearningGoal(this.selectedTarget);
+      this.knowledgeService.selectLearningGoal(this.selectedLearningGoal);
       if (this.type == SubmitType.mock_test) {
-        if (this.selectedTarget.canSelectTopic) {
-          this.router.navigate([this.paths.mockTestSelect.path.replace(':id', this.selectedTarget.id)]);
+        if (this.selectedLearningGoal.canSelectTopic) {
+          this.router.navigate([this.paths.mockTestSelect.path.replace(':id', this.selectedLearningGoal.id)]);
         } else {
-          this.testService.submitTopics(this.selectedTarget.id, []).subscribe({
+          this.testService.submitTopics(this.selectedLearningGoal.id, [], this.selectedMockTestTemplate.id).subscribe({
             next: testId => {
               this.isLoading = false;
               this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
@@ -149,15 +163,24 @@ export class MockTestSelectProgramComponent implements OnInit {
 
   script2 = () => {
     this.selectedProgram = this.programs[0];
-    this.selectedTarget = emptyLearningGoalObject;
-    this.targets = this.tutorialService.getLearningGoals();
+    this.selectedLearningGoal = emptyLearningGoalObject;
+    this.learningGoals = this.tutorialService.getLearningGoals();
   };
 
   script3 = () => {
-    this.selectedTarget = this.targets[0];
+    this.selectedLearningGoal = this.learningGoals[0];
   };
 
   script4 = () => {
+    this.showMockTestTemplate = true;
+    this.mockTestTemplates = this.selectedLearningGoal.mockTestTemplates;
+  };
+
+  script5 = () => {
+    //
+  };
+
+  script6 = () => {
     this.router.navigate([this.paths.mockTestTestTutorial.path]);
   };
 }

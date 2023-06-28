@@ -17,19 +17,19 @@ export class SelectTopicComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
   paths: AppPaths;
   program: Program;
-  selectedTarget: LearningGoal;
+  selectedLearningGoal: LearningGoal;
   constructor(
     private route: ActivatedRoute,
     navService: NavigationService,
     private testService: TestService,
     private knowledgeService: KnowledgeService,
     private loading: LoadingOverlayService,
-    private router: Router,
+    private router: Router
   ) {
     this.paths = navService.paths;
     this.program = knowledgeService.getSelectedProgram();
     this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
-    this.selectedTarget = knowledgeService.getSelectedLearningGoal();
+    this.selectedLearningGoal = knowledgeService.getSelectedLearningGoal();
   }
 
   topics: Topic[] = [];
@@ -42,26 +42,36 @@ export class SelectTopicComponent implements OnInit {
     this.testService.getTopicsOfLearningGoal(this.learningGoalId).subscribe({
       next: (topics: Topic[]) => {
         this.topics = topics;
-        this.checkedCount = topics.filter((topic) => topic.checked === true).length;
+        this.checkedCount = topics.filter(topic => topic.checked === true).length;
       },
     });
   }
 
   updateCount() {
-    this.checkedCount = this.topics.filter((lG) => lG.checked === true).length;
+    this.checkedCount = this.topics.filter(lG => lG.checked === true).length;
   }
 
   // learningGoals.filter((lG)=>lG.checked===true).length===0
   submit() {
     this.isDoneEditing = true;
-    if (this.topics.filter((lG) => lG.checked === true).length < (this.selectedTarget.minTopic ?? 3) || this.topics.filter((lG) => lG.checked === true).length > (this.selectedTarget.maxTopic ?? 4)) {
+    if (
+      this.topics.filter(lG => lG.checked === true).length < (this.selectedLearningGoal.minTopic ?? 3) ||
+      this.topics.filter(lG => lG.checked === true).length > (this.selectedLearningGoal.maxTopic ?? 4)
+    ) {
       return;
     }
     this.loading.show();
-    this.testService.submitTopics(this.learningGoalId, this.topics.filter((lG) => lG.checked === true).map((topic) => topic.id)).subscribe({
-      next: (testId) => {
-        this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
-      },
-    });
+    this.testService
+      .submitTopics(
+        this.learningGoalId,
+        this.topics.filter(lG => lG.checked === true).map(topic => topic.id),
+        // TODO: Fix hardcode
+        ''
+      )
+      .subscribe({
+        next: testId => {
+          this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
+        },
+      });
   }
 }

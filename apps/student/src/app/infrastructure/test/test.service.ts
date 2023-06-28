@@ -102,6 +102,52 @@ export class TestService {
         .pipe(
           // catchError(DBHelper.handleError('GET getLearningGoals', [])),
           map((collections: any) => {
+            // collections = [
+            //   {
+            //     id: 1,
+            //     name: 'Mock Test 3811(old mapping)',
+            //     min_topic_numb: 9,
+            //     max_topic_numb: 9,
+            //     numb_questions: 50,
+            //     mock_test_duration: 90,
+            //     program_id: 1,
+            //     status: 'enabled',
+            //     topic_list: '[65, 66, 67, 68, 69, 70, 71, 72, 73]',
+            //     created_at: '2023-05-08T06:17:07.704+07:00',
+            //     updated_at: '2023-05-18T19:41:11.095+07:00',
+            //     allow_select: false,
+            //     mock_test_templates: [
+            //       {
+            //         id: 3811,
+            //         name: 'Đề thi mô phỏng do Kyons biên soạn',
+            //       },
+            //     ],
+            //   },
+            //   {
+            //     id: 3,
+            //     name: 'mock test 4278 (Trial Test1)',
+            //     min_topic_numb: 9,
+            //     max_topic_numb: 9,
+            //     numb_questions: 50,
+            //     mock_test_duration: 0,
+            //     program_id: 1,
+            //     status: 'enabled',
+            //     topic_list: '[65, 66, 67, 68, 69, 70, 71, 72, 73]',
+            //     created_at: '2023-05-08T06:17:07.704+07:00',
+            //     updated_at: '2023-05-08T06:17:07.704+07:00',
+            //     allow_select: false,
+            //     mock_test_templates: [
+            //       {
+            //         id: 3811,
+            //         name: 'Đề thi mô phỏng do Kyons biên soạn',
+            //       },
+            //       {
+            //         id: 3421,
+            //         name: 'Đề thi năm 2023',
+            //       },
+            //     ],
+            //   },
+            // ];
             if (collections.length == 0) return [];
             return collections.map((dataObject: any) => LearningGoal.fromJson(dataObject));
           })
@@ -120,10 +166,11 @@ export class TestService {
     );
   }
 
-  submitTopics(learningGoalId: string, topicIds: string[]) {
+  submitTopics(learningGoalId: string, topicIds: string[], mockTestTemplateId: string) {
     const params = {
       master_id: parseInt(learningGoalId),
       topic_list: topicIds.map(str => parseInt(str)),
+      mock_test_template_id: parseInt(mockTestTemplateId),
     };
 
     return this.http.post(SERVER_API + '/students/learning_goal/submit', params).pipe(

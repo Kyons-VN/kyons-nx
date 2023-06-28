@@ -47,9 +47,7 @@ export class TestContentHtml {
     _.content = [];
     _.content =
       dataObject['data'] !== undefined
-        ? (dataObject['data'] as any[])
-            .map((questionObject: any) => QuestionHtml.fromJson(questionObject))
-            .sort((a, b) => a.id.localeCompare(b.id))
+        ? (dataObject['data'] as any[]).map((questionObject: any) => QuestionHtml.fromJson(questionObject))
         : [];
     _.status = MockTestHtmlStatus[dataObject['status'] as keyof typeof MockTestHtmlStatus];
 
@@ -244,10 +242,9 @@ export class TestReviewHtml {
   }
 
   static fromJson(dataObject: any): TestReviewHtml {
-    const data =
-      (dataObject['data'] as any[])
-        .map((questionObject: any) => QuestionReviewHtml.fromJson(questionObject))
-        .sort((a, b) => a.id.localeCompare(b.id)) ?? [];
+    const data = (dataObject['data'] as any[]).map((questionObject: any) =>
+      QuestionReviewHtml.fromJson(questionObject)
+    );
     return new TestReviewHtml(data);
   }
 

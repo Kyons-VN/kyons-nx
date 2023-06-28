@@ -1,6 +1,24 @@
 import { ILearningGoal } from '@domain/knowledge/I-learning-goal';
 import pick from 'lodash-es/pick';
 
+class MockTestTemplate {
+  id: string;
+  name: string;
+
+  constructor({ id, name }: { id: string; name: string }) {
+    this.id = id;
+    this.name = name;
+  }
+
+  static fromJson(dataObject: any): MockTestTemplate {
+    return new MockTestTemplate(pick(dataObject, ['id', 'name']));
+  }
+
+  static empty() {
+    return new MockTestTemplate({ id: '', name: '' });
+  }
+}
+
 class LearningGoal implements ILearningGoal {
   id: string;
   name: string;
@@ -8,6 +26,9 @@ class LearningGoal implements ILearningGoal {
   maxTopic?: number;
   minTopic?: number;
   canSelectTopic: boolean;
+  mockTestTemplates: MockTestTemplate[];
+  totalQuestions: number;
+  duration: number;
 
   constructor({
     id,
@@ -16,6 +37,9 @@ class LearningGoal implements ILearningGoal {
     maxTopic,
     minTopic,
     canSelectTopic,
+    mockTestTemplates,
+    totalQuestions,
+    duration,
   }: {
     id: string;
     name: string;
@@ -23,6 +47,9 @@ class LearningGoal implements ILearningGoal {
     maxTopic?: number;
     minTopic?: number;
     canSelectTopic: boolean;
+    mockTestTemplates: MockTestTemplate[];
+    totalQuestions?: number;
+    duration?: number;
   }) {
     this.id = id;
     this.name = name;
@@ -30,23 +57,41 @@ class LearningGoal implements ILearningGoal {
     this.maxTopic = maxTopic ?? undefined;
     this.minTopic = minTopic ?? undefined;
     this.canSelectTopic = canSelectTopic;
+    this.mockTestTemplates = mockTestTemplates;
+    this.totalQuestions = totalQuestions ?? 0;
+    this.duration = duration ?? 0;
   }
 
   checked = false;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromJson(dataObject: any): LearningGoal {
-    const _ = pick(dataObject, ['id', 'name', 'progress', 'maxTopic', 'minTopic', 'canSelectTopic']);
+    const _ = pick(dataObject, [
+      'id',
+      'name',
+      'progress',
+      'maxTopic',
+      'minTopic',
+      'canSelectTopic',
+      'mockTestTemplates',
+      'totalQuestions',
+      'duration',
+    ]);
     _.id = dataObject['id'].toString();
     _.progress = dataObject['progress'] ?? 0;
     _.minTopic = dataObject['min_topic_numb'] ?? 0;
     _.maxTopic = dataObject['max_topic_numb'] ?? 0;
     _.canSelectTopic = dataObject['allow_select'] ?? false;
+    _.mockTestTemplates = dataObject['mock_test_templates'].map((mockTestTemplateJson: any) =>
+      MockTestTemplate.fromJson(mockTestTemplateJson)
+    );
+    _.totalQuestions = dataObject['numb_questions'] ?? 0;
+    _.duration = dataObject['mock_test_duration'] ?? 0;
     return new LearningGoal(_);
   }
 
   static empty() {
-    return new LearningGoal({ id: '', name: '', progress: 0, canSelectTopic: false });
+    return new LearningGoal({ id: '', name: '', progress: 0, canSelectTopic: false, mockTestTemplates: [] });
   }
 
   toJson() {
@@ -141,4 +186,4 @@ class StudentLearningGoal {
   }
 }
 
-export { LearningGoal, StudentLearningGoal };
+export { LearningGoal, StudentLearningGoal, MockTestTemplate };

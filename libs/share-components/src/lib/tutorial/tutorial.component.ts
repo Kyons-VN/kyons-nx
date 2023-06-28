@@ -30,7 +30,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
               <i class="icon-ArrowRight"></i>
             </button>
           </div>
-          <button *ngIf="!forceComplete" (click)="skip()" replaceUrl="true">Bỏ qua</button>
+          <button *ngIf="forceComplete === false" (click)="skip()" replaceUrl="true">Bỏ qua</button>
         </div>
       </div>
     </div>

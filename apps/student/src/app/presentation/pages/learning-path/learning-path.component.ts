@@ -419,13 +419,16 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     this.showTutorial = false;
   };
 
-  completeTutorial() {
-    this.loading.show();
+  completeTutorial(willGoHome = true) {
+    if (willGoHome) this.loading.show();
     this.tutorialService.completeTutorial().subscribe({
       next: () => {
         this.userService.setForceCompleteTutorial(false);
         this.loading.hide();
-        this.router.navigate([this.paths.home.path], { replaceUrl: true });
+        if (willGoHome) this.router.navigate([this.paths.home.path], { replaceUrl: true });
+        else {
+          window.open(this.paths.home.path, '_blank');
+        }
       },
       error: err => {
         console.log(err);

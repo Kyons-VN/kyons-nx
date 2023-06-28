@@ -6,13 +6,15 @@
         [ngClass]="{
           'text-red-0':
             isDoneEditing === true &&
-            (checkedCount < (selectedTarget.minTopic ?? 3) || checkedCount > (selectedTarget.maxTopic ?? 4)),
+            (checkedCount < (selectedLearningGoal.minTopic ?? 3) ||
+              checkedCount > (selectedLearningGoal.maxTopic ?? 4)),
           'text-darkEmerald':
             isDoneEditing &&
-            checkedCount >= (selectedTarget.minTopic ?? 3) &&
-            checkedCount <= (selectedTarget.maxTopic ?? 4)
+            checkedCount >= (selectedLearningGoal.minTopic ?? 3) &&
+            checkedCount <= (selectedLearningGoal.maxTopic ?? 4)
         }"
-        >Bạn hãy chọn từ {{ selectedTarget.minTopic }} đến {{ selectedTarget.maxTopic }} bài để ôn luyện nhé</strong
+        >Bạn hãy chọn từ {{ selectedLearningGoal.minTopic }} đến {{ selectedLearningGoal.maxTopic }} bài để ôn luyện
+        nhé</strong
       >
       <!-- <button class="btn-rounded">
         <span class="flex items-center gap-2"
@@ -31,7 +33,7 @@
           (click)="submit()"
           [disabled]="
             isDoneEditing &&
-            (checkedCount < (selectedTarget.minTopic ?? 3) || checkedCount > (selectedTarget.maxTopic ?? 4))
+            (checkedCount < (selectedLearningGoal.minTopic ?? 3) || checkedCount > (selectedLearningGoal.maxTopic ?? 4))
           "
           class="btn"
         >

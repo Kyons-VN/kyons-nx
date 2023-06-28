@@ -17,6 +17,15 @@ const SELECTED_CATEGORY_ID = 'selected_category_id';
   providedIn: 'root',
 })
 export class KnowledgeService implements IKnowledgeService {
+  getLearningGoalList() {
+    return this.http.get(SERVER_API + '/students/learning_goal/list').pipe(
+      catchError(DBHelper.handleError('GET subjects_list', [])),
+      map((collection: any) => {
+        if (collection.length === 0) return [];
+        return collection.map((item: any) => Subject.fromJson(item));
+      })
+    );
+  }
   constructor(private http: HttpClient) {}
 
   getSubjects(): Observable<Subject[]> {
