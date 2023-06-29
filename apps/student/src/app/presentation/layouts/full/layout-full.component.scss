@@ -1,0 +1,20 @@
+video-player iframe,
+.video-player video {
+  width: 177.78vh !important;
+  height: 120% !important;
+}
+
+.video-player iframe,
+.video-player video {
+  position: fixed;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+}
+.video-player {
+  position: fixed;
+  overflow: hidden;
+}
