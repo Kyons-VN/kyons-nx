@@ -57,6 +57,7 @@ export class MockTestTestComponent implements OnInit {
   isCopied = false;
   isPending = true;
   counter = 0;
+  counterStart = new Date(this.counter);
   counterTime = new Date(this.counter);
   Math = Math;
   showIncomplete = false;
@@ -102,10 +103,11 @@ export class MockTestTestComponent implements OnInit {
         this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
           next: mockTest => {
             this.counter = TEST_DURATION;
-            this.counterTime = new Date(this.counter);
+            this.counterStart = new Date();
             // setTimeout(() => {
             setInterval(() => {
-              this.counter -= 1000;
+              const now = new Date();
+              this.counter = TEST_DURATION - (now.getTime() - this.counterStart.getTime());
               this.counterTime = new Date(this.counter);
               if (this.counter < 0) {
                 this.ignoreHavingTime = true;

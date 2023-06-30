@@ -126,6 +126,7 @@
           #turorial6
           data-tooltip-content="Bắt đầu làm bài kiểm tra"
           class="btn order-1 md:order-2"
+          [disabled]="selectedMockTestTemplate === emptyMockTestTemplate || isLoading"
           (click)="submit()"
         >
           Bắt đầu thôi

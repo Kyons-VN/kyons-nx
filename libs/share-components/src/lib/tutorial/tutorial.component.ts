@@ -51,7 +51,7 @@ export class TutorialComponent implements AfterViewInit, OnDestroy {
   @Input() scriptEvents!: ([string, () => void] | null)[];
   @Input() back?: () => void;
   @Input() isOverlap?: boolean = false;
-  @Input() forceComplete?: boolean;
+  @Input() forceComplete?: boolean = false;
   @Output() skipCallback = new EventEmitter<void>();
 
   resizeObservable$!: Observable<Event>;
@@ -138,6 +138,8 @@ export class TutorialComponent implements AfterViewInit, OnDestroy {
           if (this.step < this.scriptEvents.length - 1) {
             this.step++;
             if (this.step < this.scriptElements.length) this._render();
+          } else {
+            window.document.body.removeAttribute('style');
           }
         };
       } else if (scriptEvent && scriptEvent[0] == 'change') {
@@ -206,6 +208,7 @@ export class TutorialComponent implements AfterViewInit, OnDestroy {
   }
 
   skip() {
+    window.document.body.removeAttribute('style');
     this.skipCallback.emit();
   }
 
@@ -241,7 +244,9 @@ export class TutorialComponent implements AfterViewInit, OnDestroy {
   _trigger() {
     const event = this.scriptEvents[this.step];
     if (event != null) {
-      event[1]();
+      {
+        event[1]();
+      }
     }
   }
 }

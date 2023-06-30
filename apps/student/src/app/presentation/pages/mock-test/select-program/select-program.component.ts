@@ -125,7 +125,7 @@ export class MockTestSelectProgramComponent implements OnInit {
   }
 
   submit() {
-    if (this.selectedProgram != null) {
+    if (this.selectedMockTestTemplate != emptyMockTestTemplateObject) {
       this.isLoading = true;
       this.loading.show();
       this.knowledgeService.selectProgram(this.selectedProgram);
