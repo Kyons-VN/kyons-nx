@@ -169,6 +169,7 @@ export class MockTestSelectProgramComponent implements OnInit {
 
   script3 = () => {
     this.selectedLearningGoal = this.learningGoals[0];
+    this.showMockTestTemplate = false;
   };
 
   script4 = () => {

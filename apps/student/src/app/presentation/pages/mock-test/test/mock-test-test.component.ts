@@ -63,7 +63,7 @@ export class MockTestTestComponent implements OnInit {
   showIncomplete = false;
   showHavingTime = false;
   ignoreIncomplete = false;
-  ignoreHavingTime = true;
+  ignoreHavingTime = false;
   mockTestId!: string;
 
   @ViewChild('testContentElm') testContentElm!: ElementRef;
@@ -281,10 +281,10 @@ export class MockTestTestComponent implements OnInit {
       this.showIncomplete = true;
       return;
     }
-    // if (!this.ignoreHavingTime && this.counter > 0) {
-    // this.showHavingTime = true;
-    // return;
-    // }
+    if (!this.ignoreHavingTime && this.counter > 0) {
+      this.showHavingTime = true;
+      return;
+    }
     if (this.isSubmitting) return;
     this.loading.show();
     this.isSubmitting = true;
@@ -296,7 +296,7 @@ export class MockTestTestComponent implements OnInit {
       if (typeof result == 'string') {
         results.push([result]);
       } else {
-        results.push(['0']);
+        results.push(['5']);
       }
       const questionId = this.testContent.questions[i].id;
       this.testSubmission.submitData[questionId] = results[i][0];
@@ -369,7 +369,7 @@ export class MockTestTestComponent implements OnInit {
 
   submitIncomplete() {
     if (!this.ignoreHavingTime && this.counter > 0) {
-      // this.showHavingTime = true;
+      this.showHavingTime = true;
     } else {
       this.testComplete();
     }
