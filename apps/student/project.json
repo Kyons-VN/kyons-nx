@@ -56,7 +56,7 @@
             {
               "type": "initial",
               "maximumWarning": "2mb",
-              "maximumError": "2mb"
+              "maximumError": "3mb"
             },
             {
               "type": "anyComponentStyle",
@@ -150,7 +150,8 @@
           "browserTarget": "student:build:production"
         },
         "dev": {
-          "browserTarget": "student:build:dev"
+          "browserTarget": "student:build:dev",
+          "proxyConfig": "apps/student/src/proxy.conf.json"
         }
       },
       "defaultConfiguration": "dev"

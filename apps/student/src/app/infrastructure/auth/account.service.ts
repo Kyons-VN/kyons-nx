@@ -1,8 +1,6 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-
-export const SERVER_API = environment.serverApi;
+import { serverApi } from './interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -48,14 +46,14 @@ export class AccountStandaloneService {
         mocktest_referral: ref,
       };
     }
-    return this.http.post(SERVER_API + '/auth/sign_up', params);
+    return this.http.post(`${serverApi()}/auth/sign_up`, params);
   }
 
   requestResetPassword(email: string) {
-    return this.http.post(SERVER_API + '/forgot_password', { email: email });
+    return this.http.post(`${serverApi()}/forgot_password`, { email: email });
   }
 
   newPassword(email: string, newPassword: string, code: string) {
-    return this.http.put(SERVER_API + '/forgot_password', { email: email, password: newPassword, code: code });
+    return this.http.put(`${serverApi()}/forgot_password`, { email: email, password: newPassword, code: code });
   }
 }

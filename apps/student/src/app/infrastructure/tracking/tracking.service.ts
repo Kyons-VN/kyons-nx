@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { v4 as uuidv4 } from 'uuid';
-import { SERVER_API } from '../auth/interceptor';
 
 const DEVICE_ID_KEY = 'device_id';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TrackingService {
   public trackingThreshold = 10000;
@@ -31,13 +31,14 @@ export class TrackingService {
     let total = this.getTracking().total;
     if (total == null) {
       this.resetTrackingOnApp();
-    }
-    else {
+    } else {
       total += this.trackingThreshold / 1000;
       this.setTrackingOnApp(total);
-      this.http.post(SERVER_API + '/students/on_app', {
-        'on_total': total
-      }).subscribe();
+      this.http
+        .post(`${serverApi()}/students/on_app`, {
+          on_total: total,
+        })
+        .subscribe();
     }
   }
 
@@ -45,18 +46,16 @@ export class TrackingService {
     const lessonTracking = this.getTrackingLesson(lessonId);
     if (Object.keys(lessonTracking).length === 0 || lessonTracking[trackingType] == null) {
       this.resetTrackingOnLesson(lessonId, trackingType);
-    }
-    else {
+    } else {
       lessonTracking[trackingType] = (lessonTracking[trackingType] || 0) + this.trackingThreshold / 1000;
       this.setTrackingOnLesson(lessonId, lessonTracking);
       const updateTracking: any = {
-        'lesson_id': lessonId,
-      }
+        lesson_id: lessonId,
+      };
       updateTracking[trackingType] = lessonTracking[trackingType];
 
-      this.http.post(SERVER_API + '/students/on_lesson', updateTracking).subscribe();
+      this.http.post(`${serverApi()}/students/on_lesson`, updateTracking).subscribe();
     }
-
   }
 
   private setTrackingOnApp(total: number) {
@@ -91,10 +90,12 @@ export class TrackingService {
     const tracking = this.getTracking();
     tracking.total = this.trackingThreshold / 1000;
     localStorage.setItem('tracking', JSON.stringify(tracking));
-    this.http.post(SERVER_API + '/students/on_app', {
-      'on_total': tracking.toJson,
-      'start': true
-    }).subscribe();
+    this.http
+      .post(`${serverApi()}/students/on_app`, {
+        on_total: tracking.toJson,
+        start: true,
+      })
+      .subscribe();
   }
 
   resetTrackingOnLesson(lessonId: string, trackingType: string) {
@@ -104,11 +105,11 @@ export class TrackingService {
     tracking[`lesson_${lessonId}`] = updateTracking;
     localStorage.setItem('tracking', JSON.stringify(tracking));
     const params: any = {
-      'lesson_id': lessonId,
-      'start': true,
+      lesson_id: lessonId,
+      start: true,
     };
     params[trackingType] = updateTracking[trackingType];
-    this.http.post(SERVER_API + '/students/on_lesson', params).subscribe();
+    this.http.post(`${serverApi()}/students/on_lesson`, params).subscribe();
   }
 
   resetTracking() {

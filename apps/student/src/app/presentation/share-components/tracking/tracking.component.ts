@@ -15,6 +15,7 @@ export class TrackingComponent implements OnInit, OnDestroy {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove() {
+    if (window.localStorage.getItem('dev') === 'true') return;
     const isLocalhost = window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1/';
     if (isLocalhost) return;
     if (!this._isMouseActive) {
@@ -33,6 +34,7 @@ export class TrackingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (window.localStorage.getItem('dev') === 'true') return;
     const isLocalhost = window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1/';
     if (isLocalhost) return;
     this._isMouseActive = false;
@@ -46,6 +48,7 @@ export class TrackingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (window.localStorage.getItem('dev') === 'true') return;
     clearInterval(this._trackingInterval);
     clearTimeout(this._mouseInactiveTimeout);
   }

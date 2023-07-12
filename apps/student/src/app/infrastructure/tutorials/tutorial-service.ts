@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from '@domain/subject/subject';
-import { SERVER_API } from '@infrastructure/auth/interceptor';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { DBHelper } from '@infrastructure/helper/helper';
 import { LearningGoal, StudentLearningGoal } from '@infrastructure/knowledge/learning-goal';
+import { LearningGoalPath } from '@infrastructure/knowledge/learning-goal-path';
 import { Exercise, MockTestResult, TestContent, TestReviewHtml } from '@share-utils/data';
 import { catchError } from 'rxjs';
-import { LearningGoalPath } from '../knowledge/learning-goal-path';
 import { LessonGroup } from '../knowledge/lesson';
 import { MockTestItem } from '../test/test-content';
 import learningGoalPath from './data/12_response_get_lesson.json';
@@ -30,7 +30,7 @@ export class TutorialService {
 
   completeTutorial() {
     return this.http
-      .put(SERVER_API + '/users/update_info', { app_tour_completed: true })
+      .put(`${serverApi()}/users/update_info`, { app_tour_completed: true })
       .pipe(catchError(DBHelper.handleError('GET update_info', [])));
   }
   getLearningGoalLessons2(): LearningGoalPath {

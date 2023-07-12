@@ -21,6 +21,7 @@ export class TrackingLessonComponent implements OnInit, OnDestroy {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove() {
+    if (window.localStorage.getItem('dev') === 'true') return;
     if (!this._isMouseActive) {
       // this.service.resetTrackingOnLesson(this.lessonId, this.trackingType);
       this._isMouseActive = true;
@@ -37,6 +38,7 @@ export class TrackingLessonComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (window.localStorage.getItem('dev') === 'true') return;
     this._isMouseActive = false;
     this._trackingInterval = setInterval(() => {
       if (this._isMouseActive) this.service.updateTrackOnLesson(this.lessonId, this.trackingType);
@@ -48,6 +50,7 @@ export class TrackingLessonComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (window.localStorage.getItem('dev') === 'true') return;
     clearInterval(this._trackingInterval);
     clearTimeout(this._mouseInactiveTimeout);
   }

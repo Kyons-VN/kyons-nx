@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SERVER_API } from '@infrastructure/auth/interceptor';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
@@ -85,7 +85,7 @@ export class LessonReviewPageComponent implements OnInit {
 
   activateLearningPath() {
     this.loading.show();
-    this.http.get(SERVER_API + `/students/gifts/request_free_subscription`).subscribe({
+    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
       next: () => {
         this.lessonService.activateLearningPath(this.mockTestId).subscribe({
           next: () => {

@@ -17,5 +17,14 @@
   "build": {
     "builder": "@angular-devkit/build-angular:browser"
   },
-  "defaultProject": "student"
+  "defaultProject": "student",
+  "architecture": {
+    "server": {
+      "builder": "@angular-devkit/build-angular:browser",
+      "options": {
+        "browserTarget": "student:serve:dev",
+        "proxyConfig": "apps/student/src/proxy.conf.json"
+      }
+    }
+  }
 }

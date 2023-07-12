@@ -15,7 +15,6 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SERVER_API } from '@infrastructure/auth/interceptor';
 import { Category } from '@infrastructure/knowledge/category';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@infrastructure/knowledge/learning-goal';
@@ -34,6 +33,7 @@ import { ChartConfiguration } from 'chart.js';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { Subscription, interval } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 
@@ -244,7 +244,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         this._getLearningPathData();
         const requestInterval = interval(5000);
-        this.interval = requestInterval.subscribe(() => this._getLearningPathData());
+        // this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
         this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
           next: result => {
@@ -347,7 +347,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
 
   activateLearningPath() {
     this.loading.show();
-    this.http.get(SERVER_API + `/students/gifts/request_free_subscription`).subscribe({
+    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
       next: () => {
         this.lessonService.activateLearningPath(this.mockTests[0].id).subscribe({
           next: () => {

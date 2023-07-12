@@ -1,13 +1,14 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
+import { sandboxAccounts } from '@domain/auth/sandbox-account';
+import { environment } from '@environments/environment';
+import { DBHelper } from '@infrastructure/helper/helper';
 import { catchError, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { DBHelper } from '../helper/helper';
 import { KnowledgeService } from '../knowledge/knowledge.service';
 import { TrackingService } from '../tracking/tracking.service';
 import { UserService } from '../user/user.service';
-import { SERVER_API, TOKEN_HEADER_KEY } from './interceptor';
+import { TOKEN_HEADER_KEY, serverApi } from './interceptor';
 
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -26,7 +27,12 @@ export class AuthService implements IAuthService {
   ) {}
 
   signIn(credential: IAuthCredential) {
-    return this.http.post(SERVER_API + '/auth/sign_in', credential.toJson()).pipe(
+    if (sandboxAccounts.includes(credential.email)) {
+      window.localStorage.setItem('dev', 'true');
+    } else {
+      window.localStorage.removeItem('dev');
+    }
+    return this.http.post(`${serverApi()}/auth/sign_in`, credential.toJson()).pipe(
       catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
       map((data: any) => {
         if (TOKEN_KEY in data && REFRESH_TOKEN_KEY in data) {
@@ -49,6 +55,13 @@ export class AuthService implements IAuthService {
   }
 
   signOut() {
+    if (window.localStorage.getItem('dev') === 'true') {
+      const request = this.http.get(`${serverApi()}/auth/sign_out`).subscribe({
+        next: () => {
+          request.unsubscribe();
+        },
+      });
+    }
     this.removeToken();
     this.removeRefreshToken();
     this.userService.removeCurrentUser();
@@ -87,6 +100,6 @@ export class AuthService implements IAuthService {
     const options = {
       headers: new HttpHeaders().set(TOKEN_HEADER_KEY, `Bearer ${refreshToken}`).set('Content-Type', contentType),
     };
-    return http.post(SERVER_API + '/auth/refresh', {}, options);
+    return http.post(`${serverApi()}/auth/refresh`, {}, options);
   }
 }

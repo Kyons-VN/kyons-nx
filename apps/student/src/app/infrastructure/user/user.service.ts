@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@domain/user/user';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { catchError, firstValueFrom, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 
 export const CURRENT_USER = 'current' + environment.name + 'User';
@@ -19,7 +19,7 @@ export class UserService {
     const promise = new Promise((resolve, reject) => {
       firstValueFrom(
         this.http
-          .get(SERVER_API + '/auth/get_user', {
+          .get(`${serverApi()}/auth/get_user`, {
             params: params,
           })
           .pipe(catchError(DBHelper.handleError('GET get_user', null)))
@@ -59,7 +59,7 @@ export class UserService {
 
   getUserInfo(userId: string) {
     const params = new HttpParams().set('id', userId);
-    return this.http.get(SERVER_API + '/auth/get_user', { params: params }).pipe(
+    return this.http.get(`${serverApi()}/auth/get_user`, { params: params }).pipe(
       catchError(DBHelper.handleError('GET get_user', null)),
       map((res: any) => {
         return User.fromJson(res);

@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
-import { catchError, map } from 'rxjs';
-import { DBHelper } from '../helper/helper';
-import { SERVER_API } from './interceptor';
 
 const TOKEN_KEY = 'access_token';
 const EMAIL_KEY = 'email';
@@ -12,25 +9,21 @@ const EMAIL_KEY = 'email';
   providedIn: 'root',
 })
 class AuthService implements IAuthService {
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) {}
 
   signIn(credential: IAuthCredential) {
-    return this.http
-      .post(SERVER_API + '/auth/sign_in', credential.toJson())
-      .pipe(
-        catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
-        map((data: any) => {
-          if (TOKEN_KEY in data) {
-            this.setToken(data);
-          } else {
-            data.error = true;
-            data.message = data;
-          }
-          return data;
-        })
-      );
+    return this.http.post(`${serverApi()}/auth/sign_in', credential.toJson()).pipe(
+      catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
+      map((data: any) => {
+        if (TOKEN_KEY in data) {
+          this.setToken(data);
+        } else {
+          data.error = true;
+          data.message = data;
+        }
+        return data;
+      })
+    );
   }
 
   signOut() {
@@ -58,4 +51,3 @@ class AuthService implements IAuthService {
   }
 }
 export { TOKEN_KEY, EMAIL_KEY, AuthService };
-

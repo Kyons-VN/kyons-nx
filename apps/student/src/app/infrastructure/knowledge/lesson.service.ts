@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import ILessonService from '@domain/knowledge/i-lesson-service';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { MockTestItem } from '@infrastructure/test/test-content';
 import { SubmissionHtml, TestReviewHtml } from '@share-utils/data';
 import { Observable, catchError, map } from 'rxjs';
-import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 import { LearningGoalPath } from './learning-goal-path';
 import { LearningPoint, LessonGroup } from './lesson';
@@ -15,8 +15,8 @@ import { Program } from './program';
 })
 export class LessonService implements ILessonService {
   getLearningGoalMockTest(learningGoalId: string) {
-    return this.http.get<LearningGoalPath>(SERVER_API + `/students/learning_goal/${learningGoalId}/mock_tests`).pipe(
-      // return this.http.get<MockTestItem[]>(SERVER_API + `/students/programs`).pipe(
+    return this.http.get<LearningGoalPath>(`${serverApi()}/students/learning_goal/${learningGoalId}/mock_tests`).pipe(
+      // return this.http.get<MockTestItem[]>(`${serverApi()}/students/programs`).pipe(
       catchError(DBHelper.handleError('GET lesson_list', [])),
       map((res: any) => {
         // res = {
@@ -71,8 +71,8 @@ export class LessonService implements ILessonService {
   constructor(private http: HttpClient) {}
 
   getList(learningGoalId: string): Observable<LearningGoalPath> {
-    return this.http.get<LearningGoalPath>(SERVER_API + `/students/learning_goal/${learningGoalId}/lessons`).pipe(
-      // return this.http.get<LearningGoalPath>(SERVER_API + '/students/programs').pipe(
+    return this.http.get<LearningGoalPath>(`${serverApi()}/students/learning_goal/${learningGoalId}/lessons`).pipe(
+      // return this.http.get<LearningGoalPath>(`${serverApi()}/students/programs').pipe(
       catchError(DBHelper.handleError('GET lesson_list', [])),
       map((data: any) => {
         // if (data['new_user']) {
@@ -162,7 +162,7 @@ export class LessonService implements ILessonService {
   }
 
   getDetail(id: string): Observable<LessonGroup> {
-    return this.http.get<LessonGroup>(SERVER_API + `/lesson/${id}`).pipe(
+    return this.http.get<LessonGroup>(`${serverApi()}/lesson/${id}`).pipe(
       // catchError(DBHelper.handleError('GET lesson_detail')),
       map((res: any) => {
         return LessonGroup.fromJson(id, res);
@@ -172,7 +172,7 @@ export class LessonService implements ILessonService {
 
   submitExercise(lessonId: string, submission: SubmissionHtml) {
     return this.http
-      .post(SERVER_API + `/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
+      .post(`${serverApi()}/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
       .pipe(
         catchError(DBHelper.handleError('GET submit_answers', Error)),
         map((res: any) => {
@@ -182,7 +182,7 @@ export class LessonService implements ILessonService {
   }
 
   getReviewHtml(lessonId: string) {
-    return this.http.get(SERVER_API + `/students/practice_test/lesson/${lessonId}/review`).pipe(
+    return this.http.get(`${serverApi()}/students/practice_test/lesson/${lessonId}/review`).pipe(
       catchError(DBHelper.handleError('GET practice_test/review', [])),
       map((res: any) => {
         // res = mockTestReviewJson;
@@ -194,7 +194,7 @@ export class LessonService implements ILessonService {
   getLearningPoint(program: Program): Observable<LearningPoint[]> {
     const params = new HttpParams().set('program_id', program.id);
     return this.http
-      .get<LearningPoint[]>(SERVER_API + `/students/self_study_path`, {
+      .get<LearningPoint[]>(`${serverApi()}/students/self_study_path`, {
         params: params,
       })
       .pipe(
@@ -211,7 +211,7 @@ export class LessonService implements ILessonService {
       learning_point_difficulty_ids: lPDIds,
       program_id: program.id,
     };
-    return this.http.post<LearningPoint[]>(SERVER_API + `/students/update_learning_path`, params).pipe(
+    return this.http.post<LearningPoint[]>(`${serverApi()}/students/update_learning_path`, params).pipe(
       catchError(DBHelper.handleError('GET update_learning_path')),
       map((collection: any) => {
         return '';
@@ -222,7 +222,7 @@ export class LessonService implements ILessonService {
   activateLearningPath(mockTestId: string): Observable<string> {
     // next: data => {
     return this.http
-      .post<LearningPoint[]>(SERVER_API + `/students/mock_test/${mockTestId}/activate_learning_path`, {})
+      .post<LearningPoint[]>(`${serverApi()}/students/mock_test/${mockTestId}/activate_learning_path`, {})
       .pipe(
         catchError(DBHelper.handleError('GET activate_learning_path')),
         map((collection: any) => {

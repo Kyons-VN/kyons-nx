@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { SERVER_API } from '@infrastructure/auth/interceptor';
+import { serverApi } from '@infrastructure/auth/interceptor';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +8,6 @@ import { SERVER_API } from '@infrastructure/auth/interceptor';
 export class GiftService {
   http = inject(HttpClient);
   getPromotion(event: string) {
-    return this.http.get(SERVER_API + `/students/gifts/promotions/${event}`);
+    return this.http.get(`${serverApi()}/students/gifts/promotions/${event}`);
   }
 }

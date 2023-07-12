@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import IKnowledgeService from '@domain/knowledge/i-knowledge-service';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { Observable, catchError, map } from 'rxjs';
 import { Subject } from '../../domain/subject/subject';
-import { SERVER_API } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 import { LearningGoal, StudentLearningGoal } from './learning-goal';
 import { Program } from './program';
@@ -18,7 +18,7 @@ const SELECTED_CATEGORY_ID = 'selected_category_id';
 })
 export class KnowledgeService implements IKnowledgeService {
   getLearningGoalList() {
-    return this.http.get(SERVER_API + '/students/learning_goal/list').pipe(
+    return this.http.get(`${serverApi()}/students/learning_goal/list`).pipe(
       catchError(DBHelper.handleError('GET subjects_list', [])),
       map((collection: any) => {
         if (collection.length === 0) return [];
@@ -29,7 +29,7 @@ export class KnowledgeService implements IKnowledgeService {
   constructor(private http: HttpClient) {}
 
   getSubjects(): Observable<Subject[]> {
-    return this.http.get(SERVER_API + '/subjects').pipe(
+    return this.http.get(`${serverApi()}/subjects`).pipe(
       catchError(DBHelper.handleError('GET subjects_list', [])),
       map((collection: any) => {
         if (collection.length === 0) return [];
@@ -39,7 +39,7 @@ export class KnowledgeService implements IKnowledgeService {
   }
 
   getPrograms(): Observable<Program[]> {
-    return this.http.get(SERVER_API + '/students/programs').pipe(
+    return this.http.get(`${serverApi()}/students/programs`).pipe(
       catchError(DBHelper.handleError('GET programs_list', [])),
       map((collection: any) => {
         if (collection.length === 0) return [];
@@ -102,7 +102,7 @@ export class KnowledgeService implements IKnowledgeService {
   }
 
   getStudentLearningGoals(): Observable<StudentLearningGoal[]> {
-    return this.http.get(SERVER_API + '/students/master_learning_goals').pipe(
+    return this.http.get(`${serverApi()}/students/master_learning_goals`).pipe(
       catchError(DBHelper.handleError('GET learning_goals_list', [])),
       map((res: any) => {
         if (res.data == undefined || res.data.length === 0) return [];

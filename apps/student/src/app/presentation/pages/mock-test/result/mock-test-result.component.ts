@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MockTestStatus } from '@domain/knowledge/i-mock-test';
-import { SERVER_API } from '@infrastructure/auth/interceptor';
+import { serverApi } from '@infrastructure/auth/interceptor';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LessonService } from '@infrastructure/knowledge/lesson.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
@@ -117,7 +117,7 @@ export class MockTestResultComponent implements OnInit {
 
   activateLearningPath() {
     this.loading.show();
-    this.http.get(SERVER_API + `/students/gifts/request_free_subscription`).subscribe({
+    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
       next: () => {
         this.lessonService.activateLearningPath(this.mockTestId).subscribe({
           next: () => {

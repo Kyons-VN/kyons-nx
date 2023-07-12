@@ -14,7 +14,7 @@ import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
 
 const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
-export const SERVER_API = environment.serverApi;
+export const SERVER_API() = environment.serverApi;
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
