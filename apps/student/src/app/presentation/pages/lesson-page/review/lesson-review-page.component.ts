@@ -113,8 +113,4 @@ export class LessonReviewPageComponent implements OnInit {
       },
     });
   }
-
-  goBack() {
-    this.location.back();
-  }
 }

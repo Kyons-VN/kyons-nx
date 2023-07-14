@@ -110,7 +110,7 @@
           data-tooltip-content="Chọn bộ đề bạn muốn kiểm tra thử"
           class="form-control w-full"
           [(ngModel)]="selectedMockTestTemplate"
-          [attr.disabled]="this.selectedProgram.id === '' ? 'disabled' : null"
+          [disabled]="this.selectedProgram.id === ''"
         >
           <option [ngValue]="emptyMockTestTemplate" disabled selected>Chọn đề kiểm tra</option>
           <ng-container *ngFor="let learningGoal of mockTestTemplates">

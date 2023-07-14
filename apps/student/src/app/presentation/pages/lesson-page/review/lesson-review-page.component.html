@@ -1,10 +1,15 @@
 <student-loading *ngIf="isLoading"></student-loading>
 <div class="flex w-full justify-center">
   <div class="col gap-4 w-full max-w-[1122px] p-6 md:p-12 h-screen">
-    <button (click)="goBack()" class="icon-btn self-end md:hidden"><i class="icon-Close"></i></button>
+    <button [routerLink]="[paths.learningPath.path]" class="icon-btn self-end md:hidden">
+      <i class="icon-Close"></i>
+    </button>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
-        <button (click)="goBack()" class="no-underline gap-2 items-center text-orange hidden md:flex">
+        <button
+          [routerLink]="[paths.learningPath.path]"
+          class="no-underline gap-2 items-center text-orange hidden md:flex"
+        >
           <i class="icon-ArrowLeft"></i>
           <span>Về lộ trình học</span>
         </button>

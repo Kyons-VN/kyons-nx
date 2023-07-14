@@ -178,7 +178,7 @@ export class MockTestSelectProgramComponent implements OnInit {
   };
 
   script5 = () => {
-    //
+    this.selectedMockTestTemplate = this.selectedLearningGoal.mockTestTemplates[0];
   };
 
   script6 = () => {
