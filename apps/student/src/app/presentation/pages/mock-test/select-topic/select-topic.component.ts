@@ -2,7 +2,6 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
 import { LearningGoal } from '@infrastructure/knowledge/learning-goal';
-import { Program } from '@infrastructure/knowledge/program';
 import { Topic } from '@infrastructure/knowledge/topic';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
@@ -16,7 +15,7 @@ import { AppPaths } from '@presentation/routes';
 export class SelectTopicComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
   paths: AppPaths;
-  program: Program;
+  // program: Program;
   selectedLearningGoal: LearningGoal;
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +26,7 @@ export class SelectTopicComponent implements OnInit {
     private router: Router
   ) {
     this.paths = navService.paths;
-    this.program = knowledgeService.getSelectedProgram();
+    // this.program = knowledgeService.getSelectedProgram();
     this.learningGoalId = knowledgeService.getSelectedLearningGoal().id;
     this.selectedLearningGoal = knowledgeService.getSelectedLearningGoal();
   }

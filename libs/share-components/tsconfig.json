@@ -9,7 +9,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@share-utils/*": ["libs/share-utils/src/lib/*"]
+      "@share-utils/*": ["libs/share-utils/src/lib/*"],
+      "@share-pipes": ["libs/share-pipes/src"]
     }
   },
   "files": [],

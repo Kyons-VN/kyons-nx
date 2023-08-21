@@ -12,29 +12,30 @@ import { TestService } from '@infrastructure/test/test.service';
 import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
 import { TrackingLessonComponent } from '@presentation/share-components/tracking/tracking-lesson.component';
 import {
+  ExerciseContentComponent,
   InputRadioComponent,
   QuestionsProgressComponent,
   TestContentComponent,
-  TestContentHtmlComponent,
   TutorialComponent,
 } from '@share-components';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import {
+  Answer,
   Exercise,
   Progress,
   Question,
-  QuestionReviewHtml,
+  QuestionReview,
   Submission,
   TestResult,
   answerPrefixes,
 } from '@share-utils/data';
-import { OrderBySAPipe, SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,
   imports: [
     CommonModule,
     RouterModule,
-    TestContentHtmlComponent,
+    ExerciseContentComponent,
     QuestionsProgressComponent,
     MatTooltipModule,
     SafeHtmlPipe,
@@ -63,7 +64,7 @@ export class TutorialLessonComponent implements OnInit {
   ignoreIncomplete = false;
   lessonId = '';
   question = Question.empty();
-  questionReview: QuestionReviewHtml | null = null;
+  questionReview: QuestionReview | null = null;
   progress = Progress.from(0, 100);
   progressStr = '';
   showHint = false;
@@ -117,7 +118,7 @@ export class TutorialLessonComponent implements OnInit {
     const result: any = this.tutorialService.submitExercise();
     this.progress.value = result['lesson_percentage'];
     this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
-    this.questionReview = QuestionReviewHtml.fromJson(result['result'][0]);
+    this.questionReview = QuestionReview.fromJson(result['result'][0]);
     this.showResult = true;
     setTimeout(() => {
       this.tutorialPart++;
@@ -151,8 +152,8 @@ export class TutorialLessonComponent implements OnInit {
     this.showIncomplete = false;
   }
 
-  updateSubmitData(questionId: string, answerId: string) {
-    this.submission.submitData[questionId] = answerId;
+  updateSubmitData(questionId: string, answer: Answer) {
+    this.submission.submitData[questionId] = answer;
   }
 
   empty = () => {
@@ -162,7 +163,7 @@ export class TutorialLessonComponent implements OnInit {
   next = () => {
     this.tutorialPart++;
     if (this.tutorialPart == 2) {
-      this.submission.submitData[this.question.id] = this.question.answers[1].id;
+      this.submission.submitData[this.question.id] = this.question.answers[1];
     }
     if (this.tutorialPart == 5) {
       this.showComplete = true;

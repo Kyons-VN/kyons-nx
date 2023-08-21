@@ -10,9 +10,9 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
-import { QuestionReviewHtml } from '@share-utils/data';
+import { SafeHtmlPipe } from '@share-pipes';
+import { QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,
@@ -32,8 +32,8 @@ export class LessonReviewPageComponent implements OnInit {
   location = inject(Location);
   learningGoal = this.knowledgeService.getStudentLearningGoal();
 
-  questions: QuestionReviewHtml[] = [];
-  currentQuestion!: QuestionReviewHtml;
+  questions: QuestionReview[] = [];
+  currentQuestion!: QuestionReview;
   currentQuestionIndex = 0;
   isLoading = true;
   mockTestId!: string;

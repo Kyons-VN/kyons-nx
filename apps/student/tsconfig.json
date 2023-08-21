@@ -31,6 +31,7 @@
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
       "@share-directives/*": ["libs/share-directives/src/lib/*"],
       "@share-components": ["libs/share-components/src/index.ts"],
+      "@share-pipes": ["libs/share-pipes/src"],
       "@environments/*": ["apps/student/src/environments/*"]
     }
   },

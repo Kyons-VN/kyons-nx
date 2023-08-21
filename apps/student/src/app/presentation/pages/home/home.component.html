@@ -169,11 +169,11 @@
         [scriptEvents]="[['click', script]]"
       ></kyonsvn-tutorial>
     </div>
-    <ng-template #loading>
-      <student-loading></student-loading>
-    </ng-template>
   </div>
-  <div class="hidden md:flex flex-col p-11 bg-rocket text-white">
+  <ng-template #loading>
+    <student-loading></student-loading>
+  </ng-template>
+  <div *ngIf="!isLoading" class="hidden md:flex flex-col p-11 bg-rocket text-white">
     <div class="flex justify-between items-center relative">
       <div class="flex gap-3 items-center">
         <img src="/assets/images/Avatar.svg" alt="" />

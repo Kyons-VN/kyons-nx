@@ -1,5 +1,5 @@
-import { fromEvent, Subscription } from "rxjs";
-import { ISubmission, ITestContent } from "./domain";
+import { fromEvent, Subscription } from 'rxjs';
+import { ISubmission, ITestContent } from './domain';
 
 interface IProgress {
   value: number;
@@ -8,9 +8,23 @@ interface IProgress {
   next(): void;
 }
 
-function initTestKeyboardEvent({ isActive, testContent, submission, progress, currentIndex, completeCallback }: { isActive: () => boolean, testContent: ITestContent, submission: ISubmission, progress: IProgress, currentIndex: { value: number }, completeCallback: () => void }): Subscription {
+function initTestKeyboardEvent({
+  isActive,
+  testContent,
+  submission,
+  progress,
+  currentIndex,
+  completeCallback,
+}: {
+  isActive: () => boolean;
+  testContent: ITestContent;
+  submission: ISubmission;
+  progress: IProgress;
+  currentIndex: { value: number };
+  completeCallback: () => void;
+}): Subscription {
   return fromEvent<KeyboardEvent>(document, 'keydown').subscribe({
-    next: (e) => {
+    next: e => {
       console.log(e.key);
       if (!isActive()) return;
 
@@ -18,7 +32,7 @@ function initTestKeyboardEvent({ isActive, testContent, submission, progress, cu
       const answers = question.answers;
       const currentSubmitDataLength = Object.keys(submission.submitData).length;
       if (['1', '2', '3', '4'].includes(e.key)) {
-        submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
+        submission.submitData[question.id] = answers[parseInt(e.key) - 1];
 
         if (currentSubmitDataLength != Object.keys(submission.submitData).length) {
           progress.next();
@@ -26,17 +40,15 @@ function initTestKeyboardEvent({ isActive, testContent, submission, progress, cu
       }
       if (e.key == ' ') {
         if (currentSubmitDataLength == testContent.questions.length) {
-          completeCallback()
-        }
-        else {
+          completeCallback();
+        } else {
           if (progress.value > currentIndex.value) {
             currentIndex.value++;
           }
         }
       }
-    }
+    },
   });
 }
 
 export { initTestKeyboardEvent, IProgress };
-

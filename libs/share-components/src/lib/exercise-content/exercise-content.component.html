@@ -1,0 +1,33 @@
+<div *ngIf="question" class="w-full">
+  <p [id]="'qtutorial-' + question.id" class="bg-white"><span [innerHTML]="question.content | safeHtml"></span></p>
+  <div *ngIf="!showResult; else elseBlock" class="mt-2 flex flex-col gap-1">
+    <kyonsvn-input-radio
+      [style.display]="ai > 3 ? 'none' : 'block'"
+      *ngFor="let answer of question.answers | orderBySA : 'order'; let ai = index"
+      (change)="updateSubmitData(question.id, answer)"
+      [value]="answer"
+      [label]="answerPrefixes[ai] + answer.content"
+      [name]="'q-' + question.id + '-' + conponentId"
+      [checked]="submission.submitData[question.id] === answer"
+    ></kyonsvn-input-radio>
+  </div>
+  <ng-template #elseBlock class="">
+    <div class="mt-2 flex flex-col gap-1" *ngFor="let answer of question.answers; let ai = index">
+      <div
+        *ngIf="submission.submitData[question.id] === answer || answer.isCorrect"
+        class="flex gap-2 p-2 rounded-lg"
+        [ngClass]="{
+          'bg-red-1 ': submission.submitData[question.id] === answer && !answer.isCorrect,
+          'bg-emerald-3 ': answer.isCorrect
+        }"
+      >
+        <i *ngIf="submission.submitData[question.id] === answer && !answer.isCorrect" class="icon-Error text-red-0"></i>
+        <i *ngIf="answer.isCorrect" class="icon-Check text-darkEmerald"></i>
+        <div class="col flex-1">
+          <span [innerHTML]="answer.content | safeHtml"></span>
+          <span [innerHTML]="answer.explanation | safeHtml"></span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

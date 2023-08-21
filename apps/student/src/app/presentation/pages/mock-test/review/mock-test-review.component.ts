@@ -10,9 +10,9 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { TestService } from '@infrastructure/test/test.service';
 import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
-import { QuestionReviewHtml } from '@share-utils/data';
+import { SafeHtmlPipe } from '@share-pipes';
+import { QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,
@@ -32,8 +32,8 @@ export class MockTestReviewComponent implements OnInit {
   location = inject(Location);
   tutorialService = inject(TutorialService);
 
-  questions: QuestionReviewHtml[] = [];
-  currentQuestion!: QuestionReviewHtml;
+  questions: QuestionReview[] = [];
+  currentQuestion!: QuestionReview;
   currentQuestionIndex = 0;
   isLoading = true;
   mockTestId!: string;
@@ -74,7 +74,7 @@ export class MockTestReviewComponent implements OnInit {
         //
       },
     });
-    this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
+    this.testService.getMockTestResult(this.mockTestId).subscribe({
       next: result => {
         this.status = result.status;
         return;

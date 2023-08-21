@@ -1,9 +1,10 @@
 import { formatDate } from '@angular/common';
-import { ISubmission } from '../domain/i-submission';
+import { ISubmission } from '../../knowledge/domain/i-submission';
+import { Answer } from './test-content';
 
 export class Submission implements ISubmission {
   start: Date = new Date();
-  private _submitData: { [questionId: string]: string } = {};
+  private _submitData: { [questionId: string]: Answer } = {};
 
   private _end: Date = new Date();
   private _testId = '';
@@ -19,24 +20,32 @@ export class Submission implements ISubmission {
   public set end(value: Date) {
     this._end = value;
   }
-  public get submitData(): { [questionId: string]: string } {
+  public get submitData(): { [questionId: string]: Answer } {
     return this._submitData;
   }
-  public set submitData(value: { [questionId: string]: string }) {
+  public set submitData(value: { [questionId: string]: Answer }) {
     this._submitData = value;
   }
   public hasAnswer(questionId: string): boolean {
     return this.submitData[questionId] !== undefined;
   }
+  reset() {
+    this._submitData = {};
+  }
 
   public toJson(): any {
     const result: any = {};
-    const submission = Object.keys(this.submitData).map(questionId => {
-      return {
-        question_id: Number(questionId),
-        answer_key_id: Number(this.submitData[questionId]),
-      };
-    });
+    const submission = {
+      questions: Object.keys(this.submitData).map(questionId => {
+        return {
+          id: Number(questionId),
+          answer: {
+            id: this.submitData[questionId].id,
+            value: this.submitData[questionId].value,
+          },
+        };
+      }),
+    };
     result.start_time = formatDate(this.start, 'yyyy-MM-dd H:m:s', 'en_US');
     result.end_time = formatDate(this.end, 'yyyy-MM-dd H:m:s', 'en_US');
     result.submission = submission;

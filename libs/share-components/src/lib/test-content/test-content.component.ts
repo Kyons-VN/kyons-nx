@@ -9,15 +9,17 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 // import { Submission } from '@infrastructure/test/submission';
 // import {
 //   answerPrefixes,
 //   TestContent
 import { CommonModule } from '@angular/common';
-// import { O } from '@kyonsvn/share-pipes';
-import { OrderBySAPipe, SafeHtmlPipe } from '@kyonsvn/share-pipes';
-import { Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
+import { FormsModule } from '@angular/forms';
+// import { O } from '@share-pipes';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
+import { Answer, Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';
 import { TutorialComponent } from '../tutorial/tutorial.component';
@@ -65,7 +67,7 @@ export class QuestionTutorialScript {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent],
+  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent, FormsModule],
   selector: 'kyonsvn-test-content',
   templateUrl: './test-content.component.html',
   styleUrls: ['./test-content.component.scss'],
@@ -76,6 +78,8 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
   conponentId = '';
   subscription!: Subscription;
   showTutorialWithDelay = false;
+  showGoTo = false;
+  goTo = 0;
 
   @Input() showTutorial = false;
   @Input() tutorialScript!: QuestionTutorialScript;
@@ -99,9 +103,12 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() isActive!: boolean;
 
-  @Output() completeCallback = new EventEmitter<void>();
+  @Output() nextCallback = new EventEmitter<void>();
+  @Output() previousCallback = new EventEmitter<void>();
 
   @Input() backTutorial?: () => void;
+
+  @ViewChild('goToElm') goToElm!: ElementRef;
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(e: KeyboardEvent) {
@@ -115,7 +122,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         return;
       }
       // this.submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
-      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id);
+      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1]);
 
       if (currentSubmitDataLength != Object.keys(this.submission.submitData).length) {
         // this.progress.next();
@@ -123,23 +130,53 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
     if (e.key == ' ') {
-      if (!this.showResult) {
-        this.showResult = true;
-        this.showResultEvent.emit(this.showResult);
-        return;
+      // if (!this.showResult) {
+      //   this.showResult = true;
+      //   this.showResultEvent.emit(this.showResult);
+      //   return;
+      // } else {
+      //   this.showResult = false;
+      //   this.showResultEvent.emit(this.showResult);
+      // }
+      // if (currentSubmitDataLength == this.content.questions.length) {
+      if (e.shiftKey) {
+        if (this.currentIndex > 0) {
+          this.currentIndex--;
+        }
       } else {
-        this.showResult = false;
-        this.showResultEvent.emit(this.showResult);
-      }
-      if (currentSubmitDataLength == this.content.questions.length) {
-        this.completeCallback.emit();
-      } else {
-        if (this.progress.value > this.currentIndex) {
+        if (this.currentIndex < this.content.questions.length - 1) {
           this.currentIndex++;
-          this.currentIndexEvent.emit(this.currentIndex);
         }
       }
+
+      // } else {
+      //   if (this.progress.value > this.currentIndex) {
+      //     this.currentIndex++;
+      //   }
+      // }
     }
+    if (e.key == 'g') {
+      this.goTo = this.currentIndex + 1;
+      this.showGoTo = true;
+      setTimeout(() => {
+        this.goToElm.nativeElement.focus();
+      }, 100);
+    }
+    if (e.key == 'Escape') {
+      if (this.showGoTo) this.showGoTo = false;
+      if (document.activeElement != null) (document.activeElement as HTMLElement).blur();
+    }
+    if (e.key == 'ArrowLeft') {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+      }
+    }
+    if (e.key == 'ArrowRight') {
+      if (this.currentIndex < this.content.questions.length - 1) {
+        this.currentIndex++;
+      }
+    }
+    this.currentIndexEvent.emit(this.currentIndex);
   }
 
   ngOnInit(): void {
@@ -163,6 +200,13 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
     //     });
     //   }, this.tutorialScript.delay);
     // }
+    this.goTo = this.currentIndex + 1;
+  }
+
+  goToIndex() {
+    this.currentIndex = this.goTo - 1;
+    this.currentIndexEvent.emit(this.currentIndex);
+    this.showGoTo = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -218,8 +262,8 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
     return index + 1;
   }
 
-  updateSubmitData(questionId: string, answerId: string) {
-    this.submission.submitData[questionId] = answerId;
+  updateSubmitData(questionId: string, answer: Answer) {
+    this.submission.submitData[questionId] = answer;
     this.submissionEvent.emit(this.submission);
   }
 }

@@ -3,7 +3,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FilterPipe, SafeHtmlPipe, SharePipesModule } from '@kyonsvn/share-pipes';
+import { FilterPipe, SafeHtmlPipe, SharePipesModule } from '@share-pipes';
 import player from 'lottie-web/build/player/lottie_light';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { LottieModule } from 'ngx-lottie';

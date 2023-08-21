@@ -9,16 +9,16 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { TrackingLessonComponent } from '@presentation/share-components/tracking/tracking-lesson.component';
-import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
-import { ExerciseHtml, Progress, QuestionHtml, QuestionReviewHtml, SubmissionHtml } from '@share-utils/data';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
+import { ExerciseContentComponent, QuestionsProgressComponent } from '@share-components';
+import { SafeHtmlPipe } from '@share-pipes';
+import { Exercise, Progress, Question, QuestionReview, Submission } from '@share-utils/data';
 
 @Component({
   standalone: true,
   imports: [
     CommonModule,
     RouterModule,
-    TestContentHtmlComponent,
+    ExerciseContentComponent,
     QuestionsProgressComponent,
     MatTooltipModule,
     SafeHtmlPipe,
@@ -37,21 +37,23 @@ export class LessonPageComponent implements OnInit {
   testService = inject(TestService);
   loading = inject(LoadingOverlayService);
 
-  exercise = ExerciseHtml.empty();
-  submission = new SubmissionHtml();
+  exercise = Exercise.empty();
+  submission = new Submission();
   showIncomplete = false;
   ignoreIncomplete = false;
   lessonId = '';
-  question = QuestionHtml.empty();
-  questionReview: QuestionReviewHtml | null = null;
+  question = Question.empty();
+  questionReview: QuestionReview | null = null;
   progress = Progress.from(0, 100);
   progressStr = '';
   showHint = false;
   lesson: Lesson = Lesson.empty();
   showComplete = false;
   isSubmitting = false;
-  currentForm!: HTMLFormElement;
+  // currentForm!: HTMLFormElement;
   isCompleted = false;
+  isOutOfSubscription = false;
+  currentTestIndex = 0;
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
@@ -69,39 +71,13 @@ export class LessonPageComponent implements OnInit {
 
   _getQuestion() {
     this.isSubmitting = true;
-    console.log('nextQuestion');
     this.testService.getExercise(this.route.snapshot.params['id']).subscribe({
-      next: (exercise: ExerciseHtml) => {
+      next: (exercise: Exercise) => {
         this.exercise = exercise;
         this.question = exercise.questions[0];
         this.progress.value = exercise.progress ?? 0;
         this.progressStr = (exercise.progress ?? 0).toFixed(2);
         this.loading.hide();
-        setTimeout(() => {
-          // console.log('setTimeout');
-          const records: HTMLFormElement[] = this.exerciseElm.nativeElement.querySelectorAll('form>div>div');
-          console.log(records.length);
-          records.forEach((div, index) => {
-            // this.exercise.questions[index].form = div.parentNode?.parentNode as HTMLFormElement;
-            div.addEventListener('click', e => {
-              // if (this.isSubmitting) return;
-              // console.log(div.getAttribute('data-index'));
-              // const results: string[][] = [];
-              // for (const form of records) {
-              // const data = new FormData(form);
-              const result = div.getAttribute('data-index');
-              // typeof result == 'string' ? results.push([result]) : results.push([]);
-              // }
-              // if (result == null) return;
-              const questionId = this.exercise.questions[0].id;
-              this.submission.reset();
-              this.submission.submitData[questionId] = result?.toString() ?? '';
-              console.log(result);
-              const form = div.parentElement?.parentElement as HTMLFormElement;
-              this.currentForm = form;
-            });
-          });
-        }, 1000);
         setTimeout(() => {
           this.scrollTopElm.nativeElement.scrollTop = 0;
           this.scrollTopElm.nativeElement.scrollLeft = 0;
@@ -115,10 +91,20 @@ export class LessonPageComponent implements OnInit {
           this.progress.value = 100;
           this.progressStr = '100.00';
           this.showComplete = true;
+        } else if (e.error_code == 'OutOfSubscription') {
+          this.isOutOfSubscription = true;
         }
         this.isSubmitting = false;
       },
     });
+  }
+
+  // updateProgress(nextProgress: Progress) {
+  //   this.progress = nextProgress;
+  // }
+
+  updateSubmission(nextSubmission: Submission) {
+    this.submission.submitData = nextSubmission.submitData;
   }
 
   testComplete() {
@@ -133,15 +119,15 @@ export class LessonPageComponent implements OnInit {
     } else {
       this.isSubmitting = true;
       console.log('testComplete');
-      this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
-        input.setAttribute('disabled', 'disabled');
-      });
+      // this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
+      //   input.setAttribute('disabled', 'disabled');
+      // });
       this.lessonService.submitExercise(this.lessonId, this.submission).subscribe({
         next: result => {
           console.log(result.result[0].answer_status);
           this.progress.value = result['lesson_percentage'];
           this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
-          this.questionReview = QuestionReviewHtml.fromJson(result['result'][0]);
+          this.questionReview = QuestionReview.fromJson(result['result'][0]);
           if (result['lesson_percentage'] == 100) {
             this.isCompleted = true;
           }
@@ -162,10 +148,10 @@ export class LessonPageComponent implements OnInit {
       this.showComplete = true;
       return;
     }
-    this.currentForm.querySelectorAll('input[type="radio"]').forEach(input => {
-      input.removeAttribute('disabled');
-    });
-    this.currentForm.reset();
+    // this.currentForm.querySelectorAll('input[type="radio"]').forEach(input => {
+    //   input.removeAttribute('disabled');
+    // });
+    // this.currentForm.reset();
     this.questionReview = null;
     this._getQuestion();
   }

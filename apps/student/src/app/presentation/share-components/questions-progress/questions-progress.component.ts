@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IProgress } from '@utils/event';
+import { IProgress } from '@share-utils/event';
 
 @Component({
   selector: 'student-questions-progress',

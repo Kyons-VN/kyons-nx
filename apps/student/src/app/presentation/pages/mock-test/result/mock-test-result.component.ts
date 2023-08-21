@@ -91,7 +91,7 @@ export class MockTestResultComponent implements OnInit {
   }
 
   _getMockTest() {
-    this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
+    this.testService.getMockTestResult(this.mockTestId).subscribe({
       next: result => {
         // this.testResult = result;
         if (result.status !== MockTestStatus.mock_test_submitted) {

@@ -9,15 +9,16 @@ import { LessonGroup } from '@infrastructure/knowledge/lesson';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
-import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
-import { MockTestHtmlStatus, MockTestResult, Progress, SubmissionHtml, TestContentHtml } from '@share-utils/data';
+import { QuestionsProgressComponent, TestContentComponent } from '@share-components';
+import { MockTestResult, Progress, Submission, TestContent } from '@share-utils/data';
+import { MockTestStatus } from '@share-utils/domain';
 import { Observable, fromEvent } from 'rxjs';
 
 const TEST_DURATION = 90 * 60 * 1000;
 
 @Component({
   standalone: true,
-  imports: [TestContentHtmlComponent, CommonModule, QuestionsProgressComponent, MatTooltipModule, RouterModule],
+  imports: [TestContentComponent, CommonModule, QuestionsProgressComponent, MatTooltipModule, RouterModule],
 
   templateUrl: './mock-test-test.component.html',
   styleUrls: ['./mock-test-test.component.scss'],
@@ -37,8 +38,8 @@ export class MockTestTestComponent implements OnInit {
   studentLearningGoal = StudentLearningGoal.empty();
   testProgress = new Progress();
   isTitleHidden = false;
-  testContent = TestContentHtml.empty();
-  testSubmission = new SubmissionHtml();
+  testContent = TestContent.empty();
+  testSubmission = new Submission();
   isTest = false;
   testResult: MockTestResult | undefined;
   reviewRenderObject: any[] = [];
@@ -77,22 +78,22 @@ export class MockTestTestComponent implements OnInit {
     });
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
     this.learningGoal = this.knowledgeService.getSelectedLearningGoal();
-    this.getMockTestHtml();
+    this.getMockTest();
   }
 
   // ngAfterViewInit(): void {
   //   if (!this.testContentElm) return;
   // }
 
-  getMockTestHtml() {
+  getMockTest() {
     this.loading.show();
     if (!this.isPending) return;
-    this.testService.getMockTestHtml(this.mockTestId).subscribe({
+    this.testService.getMockTest(this.mockTestId).subscribe({
       next: value => {
-        this.isPending = value.status == MockTestHtmlStatus.pending;
+        this.isPending = value.status == MockTestStatus.pending;
         if (this.isPending) {
           setTimeout(() => {
-            this.getMockTestHtml();
+            this.getMockTest();
           }, 5000);
           return;
         }
@@ -100,11 +101,10 @@ export class MockTestTestComponent implements OnInit {
         this.testContent = value;
         this.testSubmission.testId = this.testContent.id;
         this.testProgress = Progress.from(0, value.questions.length);
-        this.testService.getMockTestResultHtml(this.mockTestId).subscribe({
+        this.testService.getMockTestResult(this.mockTestId).subscribe({
           next: mockTest => {
             this.counter = TEST_DURATION;
             this.counterStart = new Date();
-            // setTimeout(() => {
             setInterval(() => {
               const now = new Date();
               this.counter = TEST_DURATION - (now.getTime() - this.counterStart.getTime());
@@ -115,15 +115,7 @@ export class MockTestTestComponent implements OnInit {
                 this.testComplete();
               }
             }, 1000);
-            // }, 2000);
             this.loading.hide();
-            if (this.isTest) {
-              this.testContent.questions.map(question => {
-                question.answers.map((answer, j) => {
-                  if (j === 0) this.testSubmission.submitData[question.id] = '0';
-                });
-              });
-            }
           },
         });
       },
@@ -135,106 +127,6 @@ export class MockTestTestComponent implements OnInit {
         if (this.complete) {
           alert('Bài kiểm tra đã làm rồi');
           this.router.navigate([this.paths.mockTest.path]);
-          // this.testService.getTestResult('lesson', learningGoalId).subscribe({
-          //   next: (value) => {
-          //     this.testResult = value;
-          //   },
-          //   complete: () => {
-          //     const topicWrongQuestions =
-          //       this.testResult?.result.topicWrongQuestions ?? {};
-          //     const selectedAnswers =
-          //       this.testResult?.review.selectedAnswers ?? [];
-          //     const rightAnswers = this.testResult?.review.rightAnswers ?? [];
-          //     this.testReviewRenderObject = Object.keys(topicWrongQuestions).map(
-          //       (topicId) => {
-          //         const questions = this._getTestQuestionsFromIds(
-          //           topicWrongQuestions[topicId]
-          //         ).map((question) => {
-          //           return {
-          //             content: question.content,
-          //             selected: question.answers.filter((answer) =>
-          //               selectedAnswers.includes(answer.id)
-          //             )[0].content,
-          //             right: question.answers.filter((answer) =>
-          //               rightAnswers.includes(answer.id)
-          //             )[0].content,
-          //           };
-          //         });
-          //         return {
-          //           topic: this._getTopicNameFromId(topicId),
-          //           questions: questions,
-          //         };
-          //       }
-          //     );
-          //     this.testResultRenderObject = Object.keys(
-          //       this.testResult?.result.categories ?? []
-          //     ).map((catId) => {
-          //       const totalQuestionOfCategory =
-          //         this.testResult?.result.maxScore[catId] ?? 0;
-          //       return {
-          //         name: this.lessonGroup.lessonCategories.find(
-          //           (lG) => lG.category.id == catId
-          //         )?.category.name,
-          //         score: Math.round(
-          //           ((this.testResult?.result.categories[catId] ?? 0) * 100) /
-          //           totalQuestionOfCategory
-          //         ),
-          //       };
-          //     });
-          //   },
-          // });
-        } else {
-          setTimeout(() => {
-            const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
-            Array.from(records).map((form, index) => {
-              this.testContent.questions[index].form = form;
-              form.addEventListener('click', () => {
-                const results: string[][] = [];
-                for (const form of records) {
-                  const data = new FormData(form);
-                  const result = data.get('objective_type_select');
-                  if (typeof result == 'string') {
-                    results.push([result]);
-                  } else {
-                    results.push([]);
-                  }
-                }
-                const questionId = this.testContent.questions[this.currentTestIndex].id;
-                this.testSubmission.submitData[questionId] = results[this.currentTestIndex][0];
-                console.log(results[this.currentTestIndex][0]);
-              });
-            });
-          }, 1000);
-          // this.testContent.questions.map((question,i) => {
-          //   question.formData =
-          // });
-          // if (this.isTest) {
-          //   this.testContent.questions.map((question) => {
-          //     question.answers.map((answer, j) => {
-          //       if (j === 0) this.testSubmission.submitData[question.id] = answer.id;
-          //     });
-          //   });
-          // }
-          // const lessonInfos = this.testContent.questions.map(
-          //   (question) =>
-          //     new LessonCategory({
-          //       category: question.category,
-          //       topic: question.topic,
-          //       lessons: [],
-          //     })
-          // );
-          // const lessonInfosMap = new Map(
-          //   lessonInfos.map((question) => {
-          //     return [question.topic.id, question];
-          //   })
-          // );
-          // const lessonInfosMapArray: LessonCategory[] = [
-          //   ...lessonInfosMap.values(),
-          // ];
-          // this.lessonGroup = new LessonGroup({
-          //   id: '',
-          //   lessonCategories: lessonInfosMapArray,
-          // });
         }
       },
     });
@@ -244,7 +136,7 @@ export class MockTestTestComponent implements OnInit {
     this.testProgress = nextProgress;
   }
 
-  updateSubmission(nextSubmission: SubmissionHtml) {
+  updateSubmission(nextSubmission: Submission) {
     this.testSubmission.submitData = nextSubmission.submitData;
   }
 
@@ -288,22 +180,10 @@ export class MockTestTestComponent implements OnInit {
     if (this.isSubmitting) return;
     this.loading.show();
     this.isSubmitting = true;
-    const records: HTMLFormElement[] = this.testContentElm.nativeElement.querySelectorAll('form');
-    const results: string[][] = [];
-    Array.from(records).map((r, i) => {
-      const data = new FormData(r);
-      const result = data.get('objective_type_select');
-      if (typeof result == 'string') {
-        results.push([result]);
-      } else {
-        results.push(['5']);
-      }
-      const questionId = this.testContent.questions[i].id;
-      this.testSubmission.submitData[questionId] = results[i][0];
-      i++;
-    });
+    console.log(this.testSubmission.submitData);
+
     this.testSubmission.end = new Date();
-    this.testService.submitTestHtml(this.testSubmission).subscribe({
+    this.testService.submitTest(this.testSubmission).subscribe({
       next: (result: any) => {
         this.knowledgeService.selectLearningGoal(this.learningGoal);
         this.loading.hide();
@@ -335,6 +215,7 @@ export class MockTestTestComponent implements OnInit {
   previousPage() {
     this.scrollElm.nativeElement.scrollLeft -= 400;
   }
+
   nextPage() {
     this.scrollElm.nativeElement.scrollLeft += 400;
   }
@@ -342,9 +223,17 @@ export class MockTestTestComponent implements OnInit {
   scrollLeft() {
     this.currentTestIndex--;
     this._centerCurrentIndexXs();
+    this._centerCurrentIndex();
   }
+
   scrollRight() {
     this.currentTestIndex++;
+    this._centerCurrentIndexXs();
+    this._centerCurrentIndex();
+  }
+
+  goTo(index: number) {
+    this.currentTestIndex = index;
     this._centerCurrentIndexXs();
     this._centerCurrentIndex();
   }

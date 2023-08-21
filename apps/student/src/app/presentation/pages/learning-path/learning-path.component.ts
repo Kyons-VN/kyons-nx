@@ -151,26 +151,6 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
 
     plugins: {
       legend: { display: true },
-      // annotation: {
-      //   annotations: [
-      //     {
-      //       type: 'line',
-      //       scaleID: 'x',
-      //       value: 'March',
-      //       borderColor: 'orange',
-      //       borderWidth: 2,
-      //       label: {
-      //         display: true,
-      //         position: 'center',
-      //         color: 'orange',
-      //         content: 'LineAnno',
-      //         font: {
-      //           weight: 'bold'
-      //         }
-      //       }
-      //     },
-      //   ],
-      // }
     },
   };
   showActivateLearningPathBtn = false;
@@ -244,7 +224,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         this._getLearningPathData();
         const requestInterval = interval(5000);
-        // this.interval = requestInterval.subscribe(() => this._getLearningPathData());
+        this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
         this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
           next: result => {

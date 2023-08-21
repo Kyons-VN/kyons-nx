@@ -1,7 +1,6 @@
 // import { ICategory } from '../../infrastructure/knowledge/category';
 // import { ITopic } from '../../infrastructure/knowledge/topic';
 
-
 interface ITestContent {
   id: string;
   questions: IQuestion[];
@@ -25,10 +24,14 @@ interface IAnswer {
   order: number;
   value: string;
   content: string;
+  isCorrect: boolean;
+  explanation: string;
 }
 
 enum TestType {
-  Mock, Lesson, Exercise
+  Mock,
+  Lesson,
+  Exercise,
 }
 
 interface ITestResult {
@@ -57,14 +60,4 @@ interface IAnswerReview {
   rightAnswers: Array<string>;
 }
 
-export {
-  ITestContent,
-  IQA,
-  IQuestion,
-  IAnswer,
-  ITestResult,
-  TestType,
-  IAnswerResult,
-  IAnswerReview,
-};
-
+export { ITestContent, IQA, IQuestion, IAnswer, ITestResult, TestType, IAnswerResult, IAnswerReview };

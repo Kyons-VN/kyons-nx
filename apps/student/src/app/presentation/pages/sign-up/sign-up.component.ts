@@ -40,7 +40,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   signUpForm1: FormGroup = this.fb.group({});
   firstName: FormControl = new FormControl('', [Validators.required]);
   lastName: FormControl = new FormControl('', [Validators.required]);
-  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  email: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^[a-z0-9+]+@[a-z0-9]+\.[a-z]{2,4}$/),
+  ]);
   phone: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]);
   birthdate: FormControl = new FormControl('');
   class: FormControl = new FormControl('');
@@ -77,7 +80,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       this.errorMessage = '';
     });
     this.signUpForm1.get('email')?.valueChanges.subscribe(email => {
-      this.signUpForm1.get('email')?.setValue(email.replace(/[^a-zA-Z0-9@.+]/g, ''), { emitEvent: false });
+      this.signUpForm1.get('email')?.setValue(email.replace(/[^a-z0-9@.+]/g, ''), { emitEvent: false });
     });
     this.currentUrl = window.location.href.replace(window.location.origin, '');
   }

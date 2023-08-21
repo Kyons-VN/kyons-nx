@@ -8,10 +8,4 @@ interface IMockTestItem {
   index?: number;
 }
 
-// enum MockTestStatus {
-//   new,
-//   pending,
-//   error,
-// }
-
 export { IMockTestItem, MockTestStatus };

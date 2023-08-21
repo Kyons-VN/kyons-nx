@@ -7,10 +7,10 @@ import { serverApi } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 import { Program } from '../knowledge/program';
 import { UserService } from '../user/user.service';
-import { Submission } from './submission';
-import { TestContent, TestResult } from './test-content';
+// import { Submission } from './submission';
+// import { TestContent, TestResult } from './test-content';
 
-import { ExerciseHtml, MockTestResult, SubmissionHtml, TestContentHtml, TestReviewHtml } from '@share-utils/data';
+import { Exercise, MockTestResult, Submission, TestContent, TestResult, TestReviewHtml } from '@share-utils/data';
 
 @Injectable({
   providedIn: 'root',
@@ -57,32 +57,33 @@ export class TestService {
     );
   }
 
-  getExercise(lessonId: string): Observable<ExerciseHtml> {
+  getExercise(lessonId: string): Observable<Exercise> {
     return this.http.get(`${serverApi()}/students/practice_test/get/adaptive_question/${lessonId}`).pipe(
       // catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
       map((dataObject: any) => {
-        const result = ExerciseHtml.fromJson(dataObject);
-        result.progress = dataObject['lesson_percentage'];
+        const result = Exercise.fromJson(dataObject);
+        // result.progress = dataObject['lesson_percentage'];
         return result;
       })
     );
   }
 
+  // submitTest(submission: Submission) {
+  //   let params = {
+  //     test_id: submission.testId,
+  //   };
+  //   params = Object.assign(params, submission.toJson());
+
+  //   return this.http.post(`${serverApi()}/submit_answers`, params).pipe(
+  //     catchError(DBHelper.handleError('GET submit_answers', Error('Server Error'))),
+  //     map((res: any) => {
+  //       return TestResult.fromJson(res);
+  //     })
+  //   );
+  // }
+
   submitTest(submission: Submission) {
-    let params = {
-      test_id: submission.testId,
-    };
-    params = Object.assign(params, submission.toJson());
-
-    return this.http.post(`${serverApi()}/submit_answers`, params).pipe(
-      catchError(DBHelper.handleError('GET submit_answers', Error('Server Error'))),
-      map((res: any) => {
-        return TestResult.fromJson(res);
-      })
-    );
-  }
-
-  submitTestHtml(submission: SubmissionHtml) {
+    console.log(submission.toJson());
     return this.http
       .post(`${serverApi()}/students/mock_tests/${submission.testId}/submit_answers/non_adaptive`, submission.toJson())
       .pipe(
@@ -181,11 +182,10 @@ export class TestService {
     );
   }
 
-  getMockTest(learningGoalId: string) {
-    const params = new HttpParams().set('learning_goal_id', learningGoalId);
+  getMockTest(testId: string) {
     return (
       this.http
-        .get(`${serverApi()}/test/learning_goal_test`, { params: params })
+        .get(`${serverApi()}/students/mock_tests/${testId}/questions`)
         // .get(`${serverApi()}/students/learning_goal/list', { params: params })
         .pipe(
           catchError(DBHelper.handleError('GET diagnostic_test', [])),
@@ -196,16 +196,16 @@ export class TestService {
     );
   }
 
-  getMockTestHtml(testId: string) {
-    return this.http.get(`${serverApi()}/students/mock_tests/${testId}/questions`).pipe(
-      // catchError(DBHelper.handleError('GET diagnostic_test', [])),
-      map((dataObject: any) => {
-        // dataObject = mockTestJson;
+  // getMockTestHtml(testId: string) {
+  //   return this.http.get(`${serverApi()}/students/mock_tests/${testId}/questions`).pipe(
+  //     // catchError(DBHelper.handleError('GET diagnostic_test', [])),
+  //     map((dataObject: any) => {
+  //       // dataObject = mockTestJson;
 
-        return TestContentHtml.fromJson(dataObject);
-      })
-    );
-  }
+  //       return TestContentHtml.fromJson(dataObject);
+  //     })
+  //   );
+  // }
 
   getShareMockTestInfoFromRef(ref: string) {
     return this.http.get(`${serverApi()}/students/reference/mocktest/${ref}`).pipe(
@@ -219,16 +219,16 @@ export class TestService {
     );
   }
 
-  getMockTestResult(mockTestId: string, learningGoalId: string) {
-    return this.http
-      .get(`${serverApi()}/students/learning_goal/${learningGoalId}/mock_tests?mock_test_id=${mockTestId}`)
-      .pipe(
-        catchError(DBHelper.handleError('GET subjects_list', [])),
-        map((res: any) => {
-          return TestResult.fromJson(res.data);
-        })
-      );
-  }
+  // getMockTestResult(mockTestId: string, learningGoalId: string) {
+  //   return this.http
+  //     .get(`${serverApi()}/students/learning_goal/${learningGoalId}/mock_tests?mock_test_id=${mockTestId}`)
+  //     .pipe(
+  //       catchError(DBHelper.handleError('GET subjects_list', [])),
+  //       map((res: any) => {
+  //         return TestResult.fromJson(res.data);
+  //       })
+  //     );
+  // }
 
   getMockTestReviewHtml(mockTestId: string) {
     return this.http.get(`${serverApi()}/students/mock_tests/${mockTestId}/review`).pipe(
@@ -240,7 +240,7 @@ export class TestService {
     );
   }
 
-  getMockTestResultHtml(mockTestId: string) {
+  getMockTestResult(mockTestId: string) {
     return this.http.get(`${serverApi()}/students/mock_tests/${mockTestId}`).pipe(
       catchError(DBHelper.handleError('GET mock_tests', MockTestResult.empty())),
       map((res: any) => {

@@ -1,9 +1,10 @@
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Submission } from '@infrastructure/test/submission';
-import {
-  answerPrefixes,
-  TestContent
-} from '@infrastructure/test/test-content';
+// import { Submission } from '@infrastructure/test/submission';
+// import {
+//   answerPrefixes,
+//   TestContent
+// } from '@infrastructure/test/test-content';
+import { Answer, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { Progress } from '../questions-progress/questions-progress.component';
 
@@ -43,7 +44,7 @@ export class TestContentComponent implements OnInit, OnDestroy {
     const currentSubmitDataLength = Object.keys(this.submission.submitData).length;
     if (['1', '2', '3', '4'].includes(e.key)) {
       // this.submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
-      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id)
+      this.updateSubmitData(question.id, answers[parseInt(e.key) - 1]);
 
       if (currentSubmitDataLength != Object.keys(this.submission.submitData).length) {
         // this.progress.next();
@@ -53,8 +54,7 @@ export class TestContentComponent implements OnInit, OnDestroy {
     if (e.key == ' ') {
       if (currentSubmitDataLength == this.content.questions.length) {
         this.completeCallback.emit();
-      }
-      else {
+      } else {
         if (this.progress.value > this.currentIndex) {
           this.currentIndex++;
           this.currentIndexEvent.emit(this.currentIndex);
@@ -86,8 +86,8 @@ export class TestContentComponent implements OnInit, OnDestroy {
     return index + 1;
   }
 
-  updateSubmitData(questionId: string, answerId: string) {
-    this.submission.submitData[questionId] = answerId;
+  updateSubmitData(questionId: string, answer: Answer) {
+    this.submission.submitData[questionId] = answer;
     this.submissionEvent.emit(this.submission);
   }
 }

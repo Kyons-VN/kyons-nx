@@ -98,7 +98,7 @@ export class TutorialTestComponent implements OnInit {
     });
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
     this.learningGoal = this.tutorialService.getSelectedLearningGoal();
-    this.getMockTestHtml();
+    this.getMockTest();
   }
 
   // ngAfterViewInit(): void {
@@ -122,7 +122,7 @@ export class TutorialTestComponent implements OnInit {
     this.tutorialPart = 1;
   };
 
-  getMockTestHtml() {
+  getMockTest() {
     this.testContent = this.testService.getMockTest();
     this.testProgress = Progress.from(0, this.testContent.questions.length);
     this.counter = TEST_DURATION;
@@ -135,7 +135,8 @@ export class TutorialTestComponent implements OnInit {
           event: [
             'click',
             () => {
-              this.testSubmission.submitData[this.testContent.questions[this.currentTestIndex].id] = '3';
+              this.testSubmission.submitData[this.testContent.questions[this.currentTestIndex].id] =
+                this.testContent.questions[this.currentTestIndex].answers[3];
               this.tutorialPart++;
             },
           ],
@@ -146,7 +147,8 @@ export class TutorialTestComponent implements OnInit {
           event: [
             'click',
             () => {
-              this.testSubmission.submitData[this.testContent.questions[this.currentTestIndex].id] = '7';
+              this.testSubmission.submitData[this.testContent.questions[this.currentTestIndex].id] =
+                this.testContent.questions[this.currentTestIndex].answers[2];
               this.tutorialPart++;
             },
           ],

@@ -33,7 +33,7 @@
             <input type="text" placeholder="Nhập email của bạn (*)" formControlName="email" autocomplete="off" />
             <div *ngIf="email.invalid && shouldValidate">
               <!-- <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div> -->
-              <div class="error" *ngIf="email.errors?.['email']">
+              <div class="error" *ngIf="email.errors?.['pattern']">
                 Hãy điền email đúng định dạng. Ví dụ như là: example@gmail.com
               </div>
             </div>
@@ -178,7 +178,7 @@
   *ngIf="step === 2"
   class="bg-blueGrey-100 absolute top-0 left-0 w-screen h-screen flex items-center justify-center p-6"
 >
-  <div class="flex flex-col items-center justify-center w-full sm:w-1/2 lg:w-1/4 gap-6">
+  <div class="flex flex-col items-center justify-center w-full sm:w-[700px] gap-6">
     <img src="assets/images/New Account.svg" />
     <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
       <h4 class="text-primaryBlue">Cảm ơn bạn đã tạo tài khoản cùng Kyons!</h4>

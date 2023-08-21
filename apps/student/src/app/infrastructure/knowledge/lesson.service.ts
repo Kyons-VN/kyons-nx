@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import ILessonService from '@domain/knowledge/i-lesson-service';
 import { serverApi } from '@infrastructure/auth/interceptor';
 import { MockTestItem } from '@infrastructure/test/test-content';
-import { SubmissionHtml, TestReviewHtml } from '@share-utils/data';
+import { Submission, TestReviewHtml } from '@share-utils/data';
 import { Observable, catchError, map } from 'rxjs';
 import { DBHelper } from '../helper/helper';
 import { LearningGoalPath } from './learning-goal-path';
@@ -170,7 +170,7 @@ export class LessonService implements ILessonService {
     );
   }
 
-  submitExercise(lessonId: string, submission: SubmissionHtml) {
+  submitExercise(lessonId: string, submission: Submission) {
     return this.http
       .post(`${serverApi()}/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
       .pipe(
