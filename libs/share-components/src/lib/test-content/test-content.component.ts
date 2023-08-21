@@ -15,8 +15,8 @@ import {
 //   answerPrefixes,
 //   TestContent
 import { CommonModule } from '@angular/common';
-// import { O } from '@kyonsvn/share-pipes';
-import { OrderBySAPipe, SafeHtmlPipe } from '@kyonsvn/share-pipes';
+// import { O } from '@share-pipes';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';

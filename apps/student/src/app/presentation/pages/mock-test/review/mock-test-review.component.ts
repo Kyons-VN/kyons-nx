@@ -10,9 +10,9 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { TestService } from '@infrastructure/test/test.service';
 import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
+import { SafeHtmlPipe } from '@share-pipes';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,

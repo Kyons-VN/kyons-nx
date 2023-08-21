@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { SafeHtmlPipe } from '@kyonsvn/share-pipes';
+import { SafeHtmlPipe } from '@share-pipes';
 
 @Component({
   standalone: true,

@@ -10,8 +10,8 @@ import { NavigationService } from '@infrastructure/navigation/navigation.service
 import { TestService } from '@infrastructure/test/test.service';
 import { TrackingLessonComponent } from '@presentation/share-components/tracking/tracking-lesson.component';
 import { QuestionsProgressComponent, TestContentHtmlComponent } from '@share-components';
+import { SafeHtmlPipe } from '@share-pipes';
 import { ExerciseHtml, Progress, QuestionHtml, QuestionReviewHtml, SubmissionHtml } from '@share-utils/data';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,

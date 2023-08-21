@@ -18,6 +18,7 @@ import {
   TestContentHtmlComponent,
   TutorialComponent,
 } from '@share-components';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import {
   Exercise,
   Progress,
@@ -27,7 +28,6 @@ import {
   TestResult,
   answerPrefixes,
 } from '@share-utils/data';
-import { OrderBySAPipe, SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,

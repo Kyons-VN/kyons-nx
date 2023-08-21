@@ -10,9 +10,9 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
+import { SafeHtmlPipe } from '@share-pipes';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
 
 @Component({
   standalone: true,
