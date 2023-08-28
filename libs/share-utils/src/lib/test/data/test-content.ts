@@ -306,20 +306,20 @@ class TestContent implements ITestContent {
   status: MockTestStatus;
   constructor({
     id,
-    content,
+    questions,
     done,
     topicName,
     status,
   }: {
     id: string;
-    content: Question[];
+    questions: Question[];
     done: boolean;
     topicName: string;
     status: MockTestStatus;
   }) {
     this.id = id;
-    this.questions = content;
-    this.done = done;
+    this.questions = questions;
+    this.done = done ?? false;
     this.topicName = topicName;
     this.status = status;
   }
@@ -328,7 +328,7 @@ class TestContent implements ITestContent {
       'id',
       'content',
       'test_id',
-      'data',
+      'questions',
       'done',
       'learning_point_name',
       'topicName',
@@ -336,8 +336,9 @@ class TestContent implements ITestContent {
     ]);
     _.id = _.test_id ?? '';
     _.topicName = _.learning_point_name ?? '';
-    _.content = [];
-    _.content = _.data !== undefined ? _.data.map((questionObject: any) => Question.fromJson(questionObject)) : [];
+    // _.content = [];
+    _.questions =
+      _.questions !== undefined ? _.questions.map((questionObject: any) => Question.fromJson(questionObject)) : [];
 
     _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
 
@@ -345,7 +346,7 @@ class TestContent implements ITestContent {
   }
 
   static empty(): TestContent {
-    return new TestContent({ id: '', content: [], done: false, topicName: '', status: MockTestStatus.pending });
+    return new TestContent({ id: '', questions: [], done: false, topicName: '', status: MockTestStatus.pending });
   }
 }
 
@@ -369,11 +370,17 @@ class Exercise {
   }
 }
 
+enum DifficultyLevel {
+  easy,
+  meidum,
+  hard,
+}
+
 class Question implements IQuestion {
   id: string;
   content: string;
-  hint: string;
-  // category: Category;
+  hint?: string;
+  difficulty?: DifficultyLevel;
   // topic: Topic;
   answers: Answer[];
 
@@ -382,6 +389,7 @@ class Question implements IQuestion {
     content,
     answers,
     hint,
+    difficulty,
   }: // category,
   // topic,
   {
@@ -390,13 +398,14 @@ class Question implements IQuestion {
     answers: Answer[];
     // category: Category;
     // topic: Topic;
-    hint: string;
+    hint?: string;
+    difficulty?: DifficultyLevel;
   }) {
     this.id = id;
     this.content = content;
     this.answers = answers;
     this.hint = hint;
-    // this.category = category;
+    this.difficulty = difficulty;
     // this.topic = topic;
   }
 
@@ -406,27 +415,29 @@ class Question implements IQuestion {
       'content',
       'answers',
       'hint',
-      // 'category_name',
+      'difficulty',
       // 'category_id',
       // 'topic_name',
       // 'topic_id',
       // 'category',
       // 'topic',
     ]);
+    // _.content = dataObject['question'] ?? '';
     _.id = (_.id as number).toString();
     // _.answers = [];
-    _.answers = dataObject['answer_keys'].map((answerObject: any) => Answer.fromJson(answerObject));
+    _.answers = dataObject['answers'].map((answerObject: any) => Answer.fromJson(answerObject));
     // _.category = Category.fromJson({
     //   id: _.category_id,
     //   name: _.category_name,
     // });
     // _.topic = Topic.fromJson({ id: _.topic_id, name: _.topic_name });
-    _.content = dataObject['question'];
+    // _.content = dataObject['question'];
+    _.difficulty = DifficultyLevel[dataObject['difficulty'] as keyof typeof DifficultyLevel];
     return new Question(_);
   }
 
   static empty(): Question {
-    return new Question({ id: '', content: '', answers: [], hint: '' });
+    return new Question({ id: '', content: '', answers: [], hint: '', difficulty: DifficultyLevel.easy });
   }
 }
 

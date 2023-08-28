@@ -31,7 +31,13 @@
     >
       <div class="flex w-full items-end justify-center gap-6">
         <div class="col gap-1 w-full">
-          <h6 class="hidden md:block">{{ progressStr }}%</h6>
+          <div class="flex justify-between">
+            <h6 class="hidden md:block">{{ progressStr }}%</h6>
+            <div class="flex gap-2 justify-center">
+              <span class="h7 !leading-8">Độ khó:</span>
+              <div class="star" *ngFor="let level of stars"><img src="/assets/images/star.svg" /></div>
+            </div>
+          </div>
           <span class="h8 md:hidden">{{ progressStr }}%</span>
           <kyonsvn-questions-progress
             [progress]="progress"

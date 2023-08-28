@@ -54,6 +54,7 @@ export class LessonPageComponent implements OnInit {
   isCompleted = false;
   isOutOfSubscription = false;
   currentTestIndex = 0;
+  stars = [0];
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
@@ -75,6 +76,7 @@ export class LessonPageComponent implements OnInit {
       next: (exercise: Exercise) => {
         this.exercise = exercise;
         this.question = exercise.questions[0];
+        this.stars = Array.from(Array((this.question.difficulty ?? 0) + 1).keys());
         this.progress.value = exercise.progress ?? 0;
         this.progressStr = (exercise.progress ?? 0).toFixed(2);
         this.loading.hide();

@@ -1,4 +1,5 @@
 export enum MockTestStatus {
+  new,
   pending,
   active,
   mock_test_submitted,

@@ -10,7 +10,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
-      "@share-pipes": ["libs/share-pipes/src"]
+      "@share-pipes": ["libs/share-pipes/src/index.ts"]
     }
   },
   "files": [],
