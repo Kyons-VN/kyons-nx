@@ -154,6 +154,7 @@ export class LessonPageComponent implements OnInit {
     //   input.removeAttribute('disabled');
     // });
     // this.currentForm.reset();
+    this.submission = new Submission();
     this.questionReview = null;
     this._getQuestion();
   }

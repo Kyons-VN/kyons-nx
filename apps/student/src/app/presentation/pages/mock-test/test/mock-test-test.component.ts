@@ -109,11 +109,12 @@ export class MockTestTestComponent implements OnInit {
               const now = new Date();
               this.counter = TEST_DURATION - (now.getTime() - this.counterStart.getTime());
               this.counterTime = new Date(this.counter);
-              if (this.counter < 0) {
-                this.ignoreHavingTime = true;
-                this.ignoreIncomplete = true;
-                this.testComplete();
-              }
+              // Auto submit mocktest
+              // if (this.counter < 0) {
+              //   this.ignoreHavingTime = true;
+              //   this.ignoreIncomplete = true;
+              //   this.testComplete();
+              // }
             }, 1000);
             this.loading.hide();
           },
