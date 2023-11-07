@@ -1,14 +1,15 @@
 import {
+  HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest, HTTP_INTERCEPTORS
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppPaths } from '@view/routes';
-import { catchError, lastValueFrom, Observable, of, throwError } from 'rxjs';
+import { Observable, catchError, lastValueFrom, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
@@ -19,26 +20,20 @@ export const SERVER_API = environment.serverApi;
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   paths: AppPaths;
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    navService: NavigationService
-  ) {
+  constructor(private auth: AuthService, private router: Router, navService: NavigationService) {
     this.paths = navService.paths;
   }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (this.auth.hasExpiredToken()) {
+      this.auth.removeToken();
+    }
     let authReq = req;
     const token = this.auth.getToken();
     const contentType = req.headers.get('Content-Type') ?? 'application/json';
     if (token !== '') {
       authReq = req.clone({
-        headers: req.headers
-          .set(TOKEN_HEADER_KEY, 'Bearer ' + token)
-          .set('Content-Type', contentType),
+        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set('Content-Type', contentType),
       });
     }
     return next.handle(authReq).pipe(
@@ -54,18 +49,14 @@ export class AuthInterceptor implements HttpInterceptor {
             this.auth.removeToken();
             const refreshToken = this.auth.getRefreshToken();
             if (refreshToken && refreshToken !== 'undefined') {
-              lastValueFrom(
-                this.auth.refreshToken(refreshToken)
-              ).then((value) => {
+              lastValueFrom(this.auth.refreshToken(refreshToken)).then(value => {
                 console.log(value);
                 this.auth.setToken(value);
                 authReq = req.clone({
-                  headers: req.headers
-                    .set(TOKEN_HEADER_KEY, 'Bearer ' + value)
-                    .set('Content-Type', contentType),
+                  headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value).set('Content-Type', contentType),
                 });
                 next.handle(authReq).subscribe({
-                  error: (e) => {
+                  error: e => {
                     console.log(e);
                     this.forceSignOut();
                   },
@@ -75,7 +66,7 @@ export class AuthInterceptor implements HttpInterceptor {
               // this.forceSignOut();
               console.log('forceSignOut');
             }
-          }// else this.redirectToHome();
+          } // else this.redirectToHome();
         }
         console.log(errorMsg);
         return throwError(() => error.error);
@@ -118,6 +109,4 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-export const authInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-];
+export const authInterceptorProviders = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];

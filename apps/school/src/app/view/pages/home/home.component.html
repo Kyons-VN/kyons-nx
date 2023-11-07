@@ -1,5 +1,5 @@
 <div class="flex w-full h-full">
-  <iframe class="flex-1" #iframe src="kyons.cerebry.co"></iframe>
+  <iframe class="flex-1" #iframe src="https://kyons.cerebry.co"></iframe>
   <div *ngIf="user" class="flex flex-col gap-[20px] py-[10px] w-[60px] bg-[#166464] text-white items-center">
     <div id="profile" (mouseenter)="showMenu = true; hover = 0" (mouseleave)="showMenu = false" class="menu-item"></div>
     <!-- <div
@@ -19,7 +19,7 @@
   </div>
   <div
     class="absolute right-[68px] transition-all duration-300 z-10"
-    [ngStyle]="{opacity: showMenu ? 1 : 0, 'top.px': hover * 60 + 10}"
+    [ngStyle]="{ opacity: showMenu ? 1 : 0, 'top.px': hover * 60 + 10 }"
   >
     <div
       class="rounded-[10px] h-[40px] bg-[#00b1b0] px-2 py-3 text-white callout caret-right transition-all duration-300"

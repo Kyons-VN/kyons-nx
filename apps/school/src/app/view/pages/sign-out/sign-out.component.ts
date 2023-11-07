@@ -12,11 +12,7 @@ import { AppPaths } from '@view/routes';
 })
 export class SignOutComponent implements OnInit {
   paths: AppPaths;
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    navService: NavigationService
-  ) {
+  constructor(private authService: AuthService, private router: Router, navService: NavigationService) {
     this.paths = navService.paths;
   }
 
@@ -27,6 +23,7 @@ export class SignOutComponent implements OnInit {
   }
 
   signOut() {
+    this.authService.unsetUser();
     this.authService.signOut();
     this.router.navigate([this.paths.signIn.path]);
   }

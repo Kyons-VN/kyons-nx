@@ -372,7 +372,7 @@ class Exercise {
 
 enum DifficultyLevel {
   easy,
-  meidum,
+  medium,
   hard,
 }
 
@@ -636,4 +636,4 @@ class TestResult implements ITestResult {
 }
 
 const answerPrefixes = ['Đáp án 1: ', 'Đáp án 2: ', 'Đáp án 3: ', 'Đáp án 4: ', 'Đáp án 5: ', 'Đáp án 6: '];
-export { TestContent, answerPrefixes, TestResult, Answer, AnswerResult, Question, Exercise };
+export { Answer, AnswerResult, Exercise, Question, TestContent, TestResult, answerPrefixes };

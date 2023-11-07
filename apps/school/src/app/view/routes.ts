@@ -35,7 +35,7 @@ const appRoutes: Routes = [
   { path: 'sign-out', component: SignOutComponent },
   {
     path: 'reset-password',
-    loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+    loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
   },
   {
     path: '**',
@@ -47,5 +47,4 @@ const appRoutes: Routes = [
   },
 ];
 
-export { appRoutes, AppPaths };
-
+export { AppPaths, appRoutes };
