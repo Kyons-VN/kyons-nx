@@ -12,7 +12,7 @@
           <div class="col w-full">
             <input type="text" #emailElm placeholder="Nhập email" formControlName="email" />
             <div *ngIf="email.invalid && isEdited">
-              <div class="error" *ngIf="email.errors?.['email']">Vui lòng nhập theo định dạng abc@email.com.</div>
+              <div class="error" *ngIf="email.errors?.['email']">Vui lòng nhập theo định dạng abc&#64;email.com.</div>
             </div>
           </div>
           <div class="relative w-full">

@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule, importProvidersFrom } from '@angular/core';
+import { VAPID_KEY } from '@angular/fire/compat/messaging';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,6 +38,10 @@ export function playerFactory() {
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeVN from '@angular/common/locales/vi';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environment } from '@environments/environment';
+import { notificationServiceProvider } from '@infrastructure/notification/notification.service';
 import { LayoutFullComponent } from '@presentation/layouts/full/layout-full.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -110,7 +115,11 @@ registerLocaleData(localeEN, 'en');
   providers: [
     authInterceptorProviders,
     { provide: LOCALE_ID, useValue: 'vi' },
-    [{ provide: DEFAULT_TIMEOUT, useValue: 30000 }],
+    { provide: DEFAULT_TIMEOUT, useValue: 30000 },
+    { provide: VAPID_KEY, useValue: environment.vapidKey },
+    notificationServiceProvider,
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebase },
+    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
   ],
   bootstrap: [AppComponent],
 })

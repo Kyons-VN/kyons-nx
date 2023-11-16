@@ -1,12 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild
-} from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { NotificationService } from '@infrastructure/notification/notification.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { AppPaths } from '@presentation/routes';
 import { filter } from 'rxjs/operators';
@@ -26,6 +21,7 @@ export class TopMenuComponent implements OnInit {
     navService: NavigationService,
     private route: ActivatedRoute,
     router: Router,
+    private notificationService: NotificationService
   ) {
     /**
      * This events get called by all clicks on the page
@@ -48,17 +44,17 @@ export class TopMenuComponent implements OnInit {
       }
     });
 
-    router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    )
-      .subscribe((event) => {
-        if ((event as NavigationEnd).urlAfterRedirects.indexOf('/sign-in') == 0 || (event as NavigationEnd).urlAfterRedirects.indexOf('/sign-up') == 0 || (event as NavigationEnd).urlAfterRedirects.indexOf('/share-mocktest') == 0) {
-          this.show = false;
-        }
-        else {
-          this.show = true;
-        }
-      });
+    router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+      if (
+        (event as NavigationEnd).urlAfterRedirects.indexOf('/sign-in') == 0 ||
+        (event as NavigationEnd).urlAfterRedirects.indexOf('/sign-up') == 0 ||
+        (event as NavigationEnd).urlAfterRedirects.indexOf('/share-mocktest') == 0
+      ) {
+        this.show = false;
+      } else {
+        this.show = true;
+      }
+    });
   }
 
   /**

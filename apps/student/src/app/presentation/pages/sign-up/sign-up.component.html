@@ -19,18 +19,23 @@
                 <input *ngIf="refFrom !== null && ref" type="text" readonly="readonly" [value]="ref" />
               </div> -->
         <div class="col gap-2">
-          <h4>Bắt đầu khám phá tri thức</h4>
-          <span>Bạn đã sẵn sàng học ít nhưng trúng đích cùng Kyons chưa?</span>
+          <h4>Đăng ký tài khoản Kyons</h4>
         </div>
         <div class="col gap-2 w-full">
-          <div class="col w-full">
+          <!-- <div class="col w-full">
             <input #lastNameElm type="text" placeholder="Họ (*)" formControlName="lastName" autocomplete="off" />
           </div>
           <div class="col w-full">
             <input type="text" placeholder="Tên (*)" formControlName="firstName" autocomplete="off" />
-          </div>
+          </div> -->
           <div class="col w-full">
-            <input type="text" placeholder="Nhập email của bạn (*)" formControlName="email" autocomplete="off" />
+            <input
+              #emailElm
+              type="text"
+              placeholder="Nhập email của bạn (*)"
+              formControlName="email"
+              autocomplete="off"
+            />
             <div *ngIf="email.invalid && shouldValidate">
               <!-- <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div> -->
               <div class="error" *ngIf="email.errors?.['pattern']">
@@ -38,7 +43,7 @@
               </div>
             </div>
           </div>
-          <div class="col w-full">
+          <!-- <div class="col w-full">
             <input
               type="text"
               placeholder="Nhập số điện thoại của bạn (*)"
@@ -46,9 +51,76 @@
               autocomplete="off"
             />
             <div *ngIf="phone.invalid && shouldValidate">
-              <!-- <div *ngIf="phone.errors?.['required']">Chưa nhập số điện thoại.</div> -->
               <div class="error" *ngIf="phone.errors?.['pattern']">Vui lòng nhập đúng số điện thoại.</div>
             </div>
+          </div> -->
+          <div class="relative w-full">
+            <input
+              #passwordElm
+              [type]="showPassword ? 'text' : 'password'"
+              class="w-full"
+              placeholder="Nhập mật khẩu"
+              formControlName="password"
+            />
+            <button
+              (click)="showPassword = !showPassword"
+              class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
+            >
+              <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
+              <i *ngIf="!showPassword" class="icon-Visibility"></i>
+            </button>
+          </div>
+          <!-- <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+            <div *ngIf="password.errors?.['required']">Chưa nhập mật khẩu.</div>
+            <div *ngIf="password.errors?.['pattern']">Mật khẩu không hợp lệ.</div>
+          </div>
+          <div class="h-4"></div> -->
+          <!-- ^((?=.*[A-Z])(?=.*d).{8,99}) -->
+          <div *ngIf="password.touched" class="text-sm">
+            Mật khẩu phải có:<br />
+            <ul class="list-disc">
+              <li
+                class="ml-5"
+                [ngClass]="{
+                  'text-red-0': (password.dirty || password.touched) && password.value.length < 8,
+                  'text-darkEmerald': (password.dirty || password.touched) && password.value.length >= 8
+                }"
+              >
+                <i
+                  *ngIf="(password.dirty || password.touched) && password.value.length < 8"
+                  class="text-red-0 icon-Cancel"
+                ></i>
+                <i
+                  *ngIf="(password.dirty || password.touched) && password.value.length >= 8"
+                  class="text-red-0 icon-Check"
+                ></i>
+                &nbsp; Từ 8 ký tự trở lên
+              </li>
+              <li
+                class="ml-5"
+                [ngClass]="{
+                  'text-red-0': (password.dirty || password.touched) && notHaveUppercase(password.value)
+                }"
+              >
+                Ký tự viết hoa (A-Z)
+              </li>
+              <li
+                class="ml-5"
+                [ngClass]="{
+                  'text-red-0': (password.dirty || password.touched) && notHaveDigit(password.value)
+                }"
+              >
+                Ký tự số (0-9)
+              </li>
+              <li
+                class="ml-5"
+                [ngClass]="{
+                  'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value)
+                }"
+              >
+                Ký tự đặc biệt (~! @#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
+              </li>
+            </ul>
           </div>
         </div>
         <label for="tos" class="checkbox dark flex gap-2">

@@ -26,15 +26,16 @@ function bootstrap() {
   // }
   platformBrowserDynamic()
     .bootstrapModule(AppModule, {
-      providers: [{ provide: LOCALE_ID, useValue: 'vi-VN' }, { provide: DEFAULT_CURRENCY_CODE, useValue: 'VND' }]
+      providers: [
+        { provide: LOCALE_ID, useValue: 'vi-VN' },
+        { provide: DEFAULT_CURRENCY_CODE, useValue: 'VND' },
+      ],
     })
-    .catch((err) => console.error(err));
-};
-
+    .catch(err => console.error(err));
+}
 
 if (document.readyState === 'complete') {
   bootstrap();
 } else {
   document.addEventListener('DOMContentLoaded', bootstrap);
 }
-

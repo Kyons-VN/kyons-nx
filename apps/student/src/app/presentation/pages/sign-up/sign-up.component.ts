@@ -38,8 +38,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   signUpForm1: FormGroup = this.fb.group({});
-  firstName: FormControl = new FormControl('', [Validators.required]);
-  lastName: FormControl = new FormControl('', [Validators.required]);
+  // firstName: FormControl = new FormControl('', [Validators.required]);
+  // lastName: FormControl = new FormControl('', [Validators.required]);
   email: FormControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^[a-z0-9+]+@[a-z0-9]+\.[a-z]{2,4}$/),
@@ -49,6 +49,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   class: FormControl = new FormControl('');
   school: FormControl = new FormControl('');
   city: FormControl = new FormControl('TP Hồ Chí Minh');
+  password: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/),
+  ]);
   step = 0;
   showPassword = true;
   processing = false;
@@ -61,19 +65,20 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   currentUrl = '';
   shouldValidate = false;
 
-  @ViewChild('lastNameElm') lastNameElm!: ElementRef;
+  @ViewChild('emailElm') emailElm!: ElementRef;
 
   ngOnInit(): void {
     this.ref = this.route.snapshot.queryParams['ref'] ?? '';
     this.refFrom = this.route.snapshot.queryParams['mocktest'] ? TestType.Mock : null;
-    this.signUpForm1.addControl('firstName', this.firstName);
-    this.signUpForm1.addControl('lastName', this.lastName);
+    // this.signUpForm1.addControl('firstName', this.firstName);
+    // this.signUpForm1.addControl('lastName', this.lastName);
     this.signUpForm1.addControl('email', this.email);
-    this.signUpForm1.addControl('phone', this.phone);
-    this.signUpForm1.addControl('birthdate', this.birthdate);
-    this.signUpForm1.addControl('class', this.class);
-    this.signUpForm1.addControl('school', this.school);
-    this.signUpForm1.addControl('city', this.city);
+    // this.signUpForm1.addControl('phone', this.phone);
+    // this.signUpForm1.addControl('birthdate', this.birthdate);
+    // this.signUpForm1.addControl('class', this.class);
+    // this.signUpForm1.addControl('school', this.school);
+    // this.signUpForm1.addControl('city', this.city);
+    this.signUpForm1.addControl('password', this.password);
     this.signUpForm1.addControl('tosChecked', this.tosChecked);
     this.signUpForm1.markAsPristine();
     this.signUpForm1.valueChanges.subscribe(() => {
@@ -86,7 +91,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.lastNameElm.nativeElement.focus();
+    this.emailElm.nativeElement.focus();
   }
 
   beforeunload = () => {
@@ -138,13 +143,14 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     this.authService
       .signUp({
         email: this.email.value,
-        firstName: this.firstName.value,
-        lastName: this.lastName.value,
-        phone: this.phone.value,
-        birthdate: this.birthdate.value,
-        className: this.class.value,
-        school: this.school.value,
-        city: this.city.value,
+        // firstName: this.firstName.value,
+        // lastName: this.lastName.value,
+        // phone: this.phone.value,
+        // birthdate: this.birthdate.value,
+        // className: this.class.value,
+        // school: this.school.value,
+        // city: this.city.value,
+        password: this.signUpForm1.get('password')?.value,
         ref: this.ref,
       })
       .subscribe({

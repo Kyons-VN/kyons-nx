@@ -1,5 +1,4 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import Balance from '@infrastructure/order/balance';
 import Inventory from '@infrastructure/order/inventory';
@@ -16,11 +15,7 @@ export class AccountPageComponent implements OnInit {
   @HostBinding('class') class = 'w-full h-full';
 
   paths: AppPaths;
-  constructor(
-    private router: Router,
-    private orderService: OrderService,
-    navService: NavigationService,
-  ) {
+  constructor(private orderService: OrderService, navService: NavigationService) {
     this.paths = navService.paths;
   }
 
@@ -36,7 +31,9 @@ export class AccountPageComponent implements OnInit {
     const hours = totalhours % 24;
     const minutes = Math.floor((hours - Math.floor(hours)) * 60);
     const roundedHours = Math.floor(hours);
-    return `Còn ${days > 0 ? ` ${days} ngày` : ''}${roundedHours > 0 ? ` ${roundedHours} giờ` : ''}${minutes > 0 ? ` ${minutes} phút` : ''}`
+    return `Còn ${days > 0 ? ` ${days} ngày` : ''}${roundedHours > 0 ? ` ${roundedHours} giờ` : ''}${
+      minutes > 0 ? ` ${minutes} phút` : ''
+    }`;
   }
 
   ngOnInit(): void {
@@ -44,19 +41,19 @@ export class AccountPageComponent implements OnInit {
       next: (inventory: Inventory) => {
         this.inventory = inventory;
       },
-      error: (err) => {
+      error: err => {
         // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
-      }
+      },
     });
     this.orderService.getBalance().subscribe({
       next: (balance: Balance) => {
         this.balance = balance;
       },
-      error: (err) => {
+      error: err => {
         // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
-      }
+      },
     });
   }
 
@@ -67,10 +64,10 @@ export class AccountPageComponent implements OnInit {
         next: (res: any) => {
           this.transactions = res;
         },
-        error: (err) => {
+        error: err => {
           // TODO: Define error resposes
           this.hasError = 'Có lỗi, vui lòng thử lại';
-        }
+        },
       });
     }
   }
@@ -80,7 +77,7 @@ export class AccountPageComponent implements OnInit {
   }
 
   onSelectTab(newValue: string) {
-    this.activeTab = parseInt(newValue);  // don't forget to update the model here
+    this.activeTab = parseInt(newValue); // don't forget to update the model here
     // ... do other stuff here ...
   }
 }

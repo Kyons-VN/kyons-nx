@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { LayoutDefaultComponent } from './layouts/default/layout-default.component';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
-import { LeaveGuard } from './leave.guard';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { VerifyPage } from './pages/email-verification/email-verification.component';
 import { GiftComponent } from './pages/gift/gift.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
@@ -142,8 +142,41 @@ const routes: Routes = [
   },
   {
     path: 'sign-up',
-    loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
-    canDeactivate: [LeaveGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/sign-up/sign-up.component').then(m => m.SignUpComponent),
+      },
+      {
+        path: 'unverified-account',
+        loadComponent: () =>
+          import('./pages/sign-up/unverified-account.component').then(m => m.UnverifiedAccountComponent),
+      },
+      {
+        path: 'resend-verified',
+        loadComponent: () => import('./pages/sign-up/resend-verified.component').then(m => m.ResendVerifiedComponent),
+      },
+    ],
+  },
+  {
+    path: 'email-verification',
+    children: [
+      {
+        path: VerifyPage.verifySuccess,
+        loadComponent: () =>
+          import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
+      },
+      {
+        path: VerifyPage.nonexistentAccount + '/:token',
+        loadComponent: () =>
+          import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
+      },
+      {
+        path: VerifyPage.expiredLink + '/:token',
+        loadComponent: () =>
+          import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
+      },
+    ],
   },
   {
     path: 'new-user',
@@ -168,4 +201,4 @@ const routes: Routes = [
   },
 ];
 
-export { routes, AppPaths };
+export { AppPaths, routes };

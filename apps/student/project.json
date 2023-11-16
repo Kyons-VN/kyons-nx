@@ -18,6 +18,8 @@
         "assets": [
           "apps/student/src/favicon.ico",
           "apps/student/src/assets",
+          "apps/student/src/firebase-messaging-sw.js",
+          "apps/student/src/manifest.json",
           {
             "glob": "**/*",
             "input": "libs/theme/src/assets/",

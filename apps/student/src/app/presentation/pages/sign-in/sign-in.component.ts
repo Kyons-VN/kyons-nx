@@ -8,12 +8,15 @@ import { AuthService } from '@infrastructure/auth/auth.service';
 import { AuthCredential } from '@infrastructure/auth/credential';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
+import { MessagingService } from '@infrastructure/notification/messaging.service';
+import { notificationServiceProvider } from '@infrastructure/notification/notification.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { FormControlStatus } from '@utils/form';
 
 @Component({
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  providers: [notificationServiceProvider],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
@@ -26,6 +29,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   router = inject(Router);
   loading = inject(LoadingOverlayService);
   userService = inject(UserService);
+  messagingService = inject(MessagingService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -63,8 +67,8 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binhhm2009+0311@gmail.com');
-      this.password.setValue('Zaq1@wsx');
+      this.email.setValue('binhhm2009+0801@gmail.com');
+      this.password.setValue('Sx_-2m5c');
     }
     if (!this.isEdited) this.isEdited = true;
     if (!(this.signInForm.get('email')?.dirty && this.signInForm.get('password')?.dirty)) {
@@ -83,9 +87,27 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
               this.userService.setForceCompleteTutorial();
             }
             this.loading.show();
-            setTimeout(() => {
-              this.router.navigate([redirectPath[0]], redirectPath[1]);
-            }, 600);
+
+            this.messagingService.requestPermission().subscribe({
+              next: value => {
+                console.log('requestPermission next', value);
+                this.messagingService.getToken().subscribe({
+                  next: token => {
+                    console.log('getToken next', token);
+
+                    setTimeout(() => {
+                      this.router.navigate([redirectPath[0]], redirectPath[1]);
+                    }, 600);
+                  },
+                  error: error => {
+                    console.log('getToken error', error);
+                  },
+                });
+              },
+              error: error => {
+                console.log('requestPermission error', error);
+              },
+            });
           } else {
             this.processing = false;
             this.errorMessage = true;

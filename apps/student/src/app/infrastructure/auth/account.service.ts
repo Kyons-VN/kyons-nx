@@ -12,34 +12,30 @@ export class AccountStandaloneService {
 
   signUp({
     email,
-    firstName,
-    lastName,
-    phone,
-    birthdate,
-    className,
-    school,
-    city,
+    // firstName,
+    // lastName,
+    // phone,
+    // birthdate,
+    // className,
+    // school,
+    // city,
+    password,
     ref,
   }: {
     email: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    birthdate: Date;
-    className: string;
-    school: string;
-    city: string;
+    // firstName: string;
+    // lastName: string;
+    // phone: string;
+    // birthdate: Date;
+    // className: string;
+    // school: string;
+    // city: string;
+    password: string;
     ref?: any;
   }) {
     const params: any = {
       email: email,
-      family_name: lastName,
-      given_name: firstName,
-      phone_number: phone,
-      birthdate: birthdate,
-      grade: className,
-      school: school,
-      address: city,
+      password: password,
     };
     if (ref) {
       params['referral'] = {

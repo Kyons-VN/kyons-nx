@@ -56,7 +56,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   _getStudentLearningGoalsData() {
     this.knowledgeService.getStudentLearningGoals().subscribe({
       next: learningGoals => {
-        this.learnings = learningGoals;
+        if (
+          this.learnings.length != learningGoals.length ||
+          this.learnings[this.learnings.length - 1].completePercentage !=
+            learningGoals[learningGoals.length - 1].completePercentage
+        )
+          this.learnings = learningGoals;
         this.isLoading = false;
         if (this.route.snapshot.queryParams['learning_goal_id'] !== undefined) {
           console.log('goto');
