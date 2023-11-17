@@ -39,7 +39,7 @@
             <div *ngIf="email.invalid && shouldValidate">
               <!-- <div *ngIf="email.errors?.['required']">Chưa nhập Email.</div> -->
               <div class="error" *ngIf="email.errors?.['pattern']">
-                Hãy điền email đúng định dạng. Ví dụ như là: example@gmail.com
+                Hãy điền email đúng định dạng. Ví dụ như là: example&#64;gmail.com
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
                   'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value)
                 }"
               >
-                Ký tự đặc biệt (~! @#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
+                Ký tự đặc biệt (~! &#64;#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
               </li>
             </ul>
           </div>

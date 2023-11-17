@@ -79,7 +79,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.signInForm.status === FormControlStatus.VALID) {
       this.processing = true;
       this.authService.signIn(new AuthCredential(this.signInForm.value)).subscribe({
-        next: (result: any) => {
+        next: result => {
           if (result.success) {
             this.location.replaceState('/');
             const redirectPath = this.navService.getRouteAfterLogin(result.redirect_after_auth);
@@ -87,27 +87,32 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
               this.userService.setForceCompleteTutorial();
             }
             this.loading.show();
+            if (environment.production)
+              this.messagingService.requestPermission().subscribe({
+                next: value => {
+                  console.log('requestPermission next', value);
+                  this.messagingService.getToken().subscribe({
+                    next: token => {
+                      console.log('getToken next', token);
 
-            this.messagingService.requestPermission().subscribe({
-              next: value => {
-                console.log('requestPermission next', value);
-                this.messagingService.getToken().subscribe({
-                  next: token => {
-                    console.log('getToken next', token);
-
-                    setTimeout(() => {
-                      this.router.navigate([redirectPath[0]], redirectPath[1]);
-                    }, 600);
-                  },
-                  error: error => {
-                    console.log('getToken error', error);
-                  },
-                });
-              },
-              error: error => {
-                console.log('requestPermission error', error);
-              },
-            });
+                      setTimeout(() => {
+                        this.router.navigate([redirectPath[0]], redirectPath[1]);
+                      }, 600);
+                    },
+                    error: error => {
+                      console.log('getToken error', error);
+                    },
+                  });
+                },
+                error: error => {
+                  console.log('requestPermission error', error);
+                },
+              });
+            else {
+              setTimeout(() => {
+                this.router.navigate([redirectPath[0]], redirectPath[1]);
+              }, 600);
+            }
           } else {
             this.processing = false;
             this.errorMessage = true;

@@ -17,9 +17,9 @@
     "paths": {
       "@kyonsvn/share-components": ["libs/share-components/src/index.ts"],
       "@kyonsvn/share-directives": ["libs/share-directives/src/index.ts"],
-      "@kyonsvn/theme": ["libs/theme/src/index.ts"],
       "@kyonsvn/utils": ["libs/share-utils/src/index.ts"],
-      "@share-pipes": ["libs/share-pipes/src/index.ts"]
+      "@share-pipes": ["libs/share-pipes/src/index.ts"],
+      "theme": ["libs/theme/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist/app"]

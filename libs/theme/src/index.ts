@@ -1,1 +1,2 @@
-export * from './lib/theme.module';
+import '@angular/material';
+export * from './lib/theme/theme.component';

@@ -1,0 +1,4076 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.1.2",
+  "deps": {
+    "@angular/animations": "17.0.0",
+    "@angular/cdk": "17.0.0",
+    "@angular/common": "17.0.0",
+    "@angular/compiler": "17.0.0",
+    "@angular/core": "17.0.0",
+    "@angular/fire": "16.0.0",
+    "@angular/forms": "17.0.0",
+    "@angular/platform-browser": "17.0.0",
+    "@angular/platform-browser-dynamic": "17.0.0",
+    "@angular/router": "17.0.0",
+    "@nrwl/angular": "17.1.2",
+    "chart.js": "^4.3.0",
+    "firebase": "^10.6.0",
+    "lodash-es": "^4.17.21",
+    "lottie-web": "^5.10.0",
+    "mydatepicker": "^2.6.11",
+    "ng-circle-progress": "^1.6.0",
+    "ng2-charts": "^4.1.1",
+    "ngx-facebook": "3.0.0-0",
+    "ngx-lottie": "^9.1.0",
+    "rxjs": "7.8.1",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
+    "zone.js": "0.14.2",
+    "@angular-devkit/build-angular": "17.0.1",
+    "@angular-devkit/core": "17.0.1",
+    "@angular-devkit/schematics": "17.0.1",
+    "@angular-eslint/eslint-plugin": "17.0.1",
+    "@angular-eslint/eslint-plugin-template": "17.0.1",
+    "@angular-eslint/template-parser": "17.0.1",
+    "@angular/cli": "~15.1.0",
+    "@angular/compiler-cli": "17.0.0",
+    "@angular/language-service": "17.0.0",
+    "@angular/material": "17.0.0",
+    "@nrwl/cli": "15.9.3",
+    "@nrwl/cypress": "17.1.2",
+    "@nrwl/eslint-plugin-nx": "17.1.2",
+    "@nrwl/jest": "17.1.2",
+    "@nrwl/linter": "17.1.2",
+    "@nrwl/nx-cloud": "16.5.2",
+    "@nrwl/workspace": "17.1.2",
+    "@nx/jest": "17.1.2",
+    "@nx/js": "17.1.2",
+    "@schematics/angular": "17.0.1",
+    "@swc-node/register": "~1.6.7",
+    "@swc/core": "~1.3.85",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.8",
+    "@types/jest": "29.5.8",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "16.11.7",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "6.9.1",
+    "@typescript-eslint/parser": "6.9.1",
+    "autoprefixer": "^10.4.13",
+    "cypress": "^12.2.0",
+    "eslint": "8.46.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-cypress": "2.13.4",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
+    "jest-preset-angular": "13.1.4",
+    "jsonc-eslint-parser": "^2.1.0",
+    "ng-packagr": "17.0.0",
+    "nx": "17.1.2",
+    "postcss": "^8.4.20",
+    "postcss-import": "~14.1.0",
+    "postcss-preset-env": "~7.8.3",
+    "postcss-url": "~10.1.3",
+    "prettier": "^2.7.1",
+    "tailwindcss": "^3.2.4",
+    "ts-jest": "29.1.1",
+    "ts-node": "10.9.1",
+    "typescript": "5.2.2"
+  },
+  "pathMappings": {
+    "@kyonsvn/share-components": [
+      "libs/share-components/src/index.ts"
+    ],
+    "@kyonsvn/share-directives": [
+      "libs/share-directives/src/index.ts"
+    ],
+    "@kyonsvn/utils": [
+      "libs/share-utils/src/index.ts"
+    ],
+    "@share-pipes": [
+      "libs/share-pipes/src/index.ts"
+    ],
+    "theme": [
+      "libs/theme/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".editorconfig",
+        "hash": "2367820248418000589"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "6561020749287803064"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "16541692331191330580"
+      },
+      {
+        "file": ".nx/cache/d/daemon.log",
+        "hash": "3251613431992536554"
+      },
+      {
+        "file": ".nx/cache/d/server-process.json",
+        "hash": "6146002695201728114"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "2745985499382102426"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "1016274300695149833"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "6167125349694690256"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "6254711596685602881"
+      },
+      {
+        "file": ".nx/cache/terminalOutputs/12766171954255804283",
+        "hash": "5682745059749283667"
+      },
+      {
+        "file": ".nx/cache/terminalOutputs/14504529040909293738",
+        "hash": "4631914002209840091"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "7822614198874218195"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "15011915792635792888"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "15904881119927760751"
+      },
+      {
+        "file": ".vscode/launch.json",
+        "hash": "15312135594971293216"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "3341517710781888766"
+      },
+      {
+        "file": "README.md",
+        "hash": "9658220758185384542"
+      },
+      {
+        "file": "apps/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "decorate-angular-cli.js",
+        "hash": "11823390707371404862"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "3069074216761126282"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "17666962557300311861"
+      },
+      {
+        "file": "nx.json",
+        "hash": "17758530516401075139"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "4686734790208609616"
+      },
+      {
+        "file": "package.json",
+        "hash": "16619405804670214429"
+      },
+      {
+        "file": "tools/generators/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "tools/tsconfig.tools.json",
+        "hash": "11810713488198132402"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "8020281389919592041"
+      }
+    ],
+    "projectFileMap": {
+      "student": [
+        {
+          "file": "apps/student/.eslintrc.json",
+          "hash": "17320064201919203596"
+        },
+        {
+          "file": "apps/student/jest.config.ts",
+          "hash": "17344107617438482481"
+        },
+        {
+          "file": "apps/student/project.json",
+          "hash": "3194727311715876292"
+        },
+        {
+          "file": "apps/student/src/app/app-routing.module.firebase.ts",
+          "hash": "18167860546849879238",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/app-routing.module.ts",
+          "hash": "2021881738637473856",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "apps/student/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/app.component.spec.ts",
+          "hash": "14674387064642783482",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/app.component.ts",
+          "hash": "7976271875268397982",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/app.module.ts",
+          "hash": "17294553231410065562",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/fire",
+            "npm:@angular/forms",
+            "npm:@angular/platform-browser",
+            "share-pipes",
+            "npm:lottie-web",
+            "npm:ng-circle-progress",
+            "npm:ngx-lottie",
+            "npm:@environments/environment",
+            "npm:@infrastructure/notification/notification.service",
+            "npm:@presentation/layouts/full/layout-full.component",
+            "npm:@presentation/pages/mock-test/select-topic/select-topic.component",
+            "npm:ng2-charts"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/auth/i-auth-service.ts",
+          "hash": "17130348519475788224"
+        },
+        {
+          "file": "apps/student/src/app/domain/auth/sandbox-account.ts",
+          "hash": "14061491370410624198"
+        },
+        {
+          "file": "apps/student/src/app/domain/gift/gift.ts",
+          "hash": "3436774227436891357"
+        },
+        {
+          "file": "apps/student/src/app/domain/gift/promotion.ts",
+          "hash": "6659768806564645585",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/I-learning-goal.ts",
+          "hash": "1267401020803728626"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-accout-service.ts",
+          "hash": "5892878175664111265"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-category.ts",
+          "hash": "13914045182671666814"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-knowledge-service.ts",
+          "hash": "15412841916100747680",
+          "deps": [
+            "npm:@domain/subject/subject",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/program",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-learning-goal-path.ts",
+          "hash": "1151778608515258565",
+          "deps": [
+            "npm:@infrastructure/knowledge/category",
+            "npm:@infrastructure/knowledge/learning-goal-path",
+            "npm:@infrastructure/knowledge/lesson"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-learning-path.ts",
+          "hash": "16909724947145375772"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-learning-point.ts",
+          "hash": "511465603384204990"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-lesson-service.ts",
+          "hash": "12160257688135507608",
+          "deps": [
+            "npm:@infrastructure/knowledge/learning-goal-path",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-lesson.ts",
+          "hash": "5822378742112580784"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-mock-test.ts",
+          "hash": "1882164634339768548",
+          "deps": [
+            "npm:@share-utils/domain"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-program.ts",
+          "hash": "6433775792008190728"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-submission.ts",
+          "hash": "480510005605666907"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-test.ts",
+          "hash": "1945298217236837735"
+        },
+        {
+          "file": "apps/student/src/app/domain/knowledge/i-topic.ts",
+          "hash": "9343143013551398549"
+        },
+        {
+          "file": "apps/student/src/app/domain/navigation/i-redirect.ts",
+          "hash": "7402738136352582968"
+        },
+        {
+          "file": "apps/student/src/app/domain/order/i-balance.ts",
+          "hash": "3749607013895079151"
+        },
+        {
+          "file": "apps/student/src/app/domain/order/i-inventory.ts",
+          "hash": "3848177182568724773"
+        },
+        {
+          "file": "apps/student/src/app/domain/order/i-order-service.ts",
+          "hash": "3302904526553504611",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/subject/status.ts",
+          "hash": "9877396817164116174"
+        },
+        {
+          "file": "apps/student/src/app/domain/subject/subject.ts",
+          "hash": "10214866765846852407",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/test/i-test-service.ts",
+          "hash": "10126419981471896475",
+          "deps": [
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/domain/user/user.ts",
+          "hash": "5494691850298521665"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/auth/account.service.ts",
+          "hash": "673686883993266927",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/auth/auth.service.ts",
+          "hash": "6918810087402555935",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/auth/i-auth-service",
+            "npm:@domain/auth/sandbox-account",
+            "npm:@environments/environment",
+            "npm:@infrastructure/helper/helper",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/auth/credential.ts",
+          "hash": "13698208136136412732",
+          "deps": [
+            "npm:@domain/auth/i-auth-service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/auth/interceptor.ts",
+          "hash": "6019221452047273411",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/flashcard.service.ts",
+          "hash": "14480267824483488950",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/cong-thuc-dao-ham-co-ban.json",
+          "hash": "14929931431327424904"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/cong-thuc-logarit.json",
+          "hash": "6110930443394770338"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/cong-thuc-nguyen-ham-co-ban.json",
+          "hash": "4217589459500266674"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/dien-tich-hinh-phang.json",
+          "hash": "15870745782196939113"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/the-tich-hinh-tru.json",
+          "hash": "3483274232582308577"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/the-tich-khoi-cau.json",
+          "hash": "10229489090361914143"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/the-tich-khoi-tru.json",
+          "hash": "17641490165334627297"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/tong-n-cap-so-cong.json",
+          "hash": "4222978550193292950"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/tong-n-cap-so-nhan.json",
+          "hash": "11486644052640068923"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/flashcard/sample/xac-suat.json",
+          "hash": "8716547405934920137"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/gift/gift/gift.service.ts",
+          "hash": "1750283196562835544",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@infrastructure/auth/interceptor"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/helper/helper.ts",
+          "hash": "15758528964869492387",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/category.ts",
+          "hash": "14962959526212244810"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/knowledge.service.ts",
+          "hash": "2785153386727939758",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/knowledge/i-knowledge-service",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/learning-goal-path.ts",
+          "hash": "464849901084878804",
+          "deps": [
+            "npm:@domain/knowledge/i-learning-goal-path",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/learning-goal.ts",
+          "hash": "13625776981453278788",
+          "deps": [
+            "npm:@domain/knowledge/I-learning-goal",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/lesson.service.ts",
+          "hash": "12987836993861627810",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/knowledge/i-lesson-service",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/test/test-content",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/lesson.ts",
+          "hash": "13940000628076865938",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/program.ts",
+          "hash": "14361441158217372938",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/knowledge/topic.ts",
+          "hash": "11277303578208882440"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/loading-overlay.service.ts",
+          "hash": "9170899552681494007",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/navigation/navigation.service.ts",
+          "hash": "8443810018146392872",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/notification/messaging.service.ts",
+          "hash": "2183352119506755697",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/fire"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/notification/notification.service.ts",
+          "hash": "7735196515602360156",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/fire",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/order/balance.ts",
+          "hash": "1207776948653276809",
+          "deps": [
+            "npm:@domain/order/i-balance"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/order/inventory.ts",
+          "hash": "17673919072680550457",
+          "deps": [
+            "npm:@domain/order/i-inventory",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/order/order.service.ts",
+          "hash": "6691825718640880480",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/order/i-order-service",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/helper/helper",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/order/package.ts",
+          "hash": "17696033852853105607",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/order/transaction.ts",
+          "hash": "7451757601542687136",
+          "deps": [
+            "npm:@utils/formats",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/test/mock_test.json",
+          "hash": "6615045006312993340"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/test/mock_test_review.json",
+          "hash": "5281533566188205328"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/test/mock_test_working.json",
+          "hash": "1966754938253053200"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/test/test-content.ts",
+          "hash": "16939870248174505487",
+          "deps": [
+            "npm:@domain/knowledge/i-mock-test",
+            "npm:@utils/formats",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/test/test.service.ts",
+          "hash": "3888274623778861949",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/topic",
+            "npm:rxjs",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tracking/tracking.service.ts",
+          "hash": "4929490366144243164",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:uuid"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutor/tutor.service.ts",
+          "hash": "16120341397639127638",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/10_response_activate_learning_path.json",
+          "hash": "10758354412653929189"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/11_response_get_probability_index.json",
+          "hash": "11471360909907031107"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/12_response_get_lesson.json",
+          "hash": "1739426964489819880"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/12_response_get_lesson_2.json",
+          "hash": "17822129752363276009"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/13_response_get_mock_test.json",
+          "hash": "15492591282058000740"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/14_response_get_lesson_details.json",
+          "hash": "7416008332706736860"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/15_response_get_practice_test_question.json",
+          "hash": "7660814445901259353"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/16_request_submit_incorrect_practice_test.json",
+          "hash": "12997326265171103459"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/16_request_submit_practice_test.json",
+          "hash": "4497487748214433579"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/17_response_submit_incorrect_practice_test.json",
+          "hash": "16745284229098486744"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/17_response_submit_practice_test.json",
+          "hash": "12383904133484391002"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/18_response_get_practice_test_question.json",
+          "hash": "11374522962648822344"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/19_request_submit_correct_practice_test.json",
+          "hash": "15968183605648069772"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/1_response_get_subject.json",
+          "hash": "836499108566107127"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/20_response_submit_correct_practice_test.json",
+          "hash": "1842230263355740456"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/2_response_get_programs.json",
+          "hash": "16805853444100460049"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/3_response_submit_learning_goal.json",
+          "hash": "14595742715205858153"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/4_response_get_mock_test_question.json",
+          "hash": "2518817805789258334"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/5_response_get_mock_test_details.json",
+          "hash": "9252117705455497117"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/6_request_submit_mock_test.json",
+          "hash": "3167538392101564629"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/7_response_get_mock_test_details.json",
+          "hash": "6937911156664234566"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/8_response_get_probability_index.json",
+          "hash": "11471360909907031107"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/8_response_get_probability_index_2.json",
+          "hash": "7480964911372662624"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/data/9_response_review_mock_test.json",
+          "hash": "1518540175250386816"
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/tutorials/tutorial-service.ts",
+          "hash": "8987462550975555903",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/subject/subject",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/helper/helper",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/learning-goal-path",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/user/user.service.ts",
+          "hash": "794605440009202550",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/user/user",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/material.module.ts",
+          "hash": "9049477528454708058",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/core",
+            "npm:@angular/material"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/home/home.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/home/home.component.svg",
+          "hash": "18090872444663751200"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/home/home.component.ts",
+          "hash": "32407381175717008",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/svg/svg.component.html",
+          "hash": "2246816639854322042"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/svg/svg.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/svg/svg.component.ts",
+          "hash": "12339182083204722100",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/tutor/tutor.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/tutor/tutor.component.svg",
+          "hash": "12882931926916736999"
+        },
+        {
+          "file": "apps/student/src/app/presentation/assets/svgs/tutor/tutor.component.ts",
+          "hash": "16587523958541299218",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/auth.guard.ts",
+          "hash": "6787455121055769989",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/layouts/default/layout-default.component.html",
+          "hash": "14947811526206962624"
+        },
+        {
+          "file": "apps/student/src/app/presentation/layouts/default/layout-default.component.ts",
+          "hash": "15640316581514717283",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/layouts/full/layout-full.component.html",
+          "hash": "12651776735339821334"
+        },
+        {
+          "file": "apps/student/src/app/presentation/layouts/full/layout-full.component.ts",
+          "hash": "5340256044124165276",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/leave.guard.ts",
+          "hash": "7645124652533284911",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@share-directives/before-unload",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/account-page/account-page.component.html",
+          "hash": "9003202519730696097"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/account-page/account-page.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/account-page/account-page.component.ts",
+          "hash": "1887516640600169733",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/order/balance",
+            "npm:@infrastructure/order/inventory",
+            "npm:@infrastructure/order/order.service",
+            "npm:@infrastructure/order/transaction",
+            "npm:@presentation/routes"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/adaptive-test/adaptive-test.component.html",
+          "hash": "8113949932448111593"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/adaptive-test/adaptive-test.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/adaptive-test/adaptive-test.component.ts",
+          "hash": "2687658372192913295",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/email-verification/email-verification.component.html",
+          "hash": "13790787631816754482"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/email-verification/email-verification.component.ts",
+          "hash": "12956285034441562572",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/flashcard/flashcard.component.html",
+          "hash": "11176990629226415279"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/flashcard/flashcard.component.scss",
+          "hash": "1389376785632860476"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/flashcard/flashcard.component.ts",
+          "hash": "8519177973289074720",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/flashcard/flashcard.service",
+            "npm:@share-components",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/gift/gift.component.html",
+          "hash": "6845001049039727313"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/gift/gift.component.scss",
+          "hash": "12949235933536085772"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/gift/gift.component.ts",
+          "hash": "14513680174363862497",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@domain/gift/promotion",
+            "npm:@infrastructure/gift/gift/gift.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/home/home.component.html",
+          "hash": "2628281197621503297"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/home/home.component.scss",
+          "hash": "8799985510325299043"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/home/home.component.ts",
+          "hash": "17147113228189818549",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/program",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@presentation/routes",
+            "npm:@presentation/share-components/loading/loading.component",
+            "npm:@share-components",
+            "npm:ng-circle-progress",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/knowledge/knowledge.component.html",
+          "hash": "1712060706439088459"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/knowledge/knowledge.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/knowledge/knowledge.component.ts",
+          "hash": "8892325806631777996"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/complete/leanring-path-complete.component.ts",
+          "hash": "4406939380581351581",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/complete/style.scss",
+          "hash": "4430373971928821775"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/complete/view.html",
+          "hash": "1628955688199846247"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/learning-path.component.html",
+          "hash": "170391066531994583"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/learning-path.component.scss",
+          "hash": "10005648304760772049"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/learning-path/learning-path.component.ts",
+          "hash": "5927669772355222856",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/category",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/learning-goal-path",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test-content",
+            "npm:@infrastructure/test/test.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@infrastructure/user/user.service",
+            "npm:@share-components",
+            "npm:@share-utils/domain",
+            "npm:chart.js",
+            "npm:ng-circle-progress",
+            "npm:ng2-charts",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/lesson-page.component.html",
+          "hash": "14338026810214061406"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/lesson-page.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/lesson-page.component.ts",
+          "hash": "12159872273889710421",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@presentation/share-components/tracking/tracking-lesson.component",
+            "npm:@share-components",
+            "share-pipes",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/review/lesson-review-page.component.html",
+          "hash": "7221845195800795109"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/review/lesson-review-page.component.scss",
+          "hash": "14093952265525791058"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/lesson-page/review/lesson-review-page.component.ts",
+          "hash": "5223326997154715297",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@presentation/share-components/loading/loading.component",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:@share-utils/domain"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/result/mock-test-result.component.html",
+          "hash": "15477894012149595361"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/result/mock-test-result.component.scss",
+          "hash": "13428452332423073568"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/result/mock-test-result.component.ts",
+          "hash": "8639721971420798300",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@domain/knowledge/i-mock-test",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@share-components",
+            "npm:@share-utils/data",
+            "npm:ng-circle-progress",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/review/mock-test-review.component.html",
+          "hash": "10251131050157302030"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/review/mock-test-review.component.scss",
+          "hash": "3951011315392810170"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/review/mock-test-review.component.ts",
+          "hash": "8994297684059424099",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@share-components",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:@share-utils/domain"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/select-program/select-program.component.html",
+          "hash": "3693435532465651123"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/select-program/select-program.component.ts",
+          "hash": "18091725434446657790",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@domain/subject/subject",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/program",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@share-components"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/select-topic/select-topic.component.html",
+          "hash": "18399968819614110786"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/select-topic/select-topic.component.scss",
+          "hash": "11145382976048168187"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/select-topic/select-topic.component.ts",
+          "hash": "7521281148472564610",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/topic",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@presentation/routes"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/share/share.component.html",
+          "hash": "11351291214279069794"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/share/share.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/share/share.component.ts",
+          "hash": "17158219818788138506",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/auth/auth.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@presentation/routes"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/test/mock-test-test.component.html",
+          "hash": "6214579673998119088"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/test/mock-test-test.component.scss",
+          "hash": "16007505704783617086"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/mock-test/test/mock-test-test.component.ts",
+          "hash": "4855917909703607404",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@share-components",
+            "npm:@share-utils/data",
+            "npm:@share-utils/domain",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-lesson-page/new-lesson-page.component.html",
+          "hash": "4653113330737529590"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-lesson-page/new-lesson-page.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-lesson-page/new-lesson-page.component.ts",
+          "hash": "8975890375910297012",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/knowledge/program",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@presentation/routes",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-user/new-user.component.html",
+          "hash": "1154220738610753349"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-user/new-user.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/new-user/new-user.component.ts",
+          "hash": "15246992957109143587",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/order/order.service",
+            "npm:@presentation/routes"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/package-page/package-page.component.html",
+          "hash": "8698549044055246040"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/package-page/package-page.component.scss",
+          "hash": "11712926208758135482"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/package-page/package-page.component.ts",
+          "hash": "11744920620269089376",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/order/balance",
+            "npm:@infrastructure/order/order.service",
+            "npm:@infrastructure/order/package",
+            "npm:@presentation/routes",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/page-not-found/page-not-found.component.html",
+          "hash": "7793298505444272933"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/page-not-found/page-not-found.component.scss",
+          "hash": "18410276630499566093"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/page-not-found/page-not-found.component.ts",
+          "hash": "11006543913216933505",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/profile/profile.component.html",
+          "hash": "9616062707997185132"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/profile/profile.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/profile/profile.component.ts",
+          "hash": "12546584302830432839",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@infrastructure/user/user.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/reset-password/reset-password.component.html",
+          "hash": "12685560823921520843"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/reset-password/reset-password.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/reset-password/reset-password.component.ts",
+          "hash": "1303269940593206107",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@infrastructure/auth/account.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@presentation/routes",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-in/sign-in.component.html",
+          "hash": "17791472104701887659"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-in/sign-in.component.scss",
+          "hash": "7671435194271746546"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-in/sign-in.component.ts",
+          "hash": "511474128733279700",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@domain/navigation/i-redirect",
+            "npm:@environments/environment",
+            "npm:@infrastructure/auth/auth.service",
+            "npm:@infrastructure/auth/credential",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/notification/messaging.service",
+            "npm:@infrastructure/notification/notification.service",
+            "npm:@infrastructure/user/user.service",
+            "npm:@utils/form"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-out/sign-out.component.html",
+          "hash": "2249967624438643176"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-out/sign-out.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-out/sign-out.component.ts",
+          "hash": "3300836750127301167",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/auth/auth.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@presentation/routes"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/resend-verified.component.html",
+          "hash": "10667925321920464895"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/resend-verified.component.ts",
+          "hash": "4043425068466905429",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/sign-up.component.html",
+          "hash": "880309161957985883"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/sign-up.component.scss",
+          "hash": "4477602143280927972"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/sign-up.component.ts",
+          "hash": "9980980616331377690",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@domain/knowledge/i-test",
+            "npm:@infrastructure/auth/account.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@presentation/routes",
+            "npm:@share-directives/before-unload",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/unverified-account.component.html",
+          "hash": "2636219242781506943"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/sign-up/unverified-account.component.ts",
+          "hash": "3977465197697881359",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/terms-of-service/terms-of-service.component.html",
+          "hash": "12474212848511703300"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/terms-of-service/terms-of-service.component.ts",
+          "hash": "5606906688772676064",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/test/test.component.html",
+          "hash": "7148927558442198089"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/test/test.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/test/test.component.ts",
+          "hash": "16594200159540011230",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/routes.ts",
+          "hash": "882564497736035505",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/app-input/app-input.component.html",
+          "hash": "11797497176291996013"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/app-input/app-input.component.scss",
+          "hash": "4999814379965411254"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/app-input/app-input.component.ts",
+          "hash": "13748917120730488609",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/carousel.component.html",
+          "hash": "64503098070657702"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/carousel.component.sass",
+          "hash": "8852266007471939191"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/carousel.component.ts",
+          "hash": "4904490492496989284",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/carousel.module.ts",
+          "hash": "2436116214295401607",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/carousel.ts",
+          "hash": "2304711946676428016"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/cells.ts",
+          "hash": "13354389638099587667"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/container.ts",
+          "hash": "5620422679787730844"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/interfaces.ts",
+          "hash": "11869893149458639855"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/slide.ts",
+          "hash": "8078814765412004343"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/theming.sass",
+          "hash": "9585347501175684660"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/touches.ts",
+          "hash": "9366469873168025483"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/utils.ts",
+          "hash": "17450238931299341113"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/carousel/variables.sass",
+          "hash": "13014870965096589710"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/confirm-dialog/confirm-dialog.component.html",
+          "hash": "5786806286727469087"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/confirm-dialog/confirm-dialog.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/confirm-dialog/confirm-dialog.component.ts",
+          "hash": "4010088056639027629",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/material"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/input-radio/input-radio.component.html",
+          "hash": "9692588749357639293"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/input-radio/input-radio.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/input-radio/input-radio.component.ts",
+          "hash": "7889847794964585812",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/loading/loading.component.html",
+          "hash": "17322011521610091584"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/loading/loading.component.scss",
+          "hash": "14442713883387947837"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/loading/loading.component.ts",
+          "hash": "11826980024640870310",
+          "deps": [
+            "npm:@angular/core",
+            "npm:ngx-lottie"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/program-card/program-card.component.html",
+          "hash": "1058267284843143536"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/program-card/program-card.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/program-card/program-card.component.ts",
+          "hash": "4976971162774502661",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/questions-progress/questions-progress.component.html",
+          "hash": "13925464372212660765"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/questions-progress/questions-progress.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/questions-progress/questions-progress.component.ts",
+          "hash": "2902239947349741668",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@share-utils/event"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/score-bar/score-bar.component.html",
+          "hash": "8374001809453776040"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/score-bar/score-bar.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/score-bar/score-bar.component.ts",
+          "hash": "10226322201255662638",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-content/test-content.component.html",
+          "hash": "12835395485360867216"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-content/test-content.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-content/test-content.component.ts",
+          "hash": "16893523613082986571",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-review/test-review.component.html",
+          "hash": "9301515379735680975"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-review/test-review.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/test-review/test-review.component.ts",
+          "hash": "595231134289475000",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/top-menu/top-menu.component.html",
+          "hash": "10415767921248740336"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/top-menu/top-menu.component.scss",
+          "hash": "3743418794669736754"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/top-menu/top-menu.component.ts",
+          "hash": "3928113868925377799",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/notification/notification.service",
+            "npm:@infrastructure/user/user.service",
+            "npm:@presentation/routes",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tracking/tracking-lesson.component.ts",
+          "hash": "9205055743219003406",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@infrastructure/tracking/tracking.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tracking/tracking.component.ts",
+          "hash": "2894630454520194182",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@infrastructure/tracking/tracking.service"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/lesson/tutorial-lesson.component.html",
+          "hash": "15457060146925667846"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/lesson/tutorial-lesson.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/lesson/tutorial-lesson.component.ts",
+          "hash": "9959168996896067751",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/knowledge/lesson.service",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/test/test.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@presentation/share-components/tracking/tracking-lesson.component",
+            "npm:@share-components",
+            "share-pipes",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/test/tutorial-test.component.html",
+          "hash": "10598414024213348868"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/test/tutorial-test.component.scss",
+          "hash": "16007505704783617086"
+        },
+        {
+          "file": "apps/student/src/app/presentation/share-components/tutorial/test/tutorial-test.component.ts",
+          "hash": "11085475438791598971",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/knowledge/knowledge.service",
+            "npm:@infrastructure/knowledge/learning-goal",
+            "npm:@infrastructure/knowledge/lesson",
+            "npm:@infrastructure/loading-overlay.service",
+            "npm:@infrastructure/navigation/navigation.service",
+            "npm:@infrastructure/tutorials/tutorial-service",
+            "npm:@presentation/share-components/loading/loading.component",
+            "npm:@share-components",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/utils/event.ts",
+          "hash": "9746819522666458808"
+        },
+        {
+          "file": "apps/student/src/app/utils/form.ts",
+          "hash": "16323929885982639307"
+        },
+        {
+          "file": "apps/student/src/app/utils/formats.ts",
+          "hash": "6530202678393159690",
+          "deps": [
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/utils/validators.ts",
+          "hash": "2162872097551290918"
+        },
+        {
+          "file": "apps/student/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/student/src/assets/Terms and Conditions.pdf",
+          "hash": "5924201029100169338"
+        },
+        {
+          "file": "apps/student/src/assets/animations/loading.json",
+          "hash": "8435074482397395492"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Check.svg",
+          "hash": "14360723279240437712"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Group 1273.svg",
+          "hash": "14945935737977476226"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Hanbook.svg",
+          "hash": "5708224055216858545"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Home.svg",
+          "hash": "119216503210153449"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Momo.svg",
+          "hash": "6869555671152987738"
+        },
+        {
+          "file": "apps/student/src/assets/icons/Test.svg",
+          "hash": "6172271517416600165"
+        },
+        {
+          "file": "apps/student/src/assets/icons/ZaloPay.svg",
+          "hash": "10423342435686574249"
+        },
+        {
+          "file": "apps/student/src/assets/icons/clarity_notification-line.svg",
+          "hash": "16291043872409119769"
+        },
+        {
+          "file": "apps/student/src/assets/icons/dashicons_video-alt3.svg",
+          "hash": "1153679059549551828"
+        },
+        {
+          "file": "apps/student/src/assets/icons/down.svg",
+          "hash": "14623796663984246190"
+        },
+        {
+          "file": "apps/student/src/assets/icons/left.svg",
+          "hash": "17111132312839419481"
+        },
+        {
+          "file": "apps/student/src/assets/icons/right.svg",
+          "hash": "952711221573802072"
+        },
+        {
+          "file": "apps/student/src/assets/icons/up.svg",
+          "hash": "498924732271597605"
+        },
+        {
+          "file": "apps/student/src/assets/images/Account Not Verified.svg",
+          "hash": "1545489170538094537"
+        },
+        {
+          "file": "apps/student/src/assets/images/Account Verify Succeed.svg",
+          "hash": "16613651985404309535"
+        },
+        {
+          "file": "apps/student/src/assets/images/Accuracy BW.svg",
+          "hash": "7079247094477158482"
+        },
+        {
+          "file": "apps/student/src/assets/images/Accuracy.svg",
+          "hash": "4987138711871252734"
+        },
+        {
+          "file": "apps/student/src/assets/images/BlockComplete.svg",
+          "hash": "6682630868308087784"
+        },
+        {
+          "file": "apps/student/src/assets/images/BlockNew.svg",
+          "hash": "3809170156839017595"
+        },
+        {
+          "file": "apps/student/src/assets/images/BlockPath.svg",
+          "hash": "5628667197807375371"
+        },
+        {
+          "file": "apps/student/src/assets/images/BlockPathCurve.svg",
+          "hash": "7166911771156855724"
+        },
+        {
+          "file": "apps/student/src/assets/images/BlockWaiting.svg",
+          "hash": "12407513926478158645"
+        },
+        {
+          "file": "apps/student/src/assets/images/Chang Password.svg",
+          "hash": "2028054687796766066"
+        },
+        {
+          "file": "apps/student/src/assets/images/Combo BW.svg",
+          "hash": "17540077050009041869"
+        },
+        {
+          "file": "apps/student/src/assets/images/Combo.svg",
+          "hash": "4457223819785491908"
+        },
+        {
+          "file": "apps/student/src/assets/images/CompleteBlock.webp",
+          "hash": "8664215246010952276"
+        },
+        {
+          "file": "apps/student/src/assets/images/Deligence BW.svg",
+          "hash": "4202982768712786315"
+        },
+        {
+          "file": "apps/student/src/assets/images/Deligence.svg",
+          "hash": "266970497670620877"
+        },
+        {
+          "file": "apps/student/src/assets/images/FAQ.svg",
+          "hash": "17351932922697058989"
+        },
+        {
+          "file": "apps/student/src/assets/images/FinishBlock.webp",
+          "hash": "16311658048635992703"
+        },
+        {
+          "file": "apps/student/src/assets/images/Gifting.svg",
+          "hash": "5228094533516105060"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1396.svg",
+          "hash": "17806420247073426895"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1405.svg",
+          "hash": "2692592998189832286"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1413.svg",
+          "hash": "7391826027329470520"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1420.svg",
+          "hash": "12973074223607003157"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1421.svg",
+          "hash": "11463203054999077960"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1431.svg",
+          "hash": "10880376801703500910"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1450.svg",
+          "hash": "6568952228304650555"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group 1454.svg",
+          "hash": "5973862909154819937"
+        },
+        {
+          "file": "apps/student/src/assets/images/Group_1452.svg",
+          "hash": "9842603304010572967"
+        },
+        {
+          "file": "apps/student/src/assets/images/Home.svg",
+          "hash": "5289585150880090406"
+        },
+        {
+          "file": "apps/student/src/assets/images/Invite Friend.svg",
+          "hash": "6909191324927500033"
+        },
+        {
+          "file": "apps/student/src/assets/images/New Account.svg",
+          "hash": "4163664069246911472"
+        },
+        {
+          "file": "apps/student/src/assets/images/NewBlock.webp",
+          "hash": "7014357344591839028"
+        },
+        {
+          "file": "apps/student/src/assets/images/Profile.svg",
+          "hash": "16215989104927446270"
+        },
+        {
+          "file": "apps/student/src/assets/images/Quantity BW.svg",
+          "hash": "9214218581203863336"
+        },
+        {
+          "file": "apps/student/src/assets/images/Quantity.svg",
+          "hash": "2377470857814341493"
+        },
+        {
+          "file": "apps/student/src/assets/images/Resend email.svg",
+          "hash": "2603907470104371813"
+        },
+        {
+          "file": "apps/student/src/assets/images/Robot 2.svg",
+          "hash": "10040414610291028088"
+        },
+        {
+          "file": "apps/student/src/assets/images/SHORTCUT.svg",
+          "hash": "4693974235030477874"
+        },
+        {
+          "file": "apps/student/src/assets/images/SHORTCUT_2.svg",
+          "hash": "10431973957653578659"
+        },
+        {
+          "file": "apps/student/src/assets/images/Sorry.svg",
+          "hash": "15721106223850811275"
+        },
+        {
+          "file": "apps/student/src/assets/images/Speed BW.svg",
+          "hash": "13461470690664242032"
+        },
+        {
+          "file": "apps/student/src/assets/images/Speed.svg",
+          "hash": "1148968716463484090"
+        },
+        {
+          "file": "apps/student/src/assets/images/Spider chart.svg",
+          "hash": "3076114670911423176"
+        },
+        {
+          "file": "apps/student/src/assets/images/Spin.svg",
+          "hash": "10212961897215237844"
+        },
+        {
+          "file": "apps/student/src/assets/images/Store.svg",
+          "hash": "16956548304924430244"
+        },
+        {
+          "file": "apps/student/src/assets/images/Subject.svg",
+          "hash": "5299138930424295010"
+        },
+        {
+          "file": "apps/student/src/assets/images/The personalized road.svg",
+          "hash": "6608694383631537415"
+        },
+        {
+          "file": "apps/student/src/assets/images/WaitingBlock.webp",
+          "hash": "6938998963362967594"
+        },
+        {
+          "file": "apps/student/src/assets/images/bg-contact-xs.jpg",
+          "hash": "8633067586540894044"
+        },
+        {
+          "file": "apps/student/src/assets/images/bg-contact.jpg",
+          "hash": "3716560785965477046"
+        },
+        {
+          "file": "apps/student/src/assets/images/checkbox_checked.svg",
+          "hash": "15171657405884653124"
+        },
+        {
+          "file": "apps/student/src/assets/images/checkbox_checked_dark.svg",
+          "hash": "16942938280167435356"
+        },
+        {
+          "file": "apps/student/src/assets/images/checkbox_error.svg",
+          "hash": "5313087014112165336"
+        },
+        {
+          "file": "apps/student/src/assets/images/checkbox_normal.svg",
+          "hash": "14743863730430166263"
+        },
+        {
+          "file": "apps/student/src/assets/images/easymodecompleted.webp",
+          "hash": "904161370616589300"
+        },
+        {
+          "file": "apps/student/src/assets/images/finish-learninggoal-xs.webp",
+          "hash": "12650090553624827513"
+        },
+        {
+          "file": "apps/student/src/assets/images/finish-learninggoal.webp",
+          "hash": "17759106921331431939"
+        },
+        {
+          "file": "apps/student/src/assets/images/hero-image-xs.webp",
+          "hash": "11509861673296993466"
+        },
+        {
+          "file": "apps/student/src/assets/images/hero-image.webp",
+          "hash": "7467243354722962087"
+        },
+        {
+          "file": "apps/student/src/assets/images/kyons-app-banner-xs.webp",
+          "hash": "9873391768977351812"
+        },
+        {
+          "file": "apps/student/src/assets/images/kyons-app-banner.webp",
+          "hash": "16908903206839883941"
+        },
+        {
+          "file": "apps/student/src/assets/images/learningpathxs.svg",
+          "hash": "16348146821627645445"
+        },
+        {
+          "file": "apps/student/src/assets/images/lesson-success.webp",
+          "hash": "1499982618093436495"
+        },
+        {
+          "file": "apps/student/src/assets/images/mess-xs.webp",
+          "hash": "10158619898859759988"
+        },
+        {
+          "file": "apps/student/src/assets/images/mess.webp",
+          "hash": "3656657657425577648"
+        },
+        {
+          "file": "apps/student/src/assets/images/minigame-bg-xs.webp",
+          "hash": "9748773414687890122"
+        },
+        {
+          "file": "apps/student/src/assets/images/minigame-bg.webp",
+          "hash": "15688475550022594764"
+        },
+        {
+          "file": "apps/student/src/assets/images/pointer-xs.webp",
+          "hash": "1239929266258472019"
+        },
+        {
+          "file": "apps/student/src/assets/images/pointer.webp",
+          "hash": "16170350819384664748"
+        },
+        {
+          "file": "apps/student/src/assets/images/radio_off.svg",
+          "hash": "8099768103665258289"
+        },
+        {
+          "file": "apps/student/src/assets/images/radio_on.svg",
+          "hash": "1364552572165298240"
+        },
+        {
+          "file": "apps/student/src/assets/images/robot.webp",
+          "hash": "11753615312240874682"
+        },
+        {
+          "file": "apps/student/src/assets/images/rule-full.jpg",
+          "hash": "16780757111107960279"
+        },
+        {
+          "file": "apps/student/src/assets/images/scholarship.svg",
+          "hash": "14260306162225438184"
+        },
+        {
+          "file": "apps/student/src/assets/images/sign-in-bottom-left-bg.webp",
+          "hash": "3443423972769972024"
+        },
+        {
+          "file": "apps/student/src/assets/images/sign-in-top-right-bg.webp",
+          "hash": "152712138837225784"
+        },
+        {
+          "file": "apps/student/src/assets/images/star.svg",
+          "hash": "3842718308013389715"
+        },
+        {
+          "file": "apps/student/src/assets/images/subject.webp",
+          "hash": "2478770942380492634"
+        },
+        {
+          "file": "apps/student/src/assets/images/testsubmit.webp",
+          "hash": "16255541815325146577"
+        },
+        {
+          "file": "apps/student/src/assets/images/tip.svg",
+          "hash": "10771992818226582584"
+        },
+        {
+          "file": "apps/student/src/assets/images/warning.webp",
+          "hash": "6894471774615539311"
+        },
+        {
+          "file": "apps/student/src/assets/images/wheel.svg",
+          "hash": "36146901257975240"
+        },
+        {
+          "file": "apps/student/src/assets/kyons_fonts_bak/Kyons-Icon-Fonts.eot",
+          "hash": "7843532573327816924"
+        },
+        {
+          "file": "apps/student/src/assets/kyons_fonts_bak/Kyons-Icon-Fonts.svg",
+          "hash": "17979881030133952434"
+        },
+        {
+          "file": "apps/student/src/assets/kyons_fonts_bak/Kyons-Icon-Fonts.ttf",
+          "hash": "10649812610576150115"
+        },
+        {
+          "file": "apps/student/src/assets/kyons_fonts_bak/Kyons-Icon-Fonts.woff",
+          "hash": "12365168684101665044"
+        },
+        {
+          "file": "apps/student/src/assets/mobile-iframe.html",
+          "hash": "6890487960817522066"
+        },
+        {
+          "file": "apps/student/src/environments/environment.content.ts",
+          "hash": "10681148342713629168"
+        },
+        {
+          "file": "apps/student/src/environments/environment.dev.ts",
+          "hash": "11313055278151131682"
+        },
+        {
+          "file": "apps/student/src/environments/environment.prod.ts",
+          "hash": "13655058161242546570"
+        },
+        {
+          "file": "apps/student/src/environments/environment.stg.ts",
+          "hash": "8122269228811003912"
+        },
+        {
+          "file": "apps/student/src/environments/environment.ts",
+          "hash": "18165086767906833669"
+        },
+        {
+          "file": "apps/student/src/environments/test/index.html",
+          "hash": "4469782213298082197"
+        },
+        {
+          "file": "apps/student/src/favicon.ico",
+          "hash": "9253520916759600454"
+        },
+        {
+          "file": "apps/student/src/firebase-messaging-sw.js",
+          "hash": "4739277553215125361"
+        },
+        {
+          "file": "apps/student/src/index.html",
+          "hash": "108366082420969283"
+        },
+        {
+          "file": "apps/student/src/main.ts",
+          "hash": "7692768436038415895",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/platform-browser-dynamic"
+          ]
+        },
+        {
+          "file": "apps/student/src/polyfills.ts",
+          "hash": "7176339394372785858",
+          "deps": [
+            "npm:zone.js"
+          ]
+        },
+        {
+          "file": "apps/student/src/proxy.conf.json",
+          "hash": "5722839080858682912"
+        },
+        {
+          "file": "apps/student/src/styles.scss",
+          "hash": "18245895660450252562"
+        },
+        {
+          "file": "apps/student/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/student/tailwind.config.js",
+          "hash": "10892766862124231155",
+          "deps": [
+            "npm:@nrwl/angular",
+            "npm:path",
+            "npm:../../libs/theme/tailwind.config"
+          ]
+        },
+        {
+          "file": "apps/student/tsconfig.app.json",
+          "hash": "5257918326368198063"
+        },
+        {
+          "file": "apps/student/tsconfig.editor.json",
+          "hash": "7405070775858847816"
+        },
+        {
+          "file": "apps/student/tsconfig.json",
+          "hash": "15252103203960438394"
+        },
+        {
+          "file": "apps/student/tsconfig.spec.json",
+          "hash": "8658740348867974260"
+        }
+      ],
+      "share-utils": [
+        {
+          "file": "libs/share-utils/.eslintrc.json",
+          "hash": "18438953372842940952"
+        },
+        {
+          "file": "libs/share-utils/README.md",
+          "hash": "11509012455875830034"
+        },
+        {
+          "file": "libs/share-utils/jest.config.ts",
+          "hash": "8586292806153801913"
+        },
+        {
+          "file": "libs/share-utils/project.json",
+          "hash": "5879403856748312291"
+        },
+        {
+          "file": "libs/share-utils/src/index.ts",
+          "hash": "11296025914398721451"
+        },
+        {
+          "file": "libs/share-utils/src/lib/data/index.ts",
+          "hash": "9976373241418581080"
+        },
+        {
+          "file": "libs/share-utils/src/lib/domain/index.ts",
+          "hash": "7362985352209085404"
+        },
+        {
+          "file": "libs/share-utils/src/lib/event.ts",
+          "hash": "8487026212290551355",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/form.ts",
+          "hash": "6746964633521762034",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/formats.ts",
+          "hash": "17706329157968850088",
+          "deps": [
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/data/category.ts",
+          "hash": "10041670127795955132"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/data/index.ts",
+          "hash": "17908122414475722154"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/data/progress.ts",
+          "hash": "10405225425343299133"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/data/test-content.ts",
+          "hash": "8568348301225868841"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/data/topic.ts",
+          "hash": "9730212629767871210"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/domain/i-category.ts",
+          "hash": "13914045182671666814"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/domain/i-submission.ts",
+          "hash": "10393926079867544226"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/domain/i-topic.ts",
+          "hash": "9343143013551398549"
+        },
+        {
+          "file": "libs/share-utils/src/lib/knowledge/domain/index.ts",
+          "hash": "13460899731030279972"
+        },
+        {
+          "file": "libs/share-utils/src/lib/share-utils.module.ts",
+          "hash": "10950473863588136455",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/data/index.ts",
+          "hash": "14749966950456106756"
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/data/submission.ts",
+          "hash": "9767952016451233326",
+          "deps": [
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/data/test-content.ts",
+          "hash": "6834243172442976696",
+          "deps": [
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/domain/i-test.ts",
+          "hash": "16192436390640334820"
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/domain/i_test_content.ts",
+          "hash": "1453434601623319054"
+        },
+        {
+          "file": "libs/share-utils/src/lib/test/domain/index.ts",
+          "hash": "16833603355785715797"
+        },
+        {
+          "file": "libs/share-utils/src/lib/validators.ts",
+          "hash": "8084943266793094710"
+        },
+        {
+          "file": "libs/share-utils/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/share-utils/tsconfig.json",
+          "hash": "7184861466157324158"
+        },
+        {
+          "file": "libs/share-utils/tsconfig.lib.json",
+          "hash": "932420496979247157"
+        },
+        {
+          "file": "libs/share-utils/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "waiting-list-e2e": [
+        {
+          "file": "apps/waiting-list-e2e/.eslintrc.json",
+          "hash": "10799368048025705622"
+        },
+        {
+          "file": "apps/waiting-list-e2e/cypress.config.ts",
+          "hash": "6107480834571264320",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/waiting-list-e2e/project.json",
+          "hash": "10464082750177298731"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/e2e/app.cy.ts",
+          "hash": "15727366675373548255"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/waiting-list-e2e/tsconfig.json",
+          "hash": "7806042412912104422"
+        }
+      ],
+      "share-directives": [
+        {
+          "file": "libs/share-directives/.babelrc",
+          "hash": "17566616042550408716"
+        },
+        {
+          "file": "libs/share-directives/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/share-directives/README.md",
+          "hash": "1243329062848713025"
+        },
+        {
+          "file": "libs/share-directives/jest.config.ts",
+          "hash": "7286878341539002746"
+        },
+        {
+          "file": "libs/share-directives/project.json",
+          "hash": "13013472016331240860"
+        },
+        {
+          "file": "libs/share-directives/src/index.ts",
+          "hash": "17229524078041932754"
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.directive.ts",
+          "hash": "7041561573118074233",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.service.ts",
+          "hash": "4955549333772077315",
+          "deps": [
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.token.ts",
+          "hash": "13900329213295133401",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/index.ts",
+          "hash": "10758210114012476718"
+        },
+        {
+          "file": "libs/share-directives/src/lib/share-directives.spec.ts",
+          "hash": "4376617015202898862"
+        },
+        {
+          "file": "libs/share-directives/src/lib/share-directives.ts",
+          "hash": "10130721307777555325"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.json",
+          "hash": "14030779328917383130"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.lib.json",
+          "hash": "13034901906147047048"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.spec.json",
+          "hash": "2406015174838385060"
+        }
+      ],
+      "student-e2e": [
+        {
+          "file": "apps/student-e2e/.eslintrc.json",
+          "hash": "5570788962263802893"
+        },
+        {
+          "file": "apps/student-e2e/cypress.config.ts",
+          "hash": "9120683589182082657",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/student-e2e/project.json",
+          "hash": "4268381717870790974"
+        },
+        {
+          "file": "apps/student-e2e/src/e2e/app.cy.ts",
+          "hash": "17232868035150587057"
+        },
+        {
+          "file": "apps/student-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/student-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/student-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/student-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/student-e2e/tsconfig.json",
+          "hash": "7806042412912104422"
+        }
+      ],
+      "school-e2e": [
+        {
+          "file": "apps/school-e2e/.eslintrc.json",
+          "hash": "10799368048025705622"
+        },
+        {
+          "file": "apps/school-e2e/cypress.config.ts",
+          "hash": "17447205901168940119",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/school-e2e/project.json",
+          "hash": "17811067710151160777"
+        },
+        {
+          "file": "apps/school-e2e/src/e2e/app.cy.ts",
+          "hash": "1185528459522101832"
+        },
+        {
+          "file": "apps/school-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/school-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/school-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/school-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/school-e2e/tsconfig.json",
+          "hash": "7806042412912104422"
+        }
+      ],
+      "share-pipes": [
+        {
+          "file": "libs/share-pipes/.eslintrc.json",
+          "hash": "18438953372842940952"
+        },
+        {
+          "file": "libs/share-pipes/README.md",
+          "hash": "8784531667004785439"
+        },
+        {
+          "file": "libs/share-pipes/jest.config.ts",
+          "hash": "8297550951525669272"
+        },
+        {
+          "file": "libs/share-pipes/project.json",
+          "hash": "6093026081191172197"
+        },
+        {
+          "file": "libs/share-pipes/src/index.ts",
+          "hash": "14923294013854330930"
+        },
+        {
+          "file": "libs/share-pipes/src/lib/filter.pipe.ts",
+          "hash": "3991506956677360329",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/keys.pipe.ts",
+          "hash": "6465499698529223814",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/order-by-sa.pipe.ts",
+          "hash": "8469642590270596989",
+          "deps": [
+            "npm:@angular/core",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/order-by.pipe.ts",
+          "hash": "4231036972658912608",
+          "deps": [
+            "npm:@angular/core",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/safe-html.pipe.ts",
+          "hash": "2868595069574503857",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/share-pipes.module.ts",
+          "hash": "9730318759799539537",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/test-setup.ts",
+          "hash": "17711435995618823417",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.json",
+          "hash": "7184861466157324158"
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.lib.json",
+          "hash": "932420496979247157"
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "theme": [
+        {
+          "file": "libs/theme/.eslintrc.json",
+          "hash": "15565797867970708751"
+        },
+        {
+          "file": "libs/theme/README.md",
+          "hash": "2058229889101120220"
+        },
+        {
+          "file": "libs/theme/jest.config.ts",
+          "hash": "1136396403190816340"
+        },
+        {
+          "file": "libs/theme/project.json",
+          "hash": "4678670770042407699"
+        },
+        {
+          "file": "libs/theme/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/theme/src/assets/Terms and Conditions.pdf",
+          "hash": "5924201029100169338"
+        },
+        {
+          "file": "libs/theme/src/assets/animations/loading.json",
+          "hash": "8435074482397395492"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Check.svg",
+          "hash": "14360723279240437712"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Group 1273.svg",
+          "hash": "14945935737977476226"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Hanbook.svg",
+          "hash": "5708224055216858545"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Home.svg",
+          "hash": "119216503210153449"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Momo.svg",
+          "hash": "11418044109391472248"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/Test.svg",
+          "hash": "6172271517416600165"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/ZaloPay.svg",
+          "hash": "1385153577591763035"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/clarity_notification-line.svg",
+          "hash": "16291043872409119769"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/dashicons_video-alt3.svg",
+          "hash": "1153679059549551828"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/down.svg",
+          "hash": "14623796663984246190"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/left.svg",
+          "hash": "17111132312839419481"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/right.svg",
+          "hash": "952711221573802072"
+        },
+        {
+          "file": "libs/theme/src/assets/icons/up.svg",
+          "hash": "498924732271597605"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Avatar.svg",
+          "hash": "10975154689738461708"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Chang Password.svg",
+          "hash": "15192246821750484467"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Frame 1662.svg",
+          "hash": "11946946762670530832"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Frame.svg",
+          "hash": "1637301146739824099"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Gifting.svg",
+          "hash": "2912143547679103289"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Group 1450.svg",
+          "hash": "6568952228304650555"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Home.svg",
+          "hash": "2469682780723447170"
+        },
+        {
+          "file": "libs/theme/src/assets/images/New Account.svg",
+          "hash": "15159592192713020069"
+        },
+        {
+          "file": "libs/theme/src/assets/images/Store.svg",
+          "hash": "9847518548571030914"
+        },
+        {
+          "file": "libs/theme/src/assets/images/The personalized road.svg",
+          "hash": "12501323665677388437"
+        },
+        {
+          "file": "libs/theme/src/assets/images/checkbox_checked.svg",
+          "hash": "16942938280167435356"
+        },
+        {
+          "file": "libs/theme/src/assets/images/checkbox_checked_dark.svg",
+          "hash": "16942938280167435356"
+        },
+        {
+          "file": "libs/theme/src/assets/images/checkbox_error.svg",
+          "hash": "5313087014112165336"
+        },
+        {
+          "file": "libs/theme/src/assets/images/checkbox_normal.svg",
+          "hash": "15564679321033596990"
+        },
+        {
+          "file": "libs/theme/src/assets/images/logo-h.svg",
+          "hash": "11533976505401215143"
+        },
+        {
+          "file": "libs/theme/src/assets/images/logo-horizontal-light.webp",
+          "hash": "14822553383878492574"
+        },
+        {
+          "file": "libs/theme/src/assets/images/logo-v.svg",
+          "hash": "11589199546911442918"
+        },
+        {
+          "file": "libs/theme/src/assets/images/radio_off.svg",
+          "hash": "16167465164481342874"
+        },
+        {
+          "file": "libs/theme/src/assets/images/radio_on.svg",
+          "hash": "9409542610348109535"
+        },
+        {
+          "file": "libs/theme/src/assets/kyons_fonts/Kyons-Icon-Fonts.svg",
+          "hash": "7831050365913260087"
+        },
+        {
+          "file": "libs/theme/src/assets/kyons_fonts/Kyons-Icon-Fonts.ttf",
+          "hash": "6521988451291862367"
+        },
+        {
+          "file": "libs/theme/src/assets/kyons_fonts/Kyons-Icon-Fonts.woff",
+          "hash": "13886815715570103792"
+        },
+        {
+          "file": "libs/theme/src/assets/mobile-iframe.html",
+          "hash": "8168924125379793144"
+        },
+        {
+          "file": "libs/theme/src/index.ts",
+          "hash": "11800376186712180081",
+          "deps": [
+            "npm:@angular/material"
+          ]
+        },
+        {
+          "file": "libs/theme/src/lib/scss/ckeditor-content.scss",
+          "hash": "602016008155978753"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/font.scss",
+          "hash": "3909770174721852712"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/global.scss",
+          "hash": "6435601900397893442"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/lg.scss",
+          "hash": "15867849964822085876"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/material.scss",
+          "hash": "10574197070741422755"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/md.scss",
+          "hash": "1845091229056467891"
+        },
+        {
+          "file": "libs/theme/src/lib/scss/questions.scss",
+          "hash": "2037911638704641077"
+        },
+        {
+          "file": "libs/theme/src/lib/theme/theme.component.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/theme/src/lib/theme/theme.component.html",
+          "hash": "6483668633289930387"
+        },
+        {
+          "file": "libs/theme/src/lib/theme/theme.component.spec.ts",
+          "hash": "8120318827644124242",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/theme/src/lib/theme/theme.component.ts",
+          "hash": "5450262199265221354",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common"
+          ]
+        },
+        {
+          "file": "libs/theme/src/styles.scss",
+          "hash": "9570608118174849636"
+        },
+        {
+          "file": "libs/theme/src/test-setup.ts",
+          "hash": "12935735732682149507",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/theme/tailwind.config.js",
+          "hash": "14884889665171419952",
+          "deps": [
+            "npm:@nrwl/angular",
+            "npm:path",
+            "npm:@tailwindcss/forms",
+            "npm:@tailwindcss/typography"
+          ]
+        },
+        {
+          "file": "libs/theme/tsconfig.json",
+          "hash": "7273292361550495896"
+        },
+        {
+          "file": "libs/theme/tsconfig.lib.json",
+          "hash": "6118786724257570734"
+        },
+        {
+          "file": "libs/theme/tsconfig.spec.json",
+          "hash": "2628739785099261941"
+        }
+      ],
+      "school": [
+        {
+          "file": "apps/school/.eslintrc.json",
+          "hash": "2030231722431049616"
+        },
+        {
+          "file": "apps/school/jest.config.ts",
+          "hash": "13681778503986113784"
+        },
+        {
+          "file": "apps/school/project.json",
+          "hash": "54551970997965146"
+        },
+        {
+          "file": "apps/school/src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "apps/school/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/school/src/app/app.component.ts",
+          "hash": "8992048811904475393",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/account.service.ts",
+          "hash": "15744790065096606688",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/auth.service.ts",
+          "hash": "12726240125853872297",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/auth/i-auth-service",
+            "npm:@domain/user/user",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/credential.ts",
+          "hash": "13698208136136412732",
+          "deps": [
+            "npm:@domain/auth/i-auth-service"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/interceptor.ts",
+          "hash": "1956054274467172322",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@view/routes",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/helper/helper.ts",
+          "hash": "15758528964869492387",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/loading-overlay.service.ts",
+          "hash": "1144837862619560464",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/core",
+            "npm:@view/share-components/loading/loading.component"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/navigation/navigation.service.ts",
+          "hash": "14906299338139032715",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@view/routes"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/domain/auth/i-auth-service.ts",
+          "hash": "17130348519475788224"
+        },
+        {
+          "file": "apps/school/src/app/domain/navigation/i-redirect.ts",
+          "hash": "5030840390884524381"
+        },
+        {
+          "file": "apps/school/src/app/domain/user/i_user.ts",
+          "hash": "16593596897514405725"
+        },
+        {
+          "file": "apps/school/src/app/domain/user/user.ts",
+          "hash": "12380729765846994544"
+        },
+        {
+          "file": "apps/school/src/app/view/auth.guard.ts",
+          "hash": "8072213748985110838",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.html",
+          "hash": "9416887242686573854"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.ts",
+          "hash": "3396029302291980345",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/loading-overlay.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.component.html",
+          "hash": "7793690112166720899"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.component.ts",
+          "hash": "8032419252167414499",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@domain/user/user",
+            "npm:@environments/environment",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.scss",
+          "hash": "17434426935871160943"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.html",
+          "hash": "7793298505444272933"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.scss",
+          "hash": "15018090369669596983"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.ts",
+          "hash": "7921977763317361035",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.html",
+          "hash": "10459816768200447715"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.ts",
+          "hash": "8835084036223745875",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/account.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.html",
+          "hash": "11156477915484497970"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.ts",
+          "hash": "13851003818582471961",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/auth/credential",
+            "npm:@data/loading-overlay.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@domain/user/user",
+            "npm:@environments/environment",
+            "npm:@utils/form",
+            "npm:lottie-web"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.html",
+          "hash": "2249967624438643176"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.ts",
+          "hash": "9853869178676276495",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@view/routes"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/routes.ts",
+          "hash": "1340499722310856135",
+          "deps": [
+            "npm:@angular/router",
+            "npm:@view/pages/home/home.component",
+            "npm:@view/pages/page-not-found/page-not-found.component",
+            "npm:@view/pages/sign-in/sign-in.component",
+            "npm:@view/pages/sign-out/sign-out.component"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.html",
+          "hash": "12046889954303116947"
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.scss",
+          "hash": "14442713883387947837"
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.ts",
+          "hash": "1643909093014035705",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:ngx-lottie"
+          ]
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Account.svg",
+          "hash": "5166385231267846887"
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Changepassword.svg",
+          "hash": "14974334719087493380"
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Logout.svg",
+          "hash": "2432411027545663108"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Account.svg",
+          "hash": "15754727075192261045"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Changepassword.svg",
+          "hash": "8319824256916511203"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Logout.svg",
+          "hash": "2764263211580389330"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Account.svg",
+          "hash": "5506857337602246133"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Changepassword.svg",
+          "hash": "11307554880491115432"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Logout.svg",
+          "hash": "9527024621818467476"
+        },
+        {
+          "file": "apps/school/src/environments/environment.dev.ts",
+          "hash": "12562317408842544589"
+        },
+        {
+          "file": "apps/school/src/environments/environment.prod.ts",
+          "hash": "13718870850976329430"
+        },
+        {
+          "file": "apps/school/src/environments/environment.stg.ts",
+          "hash": "7259355050988513457"
+        },
+        {
+          "file": "apps/school/src/environments/environment.ts",
+          "hash": "4138901819123771674"
+        },
+        {
+          "file": "apps/school/src/environments/test/index.html",
+          "hash": "16810350635375041154"
+        },
+        {
+          "file": "apps/school/src/favicon.ico",
+          "hash": "9253520916759600454"
+        },
+        {
+          "file": "apps/school/src/index.html",
+          "hash": "5935399563515811234"
+        },
+        {
+          "file": "apps/school/src/main.ts",
+          "hash": "16493586298789790879",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/platform-browser",
+            "npm:@angular/router",
+            "npm:@view/routes",
+            "npm:ngx-lottie",
+            [
+              "npm:lottie-web",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "apps/school/src/styles.scss",
+          "hash": "15867174609383825323"
+        },
+        {
+          "file": "apps/school/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/school/tailwind.config.js",
+          "hash": "16919248134580128103",
+          "deps": [
+            "npm:@nrwl/angular",
+            "npm:path",
+            "npm:../../libs/theme/tailwind.config"
+          ]
+        },
+        {
+          "file": "apps/school/tsconfig.app.json",
+          "hash": "15840844869456775012"
+        },
+        {
+          "file": "apps/school/tsconfig.editor.json",
+          "hash": "6816855480324741077"
+        },
+        {
+          "file": "apps/school/tsconfig.json",
+          "hash": "6772184852812055494"
+        },
+        {
+          "file": "apps/school/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "share-components": [
+        {
+          "file": "libs/share-components/.eslintrc.json",
+          "hash": "18438953372842940952"
+        },
+        {
+          "file": "libs/share-components/README.md",
+          "hash": "12949429207658349889"
+        },
+        {
+          "file": "libs/share-components/jest.config.ts",
+          "hash": "6637112658590015552"
+        },
+        {
+          "file": "libs/share-components/project.json",
+          "hash": "14188121583609173109"
+        },
+        {
+          "file": "libs/share-components/src/index.ts",
+          "hash": "13560671152539796143"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.html",
+          "hash": "6285847060092938242"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.ts",
+          "hash": "11548505119311313233",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.html",
+          "hash": "18169836216023121381"
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.ts",
+          "hash": "2993528410404016467",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "share-pipes"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.html",
+          "hash": "3299807982008995708"
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.ts",
+          "hash": "8722968494068799330",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "share-pipes",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.html",
+          "hash": "13195994604932727371"
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.scss",
+          "hash": "5023991446340137214"
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.ts",
+          "hash": "2374992891009516540",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.html",
+          "hash": "16275687259549749962"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.ts",
+          "hash": "2463782873766454812",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:@angular/forms",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.html",
+          "hash": "2210498459186113533"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.ts",
+          "hash": "4305912442038421148",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/tutorial/tutorial.component.ts",
+          "hash": "3494285744415710337",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/share-components/tsconfig.json",
+          "hash": "6011498483751565338"
+        },
+        {
+          "file": "libs/share-components/tsconfig.lib.json",
+          "hash": "15179555523254803523"
+        },
+        {
+          "file": "libs/share-components/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "waiting-list": [
+        {
+          "file": "apps/waiting-list/.eslintrc.json",
+          "hash": "2677379793842063236"
+        },
+        {
+          "file": "apps/waiting-list/project.json",
+          "hash": "11173544731418852069"
+        },
+        {
+          "file": "apps/waiting-list/src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "apps/waiting-list/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/waiting-list/src/app/app.component.ts",
+          "hash": "4179312754471107221",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/auth/auth.service.ts",
+          "hash": "12432162328151874516",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/auth/i-auth-service"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/auth/credential.ts",
+          "hash": "13698208136136412732",
+          "deps": [
+            "npm:@domain/auth/i-auth-service"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/auth/interceptor.ts",
+          "hash": "12945146636080109032",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/flashcard.service.ts",
+          "hash": "14480267824483488950",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/cong-thuc-dao-ham-co-ban.json",
+          "hash": "12789544930232989440"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/cong-thuc-logarit.json",
+          "hash": "14288271767331209067"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/cong-thuc-nguyen-ham-co-ban.json",
+          "hash": "2162985069583574900"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/dien-tich-hinh-phang.json",
+          "hash": "12281815075603838126"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/the-tich-hinh-tru.json",
+          "hash": "7912490721270352188"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/the-tich-khoi-cau.json",
+          "hash": "7006632616578614755"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/the-tich-khoi-tru.json",
+          "hash": "5586641252857947914"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/tong-n-cap-so-cong.json",
+          "hash": "5449946104046615266"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/tong-n-cap-so-nhan.json",
+          "hash": "8248805896782861061"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/flashcard/sample/xac-suat.json",
+          "hash": "17709724948791236111"
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/helper/helper.ts",
+          "hash": "15758528964869492387",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/data/navigation/navigation.service.ts",
+          "hash": "1761542058583118385",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@view/app.routes"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/domain/auth/i-auth-service.ts",
+          "hash": "17130348519475788224"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/app.routes.ts",
+          "hash": "4158747065771303833",
+          "deps": [
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/auth.guard.ts",
+          "hash": "9757699072229682355",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/components/rank-ss/rank-ss.component.html",
+          "hash": "13418723151204851280"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/components/rank-ss/rank-ss.component.ts",
+          "hash": "17244134985141596041",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/leave.guard.ts",
+          "hash": "7645124652533284911",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@share-directives/before-unload",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/flashcard/flashcard.component.html",
+          "hash": "1947148082861363916"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/flashcard/flashcard.component.scss",
+          "hash": "16697616231511215680"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/flashcard/flashcard.component.ts",
+          "hash": "13737016789007453451",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@data/flashcard/flashcard.service",
+            "npm:@share-components",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/waiting-list/waiting-list.component.html",
+          "hash": "15843716784933388394"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/waiting-list/waiting-list.component.scss",
+          "hash": "15511958964581922687"
+        },
+        {
+          "file": "apps/waiting-list/src/app/view/pages/waiting-list/waiting-list.component.ts",
+          "hash": "10669135874612029292",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@view/components/rank-ss/rank-ss.component",
+            "npm:ngx-facebook"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-a.png",
+          "hash": "483096220856367689"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-b.png",
+          "hash": "14095850091706189635"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-c.png",
+          "hash": "4702492856731191786"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-d.png",
+          "hash": "1624736689342763693"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-s.png",
+          "hash": "3002184063705363307"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/badge-ss.png",
+          "hash": "6944208516120534960"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-contact-full.jpg",
+          "hash": "1788923624317195714"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-contact-xs.jpg",
+          "hash": "8633067586540894044"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-contact.jpg",
+          "hash": "3716560785965477046"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-home-full.jpg",
+          "hash": "746932192332817591"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-home-xs.jpg",
+          "hash": "14272934918055662554"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-loged-in-top-full.jpg",
+          "hash": "15894266846463004725"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-loged-in-top-xs.jpg",
+          "hash": "6712334243272066263"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-planet-1-xs.svg",
+          "hash": "8053133163225359349"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-planet-2-xs.svg",
+          "hash": "14117214975633195618"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/bg-register-xs.svg",
+          "hash": "13635796395740542149"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/desktop.ini",
+          "hash": "11579674367292330388"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/fb-share-btn.svg",
+          "hash": "7513905279936426493"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/icons-linkedin.svg",
+          "hash": "2449423751669982395"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/icons-youtube.svg",
+          "hash": "12856613840726039485"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/icons-zalo.svg",
+          "hash": "16287699006592269867"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/logo-horizontal.svg",
+          "hash": "8163620522938817160"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/planet-1.svg",
+          "hash": "5839900933389393499"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/planet-2.svg",
+          "hash": "1450613999208609338"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/planet-3.svg",
+          "hash": "2113016491069293933"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/planet-4.svg",
+          "hash": "17252854337298831128"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/rule-full.jpg",
+          "hash": "16780757111107960279"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/trophy-c.png",
+          "hash": "7529027224455639597"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-a-full.png",
+          "hash": "18081515434177700145"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-a-xs.png",
+          "hash": "12133852966304480066"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-b-full.png",
+          "hash": "1865176091586017443"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-b-xs.png",
+          "hash": "5606460071038855951"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-c-full.png",
+          "hash": "9034340737755200097"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-c-xs.png",
+          "hash": "4859916179221391495"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-d-full.png",
+          "hash": "1574428562763799848"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-d-xs.png",
+          "hash": "16802682887311191186"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-s-full.png",
+          "hash": "2047141648091416367"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-ss-full.png",
+          "hash": "14821223000310479446"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rank-ss-xs.png",
+          "hash": "13906871748694636456"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/up-rannk-s-xs.png",
+          "hash": "25264916741131996"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/why-1.jpg",
+          "hash": "2000049956923510862"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/why-1.png",
+          "hash": "9389008430771728457"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/why-2.jpg",
+          "hash": "544964193112538636"
+        },
+        {
+          "file": "apps/waiting-list/src/assets/why-3.jpg",
+          "hash": "7769192413447368745"
+        },
+        {
+          "file": "apps/waiting-list/src/environments/environment.dev.ts",
+          "hash": "15801774020421803255"
+        },
+        {
+          "file": "apps/waiting-list/src/environments/environment.prod.ts",
+          "hash": "1100695291892029179"
+        },
+        {
+          "file": "apps/waiting-list/src/environments/environment.stg.ts",
+          "hash": "5111773379910679217"
+        },
+        {
+          "file": "apps/waiting-list/src/environments/environment.ts",
+          "hash": "12185989838683266409"
+        },
+        {
+          "file": "apps/waiting-list/src/environments/test/index.html",
+          "hash": "12936008996307760221"
+        },
+        {
+          "file": "apps/waiting-list/src/favicon.ico",
+          "hash": "9253520916759600454"
+        },
+        {
+          "file": "apps/waiting-list/src/index.html",
+          "hash": "15628957891945535667"
+        },
+        {
+          "file": "apps/waiting-list/src/main.ts",
+          "hash": "12023541617280441683",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/platform-browser",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/src/styles.scss",
+          "hash": "9979011747082921906"
+        },
+        {
+          "file": "apps/waiting-list/tailwind.config.js",
+          "hash": "10892766862124231155",
+          "deps": [
+            "npm:@nrwl/angular",
+            "npm:path",
+            "npm:../../libs/theme/tailwind.config"
+          ]
+        },
+        {
+          "file": "apps/waiting-list/tsconfig.app.json",
+          "hash": "15840844869456775012"
+        },
+        {
+          "file": "apps/waiting-list/tsconfig.editor.json",
+          "hash": "6558011833351351746"
+        },
+        {
+          "file": "apps/waiting-list/tsconfig.json",
+          "hash": "17895811381584592291"
+        }
+      ]
+    }
+  }
+}

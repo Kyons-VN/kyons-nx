@@ -2,6 +2,6 @@
   "extends": "./tsconfig.json",
   "include": ["**/*.ts", "../../libs/share-components/src/lib/tutorial/tutorial.component.ts"],
   "compilerOptions": {
-    "types": ["jest", "node"]
+    "types": ["node"]
   }
 }

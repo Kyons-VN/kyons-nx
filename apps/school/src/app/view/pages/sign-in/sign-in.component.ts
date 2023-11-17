@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostBinding, inject, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@data/auth/auth.service';
 import { AuthCredential } from '@data/auth/credential';
@@ -38,10 +31,7 @@ export class SignInComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
 
   signInForm!: FormGroup;
-  email: FormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
+  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
   password: FormControl = new FormControl('', Validators.required);
   errorMessage = false;
   processing = false;
@@ -50,7 +40,7 @@ export class SignInComponent implements OnInit {
 
   isPromotionEnable = environment.isPromotionEnable;
 
-  @ViewChild("emailElm") emailElm!: ElementRef;
+  @ViewChild('emailElm') emailElm!: ElementRef;
 
   ngOnInit(): void {
     this.signInForm = this.fb.group({});
@@ -58,16 +48,16 @@ export class SignInComponent implements OnInit {
     this.signInForm.addControl('password', this.password);
     this.signInForm.get('email')?.valueChanges.subscribe(() => {
       this.errorMessage = false;
-    })
+    });
     this.signInForm.get('password')?.valueChanges.subscribe(() => {
       this.errorMessage = false;
-    })
+    });
   }
 
   login() {
     if (this.isDebug) {
-      this.email.setValue('binhhm2009+1205ai@gmail.com');
-      this.password.setValue('Zaq1@wsx');
+      this.email.setValue('binhhm2009+0913@gmail.com');
+      this.password.setValue('G-gNF1tU');
     }
     if (this.signInForm.untouched) {
       this.signInForm.markAllAsTouched();
@@ -76,29 +66,27 @@ export class SignInComponent implements OnInit {
     if (this.signInForm.status === FormControlStatus.VALID) {
       this.loading.show();
       this.processing = true;
-      this.authService
-        .signIn(new AuthCredential(this.signInForm.value))
-        .subscribe({
-          next: (user: User) => {
-            if (user) {
-              this.authService.setUser(user);
-              setTimeout(() => {
-                this.router.navigate([this.paths.home.path]);
-                this.processing = false;
-                this.loading.hide();
-              }, 600);
-            } else {
+      this.authService.signIn(new AuthCredential(this.signInForm.value)).subscribe({
+        next: (user: User) => {
+          if (user) {
+            this.authService.setUser(user);
+            setTimeout(() => {
+              this.router.navigate([this.paths.home.path]);
               this.processing = false;
-              this.errorMessage = true;
               this.loading.hide();
-            }
-          },
-          error: () => {
-            this.errorMessage = true;
+            }, 600);
+          } else {
             this.processing = false;
+            this.errorMessage = true;
             this.loading.hide();
-          },
-        });
+          }
+        },
+        error: () => {
+          this.errorMessage = true;
+          this.processing = false;
+          this.loading.hide();
+        },
+      });
     }
   }
 
