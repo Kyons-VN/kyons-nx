@@ -1907,3 +1907,41 @@
 [NX Daemon Server] - 2023-11-30T06:30:58.926Z - [REQUEST]: Responding to the client. handleRequestFileData
 [NX Daemon Server] - 2023-11-30T06:30:58.928Z - Done responding to the client handleRequestFileData
 [NX Daemon Server] - 2023-11-30T06:30:58.928Z - Handled REQUEST_FILE_DATA. Handling time: 16. Response time: 2.
+[NX Daemon Server] - 2023-11-30T07:28:56.691Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:28:56.698Z - [WATCHER]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html was modified
+[NX Daemon Server] - 2023-11-30T07:28:56.833Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-11-30T07:28:56.833Z - [REQUEST]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html
+[NX Daemon Server] - 2023-11-30T07:28:56.834Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-30T07:28:57.372Z - Time taken for 'hash changed files from watcher' 7.501100063323975ms
+[NX Daemon Server] - 2023-11-30T07:29:08.060Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:15.335Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:15.336Z - [WATCHER]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html was modified
+[NX Daemon Server] - 2023-11-30T07:29:15.564Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-11-30T07:29:15.564Z - [REQUEST]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html
+[NX Daemon Server] - 2023-11-30T07:29:15.564Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-30T07:29:15.808Z - Time taken for 'hash changed files from watcher' 5.058599948883057ms
+[NX Daemon Server] - 2023-11-30T07:29:17.551Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:22.049Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:22.239Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:53.730Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:53.731Z - [WATCHER]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html was modified
+[NX Daemon Server] - 2023-11-30T07:29:54.174Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-11-30T07:29:54.174Z - [REQUEST]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html
+[NX Daemon Server] - 2023-11-30T07:29:54.174Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-30T07:29:54.489Z - Time taken for 'hash changed files from watcher' 6.613300085067749ms
+[NX Daemon Server] - 2023-11-30T07:29:54.618Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T07:29:58.565Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T08:21:41.058Z - [WATCHER]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html was modified
+[NX Daemon Server] - 2023-11-30T08:21:41.060Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T08:21:41.925Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-11-30T08:21:41.925Z - [REQUEST]: apps/student/src/app/presentation/pages/sign-in/sign-in.component.html
+[NX Daemon Server] - 2023-11-30T08:21:41.925Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-30T08:21:42.312Z - Time taken for 'hash changed files from watcher' 8.064200162887573ms
+[NX Daemon Server] - 2023-11-30T08:21:43.554Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T08:21:48.691Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T12:08:09.344Z - There are 1 open connections. Reset inactivity timer.
+[NX Daemon Server] - 2023-11-30T12:13:45.890Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2023-11-30T12:13:45.902Z - [WATCHER]: .gitignore was modified
+[NX Daemon Server] - 2023-11-30T12:13:45.902Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx (sources)
+[NX Daemon Server] - 2023-11-30T12:13:45.902Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx (outputs)
+[NX Daemon Server] - 2023-11-30T12:13:45.902Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
