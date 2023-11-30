@@ -1,7 +1,7 @@
 <div class="flex flex-col md:flex-row h-full">
   <div
     class="flex w-full h-full items-center justify-center bg-primaryBlue p-6"
-    [ngClass]="{'md:w-7/12': isPromotionEnable}"
+    [ngClass]="{ 'md:w-7/12': isPromotionEnable }"
   >
     <form class="flex flex-col w-full sm:w-[434px] mb-24" [formGroup]="signInForm">
       <img (dblclick)="debug()" src="./assets/images/logo-v.svg" alt="Logo" class="h-24" />
@@ -9,7 +9,7 @@
       <input type="text" #emailElm placeholder="Enter email" formControlName="email" autocomplete="email" />
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
         <div *ngIf="email.errors?.['required']">Email is empty.</div>
-        <div *ngIf="email.errors?.['email']">Please use email with format abc@email.com.</div>
+        <div *ngIf="email.errors?.['email']">Please use email with format abc&#64;email.com.</div>
       </div>
       <div class="h-4"></div>
       <div class="relative w-full">

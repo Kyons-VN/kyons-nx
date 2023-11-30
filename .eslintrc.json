@@ -20,7 +20,8 @@
           }
         ],
         "space-in-parens": ["error", "always"],
-        "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {

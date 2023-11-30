@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { Router, RouterModule } from '@angular/router';
 import { RedirectAfterLogin } from '@domain/navigation/i-redirect';
 import { environment } from '@environments/environment';
+import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { AuthService } from '@infrastructure/auth/auth.service';
 import { AuthCredential } from '@infrastructure/auth/credential';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
@@ -12,6 +13,7 @@ import { MessagingService } from '@infrastructure/notification/messaging.service
 import { notificationServiceProvider } from '@infrastructure/notification/notification.service';
 import { UserService } from '@infrastructure/user/user.service';
 import { FormControlStatus } from '@utils/form';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -30,6 +32,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = inject(LoadingOverlayService);
   userService = inject(UserService);
   messagingService = inject(MessagingService);
+  accountService = inject(AccountStandaloneService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -43,6 +46,11 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   isEdited = false;
 
   isPromotionEnable = environment.isPromotionEnable;
+  userNotConfirmedError = false;
+  resendVerificationEmailError = false;
+  pendingResendEmail = false;
+  countdown = 30;
+  $interval!: Subscription;
 
   @ViewChild('emailElm') emailElm!: ElementRef;
 
@@ -59,6 +67,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.loading.hide();
+    if (this.$interval !== undefined) this.$interval.unsubscribe();
   }
 
   ngAfterViewInit(): void {
@@ -117,6 +126,9 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
             this.processing = false;
             this.errorMessage = true;
             this.loading.hide();
+            if (result.error_code == 'UserNotConfirmedException') {
+              this.userNotConfirmedError = true;
+            }
           }
         },
         error: () => {
@@ -131,5 +143,24 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
 
   debug() {
     if (!environment.production) this.isDebug = true;
+  }
+
+  resend() {
+    this.pendingResendEmail = true;
+    const requestInterval = interval(1000);
+    this.$interval = requestInterval.subscribe(() => {
+      this.countdown--;
+      if (this.countdown == 0) {
+        this.pendingResendEmail = false;
+      }
+    });
+    this.accountService.resendVerificationEmail(this.email.value).subscribe({
+      next: () => {
+        this.router.navigate([this.paths.resendVerified.path]);
+      },
+      error: () => {
+        this.resendVerificationEmailError = true;
+      },
+    });
   }
 }

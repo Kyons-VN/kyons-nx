@@ -34,6 +34,7 @@ class AppPaths {
   signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
   signOut = { name: 'Thoát', path: '/sign-out/' };
   signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
+  resendVerified = { name: 'Gửi lại email xác thực', path: '/sign-up/resend-verified/' };
   classProgram = { name: 'Trang chọn mục tiêu', path: '/mock-test/' };
   test = { name: 'Test', path: '/test/' };
   learningPath = { name: '', path: '/learning-path/' };
@@ -167,12 +168,7 @@ const routes: Routes = [
           import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
       },
       {
-        path: VerifyPage.nonexistentAccount + '/:token',
-        loadComponent: () =>
-          import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
-      },
-      {
-        path: VerifyPage.expiredLink + '/:token',
+        path: VerifyPage.verifyFail,
         loadComponent: () =>
           import('./pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
       },

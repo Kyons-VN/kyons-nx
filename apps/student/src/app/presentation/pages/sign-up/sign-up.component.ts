@@ -18,9 +18,9 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
 })
 export class SignUpComponent implements OnInit, AfterViewInit {
   paths: AppPaths;
-  notHaveUppercase: (str: string) => void;
-  notHaveDigit: (str: string) => void;
-  notHaveSpecial: (str: string) => void;
+  notHaveUppercase: (str: string) => boolean;
+  notHaveDigit: (str: string) => boolean;
+  notHaveSpecial: (str: string) => boolean;
   search: (str: string, regexStr: string) => void;
 
   constructor(
@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   // lastName: FormControl = new FormControl('', [Validators.required]);
   email: FormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern(/^[a-z0-9+]+@[a-z0-9]+\.[a-z]{2,4}$/),
+    // Validators.pattern(/^[a-z0-9+]+@[a-z0-9]+\.[a-z]{2,4}$/),
   ]);
   phone: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]);
   birthdate: FormControl = new FormControl('');
@@ -54,7 +54,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/),
   ]);
   step = 0;
-  showPassword = true;
+  showPassword = false;
   processing = false;
   errorMessage = '';
   ref!: string;
@@ -85,7 +85,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       this.errorMessage = '';
     });
     this.signUpForm1.get('email')?.valueChanges.subscribe(email => {
-      this.signUpForm1.get('email')?.setValue(email.replace(/[^a-z0-9@.+]/g, ''), { emitEvent: false });
+      this.signUpForm1.get('email')?.setValue(email.replace(/ /g, ''), { emitEvent: false });
     });
     this.currentUrl = window.location.href.replace(window.location.origin, '');
   }
@@ -114,12 +114,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     // }, 1000);
   }
 
-  submitForm1() {
+  validate() {
     if (!this.shouldValidate) this.shouldValidate = true;
     if (
       !(
         this.signUpForm1.get('email')?.dirty &&
-        this.signUpForm1.get('firstname')?.dirty &&
+        this.signUpForm1.get('password')?.dirty &&
         this.signUpForm1.get('firstName')?.dirty &&
         this.signUpForm1.get('lastname')?.dirty &&
         this.signUpForm1.get('phone')?.dirty &&
@@ -127,6 +127,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       )
     ) {
       this.signUpForm1.get('firstName')?.markAsDirty();
+      this.signUpForm1.get('password')?.markAsDirty();
       this.signUpForm1.get('lastName')?.markAsDirty();
       this.signUpForm1.get('email')?.markAsDirty();
       this.signUpForm1.get('phone')?.markAsDirty();
@@ -138,6 +139,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   submitForm2() {
+    this.validate();
+    if (this.step == 0) return;
     this.loading.show();
     this.processing = true;
     this.authService

@@ -31,17 +31,21 @@ export class AccountStandaloneService {
     // school: string;
     // city: string;
     password: string;
-    ref?: any;
+    ref?: unknown;
   }) {
-    const params: any = {
+    const params: Record<string, unknown> = {
       email: email,
       password: password,
+      family_name: '_',
+      given_name: email,
+      phone_number: '000',
     };
     if (ref) {
       params['referral'] = {
         mocktest_referral: ref,
       };
     }
+
     return this.http.post(`${serverApi()}/auth/sign_up`, params);
   }
 
@@ -51,5 +55,9 @@ export class AccountStandaloneService {
 
   newPassword(email: string, newPassword: string, code: string) {
     return this.http.put(`${serverApi()}/forgot_password`, { email: email, password: newPassword, code: code });
+  }
+
+  resendVerificationEmail(email: string) {
+    return this.http.post(`${serverApi()}/auth/resend_verification_email`, { email: email });
   }
 }

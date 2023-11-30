@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx run student:build:stg",
+    "startTime": "2023-11-25T03:26:09.266Z",
+    "endTime": "2023-11-25T03:26:31.060Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "student:build:stg",
+      "target": "build",
+      "projectName": "student",
+      "hash": "13369386158796480467",
+      "startTime": "2023-11-25T03:26:09.275Z",
+      "endTime": "2023-11-25T03:26:31.059Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 0
+    }
+  ]
+}

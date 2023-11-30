@@ -23,13 +23,13 @@
               placeholder="Nhập mật khẩu"
               formControlName="password"
             />
-            <div
+            <button
               (click)="showPassword = !showPassword"
               class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
             >
-              <i *ngIf="showPassword" class="icon-VisibilityOff" tabindex="0"></i>
-              <i *ngIf="!showPassword" class="icon-Visibility" tabindex="0"></i>
-            </div>
+              <i *ngIf="showPassword" class="icon-VisibilityOff"></i>
+              <i *ngIf="!showPassword" class="icon-Visibility"></i>
+            </button>
           </div>
         </div>
         <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
@@ -48,6 +48,44 @@
   </div>
   <div class="hero-img hidden md:flex justify-center flex-shrink-0 overflow-hidden relative">
     <img class="w-full h-full object-cover absolute top-0" src="/assets/images/hero-image.webp" alt="" />
-    <span class="text-white text-[36px] font-semibold z-10 text-center">Tri thức khởi đầu<br />từ “Tại sao”?</span>
+    <span class="text-white text-[36px] font-semibold text-center relative">Tri thức khởi đầu<br />từ “Tại sao”?</span>
+  </div>
+</div>
+<div
+  *ngIf="userNotConfirmedError"
+  class="bg-blueGrey-100 absolute top-0 left-0 w-screen h-screen flex items-center justify-center p-6"
+>
+  <div class="flex flex-col items-center justify-center w-full sm:w-[493px] gap-6">
+    <img src="assets/images/Account Not Verified.svg" />
+    <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
+      <h4 class="text-primaryBlue">Tài khoản của bạn chưa được xác thực</h4>
+      <div class="flex flex-col gap-2">
+        <span
+          >Để có thể sử dụng ứng dụng Kyons, bạn cần <strong>nhấp vào đường dẫn xác thực</strong> đã được gửi trong
+          email đăng ký của bạn.</span
+        >
+        <span>Ngoài ra, bạn có thể yêu cầu gửi lại link xác thực bằng cách bấm vào nút dưới đây</span>
+      </div>
+      <button class="btn" (click)="resend()" [disabled]="pendingResendEmail">
+        Gửi lại email xác thực @if(pendingResendEmail){({{ countdown }}s)}
+      </button>
+      <button class="btn btn-rounded" (click)="userNotConfirmedError = false">Quay lại đăng nhập</button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="resendVerificationEmailError"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+    <img src="/assets/images/warning.webp" alt="" />
+    <div class="col w-full gap-6">
+      <h5 class="text-center">Chú ý! Chú ý!</h5>
+      <span>
+        Hệ thống hiện đang gặp sự cố, bạn vui lòng thử lại sau vài phút hoặc liên hệ
+        <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!
+      </span>
+      <button (click)="resendVerificationEmailError = false" class="btn w-full">Mình đã hiểu</button>
+    </div>
   </div>
 </div>

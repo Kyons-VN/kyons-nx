@@ -46,8 +46,8 @@ export class AuthService implements IAuthService {
           this.userService.updateCurrentUser(data['sub'], data['email']);
           this.trackingService.init();
         } else {
-          data.error = true;
-          data.message = data;
+          data['error'] = true;
+          data['message'] = data;
         }
         return data;
       })
@@ -78,11 +78,11 @@ export class AuthService implements IAuthService {
     return window.localStorage.getItem(REFRESH_TOKEN_KEY);
   }
 
-  public setToken(data: any) {
+  public setToken(data: Record<string, string>) {
     window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
   }
 
-  public setRefreshToken(data: any) {
+  public setRefreshToken(data: Record<string, string>) {
     window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
   }
 

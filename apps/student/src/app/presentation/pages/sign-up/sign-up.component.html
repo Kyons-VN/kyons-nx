@@ -76,7 +76,7 @@
           </div>
           <div class="h-4"></div> -->
           <!-- ^((?=.*[A-Z])(?=.*d).{8,99}) -->
-          <div *ngIf="password.touched" class="text-sm">
+          <div class="text-sm">
             Mật khẩu phải có:<br />
             <ul class="list-disc">
               <li
@@ -92,33 +92,60 @@
                 ></i>
                 <i
                   *ngIf="(password.dirty || password.touched) && password.value.length >= 8"
-                  class="text-red-0 icon-Check"
+                  class="text-darkEmerald icon-Check"
                 ></i>
-                &nbsp; Từ 8 ký tự trở lên
+                &nbsp;Từ 8 ký tự trở lên
               </li>
               <li
                 class="ml-5"
                 [ngClass]="{
-                  'text-red-0': (password.dirty || password.touched) && notHaveUppercase(password.value)
+                  'text-red-0': (password.dirty || password.touched) && notHaveUppercase(password.value),
+                  'text-darkEmerald': (password.dirty || password.touched) && !notHaveUppercase(password.value)
                 }"
               >
-                Ký tự viết hoa (A-Z)
+                <i
+                  *ngIf="(password.dirty || password.touched) && notHaveUppercase(password.value)"
+                  class="text-red-0 icon-Cancel"
+                ></i>
+                <i
+                  *ngIf="(password.dirty || password.touched) && !notHaveUppercase(password.value)"
+                  class="text-darkEmerald icon-Check"
+                ></i>
+                &nbsp;Ký tự viết hoa (A-Z)
               </li>
               <li
                 class="ml-5"
                 [ngClass]="{
-                  'text-red-0': (password.dirty || password.touched) && notHaveDigit(password.value)
+                  'text-red-0': (password.dirty || password.touched) && notHaveDigit(password.value),
+                  'text-darkEmerald': (password.dirty || password.touched) && !notHaveDigit(password.value)
                 }"
               >
-                Ký tự số (0-9)
+                <i
+                  *ngIf="(password.dirty || password.touched) && notHaveDigit(password.value)"
+                  class="text-red-0 icon-Cancel"
+                ></i>
+                <i
+                  *ngIf="(password.dirty || password.touched) && !notHaveDigit(password.value)"
+                  class="text-darkEmerald icon-Check"
+                ></i>
+                &nbsp;Ký tự số (0-9)
               </li>
               <li
                 class="ml-5"
                 [ngClass]="{
-                  'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value)
+                  'text-red-0': (password.dirty || password.touched) && notHaveSpecial(password.value),
+                  'text-darkEmerald': (password.dirty || password.touched) && !notHaveSpecial(password.value)
                 }"
               >
-                Ký tự đặc biệt (~! &#64;#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
+                <i
+                  *ngIf="(password.dirty || password.touched) && notHaveSpecial(password.value)"
+                  class="text-red-0 icon-Cancel"
+                ></i>
+                <i
+                  *ngIf="(password.dirty || password.touched) && !notHaveSpecial(password.value)"
+                  class="text-darkEmerald icon-Check"
+                ></i>
+                &nbsp;Ký tự đặc biệt (~! &#64;#$%^&*_-+=`|\()&#123;&#125;[]:;"'&#60;>,.?/)
               </li>
             </ul>
           </div>
@@ -131,7 +158,7 @@
           </span>
         </label>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <button (click)="submitForm1()" class="btn" [disabled]="processing">Tiếp tục</button>
+        <button (click)="submitForm2()" class="btn" [disabled]="processing">Tiếp tục</button>
       </form>
       <form *ngIf="step === 1" class="col gap-6 w-full" [formGroup]="signUpForm1" autocomplete="off">
         <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>
@@ -243,26 +270,26 @@
   </div>
   <div class="hero-img hidden md:flex justify-center flex-shrink-0 overflow-hidden relative">
     <img class="w-full h-full object-cover absolute top-0" src="/assets/images/hero-image.webp" alt="" />
-    <span class="text-white text-[36px] font-semibold z-10 text-center">Tri thức khởi đầu<br />từ “Tại sao”?</span>
+    <span class="text-white text-[36px] font-semibold text-center relative">Tri thức khởi đầu<br />từ “Tại sao”?</span>
   </div>
 </div>
 <div
   *ngIf="step === 2"
   class="bg-blueGrey-100 absolute top-0 left-0 w-screen h-screen flex items-center justify-center p-6"
 >
-  <div class="flex flex-col items-center justify-center w-full sm:w-[700px] gap-6">
+  <div class="flex flex-col items-center justify-center w-full sm:w-[493px] gap-6">
     <img src="assets/images/New Account.svg" />
     <div class="bg-white rounded-sm p-6 flex flex-col gap-6">
       <h4 class="text-primaryBlue">Cảm ơn bạn đã tạo tài khoản cùng Kyons!</h4>
       <div class="flex flex-col gap-2">
-        <span>Bạn hãy kiểm tra hộp thư <strong>(bao gồm cả mục Spam và quảng cáo)</strong>.</span>
         <span
-          >Mật khẩu đăng nhập tạm thời đã được gửi đến địa chỉ email <strong>{{ email.value }}</strong
-          >. Bạn vui lòng sử dụng mật khẩu này để đăng nhập vào hệ thống.</span
+          >Trước khi sử dụng Kyons, bạn hãy <strong class="text-orange">xác thực tài khoản</strong> bằng cách nhấn vào
+          đường link đã được gửi về email <strong>{{ email.value }}</strong> của bạn nhé!</span
         >
+        <span>Nếu không tìm thấy email, bạn kiểm tra thử mục Spam và quảng cáo xem sao 🤔?</span>
         <span
-          >Trong trường hợp vẫn chưa nhận được bất kì email nào từ Kyons, bạn vui lòng liên hệ với tụi mình tại
-          <a href="https://www.facebook.com/KyonsVN" target="_blank">facebook.com/KyonsVN</a> để được hỗ trợ nhé!</span
+          >Qua 10 phút vẫn không thấy email nào? Liên hệ
+          <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!</span
         >
       </div>
       <a class="btn" [routerLink]="paths.signIn.path">Đăng nhập ngay thôi</a>

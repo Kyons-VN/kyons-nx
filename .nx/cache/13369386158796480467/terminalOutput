@@ -1,0 +1,23 @@
+
+Initial Chunk Files           | Names                                                         |  Raw Size | Estimated Transfer Size
+main.f31355b38cbbea2b.js      | main                                                          |   2.83 MB |               350.72 kB
+styles.c15b25b1ea00beb1.css   | styles                                                        | 126.49 kB |                16.61 kB
+polyfills.eb4baa0c88ba3d9a.js | polyfills                                                     |  32.96 kB |                10.65 kB
+runtime.0995d9ca38aae95a.js   | runtime                                                       |   2.97 kB |                 1.46 kB
+
+| Initial Total                                                 |   2.99 MB |               379.43 kB
+
+Lazy Chunk Files              | Names                                                         |  Raw Size | Estimated Transfer Size
+897.b121d9440e6fef87.js       | pages-flashcard-flashcard-component                           |  46.88 kB |                 5.42 kB
+183.6ea8decf6945f60a.js       | pages-sign-up-sign-up-component                               |  23.49 kB |                 6.14 kB
+29.b98dffeaebe148c9.js        | firebase-compat-messaging                                     |  16.03 kB |                 4.64 kB
+948.26298c4ffcd9ce5b.js       | pages-sign-in-sign-in-component                               |  11.46 kB |                 3.63 kB
+195.8dd6b68ec0b3c365.js       | pages-reset-password-reset-password-component                 |  10.40 kB |                 3.02 kB
+690.087d75039aa8a6dc.js       | pages-learning-path-complete-leanring-path-complete-component |   2.37 kB |              1023 bytes
+703.a8bdf59431f619dc.js       | pages-sign-up-unverified-account-component                    |   1.76 kB |               851 bytes
+424.451307d02d404983.js       | pages-sign-up-resend-verified-component                       |   1.68 kB |               883 bytes
+982.a5184c7a2ce3784c.js       | pages-sign-out-sign-out-component                             | 864 bytes |               484 bytes
+698.e139826c50adb2d1.js       | pages-terms-of-service-terms-of-service-component             | 777 bytes |               448 bytes
+common.bab6259a69417bbf.js    | common                                                        | 350 bytes |               192 bytes
+
+Build at: 2023-11-25T03:26:30.780Z - Hash: 542b809d1522ff7a - Time: 17534ms

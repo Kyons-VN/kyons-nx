@@ -538,6 +538,7 @@
                 "apps/student/src/assets",
                 "apps/student/src/firebase-messaging-sw.js",
                 "apps/student/src/manifest.json",
+                "apps/student/src/Terms and Conditions.pdf",
                 {
                   "glob": "**/*",
                   "input": "libs/theme/src/assets/",
@@ -672,14 +673,14 @@
             "executor": "@angular-devkit/build-angular:dev-server",
             "configurations": {
               "production": {
-                "browserTarget": "student:build:production"
+                "buildTarget": "student:build:production"
               },
               "dev": {
-                "browserTarget": "student:build:dev",
+                "buildTarget": "student:build:dev",
                 "proxyConfig": "apps/student/src/proxy.conf.json"
               },
               "stg": {
-                "browserTarget": "student:build:stg",
+                "buildTarget": "student:build:stg",
                 "proxyConfig": "apps/student/src/proxy.conf.json"
               }
             },
@@ -689,7 +690,7 @@
           "extract-i18n": {
             "executor": "@angular-devkit/build-angular:extract-i18n",
             "options": {
-              "browserTarget": "student:build"
+              "buildTarget": "student:build"
             },
             "configurations": {}
           },
@@ -15392,6 +15393,11 @@
         "source": "waiting-list",
         "target": "npm:@nrwl/angular",
         "type": "static"
+      },
+      {
+        "source": "waiting-list",
+        "target": "theme",
+        "type": "static"
       }
     ],
     "share-pipes": [
@@ -15582,6 +15588,11 @@
         "source": "student",
         "target": "npm:@nrwl/angular",
         "type": "static"
+      },
+      {
+        "source": "student",
+        "target": "theme",
+        "type": "static"
       }
     ],
     "school": [
@@ -15643,6 +15654,11 @@
       {
         "source": "school",
         "target": "npm:@nrwl/angular",
+        "type": "static"
+      },
+      {
+        "source": "school",
+        "target": "theme",
         "type": "static"
       }
     ],

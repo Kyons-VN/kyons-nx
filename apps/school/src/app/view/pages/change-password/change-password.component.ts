@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@data/auth/auth.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
@@ -35,22 +43,20 @@ export class ChangePasswordComponent implements OnInit {
   @HostBinding('class') class = 'h-full';
 
   changePasswordForm!: FormGroup;
-  oldPassword: FormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  oldPassword: FormControl = new FormControl('', [Validators.required]);
   newPassword: FormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/)
+    Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/),
   ]);
   confirmPassword: FormControl = new FormControl('', [
     Validators.required,
-    (control: FormControl) => {
+    (control: AbstractControl) => {
       const newPassword = this.newPassword.value;
       if (newPassword !== control.value) {
         return { notMatch: true };
       }
       return null;
-    }
+    },
   ]);
   errorMessage = false;
   processing = false;
