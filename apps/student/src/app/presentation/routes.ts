@@ -159,6 +159,10 @@ const routes: Routes = [
     loadComponent: () => import('./pages/flashcard/flashcard.component').then(m => m.FlashcardComponent),
   },
   {
+    path: 'event/math',
+    loadComponent: () => import('./pages/event/event.component').then(m => m.EventComponent),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent,
   },
@@ -168,4 +172,4 @@ const routes: Routes = [
   },
 ];
 
-export { routes, AppPaths };
+export { AppPaths, routes };

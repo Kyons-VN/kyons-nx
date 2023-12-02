@@ -123,6 +123,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
       }
     }
     if (e.key == ' ') {
+      if (this.currentIndex > Object.keys(this.submission.submitData).length - 1) return;
       if (!this.showResult) {
         this.showResult = true;
         this.showResultEvent.emit(this.showResult);
