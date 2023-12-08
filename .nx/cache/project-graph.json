@@ -680,7 +680,7 @@
                 "proxyConfig": "apps/student/src/proxy.conf.json"
               },
               "stg": {
-                "buildTarget": "student:build:stg",
+                "browserTarget": "student:build:stg",
                 "proxyConfig": "apps/student/src/proxy.conf.json"
               }
             },

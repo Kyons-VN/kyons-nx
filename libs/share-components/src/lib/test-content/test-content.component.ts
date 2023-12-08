@@ -142,17 +142,22 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         if (this.currentIndex > 0) {
           this.currentIndex--;
         }
-      } else {
-        if (this.currentIndex < this.content.questions.length - 1) {
-          this.currentIndex++;
-        }
-      }
+        if (this.currentIndex > Object.keys(this.submission.submitData).length - 1) return;
+        // if (!this.showResult) {
+        //   this.showResult = true;
+        //   this.showResultEvent.emit(this.showResult);
+        //   return;
+        // } else {
+        //   if (this.currentIndex < this.content.questions.length - 1) {
+        //     this.currentIndex++;
+        //   }
+        // }
 
-      // } else {
-      //   if (this.progress.value > this.currentIndex) {
-      //     this.currentIndex++;
-      //   }
-      // }
+        // } else {
+        //   if (this.progress.value > this.currentIndex) {
+        //     this.currentIndex++;
+        //   }
+      }
     }
     if (e.key == 'g') {
       this.goTo = this.currentIndex + 1;

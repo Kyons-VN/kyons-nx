@@ -1,0 +1,6 @@
+.ads {
+  @apply flex md:flex-row flex-col w-full rounded-lg items-center justify-between gap-2 md:gap-7 px-6 md:px-12 py-3 md:py-6 bg-[url('/assets/images/bg-contact-xs.jpg')] md:bg-[url('/assets/images/bg-contact.jpg')] min-h-[108px] md:min-h-[118px] bg-no-repeat bg-center bg-cover;
+}
+.error {
+  @apply text-red-500;
+}

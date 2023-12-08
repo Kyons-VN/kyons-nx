@@ -1,0 +1,311 @@
+{
+  "test_id": 1,
+  "learning_point_name": "Mini-game cùng Kyons",
+  "data": [
+    {
+      "id": 1,
+      "content": "<p>Phát biểu nào sau đây không phải là mệnh đề?</p>",
+      "answers": [
+        {
+          "id": 1,
+          "value": "1",
+          "content": "<p>11 là số nguyên tố</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 2,
+          "value": "2",
+          "content": "<p>Hôm nay trời nóng quá!</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 3,
+          "value": "3",
+          "content": "<p>Hà Nội là thủ đô của Việt Nam</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 4,
+          "value": "4",
+          "content": "<p>Đến năm 2030 các nhà khoa học sẽ điều chế được thuốc điều trị HIV.</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "<p>Trong các câu sau đây, câu nào là mệnh đề?</p>",
+      "answers": [
+        {
+          "id": 5,
+          "value": "5",
+          "content": "<p>Tảo có phải là một loài thực vật không?</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 6,
+          "value": "6",
+          "content": "<p>Hoa sen đẹp nhất trong tất cả các loài hoa.</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 7,
+          "value": "7",
+          "content": "<p>Thời tiết hôm nay lạnh quá!</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 8,
+          "value": "8",
+          "content": "<p>Đờn ca tài tử là di sản văn hóa phi vật thể, đại diện của nhân loại.</p>",
+          "explanation": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "content": "<p>Từ hai điểm bất kỳ A và B, ta có thể tạo được bao nhiêu Vec-tơ?</p>",
+      "answers": [
+        {
+          "id": 9,
+          "value": "9",
+          "content": "<p>Không có Vec-tơ nào</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 10,
+          "value": "10",
+          "content": "<p>2 Vec-tơ</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 11,
+          "value": "11",
+          "content": "<p>5 Vec-tơ</p>",
+          "explanation": ""
+        },
+        {
+          "id": 12,
+          "value": "12",
+          "content": "<p>1 Vec-tơ</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "content": "<p>Nếu a > b và b > c <=> a > c, tính chất này là tính chất gì?</p>",
+      "answers": [
+        {
+          "id": 13,
+          "value": "13",
+          "content": "<p>Tính chất bắc cầu</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 14,
+          "value": "14",
+          "content": "<p>liên hệ giữa thứ tự và phép cộng</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 15,
+          "value": "15",
+          "content": "<p>quy tắc nhân</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 16,
+          "value": "16",
+          "content": "<p>quy tắc cộng</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "content": "<p>Phương trình bậc 2 có nghiệm kép khi nào?</p>",
+      "answers": [
+        {
+          "id": 17,
+          "value": "17",
+          "content": "<p>delta bằng 0</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 18,
+          "value": "18",
+          "content": "<p>delta lớn hơn 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 19,
+          "value": "19",
+          "content": "<p>delta bé hơn 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 20,
+          "value": "20",
+          "content": "<p>delta khác 0</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "content": "<p>Phương trình bậc 2 có 2 nghiệm phân biệt khi nào?</p>",
+      "answers": [
+        {
+          "id": 21,
+          "value": "21",
+          "content": "<p>delta bằng 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 22,
+          "value": "22",
+          "content": "<p>delta khác 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 23,
+          "value": "23",
+          "content": "<p>delta bé hơn 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 24,
+          "value": "24",
+          "content": "<p>delta lớn hơn 0</p>",
+          "explanation": "",
+          "is_correct": true
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "content": "<p>Phương trình bậc 2 vô nghiệm khi nào?</p>",
+      "answers": [
+        {
+          "id": 25,
+          "value": "25",
+          "content": "<p>delta lớn hơn 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 26,
+          "value": "26",
+          "content": "<p>delta bằng 0</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 27,
+          "value": "27",
+          "content": "<p>delta bé hơn 0</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 28,
+          "value": "28",
+          "content": "<p>delta khác 0</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "content": "<p>Tứ gác có 4 cạnh bằng nhau là hình nào trong các hình dưới đây?</p>",
+      "answers": [
+        {
+          "id": 29,
+          "value": "29",
+          "content": "<p>Hình chữ nhật</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 30,
+          "value": "30",
+          "content": "<p>Hình tròn</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 31,
+          "value": "31",
+          "content": "<p>Hình thoi</p>",
+          "explanation": "",
+          "is_correct": true
+        },
+        {
+          "id": 32,
+          "value": "32",
+          "content": "<p>Hình thang</p>",
+          "explanation": "",
+          "is_correct": false
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "content": "<p>Hình thang có 2 góc vuông thì gọi là hình gì?</p>",
+      "answers": [
+        {
+          "id": 33,
+          "value": "33",
+          "content": "<p>Hình tròn</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 34,
+          "value": "34",
+          "content": "<p>Hình vuông</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 35,
+          "value": "35",
+          "content": "<p>Hình thang đều</p>",
+          "explanation": "",
+          "is_correct": false
+        },
+        {
+          "id": 36,
+          "value": "36",
+          "content": "<p>Hình thang vuông</p>",
+          "explanation": "",
+          "is_correct": true
+        }
+      ]
+    }
+  ]
+}

@@ -175,633 +175,6 @@
       }
     ],
     "projectFileMap": {
-      "student-e2e": [
-        {
-          "file": "apps/student-e2e/.eslintrc.json",
-          "hash": "5570788962263802893"
-        },
-        {
-          "file": "apps/student-e2e/cypress.config.ts",
-          "hash": "9120683589182082657",
-          "deps": [
-            "npm:cypress",
-            "npm:@nrwl/cypress"
-          ]
-        },
-        {
-          "file": "apps/student-e2e/project.json",
-          "hash": "4268381717870790974"
-        },
-        {
-          "file": "apps/student-e2e/src/e2e/app.cy.ts",
-          "hash": "17232868035150587057"
-        },
-        {
-          "file": "apps/student-e2e/src/fixtures/example.json",
-          "hash": "17341819486505642070"
-        },
-        {
-          "file": "apps/student-e2e/src/support/app.po.ts",
-          "hash": "5364106453863571025"
-        },
-        {
-          "file": "apps/student-e2e/src/support/commands.ts",
-          "hash": "11031723810997510506"
-        },
-        {
-          "file": "apps/student-e2e/src/support/e2e.ts",
-          "hash": "15928825062325902088"
-        },
-        {
-          "file": "apps/student-e2e/tsconfig.json",
-          "hash": "7806042412912104422"
-        }
-      ],
-      "share-directives": [
-        {
-          "file": "libs/share-directives/.babelrc",
-          "hash": "17566616042550408716"
-        },
-        {
-          "file": "libs/share-directives/.eslintrc.json",
-          "hash": "13800677001662881425"
-        },
-        {
-          "file": "libs/share-directives/README.md",
-          "hash": "1243329062848713025"
-        },
-        {
-          "file": "libs/share-directives/jest.config.ts",
-          "hash": "7286878341539002746"
-        },
-        {
-          "file": "libs/share-directives/project.json",
-          "hash": "13013472016331240860"
-        },
-        {
-          "file": "libs/share-directives/src/index.ts",
-          "hash": "17229524078041932754"
-        },
-        {
-          "file": "libs/share-directives/src/lib/before-unload/before-unload.directive.ts",
-          "hash": "7041561573118074233",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-directives/src/lib/before-unload/before-unload.service.ts",
-          "hash": "4955549333772077315",
-          "deps": [
-            "npm:@angular/core",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/share-directives/src/lib/before-unload/before-unload.token.ts",
-          "hash": "13900329213295133401",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-directives/src/lib/before-unload/index.ts",
-          "hash": "10758210114012476718"
-        },
-        {
-          "file": "libs/share-directives/src/lib/share-directives.spec.ts",
-          "hash": "4376617015202898862"
-        },
-        {
-          "file": "libs/share-directives/src/lib/share-directives.ts",
-          "hash": "10130721307777555325"
-        },
-        {
-          "file": "libs/share-directives/tsconfig.json",
-          "hash": "14030779328917383130"
-        },
-        {
-          "file": "libs/share-directives/tsconfig.lib.json",
-          "hash": "13034901906147047048"
-        },
-        {
-          "file": "libs/share-directives/tsconfig.spec.json",
-          "hash": "2406015174838385060"
-        }
-      ],
-      "school-e2e": [
-        {
-          "file": "apps/school-e2e/.eslintrc.json",
-          "hash": "10799368048025705622"
-        },
-        {
-          "file": "apps/school-e2e/cypress.config.ts",
-          "hash": "17447205901168940119",
-          "deps": [
-            "npm:cypress",
-            "npm:@nrwl/cypress"
-          ]
-        },
-        {
-          "file": "apps/school-e2e/project.json",
-          "hash": "17811067710151160777"
-        },
-        {
-          "file": "apps/school-e2e/src/e2e/app.cy.ts",
-          "hash": "1185528459522101832"
-        },
-        {
-          "file": "apps/school-e2e/src/fixtures/example.json",
-          "hash": "17341819486505642070"
-        },
-        {
-          "file": "apps/school-e2e/src/support/app.po.ts",
-          "hash": "5364106453863571025"
-        },
-        {
-          "file": "apps/school-e2e/src/support/commands.ts",
-          "hash": "11031723810997510506"
-        },
-        {
-          "file": "apps/school-e2e/src/support/e2e.ts",
-          "hash": "15928825062325902088"
-        },
-        {
-          "file": "apps/school-e2e/tsconfig.json",
-          "hash": "7806042412912104422"
-        }
-      ],
-      "school": [
-        {
-          "file": "apps/school/.eslintrc.json",
-          "hash": "2030231722431049616"
-        },
-        {
-          "file": "apps/school/jest.config.ts",
-          "hash": "13681778503986113784"
-        },
-        {
-          "file": "apps/school/project.json",
-          "hash": "54551970997965146"
-        },
-        {
-          "file": "apps/school/src/app/app.component.html",
-          "hash": "17385897758380840601"
-        },
-        {
-          "file": "apps/school/src/app/app.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "apps/school/src/app/app.component.ts",
-          "hash": "8992048811904475393",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/router"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/auth/account.service.ts",
-          "hash": "15744790065096606688",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/auth/auth.service.ts",
-          "hash": "12726240125853872297",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@domain/auth/i-auth-service",
-            "npm:@domain/user/user",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/auth/credential.ts",
-          "hash": "13698208136136412732",
-          "deps": [
-            "npm:@domain/auth/i-auth-service"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/auth/interceptor.ts",
-          "hash": "1956054274467172322",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/router",
-            "npm:@view/routes",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/helper/helper.ts",
-          "hash": "15758528964869492387",
-          "deps": [
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/loading-overlay.service.ts",
-          "hash": "1144837862619560464",
-          "deps": [
-            "npm:@angular/cdk",
-            "npm:@angular/core",
-            "npm:@view/share-components/loading/loading.component"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/data/navigation/navigation.service.ts",
-          "hash": "14906299338139032715",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@view/routes"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/domain/auth/i-auth-service.ts",
-          "hash": "17130348519475788224"
-        },
-        {
-          "file": "apps/school/src/app/domain/navigation/i-redirect.ts",
-          "hash": "5030840390884524381"
-        },
-        {
-          "file": "apps/school/src/app/domain/user/i_user.ts",
-          "hash": "16593596897514405725"
-        },
-        {
-          "file": "apps/school/src/app/domain/user/user.ts",
-          "hash": "12380729765846994544"
-        },
-        {
-          "file": "apps/school/src/app/view/auth.guard.ts",
-          "hash": "8072213748985110838",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/router",
-            "npm:@data/auth/auth.service",
-            "npm:@data/navigation/navigation.service"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/change-password/change-password.component.html",
-          "hash": "14631196870182800784"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/change-password/change-password.component.scss",
-          "hash": "1756842025708722245"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/change-password/change-password.component.ts",
-          "hash": "1480198616699291907",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/forms",
-            "npm:@angular/router",
-            "npm:@data/auth/auth.service",
-            "npm:@data/loading-overlay.service",
-            "npm:@data/navigation/navigation.service",
-            "npm:@utils/validators"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/home/home.component.html",
-          "hash": "7793690112166720899"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/home/home.component.ts",
-          "hash": "8032419252167414499",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/router",
-            "npm:@data/auth/auth.service",
-            "npm:@data/navigation/navigation.service",
-            "npm:@domain/user/user",
-            "npm:@environments/environment",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/home/home.scss",
-          "hash": "17434426935871160943"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.html",
-          "hash": "7793298505444272933"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.scss",
-          "hash": "15018090369669596983"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.ts",
-          "hash": "7921977763317361035",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/router"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.html",
-          "hash": "1460416493935627900"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.scss",
-          "hash": "1756842025708722245"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.ts",
-          "hash": "8835084036223745875",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/forms",
-            "npm:@angular/router",
-            "npm:@data/auth/account.service",
-            "npm:@data/navigation/navigation.service",
-            "npm:@utils/validators"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.html",
-          "hash": "15439916917414423499"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.scss",
-          "hash": "1756842025708722245"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.ts",
-          "hash": "13851003818582471961",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/forms",
-            "npm:@angular/router",
-            "npm:@data/auth/auth.service",
-            "npm:@data/auth/credential",
-            "npm:@data/loading-overlay.service",
-            "npm:@data/navigation/navigation.service",
-            "npm:@domain/user/user",
-            "npm:@environments/environment",
-            "npm:@utils/form",
-            "npm:lottie-web"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.html",
-          "hash": "2249967624438643176"
-        },
-        {
-          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.ts",
-          "hash": "9853869178676276495",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/router",
-            "npm:@data/auth/auth.service",
-            "npm:@data/navigation/navigation.service",
-            "npm:@view/routes"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/routes.ts",
-          "hash": "1340499722310856135",
-          "deps": [
-            "npm:@angular/router",
-            "npm:@view/pages/home/home.component",
-            "npm:@view/pages/page-not-found/page-not-found.component",
-            "npm:@view/pages/sign-in/sign-in.component",
-            "npm:@view/pages/sign-out/sign-out.component"
-          ]
-        },
-        {
-          "file": "apps/school/src/app/view/share-components/loading/loading.component.html",
-          "hash": "12046889954303116947"
-        },
-        {
-          "file": "apps/school/src/app/view/share-components/loading/loading.component.scss",
-          "hash": "14442713883387947837"
-        },
-        {
-          "file": "apps/school/src/app/view/share-components/loading/loading.component.ts",
-          "hash": "1643909093014035705",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:ngx-lottie"
-          ]
-        },
-        {
-          "file": "apps/school/src/assets/Hover_Account.svg",
-          "hash": "5166385231267846887"
-        },
-        {
-          "file": "apps/school/src/assets/Hover_Changepassword.svg",
-          "hash": "14974334719087493380"
-        },
-        {
-          "file": "apps/school/src/assets/Hover_Logout.svg",
-          "hash": "2432411027545663108"
-        },
-        {
-          "file": "apps/school/src/assets/Normal_Account.svg",
-          "hash": "15754727075192261045"
-        },
-        {
-          "file": "apps/school/src/assets/Normal_Changepassword.svg",
-          "hash": "8319824256916511203"
-        },
-        {
-          "file": "apps/school/src/assets/Normal_Logout.svg",
-          "hash": "2764263211580389330"
-        },
-        {
-          "file": "apps/school/src/assets/Press_Account.svg",
-          "hash": "5506857337602246133"
-        },
-        {
-          "file": "apps/school/src/assets/Press_Changepassword.svg",
-          "hash": "11307554880491115432"
-        },
-        {
-          "file": "apps/school/src/assets/Press_Logout.svg",
-          "hash": "9527024621818467476"
-        },
-        {
-          "file": "apps/school/src/environments/environment.dev.ts",
-          "hash": "12562317408842544589"
-        },
-        {
-          "file": "apps/school/src/environments/environment.prod.ts",
-          "hash": "13718870850976329430"
-        },
-        {
-          "file": "apps/school/src/environments/environment.stg.ts",
-          "hash": "7259355050988513457"
-        },
-        {
-          "file": "apps/school/src/environments/environment.ts",
-          "hash": "4138901819123771674"
-        },
-        {
-          "file": "apps/school/src/environments/test/index.html",
-          "hash": "16810350635375041154"
-        },
-        {
-          "file": "apps/school/src/favicon.ico",
-          "hash": "9253520916759600454"
-        },
-        {
-          "file": "apps/school/src/index.html",
-          "hash": "5935399563515811234"
-        },
-        {
-          "file": "apps/school/src/main.ts",
-          "hash": "16493586298789790879",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/platform-browser",
-            "npm:@angular/router",
-            "npm:@view/routes",
-            "npm:ngx-lottie",
-            [
-              "npm:lottie-web",
-              "dynamic"
-            ]
-          ]
-        },
-        {
-          "file": "apps/school/src/styles.scss",
-          "hash": "15867174609383825323"
-        },
-        {
-          "file": "apps/school/src/test-setup.ts",
-          "hash": "9531801021999427605",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
-        },
-        {
-          "file": "apps/school/tailwind.config.js",
-          "hash": "16919248134580128103",
-          "deps": [
-            "npm:@nrwl/angular",
-            "npm:path",
-            "theme"
-          ]
-        },
-        {
-          "file": "apps/school/tsconfig.app.json",
-          "hash": "15840844869456775012"
-        },
-        {
-          "file": "apps/school/tsconfig.editor.json",
-          "hash": "6816855480324741077"
-        },
-        {
-          "file": "apps/school/tsconfig.json",
-          "hash": "6772184852812055494"
-        },
-        {
-          "file": "apps/school/tsconfig.spec.json",
-          "hash": "2930041746242100632"
-        }
-      ],
-      "share-pipes": [
-        {
-          "file": "libs/share-pipes/.eslintrc.json",
-          "hash": "18438953372842940952"
-        },
-        {
-          "file": "libs/share-pipes/README.md",
-          "hash": "8784531667004785439"
-        },
-        {
-          "file": "libs/share-pipes/jest.config.ts",
-          "hash": "8297550951525669272"
-        },
-        {
-          "file": "libs/share-pipes/project.json",
-          "hash": "6093026081191172197"
-        },
-        {
-          "file": "libs/share-pipes/src/index.ts",
-          "hash": "14923294013854330930"
-        },
-        {
-          "file": "libs/share-pipes/src/lib/filter.pipe.ts",
-          "hash": "3991506956677360329",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/lib/keys.pipe.ts",
-          "hash": "6465499698529223814",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/lib/order-by-sa.pipe.ts",
-          "hash": "8469642590270596989",
-          "deps": [
-            "npm:@angular/core",
-            "npm:lodash-es"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/lib/order-by.pipe.ts",
-          "hash": "4231036972658912608",
-          "deps": [
-            "npm:@angular/core",
-            "npm:lodash-es"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/lib/safe-html.pipe.ts",
-          "hash": "2868595069574503857",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/platform-browser"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/lib/share-pipes.module.ts",
-          "hash": "9730318759799539537",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/src/test-setup.ts",
-          "hash": "17711435995618823417",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
-        },
-        {
-          "file": "libs/share-pipes/tsconfig.json",
-          "hash": "7184861466157324158"
-        },
-        {
-          "file": "libs/share-pipes/tsconfig.lib.json",
-          "hash": "932420496979247157"
-        },
-        {
-          "file": "libs/share-pipes/tsconfig.spec.json",
-          "hash": "2930041746242100632"
-        }
-      ],
       "student": [
         {
           "file": "apps/student/.eslintrc.json",
@@ -813,7 +186,7 @@
         },
         {
           "file": "apps/student/project.json",
-          "hash": "14925692878497643581"
+          "hash": "15081129343387616936"
         },
         {
           "file": "apps/student/src/Terms and Conditions.pdf",
@@ -1052,6 +425,20 @@
             "npm:@angular/router",
             "npm:rxjs"
           ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/event/event.service.ts",
+          "hash": "10696035793535245079",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@infrastructure/auth/interceptor",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/infrastructure/event/sample/math.json",
+          "hash": "13228167461299803667"
         },
         {
           "file": "apps/student/src/app/infrastructure/flashcard/flashcard.service.ts",
@@ -1574,6 +961,28 @@
             "npm:@infrastructure/auth/account.service",
             "npm:@infrastructure/navigation/navigation.service",
             "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/event/event.component.html",
+          "hash": "109841061332892065"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/event/event.component.scss",
+          "hash": "2473204797594681034"
+        },
+        {
+          "file": "apps/student/src/app/presentation/pages/event/event.component.ts",
+          "hash": "4843899114547160650",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/material",
+            "npm:@angular/router",
+            "npm:@infrastructure/event/event.service",
+            "npm:@share-components",
+            "npm:@share-utils/data"
           ]
         },
         {
@@ -2175,7 +1584,7 @@
         },
         {
           "file": "apps/student/src/app/presentation/routes.ts",
-          "hash": "1433269109532665498",
+          "hash": "14157291577554295808",
           "deps": [
             "npm:@angular/router"
           ]
@@ -2906,11 +2315,11 @@
         },
         {
           "file": "apps/student/src/environments/environment.dev.ts",
-          "hash": "11313055278151131682"
+          "hash": "4326717593732126274"
         },
         {
           "file": "apps/student/src/environments/environment.prod.ts",
-          "hash": "13655058161242546570"
+          "hash": "7837237203576417028"
         },
         {
           "file": "apps/student/src/environments/environment.stg.ts",
@@ -2918,7 +2327,7 @@
         },
         {
           "file": "apps/student/src/environments/environment.ts",
-          "hash": "18165086767906833669"
+          "hash": "74939238985706220"
         },
         {
           "file": "apps/student/src/environments/test/index.html",
@@ -2990,163 +2399,6 @@
         {
           "file": "apps/student/tsconfig.spec.json",
           "hash": "8658740348867974260"
-        }
-      ],
-      "share-components": [
-        {
-          "file": "libs/share-components/.eslintrc.json",
-          "hash": "18438953372842940952"
-        },
-        {
-          "file": "libs/share-components/README.md",
-          "hash": "12949429207658349889"
-        },
-        {
-          "file": "libs/share-components/jest.config.ts",
-          "hash": "6637112658590015552"
-        },
-        {
-          "file": "libs/share-components/project.json",
-          "hash": "14188121583609173109"
-        },
-        {
-          "file": "libs/share-components/src/index.ts",
-          "hash": "13560671152539796143"
-        },
-        {
-          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.html",
-          "hash": "6285847060092938242"
-        },
-        {
-          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.ts",
-          "hash": "11548505119311313233",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "share-pipes",
-            "npm:@share-utils/data",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/input-radio/input-radio.component.html",
-          "hash": "18169836216023121381"
-        },
-        {
-          "file": "libs/share-components/src/lib/input-radio/input-radio.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/share-components/src/lib/input-radio/input-radio.component.ts",
-          "hash": "2993528410404016467",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "share-pipes"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/question/question.component.html",
-          "hash": "3299807982008995708"
-        },
-        {
-          "file": "libs/share-components/src/lib/question/question.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/share-components/src/lib/question/question.component.ts",
-          "hash": "8722968494068799330",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@angular/forms",
-            "share-pipes",
-            "npm:@share-utils/data"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.html",
-          "hash": "13195994604932727371"
-        },
-        {
-          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.scss",
-          "hash": "5023991446340137214"
-        },
-        {
-          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.ts",
-          "hash": "2374992891009516540",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:@share-utils/data"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/test-content/test-content.component.html",
-          "hash": "16275687259549749962"
-        },
-        {
-          "file": "libs/share-components/src/lib/test-content/test-content.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/share-components/src/lib/test-content/test-content.component.ts",
-          "hash": "2463782873766454812",
-          "deps": [
-            "npm:@angular/core",
-            "npm:@angular/common",
-            "npm:@angular/forms",
-            "share-pipes",
-            "npm:@share-utils/data",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/test-review/test-review.component.html",
-          "hash": "2210498459186113533"
-        },
-        {
-          "file": "libs/share-components/src/lib/test-review/test-review.component.scss",
-          "hash": "3244421341483603138"
-        },
-        {
-          "file": "libs/share-components/src/lib/test-review/test-review.component.ts",
-          "hash": "4305912442038421148",
-          "deps": [
-            "npm:@angular/core"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/lib/tutorial/tutorial.component.ts",
-          "hash": "3494285744415710337",
-          "deps": [
-            "npm:@angular/common",
-            "npm:@angular/core",
-            "npm:rxjs"
-          ]
-        },
-        {
-          "file": "libs/share-components/src/test-setup.ts",
-          "hash": "9531801021999427605",
-          "deps": [
-            "npm:jest-preset-angular"
-          ]
-        },
-        {
-          "file": "libs/share-components/tsconfig.json",
-          "hash": "6011498483751565338"
-        },
-        {
-          "file": "libs/share-components/tsconfig.lib.json",
-          "hash": "15179555523254803523"
-        },
-        {
-          "file": "libs/share-components/tsconfig.spec.json",
-          "hash": "2930041746242100632"
         }
       ],
       "share-utils": [
@@ -3439,6 +2691,10 @@
           "hash": "11533976505401215143"
         },
         {
+          "file": "libs/theme/src/assets/images/logo-horizontal-light.svg",
+          "hash": "3478390114476170274"
+        },
+        {
           "file": "libs/theme/src/assets/images/logo-horizontal-light.webp",
           "hash": "14822553383878492574"
         },
@@ -3560,6 +2816,205 @@
         {
           "file": "libs/theme/tsconfig.spec.json",
           "hash": "2628739785099261941"
+        }
+      ],
+      "share-components": [
+        {
+          "file": "libs/share-components/.eslintrc.json",
+          "hash": "18438953372842940952"
+        },
+        {
+          "file": "libs/share-components/README.md",
+          "hash": "12949429207658349889"
+        },
+        {
+          "file": "libs/share-components/jest.config.ts",
+          "hash": "6637112658590015552"
+        },
+        {
+          "file": "libs/share-components/project.json",
+          "hash": "14188121583609173109"
+        },
+        {
+          "file": "libs/share-components/src/index.ts",
+          "hash": "13560671152539796143"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.html",
+          "hash": "6285847060092938242"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/exercise-content/exercise-content.component.ts",
+          "hash": "11548505119311313233",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.html",
+          "hash": "18169836216023121381"
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/input-radio/input-radio.component.ts",
+          "hash": "2993528410404016467",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "share-pipes"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.html",
+          "hash": "3299807982008995708"
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/question/question.component.ts",
+          "hash": "8722968494068799330",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "share-pipes",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.html",
+          "hash": "13195994604932727371"
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.scss",
+          "hash": "5023991446340137214"
+        },
+        {
+          "file": "libs/share-components/src/lib/questions-progress/questions-progress.component.ts",
+          "hash": "2374992891009516540",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@share-utils/data"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.html",
+          "hash": "16275687259549749962"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-content/test-content.component.ts",
+          "hash": "7412387021827532225",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/common",
+            "npm:@angular/forms",
+            "share-pipes",
+            "npm:@share-utils/data",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.html",
+          "hash": "2210498459186113533"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "libs/share-components/src/lib/test-review/test-review.component.ts",
+          "hash": "4305912442038421148",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/lib/tutorial/tutorial.component.ts",
+          "hash": "3494285744415710337",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-components/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/share-components/tsconfig.json",
+          "hash": "6011498483751565338"
+        },
+        {
+          "file": "libs/share-components/tsconfig.lib.json",
+          "hash": "15179555523254803523"
+        },
+        {
+          "file": "libs/share-components/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "waiting-list-e2e": [
+        {
+          "file": "apps/waiting-list-e2e/.eslintrc.json",
+          "hash": "10799368048025705622"
+        },
+        {
+          "file": "apps/waiting-list-e2e/cypress.config.ts",
+          "hash": "6107480834571264320",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/waiting-list-e2e/project.json",
+          "hash": "10464082750177298731"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/e2e/app.cy.ts",
+          "hash": "15727366675373548255"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/waiting-list-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/waiting-list-e2e/tsconfig.json",
+          "hash": "7806042412912104422"
         }
       ],
       "waiting-list": [
@@ -4001,46 +3456,631 @@
           "hash": "17895811381584592291"
         }
       ],
-      "waiting-list-e2e": [
+      "school": [
         {
-          "file": "apps/waiting-list-e2e/.eslintrc.json",
+          "file": "apps/school/.eslintrc.json",
+          "hash": "2030231722431049616"
+        },
+        {
+          "file": "apps/school/jest.config.ts",
+          "hash": "13681778503986113784"
+        },
+        {
+          "file": "apps/school/project.json",
+          "hash": "54551970997965146"
+        },
+        {
+          "file": "apps/school/src/app/app.component.html",
+          "hash": "17385897758380840601"
+        },
+        {
+          "file": "apps/school/src/app/app.component.scss",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/school/src/app/app.component.ts",
+          "hash": "8992048811904475393",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/account.service.ts",
+          "hash": "15744790065096606688",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/auth.service.ts",
+          "hash": "12726240125853872297",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@domain/auth/i-auth-service",
+            "npm:@domain/user/user",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/credential.ts",
+          "hash": "13698208136136412732",
+          "deps": [
+            "npm:@domain/auth/i-auth-service"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/auth/interceptor.ts",
+          "hash": "1956054274467172322",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@view/routes",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/helper/helper.ts",
+          "hash": "15758528964869492387",
+          "deps": [
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/loading-overlay.service.ts",
+          "hash": "1144837862619560464",
+          "deps": [
+            "npm:@angular/cdk",
+            "npm:@angular/core",
+            "npm:@view/share-components/loading/loading.component"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/data/navigation/navigation.service.ts",
+          "hash": "14906299338139032715",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@view/routes"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/domain/auth/i-auth-service.ts",
+          "hash": "17130348519475788224"
+        },
+        {
+          "file": "apps/school/src/app/domain/navigation/i-redirect.ts",
+          "hash": "5030840390884524381"
+        },
+        {
+          "file": "apps/school/src/app/domain/user/i_user.ts",
+          "hash": "16593596897514405725"
+        },
+        {
+          "file": "apps/school/src/app/domain/user/user.ts",
+          "hash": "12380729765846994544"
+        },
+        {
+          "file": "apps/school/src/app/view/auth.guard.ts",
+          "hash": "8072213748985110838",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.html",
+          "hash": "14631196870182800784"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/change-password/change-password.component.ts",
+          "hash": "1480198616699291907",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/loading-overlay.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.component.html",
+          "hash": "7793690112166720899"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.component.ts",
+          "hash": "8032419252167414499",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@domain/user/user",
+            "npm:@environments/environment",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/home/home.scss",
+          "hash": "17434426935871160943"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.html",
+          "hash": "7793298505444272933"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.scss",
+          "hash": "15018090369669596983"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/page-not-found/page-not-found.component.ts",
+          "hash": "7921977763317361035",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.html",
+          "hash": "1460416493935627900"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/reset-password/reset-password.component.ts",
+          "hash": "8835084036223745875",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/account.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@utils/validators"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.html",
+          "hash": "15439916917414423499"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.scss",
+          "hash": "1756842025708722245"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-in/sign-in.component.ts",
+          "hash": "13851003818582471961",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/forms",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/auth/credential",
+            "npm:@data/loading-overlay.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@domain/user/user",
+            "npm:@environments/environment",
+            "npm:@utils/form",
+            "npm:lottie-web"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.html",
+          "hash": "2249967624438643176"
+        },
+        {
+          "file": "apps/school/src/app/view/pages/sign-out/sign-out.component.ts",
+          "hash": "9853869178676276495",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/router",
+            "npm:@data/auth/auth.service",
+            "npm:@data/navigation/navigation.service",
+            "npm:@view/routes"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/routes.ts",
+          "hash": "1340499722310856135",
+          "deps": [
+            "npm:@angular/router",
+            "npm:@view/pages/home/home.component",
+            "npm:@view/pages/page-not-found/page-not-found.component",
+            "npm:@view/pages/sign-in/sign-in.component",
+            "npm:@view/pages/sign-out/sign-out.component"
+          ]
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.html",
+          "hash": "12046889954303116947"
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.scss",
+          "hash": "14442713883387947837"
+        },
+        {
+          "file": "apps/school/src/app/view/share-components/loading/loading.component.ts",
+          "hash": "1643909093014035705",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:ngx-lottie"
+          ]
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Account.svg",
+          "hash": "5166385231267846887"
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Changepassword.svg",
+          "hash": "14974334719087493380"
+        },
+        {
+          "file": "apps/school/src/assets/Hover_Logout.svg",
+          "hash": "2432411027545663108"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Account.svg",
+          "hash": "15754727075192261045"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Changepassword.svg",
+          "hash": "8319824256916511203"
+        },
+        {
+          "file": "apps/school/src/assets/Normal_Logout.svg",
+          "hash": "2764263211580389330"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Account.svg",
+          "hash": "5506857337602246133"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Changepassword.svg",
+          "hash": "11307554880491115432"
+        },
+        {
+          "file": "apps/school/src/assets/Press_Logout.svg",
+          "hash": "9527024621818467476"
+        },
+        {
+          "file": "apps/school/src/environments/environment.dev.ts",
+          "hash": "12562317408842544589"
+        },
+        {
+          "file": "apps/school/src/environments/environment.prod.ts",
+          "hash": "13718870850976329430"
+        },
+        {
+          "file": "apps/school/src/environments/environment.stg.ts",
+          "hash": "7259355050988513457"
+        },
+        {
+          "file": "apps/school/src/environments/environment.ts",
+          "hash": "4138901819123771674"
+        },
+        {
+          "file": "apps/school/src/environments/test/index.html",
+          "hash": "16810350635375041154"
+        },
+        {
+          "file": "apps/school/src/favicon.ico",
+          "hash": "9253520916759600454"
+        },
+        {
+          "file": "apps/school/src/index.html",
+          "hash": "5935399563515811234"
+        },
+        {
+          "file": "apps/school/src/main.ts",
+          "hash": "16493586298789790879",
+          "deps": [
+            "npm:@angular/common",
+            "npm:@angular/core",
+            "npm:@angular/platform-browser",
+            "npm:@angular/router",
+            "npm:@view/routes",
+            "npm:ngx-lottie",
+            [
+              "npm:lottie-web",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "apps/school/src/styles.scss",
+          "hash": "15867174609383825323"
+        },
+        {
+          "file": "apps/school/src/test-setup.ts",
+          "hash": "9531801021999427605",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "apps/school/tailwind.config.js",
+          "hash": "16919248134580128103",
+          "deps": [
+            "npm:@nrwl/angular",
+            "npm:path",
+            "theme"
+          ]
+        },
+        {
+          "file": "apps/school/tsconfig.app.json",
+          "hash": "15840844869456775012"
+        },
+        {
+          "file": "apps/school/tsconfig.editor.json",
+          "hash": "6816855480324741077"
+        },
+        {
+          "file": "apps/school/tsconfig.json",
+          "hash": "6772184852812055494"
+        },
+        {
+          "file": "apps/school/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "school-e2e": [
+        {
+          "file": "apps/school-e2e/.eslintrc.json",
           "hash": "10799368048025705622"
         },
         {
-          "file": "apps/waiting-list-e2e/cypress.config.ts",
-          "hash": "6107480834571264320",
+          "file": "apps/school-e2e/cypress.config.ts",
+          "hash": "17447205901168940119",
           "deps": [
             "npm:cypress",
             "npm:@nrwl/cypress"
           ]
         },
         {
-          "file": "apps/waiting-list-e2e/project.json",
-          "hash": "10464082750177298731"
+          "file": "apps/school-e2e/project.json",
+          "hash": "17811067710151160777"
         },
         {
-          "file": "apps/waiting-list-e2e/src/e2e/app.cy.ts",
-          "hash": "15727366675373548255"
+          "file": "apps/school-e2e/src/e2e/app.cy.ts",
+          "hash": "1185528459522101832"
         },
         {
-          "file": "apps/waiting-list-e2e/src/fixtures/example.json",
+          "file": "apps/school-e2e/src/fixtures/example.json",
           "hash": "17341819486505642070"
         },
         {
-          "file": "apps/waiting-list-e2e/src/support/app.po.ts",
+          "file": "apps/school-e2e/src/support/app.po.ts",
           "hash": "5364106453863571025"
         },
         {
-          "file": "apps/waiting-list-e2e/src/support/commands.ts",
+          "file": "apps/school-e2e/src/support/commands.ts",
           "hash": "11031723810997510506"
         },
         {
-          "file": "apps/waiting-list-e2e/src/support/e2e.ts",
+          "file": "apps/school-e2e/src/support/e2e.ts",
           "hash": "15928825062325902088"
         },
         {
-          "file": "apps/waiting-list-e2e/tsconfig.json",
+          "file": "apps/school-e2e/tsconfig.json",
           "hash": "7806042412912104422"
+        }
+      ],
+      "share-pipes": [
+        {
+          "file": "libs/share-pipes/.eslintrc.json",
+          "hash": "18438953372842940952"
+        },
+        {
+          "file": "libs/share-pipes/README.md",
+          "hash": "8784531667004785439"
+        },
+        {
+          "file": "libs/share-pipes/jest.config.ts",
+          "hash": "8297550951525669272"
+        },
+        {
+          "file": "libs/share-pipes/project.json",
+          "hash": "6093026081191172197"
+        },
+        {
+          "file": "libs/share-pipes/src/index.ts",
+          "hash": "14923294013854330930"
+        },
+        {
+          "file": "libs/share-pipes/src/lib/filter.pipe.ts",
+          "hash": "3991506956677360329",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/keys.pipe.ts",
+          "hash": "6465499698529223814",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/order-by-sa.pipe.ts",
+          "hash": "8469642590270596989",
+          "deps": [
+            "npm:@angular/core",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/order-by.pipe.ts",
+          "hash": "4231036972658912608",
+          "deps": [
+            "npm:@angular/core",
+            "npm:lodash-es"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/safe-html.pipe.ts",
+          "hash": "2868595069574503857",
+          "deps": [
+            "npm:@angular/core",
+            "npm:@angular/platform-browser"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/lib/share-pipes.module.ts",
+          "hash": "9730318759799539537",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/src/test-setup.ts",
+          "hash": "17711435995618823417",
+          "deps": [
+            "npm:jest-preset-angular"
+          ]
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.json",
+          "hash": "7184861466157324158"
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.lib.json",
+          "hash": "932420496979247157"
+        },
+        {
+          "file": "libs/share-pipes/tsconfig.spec.json",
+          "hash": "2930041746242100632"
+        }
+      ],
+      "student-e2e": [
+        {
+          "file": "apps/student-e2e/.eslintrc.json",
+          "hash": "5570788962263802893"
+        },
+        {
+          "file": "apps/student-e2e/cypress.config.ts",
+          "hash": "9120683589182082657",
+          "deps": [
+            "npm:cypress",
+            "npm:@nrwl/cypress"
+          ]
+        },
+        {
+          "file": "apps/student-e2e/project.json",
+          "hash": "4268381717870790974"
+        },
+        {
+          "file": "apps/student-e2e/src/e2e/app.cy.ts",
+          "hash": "17232868035150587057"
+        },
+        {
+          "file": "apps/student-e2e/src/fixtures/example.json",
+          "hash": "17341819486505642070"
+        },
+        {
+          "file": "apps/student-e2e/src/support/app.po.ts",
+          "hash": "5364106453863571025"
+        },
+        {
+          "file": "apps/student-e2e/src/support/commands.ts",
+          "hash": "11031723810997510506"
+        },
+        {
+          "file": "apps/student-e2e/src/support/e2e.ts",
+          "hash": "15928825062325902088"
+        },
+        {
+          "file": "apps/student-e2e/tsconfig.json",
+          "hash": "7806042412912104422"
+        }
+      ],
+      "share-directives": [
+        {
+          "file": "libs/share-directives/.babelrc",
+          "hash": "17566616042550408716"
+        },
+        {
+          "file": "libs/share-directives/.eslintrc.json",
+          "hash": "13800677001662881425"
+        },
+        {
+          "file": "libs/share-directives/README.md",
+          "hash": "1243329062848713025"
+        },
+        {
+          "file": "libs/share-directives/jest.config.ts",
+          "hash": "7286878341539002746"
+        },
+        {
+          "file": "libs/share-directives/project.json",
+          "hash": "13013472016331240860"
+        },
+        {
+          "file": "libs/share-directives/src/index.ts",
+          "hash": "17229524078041932754"
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.directive.ts",
+          "hash": "7041561573118074233",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.service.ts",
+          "hash": "4955549333772077315",
+          "deps": [
+            "npm:@angular/core",
+            "npm:rxjs"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/before-unload.token.ts",
+          "hash": "13900329213295133401",
+          "deps": [
+            "npm:@angular/core"
+          ]
+        },
+        {
+          "file": "libs/share-directives/src/lib/before-unload/index.ts",
+          "hash": "10758210114012476718"
+        },
+        {
+          "file": "libs/share-directives/src/lib/share-directives.spec.ts",
+          "hash": "4376617015202898862"
+        },
+        {
+          "file": "libs/share-directives/src/lib/share-directives.ts",
+          "hash": "10130721307777555325"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.json",
+          "hash": "14030779328917383130"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.lib.json",
+          "hash": "13034901906147047048"
+        },
+        {
+          "file": "libs/share-directives/tsconfig.spec.json",
+          "hash": "2406015174838385060"
         }
       ]
     }

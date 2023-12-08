@@ -159,6 +159,10 @@
         "stg": {
           "buildTarget": "student:build:stg",
           "proxyConfig": "apps/student/src/proxy.conf.json"
+        },
+        "stg": {
+          "browserTarget": "student:build:stg",
+          "proxyConfig": "apps/student/src/proxy.conf.json"
         }
       },
       "defaultConfiguration": "dev"
