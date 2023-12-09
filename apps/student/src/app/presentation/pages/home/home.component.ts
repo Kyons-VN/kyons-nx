@@ -10,7 +10,7 @@ import { AppPaths } from '@presentation/routes';
 import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
 import { TutorialComponent } from '@share-components';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { Subscription, interval } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -47,8 +47,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.showTutorial = true;
         this.isLoading = false;
       } else {
-        const requestInterval = interval(5000);
-        this.interval = requestInterval.subscribe(() => this._getStudentLearningGoalsData());
+        // const requestInterval = interval(5000);
+        // this.interval = requestInterval.subscribe(() => this._getStudentLearningGoalsData());
+        this._getStudentLearningGoalsData();
       }
     });
   }
@@ -57,11 +58,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.knowledgeService.getStudentLearningGoals().subscribe({
       next: learningGoals => {
         if (
-          this.learnings.length != learningGoals.length ||
-          this.learnings[this.learnings.length - 1].completePercentage !=
-            learningGoals[learningGoals.length - 1].completePercentage
-        )
+          this.learnings.length > 0 &&
+          (this.learnings.length != learningGoals.length ||
+            this.learnings[this.learnings.length - 1].completePercentage !=
+              learningGoals[learningGoals.length - 1].completePercentage)
+        ) {
           this.learnings = learningGoals;
+        }
         this.isLoading = false;
         if (this.route.snapshot.queryParams['learning_goal_id'] !== undefined) {
           console.log('goto');
