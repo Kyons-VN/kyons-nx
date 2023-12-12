@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.knowledgeService.getStudentLearningGoals().subscribe({
       next: learningGoals => {
         if (
-          this.learnings.length > 0 &&
+          learningGoals.length > 0 &&
           (this.learnings.length != learningGoals.length ||
             this.learnings[this.learnings.length - 1].completePercentage !=
               learningGoals[learningGoals.length - 1].completePercentage)
