@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { SafeHtmlPipe } from '@share-pipes';
+import { Answer } from '@share-utils/data';
 
 @Component({
   standalone: true,
@@ -10,8 +11,9 @@ import { SafeHtmlPipe } from '@share-pipes';
   styleUrls: ['./input-radio.component.scss'],
 })
 export class InputRadioComponent {
-  @Input() name!: string;
-  @Input() value!: string;
+  // @Input() id!: string;
+  // @Input() value!: string;
+  @Input() answer!: Answer;
   @Input() label!: string;
   @Input() disabled!: boolean;
   @Input() checked!: boolean;

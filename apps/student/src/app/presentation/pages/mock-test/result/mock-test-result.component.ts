@@ -81,7 +81,7 @@ export class MockTestResultComponent implements OnInit {
         this.probabilityIndex = result;
         //
       },
-      error: e => {
+      error: () => {
         //
       },
     });
@@ -101,7 +101,7 @@ export class MockTestResultComponent implements OnInit {
           return;
         }
       },
-      error: e => {
+      error: () => {
         //
       },
     });

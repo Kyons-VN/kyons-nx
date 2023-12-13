@@ -102,7 +102,7 @@ export class MockTestTestComponent implements OnInit {
         this.testSubmission.testId = this.testContent.id;
         this.testProgress = Progress.from(0, value.questions.length);
         this.testService.getMockTestResult(this.mockTestId).subscribe({
-          next: mockTest => {
+          next: () => {
             this.counter = TEST_DURATION;
             this.counterStart = new Date();
             setInterval(() => {

@@ -6,35 +6,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
   selector: 'kyonsvn-tutorial',
   standalone: true,
   imports: [CommonModule],
-  template: `<div
-    #homeTutorialWrapper
-    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-[100]"
-    [ngStyle]="{ height: isOverlap ? 0 : undefined }"
-  >
-    <div #homeTutorial class="tooltip-wrapper absolute" style="top:50%;left:50%">
-      <div
-        #tutorialContainer
-        class="tooltip-container p-2 bg-lightBlue-1 rounded-lg text-white col gap-2 w-[225px]"
-        [ngClass]="{
-          'caret-down': tooltipPosition === 'top',
-          'caret-up': tooltipPosition === 'bottom'
-        }"
-      >
-        <span>{{ tooltipContent }}</span>
-        <div class="flex items-center justify-between">
-          <div class="flex gap-2" *ngIf="scriptElements">
-            <button (click)="pre()" [disabled]="step === 0 && back === undefined" class="btn-icon">
-              <i class="icon-ArrowLeft"></i>
-            </button>
-            <button (click)="next()" [disabled]="step === scriptEvents.length - 1" class="btn-icon">
-              <i class="icon-ArrowRight"></i>
-            </button>
-          </div>
-          <button *ngIf="forceComplete === false" (click)="skip()" replaceUrl="true">Bỏ qua</button>
-        </div>
-      </div>
-    </div>
-  </div>`,
+  templateUrl: 'tutorial.component.html',
   styles: [
     `
       .tooltip-wrapper {
@@ -71,7 +43,7 @@ export class TutorialComponent implements AfterViewInit, OnDestroy {
     this._render();
 
     this.resizeObservable$ = fromEvent(window, 'resize');
-    this.resizeSubscription$ = this.resizeObservable$.subscribe(evt => {
+    this.resizeSubscription$ = this.resizeObservable$.subscribe(() => {
       this._rearrangeElement();
     });
   }

@@ -4,10 +4,9 @@
     [style.display]="ai > 3 ? 'none' : 'block'"
     *ngFor="let answer of question.answers | orderBySA : 'order'; let ai = index"
     (change)="(onChange)"
-    [value]="answer"
+    [answer]="answer"
     [label]="answerPrefixes[ai] + answer.content"
-    [name]="'q-' + question.id + '-' + conponentId"
-    [checked]="submission.submitData[question.id] === answer"
+    [checked]="submission.submitData[question.id] === answer.id"
   ></kyonsvn-input-radio>
 </div>
 <ng-template #elseBlock class="">

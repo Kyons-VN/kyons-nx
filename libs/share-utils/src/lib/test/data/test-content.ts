@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { IMockTestItem, MockTestStatus } from '@domain/knowledge/i-mock-test';
 // // import { environment } from '@environments/environment';
 import { pick } from 'lodash-es';
@@ -243,7 +244,9 @@ export class TestReviewHtml {
   }
 
   static fromJson(dataObject: any): TestReviewHtml {
-    const data = (dataObject['data'] as any[]).map((questionObject: any) => QuestionReview.fromJson(questionObject));
+    const data = (dataObject['questions'] as any[]).map((questionObject: any) =>
+      QuestionReview.fromJson(questionObject)
+    );
     return new TestReviewHtml(data);
   }
 

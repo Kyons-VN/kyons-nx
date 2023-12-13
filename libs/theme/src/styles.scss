@@ -124,8 +124,14 @@ $student-warn: mat.define-palette($md-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
+
+$student-typography: mat.define-typography-config(
+  $font-family: 'Montserrat, sans-serif',
+);
+
 $student-theme: mat.define-light-theme(
   (
+    typography: $student-typography,
     color: (
       primary: $student-primary,
       accent: $student-accent,

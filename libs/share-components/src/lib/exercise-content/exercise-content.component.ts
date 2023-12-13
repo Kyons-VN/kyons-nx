@@ -38,7 +38,6 @@ export class ExerciseContentComponent implements OnInit, OnDestroy {
   keyEvent(e: KeyboardEvent) {
     if (!this.isActive) return;
 
-    const currentSubmitDataLength = Object.keys(this.submission.submitData).length;
     if (['1', '2', '3', '4'].includes(e.key)) {
       // this.submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
       // this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id)

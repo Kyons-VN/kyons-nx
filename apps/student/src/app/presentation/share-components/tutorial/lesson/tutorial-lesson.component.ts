@@ -94,9 +94,9 @@ export class TutorialLessonComponent implements OnInit {
     this.exercise = this.tutorialService.getExercise();
     this._initSubmission();
     this.learningGoal = this.tutorialService.getSelectedLearningGoal();
-    const answerId = this.exercise.questions[0].answers[1].id;
+    const answerId = `atutorial-${this.exercise.questions[0].answers[1].id}`;
     setTimeout(() => {
-      this.questionElm = document.getElementById(`atutorial-${answerId}`) as HTMLElement;
+      this.questionElm = document.getElementById(answerId) as HTMLElement;
       this.questionElm.setAttribute('data-tooltip-content', 'Nhấp vào đây để chọn đáp án');
       this.showTutorial = true;
       this.loading.hide();

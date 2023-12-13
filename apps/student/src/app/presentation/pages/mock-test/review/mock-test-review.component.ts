@@ -70,7 +70,7 @@ export class MockTestReviewComponent implements OnInit {
         this.isLoading = false;
         this.loading.hide();
       },
-      error: (e: any) => {
+      error: () => {
         //
       },
     });
@@ -79,7 +79,7 @@ export class MockTestReviewComponent implements OnInit {
         this.status = result.status;
         return;
       },
-      error: e => {
+      error: () => {
         //
       },
     });

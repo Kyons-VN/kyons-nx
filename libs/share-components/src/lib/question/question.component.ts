@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { Question, Submission, answerPrefixes } from '@share-utils/data';
@@ -13,7 +13,7 @@ import { TutorialComponent } from '../tutorial/tutorial.component';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss'],
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent {
   @Input() question!: Question;
   @Input() showResult = false;
   @Input() onChange!: void;
@@ -21,7 +21,7 @@ export class QuestionComponent implements OnInit {
   conponentId = '';
   @Input() submission!: Submission;
 
-  ngOnInit(): void {
-    this.conponentId = new Date().getTime().toString();
-  }
+  // ngOnInit(): void {
+  //   this.conponentId = new Date().getTime().toString();
+  // }
 }

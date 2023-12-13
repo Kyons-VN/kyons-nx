@@ -107,7 +107,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   skip() {
     window.document.body.removeAttribute('style');
     this.showTutorial = false;
-    this.router.navigate([this.paths.home.path], { replaceUrl: true });
+    this.router.navigate([this.paths.home.path]).then(() => {
+      window.location.reload();
+    });
   }
 
   script = () => {

@@ -10,10 +10,9 @@
         [style.display]="ai > 3 ? 'none' : 'block'"
         *ngFor="let answer of question.answers | orderBySA : 'order'; let ai = index"
         (change)="updateProgress(getNextProgress(qi)); updateSubmitData(question.id, answer)"
-        [value]="answer"
+        [answer]="answer"
         [label]="answerPrefixes[ai] + answer.content"
-        [name]="'q-' + question.id + '-' + conponentId"
-        [checked]="submission.submitData[question.id] === answer"
+        [checked]="submission.submitData[question.id] === answer.id"
       ></kyonsvn-input-radio>
     </div>
     <ng-template #elseBlock class="">
@@ -41,7 +40,7 @@
   </div>
   <kyonsvn-tutorial
     *ngIf="showTutorial"
-    ()="tutorialScript!.skipCallback()"
+    (skipCallback)="tutorialScript!.skipCallback()"
     [scriptElements]="scriptElements"
     [scriptEvents]="scriptEvents"
     [back]="backTutorial"

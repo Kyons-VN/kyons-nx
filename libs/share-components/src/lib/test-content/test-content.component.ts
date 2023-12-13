@@ -223,9 +223,9 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         question.answers.map(answer => {
           if (!this.tutorialScript.scripts[index]) return;
           if (this.currentIndex !== index) return;
-          if (this.tutorialScript.scripts[index].value == answer.value) {
-            // const questionElm = new ElementRef(document.getElementById(`qtutorial-${question.id}`));
-            const answerElm = new ElementRef(document.getElementById(`atutorial-${answer.id}`));
+          if (this.tutorialScript.scripts[index].value == answer.value.toString()) {
+            const answerId = `atutorial-${answer.id}`;
+            const answerElm = new ElementRef(document.getElementById(answerId));
             if (answerElm.nativeElement == null) return;
             // if (questionElm.nativeElement == null) return;
             // questionElm.nativeElement?.setAttribute('data-tooltip-content', this.tutorialScript.tooltipContent);

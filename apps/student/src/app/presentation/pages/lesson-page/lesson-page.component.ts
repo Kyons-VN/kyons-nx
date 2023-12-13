@@ -137,7 +137,7 @@ export class LessonPageComponent implements OnInit {
           this.scrollTopElm.nativeElement.scrollTop = 0;
           this.scrollTopElm.nativeElement.scrollLeft = 0;
         },
-        error: (e: any) => {
+        error: () => {
           this.isSubmitting = false;
         },
       });

@@ -51,7 +51,7 @@ export class TestService {
   skipTest(): Observable<boolean> {
     return this.http.get(`${serverApi()}/test/skip_diagnostic_test`).pipe(
       catchError(DBHelper.handleError('GET skip_diagnostic_test', Error('Server Error'))),
-      map(value => {
+      map(() => {
         return true;
       })
     );
