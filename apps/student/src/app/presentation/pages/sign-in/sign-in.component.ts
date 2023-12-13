@@ -53,6 +53,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   $interval!: Subscription;
 
   @ViewChild('emailElm') emailElm!: ElementRef;
+  @ViewChild('passwordElm') passwordElm!: ElementRef;
 
   ngOnInit(): void {
     this.signInForm.addControl('email', this.email);
