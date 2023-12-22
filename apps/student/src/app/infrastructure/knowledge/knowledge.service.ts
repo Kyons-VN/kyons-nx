@@ -106,26 +106,26 @@ export class KnowledgeService implements IKnowledgeService {
       catchError(DBHelper.handleError('GET learning_goals_list', [])),
       map((res: any) => {
         if (res.data == undefined || res.data.length === 0) return [];
-        // res = {
-        //   data: [
-        //     {
-        //       id: 100,
-        //       name: 'Kiểm tra 15 phút',
-        //       program_name: 'English 11',
-        //       complete_percentage: 100,
-        //       ordinal_number: 1,
-        //       subject_id: 1,
-        //     },
-        //     {
-        //       id: 97,
-        //       name: 'Kiểm tra 1 tiết',
-        //       program_name: 'English 12',
-        //       complete_percentage: 70,
-        //       ordinal_number: 2,
-        //       subject_id: 2,
-        //     },
-        //   ],
-        // };
+        res = {
+          data: [
+            // {
+            //   id: 100,
+            //   name: 'Kiểm tra 15 phút',
+            //   program_name: 'English 11',
+            //   complete_percentage: 100,
+            //   ordinal_number: 1,
+            //   subject_id: 1,
+            // },
+            // {
+            //   id: 97,
+            //   name: 'Kiểm tra 1 tiết',
+            //   program_name: 'English 12',
+            //   complete_percentage: 70,
+            //   ordinal_number: 2,
+            //   subject_id: 2,
+            // },
+          ],
+        };
 
         return res.data.map((item: any) => StudentLearningGoal.fromJson(item));
       })

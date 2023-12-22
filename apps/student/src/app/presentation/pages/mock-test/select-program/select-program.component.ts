@@ -67,7 +67,7 @@ export class MockTestSelectProgramComponent implements OnInit {
             this.subjects = data;
             this.isLoading = false;
           },
-          error: err => {
+          error: () => {
             this.hasError = 'Có lỗi, vui lòng thử lại';
             this.isLoading = false;
           },

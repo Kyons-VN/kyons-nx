@@ -9,7 +9,7 @@ import { SERVER_API } from './interceptor';
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 const INTEGRATE_TOKEN_KEY = 'integrate_token';
-const INTEGRATE_REFRESH_TOKEN_KEY = 'integrate_refresh_token';
+// const INTEGRATE_REFRESH_TOKEN_KEY = 'integrate_refresh_token';
 const EXPIRED_TIME = 'expired_time';
 const USER_KEY = 'user';
 
@@ -53,18 +53,18 @@ export class AuthService implements IAuthService {
   }
 
   public setToken(data: any) {
-    window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
-    window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
+    // window.localStorage.setItem(TOKEN_KEY, data[TOKEN_KEY]);
+    // window.localStorage.setItem(REFRESH_TOKEN_KEY, data[REFRESH_TOKEN_KEY]);
     window.localStorage.setItem(INTEGRATE_TOKEN_KEY, data[INTEGRATE_TOKEN_KEY]);
-    window.localStorage.setItem(INTEGRATE_REFRESH_TOKEN_KEY, data[INTEGRATE_REFRESH_TOKEN_KEY]);
+    // window.localStorage.setItem(INTEGRATE_REFRESH_TOKEN_KEY, data[INTEGRATE_REFRESH_TOKEN_KEY]);
     window.localStorage.setItem(EXPIRED_TIME, data[EXPIRED_TIME]);
   }
 
   public removeToken() {
-    window.localStorage.removeItem(TOKEN_KEY);
+    // window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(INTEGRATE_TOKEN_KEY);
-    window.localStorage.removeItem(INTEGRATE_REFRESH_TOKEN_KEY);
-    window.localStorage.removeItem(REFRESH_TOKEN_KEY);
+    // window.localStorage.removeItem(INTEGRATE_REFRESH_TOKEN_KEY);
+    // window.localStorage.removeItem(REFRESH_TOKEN_KEY);
     window.localStorage.removeItem(EXPIRED_TIME);
   }
 
@@ -100,6 +100,14 @@ export class AuthService implements IAuthService {
   }
 
   isLoggedIn() {
-    return this.getToken() != '';
+    // return this.getToken() != '';
+    return this.getExpiredTime() > new Date().getTime();
+  }
+  getExpiredTime() {
+    const expiredTimeStr = window.localStorage.getItem(EXPIRED_TIME) ?? '';
+    const expiredTime = new Date(expiredTimeStr);
+    if (isNaN(expiredTime.getTime())) return 0;
+
+    return expiredTime.getTime();
   }
 }
