@@ -78,7 +78,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
   subscription!: Subscription;
   showTutorialWithDelay = false;
   showGoTo = false;
-  goTo = 0;
+  goTo: null | number = 0;
 
   @Input() showTutorial = false;
   @Input() tutorialScript!: QuestionTutorialScript;
@@ -111,7 +111,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(e: KeyboardEvent) {
-    if (!this.isActive) return;
+    if (!this.isActive || this.showGoTo) return;
 
     const question = this.content.questions[this.currentIndex];
     const answers = question.answers;
@@ -142,7 +142,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         if (this.currentIndex > 0) {
           this.currentIndex--;
         }
-        if (this.currentIndex > Object.keys(this.submission.submitData).length - 1) return;
+        // if (this.currentIndex > Object.keys(this.submission.submitData).length - 1) return;
         // if (!this.showResult) {
         //   this.showResult = true;
         //   this.showResultEvent.emit(this.showResult);
@@ -157,10 +157,15 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         //   if (this.progress.value > this.currentIndex) {
         //     this.currentIndex++;
         //   }
+      } else {
+        if (this.currentIndex < this.content.questions.length - 1) {
+          this.currentIndex++;
+        }
+        // if (this.currentIndex > Object.keys(this.submission.submitData).length - 1) return;
       }
     }
     if (e.key == 'g') {
-      this.goTo = this.currentIndex + 1;
+      this.goTo = null;
       this.showGoTo = true;
       setTimeout(() => {
         this.goToElm.nativeElement.focus();
@@ -208,6 +213,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   goToIndex() {
+    if (this.goTo == null) return;
     this.currentIndex = this.goTo - 1;
     this.currentIndexEvent.emit(this.currentIndex);
     this.showGoTo = false;

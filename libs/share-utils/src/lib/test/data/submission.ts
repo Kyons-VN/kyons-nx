@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatDate } from '@angular/common';
 import { ISubmission } from '../../knowledge/domain/i-submission';
 import { Answer } from './test-content';

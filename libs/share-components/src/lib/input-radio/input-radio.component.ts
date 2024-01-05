@@ -12,12 +12,14 @@ import { Answer } from '@share-utils/data';
 })
 export class InputRadioComponent {
   // @Input() id!: string;
-  // @Input() value!: string;
+  @Input() name!: string;
   @Input() answer!: Answer;
   @Input() label!: string;
   @Input() disabled!: boolean;
   @Input() checked!: boolean;
   @Input() color!: string;
+
+  @Input() test!: string;
   // el: HTMLElement;
   // constructor(ref: ElementRef<HTMLElement>) {
   //   this.el = ref.nativeElement;

@@ -222,12 +222,14 @@ export class MockTestTestComponent implements OnInit {
   }
 
   scrollLeft() {
+    if (this.currentTestIndex == 0) return;
     this.currentTestIndex--;
     this._centerCurrentIndexXs();
     this._centerCurrentIndex();
   }
 
   scrollRight() {
+    if (this.currentTestIndex == this.testContent.questions.length - 1) return;
     this.currentTestIndex++;
     this._centerCurrentIndexXs();
     this._centerCurrentIndex();

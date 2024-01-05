@@ -32,7 +32,8 @@ export class AuthService implements IAuthService {
     } else {
       window.localStorage.removeItem('dev');
     }
-    return this.http.post(`${serverApi()}/auth/sign_in`, credential.toJson()).pipe(
+    const hostName = serverApi();
+    return this.http.post(`${hostName}/auth/sign_in`, credential.toJson()).pipe(
       catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
       map((data: any) => {
         if (TOKEN_KEY in data && REFRESH_TOKEN_KEY in data) {
