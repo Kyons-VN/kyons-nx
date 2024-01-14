@@ -44,7 +44,7 @@ export class AuthService implements IAuthService {
             };
           this.setToken(data);
           this.setRefreshToken(data);
-          this.userService.updateCurrentUser(data['sub'], data['email']);
+          this.userService.updateCurrentUser(data['sub']);
           this.trackingService.init();
         } else {
           data['error'] = true;

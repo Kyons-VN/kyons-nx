@@ -14,7 +14,7 @@ export const CURRENT_USER = 'current' + environment.name + 'User';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  async updateCurrentUser(uuid: string, email: string) {
+  async updateCurrentUser(uuid: string) {
     const params = new HttpParams().set('id', uuid);
     const promise = new Promise((resolve, reject) => {
       firstValueFrom(

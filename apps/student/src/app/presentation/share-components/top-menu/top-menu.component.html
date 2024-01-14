@@ -1,165 +1,32 @@
-<div *ngIf="show" class="flex h-14 text-base bg-white">
-  <ul class="flex items-center px-11 gap-12">
-    <li>
-      <a
-        class="menu-item"
-        [routerLink]="'/'"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        (isActiveChange)="(this.ngOnInit)"
-      >
-        <img src="/assets/images/Home.svg" alt="" />
-        <span>Trang chủ</span>
-      </a>
-    </li>
-    <!-- <li>
-      <a
-        [routerLink]="'/'"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}"
-        class="flex gap-3 items-center font-extrabold text-blueGrey-400"
-        (isActiveChange)="this.ngOnInit"
-        ><span class="h-8"
-          ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path
-              d="M29.8001 1.33334H4.66675V30.6667H29.8001V1.33334Z"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M25.2668 1.33334V30.6667"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M20.2668 1.33334V30.6667"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M2.66675 11.6534H6.66675"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M2.66675 4.98666H6.66675"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M2.66675 18.32H6.66675"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M2.66675 24.9867H6.66675"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-        Sổ tay</a
-      >
-    </li> -->
-    <!--
-        [routerLink]="'/make-test'"
-        routerLinkActive="active" -->
-    <!-- <li>
-      <a class="flex gap-3 items-center font-extrabold text-blueGrey-400" (isActiveChange)="this.ngOnInit"
-        ><span class="h-8"
-          ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-            <path
-              d="M16.1664 26L12.8639 26.4487L13.3167 23.2692L27.8185 9.30768L30.6683 12.0384L16.1664 26Z"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M5.51306 14.6923H16.1664"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M5.61963 19.8205H9.97419"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M24.8756 7.84614H18.2173V1.43588"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M24.8889 12.141V7.84615L18.2172 1.28204H1.33167V30.7179H24.8889V18.1795"
-              stroke="#94A3B8"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-        Bài kiểm tra thử
-      </a>
-    </li> -->
-  </ul>
-  <div class="flex-1"></div>
-  <div *ngIf="showSubmenu" class="fixed w-full h-full top-0 left-0 z-10" (click)="showSubmenu = false"></div>
-  <button #toggleButton (click)="showSubmenu = !showSubmenu" class="font-bold z-20 flex items-center">
-    Chào {{ username }}
-    <img
-      class="inline pointer-events-none transition-transform"
-      [style.transform]="showSubmenu ? 'rotateX(180deg)' : 'rotateX(0deg)'"
-      src="assets/icons/down.svg"
-    />
-  </button>
-  <ul #menu class="flex items-center p-6 gap-6">
-    <li class="flex items-center gap-5 cursor-pointer relative">
-      <ul
-        [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
-        class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
-      >
-        <li [routerLink]="paths.profile.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
-          <span class="drop-menu-item">Thông tin cá nhân</span>
-        </li>
-        <li [routerLink]="paths.account.path" routerLinkActive="text-orange" (isActiveChange)="(this.ngOnInit)">
-          <span class="drop-menu-item">Tài khoản của bạn</span>
-        </li>
-        <li class="border-t border-blueGrey-300"></li>
-        <!-- <li [routerLink]="'/knowledge'">
-          <a class="h-5 text-primaryBlue">Cây kiến thức</a>
-        </li>
-        <li class="border-t border-blueGrey-300"></li> -->
-        <li [routerLink]="paths.signOut.path">
-          <span class="drop-menu-item">Thoát</span>
-        </li>
-      </ul>
-    </li>
-    <!-- <li>
-      <div class="relative">
-        <img src="assets/icons/clarity_notification-line.svg" class="cursor-pointer" />
-        <span class="top-menu-notification"></span>
-      </div>
-    </li> -->
-  </ul>
+<div *ngIf="show" class="w-full flex h-14 text-base items-center justify-center pt-10">
+  <div class="w-full xl:max-w-[1122px] flex relative px-6 xl:p-0">
+    <a href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
+    <div class="flex-1"></div>
+    <ul class="flex items-center gap-2">
+      <li>
+        <a
+          class="menu-item"
+          [routerLink]="'/'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (isActiveChange)="(this.ngOnInit)"
+        >
+          <img src="/assets/images/Home.svg" alt="" />
+          <span>Trang chủ</span>
+        </a>
+      </li>
+      <li>
+        <a
+          class="menu-item"
+          [routerLink]="paths.account.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (isActiveChange)="(this.ngOnInit)"
+        >
+          <img src="/assets/images/Profile.svg" alt="" />
+          <span>Tài khoản</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>

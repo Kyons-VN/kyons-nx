@@ -1,8 +1,10 @@
+@import 'variables';
+
 @font-face {
-  font-family: 'Kyons-Icon-Fonts';
-  src: url('/assets/kyons_fonts/Kyons-Icon-Fonts.ttf?g06j69') format('truetype'),
-    url('/assets/kyons_fonts/Kyons-Icon-Fonts.woff?g06j69') format('woff'),
-    url('/assets/kyons_fonts/Kyons-Icon-Fonts.svg?g06j69#Kyons-Icon-Fonts') format('svg');
+  font-family: '#{$icomoon-font-family}';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?1gtl4y') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?1gtl4y') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?1gtl4y##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -11,7 +13,8 @@
 [class^='icon-'],
 [class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'Kyons-Icon-Fonts' !important;
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -21,363 +24,625 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  &::before {
-    vertical-align: middle;
-  }
-  @apply inline-flex;
 }
 
-.icon-Hanbook:before {
-  content: '\e900';
-}
-.icon-Add:before {
-  content: '\e901';
-}
-.icon-AddFriend:before {
-  content: '\e902';
-}
-.icon-AddPhoto:before {
-  content: '\e903';
-}
-.icon-Alarm:before {
-  content: '\e904';
-}
-.icon-AlignCenter:before {
-  content: '\e905';
-}
-.icon-AlignLeft:before {
-  content: '\e906';
-}
-.icon-AlignRight:before {
-  content: '\e907';
-}
-.icon-ArrowDown:before {
-  content: '\e908';
-}
-.icon-ArrowDownStop:before {
-  content: '\e909';
-}
-.icon-ArrowForward:before {
-  content: '\e90a';
-}
-.icon-ArrowLeft:before {
-  content: '\e90b';
-}
-.icon-ArrowLeftStop:before {
-  content: '\e90c';
-}
-.icon-ArrowRight:before {
-  content: '\e90d';
-}
-.icon-ArrowRightStop:before {
-  content: '\e90e';
-}
-.icon-ArrowSelector:before {
-  content: '\e90f';
-}
-.icon-ArrowUp:before {
-  content: '\e910';
-}
-.icon-ArrowUpStop:before {
-  content: '\e911';
-}
-.icon-BankTransfer:before {
-  content: '\e912';
-}
-.icon-Birthday:before {
-  content: '\e913';
-}
-.icon-Bookmark:before {
-  content: '\e914';
-}
-.icon-BookmarkAdd:before {
-  content: '\e915';
-}
-.icon-BookmarkRemove:before {
-  content: '\e916';
-}
-.icon-BulletPoint:before {
-  content: '\e917';
-}
-.icon-Calendar:before {
-  content: '\e918';
-}
-.icon-CalendarViewDay:before {
-  content: '\e919';
-}
-.icon-CalendarViewMonth:before {
-  content: '\e91a';
-}
-.icon-CalendarViewWeek:before {
-  content: '\e91b';
-}
-.icon-Call:before {
-  content: '\e91c';
-}
-.icon-CallTutor:before {
-  content: '\e91d';
-}
-.icon-Cancel:before {
-  content: '\e91e';
-}
-.icon-Card:before {
-  content: '\e91f';
-}
-.icon-Carousel:before {
-  content: '\e920';
-}
-.icon-Cash:before {
-  content: '\e921';
-}
-.icon-Chat:before {
-  content: '\e922';
-}
-.icon-Check:before {
-  content: '\e923';
-}
-.icon-Close:before {
-  content: '\e924';
-}
-.icon-Crop:before {
-  content: '\e925';
-}
-.icon-Delete:before {
-  content: '\e926';
-}
-.icon-Document:before {
-  content: '\e927';
-}
-.icon-Draw:before {
-  content: '\e928';
-}
-.icon-Duplicate:before {
-  content: '\e929';
-}
-.icon-Edit:before {
-  content: '\e92a';
-}
-.icon-EditText:before {
-  content: '\e92b';
-}
-.icon-Email:before {
-  content: '\e92c';
-}
-.icon-Eraser:before {
-  content: '\e92d';
-}
-.icon-Error:before {
-  content: '\e92e';
-}
-.icon-Facebook:before {
-  content: '\e92f';
-}
-.icon-Filter:before {
-  content: '\e930';
-}
-.icon-Folder:before {
-  content: '\e931';
-}
-.icon-FolderOpen:before {
-  content: '\e932';
-}
-.icon-Google:before {
-  content: '\e933';
-}
-.icon-Help:before {
-  content: '\e934';
-}
-.icon-HintDocument:before {
-  content: '\e935';
-}
-.icon-HintTutor:before {
-  content: '\e936';
-}
-.icon-History:before {
-  content: '\e937';
-}
-.icon-Home:before {
-  content: '\e938';
-}
-.icon-Info:before {
-  content: '\e939';
-}
-.icon-insertText:before {
-  content: '\e93a';
-}
-.icon-Inventory:before {
-  content: '\e93b';
-}
-.icon-Keyboard:before {
-  content: '\e93c';
-}
-.icon-KeyboardHide:before {
-  content: '\e93d';
-}
-.icon-Label:before {
-  content: '\e93e';
-}
-.icon-LessonContent:before {
-  content: '\e93f';
-}
-.icon-Lightbulb:before {
-  content: '\e940';
-}
-.icon-LineWeight:before {
-  content: '\e941';
-}
-.icon-Linkedin:before {
-  content: '\e942';
-}
-.icon-Location:before {
-  content: '\e943';
-}
-.icon-Lock:before {
-  content: '\e944';
-}
-.icon-Map:before {
-  content: '\e945';
-}
-.icon-MenuHamburger:before {
-  content: '\e946';
-}
-.icon-MicOff:before {
-  content: '\e947';
-}
-.icon-MicOn:before {
-  content: '\e948';
-}
-.icon-Minimize:before {
-  content: '\e949';
-}
-.icon-Momo:before {
-  content: '\e94a';
-}
-.icon-More:before {
-  content: '\e94b';
-}
-.icon-NewFolder:before {
-  content: '\e94c';
-}
-.icon-NewLabel:before {
-  content: '\e94d';
-}
-.icon-NewMeeting:before {
-  content: '\e94e';
-}
-.icon-NoteManagement:before {
-  content: '\e94f';
-}
-.icon-Notification:before {
-  content: '\e950';
-}
-.icon-OpenNew:before {
-  content: '\e951';
-}
-.icon-Paypal:before {
-  content: '\e952';
-}
-.icon-Phone:before {
-  content: '\e953';
-}
-.icon-Preview:before {
-  content: '\e954';
-}
-.icon-Profile:before {
-  content: '\e955';
-}
-.icon-ReadAll:before {
-  content: '\e956';
-}
-.icon-Redo:before {
-  content: '\e957';
-}
-.icon-Reload:before {
-  content: '\e958';
-}
-.icon-Reset:before {
-  content: '\e959';
-}
-.icon-Save:before {
-  content: '\e95a';
-}
-.icon-Screenshot:before {
-  content: '\e95b';
-}
-.icon-Search:before {
-  content: '\e95c';
-}
-.icon-Send:before {
-  content: '\e95d';
-}
-.icon-Settings:before {
-  content: '\e95e';
-}
-.icon-Share:before {
-  content: '\e95f';
-}
-.icon-Shop:before {
-  content: '\e960';
-}
-.icon-Sidebar:before {
-  content: '\e961';
-}
-.icon-SignOut:before {
-  content: '\e962';
-}
-.icon-Sort:before {
-  content: '\e963';
-}
-.icon-Submit:before {
-  content: '\e964';
-}
-.icon-Subscription:before {
-  content: '\e965';
-}
-.icon-Subtract:before {
-  content: '\e966';
-}
-.icon-Swap:before {
-  content: '\e967';
-}
-.icon-Test:before {
-  content: '\e968';
-}
-.icon-TextBold:before {
-  content: '\e969';
-}
-.icon-TextItalic:before {
-  content: '\e96a';
-}
-.icon-TextUnderlined:before {
-  content: '\e96b';
-}
-.icon-Thumbnail:before {
-  content: '\e96c';
-}
-.icon-Tiktok:before {
-  content: '\e96d';
-}
-.icon-Time:before {
-  content: '\e96e';
-}
-.icon-Undo:before {
-  content: '\e96f';
-}
-.icon-VideocamOff:before {
-  content: '\e970';
-}
-.icon-VideocamOn:before {
-  content: '\e971';
-}
-.icon-Visibility:before {
-  content: '\e972';
-}
-.icon-VisibilityOff:before {
-  content: '\e973';
-}
-.icon-Work:before {
-  content: '\e974';
-}
-.icon-ZaloPay:before {
-  content: '\e975';
+.icon-Add {
+  &:before {
+    content: $icon-Add;
+  }
+}
+.icon-AddFriend {
+  &:before {
+    content: $icon-AddFriend;
+  }
+}
+.icon-AddPhoto {
+  &:before {
+    content: $icon-AddPhoto;
+  }
+}
+.icon-Alarm {
+  &:before {
+    content: $icon-Alarm;
+  }
+}
+.icon-AlignCenter {
+  &:before {
+    content: $icon-AlignCenter;
+  }
+}
+.icon-AlignLeft {
+  &:before {
+    content: $icon-AlignLeft;
+  }
+}
+.icon-AlignRight {
+  &:before {
+    content: $icon-AlignRight;
+  }
+}
+.icon-ArrowDown {
+  &:before {
+    content: $icon-ArrowDown;
+  }
+}
+.icon-ArrowDownStop {
+  &:before {
+    content: $icon-ArrowDownStop;
+  }
+}
+.icon-ArrowForward {
+  &:before {
+    content: $icon-ArrowForward;
+  }
+}
+.icon-ArrowLeft {
+  &:before {
+    content: $icon-ArrowLeft;
+  }
+}
+.icon-ArrowLeftStop {
+  &:before {
+    content: $icon-ArrowLeftStop;
+  }
+}
+.icon-ArrowRight {
+  &:before {
+    content: $icon-ArrowRight;
+  }
+}
+.icon-ArrowRightStop {
+  &:before {
+    content: $icon-ArrowRightStop;
+  }
+}
+.icon-ArrowSelector {
+  &:before {
+    content: $icon-ArrowSelector;
+  }
+}
+.icon-ArrowUp {
+  &:before {
+    content: $icon-ArrowUp;
+  }
+}
+.icon-ArrowUpStop {
+  &:before {
+    content: $icon-ArrowUpStop;
+  }
+}
+.icon-BankTransfer {
+  &:before {
+    content: $icon-BankTransfer;
+  }
+}
+.icon-Birthday {
+  &:before {
+    content: $icon-Birthday;
+  }
+}
+.icon-Bookmark {
+  &:before {
+    content: $icon-Bookmark;
+  }
+}
+.icon-BookmarkAdd {
+  &:before {
+    content: $icon-BookmarkAdd;
+  }
+}
+.icon-BookmarkRemove {
+  &:before {
+    content: $icon-BookmarkRemove;
+  }
+}
+.icon-BulletList {
+  &:before {
+    content: $icon-BulletList;
+  }
+}
+.icon-BulletPoint {
+  &:before {
+    content: $icon-BulletPoint;
+  }
+}
+.icon-Calendar {
+  &:before {
+    content: $icon-Calendar;
+  }
+}
+.icon-CalendarViewDay {
+  &:before {
+    content: $icon-CalendarViewDay;
+  }
+}
+.icon-CalendarViewMonth {
+  &:before {
+    content: $icon-CalendarViewMonth;
+  }
+}
+.icon-CalendarViewWeek {
+  &:before {
+    content: $icon-CalendarViewWeek;
+  }
+}
+.icon-Call {
+  &:before {
+    content: $icon-Call;
+  }
+}
+.icon-CallTutor {
+  &:before {
+    content: $icon-CallTutor;
+  }
+}
+.icon-Cancel {
+  &:before {
+    content: $icon-Cancel;
+  }
+}
+.icon-Card {
+  &:before {
+    content: $icon-Card;
+  }
+}
+.icon-Carousel {
+  &:before {
+    content: $icon-Carousel;
+  }
+}
+.icon-Cash {
+  &:before {
+    content: $icon-Cash;
+  }
+}
+.icon-Chart {
+  &:before {
+    content: $icon-Chart;
+  }
+}
+.icon-Chat {
+  &:before {
+    content: $icon-Chat;
+  }
+}
+.icon-Check {
+  &:before {
+    content: $icon-Check;
+  }
+}
+.icon-Close {
+  &:before {
+    content: $icon-Close;
+  }
+}
+.icon-Crop {
+  &:before {
+    content: $icon-Crop;
+  }
+}
+.icon-Delete {
+  &:before {
+    content: $icon-Delete;
+  }
+}
+.icon-Document {
+  &:before {
+    content: $icon-Document;
+  }
+}
+.icon-Done {
+  &:before {
+    content: $icon-Done;
+  }
+}
+.icon-Draw {
+  &:before {
+    content: $icon-Draw;
+  }
+}
+.icon-Duplicate {
+  &:before {
+    content: $icon-Duplicate;
+  }
+}
+.icon-Edit {
+  &:before {
+    content: $icon-Edit;
+  }
+}
+.icon-EditText {
+  &:before {
+    content: $icon-EditText;
+  }
+}
+.icon-Education {
+  &:before {
+    content: $icon-Education;
+  }
+}
+.icon-Email {
+  &:before {
+    content: $icon-Email;
+  }
+}
+.icon-Eraser {
+  &:before {
+    content: $icon-Eraser;
+  }
+}
+.icon-Error {
+  &:before {
+    content: $icon-Error;
+  }
+}
+.icon-Facebook {
+  &:before {
+    content: $icon-Facebook;
+  }
+}
+.icon-Filter {
+  &:before {
+    content: $icon-Filter;
+  }
+}
+.icon-Folder {
+  &:before {
+    content: $icon-Folder;
+  }
+}
+.icon-FolderOpen {
+  &:before {
+    content: $icon-FolderOpen;
+  }
+}
+.icon-Google {
+  &:before {
+    content: $icon-Google;
+  }
+}
+.icon-Hanbook {
+  &:before {
+    content: $icon-Hanbook;
+  }
+}
+.icon-Hanbook-1 {
+  &:before {
+    content: $icon-Hanbook-1;
+  }
+}
+.icon-Help {
+  &:before {
+    content: $icon-Help;
+  }
+}
+.icon-HintDocument {
+  &:before {
+    content: $icon-HintDocument;
+  }
+}
+.icon-HintTutor {
+  &:before {
+    content: $icon-HintTutor;
+  }
+}
+.icon-History {
+  &:before {
+    content: $icon-History;
+  }
+}
+.icon-Home {
+  &:before {
+    content: $icon-Home;
+  }
+}
+.icon-Info {
+  &:before {
+    content: $icon-Info;
+  }
+}
+.icon-insertText {
+  &:before {
+    content: $icon-insertText;
+  }
+}
+.icon-Inventory {
+  &:before {
+    content: $icon-Inventory;
+  }
+}
+.icon-Keyboard {
+  &:before {
+    content: $icon-Keyboard;
+  }
+}
+.icon-KeyboardHide {
+  &:before {
+    content: $icon-KeyboardHide;
+  }
+}
+.icon-Label {
+  &:before {
+    content: $icon-Label;
+  }
+}
+.icon-LessonContent {
+  &:before {
+    content: $icon-LessonContent;
+  }
+}
+.icon-Lightbulb {
+  &:before {
+    content: $icon-Lightbulb;
+  }
+}
+.icon-LineWeight {
+  &:before {
+    content: $icon-LineWeight;
+  }
+}
+.icon-Link {
+  &:before {
+    content: $icon-Link;
+  }
+}
+.icon-Linkedin {
+  &:before {
+    content: $icon-Linkedin;
+  }
+}
+.icon-Location {
+  &:before {
+    content: $icon-Location;
+  }
+}
+.icon-Lock {
+  &:before {
+    content: $icon-Lock;
+  }
+}
+.icon-Map {
+  &:before {
+    content: $icon-Map;
+  }
+}
+.icon-MenuHamburger {
+  &:before {
+    content: $icon-MenuHamburger;
+  }
+}
+.icon-MicOff {
+  &:before {
+    content: $icon-MicOff;
+  }
+}
+.icon-MicOn {
+  &:before {
+    content: $icon-MicOn;
+  }
+}
+.icon-Minimize {
+  &:before {
+    content: $icon-Minimize;
+  }
+}
+.icon-Momo {
+  &:before {
+    content: $icon-Momo;
+  }
+}
+.icon-More {
+  &:before {
+    content: $icon-More;
+  }
+}
+.icon-NewFolder {
+  &:before {
+    content: $icon-NewFolder;
+  }
+}
+.icon-NewLabel {
+  &:before {
+    content: $icon-NewLabel;
+  }
+}
+.icon-NewMeeting {
+  &:before {
+    content: $icon-NewMeeting;
+  }
+}
+.icon-NoteManagement {
+  &:before {
+    content: $icon-NoteManagement;
+  }
+}
+.icon-Notification {
+  &:before {
+    content: $icon-Notification;
+  }
+}
+.icon-OpenNew {
+  &:before {
+    content: $icon-OpenNew;
+  }
+}
+.icon-Paypal {
+  &:before {
+    content: $icon-Paypal;
+  }
+}
+.icon-Phone {
+  &:before {
+    content: $icon-Phone;
+  }
+}
+.icon-Preview {
+  &:before {
+    content: $icon-Preview;
+  }
+}
+.icon-Profile {
+  &:before {
+    content: $icon-Profile;
+  }
+}
+.icon-ReadAll {
+  &:before {
+    content: $icon-ReadAll;
+  }
+}
+.icon-Redo {
+  &:before {
+    content: $icon-Redo;
+  }
+}
+.icon-Reload {
+  &:before {
+    content: $icon-Reload;
+  }
+}
+.icon-Reset {
+  &:before {
+    content: $icon-Reset;
+  }
+}
+.icon-Save {
+  &:before {
+    content: $icon-Save;
+  }
+}
+.icon-Screenshot {
+  &:before {
+    content: $icon-Screenshot;
+  }
+}
+.icon-Search {
+  &:before {
+    content: $icon-Search;
+  }
+}
+.icon-Send {
+  &:before {
+    content: $icon-Send;
+  }
+}
+.icon-Settings {
+  &:before {
+    content: $icon-Settings;
+  }
+}
+.icon-Share {
+  &:before {
+    content: $icon-Share;
+  }
+}
+.icon-Shop {
+  &:before {
+    content: $icon-Shop;
+  }
+}
+.icon-Sidebar {
+  &:before {
+    content: $icon-Sidebar;
+  }
+}
+.icon-SignOut {
+  &:before {
+    content: $icon-SignOut;
+  }
+}
+.icon-Sort {
+  &:before {
+    content: $icon-Sort;
+  }
+}
+.icon-Submit {
+  &:before {
+    content: $icon-Submit;
+  }
+}
+.icon-Subscription {
+  &:before {
+    content: $icon-Subscription;
+  }
+}
+.icon-Subtract {
+  &:before {
+    content: $icon-Subtract;
+  }
+}
+.icon-Swap {
+  &:before {
+    content: $icon-Swap;
+  }
+}
+.icon-Test {
+  &:before {
+    content: $icon-Test;
+  }
+}
+.icon-TextBold {
+  &:before {
+    content: $icon-TextBold;
+  }
+}
+.icon-TextItalic {
+  &:before {
+    content: $icon-TextItalic;
+  }
+}
+.icon-TextUnderlined {
+  &:before {
+    content: $icon-TextUnderlined;
+  }
+}
+.icon-Thumbnail {
+  &:before {
+    content: $icon-Thumbnail;
+  }
+}
+.icon-Tiktok {
+  &:before {
+    content: $icon-Tiktok;
+  }
+}
+.icon-Time {
+  &:before {
+    content: $icon-Time;
+  }
+}
+.icon-Undo {
+  &:before {
+    content: $icon-Undo;
+  }
+}
+.icon-VideocamOff {
+  &:before {
+    content: $icon-VideocamOff;
+  }
+}
+.icon-VideocamOn {
+  &:before {
+    content: $icon-VideocamOn;
+  }
+}
+.icon-Visibility {
+  &:before {
+    content: $icon-Visibility;
+  }
+}
+.icon-VisibilityOff {
+  &:before {
+    content: $icon-VisibilityOff;
+  }
+}
+.icon-Work {
+  &:before {
+    content: $icon-Work;
+  }
+}
+.icon-ZaloPay {
+  &:before {
+    content: $icon-ZaloPay;
+  }
 }

@@ -1,10 +1,9 @@
 {
   "name": "theme",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/theme/src",
-  "prefix": "lib",
-  "tags": [],
   "projectType": "library",
+  "sourceRoot": "libs/theme/src",
+  "prefix": "kyonsvn",
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -17,8 +16,9 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/theme/**/*.ts", "libs/theme/**/*.html"]
+        "lintFilePatterns": ["libs/share-utils/**/*.ts", "libs/share-utils/**/*.html"]
       }
     }
-  }
+  },
+  "tags": []
 }
