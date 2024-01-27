@@ -8,6 +8,7 @@
     "start": "nx run student:serve:dev --host=127.0.0.1",
     "start:school": "nx run school:serve:development --host=127.0.0.1",
     "start:wl": "nx run waiting-list:serve:dev --host=127.0.0.1",
+    "start:teacher": "nx run teacher:serve:development --host=127.0.0.1",
     "build": "nx build",
     "test": "nx test"
   },

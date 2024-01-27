@@ -1,5 +1,27 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@presentation/*": ["apps/teacher/src/app/presentation/*"],
+      "@infrastructure/*": ["apps/teacher/src/app/infrastructure/*"],
+      "@domain/*": ["apps/teacher/src/app/domain/*"],
+      "@utils/*": ["apps/teacher/src/app/utils/*"],
+      "@share-utils/*": ["libs/share-utils/src/lib/*"],
+      "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@share-components": ["libs/share-components/src/index.ts"],
+      "@share-pipes": ["libs/share-pipes/src/index.ts"],
+      "@environments/*": ["apps/teacher/src/environments/*"]
+    }
+  },
   "files": [],
   "include": [],
   "references": [
@@ -13,28 +35,7 @@
       "path": "./tsconfig.editor.json"
     }
   ],
-  "compilerOptions": {
-    "target": "es2022",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "paths": {
-      "@presentation/*": ["apps/student/src/app/presentation/*"],
-      "@infrastructure/*": ["apps/student/src/app/infrastructure/*"],
-      "@domain/*": ["apps/student/src/app/domain/*"],
-      "@utils/*": ["apps/student/src/app/utils/*"],
-      "@share-utils/*": ["libs/share-utils/src/lib/*"],
-      "@share-directives/*": ["libs/share-directives/src/lib/*"],
-      "@share-components": ["libs/share-components/src/index.ts"],
-      "@share-pipes": ["libs/share-pipes/src/index.ts"],
-      "@environments/*": ["apps/student/src/environments/*"]
-    }
-  },
+  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

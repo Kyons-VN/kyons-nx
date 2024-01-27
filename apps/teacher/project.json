@@ -1,0 +1,161 @@
+{
+  "name": "teacher",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "kyons-teacher",
+  "sourceRoot": "apps/teacher/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/teacher",
+        "index": "apps/teacher/src/index.html",
+        "browser": "apps/teacher/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/teacher/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/teacher/src/favicon.ico",
+          "apps/teacher/src/assets",
+          "apps/teacher/src/firebase-messaging-sw.js",
+          {
+            "glob": "**/*",
+            "input": "libs/theme/src/assets/",
+            "output": "/assets/"
+          }
+        ],
+        "styles": ["apps/teacher/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/teacher/src/environments/environment.ts",
+              "with": "apps/teacher/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "stg": {
+          "outputPath": "dist/apps/teacher/stg",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/teacher/src/environments/environment.ts",
+              "with": "apps/teacher/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/teacher/src/environments/test/index.html"
+        },
+        "demo": {
+          "outputPath": "dist/apps/teacher/content",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/teacher/src/environments/environment.ts",
+              "with": "apps/teacher/src/environments/environment.content.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/teacher/src/environments/test/index.html"
+        },
+        "dev": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "outputPath": "dist/apps/teacher/dev",
+          "fileReplacements": [
+            {
+              "replace": "apps/teacher/src/environments/environment.ts",
+              "with": "apps/teacher/src/environments/environment.dev.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/teacher/src/environments/test/index.html"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "index": "apps/teacher/src/environments/test/index.html"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "teacher:build:production"
+        },
+        "dev": {
+          "buildTarget": "teacher:build:dev",
+          "proxyConfig": "apps/teacher/src/proxy.conf.json"
+        },
+        "development": {
+          "buildTarget": "teacher:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "teacher:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/teacher/jest.config.ts"
+      }
+    }
+  }
+}
