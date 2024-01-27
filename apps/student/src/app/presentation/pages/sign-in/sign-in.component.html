@@ -22,8 +22,10 @@
               class="w-full"
               placeholder="Nhập mật khẩu"
               formControlName="password"
+              (submit)="login()"
             />
             <button
+              type="button"
               (click)="showPassword = !showPassword"
               class="absolute right-0 top-0 w-11 h-full flex items-center justify-center cursor-pointer"
             >
