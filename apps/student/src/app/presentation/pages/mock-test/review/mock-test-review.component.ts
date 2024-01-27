@@ -12,7 +12,7 @@ import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
+import { SafeHtmlPipe } from '@share-pipes';
 
 @Component({
   standalone: true,

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Progress, QuestionHtml, SubmissionHtml, answerPrefixes } from '@share-utils/data';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
+import { SafeHtmlPipe } from '@share-pipes';
 import { Subscription } from 'rxjs';
 // import {
 //   answerPrefixes,

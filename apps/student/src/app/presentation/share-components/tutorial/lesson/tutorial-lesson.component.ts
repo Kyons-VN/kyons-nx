@@ -27,7 +27,7 @@ import {
   TestResult,
   answerPrefixes,
 } from '@share-utils/data';
-import { OrderBySAPipe, SafeHtmlPipe } from 'dist/libs/share-pipes';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 
 @Component({
   standalone: true,

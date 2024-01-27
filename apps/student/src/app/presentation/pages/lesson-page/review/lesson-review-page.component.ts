@@ -12,7 +12,7 @@ import { TestService } from '@infrastructure/test/test.service';
 import { LoadingComponent } from '@presentation/share-components/loading/loading.component';
 import { QuestionReviewHtml } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
-import { SafeHtmlPipe } from 'dist/libs/share-pipes';
+import { SafeHtmlPipe } from '@share-pipes';
 
 @Component({
   standalone: true,
