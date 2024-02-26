@@ -1,0 +1,129 @@
+{
+  "name": "chatbot",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "chatbot",
+  "sourceRoot": "apps/chatbot/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/chatbot/prod",
+        "index": "apps/chatbot/src/index.html",
+        "browser": "apps/chatbot/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/chatbot/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/chatbot/src/favicon.ico",
+          "apps/chatbot/src/assets",
+          {
+            "glob": "**/*",
+            "input": "libs/theme/src/assets/",
+            "output": "/assets/"
+          },
+          {
+            "input": "apps/chatbot/flutter",
+            "glob": "**/*",
+            "output": "/flutter/"
+          }
+        ],
+        "styles": ["libs/theme/src/styles.scss", "apps/chatbot/src/styles.scss"],
+        "scripts": [
+          {
+            "input": "apps/chatbot/flutter/flutter.js",
+            "inject": true,
+            "bundleName": "flutter"
+          }
+        ],
+        "server": "apps/chatbot/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/chatbot/server.ts"
+        },
+        "allowedCommonJsDependencies": ["lottie-web"]
+      },
+      "configurations": {
+        "prod": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "stg": {
+          "outputPath": "dist/apps/chatbot/stg",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/chatbot/src/environments/environment.ts",
+              "with": "apps/chatbot/src/environments/environment.stg.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "index": "apps/chatbot/src/environments/test/index.html"
+        },
+        "dev": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/chatbot/src/environments/environment.ts",
+              "with": "apps/chatbot/src/environments/environment.dev.ts"
+            }
+          ],
+          "index": "apps/chatbot/src/environments/test/index.html"
+        }
+      },
+      "defaultConfiguration": "prod"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "prod": {
+          "buildTarget": "chatbot:build:prod"
+        },
+        "stg": {
+          "buildTarget": "chatbot:build:stg"
+        },
+        "dev": {
+          "buildTarget": "chatbot:build:dev"
+        }
+      },
+      "defaultConfiguration": "dev"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "chatbot:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}

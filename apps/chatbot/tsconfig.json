@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": false,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@view/*": ["apps/chatbot/src/view/*"],
+      "@data/*": ["apps/chatbot/src/data/*"],
+      "@domain/*": ["apps/chatbot/src/domain/*"],
+      "@utils/*": ["apps/chatbot/src/utils/*"],
+      "@share-utils/*": ["libs/share-utils/src/lib/*"],
+      "@environments/*": ["apps/chatbot/src/environments/*"],
+      "@share-directives/*": ["libs/share-directives/src/lib/*"]
+    }
+  },
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.editor.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json",
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
