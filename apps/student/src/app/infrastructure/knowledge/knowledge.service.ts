@@ -19,7 +19,7 @@ const SELECTED_CATEGORY_ID = 'selected_category_id';
 export class KnowledgeService implements IKnowledgeService {
   getLearningGoalList() {
     return this.http.get(`${serverApi()}/students/learning_goal/list`).pipe(
-      catchError(DBHelper.handleError('GET subjects_list', [])),
+      catchError(DBHelper.handleError('GET learning_goal_list', [])),
       map((collection: any) => {
         if (collection.length === 0) return [];
         return collection.map((item: any) => Subject.fromJson(item));

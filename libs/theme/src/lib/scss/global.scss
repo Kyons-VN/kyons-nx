@@ -434,3 +434,20 @@ kyonsvn-tutorial label.radio {
 .xs-hidden {
   @apply hidden sm:flex;
 }
+
+.tab-item {
+  @apply flex items-center font-bold gap-2 px-3 py-2 rounded-t-lg cursor-pointer;
+}
+
+ul.check-list {
+  @apply pl-4;
+
+  & > li {
+    @apply pl-2 mt-2;
+    line-height: 150%;
+    &::marker {
+      content: '\e924';
+      font-family: Kyons-Icon-Fonts;
+    }
+  }
+}

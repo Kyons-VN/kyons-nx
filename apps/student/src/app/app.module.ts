@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 import { DEFAULT_TIMEOUT, authInterceptorProviders } from './infrastructure/auth/interceptor';
 import { MaterialModule } from './material.module';
 import { SvgModule } from './presentation/assets/svgs/svg/svg.component';
-import { AccountPageComponent } from './presentation/pages/account-page/account-page.component';
 import { NewLessonPageComponent } from './presentation/pages/new-lesson-page/new-lesson-page.component';
 import { PackagePageComponent } from './presentation/pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './presentation/pages/page-not-found/page-not-found.component';
@@ -54,7 +53,6 @@ registerLocaleData(localeEN, 'en');
 
 @NgModule({
   declarations: [
-    AccountPageComponent,
     AppComponent,
     AppInputComponent,
     ConfirmDialogComponent,

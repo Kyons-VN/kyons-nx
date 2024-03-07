@@ -87,6 +87,9 @@ module.exports = {
         primaryBlue: '#2C3D5B',
         orange: '#FB7200',
       },
+      screens: {
+        xl: '1170px',
+      },
     },
   },
   variants: {

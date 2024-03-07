@@ -1,15 +1,23 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, HostBinding, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import Balance from '@infrastructure/order/balance';
 import Inventory from '@infrastructure/order/inventory';
 import { OrderService } from '@infrastructure/order/order.service';
 import { TransactionList } from '@infrastructure/order/transaction';
 import { AppPaths } from '@presentation/routes';
+import { AccountAndPaymentComponent } from './components/account-and-payment.component';
+import { ChangePasswordComponent } from './components/change-password.component';
+import { ProfileComponent } from './components/profile.component';
 // import { AppPaths } from '@presentation/routes';
 
 @Component({
+  standalone: true,
   templateUrl: './account-page.component.html',
   styleUrls: ['./account-page.component.scss'],
+  imports: [CommonModule, FormsModule, AccountAndPaymentComponent, ProfileComponent, ChangePasswordComponent],
 })
 export class AccountPageComponent implements OnInit {
   @HostBinding('class') class = 'w-full h-full';
@@ -25,6 +33,7 @@ export class AccountPageComponent implements OnInit {
   balance: Balance = Balance.empty();
   transactions = TransactionList.empty();
   activities = [];
+  router = inject(Router);
 
   private toTime(totalhours: number) {
     const days = Math.floor(totalhours / 24);
@@ -37,11 +46,12 @@ export class AccountPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    return;
     this.orderService.getInventories().subscribe({
       next: (inventory: Inventory) => {
         this.inventory = inventory;
       },
-      error: err => {
+      error: () => {
         // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
       },
@@ -50,7 +60,7 @@ export class AccountPageComponent implements OnInit {
       next: (balance: Balance) => {
         this.balance = balance;
       },
-      error: err => {
+      error: () => {
         // TODO: Define error resposes
         this.hasError = 'Có lỗi, vui lòng thử lại';
       },
@@ -64,7 +74,7 @@ export class AccountPageComponent implements OnInit {
         next: (res: any) => {
           this.transactions = res;
         },
-        error: err => {
+        error: () => {
           // TODO: Define error resposes
           this.hasError = 'Có lỗi, vui lòng thử lại';
         },
@@ -73,7 +83,7 @@ export class AccountPageComponent implements OnInit {
   }
 
   getActivities() {
-    this.activeTab = 2;
+    this.router.navigate([this.paths.resetPassword.path]);
   }
 
   onSelectTab(newValue: string) {

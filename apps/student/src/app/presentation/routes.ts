@@ -3,6 +3,7 @@ import { AuthGuard } from './auth.guard';
 import { LayoutDefaultComponent } from './layouts/default/layout-default.component';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { ProfileComponent } from './pages/account-page/components/profile.component';
 import { VerifyPage } from './pages/email-verification/email-verification.component';
 import { GiftComponent } from './pages/gift/gift.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -18,7 +19,6 @@ import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.com
 import { NewUserComponent } from './pages/new-user/new-user.component';
 import { PackagePageComponent } from './pages/package-page/package-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { TestComponent } from './pages/test/test.component';
 import { TutorialLessonComponent } from './share-components/tutorial/lesson/tutorial-lesson.component';
 import { TutorialTestComponent } from './share-components/tutorial/test/tutorial-test.component';

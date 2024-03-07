@@ -213,7 +213,7 @@ export class LessonService implements ILessonService {
     };
     return this.http.post<LearningPoint[]>(`${serverApi()}/students/update_learning_path`, params).pipe(
       catchError(DBHelper.handleError('GET update_learning_path')),
-      map((collection: any) => {
+      map(() => {
         return '';
       })
     );
@@ -225,7 +225,7 @@ export class LessonService implements ILessonService {
       .post<LearningPoint[]>(`${serverApi()}/students/mock_test/${mockTestId}/activate_learning_path`, {})
       .pipe(
         catchError(DBHelper.handleError('GET activate_learning_path')),
-        map((collection: any) => {
+        map(() => {
           return '';
         })
       );

@@ -19,7 +19,6 @@
       "@share-components": ["libs/share-components/src/index.ts"],
       "@environments/*": ["apps/waiting-list/src/environments/*"],
       "@theme/*": ["libs/theme/*"],
-      "@assets/*": ["libs/theme/src/lib/assets/*"]
     }
   },
   "files": [],
