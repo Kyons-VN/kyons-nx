@@ -1,0 +1,17 @@
+<div class="bg-blueGrey-100 flex items-start justify-center w-full h-screen">
+  <div class="md:w-[454px] flex flex-col items-center justify-start gap-6 py-[90px]">
+    <img src="/assets/images/Account Not Verified.svg" alt="" />
+    <div class="col bg-white rounded-lg p-6 gap-6">
+      <h4>Tài khoản của bạn chưa được xác thực</h4>
+      <span
+        >Để có thể sử dụng ứng dụng Kyons, bạn cần <strong>nhấp vào đường dẫn xác thực</strong> đã được gửi trong email
+        đăng ký của bạn.</span
+      >
+      <span>Ngoài ra, bạn có thể yêu cầu gửi lại link xác thực bằng cách bấm vào nút dưới đây</span>
+      <div class="col gap-2">
+        <button class="btn orange">Gửi lại email xác thực (30s)</button>
+        <a [routerLink]="paths.signIn.path" class="btn-rounded">Quay lại đăng nhập</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="col items-center justify-center h-full">
+  <div class="col w-[434px] bg-white rounded-lg p-6 overflow-auto gap-6 items-center">
+    <h5>Thông tin cá nhân</h5>
+    <img src="/assets/images/Avatar.svg" alt="" width="105" height="105" />
+    <form class="w-full col gap-2" [formGroup]="profileForm">
+      <input type="text" formControlName="lastName" readonly />
+      <input type="text" formControlName="firstName" readonly />
+      <input type="text" formControlName="email" readonly />
+      <input type="text" formControlName="phone" readonly />
+    </form>
+  </div>
+  <div class="h-[100px]"></div>
+</div>

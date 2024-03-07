@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@domain/user/user';
-import { serverApi } from '@infrastructure/auth/interceptor';
+import { environment } from '@environments/environment';
 import { catchError, firstValueFrom, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { serverApi } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 
 export const CURRENT_USER = 'current' + environment.name + 'User';
