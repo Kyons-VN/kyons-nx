@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
+import { AccountPageComponent } from '../app/account-page/account-page.component';
 import { ChatbotFindMeComponent } from '../app/find-me/find-me.component';
+import { ProfileComponent } from '../app/profile/profile.component';
+import { AdminAuthGuard } from './admin-auth.guard';
 import { AuthGuard } from './auth.guard';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 
@@ -11,6 +14,7 @@ import { LayoutFullComponent } from './layouts/full/layout-full.component';
 
 class AppPaths {
   home = { name: 'Trang chủ', path: '/' };
+  chat = { name: 'Chat', path: '/chat/:id' };
   signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
   signOut = { name: 'Thoát', path: '/sign-out/' };
   signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
@@ -21,6 +25,8 @@ class AppPaths {
   account = { name: '', path: '/account/' };
   package = { name: '', path: '/account/package/' };
   termsOfService = { name: '', path: '/terms-of-service' };
+  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
+  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
 }
 
 const routes: Routes = [
@@ -33,7 +39,39 @@ const routes: Routes = [
         path: '',
         component: ChatbotFindMeComponent,
       },
+      {
+        path: 'chat/:id',
+        component: ChatbotFindMeComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+      {
+        path: 'account',
+        children: [{ path: '', component: AccountPageComponent }],
+      },
     ],
+  },
+  {
+    path: 'admin',
+    component: LayoutFullComponent,
+    canActivate: [AdminAuthGuard],
+    children: [
+      {
+        path: '',
+        component: ChatbotFindMeComponent,
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('../app/admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
+      },
+    ],
+  },
+  {
+    path: 'admin/sign-in',
+    loadComponent: () => import('../app/admin/sign-in/admin-sign-in.component').then(m => m.AdminSignInComponent),
   },
   { path: 'sign-in', loadComponent: () => import('../app/sign-in/sign-in.component').then(m => m.SignInComponent) },
   {

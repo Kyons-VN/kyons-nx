@@ -1,15 +1,32 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, HostBinding, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { NavigationService } from '@data/navigation/navigation.service';
-import Balance from '@data/order/balance';
+// import Balance from '@data/order/balance';
 import Inventory from '@data/order/inventory';
 import { OrderService } from '@data/order/order.service';
 import { TransactionList } from '@data/order/transaction';
-import { AppPaths } from '@data/routes';
-// import { AppPaths } from '@data/routes';
+import { AppPaths } from '@view/routes';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
+import { AccountAndPaymentComponent } from './components/account-and-payment.component';
+import { ChangePasswordComponent } from './components/change-password.component';
+import { ProfileComponent } from './components/profile.component';
+// import { AppPaths } from '@presentation/routes';
 
 @Component({
+  standalone: true,
   templateUrl: './account-page.component.html',
   styleUrls: ['./account-page.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    AccountAndPaymentComponent,
+    ProfileComponent,
+    ChangePasswordComponent,
+    RouterModule,
+    TopMenuComponent,
+  ],
 })
 export class AccountPageComponent implements OnInit {
   @HostBinding('class') class = 'w-full h-full';
@@ -22,9 +39,10 @@ export class AccountPageComponent implements OnInit {
   activeTab = 0;
   hasError = '';
   inventory: Inventory = Inventory.empty();
-  balance: Balance = Balance.empty();
+  // balance: Balance = Balance.empty();
   transactions = TransactionList.empty();
   activities = [];
+  router = inject(Router);
 
   private toTime(totalhours: number) {
     const days = Math.floor(totalhours / 24);
@@ -37,24 +55,25 @@ export class AccountPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.orderService.getInventories().subscribe({
-      next: (inventory: Inventory) => {
-        this.inventory = inventory;
-      },
-      error: err => {
-        // TODO: Define error resposes
-        this.hasError = 'Có lỗi, vui lòng thử lại';
-      },
-    });
-    this.orderService.getBalance().subscribe({
-      next: (balance: Balance) => {
-        this.balance = balance;
-      },
-      error: err => {
-        // TODO: Define error resposes
-        this.hasError = 'Có lỗi, vui lòng thử lại';
-      },
-    });
+    return;
+    // this.orderService.getInventories().subscribe({
+    //   next: (inventory: Inventory) => {
+    //     this.inventory = inventory;
+    //   },
+    //   error: () => {
+    //     // TODO: Define error resposes
+    //     this.hasError = 'Có lỗi, vui lòng thử lại';
+    //   },
+    // });
+    // this.orderService.getBalance().subscribe({
+    //   next: (balance: Balance) => {
+    //     this.balance = balance;
+    //   },
+    //   error: () => {
+    //     // TODO: Define error resposes
+    //     this.hasError = 'Có lỗi, vui lòng thử lại';
+    //   },
+    // });
   }
 
   getTransactions() {
@@ -64,7 +83,7 @@ export class AccountPageComponent implements OnInit {
         next: (res: any) => {
           this.transactions = res;
         },
-        error: err => {
+        error: () => {
           // TODO: Define error resposes
           this.hasError = 'Có lỗi, vui lòng thử lại';
         },
@@ -73,7 +92,7 @@ export class AccountPageComponent implements OnInit {
   }
 
   getActivities() {
-    this.activeTab = 2;
+    this.router.navigate([this.paths.resetPassword.path]);
   }
 
   onSelectTab(newValue: string) {

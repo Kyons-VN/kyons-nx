@@ -47,10 +47,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     // Validators.pattern(/^[a-z0-9+]+@[a-z0-9]+\.[a-z]{2,4}$/),
   ]);
   phone: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]);
-  birthdate: FormControl = new FormControl('');
-  class: FormControl = new FormControl('');
-  school: FormControl = new FormControl('');
-  city: FormControl = new FormControl('TP Hồ Chí Minh');
+  // birthdate: FormControl = new FormControl('');
+  // class: FormControl = new FormControl('');
+  // school: FormControl = new FormControl('');
+  // city: FormControl = new FormControl('TP Hồ Chí Minh');
   password: FormControl = new FormControl('', [
     Validators.required,
     Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/),

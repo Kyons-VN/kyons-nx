@@ -15,7 +15,7 @@
       "@domain/*": ["apps/chatbot/src/domain/*"],
       "@utils/*": ["apps/chatbot/src/utils/*"],
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
-      "@environments/*": ["apps/chatbot/src/environments/*"],
+      "@environments": ["apps/chatbot/src/environments/environment"],
       "@share-directives/*": ["libs/share-directives/src/lib/*"]
     }
   },

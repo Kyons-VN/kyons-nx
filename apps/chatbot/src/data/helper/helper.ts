@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable, of } from 'rxjs';
 
 export class DBHelper {

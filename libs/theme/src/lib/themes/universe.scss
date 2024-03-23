@@ -1,0 +1,160 @@
+[data-theme='universe'] {
+  @apply text-white;
+  background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
+  .chat {
+    background: url('/assets/images/Big Planet.svg') no-repeat right 0 bottom 0,
+      url('/assets/images/chat-bg.svg') no-repeat bottom right;
+    background-size: auto, cover;
+    // @apply w-full h-screen flex flex-col sm:flex-row justify-center items-center sm:items-start relative text-center p-4 sm:px-11 sm:py-20 overflow-hidden text-white;
+  }
+  .chatbox {
+    background: rgba(0, 0, 0, 0.3);
+    @apply relative w-full max-w-[669px] flex flex-col border-teal-0;
+  }
+  .head {
+    @apply flex justify-between items-center px-4 py-3;
+    h3 {
+      @apply text-teal-0 text-xl font-bold  leading-8;
+      /* Learning block/Teal */
+      font-family: Jura;
+    }
+  }
+  .head-divider {
+    @apply border-r border-teal-0;
+  }
+  .chat-divider {
+    background: var(--Orange-Light-Orange-1, #fb923c);
+    @apply w-full h-0.5;
+  }
+  .close {
+    @apply flex items-center justify-center w-[24px] h-[24px] text-[16px];
+    border: 1px solid var(--Teal-Teal, #00c4d0);
+    background: var(--Gradient-1, linear-gradient(180deg, #06a5ff -113.35%, rgba(6, 165, 255, 0) 79.83%));
+    box-shadow: 0px 9px 22px 0px rgba(0, 196, 208, 0.7);
+  }
+  .ask {
+    @apply flex items-center;
+    input {
+      @apply w-full h-full px-10 py-5 bg-transparent text-white text-[16px] border-none focus-visible:outline-none;
+    }
+  }
+  .send {
+    @apply flex items-center justify-center w-[64px] h-[64px] text-[32px] text-[#06A5FF] bg-secondaryBlue border-secondaryBlue;
+  }
+  .body {
+    @apply flex flex-col items-end px-11 py-9 gap-20 overflow-auto;
+    height: calc(100vh - 284px);
+    .message {
+      @apply flex gap-2.5 max-w-[482px] w-full;
+      .avatar {
+        @apply w-[34px] h-[34px] rounded-full flex-shrink-0 self-end;
+      }
+      &.left {
+        @apply self-start justify-end text-left;
+        .box {
+          background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
+        }
+        .box::after {
+          @apply bg-teal-0;
+        }
+      }
+      &.right {
+        @apply self-end justify-end text-right;
+        .box {
+          background: rgba(37, 138, 194, 0.6);
+        }
+        .box::after {
+          background: rgba(37, 138, 194, 0.6);
+        }
+      }
+      &.right.selection {
+        .box {
+          @apply cursor-pointer;
+          &:hover {
+            background: #3cadeb;
+          }
+        }
+        .select {
+          @apply relative;
+        }
+        .selected {
+          &:before {
+            @apply absolute left-[-20px] top-[calc(50%_-_8px)];
+            content: '';
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+            width: 10px;
+            height: 16px;
+            background-color: #3cadeb;
+          }
+        }
+        &:hover {
+          .select:hover:before {
+            @apply absolute left-[-20px] top-[calc(50%_-_8px)];
+            content: '';
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+            width: 10px;
+            height: 16px;
+            background-color: #3cadeb;
+          }
+          .selected::before {
+            content: none;
+          }
+        }
+      }
+      .content {
+        @apply flex flex-col gap-2;
+        .box:after {
+          @apply absolute inset-0;
+          content: '';
+          clip-path: polygon(
+            0 16px,
+            16px 0,
+            100% 0,
+            100% calc(100% - 16px),
+            calc(100% - 16px) 100%,
+            0 100%,
+            0 16px,
+            1px calc(16px + 0.41px),
+            1px calc(100% - 1px),
+            calc(100% - 16px - 0.41px) calc(100% - 1px),
+            calc(100% - 1px) calc(100% - 16px - 0.41px),
+            calc(100% - 1px) 1px,
+            calc(16px + 0.41px) 1px,
+            1px calc(16px + 0.41px)
+          );
+        }
+        .box {
+          --mask: linear-gradient(-45deg, #0000 11.31px, #000 0 calc(100% - 11.31px), #0000 0);
+          -webkit-mask: var(--mask);
+          mask: var(--mask);
+          @apply relative;
+          p {
+            // background: linear-gradient(182deg, rgba(37, 138, 194, 0.2) 1.8%, rgba(44, 61, 91, 0.2) 152.06%);
+            @apply px-4 py-3 w-full;
+          }
+          svg {
+            @apply absolute top-0 left-0 w-full;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 1023px) {
+    .chat {
+      background: url('/images/chat-bg.svg') no-repeat left -66px top -57px;
+    }
+  }
+
+  a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+    @apply text-orange underline outline-offset-4;
+    &.active[routerlinkactive='active'] {
+      @apply text-white;
+      svg > path {
+        @apply stroke-white;
+      }
+    }
+    &.no-underline {
+      text-decoration: none;
+    }
+  }
+}

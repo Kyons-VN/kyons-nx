@@ -25,24 +25,19 @@
             "output": "/assets/"
           },
           {
-            "input": "apps/chatbot/flutter",
+            "input": "apps/chatbot/find-me-game",
             "glob": "**/*",
-            "output": "/flutter/"
+            "output": "/find-me-game/"
           }
         ],
         "styles": ["libs/theme/src/styles.scss", "apps/chatbot/src/styles.scss"],
         "scripts": [
           {
-            "input": "apps/chatbot/flutter/flutter.js",
+            "input": "apps/chatbot/find-me-game/flutter.js",
             "inject": true,
-            "bundleName": "flutter"
+            "bundleName": "find-me-game"
           }
         ],
-        "server": "apps/chatbot/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/chatbot/server.ts"
-        },
         "allowedCommonJsDependencies": ["lottie-web"]
       },
       "configurations": {

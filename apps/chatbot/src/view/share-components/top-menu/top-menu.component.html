@@ -1,0 +1,42 @@
+<div *ngIf="show" class="w-full flex h-14 text-base items-center justify-center relative">
+  <div class="w-full xl:max-w-[1122px] flex relative px-6 xl:p-0">
+    <a href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
+    <div class="flex-1"></div>
+    <ul class="flex items-center gap-2">
+      <li>
+        <a
+          class="menu-item"
+          [routerLink]="'/'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (isActiveChange)="(this.ngOnInit)"
+        >
+          <img src="/assets/images/Home.svg" alt="" />
+          <span>Trang chủ</span>
+        </a>
+      </li>
+      <li>
+        <a
+          class="menu-item"
+          [routerLink]="paths.account.path"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (isActiveChange)="(this.ngOnInit)"
+        >
+          <img src="/assets/images/Profile.svg" alt="" />
+          <span>Tài khoản</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="w-4"></div>
+  <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
+  <div *ngIf="showSettings" class="absolute z-20 right-0 top-full bg-white rounded-lg p-4">
+    <h5>Giao diện</h5>
+    <div class="flex gap-2">
+      <button class="btn" (click)="setTheme('default')">Mặc định</button>
+      <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
+    </div>
+  </div>
+  <div *ngIf="showSettings" class="fixed top-0 left-0 h-screen w-screen z-10" (click)="showSettings = false"></div>
+</div>

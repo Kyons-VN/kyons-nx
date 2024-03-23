@@ -1,0 +1,170 @@
+<div class="flex flex-col items-start justify-start w-full">
+  <div class="flex bg-secondaryBlue text-white rounded-t-lg">
+    <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab === 0 }" (click)="activeTab = 0">
+      <i class="icon-Work text-xl"></i> Tổng quan
+    </div>
+    <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab === 1 }" (click)="activeTab = 1">
+      <i class="icon-Subscription text-xl"></i> Gói tài khoản
+    </div>
+    <!-- <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab === 2 }" (click)="activeTab = 2">
+      <i class="icon-Shop text-xl"></i> Cửa hàng
+    </div> -->
+    <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab === 3 }" (click)="activeTab = 3">
+      <i class="icon-History text-xl"></i> Lịch sử giao dịch
+    </div>
+  </div>
+  <div class="bg-white w-full p-6 max-h-[calc(100vh_-_200px)] rounded-tr-lg rounded-b-lg overflow-y-auto ga-4">
+    @switch(activeTab){ @case(0){
+    <div class="flex flex-col gap-4">
+      <h5>Tổng quan</h5>
+      <div class="flex flex-col gap-6">
+        <div class="flex gap-8">
+          <div class="flex flex-col gap-2 md:w-[180px]">
+            <span class="h7">Gói tài khoản</span>
+            <div class="flex gap-2">
+              <img src="/assets/images/Group 1488.svg" alt="" class="w-8 h-8" />
+              <h4 class="text-lightBlue-1">Plus</h4>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 flex-1">
+            <span class="h7">Hết hạn</span>
+            <h4>20 ngày 30 giờ</h4>
+          </div>
+          <a href="">Xem quyền lợi</a>
+        </div>
+        <hr />
+        <div class="flex gap-8">
+          <div class="flex flex-col gap-2 md:w-[180px]">
+            <span class="h7">Tài nguyên của bạn</span>
+          </div>
+          <div class="flex flex-col flex-1 gap-4">
+            <div class="flex gap-3 items-start cursor-pointer">
+              <img src="/assets/images/Koins 1.svg" alt="" class="w-10 h-10" />
+              <div class="flex flex-col flex-1 gap-0.5">
+                <strong class="text-lightBlue-1">Koins: 500</strong>
+                <span class="text-xs">Dùng Koins để đổi ngay các phần quà hấp dẫn.</span>
+              </div>
+              <i class="icon-ArrowRight text-base self-center"></i>
+            </div>
+            <hr />
+            <div class="flex gap-3 items-start cursor-pointer">
+              <img src="/assets/images/Frame 2028.svg" alt="" class="w-10 h-10" />
+              <div class="flex flex-col flex-1 gap-0.5">
+                <strong class="text-lightBlue-1">Tất cả quà</strong>
+                <strong>Đang có: 10</strong>
+                <span class="text-xs">Mã giảm giá của Kyons, các nhãn hàng,... và hơn thế nữa!</span>
+              </div>
+              <i class="icon-ArrowRight text-base self-center"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    } @case(1) {
+    <div class="flex flex-col gap-4">
+      <div class="flex">
+        <h5>Gói tài khoản</h5>
+        <div class="flex-1"></div>
+        <div class="flex gap-3 items-center">
+          <i class="icon-Cash text-4xl"></i>
+          <strong>200,000đ</strong>
+          <button class="btn w-8 h-8"><i class="icon-Add"></i></button>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300">
+          <div class="flex flex-col gap-2.5 h-full">
+            <span class="h7">Gói cơ bản</span>
+            <div class="flex items-center">
+              <div class="flex gap-2 items-center">
+                <img src="/assets/images/Free 2.svg" alt="" class="w-8 h-8" />
+                <h4>Free</h4>
+              </div>
+              <div class="flex-1"></div>
+              <h4>Miễn phí</h4>
+            </div>
+            <hr />
+            <div class="flex flex-col">
+              <span class="h7">Quyền lợi</span>
+              <ul class="check-list">
+                <li><strong>01</strong> bài thi thử miễn phí mỗi tuần</li>
+                <li>Sau đó 25.000đ/bài thi thử</li>
+                <li>Lộ trình học <strong>cơ bản</strong></li>
+              </ul>
+            </div>
+            <span class="flex-1"></span>
+            <button class="btn" disabled>Đổi về gói</button>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300">
+          <div class="flex flex-col gap-2.5 h-full">
+            <span class="h7 flex items-center gap-2">
+              <span>Gói mở rộng</span>
+              <span class="bg-orange text-white rounded-full uppercase px-2 py-0.5 text-xs">Đang sử dụng</span>
+            </span>
+            <div class="flex items-center">
+              <div class="flex gap-2 items-center">
+                <img src="/assets/images/Group 1488.svg" alt="" class="w-8 h-8" />
+                <h4 class="text-lightBlue-1">Plus</h4>
+              </div>
+              <div class="flex-1"></div>
+              <h4>180.000đ<sub class="text-sm font-normal">/ 30 ngày</sub></h4>
+            </div>
+            <hr />
+            <div class="flex flex-col">
+              <span class="h7">Quyền lợi</span>
+              <ul class="check-list">
+                <li><strong>05</strong> bài thi thử miễn phí mỗi tuần</li>
+                <li>Sau đó 19.000đ/bài thi thử</li>
+                <li>Lộ trình học <strong>mở rộng</strong></li>
+                <li>
+                  Thành viên <a href="" target="_blank">Kyons Pioneer</a> giảm giá 10% tất cả các dịch vụ của Kyons trọn
+                  đời.
+                </li>
+              </ul>
+            </div>
+            <span class="flex-1"></span>
+            <button class="btn">Gia hạn</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    } @case(3) {
+    <div class="flex flex-col gap-4">
+      <h5>Lịch sử giao dịch</h5>
+      <table class="text-center border-separate border-spacing-x-6 border-spacing-y-4">
+        <tr>
+          <th class="text-left">Sản phẩm</th>
+          <th>Thời gian</th>
+          <th>Thành tiền</th>
+          <th class="text-right">Mã thanh toán</th>
+        </tr>
+        <tr>
+          <th class="text-left">[package_name]</th>
+          <td>05/12/2022 13:20</td>
+          <td>300,000VND</td>
+          <td class="text-right">
+            241010123456 <button (click)="copy('241010123456')"><i class="icon-Duplicate text-orange"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-left">[package_name]</th>
+          <td>05/12/2022 13:20</td>
+          <td>300,000VND</td>
+          <td class="text-right">
+            241010123456 <button (click)="copy('241010123456')"><i class="icon-Duplicate text-orange"></i></button>
+          </td>
+        </tr>
+        <tr>
+          <th class="text-left">[package_name]</th>
+          <td>05/12/2022 13:20</td>
+          <td>300,000VND</td>
+          <td class="text-right">
+            241010123456 <button (click)="copy('241010123456')"><i class="icon-Duplicate text-orange"></i></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    } }
+  </div>
+</div>

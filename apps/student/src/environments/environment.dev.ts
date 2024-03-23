@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
-  serverApi: 'https://student-api-dev-gcp.kyons.vn',
+  serverApi: 'https://student-api-dev.kyons.vn',
   origin: 'https://student-dev.kyons.vn',
   firebase: {
     apiKey: 'AIzaSyD1kg_RXC6PACtLW0GbHnECUtsfQd2gMt0',

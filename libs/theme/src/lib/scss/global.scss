@@ -1,11 +1,10 @@
 // Design System
 html,
 body {
-  @apply h-full m-0 p-0 text-[14px] bg-blueGrey-100 text-primaryBlue;
+  @apply h-full m-0 p-0 text-[14px];
 
   font-family: 'Montserrat', sans-serif;
 }
-
 a {
   @apply cursor-pointer;
 }
@@ -132,6 +131,28 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
     &:active {
       @apply text-orange;
       @apply border-orange;
+    }
+    &:disabled {
+      @apply bg-white text-blueGrey-300 border-blueGrey-300 #{!important};
+    }
+  }
+  &:hover {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+  }
+  &:hover:active {
+    @apply shadow-none;
+  }
+  &:disabled {
+    @apply text-blueGrey-400 border-blueGrey-200 cursor-not-allowed hover:shadow-none #{!important};
+  }
+  &.google {
+    @apply bg-[#4285F4] text-white border border-[#4285F4];
+    &:hover {
+      @apply border-[#4285F4];
+    }
+    &:active {
+      @apply text-white;
+      @apply border-[#4285F4];
     }
     &:disabled {
       @apply bg-white text-blueGrey-300 border-blueGrey-300 #{!important};

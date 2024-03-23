@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   HTTP_INTERCEPTORS,
   HttpErrorResponse,
@@ -9,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '@environments/environment';
+import { environment } from '@environments';
 import { AppPaths } from '@view/routes';
 import { Observable, catchError, lastValueFrom, of, throwError, timeout } from 'rxjs';
 import { NavigationService } from '../navigation/navigation.service';
@@ -135,4 +134,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-export const authInterceptorProviders = [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }];
+export const authInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  { provide: DEFAULT_TIMEOUT, useValue: 30000 },
+];

@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@domain/user/user';
-import { environment } from '@environments/environment';
 import { catchError, firstValueFrom, map } from 'rxjs';
 import { serverApi } from '../auth/interceptor';
 import { DBHelper } from '../helper/helper';
 
-export const CURRENT_USER = 'current' + environment.name + 'User';
+export const CURRENT_USER = 'flutter.currentUser';
 
 @Injectable({
   providedIn: 'root',
@@ -15,19 +13,20 @@ export const CURRENT_USER = 'current' + environment.name + 'User';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  async updateCurrentUser(uuid: string) {
-    const params = new HttpParams().set('id', uuid);
+  async updateCurrentUser(uid: string) {
+    const params = new HttpParams().set('id', uid);
     const promise = new Promise((resolve, reject) => {
       firstValueFrom(
         this.http
           .get(`${serverApi()}/auth/get_user`, {
             params: params,
+            // headers: { Authorization: `Bearer ${token}` },
           })
           .pipe(catchError(DBHelper.handleError('GET get_user', null)))
       ).then(
         (res: any) => {
           // Success
-          res['uuid'] = uuid;
+          res['uid'] = uid;
           window.localStorage.setItem(CURRENT_USER, JSON.stringify(res));
           resolve(true);
         },
@@ -51,7 +50,7 @@ export class UserService {
 
   getUserId() {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
-    return currentUser.uuid;
+    return currentUser.uid;
   }
 
   removeCurrentUser() {

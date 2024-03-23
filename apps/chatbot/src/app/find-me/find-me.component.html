@@ -1,5 +1,56 @@
-<div class="flex justify-center w-full h-screen bg-[#191c1d]">
-  <div class="w-full max-w-[600px] h-full">
-    <ng-flutter src="flutter/main.dart.js" assetBase="/flutter/" (appLoaded)="onFlutterAppLoaded($event)"></ng-flutter>
+<div class="flex flex-col items-center chat">
+  <chatbot-top-menu class="w-full xl:max-w-[1122px]" />
+  <div class="flex justify-center w-full xl:max-w-[1122px] h-[calc(100vh_-_49px)] max-w-[1122px]">
+    <div class="flex flex-col flex-1">
+      <h3>Lịch sử</h3>
+      <ul>
+        <li>
+          <a
+            [routerLink]="paths.home.path"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (isActiveChange)="(this.ngOnInit)"
+            >Tạo chat mới</a
+          >
+        </li>
+        <li *ngFor="let chat of chats | async">
+          <a
+            [routerLink]="paths.chat.path.replace(':id', chat.id)"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (isActiveChange)="(this.ngOnInit)"
+            >{{ chat.firstMessage }} - {{ chat.dateDisplay() }}</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="w-full max-w-[700px] h-full">
+      <ng-flutter
+        *ngIf="flutterAppLoaded"
+        src="/find-me-game/main.dart.js"
+        assetBase="/find-me-game/"
+        (appLoaded)="onFlutterAppLoaded($event)"
+      ></ng-flutter>
+    </div>
+    <div class="flex flex-col flex-1">
+      <h3>Countdown</h3>
+      <div class="flex gap-1 w-full items-center justify-center text-white">
+        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
+          <strong class="text-3xl">{{ day }}</strong> ngày
+        </div>
+        <span class="text-3xl text-primaryBlue">:</span>
+        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
+          <strong class="text-3xl">{{ hour }}</strong> giờ
+        </div>
+        <span class="text-3xl text-primaryBlue">:</span>
+        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
+          <strong class="text-3xl">{{ minute }}</strong> phút
+        </div>
+        <span class="text-3xl text-primaryBlue">:</span>
+        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
+          <strong class="text-3xl">{{ second }}</strong> giây
+        </div>
+      </div>
+    </div>
   </div>
 </div>

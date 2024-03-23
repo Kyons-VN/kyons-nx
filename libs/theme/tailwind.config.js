@@ -58,6 +58,12 @@ module.exports = {
         },
         black: '#000000',
         white: '#FFFFFF',
+        dartTeal: '#007E86',
+        teal: {
+          0: '#00C4D0',
+          1: '#62EDF5',
+          2: '#C8FCFF',
+        },
       },
       width: {
         '200px': '200px',

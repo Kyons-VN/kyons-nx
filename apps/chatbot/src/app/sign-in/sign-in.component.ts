@@ -10,8 +10,7 @@ import { NavigationService } from '@data/navigation/navigation.service';
 // import { MessagingService } from '@data/notification/messaging.service';
 // import { notificationServiceProvider } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
-import { RedirectAfterLogin } from '@domain/navigation/i-redirect';
-import { environment } from '@environments/environment';
+import { environment } from '@environments';
 import { FormControlStatus } from '@utils/form';
 import { Subscription, interval } from 'rxjs';
 
@@ -64,6 +63,13 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
     this.signInForm.get('password')?.valueChanges.subscribe(() => {
       this.errorMessage = false;
     });
+    // this.afAuth.onAuthStateChanged(user => {
+    //   console.log(user);
+
+    //   if (user != null) {
+    //     this.router.navigate(['/']);
+    //   }
+    // });
   }
 
   ngOnDestroy(): void {
@@ -93,9 +99,9 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
           if (result.success) {
             this.location.replaceState('/');
             // const redirectPath = this.navService.getRouteAfterLogin(result.redirect_after_auth);
-            if (result.redirect_after_auth == RedirectAfterLogin[RedirectAfterLogin.HomeAppTutorial]) {
-              this.userService.setForceCompleteTutorial();
-            }
+            // if (result.redirect_after_auth == RedirectAfterLogin[RedirectAfterLogin.HomeAppTutorial]) {
+            //   this.userService.setForceCompleteTutorial();
+            // }
             this.loading.show();
             // if (environment.production)
             //   this.messagingService.requestPermission().subscribe({
@@ -119,9 +125,9 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
             //     },
             //   });
             // else {
-            //   setTimeout(() => {
-            //     this.router.navigate([redirectPath[0]], redirectPath[1]);
-            //   }, 600);
+            setTimeout(() => {
+              this.router.navigate([this.paths.home.path]);
+            }, 600);
             // }
           } else {
             this.processing = false;
@@ -164,4 +170,13 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
       },
     });
   }
+
+  // async loginGoogle() {
+  //   // const auth = getAuth();
+  //   const user = await this.authService.googleSignIn();
+
+  //   if (user) {
+  //     this.router.navigate(['/']);
+  //   }
+  // }
 }

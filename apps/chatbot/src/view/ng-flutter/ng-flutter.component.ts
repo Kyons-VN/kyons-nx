@@ -1,7 +1,6 @@
 /* eslint-disable @angular-eslint/component-selector */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-types */
-import { isPlatformBrowser } from '@angular/common';
+// import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -72,7 +71,7 @@ export class NgFlutterComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     const target: HTMLElement = this.flutterTarget.nativeElement;
 
-    if (isPlatformBrowser(this.platformId)) this.loadFlutterApp(target);
+    this.loadFlutterApp(target);
 
     target.addEventListener(
       'flutter-initialized',
