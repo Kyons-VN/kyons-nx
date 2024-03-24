@@ -1,0 +1,21 @@
+{
+  "run": {
+    "command": "nx run student:serve:dev --host=127.0.0.1 --verbose",
+    "startTime": "2024-03-23T07:24:22.860Z",
+    "endTime": "2024-03-23T07:24:24.481Z",
+    "inner": false
+  },
+  "tasks": [
+    {
+      "taskId": "student:serve:dev",
+      "target": "serve",
+      "projectName": "student",
+      "hash": "9852768060726354631",
+      "startTime": "2024-03-23T07:24:22.872Z",
+      "endTime": "2024-03-23T07:24:24.480Z",
+      "params": "",
+      "cacheStatus": "cache-miss",
+      "status": 1
+    }
+  ]
+}

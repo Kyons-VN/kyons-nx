@@ -1,0 +1,452 @@
+[NX Daemon Server] - 2024-01-27T07:43:07.924Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-01-27T07:43:07.926Z - [WATCHER]: Subscribed to changes within: D:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-01-27T07:43:07.932Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:43:07.935Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:43:07.936Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:43:07.938Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-01-27T07:43:07.992Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-01-27T07:43:07.994Z - [REQUEST]: 
+[NX Daemon Server] - 2024-01-27T07:43:07.994Z - [REQUEST]: 
+[NX Daemon Server] - 2024-01-27T07:43:08.672Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-01-27T07:43:08.674Z - Time taken for 'total for creating and serializing project graph' 733.3278000056744ms
+[NX Daemon Server] - 2024-01-27T07:43:08.675Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-01-27T07:43:08.676Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 734. Response time: 4.
+[NX Daemon Server] - 2024-01-27T07:43:08.805Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:43:08.806Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:43:08.806Z - Handled HASH_TASKS. Handling time: 15. Response time: 1.
+[NX Daemon Server] - 2024-01-27T07:43:12.925Z - [REQUEST]: Responding to the client. outputsHashesMatch
+[NX Daemon Server] - 2024-01-27T07:43:12.925Z - Done responding to the client outputsHashesMatch
+[NX Daemon Server] - 2024-01-27T07:43:12.925Z - Handled OUTPUTS_HASHES_MATCH. Handling time: 14. Response time: 0.
+[NX Daemon Server] - 2024-01-27T07:43:12.944Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:43:12.945Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:43:12.945Z - Handled RECORD_OUTPUTS_HASH. Handling time: 15. Response time: 1.
+[NX Daemon Server] - 2024-01-27T07:43:13.308Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:43:13.308Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:43:13.308Z - Handled PROCESS_IN_BACKGROUND. Handling time: 181. Response time: 0.
+[NX Daemon Server] - 2024-01-27T07:43:13.314Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:43:13.314Z - Uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:43:13.315Z - Done uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:43:13.315Z - Sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:43:13.734Z - Done sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:44:06.792Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:44:06.810Z - [WATCHER]: nx.json was modified
+[NX Daemon Server] - 2024-01-27T07:44:06.921Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-01-27T07:44:06.922Z - [REQUEST]: nx.json
+[NX Daemon Server] - 2024-01-27T07:44:06.922Z - [REQUEST]: 
+[NX Daemon Server] - 2024-01-27T07:44:07.068Z - Time taken for 'hash changed files from watcher' 9.744700014591217ms
+[NX Daemon Server] - 2024-01-27T07:44:12.577Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:44:12.577Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:44:12.578Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:44:12.580Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-01-27T07:44:12.580Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-01-27T07:44:12.583Z - Time taken for 'total for creating and serializing project graph' 0.18240001797676086ms
+[NX Daemon Server] - 2024-01-27T07:44:12.584Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-01-27T07:44:12.584Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 4.
+[NX Daemon Server] - 2024-01-27T07:44:13.824Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:44:13.825Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:44:13.825Z - Handled HASH_TASKS. Handling time: 15. Response time: 1.
+[NX Daemon Server] - 2024-01-27T07:44:22.278Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-01-27T07:44:22.279Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:44:22.279Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-01-27T07:44:22.281Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-01-27T07:44:22.281Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-01-27T07:44:22.283Z - Time taken for 'total for creating and serializing project graph' 0.14869999885559082ms
+[NX Daemon Server] - 2024-01-27T07:44:22.284Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-01-27T07:44:22.284Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 3.
+[NX Daemon Server] - 2024-01-27T07:44:31.511Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:44:36.624Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:44:36.655Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:44:36.685Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:44:36.686Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:44:36.686Z - Handled RECORD_OUTPUTS_HASH. Handling time: 14. Response time: 1.
+[NX Daemon Server] - 2024-01-27T07:44:36.941Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:44:36.941Z - Uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:44:36.942Z - Done uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:44:36.942Z - Sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:44:36.942Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:44:36.942Z - Handled PROCESS_IN_BACKGROUND. Handling time: 73. Response time: 1.
+[NX Daemon Server] - 2024-01-27T07:44:36.950Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:44:37.287Z - Done sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:48:34.412Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:48:34.413Z - [WATCHER]: apps/teacher/project.json was modified
+[NX Daemon Server] - 2024-01-27T07:48:34.534Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-01-27T07:48:34.534Z - [REQUEST]: apps/teacher/project.json
+[NX Daemon Server] - 2024-01-27T07:48:34.534Z - [REQUEST]: 
+[NX Daemon Server] - 2024-01-27T07:48:34.953Z - Time taken for 'hash changed files from watcher' 7.656699985265732ms
+[NX Daemon Server] - 2024-01-27T07:48:42.562Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:48:42.563Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:48:42.563Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:48:42.565Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-01-27T07:48:42.566Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-01-27T07:48:42.568Z - Time taken for 'total for creating and serializing project graph' 0.19269999861717224ms
+[NX Daemon Server] - 2024-01-27T07:48:42.569Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-01-27T07:48:42.569Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-01-27T07:48:42.698Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:48:42.698Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-01-27T07:48:42.698Z - Handled HASH_TASKS. Handling time: 15. Response time: 0.
+[NX Daemon Server] - 2024-01-27T07:48:46.452Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-01-27T07:48:46.453Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:48:46.454Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-01-27T07:48:46.456Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-01-27T07:48:46.457Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-01-27T07:48:46.459Z - Time taken for 'total for creating and serializing project graph' 0.1980000138282776ms
+[NX Daemon Server] - 2024-01-27T07:48:46.460Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-01-27T07:48:46.460Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1. Response time: 3.
+[NX Daemon Server] - 2024-01-27T07:48:48.694Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:48:52.143Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:48:52.145Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-01-27T07:48:52.179Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:48:52.179Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-01-27T07:48:52.179Z - Handled RECORD_OUTPUTS_HASH. Handling time: 15. Response time: 0.
+[NX Daemon Server] - 2024-01-27T07:48:52.440Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:48:52.440Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-01-27T07:48:52.440Z - Handled PROCESS_IN_BACKGROUND. Handling time: 82. Response time: 0.
+[NX Daemon Server] - 2024-01-27T07:48:52.443Z - Uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:48:52.443Z - Done uploading file artifacts
+[NX Daemon Server] - 2024-01-27T07:48:52.443Z - Sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:48:52.448Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-01-27T07:48:52.773Z - Done sending EndRun request
+[NX Daemon Server] - 2024-01-27T07:49:34.211Z - [WATCHER]: apps/teacher/project.json was modified
+[NX Daemon Server] - 2024-01-27T07:49:34.211Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-01-27T07:49:34.331Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-01-27T07:49:34.331Z - [REQUEST]: apps/teacher/project.json
+[NX Daemon Server] - 2024-01-27T07:49:34.331Z - [REQUEST]: 
+[NX Daemon Server] - 2024-01-27T07:49:34.578Z - Time taken for 'hash changed files from watcher' 7.973800003528595ms
+[NX Daemon Server] - 2024-01-27T10:49:27.691Z - [WATCHER]: Stopping the watcher for D:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-01-27T10:49:27.694Z - [WATCHER]: Stopping the watcher for D:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-01-27T10:49:27.694Z - Server stopped because: "10800000ms of inactivity"
+[NX Daemon Server] - 2024-03-23T07:18:10.887Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:18:10.891Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:18:10.899Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:10.902Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:10.902Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:10.905Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:10.919Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:18:10.919Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:18:10.919Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:18:11.223Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:18:11.226Z - Time taken for 'total for creating and serializing project graph' 318.6943999826908ms
+[NX Daemon Server] - 2024-03-23T07:18:11.226Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:18:11.226Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 319. Response time: 3.
+[NX Daemon Server] - 2024-03-23T07:18:11.232Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:11.233Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:11.233Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:11.233Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:11.237Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:11.237Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:11.237Z - Handled REQUEST_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:18:25.569Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:18:25.569Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-03-23T07:18:25.569Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-03-23T07:18:25.569Z - Server stopped because: "Lock file changed"
+[NX Daemon Server] - 2024-03-23T07:18:26.388Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:18:26.391Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:18:26.393Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:26.394Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:18:26.396Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:26.398Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:26.426Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:18:26.426Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:18:26.426Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:18:27.542Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:18:27.544Z - Time taken for 'total for creating and serializing project graph' 1144.3643000125885ms
+[NX Daemon Server] - 2024-03-23T07:18:27.545Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:18:27.545Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1145. Response time: 3.
+[NX Daemon Server] - 2024-03-23T07:18:27.548Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:27.549Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:27.549Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:27.549Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:27.552Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:27.552Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:27.552Z - Handled REQUEST_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:18:30.294Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:18:30.295Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:30.296Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:18:30.299Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:30.299Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.300Z - Time taken for 'total for creating and serializing project graph' 0.24789997935295105ms
+[NX Daemon Server] - 2024-03-23T07:18:30.300Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.301Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:18:30.355Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:30.355Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.357Z - Time taken for 'total for creating and serializing project graph' 0.2484000027179718ms
+[NX Daemon Server] - 2024-03-23T07:18:30.359Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.359Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 4.
+[NX Daemon Server] - 2024-03-23T07:18:30.373Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:30.373Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.374Z - Time taken for 'total for creating and serializing project graph' 0.15720000863075256ms
+[NX Daemon Server] - 2024-03-23T07:18:30.374Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:18:30.374Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:18:30.559Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:30.559Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:18:30.559Z - Handled REQUEST_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:18:30.868Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:37.084Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:18:37.096Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-03-23T07:18:37.096Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-03-23T07:18:37.096Z - Server stopped because: "Lock file changed"
+[NX Daemon Server] - 2024-03-23T07:18:37.902Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:18:37.906Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:18:37.918Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:37.920Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:18:37.921Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:18:37.922Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:18:37.928Z - [REQUEST]: Updated workspace context based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:18:37.928Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:18:37.928Z - [REQUEST]: 
+Unable to create nodes for apps/student/project.json using plugin nx-core-build-project-json-nodes. 
+
+	 Inner Error: Error: InvalidSymbol in d:\Documents\KYONS\source\kyons-nx-build\apps\student\project.json at 40:1
+  38 |               "type": "initial",
+  39 |               "maximumWarning": "2mb",
+> 40 | <<<<<<< HEAD
+     | ^^^^^^^
+  41 |               "maximumError": "4mb"
+  42 | =======
+  43 |               "maximumError": "3.5mb"
+
+    at parseJson (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\json.js:25:15)
+    at readJsonFile (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\fileutils.js:22:37)
+    at exports.CreateProjectJsonProjectsPlugin.createNodes (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\plugins\project-json\build-nodes\project-json.js:12:55)
+    at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:125:29)
+    at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:89:156)
+    at _retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:61:12)
+    at retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:46:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processFilesAndCreateAndSerializeProjectGraph (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:140:28)
+    at async getCachedSerializedProjectGraphPromise (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:43:16)
+[NX Daemon Server] - 2024-03-23T07:18:38.026Z - [REQUEST]: Responding to the client with an error. Error when preparing serialized project graph. Unable to create nodes for apps/student/project.json using plugin nx-core-build-project-json-nodes. 
+
+	 Inner Error: Error: InvalidSymbol in d:\Documents\KYONS\source\kyons-nx-build\apps\student\project.json at 40:1
+  38 |               "type": "initial",
+  39 |               "maximumWarning": "2mb",
+> 40 | <<<<<<< HEAD
+     | ^^^^^^^
+  41 |               "maximumError": "4mb"
+  42 | =======
+  43 |               "maximumError": "3.5mb"
+
+    at parseJson (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\json.js:25:15)
+    at readJsonFile (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\fileutils.js:22:37)
+    at exports.CreateProjectJsonProjectsPlugin.createNodes (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\plugins\project-json\build-nodes\project-json.js:12:55)
+    at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:125:29)
+    at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:89:156)
+    at _retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:61:12)
+    at retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:46:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processFilesAndCreateAndSerializeProjectGraph (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:140:28)
+    at async getCachedSerializedProjectGraphPromise (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:43:16)
+CreateNodesError: Unable to create nodes for apps/student/project.json using plugin nx-core-build-project-json-nodes. 
+
+	 Inner Error: Error: InvalidSymbol in d:\Documents\KYONS\source\kyons-nx-build\apps\student\project.json at 40:1
+  38 |               "type": "initial",
+  39 |               "maximumWarning": "2mb",
+> 40 | <<<<<<< HEAD
+     | ^^^^^^^
+  41 |               "maximumError": "4mb"
+  42 | =======
+  43 |               "maximumError": "3.5mb"
+
+    at parseJson (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\json.js:25:15)
+    at readJsonFile (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\fileutils.js:22:37)
+    at exports.CreateProjectJsonProjectsPlugin.createNodes (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\plugins\project-json\build-nodes\project-json.js:12:55)
+    at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:125:29)
+    at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:89:156)
+    at _retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:61:12)
+    at retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:46:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processFilesAndCreateAndSerializeProjectGraph (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:140:28)
+    at async getCachedSerializedProjectGraphPromise (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:43:16)
+    at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:152:27)
+    at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:89:156)
+    ... 4 lines matching cause stack trace ...
+    at async getCachedSerializedProjectGraphPromise (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:43:16)
+    at async handleRequestProjectGraph (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\handle-request-project-graph.js:12:24)
+    at async handleResult (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\server.js:110:16)
+    at async handleMessage (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\server.js:81:9) {
+  [cause]: Error: InvalidSymbol in d:\Documents\KYONS\source\kyons-nx-build\apps\student\project.json at 40:1
+    38 |               "type": "initial",
+    39 |               "maximumWarning": "2mb",
+  > 40 | <<<<<<< HEAD
+       | ^^^^^^^
+    41 |               "maximumError": "4mb"
+    42 | =======
+    43 |               "maximumError": "3.5mb"
+  
+      at parseJson (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\json.js:25:15)
+      at readJsonFile (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\fileutils.js:22:37)
+      at exports.CreateProjectJsonProjectsPlugin.createNodes (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\plugins\project-json\build-nodes\project-json.js:12:55)
+      at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:125:29)
+      at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:89:156)
+      at _retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:61:12)
+      at retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:46:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async processFilesAndCreateAndSerializeProjectGraph (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:140:28)
+      at async getCachedSerializedProjectGraphPromise (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\daemon\server\project-graph-incremental-recomputation.js:43:16)
+}
+[NX Daemon Server] - 2024-03-23T07:18:38.029Z - Time taken for 'hash changed files from watcher' 4.763399988412857ms
+[NX Daemon Server] - 2024-03-23T07:18:38.030Z - Done responding to the client null
+[NX Daemon Server] - 2024-03-23T07:22:31.688Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:22:31.692Z - [WATCHER]: Subscribed to changes within: D:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:22:31.695Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:22:31.698Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:22:31.701Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:22:31.712Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:22:31.816Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:22:31.816Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:22:31.816Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:22:31.893Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:22:31.894Z - Time taken for 'total for creating and serializing project graph' 180.43079999999998ms
+[NX Daemon Server] - 2024-03-23T07:22:31.894Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:22:31.895Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 181. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:22:32.852Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-03-23T07:22:32.854Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-03-23T07:22:32.854Z - Handled HASH_TASKS. Handling time: 50. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:22:44.742Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:22:44.742Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:22:44.743Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:22:44.746Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:22:44.746Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:22:44.747Z - Time taken for 'total for creating and serializing project graph' 0.47149999999965075ms
+[NX Daemon Server] - 2024-03-23T07:22:44.747Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:22:44.748Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:22:45.083Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:22:51.990Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:22:52.002Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-03-23T07:22:52.003Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-03-23T07:22:52.003Z - Handled RECORD_OUTPUTS_HASH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:22:52.487Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-03-23T07:22:52.488Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-03-23T07:22:52.488Z - Handled PROCESS_IN_BACKGROUND. Handling time: 299. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:22:52.498Z - Uploading file artifacts
+[NX Daemon Server] - 2024-03-23T07:22:52.499Z - Done uploading file artifacts
+[NX Daemon Server] - 2024-03-23T07:22:52.499Z - Sending EndRun request
+[NX Daemon Server] - 2024-03-23T07:22:52.503Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:22:53.004Z - Done sending EndRun request
+[NX Daemon Server] - 2024-03-23T07:24:17.485Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:24:17.486Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:24:17.486Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:24:17.489Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:24:17.489Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:24:17.489Z - Time taken for 'total for creating and serializing project graph' 0.21259999999892898ms
+[NX Daemon Server] - 2024-03-23T07:24:17.490Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:24:17.490Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:24:17.611Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2024-03-23T07:24:17.612Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2024-03-23T07:24:17.612Z - Handled HASH_TASKS. Handling time: 5. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:24:23.485Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:24:23.485Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:24:23.486Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:24:23.488Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:24:23.488Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:24:23.489Z - Time taken for 'total for creating and serializing project graph' 0.2124000000039814ms
+[NX Daemon Server] - 2024-03-23T07:24:23.489Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:24:23.489Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:24:24.463Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:24:24.479Z - [REQUEST]: Responding to the client. recordOutputsHash
+[NX Daemon Server] - 2024-03-23T07:24:24.480Z - Done responding to the client recordOutputsHash
+[NX Daemon Server] - 2024-03-23T07:24:24.480Z - Handled RECORD_OUTPUTS_HASH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:24:24.745Z - [REQUEST]: Responding to the client. PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-03-23T07:24:24.745Z - Done responding to the client PROCESS_IN_BACKGROUND
+[NX Daemon Server] - 2024-03-23T07:24:24.745Z - Handled PROCESS_IN_BACKGROUND. Handling time: 79. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:24:24.747Z - Uploading file artifacts
+[NX Daemon Server] - 2024-03-23T07:24:24.747Z - Done uploading file artifacts
+[NX Daemon Server] - 2024-03-23T07:24:24.747Z - Sending EndRun request
+[NX Daemon Server] - 2024-03-23T07:24:24.755Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:24:25.086Z - Done sending EndRun request
+[NX Daemon Server] - 2024-03-23T07:25:42.086Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:25:42.086Z - [WATCHER]: Stopping the watcher for D:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-03-23T07:25:42.087Z - [WATCHER]: Stopping the watcher for D:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-03-23T07:25:42.087Z - Server stopped because: "Lock file changed"
+[NX Daemon Server] - 2024-03-23T07:27:49.350Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:27:49.353Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:27:49.356Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:49.359Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:49.359Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:49.361Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:49.452Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:27:49.452Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:27:49.452Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:27:49.485Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:27:49.486Z - Time taken for 'total for creating and serializing project graph' 124.57400000095367ms
+[NX Daemon Server] - 2024-03-23T07:27:49.488Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:27:49.488Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 124. Response time: 3.
+[NX Daemon Server] - 2024-03-23T07:27:49.488Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:27:49.489Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:49.489Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:49.489Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:49.493Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:49.495Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:49.495Z - Handled REQUEST_FILE_DATA. Handling time: 3. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:27:51.122Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:27:51.122Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-03-23T07:27:51.122Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-03-23T07:27:51.122Z - Server stopped because: "Lock file changed"
+[NX Daemon Server] - 2024-03-23T07:27:51.926Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:27:51.929Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:27:51.934Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:51.936Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:51.936Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:51.939Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:52.050Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2024-03-23T07:27:52.050Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:27:52.050Z - [REQUEST]: 
+[NX Daemon Server] - 2024-03-23T07:27:52.652Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:27:52.654Z - Time taken for 'total for creating and serializing project graph' 713.1365000009537ms
+[NX Daemon Server] - 2024-03-23T07:27:52.654Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:27:52.654Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 714. Response time: 2.
+[NX Daemon Server] - 2024-03-23T07:27:52.658Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:52.658Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:52.659Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:52.659Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:52.662Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:52.662Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:52.662Z - Handled REQUEST_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:27:54.759Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:27:54.760Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:54.761Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-03-23T07:27:54.764Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:54.764Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.765Z - Time taken for 'total for creating and serializing project graph' 0.22110000252723694ms
+[NX Daemon Server] - 2024-03-23T07:27:54.765Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.765Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:27:54.816Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:54.816Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.818Z - Time taken for 'total for creating and serializing project graph' 0.23570001125335693ms
+[NX Daemon Server] - 2024-03-23T07:27:54.820Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.820Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 4.
+[NX Daemon Server] - 2024-03-23T07:27:54.835Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:54.835Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.836Z - Time taken for 'total for creating and serializing project graph' 0.1502000093460083ms
+[NX Daemon Server] - 2024-03-23T07:27:54.836Z - Done responding to the client project-graph
+[NX Daemon Server] - 2024-03-23T07:27:54.836Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 0. Response time: 1.
+[NX Daemon Server] - 2024-03-23T07:27:54.986Z - [REQUEST]: Responding to the client. handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:54.986Z - Done responding to the client handleRequestFileData
+[NX Daemon Server] - 2024-03-23T07:27:54.986Z - Handled REQUEST_FILE_DATA. Handling time: 2. Response time: 0.
+[NX Daemon Server] - 2024-03-23T07:27:55.258Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:55.944Z - [WATCHER]: 42 file(s) created or restored, 0 file(s) modified, 44 file(s) deleted
+[NX Daemon Server] - 2024-03-23T07:27:55.948Z - [WATCHER]: Processing file changes in outputs
+[NX Daemon Server] - 2024-03-23T07:27:55.949Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (sources)
+[NX Daemon Server] - 2024-03-23T07:27:55.949Z - [WATCHER]: Stopping the watcher for d:\Documents\KYONS\source\kyons-nx-build (outputs)
+[NX Daemon Server] - 2024-03-23T07:27:55.949Z - Server stopped because: "Stopping the daemon the set of ignored files changed (native)"
+[NX Daemon Server] - 2024-03-23T07:27:56.747Z - Started listening on: \\.\pipe\nx\C:\Users\ADMIN\AppData\Local\Temp\0a900d5e649faeccf4a7\d.sock
+[NX Daemon Server] - 2024-03-23T07:27:56.756Z - [WATCHER]: Subscribed to changes within: d:\Documents\KYONS\source\kyons-nx-build (native)
+[NX Daemon Server] - 2024-03-23T07:27:56.758Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:56.761Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-03-23T07:27:56.761Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-03-23T07:27:56.764Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2024-03-23T07:27:57.085Z - Error detected when recomputing project file map: Cannot create property 'name' on string 'apps/school'
+[NX Daemon Server] - 2024-03-23T07:27:57.085Z - [REQUEST]: Responding to the client with an error. Error when preparing serialized project graph. Cannot create property 'name' on string 'apps/school'
+TypeError: Cannot create property 'name' on string 'apps/school'
+    at toNewFormat (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\adapter\angular-json.js:64:32)
+    at readAngularJson (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\adapter\angular-json.js:49:12)
+    at exports.NxAngularJsonPlugin.createNodes (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\adapter\angular-json.js:13:23)
+    at buildProjectsConfigurationsFromProjectPathsAndPlugins (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\project-configuration-utils.js:77:88)
+    at createProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:136:138)
+    at WorkspaceContext.<anonymous> (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:84:54)
+    at getProjectConfigurationsFromContext (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\utils\workspace-context.js:26:29)
+    at _retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:83:65)
+    at retrieveProjectConfigurations (d:\Documents\KYONS\source\kyons-nx-build\node_modules\nx\src\project-graph\utils\retrieve-workspace-files.js:59:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[NX Daemon Server] - 2024-03-23T07:27:57.088Z - Time taken for 'hash changed files from watcher' 182.83689999580383ms
+[NX Daemon Server] - 2024-03-23T07:27:57.088Z - Done responding to the client null
