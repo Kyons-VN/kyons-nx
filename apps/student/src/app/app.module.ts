@@ -27,7 +27,6 @@ import { QuestionsProgressComponent } from './presentation/share-components/ques
 import { ScoreBarComponent } from './presentation/share-components/score-bar/score-bar.component';
 import { TestContentComponent } from './presentation/share-components/test-content/test-content.component';
 import { TestReviewComponent } from './presentation/share-components/test-review/test-review.component';
-import { TopMenuComponent } from './presentation/share-components/top-menu/top-menu.component';
 import { TrackingComponent } from './presentation/share-components/tracking/tracking.component';
 
 export function playerFactory() {
@@ -70,7 +69,6 @@ registerLocaleData(localeEN, 'en');
     TestComponent,
     TestContentComponent,
     TestReviewComponent,
-    TopMenuComponent,
     TrackingComponent,
     AdaptiveTestComponent,
   ],

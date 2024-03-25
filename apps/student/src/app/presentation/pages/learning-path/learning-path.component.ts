@@ -279,6 +279,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     const totalLessonBlockOf2OnXSScreen = Math.ceil((this.lessons.length + 1) / 2);
     this.lessonBlockOf2OnXSScreen = Array.from(Array(totalLessonBlockOf2OnXSScreen).keys());
     setTimeout(() => {
+      if (this.scrollBottomElm == undefined) return;
       this.scrollBottomElm.nativeElement.scrollTop = this.scrollBottomElm.nativeElement.scrollHeight;
       this.scrollBottomXSElm.nativeElement.scrollTop = this.scrollBottomXSElm.nativeElement.scrollHeight;
     }, 500);

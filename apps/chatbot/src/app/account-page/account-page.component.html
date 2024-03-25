@@ -22,7 +22,7 @@
             <i class="icon-ArrowRight text-[20px]"></i>
           </li>
           <li
-            (click)="getActivities()"
+            [routerLink]="paths.resetPassword.path"
             class="account-item"
             [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 2 }"
           >

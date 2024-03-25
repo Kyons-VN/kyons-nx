@@ -1,5 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { NotificationService } from '@infrastructure/notification/notification.service';
 import { UserService } from '@infrastructure/user/user.service';
@@ -7,9 +8,11 @@ import { AppPaths } from '@presentation/routes';
 import { filter } from 'rxjs/operators';
 
 @Component({
+  standalone: true,
   selector: 'student-top-menu',
   templateUrl: './top-menu.component.html',
   styleUrls: ['./top-menu.component.scss'],
+  imports: [CommonModule, RouterModule],
 })
 export class TopMenuComponent implements OnInit {
   showSubmenu = false;
