@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
-import { AppPaths } from '@view/routes';
 
 @Component({
   standalone: true,
@@ -15,20 +14,19 @@ import { AppPaths } from '@view/routes';
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  paths: AppPaths;
+  paths = inject(NavigationService).paths;
+  route = inject(ActivatedRoute);
+  fb = inject(FormBuilder);
+  authService = inject(AccountStandaloneService);
+  loading = inject(LoadingOverlayService);
+  navService = inject(NavigationService);
+  accountService = inject(AccountStandaloneService);
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
   search: (str: string, regexStr: string) => void;
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private accountService: AccountStandaloneService,
-    navService: NavigationService,
-    private loading: LoadingOverlayService
-  ) {
-    this.paths = navService.paths;
+  constructor() {
     this.notHaveUppercase = notHaveUppercase;
     this.notHaveDigit = notHaveDigit;
     this.notHaveSpecial = notHaveSpecial;
@@ -58,6 +56,7 @@ export class ResetPasswordComponent implements OnInit {
   @ViewChild('passwordElm') passwordElm!: ElementRef;
 
   ngOnInit(): void {
+    window.localStorage.removeItem('dev');
     this.route.queryParams.subscribe(params => {
       if (params['email']) {
         this.email.setValue(params['email']);

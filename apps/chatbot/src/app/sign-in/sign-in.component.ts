@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
 import { AuthService } from '@data/auth/auth.service';
 import { AuthCredential } from '@data/auth/credential';
+import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 // import { MessagingService } from '@data/notification/messaging.service';
@@ -32,6 +33,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   userService = inject(UserService);
   // messagingService = inject(MessagingService);
   accountService = inject(AccountStandaloneService);
+  chatService = inject(ChatService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -55,6 +57,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('passwordElm') passwordElm!: ElementRef;
 
   ngOnInit(): void {
+    window.localStorage.removeItem('dev');
     this.signInForm.addControl('email', this.email);
     this.signInForm.addControl('password', this.password);
     this.signInForm.get('email')?.valueChanges.subscribe(() => {
@@ -125,9 +128,22 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
             //     },
             //   });
             // else {
-            setTimeout(() => {
-              this.router.navigate([this.paths.home.path]);
-            }, 600);
+
+            this.chatService.checkCreatedUser().subscribe({
+              next: () => {
+                setTimeout(() => {
+                  this.router.navigate([this.paths.home.path]);
+                }, 600);
+              },
+              error: error => {
+                setTimeout(() => {
+                  if (error.error == 'Not found') {
+                    this.chatService.initDefaultMana();
+                  }
+                  this.router.navigate([this.paths.home.path]);
+                }, 600);
+              },
+            });
             // }
           } else {
             this.processing = false;

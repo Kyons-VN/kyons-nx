@@ -2,8 +2,6 @@
 html,
 body {
   @apply h-full m-0 p-0 text-[14px];
-
-  font-family: 'Montserrat', sans-serif;
 }
 a {
   @apply cursor-pointer;
@@ -471,4 +469,22 @@ ul.check-list {
       font-family: Kyons-Icon-Fonts;
     }
   }
+}
+[type='text']:focus,
+input:where(:not([type])):focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  @apply outline-none shadow-none ring-0;
 }

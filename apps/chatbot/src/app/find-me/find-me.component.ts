@@ -49,6 +49,8 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
   second = '';
   chatId = '';
   userId = '';
+  theme!: string;
+  parseInt = parseInt;
 
   ngOnInit(): void {
     // watch route param changes
@@ -115,8 +117,8 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
     this.flutterState.setTheme(this.themeService.themeStore());
     runInInjectionContext(this.injector, () => {
       effect(() => {
-        const theme = this.themeService.themeStore();
-        this.flutterState.setTheme(theme);
+        this.theme = this.themeService.themeStore();
+        this.flutterState.setTheme(this.themeService.themeStore());
       });
     });
     this.flutterState.onChatIdChanged(() => {
@@ -126,26 +128,5 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
         this.goToChat(this.flutterState.getChatId());
       }
     });
-  }
-
-  onCounterSet(event: Event) {
-    const clicks = parseInt((event.target as HTMLInputElement).value, 10) || 0;
-
-    this.flutterState.setClicks(clicks);
-  }
-
-  onTextSet(event: Event) {
-    this.flutterState.setText((event.target as HTMLInputElement).value || '');
-  }
-
-  // I need to force a change detection here. When clicking on the "Decrement"
-  // button, everything works fine, but clicking on Flutter doesn't trigger a
-  // repaint (even though this method is called)
-  onCounterChanged() {
-    this.changeDetectorRef.detectChanges();
-  }
-
-  onTextChanged() {
-    this.changeDetectorRef.detectChanges();
   }
 }

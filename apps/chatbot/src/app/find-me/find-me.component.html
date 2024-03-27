@@ -1,8 +1,8 @@
 <div class="flex flex-col items-center chat">
-  <chatbot-top-menu class="w-full xl:max-w-[1122px]" />
-  <div class="flex justify-center w-full xl:max-w-[1122px] h-[calc(100vh_-_49px)] max-w-[1122px]">
+  <chatbot-top-menu class="w-full xl:max-w-[1200px]" />
+  <div class="flex justify-center w-full xl:max-w-[1200px] h-[calc(100vh_-_49px)] max-w-[1122px] gap-4">
     <div class="flex flex-col flex-1">
-      <h3>Lịch sử</h3>
+      <h3>{{ theme === 'universe' ? 'History' : 'Lịch sử' }}</h3>
       <ul>
         <li>
           <a
@@ -10,7 +10,7 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             (isActiveChange)="(this.ngOnInit)"
-            >Tạo chat mới</a
+            >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
           >
         </li>
         <li *ngFor="let chat of chats | async">
@@ -19,12 +19,12 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             (isActiveChange)="(this.ngOnInit)"
-            >{{ chat.firstMessage }} - {{ chat.dateDisplay() }}</a
+            >{{ chat.firstMessage }} - {{ chat.dateDisplay }}</a
           >
         </li>
       </ul>
     </div>
-    <div class="w-full max-w-[700px] h-full">
+    <div class="w-full max-w-[600px] h-full">
       <ng-flutter
         *ngIf="flutterAppLoaded"
         src="/find-me-game/main.dart.js"
@@ -32,23 +32,35 @@
         (appLoaded)="onFlutterAppLoaded($event)"
       ></ng-flutter>
     </div>
-    <div class="flex flex-col flex-1">
-      <h3>Countdown</h3>
+    <div class="flex flex-col flex-1 items-end">
+      <h3>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h3>
       <div class="flex gap-1 w-full items-center justify-center text-white">
-        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
-          <strong class="text-3xl">{{ day }}</strong> ngày
+        <div
+          class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
+        >
+          <strong class="text-3xl">{{ day }}</strong>
+          {{ theme === 'universe' ? (parseInt(day) < 2 ? 'day' : 'days') : 'ngày' }}
         </div>
         <span class="text-3xl text-primaryBlue">:</span>
-        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
-          <strong class="text-3xl">{{ hour }}</strong> giờ
+        <div
+          class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
+        >
+          <strong class="text-3xl">{{ hour }}</strong>
+          {{ theme === 'universe' ? (parseInt(hour) < 2 ? 'hour' : 'hours') : 'giờ' }}
         </div>
         <span class="text-3xl text-primaryBlue">:</span>
-        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
-          <strong class="text-3xl">{{ minute }}</strong> phút
+        <div
+          class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
+        >
+          <strong class="text-3xl">{{ minute }}</strong>
+          {{ theme === 'universe' ? (parseInt(minute) < 2 ? 'minute' : 'minutes') : 'phút' }}
         </div>
         <span class="text-3xl text-primaryBlue">:</span>
-        <div class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg">
-          <strong class="text-3xl">{{ second }}</strong> giây
+        <div
+          class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
+        >
+          <strong class="text-3xl">{{ second }}</strong>
+          {{ theme === 'universe' ? (parseInt(second) < 2 ? 'second' : 'seconds') : 'giây' }}
         </div>
       </div>
     </div>

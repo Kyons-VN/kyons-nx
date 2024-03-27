@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+  effect,
+  inject,
+  runInInjectionContext,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
@@ -19,6 +28,8 @@ export class TopMenuComponent implements OnInit {
   userService = inject(UserService);
   show = true;
   themeService = inject(ThemeService);
+  theme = this.themeService.getTheme();
+  injector = inject(Injector);
 
   /**
    * This is the toogle button elemenbt, look at HTML and see its defination
@@ -31,6 +42,11 @@ export class TopMenuComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.username = await this.userService.getUsername();
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        this.theme = this.themeService.themeStore();
+      });
+    });
   }
 
   setTheme(theme: string): void {

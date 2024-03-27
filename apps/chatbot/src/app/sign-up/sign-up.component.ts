@@ -5,7 +5,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
-import { AppPaths } from '@view/routes';
 // import { TestType } from '@domain/knowledge/i-test';
 import { BeforeunloadDirective } from '@share-directives/before-unload';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
@@ -17,20 +16,17 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit, AfterViewInit {
-  paths: AppPaths;
+  paths = inject(NavigationService).paths;
+  route = inject(ActivatedRoute);
+  fb = inject(FormBuilder);
+  authService = inject(AccountStandaloneService);
+  loading = inject(LoadingOverlayService);
   notHaveUppercase: (str: string) => boolean;
   notHaveDigit: (str: string) => boolean;
   notHaveSpecial: (str: string) => boolean;
   search: (str: string, regexStr: string) => void;
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private authService: AccountStandaloneService,
-    navService: NavigationService,
-    private loading: LoadingOverlayService
-  ) {
-    this.paths = navService.paths;
+  constructor() {
     this.notHaveUppercase = notHaveUppercase;
     this.notHaveDigit = notHaveDigit;
     this.notHaveSpecial = notHaveSpecial;
@@ -70,6 +66,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   @ViewChild('emailElm') emailElm!: ElementRef;
 
   ngOnInit(): void {
+    window.localStorage.removeItem('dev');
     this.ref = this.route.snapshot.queryParams['ref'] ?? '';
     // this.refFrom = this.route.snapshot.queryParams['mocktest'] ? TestType.Mock : null;
     // this.signUpForm1.addControl('firstName', this.firstName);
@@ -122,27 +119,27 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       !(
         this.signUpForm1.get('email')?.dirty &&
         this.signUpForm1.get('password')?.dirty &&
-        this.signUpForm1.get('firstName')?.dirty &&
-        this.signUpForm1.get('lastname')?.dirty &&
-        this.signUpForm1.get('phone')?.dirty &&
+        // this.signUpForm1.get('firstName')?.dirty &&
+        // this.signUpForm1.get('lastname')?.dirty &&
+        // this.signUpForm1.get('phone')?.dirty &&
         this.signUpForm1.get('tosChecked')?.dirty
       )
     ) {
-      this.signUpForm1.get('firstName')?.markAsDirty();
+      // this.signUpForm1.get('firstName')?.markAsDirty();
       this.signUpForm1.get('password')?.markAsDirty();
-      this.signUpForm1.get('lastName')?.markAsDirty();
+      // this.signUpForm1.get('lastName')?.markAsDirty();
       this.signUpForm1.get('email')?.markAsDirty();
-      this.signUpForm1.get('phone')?.markAsDirty();
+      // this.signUpForm1.get('phone')?.markAsDirty();
       this.signUpForm1.get('tosChecked')?.markAsDirty();
     }
     if (this.signUpForm1.untouched) this.signUpForm1.markAllAsTouched();
     if (this.signUpForm1.invalid) return;
-    this.step = 1;
+    this.step = 0;
   }
 
   submitForm2() {
     this.validate();
-    if (this.step == 0) return;
+    if (this.signUpForm1.invalid) return;
     this.loading.show();
     this.processing = true;
     this.authService

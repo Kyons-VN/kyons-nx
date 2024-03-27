@@ -56,6 +56,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('passwordElm') passwordElm!: ElementRef;
 
   ngOnInit(): void {
+    window.localStorage.removeItem('dev');
     this.signInForm.addControl('email', this.email);
     this.signInForm.addControl('password', this.password);
     this.signInForm.get('email')?.valueChanges.subscribe(() => {

@@ -1,17 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostBinding, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule, Validators
-} from '@angular/forms';
+import { Component, ElementRef, HostBinding, OnInit, ViewChild, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@infrastructure/auth/account.service';
 import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
-import { AppPaths } from '@presentation/routes';
 import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
 
 @Component({
@@ -21,20 +14,19 @@ import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/v
   styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-  paths: AppPaths;
+  paths = inject(NavigationService).paths;
+  route = inject(ActivatedRoute);
+  fb = inject(FormBuilder);
+  authService = inject(AccountStandaloneService);
+  loading = inject(LoadingOverlayService);
+  navService = inject(NavigationService);
+  accountService = inject(AccountStandaloneService);
   notHaveUppercase: (str: string) => void;
   notHaveDigit: (str: string) => void;
   notHaveSpecial: (str: string) => void;
   search: (str: string, regexStr: string) => void;
 
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private accountService: AccountStandaloneService,
-    navService: NavigationService,
-    private loading: LoadingOverlayService
-  ) {
-    this.paths = navService.paths;
+  constructor() {
     this.notHaveUppercase = notHaveUppercase;
     this.notHaveDigit = notHaveDigit;
     this.notHaveSpecial = notHaveSpecial;
@@ -45,52 +37,44 @@ export class ResetPasswordComponent implements OnInit {
 
   emailForm: FormGroup = this.fb.group({});
   resetForm: FormGroup = this.fb.group({});
-  email: FormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-  code: FormControl = new FormControl('', [
-    Validators.required,
-    Validators.pattern(/^[0-9]{6,6}$/g),
-
-  ]);
+  email: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  code: FormControl = new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{6,6}$/g)]);
   step = 0;
   emailNotFound = false;
   // [!@#\$%\^&\*\(\)\~\=_\+\}\{\"\:;\'\?\{\}\/>\.\<,\`\-\|\[\]]
   password: FormControl = new FormControl('', [
     Validators.required,
-    Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/)
+    Validators.pattern(/^((?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]]).{8,99})/),
   ]);
   errorMessage = '';
   processing = false;
   isDebug = false;
   wrongCode = false;
   showPassword = false;
-  @ViewChild("emailElm") emailElm!: ElementRef;
-  @ViewChild("codeElm") codeElm!: ElementRef;
-  @ViewChild("passwordElm") passwordElm!: ElementRef;
+  @ViewChild('emailElm') emailElm!: ElementRef;
+  @ViewChild('codeElm') codeElm!: ElementRef;
+  @ViewChild('passwordElm') passwordElm!: ElementRef;
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-        if (params['email']) {
-          this.email.setValue(params['email']);
-          this.step = 1;
-          if (params['reset_token']) {
-            this.code.setValue(params['reset_token']);
-          }
+    window.localStorage.removeItem('dev');
+    this.route.queryParams.subscribe(params => {
+      if (params['email']) {
+        this.email.setValue(params['email']);
+        this.step = 1;
+        if (params['reset_token']) {
+          this.code.setValue(params['reset_token']);
         }
       }
-      );
+    });
     this.emailForm.addControl('email', this.email);
     this.emailForm.get('email')?.valueChanges.subscribe(() => {
       this.errorMessage = '';
       this.emailNotFound = false;
-    })
+    });
     this.emailForm.get('code')?.valueChanges.subscribe(() => {
       this.errorMessage = '';
       this.wrongCode = false;
-    })
+    });
     this.resetForm.addControl('code', this.code);
     this.resetForm.addControl('password', this.password);
   }
@@ -129,7 +113,7 @@ export class ResetPasswordComponent implements OnInit {
           this.codeElm.nativeElement.focus();
         }, 1000);
       },
-      error: (err) => {
+      error: err => {
         console.log(err);
         this.emailNotFound = true;
 
@@ -151,7 +135,7 @@ export class ResetPasswordComponent implements OnInit {
         this.processing = false;
         this.loading.hide();
       },
-      error: (err) => {
+      error: err => {
         // {
         //   message: "Invalid verification code provided, please try again.",
         //   error_code: "CodeMismatchException",
@@ -159,16 +143,13 @@ export class ResetPasswordComponent implements OnInit {
         //   ],
         // }
         console.log(err);
-        if (err.error.error_code == "CodeMismatchException") {
+        if (err.error.error_code == 'CodeMismatchException') {
           this.wrongCode = true;
-        }
-        else if (err.error.error_code == "ExpiredCodeException") {
+        } else if (err.error.error_code == 'ExpiredCodeException') {
           this.errorMessage = 'Mã code đã hết hiệu lực, xin thử lại';
-        }
-        else {
+        } else {
           this.errorMessage = err.error.message;
         }
-
 
         this.processing = false;
         this.loading.hide();

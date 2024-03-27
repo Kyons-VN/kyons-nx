@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } f
 import { TrackingService } from '@infrastructure/tracking/tracking.service';
 
 @Component({
+  standalone: true,
   selector: 'student-tracking',
   template: `<ng-container></ng-container>`,
   changeDetection: ChangeDetectionStrategy.OnPush,

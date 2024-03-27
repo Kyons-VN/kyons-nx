@@ -43,6 +43,10 @@ export class UserService {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
     return currentUser.first_name;
   }
+  getEmail() {
+    const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
+    return currentUser.email;
+  }
   getUserType() {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
     return currentUser.study_type;

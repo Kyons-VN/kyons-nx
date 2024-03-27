@@ -27,7 +27,6 @@ import { QuestionsProgressComponent } from './presentation/share-components/ques
 import { ScoreBarComponent } from './presentation/share-components/score-bar/score-bar.component';
 import { TestContentComponent } from './presentation/share-components/test-content/test-content.component';
 import { TestReviewComponent } from './presentation/share-components/test-review/test-review.component';
-import { TrackingComponent } from './presentation/share-components/tracking/tracking.component';
 
 export function playerFactory() {
   return player;
@@ -40,10 +39,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { environment } from '@environments/environment';
 import { notificationServiceProvider } from '@infrastructure/notification/notification.service';
-import { LayoutFullComponent } from '@presentation/layouts/full/layout-full.component';
 import { SelectTopicComponent } from '@presentation/pages/mock-test/select-topic/select-topic.component';
 import { NgChartsModule } from 'ng2-charts';
-import { LayoutDefaultComponent } from './presentation/layouts/default/layout-default.component';
 import { AdaptiveTestComponent } from './presentation/pages/adaptive-test/adaptive-test.component';
 import { NewUserComponent } from './presentation/pages/new-user/new-user.component';
 
@@ -56,8 +53,6 @@ registerLocaleData(localeEN, 'en');
     AppInputComponent,
     ConfirmDialogComponent,
     InputRadioComponent,
-    LayoutDefaultComponent,
-    LayoutFullComponent,
     NewLessonPageComponent,
     NewUserComponent,
     PackagePageComponent,
@@ -69,7 +64,6 @@ registerLocaleData(localeEN, 'en');
     TestComponent,
     TestContentComponent,
     TestReviewComponent,
-    TrackingComponent,
     AdaptiveTestComponent,
   ],
   imports: [

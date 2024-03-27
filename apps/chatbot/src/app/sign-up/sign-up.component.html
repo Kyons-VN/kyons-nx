@@ -159,7 +159,10 @@
           </span>
         </label>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <button (click)="submitForm2()" class="btn" [disabled]="processing">Tiếp tục</button>
+        <!-- <button (click)="submitForm2()" class="btn" [disabled]="processing">Tiếp tục</button> -->
+        <button type="submit" (click)="submitForm2()" class="btn" [disabled]="processing">
+          {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
+        </button>
       </form>
       <form *ngIf="step === 1" class="col gap-6 w-full" [formGroup]="signUpForm1" autocomplete="off">
         <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>

@@ -18,7 +18,7 @@
           <button (click)="pre()" [disabled]="step === 0 && back === undefined" class="btn-icon">
             <i class="icon-ArrowLeft"></i>
           </button>
-          <button (click)="next()" [disabled]="step === scriptEvents.length - 1" class="btn-icon">
+          <button (click)="next()" [disabled]="next === undefined" class="btn-icon">
             <i class="icon-ArrowRight"></i>
           </button>
         </div>

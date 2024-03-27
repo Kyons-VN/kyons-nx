@@ -1,4 +1,12 @@
 [data-theme='universe'] {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  --color-orange: theme('colors.teal.0');
+  .text-orange {
+    color: var(--color-orange, #00c4d0);
+  }
   @apply text-white;
   background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
   .chat {

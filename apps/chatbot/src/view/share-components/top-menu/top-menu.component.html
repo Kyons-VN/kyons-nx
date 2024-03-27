@@ -1,6 +1,7 @@
 <div *ngIf="show" class="w-full flex h-14 text-base items-center justify-center relative">
-  <div class="w-full xl:max-w-[1122px] flex relative px-6 xl:p-0">
-    <a href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
+  <div class="w-full flex relative px-6 xl:p-0 items-center">
+    <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
+    <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
     <div class="flex-1"></div>
     <ul class="flex items-center gap-2">
       <li>
@@ -28,10 +29,14 @@
         </a>
       </li>
     </ul>
+    <div class="w-4"></div>
+    <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
   </div>
-  <div class="w-4"></div>
-  <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
-  <div *ngIf="showSettings" class="absolute z-20 right-0 top-full bg-white rounded-lg p-4">
+  <div
+    *ngIf="showSettings"
+    class="absolute z-20 right-0 top-full rounded-lg p-4"
+    [ngClass]="{ 'bg-white': theme === 'default', 'bg-black': theme === 'universe' }"
+  >
     <h5>Giao diện</h5>
     <div class="flex gap-2">
       <button class="btn" (click)="setTheme('default')">Mặc định</button>

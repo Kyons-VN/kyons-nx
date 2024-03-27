@@ -136,7 +136,7 @@ export class TutorialTestComponent implements OnInit {
             'click',
             () => {
               this.testSubmission.submitData[this.testContent.questions[this.currentTestIndex].id] =
-                this.testContent.questions[this.currentTestIndex].answers[3];
+                this.testContent.questions[this.currentTestIndex].answers[2];
               this.tutorialPart++;
             },
           ],

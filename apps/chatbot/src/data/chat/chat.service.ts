@@ -8,7 +8,8 @@ import { UserService } from '@data/user/user.service';
 import { formatedDate } from '@share-utils/formats';
 import { catchError, map } from 'rxjs';
 
-const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
+// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
+const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,24 @@ export class ChatService {
       })
     );
   }
+
+  checkCreatedUser() {
+    const userId = this.userService.getUserId();
+    return this.http.get(`${chatServerApi}/user/${userId}/mana`);
+  }
+
+  initDefaultMana() {
+    const userId = this.userService.getUserId();
+    const email = this.userService.getEmail();
+    const params: Record<string, unknown> = {
+      id: userId,
+      userInfo: {
+        email: email,
+      },
+      defaultMana: 1000,
+    };
+    this.http.post(`${chatServerApi}/onUserCreated`, params).subscribe();
+  }
 }
 // const chatConverter = {
 //   toFirestore(value: WithFieldValue<Chat>) {
@@ -49,13 +68,12 @@ export class Chat {
   createdAt: Date;
   firstMessage: string;
   messages: Content[] = [];
+  dateDisplay: string;
   constructor(id: string, createdAt: Date, firstMessage: string) {
     this.id = id;
     this.firstMessage = firstMessage;
     this.createdAt = createdAt;
-  }
-  dateDisplay(): string {
-    return formatedDate(this.createdAt);
+    this.dateDisplay = formatedDate(this.createdAt);
   }
   static fromJson({
     id,
