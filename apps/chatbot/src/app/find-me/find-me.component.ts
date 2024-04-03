@@ -74,7 +74,7 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
       }, 500);
     });
     this.userId = this.userService.getUserId();
-    const targetDate = new Date('2024-04-01T24:00:00+00:00');
+    const targetDate = new Date('2024-04-22T24:00:00+00:00');
     const countdown = interval(1000);
 
     this.$interval = countdown.subscribe(() => {

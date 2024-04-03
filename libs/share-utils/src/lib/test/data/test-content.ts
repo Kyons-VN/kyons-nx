@@ -294,7 +294,7 @@ export class QuestionReview {
     _.answers = dataObject['answers'] ?? '';
     _.explanation = dataObject['explanation'] ?? '';
     _.isCorrect = dataObject['answer_status'] as boolean;
-    _.answers = dataObject['answers'].map((answerObject: any) => Answer.fromJson(answerObject));
+    _.answers = dataObject['answers'] != undefined ? dataObject['answers'].map((answerObject: any) => Answer.fromJson(answerObject)) : [];
     _.correctAnswer = dataObject['correct_answer'];
     return new QuestionReview(_);
   }
