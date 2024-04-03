@@ -16,7 +16,8 @@
       "@utils/*": ["apps/chatbot/src/utils/*"],
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
       "@environments": ["apps/chatbot/src/environments/environment"],
-      "@share-directives/*": ["libs/share-directives/src/lib/*"]
+      "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@share-pipes": ["libs/share-pipes/src/index.ts"]
     }
   },
   "files": [],

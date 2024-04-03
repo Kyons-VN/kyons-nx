@@ -1,4 +1,4 @@
-<div class="flex w-full h-full justify-center">
+<div class="flex w-full h-screen justify-center">
   <div class="flex flex-col w-full xl:max-w-[1122px] gap-6 px-6 xl:p-0">
     <chatbot-top-menu />
     <div class="flex flex-col md:flex-row gap-6 items-start">
@@ -13,11 +13,7 @@
             <span class="flex items-center gap-2"><i class="icon-Test"></i> Tài khoản và thanh toán</span>
             <i class="icon-ArrowRight text-[20px]"></i>
           </li>
-          <li
-            (click)="getTransactions()"
-            class="account-item"
-            [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 1 }"
-          >
+          <li class="account-item" [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 1 }">
             <span class="flex items-center gap-2"><i class="icon-Profile"></i> Thông tin cá nhân</span>
             <i class="icon-ArrowRight text-[20px]"></i>
           </li>

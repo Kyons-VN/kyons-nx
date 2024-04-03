@@ -6,7 +6,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
 import { formatedDate } from '@share-utils/formats';
-import { catchError, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 // const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
 const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
@@ -19,8 +19,11 @@ export class ChatService {
   http = inject(HttpClient);
   userService = inject(UserService);
 
-  getChats() {
+  getChats(): Observable<any> {
     const userId = this.userService.getUserId();
+    if (userId === '') {
+      return throwError(() => new Error('Unauthenticated'));
+    }
     return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
       catchError(DBHelper.handleError('GET getChats', [])),
       map((res: any) => {
@@ -36,11 +39,17 @@ export class ChatService {
 
   checkCreatedUser() {
     const userId = this.userService.getUserId();
+    if (userId === '') {
+      return throwError(() => new Error('Unauthenticated'));
+    }
     return this.http.get(`${chatServerApi}/user/${userId}/mana`);
   }
 
   initDefaultMana() {
     const userId = this.userService.getUserId();
+    if (userId === '') {
+      return throwError(() => new Error('Unauthenticated'));
+    }
     const email = this.userService.getEmail();
     const params: Record<string, unknown> = {
       id: userId,
@@ -49,7 +58,7 @@ export class ChatService {
       },
       defaultMana: 1000,
     };
-    this.http.post(`${chatServerApi}/onUserCreated`, params).subscribe();
+    return this.http.post(`${chatServerApi}/onUserCreated`, params);
   }
 }
 // const chatConverter = {

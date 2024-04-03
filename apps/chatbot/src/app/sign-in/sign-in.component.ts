@@ -138,7 +138,14 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
               error: error => {
                 setTimeout(() => {
                   if (error.error == 'Not found') {
-                    this.chatService.initDefaultMana();
+                    this.chatService.initDefaultMana()?.subscribe({
+                      next: () => {
+                        this.router.navigate([this.paths.home.path]);
+                      },
+                      error: () => {
+                        this.router.navigate([this.paths.home.path]);
+                      },
+                    });
                   }
                   this.router.navigate([this.paths.home.path]);
                 }, 600);

@@ -21,6 +21,7 @@ import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { Answer, Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';
+import { LatexComponent } from '../latex/latex.component';
 import { TutorialComponent } from '../tutorial/tutorial.component';
 
 export class AnswerTutorialScript {
@@ -66,7 +67,7 @@ export class QuestionTutorialScript {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent, FormsModule],
+  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent, FormsModule, LatexComponent],
   selector: 'kyonsvn-test-content',
   templateUrl: './test-content.component.html',
   styleUrls: ['./test-content.component.scss'],

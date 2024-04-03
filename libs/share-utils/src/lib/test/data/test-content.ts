@@ -261,33 +261,41 @@ export class QuestionReview {
   html: string;
   explanation: string;
   isCorrectAnswer: boolean;
+  answers: Answer[];
+  correctAnswer: number;
   constructor({
     id,
     question,
     answers,
     explanation,
     isCorrect,
+    correctAnswer,
   }: {
     id: string;
     question: string;
-    answers: string;
+    answers: Answer[];
     explanation: string;
     isCorrect: boolean;
+    correctAnswer: number;
   }) {
     this.id = id;
     this.content = question;
-    this.html = answers;
+    this.html = '';
+    this.answers = answers;
     this.explanation = explanation;
     this.isCorrectAnswer = isCorrect;
+    this.correctAnswer = correctAnswer;
   }
 
   static fromJson(dataObject: any): QuestionReview {
-    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect', 'hint']);
+    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect', 'hint', 'correctAnswer']);
     _.id = dataObject['id'].toString();
     _.question = dataObject['question'] ?? '';
     _.answers = dataObject['answers'] ?? '';
     _.explanation = dataObject['explanation'] ?? '';
     _.isCorrect = dataObject['answer_status'] as boolean;
+    _.answers = dataObject['answers'].map((answerObject: any) => Answer.fromJson(answerObject));
+    _.correctAnswer = dataObject['correct_answer'];
     return new QuestionReview(_);
   }
 
@@ -295,9 +303,10 @@ export class QuestionReview {
     return new QuestionReview({
       id: '',
       question: '',
-      answers: '',
+      answers: [],
       explanation: '',
       isCorrect: false,
+      correctAnswer: 0,
     });
   }
 }
@@ -394,16 +403,16 @@ class Question implements IQuestion {
     hint,
     difficulty,
   }: // category,
-  // topic,
-  {
-    id: string;
-    content: string;
-    answers: Answer[];
-    // category: Category;
-    // topic: Topic;
-    hint?: string;
-    difficulty?: DifficultyLevel;
-  }) {
+    // topic,
+    {
+      id: string;
+      content: string;
+      answers: Answer[];
+      // category: Category;
+      // topic: Topic;
+      hint?: string;
+      difficulty?: DifficultyLevel;
+    }) {
     this.id = id;
     this.content = content;
     this.answers = answers;
@@ -639,4 +648,5 @@ class TestResult implements ITestResult {
 }
 
 const answerPrefixes = ['Đáp án 1: ', 'Đáp án 2: ', 'Đáp án 3: ', 'Đáp án 4: ', 'Đáp án 5: ', 'Đáp án 6: '];
-export { Answer, AnswerResult, Exercise, Question, TestContent, TestResult, answerPrefixes };
+export { Answer, answerPrefixes, AnswerResult, Exercise, Question, TestContent, TestResult };
+

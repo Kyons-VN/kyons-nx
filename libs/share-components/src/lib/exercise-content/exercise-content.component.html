@@ -1,5 +1,8 @@
 <div *ngIf="question" class="w-full">
-  <p [id]="'qtutorial-' + question.id" class="bg-white"><span [innerHTML]="question.content | safeHtml"></span></p>
+  <p [id]="'qtutorial-' + question.id" class="bg-white">
+    <!-- <span [innerHTML]="question.content | safeHtml"></span> -->
+    <kyonsvn-latex [inputString]="question.content"></kyonsvn-latex>
+  </p>
   <div *ngIf="!showResult; else elseBlock" class="mt-2 flex flex-col gap-1">
     <kyonsvn-input-radio
       [style.display]="ai > 3 ? 'none' : 'block'"
@@ -8,6 +11,7 @@
       [answer]="answer"
       [label]="answerPrefixes[ai] + answer.content"
       [checked]="submission.submitData[question.id] === answer.id"
+      [disabled]="showResult"
     ></kyonsvn-input-radio>
   </div>
   <ng-template #elseBlock class="">
@@ -23,8 +27,10 @@
         <i *ngIf="submission.submitData[question.id] === answer && !answer.isCorrect" class="icon-Error text-red-0"></i>
         <i *ngIf="answer.isCorrect" class="icon-Check text-darkEmerald"></i>
         <div class="col flex-1">
-          <span [innerHTML]="answer.content | safeHtml"></span>
-          <span [innerHTML]="answer.explanation | safeHtml"></span>
+          <!-- <span [innerHTML]="answer.content | safeHtml"></span>
+          <span [innerHTML]="answer.explanation | safeHtml"></span> -->
+          <kyonsvn-latex [inputString]="answer.content"></kyonsvn-latex>
+          <kyonsvn-latex [inputString]="answer.explanation"></kyonsvn-latex>
         </div>
       </div>
     </div>

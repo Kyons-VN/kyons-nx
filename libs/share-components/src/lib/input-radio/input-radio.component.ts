@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { SafeHtmlPipe } from '@share-pipes';
 import { Answer } from '@share-utils/data';
+import { LatexComponent } from '../latex/latex.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, SafeHtmlPipe],
+  imports: [CommonModule, SafeHtmlPipe, LatexComponent],
   selector: 'kyonsvn-input-radio',
   templateUrl: './input-radio.component.html',
   styleUrls: ['./input-radio.component.scss'],

@@ -69,12 +69,14 @@
             [submission]="submission"
             (submissionEvent)="updateSubmission($event)"
             class="flex md:flex-1 md:max-h-full md:overflow-y-auto"
+            [isActive]="true"
           ></kyonsvn-exercise-content>
         </div>
         <div *ngIf="questionReview" class="col gap-2">
           <!-- <span [innerHTML]="questionReview.content | safeHtml"></span> -->
           <!-- <span [innerHTML]="questionReview.html | safeHtml"></span> -->
-          <span [innerHTML]="questionReview.explanation | safeHtml"></span>
+          <!-- <span [innerHTML]="questionReview.explanation | safeHtml"></span> -->
+          <kyonsvn-latex [inputString]="questionReview.explanation"></kyonsvn-latex>
         </div>
       </div>
       <div class="justify-between hidden md:flex flex-col gap-3">

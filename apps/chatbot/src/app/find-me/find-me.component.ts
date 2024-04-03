@@ -39,7 +39,7 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
   zone = inject(NgZone);
   flutterState?: any;
-  chats!: Observable<(Chat | (Chat & object))[]>;
+  chats!: Chat[];
   countdown!: Observable<number>;
   $interval!: Subscription;
   flutterAppLoaded = true;
@@ -58,7 +58,17 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
       this.flutterAppLoaded = false;
       this.chatId = params.get('id') ?? '';
       console.log(`Chat id: ${this.chatId}`);
-      this.chats = this.chatService.getChats();
+      this.chatService.getChats().subscribe({
+        next: chats => {
+          this.chats = chats;
+          this.changeDetectorRef.detectChanges();
+        },
+        error: err => {
+          if (err.message === 'Unauthenticated') {
+            this.router.navigate([this.paths.signIn.path]);
+          }
+        },
+      });
       setTimeout(() => {
         this.flutterAppLoaded = true;
       }, 500);

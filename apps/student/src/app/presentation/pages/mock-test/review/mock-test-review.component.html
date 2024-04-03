@@ -59,9 +59,20 @@
         ></a>
       </div>
       <div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
-        <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span>
+        <!-- <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span> -->
+        <kyonsvn-latex [inputString]="questions[currentQuestionIndex].content"></kyonsvn-latex>
         <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
-        <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span>
+        <kyonsvn-input-radio
+          [style.display]="ai > 3 ? 'none' : 'block'"
+          *ngFor="let answer of questions[currentQuestionIndex].answers | orderBySA : 'order'; let ai = index"
+          [checked]="answer.value === questions[currentQuestionIndex].correctAnswer"
+          [answer]="answer"
+          [label]="answerPrefixes[ai] + answer.content"
+          [disabled]="true"
+        ></kyonsvn-input-radio>
+        <!-- <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span> -->
+        <h5>Lời giải</h5>
+        <kyonsvn-latex [inputString]="questions[currentQuestionIndex].explanation"></kyonsvn-latex>
       </div>
     </div>
     <div class="justify-between flex flex-col gap-3">

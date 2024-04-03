@@ -1,7 +1,8 @@
 <div class="flex items-center">
   <label class="radio flat" [id]="'atutorial-' + answer.id">
     <input [id]="'a-' + answer.id" type="radio" [name]="name" [disabled]="disabled" [checked]="checked" />
-    <span [innerHTML]="label | safeHtml"></span>
+    <!-- <span [innerHTML]="label | safeHtml"></span> -->
+    <kyonsvn-latex [inputString]="label"></kyonsvn-latex>
   </label>
   <!-- <input [id]="name + value" type="radio" [name]="name" class="hidden" [disabled]="disabled" [checked]="checked" />
   <label [for]="name + value" class="flex cursor-pointer px-1">

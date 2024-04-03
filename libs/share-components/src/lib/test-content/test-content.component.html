@@ -4,7 +4,10 @@
     class="mb-4"
     [ngClass]="{ 'block ': qi === currentIndex, 'hidden ': qi !== currentIndex }"
   >
-    <p [id]="'qtutorial-' + question.id" class="bg-white"><span [innerHTML]="question.content | safeHtml"></span></p>
+    <!-- <p [id]="'qtutorial-' + question.id" class="bg-white">
+      <kyonsvn-latex [inputString]="question.content | safeHtml"></kyonsvn-latex>
+    </p> -->
+    <kyonsvn-latex [id]="'qtutorial-' + question.id" class="bg-white" [inputString]="question.content"></kyonsvn-latex>
     <div *ngIf="!showResult; else elseBlock" class="mt-2 flex flex-col gap-1">
       <kyonsvn-input-radio
         [style.display]="ai > 3 ? 'none' : 'block'"

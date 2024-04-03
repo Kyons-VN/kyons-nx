@@ -458,7 +458,8 @@ kyonsvn-tutorial label.radio {
   @apply flex items-center font-bold gap-2 px-3 py-2 rounded-t-lg cursor-pointer;
 }
 
-ul.check-list {
+ul.check-list,
+.check-list-wrapper ul {
   @apply pl-4;
 
   & > li {

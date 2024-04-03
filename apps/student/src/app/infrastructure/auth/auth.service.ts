@@ -24,7 +24,7 @@ export class AuthService implements IAuthService {
     private trackingService: TrackingService,
     private knowledgeService: KnowledgeService,
     private backend: HttpBackend
-  ) {}
+  ) { }
 
   signIn(credential: IAuthCredential) {
     if (sandboxAccounts.includes(credential.email)) {
@@ -60,6 +60,7 @@ export class AuthService implements IAuthService {
       const request = this.http.get(`${serverApi()}/auth/sign_out`).subscribe({
         next: () => {
           request.unsubscribe();
+          window.localStorage.removeItem('dev');
         },
       });
     }

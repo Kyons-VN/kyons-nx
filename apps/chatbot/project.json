@@ -80,6 +80,7 @@
           "index": "apps/chatbot/src/environments/test/index.html"
         },
         "dev": {
+          "outputPath": "dist/apps/chatbot/dev",
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true,

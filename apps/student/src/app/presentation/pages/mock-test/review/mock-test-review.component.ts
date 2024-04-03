@@ -1,6 +1,6 @@
 import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { serverApi } from '@infrastructure/auth/interceptor';
 import { KnowledgeService } from '@infrastructure/knowledge/knowledge.service';
@@ -9,14 +9,14 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { TutorialService } from '@infrastructure/tutorials/tutorial-service';
-import { TutorialComponent } from '@share-components';
-import { SafeHtmlPipe } from '@share-pipes';
-import { QuestionReview } from '@share-utils/data';
+import { InputRadioComponent, LatexComponent, TutorialComponent } from '@share-components';
+import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
+import { answerPrefixes, QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe, TutorialComponent],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, TutorialComponent, LatexComponent, InputRadioComponent, OrderBySAPipe],
   templateUrl: './mock-test-review.component.html',
   styleUrls: ['./mock-test-review.component.scss'],
 })
@@ -32,6 +32,8 @@ export class MockTestReviewComponent implements OnInit {
   location = inject(Location);
   tutorialService = inject(TutorialService);
 
+
+  answerPrefixes = answerPrefixes;
   questions: QuestionReview[] = [];
   currentQuestion!: QuestionReview;
   currentQuestionIndex = 0;

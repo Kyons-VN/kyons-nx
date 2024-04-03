@@ -9,7 +9,7 @@ import { LoadingOverlayService } from '@infrastructure/loading-overlay.service';
 import { NavigationService } from '@infrastructure/navigation/navigation.service';
 import { TestService } from '@infrastructure/test/test.service';
 import { TrackingLessonComponent } from '@presentation/share-components/tracking/tracking-lesson.component';
-import { ExerciseContentComponent, QuestionsProgressComponent } from '@share-components';
+import { ExerciseContentComponent, LatexComponent, QuestionsProgressComponent } from '@share-components';
 import { SafeHtmlPipe } from '@share-pipes';
 import { Exercise, Progress, Question, QuestionReview, Submission } from '@share-utils/data';
 
@@ -23,6 +23,7 @@ import { Exercise, Progress, Question, QuestionReview, Submission } from '@share
     MatTooltipModule,
     SafeHtmlPipe,
     TrackingLessonComponent,
+    LatexComponent,
   ],
   templateUrl: './lesson-page.component.html',
   styleUrls: ['./lesson-page.component.scss'],

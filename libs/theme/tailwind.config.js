@@ -64,6 +64,15 @@ module.exports = {
           1: '#62EDF5',
           2: '#C8FCFF',
         },
+        yellow: {
+          0: '#FCD400',
+          1: '#FFE765',
+          2: '#FFF2B0',
+        },
+        dartYellow: {
+          1: '#EDAB03',
+          2: '#BD8000',
+        },
       },
       width: {
         '200px': '200px',

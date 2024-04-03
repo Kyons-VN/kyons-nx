@@ -24,7 +24,6 @@ function bootstrap() {
   // if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
   // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
   // }
-  console.log(appConfig.providers);
 
   bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
 }

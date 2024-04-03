@@ -4,13 +4,14 @@ import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { Answer, Progress, Question, Submission, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';
+import { LatexComponent } from '../latex/latex.component';
 // import {
 //   answerPrefixes,
 //   TestContent
 
 @Component({
   standalone: true,
-  imports: [CommonModule, SafeHtmlPipe, InputRadioComponent, OrderBySAPipe],
+  imports: [CommonModule, SafeHtmlPipe, InputRadioComponent, OrderBySAPipe, LatexComponent],
   selector: 'kyonsvn-exercise-content',
   templateUrl: './exercise-content.component.html',
   styleUrls: ['./exercise-content.component.scss'],
@@ -39,8 +40,9 @@ export class ExerciseContentComponent implements OnInit, OnDestroy {
     if (!this.isActive) return;
 
     if (['1', '2', '3', '4'].includes(e.key)) {
-      // this.submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
-      // this.updateSubmitData(question.id, answers[parseInt(e.key) - 1].id)
+      if (this.showResult) return;
+      this.submission.submitData[this.question.id] = this.question.answers[parseInt(e.key) - 1];
+      this.updateSubmitData(this.question.id, this.question.answers[parseInt(e.key) - 1]);
       // if (currentSubmitDataLength != Object.keys(this.submission.submitData).length) {
       // this.progress.next();
       // this.updateProgress(this.progress.value + 1);

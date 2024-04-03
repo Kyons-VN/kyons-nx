@@ -41,20 +41,20 @@ export class UserService {
 
   getUsername() {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
-    return currentUser.first_name;
+    return currentUser != null ? currentUser.first_name : '';
   }
   getEmail() {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
-    return currentUser.email;
+    return currentUser != null ? currentUser.email : '';
   }
   getUserType() {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
-    return currentUser.study_type;
+    return currentUser != null ? currentUser.study_type : '';
   }
 
-  getUserId() {
+  getUserId(): string {
     const currentUser = JSON.parse(window.localStorage.getItem(CURRENT_USER) ?? '{}');
-    return currentUser.uid;
+    return currentUser != null ? currentUser.uid : '';
   }
 
   removeCurrentUser() {

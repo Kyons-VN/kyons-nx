@@ -3,74 +3,90 @@ import { Injectable } from '@angular/core';
 import { serverApi } from '@data/auth/interceptor';
 import { DBHelper } from '@data/helper/helper';
 import IOrderServicce from '@domain/order/i-order-service';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import Balance from './balance';
-import Inventory from './inventory';
+import { Inventory } from './inventory';
+import Order from './order';
 import { Package } from './package';
-import { Transaction, TransactionList } from './transaction';
+import SubscriptionTime from './subscription';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService implements IOrderServicce {
-  constructor(private http: HttpClient) {}
+  //       "amount": "10000000.0",
+  //       "package_name": "Nạp tiền",
+  //       "created_at": "2022-11-11T12:21:38.564Z"
+  //     }
+  //   ],
+  //   "total": 3
+  // };
+  constructor(private http: HttpClient) { }
 
-  getInventories() {
-    return this.http.get(`${serverApi()}/students/inventories`).pipe(
+  getInventory() {
+    return this.http.get(`${serverApi()}/api/v2/users/inventories`).pipe(
       catchError(DBHelper.handleError('GET getInventories', {})),
       map((res: any) => {
-        if (res.data === undefined) return Inventory.empty();
-        return Inventory.fromJson(res.data);
+        return Inventory.fromJson(res);
       })
     );
   }
 
   getBalance() {
-    return this.http.get(`${serverApi()}/students/balance`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/balance`).pipe(
       catchError(DBHelper.handleError('GET getBalance', 0)),
       map((res: any) => {
-        if (res.data === undefined || typeof parseInt(res.data.balance) != 'number') return Balance.empty();
-        return new Balance(parseInt(res.data.balance));
+        if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
+        return new Balance(parseInt(res.balance));
+      })
+    );
+  }
+  getSubscription() {
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/balance`).pipe(
+      catchError(DBHelper.handleError('GET getBalance', 0)),
+      map((res: any) => {
+        if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
+        return new Balance(parseInt(res.balance));
       })
     );
   }
 
-  getTransaction() {
-    return this.http.get(`${serverApi()}/students/transactions`).pipe(
-      catchError(DBHelper.handleError('GET getTransaction', [])),
-      map((res: any) => {
-        // res = {
-        //   "data": [
-        //     {
-        //       "id": 3,
-        //       "quantity": 2,
-        //       "amount": "-200000.0",
-        //       "package_name": "Mock Test (special promotion)",
-        //       "created_at": "2022-11-11T12:44:07.010Z"
-        //     },
-        //     {
-        //       "id": 2,
-        //       "quantity": 1,
-        //       "amount": "10000000.0",
-        //       "package_name": "Nạp tiền",
-        //       "created_at": "2022-11-11T12:21:38.564Z"
-        //     }
-        //   ],
-        //   "total": 3
-        // };
-        if (res.data === undefined || res.data.length === 0) return TransactionList.empty();
-        // const collection = res.data;
-        const collection = res.data;
-        return new TransactionList({
-          total: res.total,
-          list: collection.map((dataObject: any) => Transaction.fromJson(dataObject)),
-        });
-      })
-    );
-  }
+  // getTransaction() {
+  //   return this.http.get(`${serverApi()}/students/transactions`).pipe(
+  //     catchError(DBHelper.handleError('GET getTransaction', [])),
+  //     map((res: any) => {
+  //       // res = {
+  //       //   "data": [
+  //       //     {
+  //       //       "id": 3,
+  //       //       "quantity": 2,
+  //       //       "amount": "-200000.0",
+  //       //       "package_name": "Mock Test (special promotion)",
+  //       //       "created_at": "2022-11-11T12:44:07.010Z"
+  //       //     },
+  //       //     {
+  //       //       "id": 2,
+  //       //       "quantity": 1,
+  //       //       "amount": "10000000.0",
+  //       //       "package_name": "Nạp tiền",
+  //       //       "created_at": "2022-11-11T12:21:38.564Z"
+  //       //     }
+  //       //   ],
+  //       //   "total": 3
+  //       // };
+  //       if (res.data === undefined || res.data.length === 0) return TransactionList.empty();
+  //       // const collection = res.data;
+  //       const collection = res.data;
+  //       return new TransactionList({
+  //         total: res.total,
+  //         list: collection.map((dataObject: any) => Transaction.fromJson(dataObject)),
+  //       });
+  //     })
+  //   );
+  // }
 
   getPackages() {
-    return this.http.get<Package[]>(`${serverApi()}/students/packages`).pipe(
+    return this.http.get<Package[]>(`${serverApi()}/api/v2/packages`).pipe(
       catchError(DBHelper.handleError('GET getPackages', [])),
       map((res: any) => {
         if (res.data === undefined || res.data.length == 0) return [];
@@ -79,17 +95,17 @@ export class OrderService implements IOrderServicce {
     );
   }
 
-  orderPackage(packageId: string, quantity: number) {
+  orderPackage(packageId: string, quantity: number, paymentMethod: string = 'bank_transfer') {
     const params: any = {
-      id: packageId,
+      package_id: parseInt(packageId),
       quantity: quantity,
+      paid_method: paymentMethod == 'bank_transfer' ? 100 : 200,
     };
-    return this.http.post(`${serverApi()}/students/packages/order`, params).pipe(
+    return this.http.post(`${serverApi()}/api/v2/users/orders`, params).pipe(
       // catchError(DBHelper.handleError('POST orderPackage')),
       map((res: any) => {
-        return res;
-        //   if (res.success) return 'OK';
-        //   return '';
+        if (res.data === undefined || res.data.order_code === undefined) return '';
+        return res.data.order_code;
       })
     );
   }
@@ -97,5 +113,47 @@ export class OrderService implements IOrderServicce {
   getFreeTrial() {
     // const params: any = {};
     return this.http.get(`${serverApi()}/students/gifts/request_free_subscription`);
+  }
+
+  getOrderHistory() {
+    return this.http.get(`${serverApi()}/api/v2/users/orders`).pipe(
+      catchError(DBHelper.handleError('GET getOrderHistory', [])),
+      map((res: any) => {
+        if (res.data === undefined || res.data.length === 0) return [];
+        return res.data.map((dataObject: any) => Order.fromJson(dataObject));
+      })
+    );
+  }
+  confirmOrder(orderCode: string) {
+    const params: any = {
+      order_code: orderCode,
+    };
+    return this.http.put(`${serverApi()}/api/v2/users/orders/confirm`, params).pipe(
+      catchError(DBHelper.handleError('PUT confirmOrder')),
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+  cancelOrder(orderCode: string): Observable<string> {
+    const params: any = {
+      order_code: orderCode,
+    };
+    return this.http.put(`${serverApi()}/api/v2/users/orders/cancel`, params).pipe(
+      catchError(DBHelper.handleError('PUT cancelOrder', 'fail')),
+      map((res: any) => {
+        if (res.status === undefined) return 'fail';
+        return res.status;
+      })
+    );
+  }
+  getSubscriptionTime(): Observable<SubscriptionTime> {
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/subscription`).pipe(
+      catchError(DBHelper.handleError('GET getSubscriptionTime', 0)),
+      map((res: any) => {
+        if (res.quantity === undefined || typeof parseInt(res.quantity) != 'number') return new SubscriptionTime(0);
+        return new SubscriptionTime(res.quantity);
+      })
+    );
   }
 }

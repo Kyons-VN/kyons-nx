@@ -95,7 +95,6 @@ export class OrderService implements IOrderServicce {
   }
 
   getFreeTrial() {
-    const params: any = {};
     return this.http.get(`${serverApi()}/students/gifts/request_free_subscription`);
   }
 }

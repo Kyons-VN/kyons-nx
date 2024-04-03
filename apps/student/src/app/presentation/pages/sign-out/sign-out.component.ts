@@ -22,7 +22,6 @@ export class SignOutComponent implements OnInit {
   }
 
   signOut() {
-    window.localStorage.removeItem('dev');
     this.authService.signOut();
     this.router.navigate([this.paths.signIn.path]);
   }
