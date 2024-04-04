@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   activeTab = 0;
   user!: User;
 
-  @HostBinding('class') class = 'h-full';
+  @HostBinding('class') class = 'h-full w-full';
   public profileForm: FormGroup = this.fb.group({});
   public extraForm: FormGroup = this.fb.group({});
   // public myDatePickerOptions: IMyDpOptions = {

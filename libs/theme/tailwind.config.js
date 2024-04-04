@@ -69,7 +69,7 @@ module.exports = {
           1: '#FFE765',
           2: '#FFF2B0',
         },
-        dartYellow: {
+        darkYellow: {
           1: '#EDAB03',
           2: '#BD8000',
         },

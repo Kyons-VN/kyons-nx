@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, OnInit, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavigationService } from '@data/navigation/navigation.service';
 import Balance from '@data/order/balance';
 import { Inventory, Item } from '@data/order/inventory';
@@ -21,6 +21,8 @@ export class AccountAndPaymentComponent implements OnInit {
   orderService = inject(OrderService);
   paths = inject(NavigationService).paths;
   OrderStatus = OrderStatus;
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
   activeTab = signal(0);
   totalItems: number = 0;
@@ -65,6 +67,15 @@ export class AccountAndPaymentComponent implements OnInit {
             this.totalItems = this.items.length > 0 ? this.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
           },
         });
+        this.route.queryParams.subscribe({
+          next: (params) => {
+            if (params['packageLevel']) {
+              window.localStorage.removeItem('selectedPackageLevel');
+              this.router.navigate([this.paths.account.path]);
+              this.selectPackage(this.packages.find(p => p.level === parseInt(params['packageLevel']))!);
+            }
+          }
+        })
       },
     });
     this.orderService.getBalance().subscribe({
@@ -111,7 +122,7 @@ export class AccountAndPaymentComponent implements OnInit {
   // }
 
   loadOrderHistory() {
-    this.orderService.getOrderHistory().subscribe({
+    return this.orderService.getOrderHistory().subscribe({
       next: data => {
         this.orders = data;
       },
@@ -141,6 +152,7 @@ export class AccountAndPaymentComponent implements OnInit {
       next: (res) => {
         if (res === 'canceled') {
           this.isCancelSuccess = true;
+          this.showOrdering = false;
         }
         else {
           this.isCancelFail = true;
@@ -168,6 +180,7 @@ export class AccountAndPaymentComponent implements OnInit {
   }
 
   backToHistory() {
+    this.isOrderSuccess = false;
     this.isViewOrder = false;
     this.isCancelSuccess = false;
     this.isPendingOrder = false;

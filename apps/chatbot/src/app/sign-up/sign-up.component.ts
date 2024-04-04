@@ -56,18 +56,29 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   processing = false;
   errorMessage = '';
   ref!: string;
+  packageLevel: string = '';
   // refFrom!: TestType | null;
   isShowTOS = false;
   tosChecked = new FormControl<boolean>(false, [Validators.requiredTrue]);
   @ViewChild('tosIframe') public tosIframe!: ElementRef<never>;
   currentUrl = '';
   shouldValidate = false;
+  viewPackage = '';
+  packageNames: { [key: string]: string } = {
+    '1': 'Gói Starter: 1 Tháng',
+    '2': 'Gói Starter: 3 Tháng',
+    '3': 'Gói Starter: 12 Tháng',
+  }
 
   @ViewChild('emailElm') emailElm!: ElementRef;
 
   ngOnInit(): void {
     window.localStorage.removeItem('dev');
     this.ref = this.route.snapshot.queryParams['ref'] ?? '';
+    this.packageLevel = this.route.snapshot.queryParams['packageLevel'] ?? '';
+    if (this.packageLevel) {
+      window.localStorage.setItem('selectedPackageLevel', this.packageLevel);
+    }
     // this.refFrom = this.route.snapshot.queryParams['mocktest'] ? TestType.Mock : null;
     // this.signUpForm1.addControl('firstName', this.firstName);
     // this.signUpForm1.addControl('lastName', this.lastName);
@@ -192,5 +203,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   isSharedFromMockTest() {
     return this.signUpForm1.touched;
+  }
+
+  select(level: string) {
+    this.packageLevel = level;
+    window.localStorage.setItem('selectedPackageLevel', level);
   }
 }

@@ -100,7 +100,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
       this.authService.signIn(new AuthCredential(this.signInForm.value)).subscribe({
         next: result => {
           if (result.success) {
-            this.location.replaceState('/');
+            // this.location.replaceState('/');
             // const redirectPath = this.navService.getRouteAfterLogin(result.redirect_after_auth);
             // if (result.redirect_after_auth == RedirectAfterLogin[RedirectAfterLogin.HomeAppTutorial]) {
             //   this.userService.setForceCompleteTutorial();
@@ -129,14 +129,16 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
             //   });
             // else {
 
-            this.chatService.checkCreatedUser().subscribe({
-              next: () => {
-                setTimeout(() => {
-                  this.router.navigate([this.paths.home.path]);
-                }, 600);
-              },
-              error: error => {
-                setTimeout(() => {
+            setTimeout(() => {
+              this.chatService.checkCreatedUser().subscribe({
+                next: () => {
+                  if (window.localStorage.getItem('selectedPackageLevel') != undefined) {
+                    const packageLevel = window.localStorage.getItem('selectedPackageLevel');
+                    this.router.navigate([this.paths.account.path], { queryParams: { "packageLevel": packageLevel } });
+                  }
+                  else { this.router.navigate([this.paths.home.path]); }
+                },
+                error: error => {
                   if (error.error == 'Not found') {
                     this.chatService.initDefaultMana()?.subscribe({
                       next: () => {
@@ -147,10 +149,14 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
                       },
                     });
                   }
-                  this.router.navigate([this.paths.home.path]);
-                }, 600);
-              },
-            });
+                  if (window.localStorage.getItem('selectedPackageLevel') != undefined) {
+                    const packageLevel = window.localStorage.getItem('selectedPackageLevel');
+                    this.router.navigate([this.paths.account.path], { queryParams: { "packageLevel": packageLevel } });
+                  }
+                  else { this.router.navigate([this.paths.home.path]); }
+                },
+              });
+            }, 600);
             // }
           } else {
             this.processing = false;

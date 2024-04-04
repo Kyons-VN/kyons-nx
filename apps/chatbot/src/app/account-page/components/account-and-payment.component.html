@@ -200,7 +200,7 @@
               Trạng thái:
               <b
                 [ngClass]="{
-                  'text-dartYellow-1': orderDetails.status === OrderStatus.manualPaid,
+                  'text-darkYellow-1': orderDetails.status === OrderStatus.manualPaid,
                   'text-darkEmerald': orderDetails.status === OrderStatus.completed,
                   'text-red-0': orderDetails.status === OrderStatus.pending
                 }"
@@ -222,7 +222,7 @@
             và vật phẩm đã được gửi đến bạn.
           </p>
           <p *ngIf="orderDetails.status === OrderStatus.manualPaid">
-            Trạng thái “<span class="text-dartYellow-1">Đang xử lí</span>" thể hiện khi bạn đã hoàn tất thanh toán và
+            Trạng thái “<span class="text-darkYellow-1">Đang xử lí</span>" thể hiện khi bạn đã hoàn tất thanh toán và
             đang đợi Kyons xác nhận giao dịch. Khi xác nhận thành công, vật phẩm sẽ được gửi đến bạn.
           </p>
           <p *ngIf="orderDetails.status === OrderStatus.pending">
@@ -255,7 +255,7 @@
           <td
             class="font-bold"
             [ngClass]="{
-              'text-dartYellow-1': order.status === OrderStatus.manualPaid,
+              'text-darkYellow-1': order.status === OrderStatus.manualPaid,
               'text-darkEmerald': order.status === OrderStatus.completed,
               'text-red-0': order.status === OrderStatus.pending
             }"

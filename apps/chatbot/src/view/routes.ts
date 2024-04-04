@@ -22,7 +22,7 @@ class AppPaths {
   profile = { name: '', path: '/profile/' };
   pageNotfound = { name: '', path: '/page-not-found/' };
   resetPassword = { name: '', path: '/reset-password/' };
-  account = { name: '', path: '/account/' };
+  account = { name: '', path: '/account' };
   package = { name: '', path: '/account/package/' };
   termsOfService = { name: '', path: '/terms-of-service' };
   adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
@@ -126,3 +126,4 @@ const routes: Routes = [
 ];
 
 export { AppPaths, routes };
+

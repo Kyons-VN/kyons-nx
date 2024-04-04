@@ -26,7 +26,7 @@ export class User implements IUser {
       email: json['email'],
       firstName: json['first_name'],
       lastName: json['last_name'],
-      phone: json['mobile_number'].replace('+84', '0'),
+      phone: json['mobile_number'] ? json['mobile_number'].replace('+84', '0') : '',
     });
   }
 }

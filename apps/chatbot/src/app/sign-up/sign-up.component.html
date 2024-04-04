@@ -1,9 +1,5 @@
 <div *ngIf="step !== 2" class="flex-col md:flex md:flex-row h-full md:overflow-hidden">
-  <div class="col md:hidden hero-bg py-8 px-6 gap-2" style="height: calc(100vw * 204 / 375)">
-    <img src="/assets/images/logo-horizontal-light.webp" alt="" class="self-start h-[32px]" />
-    <span class="h7 text-white w-full text-center">Tri thức khởi đầu từ<br />“Tại sao”?</span>
-  </div>
-  <div class="background-image flex w-full h-full md:items-center justify-center">
+  <div class="background-image flex h-full md:items-center justify-center">
     <div class="flex flex-col w-full md:w-[434px] min-h-[338px] p-6 mb-24 gap-6 overflow-auto flex-shrink-0">
       <img src="/assets/images/logo-h.svg" alt="Logo" class="h-12 self-start" />
       <form
@@ -13,7 +9,7 @@
         autocomplete="off"
         [ngClass]="{ 'no-validate': !shouldValidate }"
       >
-        <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div>
+        <!-- <div *ngIf="isSharedFromMockTest()" [beforeunload]="beforeunload"></div> -->
         <!-- <div *ngIf="isSharedFromMockTest()" class="flex flex-col" [beforeunload]="beforeunload">
                 <span class="text-white">Mã giới thiệu:</span>
                 <input *ngIf="refFrom !== null && ref" type="text" readonly="readonly" [value]="ref" />
@@ -151,6 +147,18 @@
             </ul>
           </div>
         </div>
+        <div class="flex flex-col">
+          <p>Chọn gói</p>
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between" *ngFor="let item of ['1', '2', '3']">
+              <label class="radio flat" [id]="'package-' + item">
+                <input type="radio" [checked]="item === packageLevel" (click)="select(item)" name="package" />
+                <span>{{ packageNames[item] }}</span>
+              </label>
+              <a class="text-link md:hidden" (click)="viewPackage = item">Chi tiết</a>
+            </div>
+          </div>
+        </div>
         <label for="tos" class="checkbox dark flex gap-2">
           <input #tos type="checkbox" formControlName="tosChecked" id="tos" />
           <span class="text-sm !mt-0" [ngClass]="{ error: tosChecked.invalid && shouldValidate }">
@@ -160,7 +168,7 @@
         </label>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
         <!-- <button (click)="submitForm2()" class="btn" [disabled]="processing">Tiếp tục</button> -->
-        <button type="submit" (click)="submitForm2()" class="btn" [disabled]="processing">
+        <button type="submit" (click)="submitForm2()" class="btn" [disabled]="processing || packageLevel === ''">
           {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
         </button>
       </form>
@@ -272,9 +280,90 @@
       <span>Đã có tài khoản? <a [routerLink]="paths.signIn.path">Đăng nhập</a></span>
     </div>
   </div>
-  <div class="hero-img hidden md:flex justify-center flex-shrink-0 overflow-hidden relative">
-    <img class="w-full h-full object-cover absolute top-0" src="/assets/images/hero-image.webp" alt="" />
-    <span class="text-white text-[36px] font-semibold text-center relative">Tri thức khởi đầu<br />từ “Tại sao”?</span>
+  <div
+    class="hero-bg hidden md:flex lg:flex-row md:flex-col lg:items-center md:justify-start p-8 justify-center flex-shrink-0 relative flex-1 w-full gap-4 h-screen overflow-y-auto overflow-x-hidden"
+  >
+    <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
+      <div class="flex flex-col gap-8">
+        <div class="flex gap-1 items-center justify-center">
+          <img src="/assets/images/free-package.svg" alt="" />
+          <h6 class="text-lg">Gói Starter: 1 Tháng</h6>
+        </div>
+        <div class="flex gap-2.5 justify-center items-center">
+          <div class="flex flex-col justify-end">
+            <b class="text-blueGrey-400 text-3xl text-right">69K</b>
+            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 60% </b>
+          </div>
+          <span class="text-7xl font-semibold">19K</span>
+        </div>
+        <div class="text-center">1 tháng truy cập Kyons</div>
+        <div class="flex flex-col gap-4">
+          <button class="btn orange" (click)="select('1')">
+            {{ packageLevel === '1' ? 'Đã chọn' : 'Bấm để chọn' }}
+          </button>
+          <p>Bao gồm các <b>tính năng:</b></p>
+          <ul class="star">
+            <li>Huy hiệu <b>Kyons First</b> độc quyền gắn trên hồ sơ truy cập</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col rounded-lg p-4 gap-4 bg-white hover:shadow-orange shadow-2 h-[600px] justify-start items-center outline-orange outline-8"
+    >
+      <div class="h-[37px] bg-yellow-1 px-4 py-2 rounded-2xl">Khuyên dùng</div>
+      <div class="flex flex-col gap-8">
+        <div class="flex gap-1 items-center justify-center">
+          <img src="/assets/images/free-package.svg" alt="" />
+          <h6 class="text-lg">Gói Starter: 3 tháng</h6>
+        </div>
+        <div class="flex gap-2.5 justify-center items-center">
+          <div class="flex flex-col justify-end">
+            <b class="text-blueGrey-400 text-3xl text-right">207K</b>
+            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
+          </div>
+          <span class="text-7xl font-semibold">69K</span>
+        </div>
+        <div class="text-center">3 tháng truy cập Kyons</div>
+        <div class="flex flex-col gap-4">
+          <button class="btn orange" (click)="select('2')">
+            {{ packageLevel === '2' ? 'Đã chọn' : 'Bấm để chọn' }}
+          </button>
+          <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
+          <ul class="star">
+            <li><b>Vĩnh viễn giảm 10%</b> cho các đơn hàng tiếp theo trên Kyons</li>
+            <li><b>Truy cập công cụ “Học Tốt”</b> độc quyền của Kyons</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
+      <div class="flex flex-col gap-8">
+        <div class="flex gap-1 items-center justify-center">
+          <img src="/assets/images/free-package.svg" alt="" />
+          <h6 class="text-lg">Gói Starter: 12 tháng</h6>
+        </div>
+        <div class="flex gap-2.5 justify-center items-center">
+          <div class="flex flex-col justify-end">
+            <b class="text-blueGrey-400 text-3xl text-right">828K</b>
+            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
+          </div>
+          <span class="text-7xl font-semibold">279K</span>
+        </div>
+        <div class="text-center">12 tháng truy cập Kyons</div>
+        <div class="flex flex-col gap-4">
+          <button class="btn orange" (click)="select('3')">
+            {{ packageLevel === '3' ? 'Đã chọn' : 'Bấm để chọn' }}
+          </button>
+          <p>Bao gồm các tính năng của <b>Gói Starter 3 tháng</b> và:</p>
+          <ul class="star">
+            <li>Tham gia cộng đồng <b>“Chiến thần Toán Học”</b> của Kyons</li>
+            <li>Quyền ưu tiên được trải nghiệm các tính năng mới của Kyons</li>
+            <li>Gấp đôi thời gian sử dụng công cụ AI trong Kyons</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div
@@ -297,6 +386,99 @@
         >
       </div>
       <a class="btn" [routerLink]="paths.signIn.path">Đăng nhập ngay thôi</a>
+    </div>
+  </div>
+</div>
+<div *ngIf="viewPackage !== ''" class="absolute top-0 left-0 col md:hidden p-6 w-full h-full">
+  <div *ngIf="viewPackage === '1'" class="flex flex-col rounded-lg p-4 bg-white shadow-2 justify-start items-center">
+    <div class="flex flex-col gap-8">
+      <div class="flex gap-1 items-center justify-center">
+        <img src="/assets/images/free-package.svg" alt="" />
+        <h6 class="text-lg">Gói Starter: 1 Tháng</h6>
+      </div>
+      <div class="flex gap-2.5 justify-center items-center">
+        <div class="flex flex-col justify-end">
+          <b class="text-blueGrey-400 text-3xl text-right">69K</b>
+          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 60% </b>
+        </div>
+        <span class="text-7xl font-semibold">19K</span>
+      </div>
+      <div class="text-center">1 tháng truy cập Kyons</div>
+      <div class="flex flex-col gap-4">
+        <p>Bao gồm các <b>tính năng:</b></p>
+        <ul class="star">
+          <li>Huy hiệu <b>Kyons First</b> độc quyền gắn trên hồ sơ truy cập</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button class="btn orange" (click)="select('1')">
+          {{ packageLevel === '1' ? 'Đã chọn' : 'Bấm để chọn' }}
+        </button>
+        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="viewPackage === '2'"
+    class="flex flex-col rounded-lg p-4 gap-4 bg-white shadow-2 justify-start items-center"
+  >
+    <div class="h-[37px] bg-yellow-1 px-4 py-2 rounded-2xl">Khuyên dùng</div>
+    <div class="flex flex-col gap-8">
+      <div class="flex gap-1 items-center justify-center">
+        <img src="/assets/images/free-package.svg" alt="" />
+        <h6 class="text-lg">Gói Starter: 3 tháng</h6>
+      </div>
+      <div class="flex gap-2.5 justify-center items-center">
+        <div class="flex flex-col justify-end">
+          <b class="text-blueGrey-400 text-3xl text-right">207K</b>
+          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
+        </div>
+        <span class="text-7xl font-semibold">69K</span>
+      </div>
+      <div class="text-center">3 tháng truy cập Kyons</div>
+      <div class="flex flex-col gap-4">
+        <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
+        <ul class="star">
+          <li><b>Vĩnh viễn giảm 10%</b> cho các đơn hàng tiếp theo trên Kyons</li>
+          <li><b>Truy cập công cụ “Học Tốt”</b> độc quyền của Kyons</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button class="btn orange" (click)="select('2')">
+          {{ packageLevel === '2' ? 'Đã chọn' : 'Bấm để chọn' }}
+        </button>
+        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="viewPackage === '3'" class="flex flex-col rounded-lg p-4 bg-white shadow-2 justify-start items-center">
+    <div class="flex flex-col gap-8">
+      <div class="flex gap-1 items-center justify-center">
+        <img src="/assets/images/free-package.svg" alt="" />
+        <h6 class="text-lg">Gói Starter: 12 tháng</h6>
+      </div>
+      <div class="flex gap-2.5 justify-center items-center">
+        <div class="flex flex-col justify-end">
+          <b class="text-blueGrey-400 text-3xl text-right">828K</b>
+          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
+        </div>
+        <span class="text-7xl font-semibold">279K</span>
+      </div>
+      <div class="text-center">12 tháng truy cập Kyons</div>
+      <div class="flex flex-col gap-4">
+        <p>Bao gồm các tính năng của <b>Gói Starter 3 tháng</b> và:</p>
+        <ul class="star">
+          <li>Tham gia cộng đồng <b>“Chiến thần Toán Học”</b> của Kyons</li>
+          <li>Quyền ưu tiên được trải nghiệm các tính năng mới của Kyons</li>
+          <li>Gấp đôi thời gian sử dụng công cụ AI trong Kyons</li>
+        </ul>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button class="btn orange" (click)="select('3')">
+          {{ packageLevel === '3' ? 'Đã chọn' : 'Bấm để chọn' }}
+        </button>
+        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+      </div>
     </div>
   </div>
 </div>
