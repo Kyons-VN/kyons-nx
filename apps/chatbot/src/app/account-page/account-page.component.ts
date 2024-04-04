@@ -6,7 +6,6 @@ import { NavigationService } from '@data/navigation/navigation.service';
 // import Balance from '@data/order/balance';
 import Balance from '@data/order/balance';
 import { OrderService } from '@data/order/order.service';
-import { Package } from '@data/order/package';
 import { TransactionList } from '@data/order/transaction';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { AccountAndPaymentComponent } from './components/account-and-payment.component';
@@ -40,7 +39,6 @@ export class AccountPageComponent {
   balance: Balance = Balance.empty();
   transactions = TransactionList.empty();
   activities = [];
-  currentPackage!: Package;
 
   // ngOnInit(): void {
   // this.orderService.getInventories().subscribe({

@@ -1,5 +1,5 @@
 import { DiscountType, IDiscount, IPackage } from '@domain/order/i-package';
-import { IOrderSubscription, ISubscriptionPackage } from '@domain/order/i-subscription';
+import { IOrderSubscription } from '@domain/order/i-subscription';
 import pick from 'lodash-es/pick';
 import { formattedPrice } from '../../utils/formats';
 
@@ -103,22 +103,22 @@ class Discount implements IDiscount {
   }
 }
 
-class PackageSubscription implements ISubscriptionPackage {
-  id: string;
-  name: string;
-  image: string;
-  constructor({ id, name, image }: { id: string; name: string; image: string }) {
-    this.id = id;
-    this.name = name;
-    this.image = image;
-  }
-  static fromJson(dataObject: any): PackageSubscription {
-    const _ = pick(dataObject, ['id', 'name', 'image', 'image_url']);
-    _.id = String(_.id);
-    _.image = _.image_url;
-    return new PackageSubscription(_);
-  }
-}
+// class PackageSubscription implements ISubscriptionPackage {
+//   id: string;
+//   name: string;
+//   image: string;
+//   constructor({ id, name, image }: { id: string; name: string; image: string }) {
+//     this.id = id;
+//     this.name = name;
+//     this.image = image;
+//   }
+//   static fromJson(dataObject: any): PackageSubscription {
+//     const _ = pick(dataObject, ['id', 'name', 'image', 'image_url']);
+//     _.id = String(_.id);
+//     _.image = _.image_url;
+//     return new PackageSubscription(_);
+//   }
+// }
 
 // enum PackageServiceType {
 //   mock_test,
@@ -162,7 +162,7 @@ class PackageSubscription implements ISubscriptionPackage {
 class OrderSubscription implements IOrderSubscription {
   id: string;
   quantity: number;
-  package: ISubscriptionPackage;
+  package: Package;
   constructor({
     id,
     quantity,
@@ -170,7 +170,7 @@ class OrderSubscription implements IOrderSubscription {
   }: {
     id: string;
     quantity: number;
-    package: ISubscriptionPackage;
+    package: Package;
   }) {
     this.id = id;
     this.quantity = quantity;
@@ -179,7 +179,7 @@ class OrderSubscription implements IOrderSubscription {
   static fromJson(dataObject: any): OrderSubscription {
     const _ = pick(dataObject, ['id', 'quantity', 'package']);
     _.id = String(_.id);
-    _.package = PackageSubscription.fromJson(dataObject['package']);
+    _.package = Package.fromJson(dataObject['package']);
     return new OrderSubscription(_);
   }
 }
@@ -196,5 +196,5 @@ function getPackageTypeDisplay(level: number): string {
   return '';
 }
 
-export { Discount, DiscountType, OrderSubscription, Package, PackageSubscription };
+export { Discount, DiscountType, OrderSubscription, Package };
 

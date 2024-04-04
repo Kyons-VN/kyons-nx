@@ -1,14 +1,13 @@
 import { IInventory, IItem, ItemType } from '@domain/order/i-inventory';
-import { ISubscriptionPackage } from '@domain/order/i-subscription';
 import pick from 'lodash-es/pick';
-import { Discount, DiscountType, OrderSubscription, Package } from './package';
+import { OrderSubscription, Package } from './package';
 
 class Inventory implements IInventory {
   subscription: OrderSubscription;
   koin: any;
   items: Item[];
 
-  constructor({ koin, subscription, items }: IInventory) {
+  constructor({ koin, subscription, items }: Inventory) {
     this.koin = koin;
     this.subscription = subscription;
     this.items = items;
@@ -47,7 +46,7 @@ class Inventory implements IInventory {
 class ItemSubscription {
   id: number;
   quantity: number;
-  orderPackage: SubscriptionPackage;
+  orderPackage: Package;
 
   constructor({ id, quantity, orderPackage }: { id: number; quantity: number; orderPackage: Package }) {
     this.id = id;
@@ -57,31 +56,31 @@ class ItemSubscription {
 
   static fromJson(dataObject: any): ItemSubscription {
     const _ = pick(dataObject, ['id', 'quantity', 'package', 'orderPackage']);
-    _.orderPackage = SubscriptionPackage.fromJson(_.package);
+    _.orderPackage = Package.fromJson(_.package);
     return new ItemSubscription(_);
   }
 }
 
-class SubscriptionPackage extends Package implements ISubscriptionPackage {
-  override price = 0;
-  constructor({ id, name, image }: { id: string; name: string; image: string }) {
-    super({
-      id: id,
-      name: name,
-      image: image,
-      price: 0,
-      discount: new Discount({ type: DiscountType.amount, amount: 0 }),
-      isUsing: false,
-      description: '',
-      level: 0,
-      duration: 0,
-    });
-  }
-  static override fromJson(dataObject: any): SubscriptionPackage {
-    const _ = pick(dataObject, ['id', 'name', 'image_url', 'image']);
-    return new SubscriptionPackage(_);
-  }
-}
+// class SubscriptionPackage extends Package implements ISubscriptionPackage {
+//   override price = 0;
+//   constructor({ id, name, image }: { id: string; name: string; image: string }) {
+//     super({
+//       id: id,
+//       name: name,
+//       image: image,
+//       price: 0,
+//       discount: new Discount({ type: DiscountType.amount, amount: 0 }),
+//       isUsing: false,
+//       description: '',
+//       level: 0,
+//       duration: 0,
+//     });
+//   }
+//   static override fromJson(dataObject: any): SubscriptionPackage {
+//     const _ = pick(dataObject, ['id', 'name', 'image_url', 'image']);
+//     return new SubscriptionPackage(_);
+//   }
+// }
 
 class Item implements IItem {
   id: string;
@@ -106,5 +105,5 @@ class Item implements IItem {
   }
 }
 
-export { Inventory, Item, ItemSubscription, SubscriptionPackage };
+export { Inventory, Item, ItemSubscription, Package };
 

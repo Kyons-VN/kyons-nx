@@ -3,7 +3,11 @@
     <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab() === 0 }" (click)="activeTab.set(0)">
       <i class="icon-Work text-xl"></i> Tổng quan
     </div>
-    <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab() === 1 }" (click)="activeTab.set(1)">
+    <div
+      class="tab-item"
+      [ngClass]="{ 'bg-white text-primaryBlue': activeTab() === 1 }"
+      (click)="activeTab.set(1); loadPackages()"
+    >
       <i class="icon-Subscription text-xl"></i> Gói tài khoản
     </div>
     <!-- <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab === 2 }" (click)="activeTab = 2">

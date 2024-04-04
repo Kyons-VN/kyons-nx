@@ -56,28 +56,27 @@ export class AccountAndPaymentComponent implements OnInit {
   @HostBinding('class') class = 'w-full';
 
   ngOnInit(): void {
-    this.orderService.getPackages().subscribe({
-      next: data => {
-        this.packages = data;
-        this.currentPackage = this.packages.filter(p => p.isUsing)[0];
-        this.orderService.getInventory().subscribe({
-          next: (inventory: Inventory) => {
-            this.inventory = inventory;
-            this.items = this.inventory.items;
-            this.totalItems = this.items.length > 0 ? this.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
-          },
-        });
-        this.route.queryParams.subscribe({
-          next: (params) => {
-            if (params['packageLevel']) {
-              window.localStorage.removeItem('selectedPackageLevel');
-              this.router.navigate([this.paths.account.path]);
-              this.selectPackage(this.packages.find(p => p.level === parseInt(params['packageLevel']))!);
-            }
+    this.loadPackages().add(() => {
+
+      this.route.queryParams.subscribe({
+        next: (params) => {
+          if (params['packageLevel']) {
+            window.localStorage.removeItem('selectedPackageLevel');
+            this.router.navigate([this.paths.account.path]);
+            this.selectPackage(this.packages.find(p => p.level === parseInt(params['packageLevel']))!);
           }
-        })
+        }
+      })
+    });
+    this.orderService.getInventory().subscribe({
+      next: (inventory: Inventory) => {
+        this.inventory = inventory;
+        this.currentPackage = this.inventory.subscription.package;
+        this.items = this.inventory.items;
+        this.totalItems = this.items.length > 0 ? this.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
       },
     });
+
     this.orderService.getBalance().subscribe({
       next: (balance: Balance) => {
         this.balance = balance;
@@ -90,6 +89,14 @@ export class AccountAndPaymentComponent implements OnInit {
     this.orderService.getSubscriptionTime().subscribe({
       next: (subscriptionTime: SubscriptionTime) => {
         this.remainingHoursDisplay = toTime(subscriptionTime.remainingHours);
+      },
+    });
+  }
+
+  loadPackages() {
+    return this.orderService.getPackages().subscribe({
+      next: data => {
+        this.packages = data;
       },
     });
   }
@@ -198,6 +205,6 @@ function toTime(totalhours: number) {
   const hours = totalhours % 24;
   const minutes = Math.floor((hours - Math.floor(hours)) * 60);
   const roundedHours = Math.floor(hours);
-  return `Còn ${days > 0 ? ` ${days} ngày` : ''}${roundedHours > 0 ? ` ${roundedHours} giờ` : ''}${minutes > 0 ? ` ${minutes} phút` : ''
+  return `Còn ${days > 0 ? ` ${days} ngày` : ''}${roundedHours > 0 ? ` ${roundedHours} giờ` : ''}${minutes >= 0 ? ` ${minutes} phút` : ''
     }`;
 }

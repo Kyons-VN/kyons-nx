@@ -1,12 +1,13 @@
+import { IPackage } from "./i-package";
 
 export interface IOrderSubscription {
   id: string;
   quantity: number;
-  package: ISubscriptionPackage;
+  package: IPackage;
 }
 
-export interface ISubscriptionPackage {
-  id: string;
-  name: string;
-  image: string;
-}
+// export interface ISubscriptionPackage {
+//   id: string;
+//   name: string;
+//   image: string;
+// }

@@ -20,7 +20,7 @@ export class LayoutFullComponent implements OnInit, OnDestroy {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.theme = this.themeService.themeStore();
-        if (this.router.url == '/') this.themeOnlyForHome = this.theme;
+        if (this.router.url == '/' || this.router.url.startsWith('/chat/')) this.themeOnlyForHome = this.theme;
       });
     });
     this.subscription = this.router.events.subscribe(event => {
