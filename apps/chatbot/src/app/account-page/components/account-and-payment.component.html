@@ -1,6 +1,10 @@
 <div class="flex flex-col items-start justify-start w-full">
   <div class="flex bg-secondaryBlue text-white rounded-t-lg">
-    <div class="tab-item" [ngClass]="{ 'bg-white text-primaryBlue': activeTab() === 0 }" (click)="activeTab.set(0)">
+    <div
+      class="tab-item"
+      [ngClass]="{ 'bg-white text-primaryBlue': activeTab() === 0 }"
+      (click)="activeTab.set(0); loadGeneral()"
+    >
       <i class="icon-Work text-xl"></i> Tổng quan
     </div>
     <div
@@ -75,10 +79,10 @@
         <div class="flex gap-3 items-center">
           <i class="icon-Cash text-4xl"></i>
           <strong>{{ balance.formatedValue }}</strong>
-          <button class="btn w-8 h-8"><i class="icon-Add"></i></button>
+          <button class="btn w-8 h-8" (click)="showTopup = true"><i class="icon-Add"></i></button>
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300" *ngFor="let package of packages">
           <div class="flex flex-col gap-2.5 h-full">
             <span class="h7 flex items-center gap-2">
@@ -242,7 +246,7 @@
       </div>
       } @else{
       <h5>Lịch sử giao dịch</h5>
-      <table class="text-center border-separate border-spacing-x-6 border-spacing-y-4">
+      <table class="text-center border-separate border-spacing-y-4">
         <tr>
           <th class="text-left">Sản phẩm</th>
           <th>Thời gian</th>
@@ -381,9 +385,9 @@
 </div>
 <div
   *ngIf="showOrdering"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
 >
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
     <h3>Bạn đang mua {{ selectedPackage.name }}</h3>
     <div class="flex flex-col gap-2.5">
       <h4>
@@ -403,7 +407,7 @@
         alt="Bạn đang đăng ký Gói đặt trước ưu đãi (1 tháng)"
         class="sm:w-[50%]"
       />
-      <div class="flex flex-col sm:flex-1 sm:items-start">
+      <div class="flex flex-col sm:flex-1 sm:items-start w-full">
         <div class="h-3"></div>
         <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
         <div class="h-6"></div>
@@ -454,33 +458,37 @@
 
 <div
   *ngIf="showTopup"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
 >
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
     <h3>Bạn đang nạp tiền vào tài khoản</h3>
+    <p>
+      Vui lòng nhập số tiền và dùng mã thanh toán hoặc thông tin bên dưới để chuyển khoản đến KYONS, sau đó thông báo
+      cho KYONS qua fanpage để được nạp nhanh nhất nhé
+    </p>
+    <input type="number" placeholder="Số tiền" [(ngModel)]="amount" />
     <div class="flex flex-col sm:flex-row items-center sm:items-start">
       <img
         [src]="
           'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
-          selectedPackage.salePrice +
+          amount +
           '&amp;addInfo=' +
-          orderCode +
+          email +
           '&amp;accountName=KYONS LLC'
         "
-        ,
       />
-      <div class="flex flex-col sm:flex-1 sm:items-start">
+      <div class="flex flex-col sm:flex-1 sm:items-start w-full">
         <div class="h-3"></div>
-        <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
+        <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ amount }}</h2>
         <div class="h-6"></div>
         <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
           <div class="flex flex-col gap-1.5">
             <span>Nội dung chuyển khoản</span>
             <a class="flex justify-between cursor-pointer no-underline">
-              <strong id="copyText" class="text-orange"
-                ><span id="code">{{ orderCode }}</span></strong
+              <strong class="text-orange"
+                ><span id="code">{{ email }}</span></strong
               >
-              <i class="icon-Duplicate text-orange text-base" (click)="copy(orderCode)"></i>
+              <i class="icon-Duplicate text-orange text-base" (click)="copy(email)"></i>
             </a>
           </div>
           <div class="flex flex-col gap-1.5">
@@ -508,10 +516,8 @@
       </div>
     </div>
     <div class="flex items-center justify-between">
-      <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
-        {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
-      </button>
-      <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">Xác nhận đã chuyển khoản</button>
+      <button class="btn btn-rounded" (click)="showTopup = false">Quay lại</button>
+      <a class="btn" href="https://www.facebook.com/KyonsVN" target="_blank">Thông báo đã chuyển khoản</a>
     </div>
   </div>
 </div>

@@ -51,6 +51,7 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
   userId = '';
   theme!: string;
   parseInt = parseInt;
+  isCollapse = true;
 
   ngOnInit(): void {
     // watch route param changes

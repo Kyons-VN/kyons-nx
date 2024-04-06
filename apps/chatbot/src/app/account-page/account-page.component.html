@@ -1,9 +1,9 @@
 <div class="flex w-full h-screen justify-center">
-  <div class="flex flex-col w-full xl:max-w-[1122px] gap-6 px-6 xl:p-0">
+  <div class="flex flex-col w-full xl:max-w-[1122px] gap-6 p-0 md:px-6 xl:p-0">
     <chatbot-top-menu />
     <div class="flex flex-col md:flex-row gap-6 items-start">
-      <div class="hidden md:flex flex-col justify-stretch w-[320px] bg-white rounded-md p-6 gap-6">
-        <h4 class="text-center">Tài khoản</h4>
+      <div class="flex flex-col justify-stretch md:w-[320px] w-full bg-white rounded-md p-0 md:p-6 gap-6">
+        <h4 class="text-center hidden md:flex">Tài khoản</h4>
         <ul class="flex flex-col gap-2 w-full font-semibold">
           <li
             (click)="activeTab = 0"
@@ -40,10 +40,11 @@
           </li>
         </ul>
       </div>
-      <select class="w-full md:hidden" [(ngModel)]="activeTab" (ngModelChange)="onSelectTab($event)">
-        <option value="0"><span>Tài khoản của bạn</span></option>
-        <option value="1"><span>Lịch sử giao dịch</span></option>
-      </select>
+      <!-- <select class="w-full md:hidden" [(ngModel)]="activeTab" (ngModelChange)="onSelectTab($event)">
+        <option value="0"><span>Tài khoản và thanh toán</span></option>
+        <option value="1"><span>Đổi mật khẩu</span></option>
+        <option value="1"><span>Đăng xuất</span></option>
+      </select> -->
       @if (activeTab === 0){
       <chatbot-account-and-payment />
       } @else if (activeTab === 1){

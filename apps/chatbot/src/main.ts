@@ -26,6 +26,17 @@ function bootstrap() {
   // }
 
   bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
+  const searchParams = new URLSearchParams(window.location.search);
+  const outline = searchParams.get('outline');
+  console.log('outline', outline);
+
+  if (outline === 'true') {
+    document.body.classList.add('outline');
+  }
+  else {
+    document.body.classList.remove('outline');
+
+  }
 }
 
 if (document.readyState === 'complete') {

@@ -28,7 +28,7 @@ export class LayoutFullComponent implements OnInit, OnDestroy {
         // Do something before navigation starts (optional)
       } else if (event instanceof NavigationEnd) {
         // Your logic to handle route changes here
-        if (event.url == '/') {
+        if (event.url == '/' || this.router.url.startsWith('/chat/')) {
           this.themeOnlyForHome = this.theme;
         } else {
           this.themeOnlyForHome = 'default';

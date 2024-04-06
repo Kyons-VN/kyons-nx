@@ -24,6 +24,7 @@ class Package implements IPackage {
     description,
     discount,
     price,
+    salePrice,
     isUsing,
     image,
     level,
@@ -34,6 +35,7 @@ class Package implements IPackage {
     description: string;
     discount: Discount;
     price: number;
+    salePrice: number;
     isUsing: boolean;
     image: string;
     level: number;
@@ -45,7 +47,7 @@ class Package implements IPackage {
     this.discount = discount;
     this.price = price;
     this.formattedPrice = formattedPrice(this.price);
-    this.salePrice = getSalePrice(price, discount);
+    this.salePrice = salePrice;
     const formattedSalePrice = formattedPrice(this.salePrice);
     this.formatedSalePrice = formattedSalePrice.replace(
       formattedSalePrice.slice(formattedSalePrice.length - 2, formattedSalePrice.length - 1),
@@ -80,8 +82,9 @@ class Package implements IPackage {
     ]);
     _.id = _.id.toString();
     _.image = _.image_url;
-    _.discount = Discount.fromJson(dataObject);
-    _.price = parseFloat(_.price);
+    _.discount = dataObject['discount_amount'] ? Discount.fromJson(dataObject) : new Discount({ type: DiscountType.amount, amount: 0 });
+    _.price = _.price ? parseFloat(_.price) : parseFloat(dataObject['total_price']);
+    _.salePrice = _.sale_price ? parseFloat(_.sale_price) : parseFloat(dataObject['total_price']);
     _.isUsing = _.using ?? false;
     _.duration = parseInt(_.quantity);
     return new Package(_);
@@ -184,11 +187,11 @@ class OrderSubscription implements IOrderSubscription {
   }
 }
 
-function getSalePrice(price: number, discount: Discount): number {
-  if (discount.type == DiscountType.amount) return price - discount.amount;
-  if (discount.type == DiscountType.percentage) return price - price * (100 - discount.amount) / 100;
-  return price;
-}
+// function getSalePrice(price: number, discount: Discount): number {
+//   if (discount.type == DiscountType.amount) return price - discount.amount;
+//   if (discount.type == DiscountType.percentage) return price - price * (100 - discount.amount) / 100;
+//   return price;
+// }
 
 function getPackageTypeDisplay(level: number): string {
   if (level == 0) return 'Gói cơ bản';

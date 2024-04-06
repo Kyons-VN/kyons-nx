@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, OnInit, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NavigationService } from '@data/navigation/navigation.service';
 import Balance from '@data/order/balance';
@@ -8,13 +9,14 @@ import Order from '@data/order/order';
 import { OrderService } from '@data/order/order.service';
 import { Package } from '@data/order/package';
 import SubscriptionTime from '@data/order/subscription';
+import { UserService } from '@data/user/user.service';
 import { OrderStatus } from '@domain/order/i-order';
 import { SafeHtmlPipe } from '@share-pipes';
 
 @Component({
   selector: 'chatbot-account-and-payment',
   standalone: true,
-  imports: [CommonModule, SafeHtmlPipe, RouterModule],
+  imports: [CommonModule, SafeHtmlPipe, RouterModule, FormsModule],
   templateUrl: './account-and-payment.component.html',
 })
 export class AccountAndPaymentComponent implements OnInit {
@@ -23,6 +25,7 @@ export class AccountAndPaymentComponent implements OnInit {
   OrderStatus = OrderStatus;
   route = inject(ActivatedRoute);
   router = inject(Router);
+  email = inject(UserService).getEmail();
 
   activeTab = signal(0);
   totalItems: number = 0;
@@ -52,12 +55,12 @@ export class AccountAndPaymentComponent implements OnInit {
   isConfirming = false;
   isPendingOrder = false;
   isOrderFail = false;
+  amount = 0;
 
   @HostBinding('class') class = 'w-full';
 
   ngOnInit(): void {
     this.loadPackages().add(() => {
-
       this.route.queryParams.subscribe({
         next: (params) => {
           if (params['packageLevel']) {
@@ -68,6 +71,10 @@ export class AccountAndPaymentComponent implements OnInit {
         }
       })
     });
+    this.loadGeneral();
+  }
+
+  loadGeneral() {
     this.orderService.getInventory().subscribe({
       next: (inventory: Inventory) => {
         this.inventory = inventory;

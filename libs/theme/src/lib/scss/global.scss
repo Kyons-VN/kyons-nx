@@ -2,6 +2,9 @@
 html,
 body {
   @apply h-full m-0 p-0 text-[14px];
+  &.outline * {
+    outline: darkseagreen solid 1px;
+  }
 }
 a {
   @apply cursor-pointer;
@@ -488,4 +491,10 @@ input:where(:not([type])):focus,
 textarea:focus,
 select:focus {
   @apply outline-none shadow-none ring-0;
+}
+.scrollable-content {
+  @apply overflow-y-auto w-full h-full;
+}
+.scrollable-content::-webkit-scrollbar {
+  display: none;
 }
