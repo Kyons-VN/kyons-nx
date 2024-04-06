@@ -116,6 +116,10 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'test',
+    loadComponent: () => import('../app/test/test.component').then(m => m.TestComponent),
+  },
+  {
     path: '**',
     loadComponent: () => import('../app/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent),
   },

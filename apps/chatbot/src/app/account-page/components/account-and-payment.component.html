@@ -25,7 +25,9 @@
       <i class="icon-History text-xl"></i> Lịch sử giao dịch
     </div>
   </div>
-  <div class="bg-white w-full p-6 max-h-[calc(100vh_-_200px)] rounded-tr-lg rounded-b-lg overflow-y-auto ga-4">
+  <div
+    class="bg-white w-full p-6 md:max-h-[calc(100vh_-_130px)] max-h-[calc(100vh_-_368px)] rounded-tr-lg rounded-b-lg overflow-y-auto ga-4"
+  >
     @switch(activeTab()){ @case(0){
     <div *ngIf="currentPackage" class="flex flex-col gap-4">
       <h5>Tổng quan</h5>
@@ -295,6 +297,146 @@
     </div>
     } }
   </div>
+
+  <div
+    *ngIf="showOrdering"
+    class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
+      <h3>Bạn đang mua {{ selectedPackage.name }}</h3>
+      <div class="flex flex-col gap-2.5">
+        <h4>
+          Mã thanh toán:&nbsp;<span class="text-lightBlue-1">{{ orderCode }}</span>
+        </h4>
+        <p><b>Quét mã QR</b> bằng ứng dụng Internet Banking hoặc <b>sao chép thông tin chuyển khoản</b> dưới đây:</p>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center sm:items-start">
+        <img
+          [src]="
+            'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
+            selectedPackage.salePrice +
+            '&amp;addInfo=' +
+            orderCode +
+            '&amp;accountName=KYONS LLC'
+          "
+          alt="Bạn đang đăng ký Gói đặt trước ưu đãi (1 tháng)"
+          class="sm:w-[50%]"
+        />
+        <div class="flex flex-col sm:flex-1 sm:items-start w-full">
+          <div class="h-3"></div>
+          <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
+          <div class="h-6"></div>
+          <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
+            <div class="flex flex-col gap-1.5">
+              <span>Nội dung chuyển khoản</span>
+              <a class="flex justify-between cursor-pointer no-underline" (click)="copy(orderCode)">
+                <strong id="copyText" class="text-orange"
+                  ><span id="code">{{ orderCode }}</span></strong
+                >
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </a>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Ngân hàng</span>
+              <span id="copyBank" class="flex justify-between cursor-pointer" (click)="copy('Techcombank')">
+                <strong>Techcombank</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Số tài khoản</span>
+              <span id="copyCard" class="flex justify-between cursor-pointer" (click)="copy('19037780961051')">
+                <strong>19037780961051</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Tên chủ tài khoản</span>
+              <span id="copyName" class="flex justify-between cursor-pointer" (click)="copy('KYONS LLC')">
+                <strong>KYONS LLC</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+          {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
+        </button>
+        <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
+          {{ isConfirming ? 'Đang xử lý...' : 'Xác nhận đã chuyển khoản' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showTopup"
+    class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
+      <h3>Bạn đang nạp tiền vào tài khoản</h3>
+      <p>
+        Vui lòng nhập số tiền và dùng mã thanh toán hoặc thông tin bên dưới để chuyển khoản đến KYONS, sau đó thông báo
+        cho KYONS qua fanpage để được nạp nhanh nhất nhé
+      </p>
+      <input type="number" placeholder="Số tiền" [(ngModel)]="amount" step="50000" />
+      <div class="flex flex-col sm:flex-row items-center sm:items-start">
+        <img
+          [src]="
+            'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
+            amount +
+            '&amp;addInfo=' +
+            email +
+            '&amp;accountName=KYONS LLC'
+          "
+          class="sm:w-[50%]"
+        />
+        <div class="flex flex-col sm:flex-1 sm:items-start w-full">
+          <div class="h-3"></div>
+          <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ amount }}</h2>
+          <div class="h-6"></div>
+          <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
+            <div class="flex flex-col gap-1.5">
+              <span>Nội dung chuyển khoản</span>
+              <a class="flex justify-between cursor-pointer no-underline">
+                <strong class="text-orange"
+                  ><span id="code">{{ email }}</span></strong
+                >
+                <i class="icon-Duplicate text-orange text-base" (click)="copy(email)"></i>
+              </a>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Ngân hàng</span>
+              <span id="copyBank" class="flex justify-between cursor-pointer">
+                <strong>Techcombank</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Số tài khoản</span>
+              <span id="copyCard" class="flex justify-between cursor-pointer">
+                <strong>19037780961051</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Tên chủ tài khoản</span>
+              <span id="copyName" class="flex justify-between cursor-pointer">
+                <strong>KYONS LLC</strong>
+                <!-- <i class='icon-Duplicate text-orange text-base'></i> -->
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between">
+        <button class="btn btn-rounded" (click)="showTopup = false">Quay lại</button>
+        <a class="btn" href="https://www.facebook.com/KyonsVN" target="_blank">Thông báo đã chuyển khoản</a>
+      </div>
+    </div>
+  </div>
 </div>
 <div
   *ngIf="showBenefit"
@@ -380,144 +522,6 @@
       <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
       <div class="w-3"></div>
       <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
-    </div>
-  </div>
-</div>
-<div
-  *ngIf="showOrdering"
-  class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
-    <h3>Bạn đang mua {{ selectedPackage.name }}</h3>
-    <div class="flex flex-col gap-2.5">
-      <h4>
-        Mã thanh toán:&nbsp;<span class="text-lightBlue-1">{{ orderCode }}</span>
-      </h4>
-      <p><b>Quét mã QR</b> bằng ứng dụng Internet Banking hoặc <b>sao chép thông tin chuyển khoản</b> dưới đây:</p>
-    </div>
-    <div class="flex flex-col sm:flex-row items-center sm:items-start">
-      <img
-        [src]="
-          'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
-          selectedPackage.salePrice +
-          '&amp;addInfo=' +
-          orderCode +
-          '&amp;accountName=KYONS LLC'
-        "
-        alt="Bạn đang đăng ký Gói đặt trước ưu đãi (1 tháng)"
-        class="sm:w-[50%]"
-      />
-      <div class="flex flex-col sm:flex-1 sm:items-start w-full">
-        <div class="h-3"></div>
-        <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
-        <div class="h-6"></div>
-        <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
-          <div class="flex flex-col gap-1.5">
-            <span>Nội dung chuyển khoản</span>
-            <a class="flex justify-between cursor-pointer no-underline" (click)="copy(orderCode)">
-              <strong id="copyText" class="text-orange"
-                ><span id="code">{{ orderCode }}</span></strong
-              >
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </a>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Ngân hàng</span>
-            <span id="copyBank" class="flex justify-between cursor-pointer" (click)="copy('Techcombank')">
-              <strong>Techcombank</strong>
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Số tài khoản</span>
-            <span id="copyCard" class="flex justify-between cursor-pointer" (click)="copy('19037780961051')">
-              <strong>19037780961051</strong>
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Tên chủ tài khoản</span>
-            <span id="copyName" class="flex justify-between cursor-pointer" (click)="copy('KYONS LLC')">
-              <strong>KYONS LLC</strong>
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex items-center justify-between">
-      <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
-        {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
-      </button>
-      <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
-        {{ isConfirming ? 'Đang xử lý...' : 'Xác nhận đã chuyển khoản' }}
-      </button>
-    </div>
-  </div>
-</div>
-
-<div
-  *ngIf="showTopup"
-  class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
-    <h3>Bạn đang nạp tiền vào tài khoản</h3>
-    <p>
-      Vui lòng nhập số tiền và dùng mã thanh toán hoặc thông tin bên dưới để chuyển khoản đến KYONS, sau đó thông báo
-      cho KYONS qua fanpage để được nạp nhanh nhất nhé
-    </p>
-    <input type="number" placeholder="Số tiền" [(ngModel)]="amount" />
-    <div class="flex flex-col sm:flex-row items-center sm:items-start">
-      <img
-        [src]="
-          'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
-          amount +
-          '&amp;addInfo=' +
-          email +
-          '&amp;accountName=KYONS LLC'
-        "
-      />
-      <div class="flex flex-col sm:flex-1 sm:items-start w-full">
-        <div class="h-3"></div>
-        <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ amount }}</h2>
-        <div class="h-6"></div>
-        <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
-          <div class="flex flex-col gap-1.5">
-            <span>Nội dung chuyển khoản</span>
-            <a class="flex justify-between cursor-pointer no-underline">
-              <strong class="text-orange"
-                ><span id="code">{{ email }}</span></strong
-              >
-              <i class="icon-Duplicate text-orange text-base" (click)="copy(email)"></i>
-            </a>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Ngân hàng</span>
-            <span id="copyBank" class="flex justify-between cursor-pointer">
-              <strong>Techcombank</strong>
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Số tài khoản</span>
-            <span id="copyCard" class="flex justify-between cursor-pointer">
-              <strong>19037780961051</strong>
-              <i class="icon-Duplicate text-orange text-base"></i>
-            </span>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <span>Tên chủ tài khoản</span>
-            <span id="copyName" class="flex justify-between cursor-pointer">
-              <strong>KYONS LLC</strong>
-              <!-- <i class='icon-Duplicate text-orange text-base'></i> -->
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex items-center justify-between">
-      <button class="btn btn-rounded" (click)="showTopup = false">Quay lại</button>
-      <a class="btn" href="https://www.facebook.com/KyonsVN" target="_blank">Thông báo đã chuyển khoản</a>
     </div>
   </div>
 </div>

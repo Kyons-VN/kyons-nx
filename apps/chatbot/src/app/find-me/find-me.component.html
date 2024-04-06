@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-    <div class="w-full max-w-[600px] h-full flex flex-col gap-3">
+    <div class="w-full max-w-[600px] md:h-screen h-[calc(100vh_-_168px)] flex flex-col gap-3">
       <div
         class="flex xl:hidden gap-4 justify-between md:p-0 transition-all duration-300 overflow-hidden"
         [ngClass]="{ 'h-[40vh] p-6': !isCollapse, 'h-0': isCollapse }"
@@ -85,18 +85,29 @@
           </div>
         </div>
       </div>
-      <div class="relative z-10 w-full xl:hidden">
-        <button class="btn btn-small w-[40px] absolute bottom-[-50px] right-6" (click)="isCollapse = !isCollapse">
-          <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ArrowUp"></i>
-        </button>
+      <div class="relative z-10 w-full">
+        <div class="absolute bottom-[-55px] right-6 flex gap-4 w-full left-0 justify-end items-center">
+          <div class="w-[170px] h-[40px] relative">
+            <img src="/assets/images/Mana.svg" alt="" class="h-[40px]" />
+            <div
+              class="absolute w-[16px] h-[11px] bg-[#00C4D0] top-[15px] left-[12px]"
+              [style.width]="manaWidth + 'px'"
+            ></div>
+            <div class="absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-[#00C4D0] w-[30px] text-right">
+              {{ batteryLife }}
+            </div>
+          </div>
+          <button class="btn btn-small w-[40px] xl:hidden" (click)="isCollapse = !isCollapse">
+            <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ArrowUp"></i>
+          </button>
+        </div>
       </div>
       <ng-flutter
         *ngIf="flutterAppLoaded"
         src="/find-me-game/main.dart.js"
         assetBase="/find-me-game/"
         (appLoaded)="onFlutterAppLoaded($event)"
-        class="h-full"
-        [ngClass]="{ 'xl:mt-0 mt-16': true }"
+        class="h-full mt-16"
       ></ng-flutter>
     </div>
     <div class="xl:flex hidden flex-col flex-1 items-end">

@@ -21,6 +21,8 @@ import { Subscription, interval } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { NgFlutterComponent } from '../../view/ng-flutter/ng-flutter.component';
 
+const maxManaWidth = 26;
+
 @Component({
   selector: 'chatbot-find-me',
   standalone: true,
@@ -52,8 +54,12 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
   theme!: string;
   parseInt = parseInt;
   isCollapse = true;
+  manaWidth = maxManaWidth;
+  batteryLife = 100;
 
   ngOnInit(): void {
+    this.userId = this.userService.getUserId();
+    this.userService.updateCurrentUser(this.userId);
     // watch route param changes
     this.route.paramMap.subscribe(params => {
       this.flutterAppLoaded = false;
@@ -74,7 +80,6 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
         this.flutterAppLoaded = true;
       }, 500);
     });
-    this.userId = this.userService.getUserId();
     const targetDate = new Date('2024-04-22T24:00:00+00:00');
     const countdown = interval(1000);
 
@@ -138,6 +143,17 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
       if (this.chatId != this.flutterState.getChatId()) {
         this.goToChat(this.flutterState.getChatId());
       }
+    });
+    this.flutterState.onManaChanged(() => {
+      console.log('Mana changed');
+      console.log(this.flutterState.getMana());
+      const mana = this.flutterState.getMana();
+      this.manaWidth = maxManaWidth * mana / 1000;
+      this.batteryLife = (mana / 1000 * 100).toFixed(0) as unknown as number;
+    });
+    this.flutterState.onThemeChanged(() => {
+      this.theme = this.flutterState.getTheme();
+      this.themeService.setTheme(this.theme);
     });
   }
 }
