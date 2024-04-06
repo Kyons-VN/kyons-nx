@@ -142,10 +142,10 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
                   if (error.error == 'Not found') {
                     this.chatService.initDefaultMana()?.subscribe({
                       next: () => {
-                        this.router.navigate([this.paths.home.path]);
+                        // this.router.navigate([this.paths.home.path]);
                       },
                       error: () => {
-                        this.router.navigate([this.paths.home.path]);
+                        // this.router.navigate([this.paths.home.path]);
                       },
                     });
                   }
