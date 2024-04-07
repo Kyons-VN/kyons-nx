@@ -120,6 +120,11 @@ const routes: Routes = [
     loadComponent: () => import('../app/test/test.component').then(m => m.TestComponent),
   },
   {
+    path: 'terms-of-service',
+    loadComponent: () =>
+      import('../app/terms-of-service/terms-of-service.component').then(m => m.TermsOfServiceComponent),
+  },
+  {
     path: '**',
     loadComponent: () => import('../app/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent),
   },

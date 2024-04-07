@@ -1,5 +1,9 @@
-<div *ngIf="show" class="w-full flex h-14 text-base items-center justify-center relative">
-  <div class="w-full flex relative px-6 xl:p-0 items-center">
+<div
+  *ngIf="show"
+  class="w-full flex h-14 text-base items-center justify-center relative"
+  [ngClass]="{ 'bg-[#0F172A]': theme === 'universe' }"
+>
+  <div class="w-full xl:max-w-[1122px] flex relative px-6 xl:p-0 items-center">
     <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
     <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
     <div class="flex-1"></div>
