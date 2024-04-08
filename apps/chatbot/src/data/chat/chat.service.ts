@@ -56,7 +56,7 @@ export class ChatService {
       userInfo: {
         email: email,
       },
-      defaultMana: 1000,
+      defaultMana: 3000,
     };
     return this.http.post(`${chatServerApi}/onUserCreated`, params);
   }
