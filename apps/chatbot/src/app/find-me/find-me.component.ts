@@ -147,9 +147,9 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
     this.flutterState.onManaChanged(() => {
       console.log('Mana changed');
       console.log(this.flutterState.getMana());
-      const mana = this.flutterState.getMana();
-      this.manaWidth = maxManaWidth * mana / 1000;
-      this.batteryLife = (mana / 1000 * 100).toFixed(0) as unknown as number;
+      const { a, b } = this.flutterState.getMana();
+      this.manaWidth = maxManaWidth * a / b;
+      this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
     });
     this.flutterState.onThemeChanged(() => {
       this.theme = this.flutterState.getTheme();

@@ -41,15 +41,15 @@ export class OrderService implements IOrderServicce {
       })
     );
   }
-  getSubscription() {
-    return this.http.get(`${serverApi()}/api/v2/users/inventories/balance`).pipe(
-      catchError(DBHelper.handleError('GET getBalance', 0)),
-      map((res: any) => {
-        if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
-        return new Balance(parseInt(res.balance));
-      })
-    );
-  }
+  // getSubscription() {
+  //   return this.http.get(`${serverApi()}/api/v2/users/inventories/subscription`).pipe(
+  //     catchError(DBHelper.handleError('GET getBalance', 0)),
+  //     map((res: any) => {
+  //       if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
+  //       return new Balance(parseInt(res.balance));
+  //     })
+  //   );
+  // }
 
   // getTransaction() {
   //   return this.http.get(`${serverApi()}/students/transactions`).pipe(
@@ -85,7 +85,7 @@ export class OrderService implements IOrderServicce {
   //   );
   // }
 
-  getPackages() {
+  getPackages(): Observable<Package[]> {
     return this.http.get<Package[]>(`${serverApi()}/api/v2/packages`).pipe(
       catchError(DBHelper.handleError('GET getPackages', [])),
       map((res: any) => {

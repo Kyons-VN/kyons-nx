@@ -42,6 +42,7 @@ declare let window: {
       :host div {
         width: 100%;
         height: 100%;
+        margin-bottom: calc(16px + env(keyboard-inset-height));
       }
       .spinner {
         display: flex;
