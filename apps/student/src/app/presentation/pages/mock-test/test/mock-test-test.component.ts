@@ -181,7 +181,6 @@ export class MockTestTestComponent implements OnInit {
     if (this.isSubmitting) return;
     this.loading.show();
     this.isSubmitting = true;
-    console.log(this.testSubmission.submitData);
 
     this.testSubmission.end = new Date();
     this.testService.submitTest(this.testSubmission).subscribe({

@@ -1,4 +1,5 @@
-import { Component, Injector, OnDestroy, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ThemeService } from '@data/theme/theme.service';
 import { Subscription } from 'rxjs';
@@ -12,15 +13,17 @@ import { Subscription } from 'rxjs';
 export class LayoutFullComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
   theme = this.themeService.getTheme();
-  themeOnlyForHome = 'default';
   injector = inject(Injector);
   router = inject(Router);
+  document = inject(DOCUMENT);
+  renderer = inject(Renderer2);
   subscription!: Subscription;
+
   ngOnInit(): void {
     runInInjectionContext(this.injector, () => {
       effect(() => {
         this.theme = this.themeService.themeStore();
-        if (this.router.url == '/' || this.router.url.startsWith('/chat/')) this.themeOnlyForHome = this.theme;
+        this.renderer.setAttribute(this.document.body, 'data-theme', this.theme);
       });
     });
     this.subscription = this.router.events.subscribe(event => {
@@ -28,11 +31,7 @@ export class LayoutFullComponent implements OnInit, OnDestroy {
         // Do something before navigation starts (optional)
       } else if (event instanceof NavigationEnd) {
         // Your logic to handle route changes here
-        if (event.url == '/' || this.router.url.startsWith('/chat/')) {
-          this.themeOnlyForHome = this.theme;
-        } else {
-          this.themeOnlyForHome = 'default';
-        }
+        this.renderer.setAttribute(this.document.body, 'data-theme', this.theme);
       }
     });
   }

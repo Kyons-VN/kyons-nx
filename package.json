@@ -38,7 +38,7 @@
     "ng-circle-progress": "1.7.1",
     "ng-katex": "^2.0.3",
     "ng2-charts": "^4.1.1",
-    "ngx-lottie": "^9.1.0",
+    "ngx-lottie": "^11.0.2",
     "rxjs": "7.8.1",
     "tslib": "2.6.2",
     "uuid": "9.0.1",

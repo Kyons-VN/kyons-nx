@@ -10,3 +10,8 @@ student-profile,
 student-change-password {
   display: contents;
 }
+@media screen and (max-width: 768px) {
+  .sm-menu-hide {
+    display: none;
+  }
+}

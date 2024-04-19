@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, HostBinding, inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, HostBinding, inject, Renderer2, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -39,6 +39,14 @@ export class AccountPageComponent {
   balance: Balance = Balance.empty();
   transactions = TransactionList.empty();
   activities = [];
+  isSmMenuHide = signal(true);
+  document = inject(DOCUMENT);
+  renderer = inject(Renderer2);
+
+  toggleMenu() {
+    this.isSmMenuHide.set(!this.isSmMenuHide());
+    this.isSmMenuHide() ? this.renderer.removeClass(this.document.body, 'overflow-hidden') : this.renderer.addClass(this.document.body, 'overflow-hidden');
+  }
 
   // ngOnInit(): void {
   // this.orderService.getInventories().subscribe({

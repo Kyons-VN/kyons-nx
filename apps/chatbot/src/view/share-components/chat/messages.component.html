@@ -1,0 +1,30 @@
+<div class="body" #chatBody>
+  @for (content of completeMessages; track content.createdAt; let i = $index) {
+  <div class="message" [ngClass]="{ left: content.isModel, right: content.isUser }">
+    <div class="avatar" *ngIf="content.isModel">
+      <img src="assets/images/kyons-avatar.png" alt="" />
+    </div>
+    <div class="content">
+      @for (message of content.parts; track $index) {
+      <div class="box">
+        @if(message.isText){
+        <kyonsvn-latex [inputString]="getText(message)" />
+        }
+      </div>
+      @if(i===completeMessages.length-1 && $index === content.parts.length-1 && hasPlayBtn(message)){
+      <button class="btn orange self-start" (click)="play()">Bắt đầu</button>
+      } }
+    </div>
+  </div>
+  }
+  <div class="left message" *ngIf="isWriting">
+    <div class="avatar">
+      <img src="assets/images/kyons-avatar.png" alt="" />
+    </div>
+    <div class="content">
+      <div class="box">
+        <p>{{ writingText }}</p>
+      </div>
+    </div>
+  </div>
+</div>

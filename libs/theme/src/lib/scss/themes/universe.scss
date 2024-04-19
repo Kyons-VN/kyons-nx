@@ -1,0 +1,70 @@
+[data-theme='universe'] {
+  font-family: 'Jura', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  --color-orange: theme('colors.teal.0');
+  .text-orange {
+    color: var(--color-orange, #00c4d0);
+  }
+  @apply text-white;
+  background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
+
+  a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+    @apply text-orange underline outline-offset-4;
+    &.active[routerlinkactive='active'] {
+      @apply text-white;
+      svg > path {
+        @apply stroke-white;
+      }
+    }
+    &.no-underline {
+      text-decoration: none;
+    }
+  }
+  .bg-blueGrey-100,
+  .bg-blueGrey-50 {
+    background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
+  }
+  .bg-lightBlue-6 {
+    background-color: transparent;
+  }
+  .text-lightBlue-1 {
+    @apply text-teal-0;
+  }
+  .bg-white {
+    background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
+  }
+  .text-secondaryBlue {
+    @apply text-white;
+  }
+  .text-lightBlue-1 {
+    @apply text-teal-0;
+  }
+  .bg-lightBlue-1 {
+    @apply bg-teal-0;
+  }
+  @media (min-width: 768px) {
+    .md\:text-primaryBlue {
+      @apply text-white;
+    }
+    .tab-wrapper .tab-item.active {
+      background-color: rgba(44, 61, 91, 0.2);
+      @apply text-white;
+    }
+    .md\:bg-white {
+      background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
+      .md\:bg-transparent {
+        background: transparent;
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .tab-wrapper .tab-item.active {
+      background-color: rgba(37, 138, 194, 0.6);
+      @apply text-white;
+    }
+  }
+}
+
+@import 'chat/chat-universe.scss';

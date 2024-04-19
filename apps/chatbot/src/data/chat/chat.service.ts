@@ -1,12 +1,12 @@
 // import { Injectable, inject } from '@angular/core';
 // import { Firestore } from 'firebase/firestore';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
-import { formatedDate } from '@share-utils/formats';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map } from 'rxjs';
+import { Chat, Content, Mana } from './chat-model';
 
 // const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
 const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
@@ -15,15 +15,50 @@ const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
   providedIn: 'root',
 })
 export class ChatService {
+  sendMessage(userId: string, chatId: string, message: string): Observable<Content[]> {
+    const params = new HttpParams().set('prompt', message);
+    return this.http.get(`${chatServerApi}/user/${userId}/ask/${chatId}`, { params: params }).pipe(
+      // catchError(DBHelper.handleError('POST sendMessage', [Content.outOfMana()])),
+      map(() => {
+        return [];
+      })
+    );
+  }
+  getMana(userId: string): Observable<Mana> {
+    return this.http.get(`${chatServerApi}/user/${userId}/mana`).pipe(
+      catchError(DBHelper.handleError('GET getMana', Mana.invalid())),
+      map((res: any) => {
+        if (res['mana'] === undefined || res['defaultMana'] === undefined) return Mana.invalid();
+        return new Mana(res['mana'], res['defaultMana']);
+      })
+    );
+  }
+  getMessages(userId: string, chatId: string): Observable<Content[]> {
+    return this.http.get(`${chatServerApi}/user/${userId}/chat/${chatId}`).pipe(
+      catchError(DBHelper.handleError('POST startChat', '')),
+      map((res: any) => {
+        if (res.data === undefined) return [];
+        return (res.data as any[]).map((data: any) => Content.parseContent(data));
+      })
+    );
+  }
   db = inject(Firestore);
   http = inject(HttpClient);
   userService = inject(UserService);
 
-  getChats(): Observable<any> {
-    const userId = this.userService.getUserId();
-    if (userId === '') {
-      return throwError(() => new Error('Unauthenticated'));
-    }
+  startChat(userId: string, message: string): Observable<string> {
+
+    const params = new HttpParams().set('prompt', message);
+    return this.http.get(`${chatServerApi}/user/${userId}/ask`, { params: params }).pipe(
+      // catchError(DBHelper.handleError('POST startChat', '')),
+      map((res: any) => {
+        if (res['chatId'] === undefined) return '';
+        return res['chatId'];
+      })
+    );
+  }
+
+  getChats(userId: string): Observable<any> {
     return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
       catchError(DBHelper.handleError('GET getChats', [])),
       map((res: any) => {
@@ -37,19 +72,11 @@ export class ChatService {
     );
   }
 
-  checkCreatedUser() {
-    const userId = this.userService.getUserId();
-    if (userId === '') {
-      return throwError(() => new Error('Unauthenticated'));
-    }
+  checkCreatedUser(userId: string) {
     return this.http.get(`${chatServerApi}/user/${userId}/mana`);
   }
 
-  initDefaultMana() {
-    const userId = this.userService.getUserId();
-    if (userId === '') {
-      return throwError(() => new Error('Unauthenticated'));
-    }
+  initDefaultMana(userId: string) {
     const email = this.userService.getEmail();
     const params: Record<string, unknown> = {
       id: userId,
@@ -61,6 +88,8 @@ export class ChatService {
     return this.http.post(`${chatServerApi}/onUserCreated`, params);
   }
 }
+
+export { Chat };
 // const chatConverter = {
 //   toFirestore(value: WithFieldValue<Chat>) {
 //     return { value };
@@ -71,47 +100,3 @@ export class ChatService {
 //     return Chat.fromJson(snapshot.id, snapshot.data()['createdAt'].toDate());
 //   },
 // };
-
-export class Chat {
-  id: string;
-  createdAt: Date;
-  firstMessage: string;
-  messages: Content[] = [];
-  dateDisplay: string;
-  constructor(id: string, createdAt: Date, firstMessage: string) {
-    this.id = id;
-    this.firstMessage = firstMessage;
-    this.createdAt = createdAt;
-    this.dateDisplay = formatedDate(this.createdAt);
-  }
-  static fromJson({
-    id,
-    createdAt,
-    firstMessage,
-  }: {
-    id: string;
-    createdAt: { _seconds: number };
-    messages: { role: string; parts: { text: string }[] }[];
-    firstMessage: string;
-  }) {
-    const createdAtDate = new Date(createdAt._seconds * 1000); // Convert Firebase moment time to TypeScript
-    return new Chat(id, createdAtDate, firstMessage);
-  }
-
-  updateMessages(messages: { role: string; parts: { text: string }[] }[]) {
-    this.messages = messages.map(message => Content.fromJson(message));
-  }
-}
-
-class Content {
-  role: string;
-  parts: { text: string }[];
-  constructor(role: string, parts: { text: string }[]) {
-    this.role = role;
-    this.parts = parts;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static fromJson(data: { role: string; parts: { text: string }[] }) {
-    return new Content(data.role, data.parts);
-  }
-}

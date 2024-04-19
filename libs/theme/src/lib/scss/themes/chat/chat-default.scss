@@ -1,0 +1,122 @@
+[data-theme='default'] {
+  .chat {
+    // background: url('/images/Big Planet.svg') no-repeat right 0 bottom 0,
+    //   url('/images/chat-bg.svg') no-repeat bottom right;
+    // background-size: auto, cover;
+    // transition: all ease 200ms;
+    @apply w-full h-full min-h-screen px-4 md:p-0;
+    // @apply w-full h-[calc(100vh_-_82px)] flex flex-col lg:justify-center items-center justify-start relative text-center p-4 sm:px-11 sm:py-20 pb-20 overflow-hidden text-white lg:gap-12 gap-4;
+    // .collapse {
+    //   padding: 0;
+    //   height: 0;
+    // }
+  }
+  .chatbox {
+    @apply bg-white relative w-full max-w-[669px] flex flex-col rounded-2xl p-4 md:p-6 lg:p-8 gap-4;
+  }
+  .head {
+    @apply flex flex-col sm:flex-row md:justify-between md:items-center justify-end;
+    h3 {
+      @apply hidden;
+      /* Learning block/Teal */
+      // font-family: Jura;
+    }
+    @media screen and (min-width: 641px) {
+      background-position: center top 24px;
+    }
+    @media screen and (min-width: 1024px) {
+      background-position: center top 32px;
+    }
+  }
+  .chat-divider {
+    @apply hidden;
+  }
+  .hidden-default {
+    display: none;
+  }
+  .ask {
+    @apply flex items-center overflow-hidden relative;
+    input,
+    textarea {
+      @apply flex-1 m-0 resize-none bg-transparent focus:ring-0 focus-visible:ring-0 h-[64px] placeholder-black/50 dark:placeholder-white/50 border border-blueGrey-300 rounded-l-lg text-lg p-5;
+    }
+  }
+  .send {
+    @apply flex items-center justify-center w-[86px] h-[64px] text-[32px] text-[#06A5FF] bg-secondaryBlue border-secondaryBlue rounded-r-lg;
+  }
+  .body {
+    @apply flex flex-col items-end xl:gap-20 md:gap-10 gap-5 overflow-auto flex-1;
+    height: calc(100vh - 310px);
+    .message {
+      @apply flex gap-2.5 max-w-[482px] w-full;
+      .box {
+        width: fit-content;
+        @apply rounded-lg p-3;
+        p {
+          @apply m-0;
+        }
+      }
+      .avatar {
+        @apply w-[34px] h-[34px] rounded-full flex-shrink-0 self-end;
+      }
+      &.left {
+        @apply self-start justify-start text-left;
+        .box {
+          @apply bg-blueGrey-100;
+        }
+      }
+      &.right {
+        @apply self-end justify-end text-right;
+        .box {
+          @apply bg-secondaryBlue text-white;
+        }
+      }
+      &.right.selection {
+        .box {
+          @apply cursor-pointer;
+          &:hover {
+            background: #3cadeb;
+          }
+        }
+        .select {
+          @apply relative;
+        }
+        .selected {
+          &:before {
+            @apply absolute left-[-20px] top-[calc(50%_-_8px)];
+            content: '';
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+            width: 10px;
+            height: 16px;
+            background-color: #3cadeb;
+          }
+        }
+        &:hover {
+          .select:hover:before {
+            @apply absolute left-[-20px] top-[calc(50%_-_8px)];
+            content: '';
+            clip-path: polygon(0 0, 0% 100%, 100% 50%);
+            width: 10px;
+            height: 16px;
+            background-color: #3cadeb;
+          }
+          .selected::before {
+            content: none;
+          }
+        }
+      }
+      .content {
+        @apply flex flex-col gap-2;
+      }
+    }
+  }
+  .find-me-game {
+    @apply w-full h-full absolute top-0 left-0;
+  }
+
+  @media screen and (max-width: 640px) {
+    .body {
+      height: calc(100vh - 280px);
+    }
+  }
+}

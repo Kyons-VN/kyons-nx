@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AnimationOptions, LottieModule } from 'ngx-lottie';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 @Component({
   standalone: true,
-  imports: [LottieModule],
+  imports: [LottieComponent],
   selector: 'chatbot-loading',
   templateUrl: './loading.component.html',
   styleUrls: ['./loading.component.scss'],

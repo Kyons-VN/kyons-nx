@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
-    provideLottieOptions({ player: playerFactory }),
+    provideLottieOptions({ player: () => import('lottie-web') }),
     authInterceptorProviders,
     firebaseProviders,
     languageProviders,

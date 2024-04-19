@@ -50,7 +50,7 @@ h6 {
   font-size: 18px;
 }
 .h7 {
-  font-size: 16px;
+  @apply text-base;
 }
 .h8 {
   font-size: 14px;
@@ -456,9 +456,17 @@ kyonsvn-tutorial label.radio {
 .xs-hidden {
   @apply hidden sm:flex;
 }
-
-.tab-item {
-  @apply flex items-center font-bold gap-2 px-3 py-2 rounded-t-lg cursor-pointer;
+.tab-wrapper {
+  @apply flex md:bg-secondaryBlue bg-white md:text-white rounded-t-lg w-full md:w-auto md:p-0 px-6 py-3 justify-center gap-5 md:gap-0;
+  .tab-item {
+    @apply flex md:flex-row flex-col justify-center items-center font-bold gap-2 px-3 py-2 md:rounded-b-none rounded-lg cursor-pointer w-[100px] md:w-auto text-xs md:text-sm;
+    .i {
+      @apply w-5 h-5 text-xl;
+    }
+    &.active {
+      @apply md:bg-white md:text-primaryBlue bg-lightBlue-6 text-lightBlue-1;
+    }
+  }
 }
 
 ul.check-list,

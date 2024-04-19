@@ -57,7 +57,7 @@ export class AccountAndPaymentComponent implements OnInit {
   isOrderFail = false;
   amount = 0;
 
-  @HostBinding('class') class = 'w-full';
+  @HostBinding('class') class = 'flex-1 w-full md:w-auto';
 
   ngOnInit(): void {
     this.loadPackages().add(() => {

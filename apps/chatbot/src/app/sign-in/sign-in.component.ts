@@ -13,7 +13,7 @@ import { NavigationService } from '@data/navigation/navigation.service';
 import { UserService } from '@data/user/user.service';
 import { environment } from '@environments';
 import { FormControlStatus } from '@utils/form';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, throwError } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -130,7 +130,11 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
             // else {
 
             setTimeout(() => {
-              this.chatService.checkCreatedUser().subscribe({
+              const userId = this.userService.getUserId();
+              if (userId === '') {
+                throwError(() => new Error('Unauthenticated'));
+              }
+              this.chatService.checkCreatedUser(userId).subscribe({
                 next: () => {
                   if (window.localStorage.getItem('selectedPackageLevel') != undefined) {
                     const packageLevel = window.localStorage.getItem('selectedPackageLevel');
@@ -140,7 +144,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
                 },
                 error: error => {
                   if (error.error == 'Not found') {
-                    this.chatService.initDefaultMana()?.subscribe({
+                    this.chatService.initDefaultMana(userId)?.subscribe({
                       next: () => {
                         // this.router.navigate([this.paths.home.path]);
                       },
