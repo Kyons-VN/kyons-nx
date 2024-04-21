@@ -1,0 +1,28 @@
+<div class="flex-col md:flex md:flex-row h-full md:overflow-hidden">
+  <div class="col md:hidden hero-bg py-8 px-6 gap-2" style="height: calc(100vw * 204 / 375)">
+    <img src="/assets/images/logo-horizontal-light.webp" alt="" class="self-start h-[32px]" />
+    <span class="h7 text-white w-full text-center">Tri thức khởi đầu từ<br />“Tại sao”?</span>
+  </div>
+  <div class="background-image flex w-full h-full md:items-center justify-center">
+    <div class="flex flex-col w-full md:w-[434px] min-h-[338px] p-6 mb-24 gap-6 overflow-auto flex-shrink-0">
+      <img src="/assets/images/logo-h.svg" alt="Logo" class="h-12 self-start hidden md:block" />
+      <form class="col gap-6 w-full">
+        <h4>Admin site!</h4>
+        <!-- <div class="flex gap-4 items-center">
+          <hr class="flex-1" />
+          hoặc
+          <hr class="flex-1" />
+        </div> -->
+
+        <button class="btn google" (click)="loginGoogle()" type="button">
+          <i class="icon-Google"></i>
+          <div class="flex-1 text-center">Sign in with Google</div>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="hero-img hidden md:flex justify-center flex-shrink-0 overflow-hidden relative">
+    <img class="w-full h-full object-cover absolute top-0" src="/assets/images/hero-image.webp" alt="" />
+    <span class="text-white text-[36px] font-semibold text-center relative">Tri thức khởi đầu<br />từ “Tại sao”?</span>
+  </div>
+</div>

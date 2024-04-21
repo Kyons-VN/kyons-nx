@@ -1,6 +1,6 @@
-// import { Submission } from "@infrastructure/test/submission";
-// import { TestContent } from "@infrastructure/test/test-content";
-// // import { Progress } from "@presentation/share-components/questions-progress/questions-progress.component";
+// import { Submission } from "@data/test/submission";
+// import { TestContent } from "@data/test/test-content";
+// // import { Progress } from "@view/share-components/questions-progress/questions-progress.component";
 // import { fromEvent, Subscription } from "rxjs";
 
 // interface IProgress {

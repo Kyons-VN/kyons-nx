@@ -61,7 +61,7 @@
       &.left {
         @apply self-start justify-start text-left;
         .box {
-          background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
+          background: linear-gradient(180deg, rgba(37, 138, 194, 0.2) 0%, rgba(44, 61, 91, 0.2) 100%);
         }
         .box::after {
           @apply bg-teal-0;

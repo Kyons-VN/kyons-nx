@@ -1,5 +1,0 @@
-body {
-  flutter-view input:where(:not([type])):focus {
-    @apply outline-none shadow-none ring-0;
-  }
-}

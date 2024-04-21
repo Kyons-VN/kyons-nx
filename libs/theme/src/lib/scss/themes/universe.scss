@@ -33,7 +33,7 @@
     @apply text-teal-0;
   }
   .bg-white {
-    background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
+    background: linear-gradient(180deg, rgba(37, 138, 194, 0.2) 0%, rgba(44, 61, 91, 0.2) 100%);
   }
   .text-secondaryBlue {
     @apply text-white;
@@ -48,15 +48,18 @@
     .md\:text-primaryBlue {
       @apply text-white;
     }
-    .tab-wrapper .tab-item.active {
-      background-color: rgba(44, 61, 91, 0.2);
+    .tab-wrapper {
+      background: rgba(44, 61, 91, 0.2);
+    }
+    .tab-item.active {
+      background: rgba(37, 138, 194, 0.14) !important;
       @apply text-white;
     }
     .md\:bg-white {
-      background: linear-gradient(181deg, rgba(37, 138, 194, 0.2) 1.23%, rgba(44, 61, 91, 0.2) 104.04%);
-      .md\:bg-transparent {
-        background: transparent;
-      }
+      background: linear-gradient(180deg, rgba(37, 138, 194, 0.2) 0%, rgba(44, 61, 91, 0.2) 100%);
+    }
+    .md\:bg-transparent {
+      background: transparent;
     }
   }
   @media screen and (max-width: 767px) {

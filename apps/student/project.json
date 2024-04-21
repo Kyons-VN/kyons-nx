@@ -25,14 +25,25 @@
             "glob": "**/*",
             "input": "libs/theme/src/assets/",
             "output": "/assets/"
+          },
+          {
+            "input": "apps/chatbot/find-me-game",
+            "glob": "**/*",
+            "output": "/find-me-game/"
           }
         ],
         "styles": ["libs/theme/src/styles.scss", "apps/student/src/styles.scss"],
-        "scripts": [],
+        "scripts": [
+          {
+            "input": "apps/chatbot/find-me-game/flutter.js",
+            "inject": true,
+            "bundleName": "find-me-game"
+          }
+        ],
         "allowedCommonJsDependencies": ["lottie-web"]
       },
       "configurations": {
-        "production": {
+        "prod": {
           "budgets": [
             {
               "type": "initial",
@@ -100,9 +111,7 @@
           "index": "apps/student/src/environments/test/index.html"
         },
         "dev": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true,
@@ -133,31 +142,22 @@
           "namedChunks": true,
           "outputHashing": "all",
           "index": "apps/student/src/environments/test/index.html"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true,
-          "index": "apps/student/src/environments/test/index.html"
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "prod"
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
-        "production": {
-          "buildTarget": "student:build:production"
+        "prod": {
+          "buildTarget": "student:build:prod"
         },
         "dev": {
           "buildTarget": "student:build:dev",
           "proxyConfig": "apps/student/src/proxy.conf.json"
         },
         "stg": {
-          "browserTarget": "student:build:stg",
+          "buildTarget": "student:build:stg",
           "proxyConfig": "apps/student/src/proxy.conf.json"
         }
       },

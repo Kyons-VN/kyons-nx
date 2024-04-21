@@ -66,7 +66,17 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
-    this.userService.updateCurrentUser(this.userId);
+    this.userService.updateCurrentUser(this.userId).then((res) => {
+      if (res) {
+        console.log('User updated');
+      }
+      else {
+        console.log('User not updated');
+      }
+    }, (err) => {
+      console.error(err);
+      this.router.navigate([this.paths.signOut.path]);
+    });
     // watch route param changes
     this.route.paramMap.subscribe(params => {
       this.flutterAppLoaded = false;
@@ -79,7 +89,7 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
         },
         error: err => {
           if (err.message === 'Unauthenticated') {
-            this.router.navigate([this.paths.signIn.path]);
+            this.router.navigate([this.paths.signOut.path]);
           }
         },
       });
@@ -244,6 +254,10 @@ export class ChatbotFindMeComponent implements OnInit, OnDestroy {
 
   play() {
     this.flutterState.setMessage('/play');
+  }
+
+  exit() {
+    this.flutterState.setMessage('/end');
   }
 
   updateThinking(isThinking: boolean) {

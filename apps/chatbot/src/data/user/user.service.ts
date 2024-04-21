@@ -11,7 +11,7 @@ export const CURRENT_USER = 'flutter.currentUser';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async updateCurrentUser(uid: string) {
     const params = new HttpParams().set('id', uid);
@@ -26,6 +26,7 @@ export class UserService {
       ).then(
         (res: any) => {
           // Success
+          if (res == null) reject('User error');
           res['uid'] = uid;
           window.localStorage.setItem(CURRENT_USER, JSON.stringify(res));
           resolve(true);

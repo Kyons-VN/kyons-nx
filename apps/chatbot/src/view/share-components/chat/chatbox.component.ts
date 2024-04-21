@@ -18,7 +18,9 @@ export class ChatboxComponent implements OnChanges, AfterViewInit {
   };
   isInit: boolean = false;
   @Input() isThinking: boolean = false;
+  @Input() isGaming: boolean = false;
   @Output() sendMessage = new EventEmitter<string>();
+  @Output() endGame = new EventEmitter<void>();
   @ViewChild('askInput') askInputElm!: ElementRef;
 
   ngAfterViewInit(): void {
@@ -48,5 +50,9 @@ export class ChatboxComponent implements OnChanges, AfterViewInit {
         }, 100);
       }
     }
+  }
+
+  exit() {
+    this.endGame.emit()
   }
 }

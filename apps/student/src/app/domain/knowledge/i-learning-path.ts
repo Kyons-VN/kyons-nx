@@ -1,4 +1,4 @@
-import { Program } from "../../infrastructure/knowledge/program";
+import { Program } from "@data/knowledge/program";
 import { ILessonItem } from "./i-lesson";
 
 export interface ILearningPath {

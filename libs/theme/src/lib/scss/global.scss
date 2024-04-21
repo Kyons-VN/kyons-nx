@@ -6,6 +6,7 @@ body {
     outline: darkseagreen solid 1px;
   }
 }
+
 a {
   @apply cursor-pointer;
 }
@@ -93,7 +94,7 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
 .btn-rounded {
   @apply rounded-md h-[40px] px-[20px] flex items-center justify-center cursor-pointer border whitespace-nowrap gap-2 font-[600];
   &.btn-icon {
-    @apply w-[40px] h-[40px];
+    @apply w-[40px] h-[40px] p-[20px];
     &.btn-large {
       @apply w-[48px] h-[48px];
       i {
@@ -505,4 +506,8 @@ select:focus {
 }
 .scrollable-content::-webkit-scrollbar {
   display: none;
+}
+
+flutter-view input:where(:not([type])):focus {
+  @apply outline-none shadow-none ring-0;
 }

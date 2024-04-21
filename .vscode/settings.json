@@ -4,6 +4,7 @@
     "**/node_modules": true,
     "**/dist": true,
     "**/angular": true,
-    "**/apps/school": true
+    "**/apps/school": true,
+    "apps/chatbot/find-me-game": true
   }
 }

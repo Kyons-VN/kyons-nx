@@ -1,8 +1,8 @@
-import { DEFAULT_CURRENCY_CODE, enableProdMode, LOCALE_ID } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import { enableProdMode } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { environment } from '@environments';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
 if (environment.production) {
   enableProdMode();
@@ -24,14 +24,19 @@ function bootstrap() {
   // if (window.location.host == 'kyonsvn.web.app') window.location = 'https://kyonsvn.web.app/m';
   // if (window.location.host == 'student.kyons.vn') window.location = 'https://kyonsvn.web.app/student';
   // }
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule, {
-      providers: [
-        { provide: LOCALE_ID, useValue: 'vi-VN' },
-        { provide: DEFAULT_CURRENCY_CODE, useValue: 'VND' },
-      ],
-    })
-    .catch(err => console.error(err));
+
+  bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
+  const searchParams = new URLSearchParams(window.location.search);
+  const outline = searchParams.get('outline');
+  console.log('outline', outline);
+
+  if (outline === 'true') {
+    document.body.classList.add('outline');
+  }
+  else {
+    document.body.classList.remove('outline');
+
+  }
 }
 
 if (document.readyState === 'complete') {

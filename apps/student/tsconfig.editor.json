@@ -1,6 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "../../libs/share-components/src/lib/tutorial/tutorial.component.ts"],
+  "include": [
+    "**/*.ts",
+    "../../libs/share-components/src/lib/tutorial/tutorial.component.ts",
+    "src/app/app-routing.module.firebase.bak",
+    "src/app/app-routing.module.bak",
+    "src/app/app.module.bak"
+  ],
   "compilerOptions": {
     "types": ["node"]
   }

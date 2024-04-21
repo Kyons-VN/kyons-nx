@@ -451,6 +451,10 @@ class Question implements IQuestion {
   static empty(): Question {
     return new Question({ id: '', content: '', answers: [], hint: '', difficulty: DifficultyLevel.easy });
   }
+
+  toString() {
+    return 'Câu hỏi: ' + this.content.replace(/<[^>]*>/g, '') + '\n' + this.answers.map((answer, index) => answerPrefixes[index] + answer.toString()).join('\n');
+  }
 }
 
 class Answer implements IAnswer {
@@ -493,6 +497,10 @@ class Answer implements IAnswer {
     // _.content = '<b><u><i>Answer content</i></u></b>';
     // _.value = _.id;
     return new Answer(_);
+  }
+
+  toString() {
+    return this.content.replace(/<[^>]*>/g, '');
   }
 }
 

@@ -1,26 +1,11 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { AuthService } from './infrastructure/auth/auth.service';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
+  standalone: true,
+  imports: [RouterModule],
   selector: 'student-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
-
-  @HostBinding('class') class = 'block w-full h-full';
-
-  title = 'student';
-  isAuthenticated = true;
-
-  ngOnInit(): void {
-    this.isAuthenticated = this.authService.getToken() !== '';
-    this.router.events.subscribe((val) => {
-      // see also
-      if (val instanceof NavigationEnd)
-        this.isAuthenticated = this.authService.getToken() !== '';
-    });
-  }
+export class AppComponent {
 }

@@ -1,5 +1,5 @@
-import { Category } from '../../infrastructure/knowledge/category';
-import { Topic } from '../../infrastructure/knowledge/topic';
+import { Category } from '@data/knowledge/category';
+import { Topic } from '@data/knowledge/topic';
 
 interface ITestContent {
   id: string;
@@ -57,13 +57,9 @@ interface IAnswerReview {
 }
 
 export {
-  ITestContent,
-  IQA,
-  IQuestion,
-  IAnswer,
-  ITestResult,
-  TestType,
-  IAnswerResult,
-  IAnswerReview,
+  IAnswer, IAnswerResult,
+  IAnswerReview, IQA,
+  IQuestion, ITestContent, ITestResult,
+  TestType
 };
 

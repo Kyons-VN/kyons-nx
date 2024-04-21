@@ -1,6 +1,6 @@
-import { Category } from "@infrastructure/knowledge/category";
-import { LearningGoalCategory } from "@infrastructure/knowledge/learning-goal-path";
-import { LessonItem } from "@infrastructure/knowledge/lesson";
+import { Category } from "@data/knowledge/category";
+import { LearningGoalCategory } from "@data/knowledge/learning-goal-path";
+import { LessonItem } from "@data/knowledge/lesson";
 
 interface ILearningGoalPath {
   progress: number;

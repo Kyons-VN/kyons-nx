@@ -1,0 +1,18 @@
+<form class="ask" novalidate>
+  <textarea
+    rows="1"
+    placeholder="Trò chuyện..."
+    [(ngModel)]="text"
+    name="text"
+    [disabled]="isThinking"
+    (keydown.control.enter)="onCtrlEnter()"
+    (keydown.enter)="onEnter()"
+    #askInput
+  ></textarea>
+  <button type="button" class="send" (click)="ask()" [disabled]="isThinking">
+    @if(isThinking){<ng-lottie [options]="options" width="60px" height="60px"></ng-lottie>} @else{<i
+      class="icon-Send"
+    ></i
+    >}
+  </button>
+</form>

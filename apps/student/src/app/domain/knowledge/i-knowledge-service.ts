@@ -1,6 +1,6 @@
-import { Subject } from '@domain/subject/subject';
-import { LearningGoal, StudentLearningGoal } from '@infrastructure/knowledge/learning-goal';
-import { Program } from '@infrastructure/knowledge/program';
+import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
+import { Program } from '@data/knowledge/program';
+import { Subject } from '@domain/knowledge/subject/subject';
 import { Observable } from 'rxjs';
 
 export default interface IKnowledgeService {

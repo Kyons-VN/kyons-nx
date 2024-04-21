@@ -1,5 +1,5 @@
-import { LearningGoalPath } from '@infrastructure/knowledge/learning-goal-path';
-import { LessonGroup } from '@infrastructure/knowledge/lesson';
+import { LearningGoalPath } from '@data/knowledge/learning-goal-path';
+import { LessonGroup } from '@data/knowledge/lesson';
 import { Observable } from 'rxjs';
 
 export default interface ILessonService {

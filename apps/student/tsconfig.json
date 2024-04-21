@@ -24,15 +24,15 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@presentation/*": ["apps/student/src/app/presentation/*"],
-      "@infrastructure/*": ["apps/student/src/app/infrastructure/*"],
+      "@view/*": ["apps/student/src/app/view/*"],
+      "@data/*": ["apps/student/src/app/data/*"],
       "@domain/*": ["apps/student/src/app/domain/*"],
       "@utils/*": ["apps/student/src/app/utils/*"],
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
       "@share-directives/*": ["libs/share-directives/src/lib/*"],
       "@share-components": ["libs/share-components/src/index.ts"],
       "@share-pipes": ["libs/share-pipes/src/index.ts"],
-      "@environments/*": ["apps/student/src/environments/*"]
+      "@environments": ["apps/student/src/environments/environment"]
     }
   },
   "angularCompilerOptions": {
