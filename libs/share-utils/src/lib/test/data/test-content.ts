@@ -157,7 +157,7 @@ export class QuestionHtml {
 //   learning_path_activated,
 // }
 
-export class MockTestResult {
+export class MockTest {
   id: string;
   score: number;
   status: MockTestStatus;
@@ -181,22 +181,22 @@ export class MockTestResult {
     this.createdAt = createdAt;
   }
 
-  static fromJson(dataObject: any): MockTestResult {
+  static fromJson(dataObject: any): MockTest {
     const _ = pick(dataObject, ['id', 'score', 'status', 'createdAt']);
     _.id = dataObject['id'].toString();
     _.score = dataObject['score'] ?? 0;
     _.createdAt = new Date(dataObject['created_at']);
     _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
     const shareReferral = dataObject['mocktest_referral'] ?? '';
-    const result = new MockTestResult(_);
+    const result = new MockTest(_);
     if (shareReferral !== '') {
       result.shareReferral = shareReferral;
     }
     return result;
   }
 
-  static empty(): MockTestResult {
-    return new MockTestResult({ id: '', score: 0, status: MockTestStatus.pending, createdAt: new Date() });
+  static empty(): MockTest {
+    return new MockTest({ id: '', score: 0, status: MockTestStatus.pending, createdAt: new Date() });
   }
 }
 
@@ -311,54 +311,43 @@ export class QuestionReview {
   }
 }
 class TestContent implements ITestContent {
-  id: string;
-  topicName: string;
+  // id: string;
+  // topicName: string;
   questions: Question[];
-  done: boolean;
-  status: MockTestStatus;
-  constructor({
-    id,
-    questions,
-    done,
-    topicName,
-    status,
-  }: {
-    id: string;
-    questions: Question[];
-    done: boolean;
-    topicName: string;
-    status: MockTestStatus;
-  }) {
-    this.id = id;
+  // done: boolean;
+  // status: MockTestStatus;
+  constructor(
+    questions: Question[]
+  ) {
+    // this.id = id;
     this.questions = questions;
-    this.done = done ?? false;
-    this.topicName = topicName;
-    this.status = status;
+    // this.done = done ?? false;
+    // this.topicName = topicName;
+    // this.status = status;
   }
   static fromJson(dataObject: any): TestContent {
-    const _ = pick(dataObject, [
-      'id',
-      'content',
-      'test_id',
-      'questions',
-      'done',
-      'learning_point_name',
-      'topicName',
-      'status',
-    ]);
-    _.id = _.test_id ?? '';
-    _.topicName = _.learning_point_name ?? '';
-    // _.content = [];
-    _.questions =
-      _.questions !== undefined ? _.questions.map((questionObject: any) => Question.fromJson(questionObject)) : [];
+    // const _ = pick(dataObject, [
+    //   'id',
+    //   'content',
+    //   'test_id',
+    //   'questions',
+    //   'done',
+    //   'learning_point_name',
+    //   'topicName',
+    //   'status',
+    // ]);
+    // _.id = _.test_id ?? '';
+    // _.topicName = _.learning_point_name ?? '';
+    // // _.content = [];
+    const questions = dataObject.map((questionObject: any) => Question.fromJson(questionObject));
 
-    _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
+    // _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
 
-    return new TestContent(_);
+    return new TestContent(questions);
   }
 
   static empty(): TestContent {
-    return new TestContent({ id: '', questions: [], done: false, topicName: '', status: MockTestStatus.pending });
+    return new TestContent([]);
   }
 }
 

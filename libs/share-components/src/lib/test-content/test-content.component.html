@@ -11,7 +11,7 @@
     <div *ngIf="!showResult; else elseBlock" class="mt-2 flex flex-col gap-1">
       <kyonsvn-input-radio
         [style.display]="ai > 3 ? 'none' : 'block'"
-        *ngFor="let answer of question.answers | orderBySA : 'order'; let ai = index"
+        *ngFor="let answer of question.answers; let ai = index"
         (change)="updateProgress(getNextProgress(qi)); updateSubmitData(question.id, answer)"
         [answer]="answer"
         [label]="answerPrefixes[ai] + answer.content"
@@ -35,8 +35,8 @@
           ></i>
           <i *ngIf="answer.isCorrect" class="icon-Check text-darkEmerald"></i>
           <div class="col flex-1">
-            <span [innerHTML]="answer.content | safeHtml"></span>
-            <span [innerHTML]="answer.explanation | safeHtml"></span>
+            <kyonsvn-latex [inputString]="answer.content"></kyonsvn-latex>
+            <kyonsvn-latex [inputString]="answer.explanation"></kyonsvn-latex>
           </div>
         </div>
       </div>

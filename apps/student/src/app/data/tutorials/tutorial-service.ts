@@ -5,7 +5,7 @@ import { DBHelper } from '@data/helper/helper';
 import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { LearningGoalPath } from '@data/knowledge/learning-goal-path';
 import { Subject } from '@domain/knowledge/subject/subject';
-import { Exercise, MockTestResult, TestContent, TestReviewHtml } from '@share-utils/data';
+import { Exercise, MockTest, TestContent, TestReviewHtml } from '@share-utils/data';
 import { catchError } from 'rxjs';
 import { LessonGroup } from '../knowledge/lesson';
 import { MockTestItem } from '../test/test-content';
@@ -60,8 +60,8 @@ export class TutorialService {
   getMockTestReview() {
     return TestReviewHtml.fromJson(mockTestReview);
   }
-  getMockTestResult(): import('@share-utils/data').MockTestResult {
-    return MockTestResult.fromJson(mockTestResult);
+  getMockTestResult(): import('@share-utils/data').MockTest {
+    return MockTest.fromJson(mockTestResult);
   }
   getSelectedLearningGoal(): LearningGoal {
     return LearningGoal.fromJson(studentLearningGoals[0]);

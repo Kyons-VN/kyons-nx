@@ -76,7 +76,7 @@ export class MockTestReviewComponent implements OnInit {
         //
       },
     });
-    this.testService.getMockTestResult(this.mockTestId).subscribe({
+    this.testService.getMockTest(this.mockTestId).subscribe({
       next: result => {
         this.status = result.status;
         return;

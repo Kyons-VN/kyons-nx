@@ -10,7 +10,7 @@ import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
 import { QuestionsProgressComponent, TestContentComponent } from '@share-components';
-import { MockTestResult, Progress, Submission, TestContent } from '@share-utils/data';
+import { MockTest, Progress, Submission, TestContent } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
 import { Observable, fromEvent } from 'rxjs';
 
@@ -41,7 +41,7 @@ export class MockTestTestComponent implements OnInit {
   testContent = TestContent.empty();
   testSubmission = new Submission();
   isTest = false;
-  testResult: MockTestResult | undefined;
+  mockTest: MockTest | undefined;
   reviewRenderObject: any[] = [];
   resultRenderObject: any[] = [];
   lessonGroup!: LessonGroup;
@@ -89,36 +89,41 @@ export class MockTestTestComponent implements OnInit {
     this.loading.show();
     if (!this.isPending) return;
     this.testService.getMockTest(this.mockTestId).subscribe({
-      next: value => {
-        this.isPending = value.status == MockTestStatus.pending;
-        if (this.isPending) {
-          setTimeout(() => {
-            this.getMockTest();
-          }, 5000);
-          return;
-        }
-        if (value.done == true) this.complete = true;
-        this.testContent = value;
-        this.testSubmission.testId = this.testContent.id;
-        this.testProgress = Progress.from(0, value.questions.length);
-        this.testService.getMockTestResult(this.mockTestId).subscribe({
-          next: () => {
-            this.counter = TEST_DURATION;
-            this.counterStart = new Date();
-            setInterval(() => {
-              const now = new Date();
-              this.counter = TEST_DURATION - (now.getTime() - this.counterStart.getTime());
-              this.counterTime = new Date(this.counter);
-              // Auto submit mocktest
-              // if (this.counter < 0) {
-              //   this.ignoreHavingTime = true;
-              //   this.ignoreIncomplete = true;
-              //   this.testComplete();
-              // }
-            }, 1000);
-            this.loading.hide();
-          },
-        });
+      next: (mockTest) => {
+        this.mockTest = mockTest;
+        if (this.mockTest.status > 2) this.complete = true;
+        if (this.mockTest.status == MockTestStatus.pending) this.isPending = true;
+      }
+    })
+    this.testService.getMockTestQuestion(this.mockTestId).subscribe({
+      next: testContent => {
+        // if (this.isPending) {
+        //   setTimeout(() => {
+        //     this.getMockTest();
+        //   }, 5000);
+        //   return;
+        // }
+        this.testContent = testContent;
+        this.testSubmission.testId = this.mockTestId;
+        this.testProgress = Progress.from(0, testContent.questions.length);
+        // this.testService.getMockTestResult(this.mockTestId).subscribe({
+        //   next: () => {
+        this.counter = TEST_DURATION;
+        this.counterStart = new Date();
+        setInterval(() => {
+          const now = new Date();
+          this.counter = TEST_DURATION - (now.getTime() - this.counterStart.getTime());
+          this.counterTime = new Date(this.counter);
+          // Auto submit mocktest
+          // if (this.counter < 0) {
+          //   this.ignoreHavingTime = true;
+          //   this.ignoreIncomplete = true;
+          //   this.testComplete();
+          // }
+        }, 1000);
+        this.loading.hide();
+        //   },
+        // });
       },
       error: err => {
         this.hasError = err.error_code;

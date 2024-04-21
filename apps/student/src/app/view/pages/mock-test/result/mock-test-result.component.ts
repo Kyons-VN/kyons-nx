@@ -11,7 +11,7 @@ import { TestService } from '@data/test/test.service';
 import { TutorialService } from '@data/tutorials/tutorial-service';
 import { MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { TutorialComponent } from '@share-components';
-import { MockTestResult } from '@share-utils/data';
+import { MockTest } from '@share-utils/data';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { Subscription, interval } from 'rxjs';
 
@@ -27,7 +27,7 @@ export class MockTestResultComponent implements OnInit {
   knowledgeService = inject(KnowledgeService);
   testService = inject(TestService);
   paths = inject(NavigationService).paths;
-  testResult!: MockTestResult;
+  testResult!: MockTest;
   loading = inject(LoadingOverlayService);
   lessonService = inject(LessonService);
   http = inject(HttpClient);
@@ -91,7 +91,7 @@ export class MockTestResultComponent implements OnInit {
   }
 
   _getMockTest() {
-    this.testService.getMockTestResult(this.mockTestId).subscribe({
+    this.testService.getMockTest(this.mockTestId).subscribe({
       next: result => {
         // this.testResult = result;
         if (result.status !== MockTestStatus.mock_test_submitted) {

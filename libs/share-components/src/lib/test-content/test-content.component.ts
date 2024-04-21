@@ -17,7 +17,6 @@ import {
 //   TestContent
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { Answer, Progress, Submission, TestContent, answerPrefixes } from '@share-utils/data';
 import { Subscription } from 'rxjs';
 import { InputRadioComponent } from '../input-radio/input-radio.component';
@@ -67,7 +66,7 @@ export class QuestionTutorialScript {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, InputRadioComponent, OrderBySAPipe, SafeHtmlPipe, TutorialComponent, FormsModule, LatexComponent],
+  imports: [CommonModule, InputRadioComponent, TutorialComponent, FormsModule, LatexComponent],
   selector: 'kyonsvn-test-content',
   templateUrl: './test-content.component.html',
   styleUrls: ['./test-content.component.scss'],

@@ -48,7 +48,7 @@ export class EventComponent implements OnInit {
     this.only3Questions = this.route.snapshot.queryParams['full'] !== 'true';
     this.testContent = this.service.getEvent(this.only3Questions);
     console.log(this.testContent);
-    this.title = this.testContent.topicName;
+    // this.title = this.testContent.topicName;
     this.testProgress = Progress.from(0, this.testContent.questions.length);
     this.signUpForm.addControl('email', this.email);
   }

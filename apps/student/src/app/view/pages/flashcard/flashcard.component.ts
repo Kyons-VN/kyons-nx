@@ -29,7 +29,7 @@ export class FlashcardComponent implements OnInit {
     this.flashcardId = this.route.snapshot.paramMap.get('id') ?? '';
     this.testContent = this.service.getFlashcard(this.flashcardId);
     console.log(this.testContent);
-    this.title = this.testContent.topicName;
+    // this.title = this.testContent.topicName;
     this.testProgress = Progress.from(0, this.testContent.questions.length);
   }
 

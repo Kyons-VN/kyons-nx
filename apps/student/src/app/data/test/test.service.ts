@@ -9,7 +9,7 @@ import { UserService } from '../user/user.service';
 // import { Submission } from './submission';
 // import { TestContent, TestResult } from './test-content';
 
-import { Exercise, MockTestResult, Submission, TestContent, TestResult, TestReviewHtml, Topic } from '@share-utils/data';
+import { Exercise, MockTest, Submission, TestContent, TestResult, TestReviewHtml, Topic } from '@share-utils/data';
 
 @Injectable({
   providedIn: 'root',
@@ -181,7 +181,7 @@ export class TestService {
     );
   }
 
-  getMockTest(testId: string) {
+  getMockTestQuestion(testId: string) {
     return (
       this.http
         .get(`${serverApi()}/api/v2/users/mock_tests/${testId}/questions`)
@@ -189,7 +189,8 @@ export class TestService {
         .pipe(
           catchError(DBHelper.handleError('GET diagnostic_test', [])),
           map((dataObject: any) => {
-            return TestContent.fromJson(dataObject);
+            if (dataObject['data'] == undefined) return TestContent.empty();
+            return TestContent.fromJson(dataObject['data']);
           })
         )
     );
@@ -239,11 +240,12 @@ export class TestService {
     );
   }
 
-  getMockTestResult(mockTestId: string) {
+  getMockTest(mockTestId: string) {
     return this.http.get(`${serverApi()}/api/v2/users/mock_tests/${mockTestId}`).pipe(
-      catchError(DBHelper.handleError('GET mock_tests', MockTestResult.empty())),
+      catchError(DBHelper.handleError('GET mock_tests', MockTest.empty())),
       map((res: any) => {
-        return MockTestResult.fromJson(res);
+        if (res['data'] == undefined) return MockTest.empty();
+        return MockTest.fromJson(res['data']);
       })
     );
   }

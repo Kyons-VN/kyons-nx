@@ -18,7 +18,7 @@ import {
   TestContentComponent,
   TutorialComponent,
 } from '@share-components';
-import { MockTestResult, Progress, Submission, TestContent } from '@share-utils/data';
+import { MockTest, Progress, Submission, TestContent } from '@share-utils/data';
 import { Observable, fromEvent } from 'rxjs';
 
 const TEST_DURATION = 90 * 60 * 1000;
@@ -58,7 +58,7 @@ export class TutorialTestComponent implements OnInit {
   testContent = TestContent.empty();
   testSubmission = new Submission();
   isTest = false;
-  testResult: MockTestResult | undefined;
+  testResult: MockTest | undefined;
   reviewRenderObject: any[] = [];
   resultRenderObject: any[] = [];
   lessonGroup!: LessonGroup;

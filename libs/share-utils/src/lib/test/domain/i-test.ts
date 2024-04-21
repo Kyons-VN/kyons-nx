@@ -2,9 +2,9 @@
 // import { ITopic } from '../../infrastructure/knowledge/topic';
 
 interface ITestContent {
-  id: string;
+  // id: string;
   questions: IQuestion[];
-  done: boolean;
+  // done: boolean;
 }
 
 interface IQA {
@@ -60,4 +60,5 @@ interface IAnswerReview {
   rightAnswers: Array<string>;
 }
 
-export { ITestContent, IQA, IQuestion, IAnswer, ITestResult, TestType, IAnswerResult, IAnswerReview };
+export { IAnswer, IAnswerResult, IAnswerReview, IQA, IQuestion, ITestContent, ITestResult, TestType };
+
