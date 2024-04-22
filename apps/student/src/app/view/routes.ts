@@ -132,7 +132,12 @@ const routes: Routes = [
     ],
   },
   { path: 'test', component: TestComponent },
-  { path: 'sign-in', loadComponent: () => import('./pages/sign-in/sign-in.component').then(m => m.SignInComponent) },
+  {
+    path: '',
+    component: LayoutFullComponent,
+    children: [
+      { path: 'sign-in', loadComponent: () => import('./pages/sign-in/sign-in.component').then(m => m.SignInComponent) },]
+  },
   {
     path: 'sign-out',
     loadComponent: () => import('./pages/sign-out/sign-out.component').then(m => m.SignOutComponent),

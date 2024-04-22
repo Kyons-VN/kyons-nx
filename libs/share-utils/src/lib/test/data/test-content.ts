@@ -186,7 +186,6 @@ export class MockTest {
     _.id = dataObject['id'].toString();
     _.score = dataObject['score'] ?? 0;
     _.createdAt = new Date(dataObject['created_at']);
-    _.status = MockTestStatus[dataObject['status'] as keyof typeof MockTestStatus];
     const shareReferral = dataObject['mocktest_referral'] ?? '';
     const result = new MockTest(_);
     if (shareReferral !== '') {
@@ -448,29 +447,29 @@ class Question implements IQuestion {
 
 class Answer implements IAnswer {
   id: string;
-  order: number;
-  value: string;
+  // order: number;
+  // value: string;
   content: string;
   isCorrect: boolean;
   explanation: string;
   constructor({
     id,
-    order,
-    value,
+    // order,
+    // value,
     content,
     isCorrect,
     explanation,
   }: {
     id: string;
-    order: number;
-    value: string;
+    // order: number;
+    // value: string;
     content: string;
     isCorrect: boolean;
     explanation: string;
   }) {
     this.id = id;
-    this.order = order;
-    this.value = value;
+    // this.order = order;
+    // this.value = value;
     this.content = content;
     this.isCorrect = isCorrect;
     this.explanation = explanation;
@@ -478,7 +477,7 @@ class Answer implements IAnswer {
 
   static fromJson(dataObject: any): Answer {
     const _ = pick(dataObject, ['id', 'order', 'value', 'content', 'is_correct', 'isCorrect', 'explanation']);
-    // _.id = dataObject['id'] ? dataObject['id'].toString() : '';
+    _.id = dataObject['id'] ? dataObject['id'].toString() : '';
     // _.value = (_.value as number).toString();
     _.isCorrect = _.is_correct ?? false;
     // TODO: Remove hardcode

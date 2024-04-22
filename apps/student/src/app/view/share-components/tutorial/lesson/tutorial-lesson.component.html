@@ -9,7 +9,7 @@
           [routerLink]="paths.learningPath.path"
           class="no-underline gap-2 items-center text-orange hidden md:flex"
         >
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
           <span>Về lộ trình học</span>
         </button>
         <h4>{{ learningGoal.name }}</h4>
@@ -85,7 +85,7 @@
         <div class="flex gap-4 items-center justify-between w-full">
           <!-- <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn">Câu trước</button>
           <div class="flex-1 flex gap-1 w-full overflow-hidden">
-            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
+            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
                 class="btn-rounded btn-icon"
@@ -100,7 +100,7 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ArrowRight"></i></button>
+            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button *ngIf="currentTestIndex !== testContent.questions.length - 1" (click)="scrollRight()" class="btn">
             Câu kế tiếp
@@ -142,7 +142,7 @@
           <i class="icon-Preview"></i>
         </button>
         <!-- <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn btn-icon">
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
         </button> -->
         <!-- <a
           class="btn-rounded btn-icon order-1 md:order-1"
@@ -178,7 +178,7 @@
           [disabled]="isSubmitting"
           class="btn btn-icon btn-large"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button>
         <button
           #submitXs
@@ -188,7 +188,7 @@
           (click)="testComplete()"
           class="btn btn-icon btn-large"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button>
         <!-- <button
           *ngIf="currentTestIndex !== testContent.questions.length - 1"
@@ -196,7 +196,7 @@
           [disabled]="currentTestIndex === testContent.questions.length - 1"
           class="btn btn-icon"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button> -->
       </div>
     </div>

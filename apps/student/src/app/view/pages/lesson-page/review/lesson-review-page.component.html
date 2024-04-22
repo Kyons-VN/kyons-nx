@@ -10,7 +10,7 @@
           [routerLink]="[paths.learningPath.path]"
           class="no-underline gap-2 items-center text-orange hidden md:flex"
         >
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
           <span>Về lộ trình học</span>
         </button>
         <h4>{{ learningGoal.name }}</h4>
@@ -64,11 +64,11 @@
           [disabled]="currentQuestionIndex === 0"
           class="btn btn-icon btn-large flex md:hidden"
         >
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
         </button>
         <div class="flex-1 flex gap-1 w-full overflow-hidden">
           <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
-            <i class="icon-ArrowLeft"></i>
+            <i class="icon-ChevronLeft"></i>
           </button>
           <div #scrollElm class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
             <button
@@ -83,7 +83,7 @@
             </button>
           </div>
           <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
-            <i class="icon-ArrowRight"></i>
+            <i class="icon-ChevronRight"></i>
           </button>
         </div>
         <button
@@ -98,7 +98,7 @@
           [disabled]="currentQuestionIndex === questions.length - 1"
           class="btn btn-icon btn-large flex md:hidden"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button>
       </div>
     </div>

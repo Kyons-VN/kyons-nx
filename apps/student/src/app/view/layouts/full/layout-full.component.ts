@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
-  selector: 'student-layout-default',
   template: '<router-outlet></router-outlet>',
   imports: [RouterModule],
 })

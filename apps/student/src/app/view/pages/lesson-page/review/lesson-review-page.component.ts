@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { serverApi } from '@data/auth/interceptor';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
@@ -52,8 +51,8 @@ export class LessonReviewPageComponent implements OnInit {
         this.isLoading = false;
         //
       },
-      error: (e: any) => {
-        //
+      error: (err: any) => {
+        console.log(err);
       },
     });
   }
@@ -83,34 +82,34 @@ export class LessonReviewPageComponent implements OnInit {
     this.scrollElm.nativeElement.scrollLeft = currentElmCenter - scrollElmWidth / 2;
   }
 
-  activateLearningPath() {
-    this.loading.show();
-    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
-      next: () => {
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
-      },
-      error: e => {
-        console.log(e);
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
-      },
-    });
-  }
+  // activateLearningPath() {
+  //   this.loading.show();
+  //   this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
+  //     next: () => {
+  //       this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+  //         next: () => {
+  //           this.loading.hide();
+  //           this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
+  //         },
+  //         error: e => {
+  //           console.log(e);
+  //           this.loading.hide();
+  //         },
+  //       });
+  //     },
+  //     error: e => {
+  //       console.log(e);
+  //       this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+  //         next: () => {
+  //           this.loading.hide();
+  //           this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
+  //         },
+  //         error: e => {
+  //           console.log(e);
+  //           this.loading.hide();
+  //         },
+  //       });
+  //     },
+  //   });
+  // }
 }

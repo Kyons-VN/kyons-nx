@@ -129,6 +129,7 @@ export class MockTestSelectProgramComponent implements OnInit {
   script4 = () => {
     // this.showMockTestTemplate = true;
     // this.mockTestTemplates = this.selectedLearningGoal.mockTestTemplates;
+    this.router.navigate([this.paths.mockTestSelect.path.replace(':id', this.selectedLearningGoal.id)], { queryParams: { tutorial: true } });
   };
 
   script5 = () => {

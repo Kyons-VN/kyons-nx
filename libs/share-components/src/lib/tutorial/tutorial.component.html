@@ -16,10 +16,10 @@
       <div class="flex items-center justify-between">
         <div class="flex gap-2" *ngIf="scriptElements">
           <button (click)="pre()" [disabled]="step === 0 && back === undefined" class="btn-icon">
-            <i class="icon-ArrowLeft"></i>
+            <i class="icon-ChevronLeft"></i>
           </button>
           <button (click)="next()" [disabled]="next === undefined" class="btn-icon">
-            <i class="icon-ArrowRight"></i>
+            <i class="icon-ChevronRight"></i>
           </button>
         </div>
         <button *ngIf="forceComplete === false" (click)="skip()" replaceUrl="true">Bỏ qua</button>

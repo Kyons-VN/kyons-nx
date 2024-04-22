@@ -16,10 +16,14 @@
       >
       <!-- <button class="btn-rounded">
         <span class="flex items-center gap-2"
-          ><i class="icon-ArrowLeft"></i> Chọn tất cả <i class="icon-ArrowRight"></i
+          ><i class="icon-ChevronLeft"></i> Chọn tất cả <i class="icon-ChevronRight"></i
         ></span>
       </button> -->
-      <div class="flex flex-col gap-2 w-full h-[calc(100vh_-_25rem)] overflow-auto">
+      <div
+        #turorial1
+        class="flex flex-col gap-2 w-full h-[calc(100vh_-_25rem)] overflow-auto"
+        data-tooltip-content="Hãy chọn nội dung mà bạn muốn"
+      >
         <label *ngFor="let topic of topics" class="border border-blueGrey-300 p-2 rounded checkbox">
           <input class="mr-4" type="checkbox" [(ngModel)]="topic.checked" (change)="updateCount()" />
           <span>{{ topic.name }}</span>
@@ -28,6 +32,8 @@
       <div class="flex-1"></div>
       <div class="self-end">
         <button
+          #turorial2
+          data-tooltip-content="Bắt đầu làm bài kiểm tra thử thông minh"
           (click)="submit()"
           [disabled]="
             isDoneEditing &&
@@ -38,6 +44,15 @@
           Làm bài kiểm tra
         </button>
       </div>
+      <kyonsvn-tutorial
+        *ngIf="showTutorial"
+        (skipCallback)="skip()"
+        [scriptElements]="[turorial1, turorial2]"
+        [scriptEvents]="[
+          ['change', script1],
+          ['click', script2]
+        ]"
+      ></kyonsvn-tutorial>
     </div>
   </div>
   <div

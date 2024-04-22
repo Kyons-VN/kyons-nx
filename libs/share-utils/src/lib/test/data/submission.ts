@@ -42,7 +42,6 @@ export class Submission implements ISubmission {
           id: Number(questionId),
           answer: {
             id: this.submitData[questionId].id,
-            value: this.submitData[questionId].value,
           },
         };
       }),

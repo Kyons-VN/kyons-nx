@@ -5,6 +5,10 @@
         <img src="/assets/images/Home.svg" alt="" />
         <span>Trang chủ</span>
       </a>
+      <a [routerLink]="paths.chatbot.path" class="menu-item">
+        <img src="/assets/images/FAQ.svg" alt="" />
+        <span>Chat với Kyo</span>
+      </a>
       <a [routerLink]="paths.account.path" class="menu-item">
         <img src="/assets/images/Profile.svg" alt="" />
         <span>Tài khoản</span>
@@ -26,7 +30,7 @@
       </div>
     </div>
     <div class="col p-6 bg-white rounded-lg gap-6">
-      <div class="col md:flex-row items-center justify-between w-full gap-8">
+      <div class="col md:flex-row items-center justify-center w-full gap-8">
         <div class="flex items-center justify-between flex-shrink flex-grow-0 gap-6 md:gap-8">
           <div class="h-[132px] lg:w-[198px] aspect-square">
             <circle-progress
@@ -39,7 +43,7 @@
               titleFontWeight="bold"
               subtitleFontSize="30px"
               subtitleFontWeight="bold"
-              subtitleColor="var(--color-primaryBlue)"
+              [subtitleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
               [radius]="75"
               outerStrokeColor="var(--color-lightOrange-1)"
               innerStrokeColor="var(--color-blueGrey-300)"
@@ -49,7 +53,7 @@
               [responsive]="true"
             ></circle-progress>
           </div>
-          <div class="h-[132px] lg:w-[198px] aspect-square">
+          <!-- <div class="h-[132px] lg:w-[198px] aspect-square">
             <circle-progress
               *ngIf="!probabilityIndex"
               [percent]="0"
@@ -61,7 +65,7 @@
               titleFontWeight="bold"
               subtitleFontSize="30px"
               subtitleFontWeight="bold"
-              subtitleColor="var(--color-primaryBlue)"
+              [subtitleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
               [radius]="75"
               outerStrokeColor="var(--color-blueGrey-300)"
               innerStrokeColor="var(--color-blueGrey-300)"
@@ -82,7 +86,7 @@
               titleFontWeight="bold"
               subtitleFontSize="30px"
               subtitleFontWeight="bold"
-              subtitleColor="var(--color-primaryBlue)"
+              [subtitleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
               [radius]="75"
               outerStrokeColor="var(--color-lightBlue-1)"
               innerStrokeColor="var(--color-blueGrey-300)"
@@ -91,7 +95,7 @@
               [space]="-20"
               [responsive]="true"
             ></circle-progress>
-          </div>
+          </div> -->
         </div>
         <div class="w-full md:w-[411px] col gap-6">
           <span
@@ -112,7 +116,7 @@
               #createElm
               data-tooltip-content="Bạn hãy bấm vào đây để tạo lộ trình học"
               data-tooltip-position="bottom"
-              [disabled]="testResult.status !== MockTestStatus.learning_path_received"
+              [disabled]="testResult.status !== MockTestStatus.mock_test_submitted && !showTutorial"
               (click)="activateLearningPath()"
               class="btn order-1 md:order-2"
             >
@@ -157,7 +161,7 @@
           <b>Bài kiểm tra quá dễ?</b>
           <span class="text-left">Bạn có thể lựa chọn lại mục tiêu học tập</span>
         </div>
-        <i class="icon-btn icon-ArrowRight"></i>
+        <i class="icon-btn icon-ChevronRight"></i>
       </button>
       <button
         class="bg-white p-6 rounded-lg flex gap-6 items-center justify-between cursor-pointer flex-grow order-1 md:order-2"
@@ -166,7 +170,7 @@
           <b>Thách thức bạn thân nhận quà!</b>
           <span class="text-left">Nhận quà từ Kyons khi gửi bài kiểm tra cho bạn bè</span>
         </div>
-        <i class="icon-btn icon-ArrowRight"></i>
+        <i class="icon-btn icon-ChevronRight"></i>
       </button>
     </div>
   </div>

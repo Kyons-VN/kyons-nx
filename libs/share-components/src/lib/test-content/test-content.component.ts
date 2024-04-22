@@ -175,12 +175,12 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
       if (this.showGoTo) this.showGoTo = false;
       if (document.activeElement != null) (document.activeElement as HTMLElement).blur();
     }
-    if (e.key == 'ArrowLeft') {
+    if (e.key == 'ChevronLeft') {
       if (this.currentIndex > 0) {
         this.currentIndex--;
       }
     }
-    if (e.key == 'ArrowRight') {
+    if (e.key == 'ChevronRight') {
       if (this.currentIndex < this.content.questions.length - 1) {
         this.currentIndex++;
       }
@@ -229,7 +229,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
         question.answers.map(answer => {
           if (!this.tutorialScript.scripts[index]) return;
           if (this.currentIndex !== index) return;
-          if (this.tutorialScript.scripts[index].value == answer.value.toString()) {
+          if (this.tutorialScript.scripts[index].value == answer.id.toString()) {
             const answerId = `atutorial-${answer.id}`;
             const answerElm = new ElementRef(document.getElementById(answerId));
             if (answerElm.nativeElement == null) return;

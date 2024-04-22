@@ -122,6 +122,12 @@ export class TutorialTestComponent implements OnInit {
     this.tutorialPart = 1;
   };
 
+  goTo(index: number) {
+    this.currentTestIndex = index;
+    this._centerCurrentIndexXs();
+    this._centerCurrentIndex();
+  }
+
   getMockTest() {
     this.testContent = this.testService.getMockTest();
     this.testProgress = Progress.from(0, this.testContent.questions.length);
@@ -130,7 +136,7 @@ export class TutorialTestComponent implements OnInit {
       null,
       [
         new AnswerTutorialScript({
-          value: '2',
+          value: '3',
           tooltipContent: 'Bấm vào đây để chọn câu trả lời',
           event: [
             'click',
@@ -142,7 +148,7 @@ export class TutorialTestComponent implements OnInit {
           ],
         }),
         new AnswerTutorialScript({
-          value: '2',
+          value: '7',
           tooltipContent: 'Làm tiếp câu tiếp theo',
           event: [
             'click',

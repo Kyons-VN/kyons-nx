@@ -12,30 +12,7 @@
         <div *ngIf="showSubmenu" class="fixed w-full h-full top-0 left-0 z-10" (click)="showSubmenu = false"></div>
         <ul class="absolute right-0 z-20">
           <li class="flex items-center gap-5 cursor-pointer relative">
-            <ul
-              [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
-              class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
-            >
-              <!-- <a [routerLink]="paths.profile.path" class="drop-menu-item">
-                <li>Thông tin cá nhân</li>
-              </a> -->
-              <li class="border-t border-blueGrey-300"></li>
-              <a [routerLink]="paths.account.path" class="drop-menu-item">
-                <li>Tài khoản của bạn</li>
-              </a>
-              <li class="border-t border-blueGrey-300"></li>
-              <!-- <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }" class="drop-menu-item">
-                <li>Hướng dẫn sử dụng</li>
-              </a>
-              <li class="border-t border-blueGrey-300"></li> -->
-              <!-- <li [routerLink]="'/knowledge'">
-                <a class="h-5 text-primaryBlue">Cây kiến thức</a>
-              </li>
-              <li class="border-t border-blueGrey-300"></li> -->
-              <a [routerLink]="paths.signOut.path" class="drop-menu-item">
-                <li>Thoát</li>
-              </a>
-            </ul>
+            <student-right-menu [ngStyle]="{ display: showSubmenu ? 'contents' : 'none' }" />
           </li>
           <!-- <li>
             <div class="relative">
@@ -60,7 +37,7 @@
   </div>
   <div class="col p-4 md:p-8 items-stretch flex-1 gap-6 md:gap-8 md:overflow-y-auto">
     <div class="gap-4 hidden md:flex flex-col">
-      <div class="flex justify-between">
+      <!-- <div class="flex justify-between">
         <img src="/assets/images/logo-h.svg" alt="" width="126px" />
         <div class="flex gap-2">
           <a class="menu-item active">
@@ -76,7 +53,8 @@
             <span>Tài khoản</span>
           </a>
         </div>
-      </div>
+      </div> -->
+      <student-top-menu />
     </div>
     <div class="col gap-4">
       <div class="flex justify-between">
@@ -182,41 +160,10 @@
         <img src="/assets/images/Avatar.svg" alt="" />
         <h4>Xin chào!</h4>
       </div>
-      <i (click)="showSubmenu = !showSubmenu" class="cursor-pointer icon-Settings text-[40px]"></i>
-      <ul class="absolute right-0">
-        <li class="flex items-center gap-5 cursor-pointer relative">
-          <ul
-            [ngStyle]="{ display: showSubmenu ? 'flex' : 'none' }"
-            class="shadow-0 rounded-lg origin-top-right absolute right-0 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none items-stretch flex-col top-5 z-10"
-          >
-            <a [routerLink]="paths.profile.path" class="drop-menu-item">
-              <li>Thông tin cá nhân</li>
-            </a>
-            <li class="border-t border-blueGrey-300"></li>
-            <a [routerLink]="paths.account.path" class="drop-menu-item">
-              <li>Tài khoản của bạn</li>
-            </a>
-            <li class="border-t border-blueGrey-300"></li>
-            <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }" class="drop-menu-item">
-              <li>Hướng dẫn sử dụng</li>
-            </a>
-            <li class="border-t border-blueGrey-300"></li>
-            <!-- <li [routerLink]="'/knowledge'">
-              <a class="h-5 text-primaryBlue">Cây kiến thức</a>
-            </li>
-            <li class="border-t border-blueGrey-300"></li> -->
-            <a [routerLink]="paths.signOut.path" class="drop-menu-item">
-              <li>Thoát</li>
-            </a>
-          </ul>
-        </li>
-        <!-- <li>
-          <div class="relative">
-            <img src="assets/icons/clarity_notification-line.svg" class="cursor-pointer" />
-            <span class="top-menu-notification"></span>
-          </div>
-        </li> -->
-      </ul>
+      <div class="relative">
+        <i (click)="showSubmenu = !showSubmenu" class="cursor-pointer icon-Settings text-[40px]"></i>
+        <student-right-menu [ngStyle]="{ display: showSubmenu ? 'contents' : 'none' }" />
+      </div>
     </div>
     <div class="flex-1"></div>
     <div class="col gap-4">

@@ -9,12 +9,14 @@ import { TutorialService } from '@data/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
 import { AppPaths } from '@view/routes';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { Subscription } from 'rxjs';
+import { RightMenuComponent } from './right-menu/right-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, LoadingComponent, NgCircleProgressModule, TutorialComponent],
+  imports: [CommonModule, RouterModule, LoadingComponent, NgCircleProgressModule, TutorialComponent, TopMenuComponent, RightMenuComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })

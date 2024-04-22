@@ -5,7 +5,36 @@
   </div>
   <div class="background-image flex w-full h-full md:items-center justify-center">
     <div class="flex flex-col w-full md:w-[434px] min-h-[338px] p-6 mb-24 gap-6 overflow-auto flex-shrink-0">
-      <img (dblclick)="debug()" src="/assets/images/logo-h.svg" alt="Logo" class="h-12 self-start hidden md:block" />
+      <div class="flex justify-between">
+        <img
+          *ngIf="theme === 'default'"
+          (dblclick)="debug()"
+          src="/assets/images/logo-h.svg"
+          alt="Logo"
+          class="h-12 self-start hidden md:block"
+        />
+        <img
+          *ngIf="theme === 'universe'"
+          (dblclick)="debug()"
+          src="/assets/images/logo-horizontal-light.svg"
+          alt="Logo"
+          class="h-12 self-start hidden md:block"
+        />
+        <div class="relative">
+          <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
+          <div
+            *ngIf="showSettings"
+            class="absolute z-20 right-0 top-full rounded-lg p-4"
+            [ngClass]="{ 'bg-white': theme === 'default', 'bg-black': theme === 'universe' }"
+          >
+            <h5 [ngClass]="{ 'text-white': theme === 'universe' }">Giao diện</h5>
+            <div class="flex gap-2">
+              <button class="btn" (click)="setTheme('default')">Mặc định</button>
+              <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <form [formGroup]="signInForm" class="col gap-6 w-full">
         <h4>Mừng bạn quay trở lại!</h4>
         <div class="col gap-2">

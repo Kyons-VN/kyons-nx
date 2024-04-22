@@ -24,7 +24,7 @@ export class OrderService implements IOrderServicce {
   constructor(private http: HttpClient) { }
 
   getInventory() {
-    return this.http.get(`${serverApi()}/users/inventories`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/inventories`).pipe(
       catchError(DBHelper.handleError('GET getInventories', {})),
       map((res: any) => {
         return Inventory.fromJson(res);
@@ -33,7 +33,7 @@ export class OrderService implements IOrderServicce {
   }
 
   getBalance() {
-    return this.http.get(`${serverApi()}/users/inventories/balance`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/balance`).pipe(
       catchError(DBHelper.handleError('GET getBalance', 0)),
       map((res: any) => {
         if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
@@ -42,7 +42,7 @@ export class OrderService implements IOrderServicce {
     );
   }
   // getSubscription() {
-  //   return this.http.get(`${serverApi()}/users/inventories/subscription`).pipe(
+  //   return this.http.get(`${serverApi()}/api/v2/users/inventories/subscription`).pipe(
   //     catchError(DBHelper.handleError('GET getBalance', 0)),
   //     map((res: any) => {
   //       if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
@@ -86,7 +86,7 @@ export class OrderService implements IOrderServicce {
   // }
 
   getPackages(): Observable<Package[]> {
-    return this.http.get<Package[]>(`${serverApi()}/packages`).pipe(
+    return this.http.get<Package[]>(`${serverApi()}/api/v2/packages`).pipe(
       catchError(DBHelper.handleError('GET getPackages', [])),
       map((res: any) => {
         if (res.data === undefined || res.data.length == 0) return [];
@@ -101,7 +101,7 @@ export class OrderService implements IOrderServicce {
       quantity: quantity,
       paid_method: paymentMethod == 'bank_transfer' ? 100 : 200,
     };
-    return this.http.post(`${serverApi()}/users/orders`, params).pipe(
+    return this.http.post(`${serverApi()}/api/v2/users/orders`, params).pipe(
       // catchError(DBHelper.handleError('POST orderPackage')),
       map((res: any) => {
         if (res.data === undefined || res.data.order_code === undefined) return '';
@@ -110,13 +110,8 @@ export class OrderService implements IOrderServicce {
     );
   }
 
-  getFreeTrial() {
-    // const params: any = {};
-    return this.http.get(`${serverApi()}/students/gifts/request_free_subscription`);
-  }
-
   getOrderHistory() {
-    return this.http.get(`${serverApi()}/users/orders`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/orders`).pipe(
       catchError(DBHelper.handleError('GET getOrderHistory', [])),
       map((res: any) => {
         if (res.data === undefined || res.data.length === 0) return [];
@@ -128,7 +123,7 @@ export class OrderService implements IOrderServicce {
     const params: any = {
       order_code: orderCode,
     };
-    return this.http.put(`${serverApi()}/users/orders/confirm`, params).pipe(
+    return this.http.put(`${serverApi()}/api/v2/users/orders/confirm`, params).pipe(
       catchError(DBHelper.handleError('PUT confirmOrder')),
       map((res: any) => {
         return res;
@@ -139,7 +134,7 @@ export class OrderService implements IOrderServicce {
     const params: any = {
       order_code: orderCode,
     };
-    return this.http.put(`${serverApi()}/users/orders/cancel`, params).pipe(
+    return this.http.put(`${serverApi()}/api/v2/users/orders/cancel`, params).pipe(
       catchError(DBHelper.handleError('PUT cancelOrder', 'fail')),
       map((res: any) => {
         if (res.status === undefined) return 'fail';
@@ -148,7 +143,7 @@ export class OrderService implements IOrderServicce {
     );
   }
   getSubscriptionTime(): Observable<SubscriptionTime> {
-    return this.http.get(`${serverApi()}/users/inventories/subscription`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/subscription`).pipe(
       catchError(DBHelper.handleError('GET getSubscriptionTime', 0)),
       map((res: any) => {
         if (res.quantity === undefined || typeof parseInt(res.quantity) != 'number') return new SubscriptionTime(0);

@@ -19,6 +19,6 @@ export class ThemeService {
   // }
 
   getTheme() {
-    return window.localStorage.getItem('theme') ?? 'default';
+    return window.localStorage.getItem('theme') ?? 'universe';
   }
 }

@@ -102,7 +102,7 @@ export class KnowledgeService implements IKnowledgeService {
   }
 
   getStudentLearningGoals(): Observable<StudentLearningGoal[]> {
-    return this.http.get(`${serverApi()}/students/master_learning_goals`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/master_learning_goals`).pipe(
       catchError(DBHelper.handleError('GET learning_goals_list', [])),
       map((res: any) => {
         if (res.data == undefined || res.data.length === 0) return [];

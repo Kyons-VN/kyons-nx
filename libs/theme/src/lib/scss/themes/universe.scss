@@ -33,9 +33,10 @@
     @apply text-teal-0;
   }
   .bg-white {
-    background: linear-gradient(180deg, rgba(37, 138, 194, 0.2) 0%, rgba(44, 61, 91, 0.2) 100%);
+    background: linear-gradient(180deg, rgba(37, 138, 194, 0.5) 0%, rgba(44, 61, 91, 0.5) 100%);
   }
-  .text-secondaryBlue {
+  .text-secondaryBlue,
+  .text-primaryBlue {
     @apply text-white;
   }
   .text-lightBlue-1 {
@@ -43,6 +44,9 @@
   }
   .bg-lightBlue-1 {
     @apply bg-teal-0;
+  }
+  .drop-menu-item {
+    @apply flex h-16 p-6 no-underline text-white;
   }
   @media (min-width: 768px) {
     .md\:text-primaryBlue {
@@ -52,11 +56,11 @@
       background: rgba(44, 61, 91, 0.2);
     }
     .tab-item.active {
-      background: rgba(37, 138, 194, 0.14) !important;
+      background: rgba(37, 138, 194, 0.45) !important;
       @apply text-white;
     }
     .md\:bg-white {
-      background: linear-gradient(180deg, rgba(37, 138, 194, 0.2) 0%, rgba(44, 61, 91, 0.2) 100%);
+      background: linear-gradient(180deg, rgba(37, 138, 194, 0.5) 0%, rgba(44, 61, 91, 0.5) 100%);
     }
     .md\:bg-transparent {
       background: transparent;
@@ -67,6 +71,11 @@
       background-color: rgba(37, 138, 194, 0.6);
       @apply text-white;
     }
+  }
+  option,
+  input,
+  textarea {
+    @apply text-primaryBlue;
   }
 }
 

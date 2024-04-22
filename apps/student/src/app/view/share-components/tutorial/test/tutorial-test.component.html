@@ -57,6 +57,19 @@
         [tutorialScript]="tutorialScript"
         [backTutorial]="preTutorial"
       ></kyonsvn-test-content>
+      <!-- <kyonsvn-test-content
+        [content]="testContent"
+        (progressEvent)="updateProgress($event)"
+        [submission]="testSubmission"
+        (submissionEvent)="updateSubmission($event)"
+        [currentIndex]="currentTestIndex"
+        (currentIndexEvent)="goTo($event)"
+        [isActive]="true"
+        [showTutorial]="tutorialPart === 1 || tutorialPart === 3 || tutorialPart === 5"
+        [tutorialScript]="tutorialScript"
+        [backTutorial]="preTutorial"
+        class="flex md:flex-1 md:max-h-full md:overflow-y-auto"
+      ></kyonsvn-test-content> -->
       <div class="justify-between hidden md:flex flex-col gap-3">
         <!-- <div class="hidden md:flex flex-1 gap-2">
           <strong class="uppercase">Phím tắt:</strong>
@@ -69,7 +82,7 @@
             #navigation
             data-tooltip-content="Bạn cũng có thể chuyển đến câu hỏi mong muốn bằng cách nhấn vào số của câu hỏi"
           >
-            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ArrowLeft"></i></button>
+            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
                 class="btn-rounded btn-icon"
@@ -84,7 +97,7 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ArrowRight"></i></button>
+            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button
             [ngClass]="{ hidden: currentTestIndex === testContent.questions.length - 1 }"
@@ -118,7 +131,7 @@
         class="flex gap-2 items-center w-full"
       >
         <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn btn-icon">
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
         </button>
         <!-- <a
           class="btn-rounded btn-icon order-1 md:order-1"
@@ -163,7 +176,7 @@
           #nextElmXs
           data-tooltip-content="Bấm chọn nút này để chuyển sang câu hỏi tiếp theo nhé!"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button>
       </div>
     </div>

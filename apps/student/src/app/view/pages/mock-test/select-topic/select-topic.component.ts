@@ -7,10 +7,12 @@ import { Topic } from '@data/knowledge/topic';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
+import { TutorialService } from '@data/tutorials/tutorial-service';
+import { TutorialComponent } from '@share-components';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TutorialComponent],
   templateUrl: './select-topic.component.html',
   styleUrls: ['./select-topic.component.scss'],
 })
@@ -21,6 +23,7 @@ export class SelectTopicComponent implements OnInit {
   testService = inject(TestService);
   loading = inject(LoadingOverlayService);
   route = inject(ActivatedRoute);
+  tutorialService = inject(TutorialService);
 
   learningGoal!: LearningGoal;
   topics: Topic[] = [];
@@ -28,15 +31,34 @@ export class SelectTopicComponent implements OnInit {
   learningGoalId = '';
   isDoneEditing = false;
   hasError = '';
+  isLoading = false;
+  showTutorial = false;
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.learningGoalId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.testService.getTopicsOfLearningGoal(this.learningGoalId).subscribe({
-      next: ({ learningGoal, topics }) => {
+    this.route.queryParamMap.subscribe(params => {
+      if (params.get('tutorial') === 'true') {
+        this.showTutorial = true;
+        const { learningGoal, topics } = this.tutorialService.getLearningGoal();
         this.learningGoal = learningGoal;
         this.topics = topics;
-        this.checkedCount = topics.filter(topic => topic.checked === true).length;
-      },
+        this.isLoading = false;
+      }
+      else {
+        this.testService.getTopicsOfLearningGoal(this.learningGoalId).subscribe({
+          next: ({ learningGoal, topics }) => {
+            this.learningGoal = learningGoal;
+            this.topics = topics;
+            this.checkedCount = topics.filter(topic => topic.checked === true).length;
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.log(err);
+            this.isLoading = false;
+          }
+        });
+      }
     });
   }
 
@@ -65,4 +87,19 @@ export class SelectTopicComponent implements OnInit {
         },
       });
   }
+
+  skip() {
+    window.document.body.removeAttribute('style');
+    this.showTutorial = false;
+    this.router.navigate([this.paths.home.path], { replaceUrl: true });
+  }
+
+  script1 = () => {
+    this.topics[0].checked = true;
+    this.topics[1].checked = true;
+  };
+
+  script2 = () => {
+    this.router.navigate([this.paths.mockTestTestTutorial.path]);
+  };
 }

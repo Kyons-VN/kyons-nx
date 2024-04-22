@@ -5,7 +5,7 @@ import { DBHelper } from '@data/helper/helper';
 import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { LearningGoalPath } from '@data/knowledge/learning-goal-path';
 import { Subject } from '@domain/knowledge/subject/subject';
-import { Exercise, MockTest, TestContent, TestReviewHtml } from '@share-utils/data';
+import { Exercise, MockTest, TestContent, TestReviewHtml, Topic } from '@share-utils/data';
 import { catchError } from 'rxjs';
 import { LessonGroup } from '../knowledge/lesson';
 import { MockTestItem } from '../test/test-content';
@@ -16,6 +16,7 @@ import lessonDetail from './data/14_response_get_lesson_details.json';
 import exercises from './data/15_response_get_practice_test_question.json';
 import resultHtml from './data/17_response_submit_incorrect_practice_test.json';
 import studentLearningGoals from './data/1_response_get_subject.json';
+import learningGoal from './data/3_response_get_topics.json';
 import mockTest from './data/4_response_get_mock_test_question.json';
 import mockTestResult from './data/7_response_get_mock_test_details.json';
 import probabilitiIndex from './data/8_response_get_probability_index.json';
@@ -60,14 +61,14 @@ export class TutorialService {
   getMockTestReview() {
     return TestReviewHtml.fromJson(mockTestReview);
   }
-  getMockTestResult(): import('@share-utils/data').MockTest {
+  getMockTestResult(): MockTest {
     return MockTest.fromJson(mockTestResult);
   }
   getSelectedLearningGoal(): LearningGoal {
     return LearningGoal.fromJson(studentLearningGoals[0]);
   }
-  getMockTest(): import('@share-utils/data').TestContent {
-    return TestContent.fromJson(mockTest);
+  getMockTest(): TestContent {
+    return TestContent.fromJson(mockTest['data']);
   }
   getStudentLearningGoals() {
     return studentLearningGoals.map((json: any) => StudentLearningGoal.fromJson(json));
@@ -77,6 +78,9 @@ export class TutorialService {
   }
   getLearningGoals() {
     return studentLearningGoals.map((json: any) => LearningGoal.fromJson(json));
+  }
+  getLearningGoal(): { learningGoal: LearningGoal, topics: Topic[] } {
+    return { learningGoal: LearningGoal.fromJson(learningGoal), topics: learningGoal['topics'].map((json: any) => Topic.fromJson(json)) };
   }
   getProbabilityIndex() {
     return probabilitiIndex.data;

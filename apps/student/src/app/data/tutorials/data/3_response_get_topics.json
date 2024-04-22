@@ -1,0 +1,26 @@
+{
+  "id": 1,
+  "name": "Math",
+  "minimum_topic": 1,
+  "maximum_topic": 3,
+  "number_of_questions": 6,
+  "duration": 0,
+  "program_id": 1,
+  "status": "activated",
+  "created_at": "2024-04-20T16:24:06.367+07:00",
+  "updated_at": "2024-04-21T15:01:39.514+07:00",
+  "topics": [
+    {
+      "id": 23,
+      "name": "Tọa độ của vectơ"
+    },
+    {
+      "id": 24,
+      "name": "Đường thẳng trong mặt phẳng tọa độ"
+    },
+    {
+      "id": 25,
+      "name": "Đường tròn trong mặt phẳng tọa độ"
+    }
+  ]
+}

@@ -21,8 +21,8 @@ interface IQuestion {
 
 interface IAnswer {
   id: string;
-  order: number;
-  value: string;
+  // order: number;
+  // value: string;
   content: string;
   isCorrect: boolean;
   explanation: string;

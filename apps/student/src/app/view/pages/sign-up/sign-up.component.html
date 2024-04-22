@@ -271,7 +271,7 @@
         </div>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="flex item-center justify-between gap-2">
-          <button (click)="step = 0" class="btn-rounded"><i class="icon-ArrowLeft text-[24px]"></i> Quay lại</button>
+          <button (click)="step = 0" class="btn-rounded"><i class="icon-ChevronLeft text-[24px]"></i> Quay lại</button>
           <button type="submit" (click)="submitForm2()" class="btn flex-1" [disabled]="processing">
             {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
           </button>

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { serverApi } from '@data/auth/interceptor';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
+import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -13,6 +13,7 @@ import { MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { TutorialComponent } from '@share-components';
 import { MockTest } from '@share-utils/data';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ThemeService } from 'ng2-charts';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
@@ -32,6 +33,7 @@ export class MockTestResultComponent implements OnInit {
   lessonService = inject(LessonService);
   http = inject(HttpClient);
   tutorialService = inject(TutorialService);
+  themeService = inject(ThemeService);
 
   mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
   stats = ['Speed', 'Accuracy', 'Deligence', 'Quantity', 'Combo'];
@@ -44,6 +46,7 @@ export class MockTestResultComponent implements OnInit {
   MockTestStatus = MockTestStatus;
   showTutorial = false;
   tutorialPart = 0;
+  theme!: string;
 
   ngOnInit(): void {
     this.loading.show();
@@ -76,15 +79,15 @@ export class MockTestResultComponent implements OnInit {
     //     //
     //   },
     // });
-    this.testService.getProbabilityIndex({ testId: this.mockTestId }).subscribe({
-      next: result => {
-        this.probabilityIndex = result;
-        //
-      },
-      error: () => {
-        //
-      },
-    });
+    // this.testService.getProbabilityIndex({ testId: this.mockTestId }).subscribe({
+    //   next: result => {
+    //     this.probabilityIndex = result;
+    //     //
+    //   },
+    //   error: () => {
+    //     //
+    //   },
+    // });
     const requestInterval = interval(5000);
     this._getMockTest();
     this.interval = requestInterval.subscribe(() => this._getMockTest());
@@ -94,7 +97,7 @@ export class MockTestResultComponent implements OnInit {
     this.testService.getMockTest(this.mockTestId).subscribe({
       next: result => {
         // this.testResult = result;
-        if (result.status !== MockTestStatus.mock_test_submitted) {
+        if (result.status != MockTestStatus.new && result.status != MockTestStatus.pending) {
           this.interval.unsubscribe();
           this.testResult = result;
           this.loading.hide();
@@ -117,33 +120,34 @@ export class MockTestResultComponent implements OnInit {
 
   activateLearningPath() {
     this.loading.show();
-    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
-      next: () => {
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.learningPath.path]);
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
+    // this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
+    //   next: () => {
+    this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+      next: (learningGoal: StudentLearningGoal) => {
+        this.knowledgeService.selectStudentLearningGoal(learningGoal);
+        this.loading.hide();
+        this.router.navigate([this.paths.learningPath.path]);
       },
       error: e => {
         console.log(e);
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
+        this.loading.hide();
       },
     });
+    //   },
+    //   error: e => {
+    //     console.log(e);
+    //     this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+    //       next: () => {
+    //         this.loading.hide();
+    //         this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
+    //       },
+    //       error: e => {
+    //         console.log(e);
+    //         this.loading.hide();
+    //       },
+    //     });
+    //   },
+    // });
   }
 
   nextTutorial1 = () => {

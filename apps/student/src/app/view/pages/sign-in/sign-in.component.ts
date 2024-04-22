@@ -8,6 +8,7 @@ import { AuthCredential } from '@data/auth/credential';
 import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
+import { ThemeService } from '@data/theme/theme.service';
 // import { MessagingService } from '@data/notification/messaging.service';
 // import { notificationServiceProvider } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
@@ -34,6 +35,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   // messagingService = inject(MessagingService);
   accountService = inject(AccountStandaloneService);
   chatService = inject(ChatService);
+  themeService = inject(ThemeService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -52,6 +54,8 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   pendingResendEmail = false;
   countdown = 30;
   $interval!: Subscription;
+  showSettings = false;
+  theme!: string;
 
   @ViewChild('emailElm') emailElm!: ElementRef;
   @ViewChild('passwordElm') passwordElm!: ElementRef;
@@ -73,6 +77,7 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
     //     this.router.navigate(['/']);
     //   }
     // });
+    this.theme = this.themeService.getTheme();
   }
 
   ngOnDestroy(): void {
@@ -212,4 +217,9 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
   //     this.router.navigate(['/']);
   //   }
   // }
+
+  setTheme(theme: string) {
+    this.themeService.setTheme(theme);
+    this.theme = theme;
+  }
 }

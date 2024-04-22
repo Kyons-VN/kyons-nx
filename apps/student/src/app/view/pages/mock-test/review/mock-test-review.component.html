@@ -18,7 +18,7 @@
           (click)="backToResult()"
           class="no-underline gap-2 items-center text-orange hidden md:flex bg-blueGrey-100"
         >
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
           <span>Về Điểm bài kiểm tra</span>
         </button>
         <h4>Đáp án bài kiểm tra</h4>
@@ -89,11 +89,11 @@
           [disabled]="currentQuestionIndex === 0"
           class="btn btn-icon btn-large flex md:hidden"
         >
-          <i class="icon-ArrowLeft"></i>
+          <i class="icon-ChevronLeft"></i>
         </button>
         <div class="flex-1 flex gap-1 w-full overflow-hidden">
           <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
-            <i class="icon-ArrowLeft"></i>
+            <i class="icon-ChevronLeft"></i>
           </button>
           <div
             #scrollElm
@@ -115,7 +115,7 @@
             </button>
           </div>
           <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
-            <i class="icon-ArrowRight"></i>
+            <i class="icon-ChevronRight"></i>
           </button>
         </div>
         <button
@@ -130,7 +130,7 @@
           [disabled]="currentQuestionIndex === questions.length - 1"
           class="btn btn-icon btn-large flex md:hidden"
         >
-          <i class="icon-ArrowRight"></i>
+          <i class="icon-ChevronRight"></i>
         </button>
       </div>
     </div>

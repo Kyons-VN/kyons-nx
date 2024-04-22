@@ -84,7 +84,7 @@ export class TestService {
   submitTest(submission: Submission) {
     console.log(submission.toJson());
     return this.http
-      .post(`${serverApi()}/api/v2/users/mock_tests/${submission.testId}/submit_answers/non_adaptive`, submission.toJson())
+      .post(`${serverApi()}/api/v2/users/submit_mock_test/${submission.testId}`, submission.toJson())
       .pipe(
         catchError(DBHelper.handleError('GET submit_answers', Error('Server Error')))
         // map((res: any) => {
@@ -250,25 +250,25 @@ export class TestService {
     );
   }
 
-  getProbabilityIndex({
-    testId,
-    learningGoalId,
-  }: {
-    testId?: string;
-    learningGoalId?: string;
-  }): Observable<number | undefined> {
-    let queryParams = new HttpParams();
-    if (testId != null) {
-      queryParams = new HttpParams().set('mock_test_id', testId);
-    } else if (learningGoalId != null) {
-      queryParams = new HttpParams().set('student_master_learning_goal_id', learningGoalId);
-    }
-    return this.http.get(`${serverApi()}/students/probability_index`, { params: queryParams }).pipe(
-      catchError(DBHelper.handleError('GET subjects_list', [])),
-      map((res: any) => {
-        if (res.data == null) return undefined;
-        return res.data.toFixed(2) as number;
-      })
-    );
-  }
+  // getProbabilityIndex({
+  //   testId,
+  //   learningGoalId,
+  // }: {
+  //   testId?: string;
+  //   learningGoalId?: string;
+  // }): Observable<number | undefined> {
+  //   let queryParams = new HttpParams();
+  //   if (testId != null) {
+  //     queryParams = new HttpParams().set('mock_test_id', testId);
+  //   } else if (learningGoalId != null) {
+  //     queryParams = new HttpParams().set('student_master_learning_goal_id', learningGoalId);
+  //   }
+  //   return this.http.get(`${serverApi()}/students/probability_index`, { params: queryParams }).pipe(
+  //     catchError(DBHelper.handleError('GET subjects_list', [])),
+  //     map((res: any) => {
+  //       if (res.data == null) return undefined;
+  //       return res.data.toFixed(2) as number;
+  //     })
+  //   );
+  // }
 }

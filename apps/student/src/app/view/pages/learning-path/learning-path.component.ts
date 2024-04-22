@@ -33,7 +33,6 @@ import { ChartConfiguration } from 'chart.js';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
-import { serverApi } from '@data/auth/interceptor';
 import { Subscription, interval } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 
@@ -216,21 +215,29 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tutorialPart = 2;
         }, 200);
       } else {
-        this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
+        // this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
         // this.selectedCategoryId = this.knowledgeService.getSelectedCategoryId();
+        this.selectedStudentLearningGoal = new StudentLearningGoal({
+          id: '11',
+          name: 'AAA',
+          programName: 'BBB',
+          completePercentage: 0,
+          order: 0,
+          subjectId: '',
+        })
         if (this.selectedStudentLearningGoal.isEmpty()) {
           this.router.navigate([this.paths.home.path]);
           return;
         }
         this._getLearningPathData();
-        const requestInterval = interval(5000);
+        const requestInterval = interval(10000);
         this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
-        this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
-          next: result => {
-            this.probabilityIndex = result;
-          },
-        });
+        // this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
+        //   next: result => {
+        //     this.probabilityIndex = result;
+        //   },
+        // });
       }
     });
   }
@@ -290,24 +297,6 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (mockTests: MockTestItem[]) => {
         this.mockTests = mockTests;
         this._updateMockTestData(mockTests);
-        this.lessonService.getList(this.selectedStudentLearningGoal.id).subscribe({
-          next: (learningGoalPath: LearningGoalPath) => {
-            this.learningGoalPath = learningGoalPath;
-            this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
-            this._updateLessonsData();
-          },
-          error: err => {
-            if (err.error == undefined || err.error.error_code == undefined) {
-              // this.learingPathError = true;
-              return;
-            }
-            if (err.error.error_code == 'NewUser') {
-              this.router.navigate([this.paths.newUser.path]);
-              return;
-            }
-          },
-        });
-
         return;
       },
       error: err => {
@@ -315,45 +304,62 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         this.learingPathError = true;
       },
     });
-    this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
-      next: result => {
-        this.probabilityIndex = result;
+    this.lessonService.getList(this.selectedStudentLearningGoal.id).subscribe({
+      next: (learningGoalPath: LearningGoalPath) => {
+        this.learningGoalPath = learningGoalPath;
+        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+        this._updateLessonsData();
       },
       error: err => {
-        console.log(err);
-        this.learingPathError = true;
+        if (err.error == undefined || err.error.error_code == undefined) {
+          // this.learingPathError = true;
+          return;
+        }
+        if (err.error.error_code == 'NewUser') {
+          this.router.navigate([this.paths.newUser.path]);
+          return;
+        }
       },
     });
+    // this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
+    //   next: result => {
+    //     this.probabilityIndex = result;
+    //   },
+    //   error: err => {
+    //     console.log(err);
+    //     this.learingPathError = true;
+    //   },
+    // });
   }
 
-  activateLearningPath() {
-    this.loading.show();
-    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
-      next: () => {
-        this.lessonService.activateLearningPath(this.mockTests[0].id).subscribe({
-          next: () => {
-            this.loading.hide();
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
-      },
-      error: e => {
-        console.log(e);
-        this.lessonService.activateLearningPath(this.mockTests[0].id).subscribe({
-          next: () => {
-            this.loading.hide();
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
-      },
-    });
-  }
+  // activateLearningPath() {
+  //   this.loading.show();
+  //   this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
+  //     next: () => {
+  //       this.lessonService.activateLearningPath(this.mockTests[0].id).subscribe({
+  //         next: () => {
+  //           this.loading.hide();
+  //         },
+  //         error: e => {
+  //           console.log(e);
+  //           this.loading.hide();
+  //         },
+  //       });
+  //     },
+  //     error: e => {
+  //       console.log(e);
+  //       this.lessonService.activateLearningPath(this.mockTests[0].id).subscribe({
+  //         next: () => {
+  //           this.loading.hide();
+  //         },
+  //         error: e => {
+  //           console.log(e);
+  //           this.loading.hide();
+  //         },
+  //       });
+  //     },
+  //   });
+  // }
 
   ngOnDestroy(): void {
     if (this.interval !== undefined) this.interval.unsubscribe();

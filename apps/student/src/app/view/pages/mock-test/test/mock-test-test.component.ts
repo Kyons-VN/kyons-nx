@@ -91,7 +91,7 @@ export class MockTestTestComponent implements OnInit {
     this.testService.getMockTest(this.mockTestId).subscribe({
       next: (mockTest) => {
         this.mockTest = mockTest;
-        if (this.mockTest.status > 2) this.complete = true;
+        if (this.mockTest.status !== MockTestStatus.new) this.complete = true;
         if (this.mockTest.status == MockTestStatus.pending) this.isPending = true;
       }
     })

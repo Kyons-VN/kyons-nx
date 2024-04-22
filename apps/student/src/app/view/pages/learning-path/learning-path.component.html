@@ -207,13 +207,13 @@
             </div>
           </div>
         </div>
-        <div *ngIf="showActivateLearningPathBtn" class="">
+        <!-- <div *ngIf="showActivateLearningPathBtn" class="">
           <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
             <h5 class="text-white">Bạn chưa tạo lộ trình học!</h5>
             <h6 class="h6 text-white">bấm vào nút bên dưới để bắt đầu học thôi</h6>
             <button (click)="activateLearningPath()" class="btn">Tạo lộ trình học</button>
           </div>
-        </div>
+        </div> -->
       </div>
       <ng-template #learingPathEmptyTemplate>
         <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
@@ -371,7 +371,7 @@
                 <a (click)="goToMockTest(item)" class="!text-primaryBlue cursor-pointer"
                   >Bài kiểm tra số {{ item.index! + 1 }}</a
                 >
-                <i class="icon-ArrowRight text-[16px]"></i>
+                <i class="icon-ChevronRight text-[16px]"></i>
               </div>
               <span>{{ item.getFormattedDate() }}</span>
             </div>
@@ -391,11 +391,11 @@
               <a (click)="goToMockTest(row)" class="!text-primaryBlue cursor-pointer"
                 >Bài kiểm tra số {{ row.index! + 1 }}</a
               >
-              <i class="icon-ArrowRight text-[16px]"></i>
+              <i class="icon-ChevronRight text-[16px]"></i>
             </div>
             <div class="flex gap-2 items-center" *ngIf="row.status === MockTestStatus.learning_path_activated">
               <a (click)="goToMockTest(row)" class="no-underline font-bold">Bài kiểm tra số {{ row.index! + 1 }}</a>
-              <i class="icon-ArrowRight text-[16px]"></i>
+              <i class="icon-ChevronRight text-[16px]"></i>
             </div>
           </mat-cell>
         </ng-container>

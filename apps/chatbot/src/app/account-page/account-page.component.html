@@ -4,8 +4,8 @@
 <div class="md:hidden flex justify-between w-full p-4 md:p-0 bg-white">
   <button class="text-orange flex gap-2 items-center w-10 h-10 text-nowrap" [routerLink]="paths.home.path">
     <i
-      class="text-2xl w-6 h-6 icon-ArrowLeft"
-      [ngClass]="{ 'icon-ArrowLeft': isSmMenuHide(), 'icon-Home': !isSmMenuHide() }"
+      class="text-2xl w-6 h-6 icon-ChevronLeft"
+      [ngClass]="{ 'icon-ChevronLeft': isSmMenuHide(), 'icon-Home': !isSmMenuHide() }"
     ></i>
     <span *ngIf="!isSmMenuHide()" class="font-semibold">Trang chủ</span>
   </button>
@@ -30,7 +30,7 @@
               [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 0 }"
             >
               <span class="flex items-center gap-2"><i class="icon-Test"></i> Tài khoản và thanh toán</span>
-              <i class="icon-ArrowRight text-[20px]"></i>
+              <i class="icon-ChevronRight text-[20px]"></i>
             </li>
             <!-- <li
               (click)="activeTab = 1"
@@ -38,7 +38,7 @@
               [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 1 }"
             >
               <span class="flex items-center gap-2"><i class="icon-Profile"></i> Thông tin cá nhân</span>
-              <i class="icon-ArrowRight text-[20px]"></i>
+              <i class="icon-ChevronRight text-[20px]"></i>
             </li> -->
             <li
               [routerLink]="paths.resetPassword.path"
@@ -46,7 +46,7 @@
               [ngClass]="{ 'text-lightBlue-1 bg-lightBlue-6': activeTab === 2 }"
             >
               <span class="flex items-center gap-2"><i class="icon-Lock"></i> Đổi mật khẩu</span>
-              <i class="icon-ArrowRight"></i>
+              <i class="icon-ChevronRight"></i>
             </li>
             <li class="border-b border-blueGrey-300"></li>
             <li class="account-item text-orange">

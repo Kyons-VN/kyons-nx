@@ -110,11 +110,6 @@ export class OrderService implements IOrderServicce {
     );
   }
 
-  getFreeTrial() {
-    // const params: any = {};
-    return this.http.get(`${serverApi()}/students/gifts/request_free_subscription`);
-  }
-
   getOrderHistory() {
     return this.http.get(`${serverApi()}/api/v2/users/orders`).pipe(
       catchError(DBHelper.handleError('GET getOrderHistory', [])),

@@ -511,3 +511,7 @@ select:focus {
 flutter-view input:where(:not([type])):focus {
   @apply outline-none shadow-none ring-0;
 }
+
+.drop-menu-item {
+  @apply flex h-16 p-6 no-underline text-primaryBlue;
+}
