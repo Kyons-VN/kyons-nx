@@ -23,10 +23,7 @@ interface ILesson {
   id: string;
   name: string;
   content: string;
-  learningPointId: string;
-  learningPointDifficultyId: string;
-  difficultyLevel: number;
 }
 
-export { ILessonItem, ILessonGroup, ILessonCategory, ILesson };
+export { ILesson, ILessonCategory, ILessonGroup, ILessonItem };
 

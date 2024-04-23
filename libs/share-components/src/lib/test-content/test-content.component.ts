@@ -273,7 +273,7 @@ export class TestContentComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   updateSubmitData(questionId: string, answer: Answer) {
-    this.submission.submitData[questionId] = answer;
+    this.submission.submitData[questionId] = answer.id;
     this.submissionEvent.emit(this.submission);
   }
 }

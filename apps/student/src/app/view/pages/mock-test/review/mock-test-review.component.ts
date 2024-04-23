@@ -2,23 +2,22 @@ import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { serverApi } from '@data/auth/interceptor';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
 import { TutorialService } from '@data/tutorials/tutorial-service';
-import { InputRadioComponent, LatexComponent, TutorialComponent } from '@share-components';
+import { TestReviewComponent, TutorialComponent } from '@share-components';
 import { OrderBySAPipe, SafeHtmlPipe } from '@share-pipes';
 import { answerPrefixes, QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeHtmlPipe, TutorialComponent, LatexComponent, InputRadioComponent, OrderBySAPipe],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe, TutorialComponent, TestReviewComponent, OrderBySAPipe, TopMenuComponent],
   templateUrl: './mock-test-review.component.html',
-  styleUrls: ['./mock-test-review.component.scss'],
 })
 export class MockTestReviewComponent implements OnInit {
   route = inject(ActivatedRoute);
@@ -119,33 +118,34 @@ export class MockTestReviewComponent implements OnInit {
 
   activateLearningPath() {
     this.loading.show();
-    this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
-      next: () => {
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
+    // this.http.get(`${serverApi()}/students/gifts/request_free_subscription`).subscribe({
+    //   next: () => {
+    this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+      next: (learningGoal) => {
+        this.knowledgeService.selectStudentLearningGoal(learningGoal);
+        this.loading.hide();
+        this.router.navigate([this.paths.learningPath.path]);
       },
       error: e => {
         console.log(e);
-        this.lessonService.activateLearningPath(this.mockTestId).subscribe({
-          next: () => {
-            this.loading.hide();
-            this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
-          },
-          error: e => {
-            console.log(e);
-            this.loading.hide();
-          },
-        });
+        this.loading.hide();
       },
     });
+    //   },
+    //   error: e => {
+    //     console.log(e);
+    //     this.lessonService.activateLearningPath(this.mockTestId).subscribe({
+    //       next: () => {
+    //         this.loading.hide();
+    //         this.router.navigate([this.paths.home.path], { queryParams: { learning_goal_id: 1 } });
+    //       },
+    //       error: e => {
+    //         console.log(e);
+    //         this.loading.hide();
+    //       },
+    //     });
+    //   },
+    // });
   }
 
   goBack() {

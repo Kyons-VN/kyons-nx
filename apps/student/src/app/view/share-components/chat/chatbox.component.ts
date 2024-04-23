@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 @Component({
-  selector: 'chatbot-chatbox',
+  selector: 'student-chatbox',
   standalone: true,
   imports: [CommonModule, FormsModule, LottieComponent],
   templateUrl: './chatbox.component.html',
@@ -18,7 +18,9 @@ export class ChatboxComponent implements OnChanges, AfterViewInit {
   };
   isInit: boolean = false;
   @Input() isThinking: boolean = false;
+  @Input() isGaming: boolean = false;
   @Output() sendMessage = new EventEmitter<string>();
+  @Output() endGame = new EventEmitter<void>();
   @ViewChild('askInput') askInputElm!: ElementRef;
 
   ngAfterViewInit(): void {
@@ -48,5 +50,9 @@ export class ChatboxComponent implements OnChanges, AfterViewInit {
         }, 100);
       }
     }
+  }
+
+  exit() {
+    this.endGame.emit()
   }
 }

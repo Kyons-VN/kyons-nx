@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { serverApi } from '@data/auth/interceptor';
 import { DBHelper } from '@data/helper/helper';
 import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
-import { LearningGoalPath } from '@data/knowledge/learning-goal-path';
 import { Subject } from '@domain/knowledge/subject/subject';
 import { Exercise, MockTest, TestContent, TestReviewHtml, Topic } from '@share-utils/data';
 import { catchError } from 'rxjs';
-import { LessonGroup } from '../knowledge/lesson';
+import { LearningPath, LessonGroup } from '../knowledge/lesson';
 import { MockTestItem } from '../test/test-content';
-import learningGoalPath from './data/12_response_get_lesson.json';
-import learningGoalPath2 from './data/12_response_get_lesson_2.json';
+import learningPath from './data/12_response_get_lesson.json';
+import learningPath2 from './data/12_response_get_lesson_2.json';
 import mickTestItems from './data/13_response_get_mock_test.json';
 import lessonDetail from './data/14_response_get_lesson_details.json';
 import exercises from './data/15_response_get_practice_test_question.json';
@@ -34,8 +33,8 @@ export class TutorialService {
       .put(`${serverApi()}/users/update_info`, { app_tour_completed: true })
       .pipe(catchError(DBHelper.handleError('GET update_info', [])));
   }
-  getLearningGoalLessons2(): LearningGoalPath {
-    return LearningGoalPath.fromJson(learningGoalPath2);
+  getLearningGoalLessons2(): LearningPath {
+    return LearningPath.fromJson(learningPath2);
   }
   getProbabilityIndex2(): number {
     return probabilitiIndex2.data;
@@ -49,8 +48,8 @@ export class TutorialService {
   getDetail(): LessonGroup {
     return LessonGroup.fromJson('tutorial', lessonDetail);
   }
-  getLearningGoalLessons(): LearningGoalPath {
-    return LearningGoalPath.fromJson(learningGoalPath);
+  getLearningGoalLessons(): LearningPath {
+    return LearningPath.fromJson(learningPath);
   }
   getLearningGoalMockTest(): import('../test/test-content').MockTestItem[] {
     return mickTestItems['data'].map((item: any, i: number) => MockTestItem.fromJson(item, i));

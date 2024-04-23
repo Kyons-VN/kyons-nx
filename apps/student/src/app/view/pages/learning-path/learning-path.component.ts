@@ -6,10 +6,13 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  Injector,
   OnDestroy,
   OnInit,
   ViewChild,
+  effect,
   inject,
+  runInInjectionContext,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -18,8 +21,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Category } from '@data/knowledge/category';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
-import { LearningGoalCategory, LearningGoalPath } from '@data/knowledge/learning-goal-path';
-import { LessonItem } from '@data/knowledge/lesson';
+import { LearningGoalCategory } from '@data/knowledge/learning-goal-path';
+import { LearningPath, LessonItem } from '@data/knowledge/lesson';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -33,12 +36,14 @@ import { ChartConfiguration } from 'chart.js';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 
+import { ThemeService } from '@data/theme/theme.service';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { Subscription, interval } from 'rxjs';
 import { MaterialModule } from '../../../material.module';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule, MaterialModule, NgChartsModule],
+  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule, MaterialModule, NgChartsModule, TopMenuComponent],
   templateUrl: './learning-path.component.html',
   styleUrls: ['./learning-path.component.scss'],
 })
@@ -55,6 +60,9 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   router = inject(Router);
   route = inject(ActivatedRoute);
   tutorialService = inject(TutorialService);
+  theme = inject(ThemeService).getTheme();
+  themeService = inject(ThemeService);
+  injector = inject(Injector);
 
   @HostBinding('class') class = 'h-full';
 
@@ -66,7 +74,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   isCompleted = false;
   categories: Category[] = [];
   learningGoalCategory = LearningGoalCategory.empty();
-  learningGoalPath = LearningGoalPath.empty();
+  learningPath = LearningPath.empty();
   nextStep = false;
   completeStep = false;
   subscriptionExpired = false;
@@ -177,8 +185,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         this.selectedStudentLearningGoal = this.tutorialService.getStudentLearningGoal();
         this.probabilityIndex = this.tutorialService.getProbabilityIndex();
         this.mockTests = this.tutorialService.getLearningGoalMockTest();
-        this.learningGoalPath = this.tutorialService.getLearningGoalLessons();
-        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+        this.learningPath = this.tutorialService.getLearningGoalLessons();
+        this.lessons = this.learningPath.lessons;
         this._updateLessonsData();
         setTimeout(() => {
           this._updateMockTestData(this.mockTests);
@@ -193,8 +201,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         this.selectedStudentLearningGoal = this.tutorialService.getStudentLearningGoal();
         this.probabilityIndex = this.tutorialService.getProbabilityIndex2();
         this.mockTests = this.tutorialService.getLearningGoalMockTest();
-        this.learningGoalPath = this.tutorialService.getLearningGoalLessons2();
-        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+        this.learningPath = this.tutorialService.getLearningGoalLessons2();
+        this.lessons = this.learningPath.lessons;
         this._updateLessonsData();
         setTimeout(() => {
           this._updateMockTestData(this.mockTests);
@@ -215,16 +223,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tutorialPart = 2;
         }, 200);
       } else {
-        // this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
+        this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
         // this.selectedCategoryId = this.knowledgeService.getSelectedCategoryId();
-        this.selectedStudentLearningGoal = new StudentLearningGoal({
-          id: '11',
-          name: 'AAA',
-          programName: 'BBB',
-          completePercentage: 0,
-          order: 0,
-          subjectId: '',
-        })
         if (this.selectedStudentLearningGoal.isEmpty()) {
           this.router.navigate([this.paths.home.path]);
           return;
@@ -239,6 +239,12 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         //   },
         // });
       }
+    });
+
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        this.theme = this.themeService.themeStore();
+      });
     });
   }
 
@@ -305,9 +311,9 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
       },
     });
     this.lessonService.getList(this.selectedStudentLearningGoal.id).subscribe({
-      next: (learningGoalPath: LearningGoalPath) => {
-        this.learningGoalPath = learningGoalPath;
-        this.lessons = this.learningGoalPath.lessonCategories[0].lessons;
+      next: (learningPath: LearningPath) => {
+        this.learningPath = learningPath;
+        this.lessons = this.learningPath.lessons;
         this._updateLessonsData();
       },
       error: err => {
@@ -376,6 +382,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLessonBlockClick(lesson: LessonItem) {
+    this.lessonService.setContent(lesson.content);
     if (lesson.isNew) {
       this.router.navigate([this.paths.lessonPage.path.replace(':id', lesson.id)]);
     } else {
@@ -384,7 +391,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onLastLessonBlockClick() {
-    if (this.learningGoalPath.isCompleted()) {
+    if (this.learningPath.isCompleted) {
       this.router.navigate([this.paths.learningPathComplete.path]);
     }
   }

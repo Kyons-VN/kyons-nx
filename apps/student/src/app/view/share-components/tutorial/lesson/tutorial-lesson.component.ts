@@ -127,8 +127,8 @@ export class TutorialLessonComponent implements OnInit {
 
   _initSubmission() {
     this.question = this.exercise.questions[0];
-    this.progress.value = this.exercise.progress ?? 0;
-    this.progressStr = (this.exercise.progress ?? 0).toFixed(2);
+    // this.progress.value = this.exercise.progress ?? 0;
+    // this.progressStr = (this.exercise.progress ?? 0).toFixed(2);
     this.loading.hide();
     setTimeout(() => {
       this.scrollTopElm.nativeElement.scrollTop = 0;
@@ -153,7 +153,7 @@ export class TutorialLessonComponent implements OnInit {
   }
 
   updateSubmitData(questionId: string, answer: Answer) {
-    this.submission.submitData[questionId] = answer;
+    this.submission.submitData[questionId] = answer.id;
   }
 
   empty = () => {
@@ -163,7 +163,7 @@ export class TutorialLessonComponent implements OnInit {
   next = () => {
     this.tutorialPart++;
     if (this.tutorialPart == 2) {
-      this.submission.submitData[this.question.id] = this.question.answers[1];
+      this.submission.submitData[this.question.id] = this.question.answers[1].id;
     }
     if (this.tutorialPart == 5) {
       this.showComplete = true;

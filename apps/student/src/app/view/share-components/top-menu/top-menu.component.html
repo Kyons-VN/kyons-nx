@@ -1,7 +1,9 @@
 <div *ngIf="show" class="w-full flex h-14 text-base items-center justify-center relative">
   <div class="w-full flex relative px-6 xl:p-0 items-center">
+    @if(showLogo){
     <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
     <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
+    }
     <div class="flex-1"></div>
     <ul class="flex items-center gap-2">
       <li>
@@ -18,14 +20,14 @@
       </li>
       <li>
         <a
-          class="menu-item home"
+          class="menu-item"
           [routerLink]="paths.chatbot.path"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           (isActiveChange)="(this.ngOnInit)"
         >
           <img src="/assets/images/FAQ.svg" alt="" />
-          <span>Chat với Kyo</span>
+          <span class="hidden md:flex">Chat với Kyo</span>
         </a>
       </li>
       <li>
@@ -37,7 +39,7 @@
           (isActiveChange)="(this.ngOnInit)"
         >
           <img src="/assets/images/Profile.svg" alt="" />
-          <span>Tài khoản</span>
+          <span class="hidden md:flex">Tài khoản</span>
         </a>
       </li>
     </ul>

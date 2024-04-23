@@ -3,7 +3,6 @@ import { ILearningPath } from '../../domain/knowledge/i-learning-path';
 import { ILearningPoint } from '../../domain/knowledge/i-learning-point';
 import { ILesson, ILessonCategory, ILessonGroup, ILessonItem } from '../../domain/knowledge/i-lesson';
 import { Category } from './category';
-import { Program } from './program';
 import { Topic } from './topic';
 
 class LessonItem implements ILessonItem {
@@ -11,61 +10,76 @@ class LessonItem implements ILessonItem {
   name: string;
   isNew: boolean;
   progress?: number;
+  content = '';
 
-  constructor({ id, isNew, name, progress }: { id: string; isNew: boolean; name: string; progress?: number }) {
+  constructor({ id, name, progress }: { id: string; name: string; progress?: number }) {
     this.id = id;
-    this.isNew = isNew;
+    this.isNew = progress != 100;
     this.name = name;
     this.progress = progress;
   }
 
   static fromJson(dataObject: any): LessonItem {
-    const _ = pick(dataObject, ['name', 'id', 'isNew', 'progress']);
-    _.isNew = dataObject['new'] ?? false;
-    _.progress = dataObject['lesson_percentage'];
-    return new LessonItem(_);
+    const _ = pick(dataObject, ['name', 'id', 'progress', 'lesson_content']);
+    const lesson = new LessonItem(_);
+    lesson.content = _.lesson_content;
+    return lesson;
   }
 
   static waiting(): LessonItem {
-    return new LessonItem({ id: '-1', isNew: false, name: 'NEW' });
+    return new LessonItem({ id: '-1', name: 'NEW' });
   }
 
   static complete(): LessonItem {
-    return new LessonItem({ id: '-2', isNew: false, name: 'COMPLETE' });
+    return new LessonItem({ id: '-2', name: 'COMPLETE' });
   }
 }
 
 class LearningPath implements ILearningPath {
+  id: string;
   isCompleted: boolean;
-  lessonList: LessonItem[];
-  program: Program;
+  isEmpty: boolean;
+  lessons: LessonItem[];
+  progress: number;
 
   constructor({
-    isCompleted,
-    lessonList,
-    program,
+    lessons,
+    progress,
+    id,
   }: {
-    isCompleted: boolean;
-    lessonList: LessonItem[];
-    program: Program;
+    id: string;
+    lessons: LessonItem[];
+    progress: number;
   }) {
-    this.isCompleted = isCompleted;
-    this.lessonList = lessonList;
-    this.program = program;
+    this.isCompleted = progress == 100;
+    this.lessons = lessons;
+    this.progress = progress;
+    this.isEmpty = lessons.length == 0;
+    this.id = id;
   }
 
   static fromJson(dataObject: any): LearningPath {
-    const _ = pick(dataObject, ['completed', 'isCompleted', 'learning_point_difficulty_id', 'lessonList', 'program']);
-    _.isCompleted = _.completed;
+    const _ = pick(dataObject, ['id', 'lessons', 'progress']);
+    _.lessons = _.lessons.map((lessonJson: any) => LessonItem.fromJson(lessonJson));
+    _.id = _.id.toString();
+    _.progress = Number(_.progress).toFixed(2);
     return new LearningPath(_);
   }
 
-  static completed(program: Program, data: any[]): LearningPath {
+  static completed(data: any[]): LearningPath {
     return new LearningPath({
-      isCompleted: true,
-      lessonList: data.length === 0 ? [] : data.map((item: any) => LessonItem.fromJson({ dataObject: item })),
-      program: program,
+      progress: 100,
+      lessons: data.length === 0 ? [] : data.map((item: any) => LessonItem.fromJson({ dataObject: item })),
+      id: '',
     });
+  }
+
+  static empty() {
+    return new LearningPath({
+      progress: 0,
+      lessons: [],
+      id: '',
+    })
   }
 }
 
@@ -227,4 +241,5 @@ class Lesson implements ILesson {
   }
 }
 
-export { LessonItem, LessonGroup, LessonCategory, Lesson, LearningPoint, LearningPath };
+export { LearningPath, LearningPoint, Lesson, LessonCategory, LessonGroup, LessonItem };
+

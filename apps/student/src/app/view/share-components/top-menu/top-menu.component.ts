@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  Input,
   OnInit,
   ViewChild,
   effect,
@@ -30,6 +31,8 @@ export class TopMenuComponent implements OnInit {
   themeService = inject(ThemeService);
   theme = this.themeService.getTheme();
   injector = inject(Injector);
+
+  @Input() showLogo = true;
 
   /**
    * This is the toogle button elemenbt, look at HTML and see its defination

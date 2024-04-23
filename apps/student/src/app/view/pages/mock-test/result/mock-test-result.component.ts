@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Injector, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
@@ -8,17 +8,18 @@ import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
+import { ThemeService } from '@data/theme/theme.service';
 import { TutorialService } from '@data/tutorials/tutorial-service';
 import { MockTestStatus } from '@domain/knowledge/i-mock-test';
 import { TutorialComponent } from '@share-components';
 import { MockTest } from '@share-utils/data';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
-import { ThemeService } from 'ng2-charts';
 import { Subscription, interval } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule],
+  imports: [CommonModule, RouterModule, TutorialComponent, NgCircleProgressModule, TopMenuComponent],
   templateUrl: './mock-test-result.component.html',
   styleUrls: ['./mock-test-result.component.scss'],
 })
@@ -34,6 +35,7 @@ export class MockTestResultComponent implements OnInit {
   http = inject(HttpClient);
   tutorialService = inject(TutorialService);
   themeService = inject(ThemeService);
+  injector = inject(Injector);
 
   mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
   stats = ['Speed', 'Accuracy', 'Deligence', 'Quantity', 'Combo'];
@@ -46,7 +48,7 @@ export class MockTestResultComponent implements OnInit {
   MockTestStatus = MockTestStatus;
   showTutorial = false;
   tutorialPart = 0;
-  theme!: string;
+  theme = this.themeService.getTheme();
 
   ngOnInit(): void {
     this.loading.show();
@@ -91,6 +93,11 @@ export class MockTestResultComponent implements OnInit {
     const requestInterval = interval(5000);
     this._getMockTest();
     this.interval = requestInterval.subscribe(() => this._getMockTest());
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        this.theme = this.themeService.themeStore();
+      });
+    });
   }
 
   _getMockTest() {

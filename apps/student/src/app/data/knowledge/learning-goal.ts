@@ -1,5 +1,6 @@
 import { ILearningGoal } from '@domain/knowledge/I-learning-goal';
 import pick from 'lodash-es/pick';
+import { Program } from './program';
 
 class MockTestTemplate {
   id: string;
@@ -117,42 +118,32 @@ class LearningGoal implements ILearningGoal {
 class StudentLearningGoal {
   id: string;
   name: string;
-  programName: string;
-  subjectId: string;
-  completePercentage: number;
-  order: number;
+  program: Program;
+  progress: number;
 
   constructor({
     id,
     name,
-    programName,
-    completePercentage,
-    order,
-    subjectId,
+    program,
+    progress,
   }: {
     id: string;
     name: string;
-    programName: string;
-    completePercentage: number;
-    order: number;
-    subjectId: string;
+    program: Program;
+    progress: number;
   }) {
     this.id = id;
     this.name = name;
-    this.programName = programName;
-    this.completePercentage = completePercentage;
-    this.order = order;
-    this.subjectId = subjectId;
+    this.program = program;
+    this.progress = progress;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromJson(dataObject: any): StudentLearningGoal {
-    const _ = pick(dataObject, ['id', 'name', 'programName', 'completePercentage', 'order', 'subjectId']);
+    const _ = pick(dataObject, ['id', 'name', 'program', 'progress']);
     _.id = dataObject['id'].toString();
-    _.completePercentage = dataObject['complete_percentage'] ?? 0;
-    _.order = dataObject['ordinal_number'];
-    _.subjectId = dataObject['subject_id'] != undefined ? dataObject['subject_id'].toString() : '1';
-    _.programName = dataObject['program_name'] ?? '';
+    _.progress = parseInt((_.progress ?? 0).toString());
+    _.program = Program.fromJson(dataObject['program'])
 
     return new StudentLearningGoal(_);
   }
@@ -161,10 +152,8 @@ class StudentLearningGoal {
     return new StudentLearningGoal({
       id: '',
       name: '',
-      programName: '',
-      completePercentage: 0,
-      order: 0,
-      subjectId: '',
+      program: Program.empty(),
+      progress: 0,
     });
   }
 
@@ -172,10 +161,8 @@ class StudentLearningGoal {
     return {
       id: this.id,
       name: this.name,
-      programName: this.programName,
-      completePercentage: this.completePercentage,
-      order: this.order,
-      subjectId: this.subjectId,
+      program: this.program,
+      progress: this.progress,
     };
   }
 

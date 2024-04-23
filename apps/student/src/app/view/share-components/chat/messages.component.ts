@@ -5,7 +5,7 @@ import { Role } from '@domain/chat/i-content';
 import { LatexComponent } from '@share-components';
 
 @Component({
-  selector: 'chatbot-messages',
+  selector: 'student-messages',
   standalone: true,
   imports: [CommonModule, LatexComponent],
   templateUrl: './messages.component.html',

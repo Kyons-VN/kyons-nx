@@ -8,7 +8,7 @@ import { Observable, catchError, map } from 'rxjs';
 import { DBHelper } from '../helper/helper';
 import { StudentLearningGoal } from './learning-goal';
 import { LearningGoalPath } from './learning-goal-path';
-import { LearningPoint, LessonGroup } from './lesson';
+import { LearningPath, LearningPoint, Lesson, LessonGroup } from './lesson';
 import { Program } from './program';
 
 @Injectable({
@@ -71,13 +71,11 @@ export class LessonService implements ILessonService {
   }
   constructor(private http: HttpClient) { }
 
-  getList(learningGoalId: string): Observable<LearningGoalPath> {
-    // return this.http.get<LearningGoalPath>(`${serverApi()}/students/learning_goal/${learningGoalId}/lessons`).pipe(
-    const params = new HttpParams().set('learning_goal_id', learningGoalId);
-    return this.http.get<LearningGoalPath>('/api/v2/users/learning_paths', { params: params }).pipe(
+  getList(learningGoalId: string): Observable<LearningPath> {
+    return this.http.get<LearningGoalPath>(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/learning_path`).pipe(
       // return this.http.get<LearningGoalPath>(`${serverApi()}/students/programs').pipe(
-      catchError(DBHelper.handleError('GET lesson_list', [])),
-      map((data: any) => {
+      catchError(DBHelper.handleError('GET lesson_list', LearningPath.empty())),
+      map((res: any) => {
         // if (data['new_user']) {
         //   return Error('new_user');
         // }
@@ -159,33 +157,78 @@ export class LessonService implements ILessonService {
         //     },
         //   ],
         // };
-        return LearningGoalPath.fromJson(data);
+        return LearningPath.fromJson(res['data']);
       })
     );
   }
 
-  getDetail(id: string): Observable<LessonGroup> {
+  getDetail(id: string): Observable<Lesson> {
     return this.http.get<LessonGroup>(`${serverApi()}/lesson/${id}`).pipe(
       // catchError(DBHelper.handleError('GET lesson_detail')),
       map((res: any) => {
-        return LessonGroup.fromJson(id, res);
+        return Lesson.fromJson(res);
       })
     );
   }
 
-  submitExercise(lessonId: string, submission: Submission) {
+  setContent(content: string) {
+    window.localStorage.setItem('content', content);
+  }
+
+  getContent() {
+    return window.localStorage.getItem('content') ?? '';
+  }
+
+  submitExercise(learningGoalId: string, lessonId: string, submission: Submission) {
+    const params = {
+      "test_question_id": Number(submission.testId),
+      "answer_id": Number(Object.values(submission.submitData)[0]),
+    }
+
     return this.http
-      .post(`${serverApi()}/students/practice_test/lesson/${lessonId}/submit_answers/adaptive`, submission.toJson())
+      .post(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}`, params)
       .pipe(
         catchError(DBHelper.handleError('GET submit_answers', Error)),
         map((res: any) => {
-          return res.data;
+          // res = {
+          //   "data": [
+          //     {
+          //       "id": 152,
+          //       "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Trong các câu sau, câu nào không phải là mệnh đề?</span></p>",
+          //       "answer_id": 606,
+          //       "answer_status": false,
+          //       "answers": [
+          //         {
+          //           "id": 606,
+          //           "content": "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mn>6</mn><mo>&lt;</mo><mn>10</mn><mo>-</mo><mn>4</mn><mo>.</mo></math></p>"
+          //         },
+          //         {
+          //           "id": 605,
+          //           "content": "<p>Phương trình&nbsp;<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><msup><mi>x</mi><mn>2</mn></msup><mo>-</mo><mn>3</mn><mi>x</mi><mo>+</mo><mn>2</mn><mo>=</mo><mn>0</mn></math>&nbsp;có nghiệm nguyên.</p>"
+          //         },
+          //         {
+          //           "id": 607,
+          //           "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Có bao nhiêu dấu hiệu nhận biết một hình vuông?</span></p>"
+          //         },
+          //         {
+          //           "id": 608,
+          //           "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Tam giác cân có hai cạnh bằng nhau.</span></p>"
+          //         }
+          //       ],
+          //       "explanation": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Lựa chọn C là một hỏi nên không phải là mệnh đề.</span></p>",
+          //       "correct_answer": 607
+          //     }
+          //   ],
+          //   "status": "chatbot",
+          //   "random_status": "Success"
+          // }
+          return res;
         })
       );
   }
 
-  getReviewHtml(lessonId: string) {
-    return this.http.get(`${serverApi()}/students/practice_test/lesson/${lessonId}/review`).pipe(
+  getReviewHtml(learningGoalId: string, lessonId: string) {
+    return this.http.get(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}/review`).pipe(
       catchError(DBHelper.handleError('GET practice_test/review', [])),
       map((res: any) => {
         // res = mockTestReviewJson;

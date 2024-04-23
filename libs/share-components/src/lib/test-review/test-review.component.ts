@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
+import { answerPrefixes, QuestionReview } from '@share-utils/data';
+import { InputRadioComponent, LatexComponent } from '../..';
 
 interface Review {
   topic: string;
@@ -6,15 +9,19 @@ interface Review {
 }
 
 @Component({
+  standalone: true,
   selector: 'kyonsvn-test-review',
+  imports: [CommonModule, LatexComponent, InputRadioComponent],
   templateUrl: './test-review.component.html',
   styleUrls: ['./test-review.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TestReviewHtmlComponent implements OnInit {
-  @HostBinding('class') class = 'flex flex-col gap-4';
+export class TestReviewComponent implements OnInit {
 
   @Input() reviewRenderObject!: Review[];
+  @Input() questions!: QuestionReview[];
+  @Input() currentQuestionIndex!: number;
+
+  answerPrefixes = answerPrefixes;
 
   ngOnInit(): void {
     this.reviewRenderObject = this.reviewRenderObject.map(review => {

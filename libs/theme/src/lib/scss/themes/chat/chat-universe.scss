@@ -11,9 +11,15 @@
     //   height: 0;
     // }
   }
+  .chatbot-modal .bg-white {
+    background: none;
+  }
   .chatbox {
     background: rgba(0, 0, 0, 0.3);
     @apply relative w-full max-w-[669px] flex flex-col border border-teal-0 shadow-teal;
+    textarea {
+      @apply text-white;
+    }
   }
   .head {
     @apply flex justify-between items-center px-4 py-[12px];

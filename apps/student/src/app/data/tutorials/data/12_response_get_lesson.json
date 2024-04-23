@@ -1,18 +1,10 @@
 {
-  "complete_percentage": 66.67,
-  "categories": [
+  "progress": 0,
+  "lessons": [
     {
-      "category_id": 1,
-      "category_name": "Thi Toán THPT Quốc Gia",
-      "completed": false,
-      "lesson_list": [
-        {
-          "id": "cd22887717004173eb98",
-          "name": "Số phức",
-          "new": true,
-          "lesson_percentage": 0
-        }
-      ]
+      "id": "cd22887717004173eb98",
+      "name": "Số phức",
+      "progress": 0
     }
   ]
 }

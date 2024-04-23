@@ -66,7 +66,7 @@ export class EventComponent implements OnInit {
     if (this.email.invalid) return;
     const score = Object.keys(this.testSubmission.submitData).filter(questionId => {
       return (
-        this.testSubmission.submitData[questionId].id ===
+        this.testSubmission.submitData[questionId] ===
         this.testContent.questions
           .find(question => question.id === questionId)
           ?.answers.find(answer => answer.isCorrect)?.id

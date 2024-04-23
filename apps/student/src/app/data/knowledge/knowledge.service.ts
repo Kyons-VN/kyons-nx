@@ -50,9 +50,6 @@ export class KnowledgeService implements IKnowledgeService {
 
   selectProgram(program: Program): void {
     window.localStorage.setItem(SELECTED_PROGRAM_KEY, JSON.stringify(program.toJson()));
-    if (program.learningGoal) {
-      this.selectLearningGoal(program.learningGoal);
-    }
   }
 
   getSelectedProgram(): Program {
@@ -102,7 +99,7 @@ export class KnowledgeService implements IKnowledgeService {
   }
 
   getStudentLearningGoals(): Observable<StudentLearningGoal[]> {
-    return this.http.get(`${serverApi()}/api/v2/users/master_learning_goals`).pipe(
+    return this.http.get(`${serverApi()}/api/v2/users/learning_goals`).pipe(
       catchError(DBHelper.handleError('GET learning_goals_list', [])),
       map((res: any) => {
         if (res.data == undefined || res.data.length === 0) return [];

@@ -37,6 +37,7 @@
             <div class="flex gap-2 justify-center">
               <span class="h7 !leading-8">Độ khó:</span>
               <div class="star" *ngFor="let level of stars"><img src="/assets/images/star.svg" /></div>
+              <div class="star" *ngFor="let level of emptyStars"><img src="/assets/images/EmptyStar.svg" /></div>
             </div>
           </div>
           <!-- <span class="h8 md:hidden">{{ progressStr }}%</span>
@@ -201,6 +202,34 @@
   </div>
 </div>
 <div
+  *ngIf="shouldViewLesson"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+    <img src="/assets/images/warning.webp" alt="" />
+    <div class="col w-full gap-6">
+      <h5>Úi úi, bạn sai 2 câu liên tiếp rồi đó!</h5>
+      <p>Nè nè, coi lại bài học chỗ này đi, bạn có muốn xem lại bài học không?</p>
+      <button (click)="shouldViewLesson = false; showLesson = true" class="btn w-full">Xem bài học</button>
+      <button (click)="shouldViewLesson = false" class="btn btn-rounded w-full">Khum, tui làm tiếp!</button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="shouldChat"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+    <img src="/assets/images/ChatBot.svg" alt="" />
+    <div class="col w-full gap-6">
+      <h5>Úi úi, bạn lại sai tiếp rồi, hãy để Kyo trợ giúp bạn nhé?</h5>
+      <p>Hình như bạn đang gặp khó khăn ở bài học này rồi, kết nối với Kyo ngay để hỗ trợ bạn phần này nhé!</p>
+      <button (click)="shouldChat = false; showChatbot = true" class="btn w-full">Mở Kyo</button>
+      <button (click)="shouldChat = false" class="btn btn-rounded w-full">Khum, tui làm tiếp!</button>
+    </div>
+  </div>
+</div>
+<div
   *ngIf="showLesson"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
@@ -210,14 +239,19 @@
         <h3>Nội dung bài học</h3>
         <button class="btn-rounded btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
       </div>
-      <p [innerHTML]="lesson.content | safeHtml"></p>
+      <!-- <p [innerHTML]="content | safeHtml"></p> -->
+      <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
+        <p>Alternative content for users without PDF support.</p>
+      </object> -->
+      <embed [src]="content | safeResourceUrl" width="100%" height="100%" style="height: 80vh" />
+      <!-- <embed [src]="content" width="100%" height="100%" style="height: 80vh" /> -->
       <button (click)="showLesson = false" class="btn w-full">Đã hiểu</button>
     </div>
   </div>
 </div>
 <div
   *ngIf="showChatbot"
-  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+  class="chatbot-modal absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
   <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
     <div class="chatbox">
@@ -243,7 +277,7 @@
         <button class="btn-rounded btn-icon" (click)="showChatbot = false"><i class="icon-Close"></i></button>
       </div>
       <div class="chat-divider"></div>
-      <chatbot-messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
+      <student-messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
       <div class="flex gap-2 lg:gap-4 w-full">
         <div
           class="flex items-center justify-between p-3 border border-blueGrey-300 bg-white hover:bg-blueGrey-200 cursor-pointer rounded-lg md:w-1/2 w-full"
@@ -266,7 +300,7 @@
         </div>
       </div>
       <div class="chat-divider"></div>
-      <chatbot-chatbox (sendMessage)="sendMessage($event)" [isThinking]="isThinking" />
+      <student-chatbox (sendMessage)="sendMessage($event)" [isThinking]="isThinking" />
     </div>
   </div>
 </div>
@@ -296,7 +330,7 @@
         Bạn vẫn có thể học tiếp các bài học tiếp theo, chỉ là sẽ bị hạn chế các câu hỏi nâng cao hơn thôi. Để mở khóa
         tính năng này, hãy mua gói “Plus” của Kyons nhé!
       </p>
-      <button [routerLink]="paths.package.path" class="btn w-full">Mua gói Plus</button>
+      <button [routerLink]="paths.account.path" class="btn w-full">Mua gói Plus</button>
       <button [routerLink]="paths.learningPath.path" class="btn-rounded w-full">Trở về Lộ trình học</button>
     </div>
   </div>

@@ -56,8 +56,8 @@ export class TestService {
     );
   }
 
-  getExercise(lessonId: string): Observable<Exercise> {
-    return this.http.get(`${serverApi()}/api/v2/users/practice_test/get/adaptive_question/${lessonId}`).pipe(
+  getExercise(learningGoalId: string, lessonId: string): Observable<Exercise> {
+    return this.http.get(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}/questions`).pipe(
       // catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
       map((dataObject: any) => {
         const result = Exercise.fromJson(dataObject);

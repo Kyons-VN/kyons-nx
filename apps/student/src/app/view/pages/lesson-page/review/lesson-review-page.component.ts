@@ -1,6 +1,6 @@
 import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
@@ -8,16 +8,17 @@ import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
+import { TestReviewComponent } from '@share-components';
 import { SafeHtmlPipe } from '@share-pipes';
-import { QuestionReview } from '@share-utils/data';
+import { answerPrefixes, QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SafeHtmlPipe, LoadingComponent],
+  imports: [CommonModule, RouterModule, FormsModule, SafeHtmlPipe, LoadingComponent, TopMenuComponent, TestReviewComponent],
   templateUrl: './lesson-review-page.component.html',
-  styleUrls: ['./lesson-review-page.component.scss'],
 })
 export class LessonReviewPageComponent implements OnInit {
   route = inject(ActivatedRoute);
@@ -38,12 +39,13 @@ export class LessonReviewPageComponent implements OnInit {
   mockTestId!: string;
   status: MockTestStatus = MockTestStatus.active;
   MockTestStatus = MockTestStatus;
+  answerPrefixes = answerPrefixes;
 
   @ViewChild('scrollElm') scrollElm!: ElementRef;
 
   ngOnInit(): void {
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.lessonService.getReviewHtml(this.mockTestId).subscribe({
+    this.lessonService.getReviewHtml(this.learningGoal.id, this.mockTestId).subscribe({
       next: (result: any) => {
         console.log(result);
         this.questions = result.data;

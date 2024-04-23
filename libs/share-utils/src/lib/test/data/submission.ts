@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { formatDate } from '@angular/common';
 import { ISubmission } from '../../knowledge/domain/i-submission';
-import { Answer } from './test-content';
 
 export class Submission implements ISubmission {
   start: Date = new Date();
-  private _submitData: { [questionId: string]: Answer } = {};
+  private _submitData: { [questionId: string]: string } = {};
 
   private _end: Date = new Date();
   private _testId = '';
@@ -21,10 +20,10 @@ export class Submission implements ISubmission {
   public set end(value: Date) {
     this._end = value;
   }
-  public get submitData(): { [questionId: string]: Answer } {
+  public get submitData(): { [questionId: string]: string } {
     return this._submitData;
   }
-  public set submitData(value: { [questionId: string]: Answer }) {
+  public set submitData(value: { [questionId: string]: string }) {
     this._submitData = value;
   }
   public hasAnswer(questionId: string): boolean {
@@ -41,7 +40,7 @@ export class Submission implements ISubmission {
         return {
           id: Number(questionId),
           answer: {
-            id: this.submitData[questionId].id,
+            id: Number(this.submitData[questionId]),
           },
         };
       }),

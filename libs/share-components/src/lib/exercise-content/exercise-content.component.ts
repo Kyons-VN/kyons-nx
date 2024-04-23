@@ -41,7 +41,7 @@ export class ExerciseContentComponent implements OnInit, OnDestroy {
 
     if (['1', '2', '3', '4'].includes(e.key)) {
       if (this.showResult) return;
-      this.submission.submitData[this.question.id] = this.question.answers[parseInt(e.key) - 1];
+      this.submission.submitData[this.question.id] = this.question.answers[parseInt(e.key) - 1].id;
       this.updateSubmitData(this.question.id, this.question.answers[parseInt(e.key) - 1]);
       // if (currentSubmitDataLength != Object.keys(this.submission.submitData).length) {
       // this.progress.next();
@@ -77,7 +77,7 @@ export class ExerciseContentComponent implements OnInit, OnDestroy {
   }
 
   updateSubmitData(questionId: string, answer: Answer) {
-    this.submission.submitData[questionId] = answer;
+    this.submission.submitData[questionId] = answer.id;
     this.submissionEvent.emit(this.submission);
   }
 }

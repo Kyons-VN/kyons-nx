@@ -16,14 +16,7 @@
         <h4>{{ learningGoal.name }}</h4>
       </div>
       <div class="hidden md:flex gap-2">
-        <a [routerLink]="paths.home.path" class="menu-item">
-          <img src="/assets/images/Home.svg" alt="" />
-          <span>Trang chủ</span>
-        </a>
-        <a [routerLink]="paths.account.path" class="menu-item">
-          <img src="/assets/images/Profile.svg" alt="" />
-          <span>Tài khoản</span>
-        </a>
+        <student-top-menu [showLogo]="false" />
       </div>
     </div>
     <div
@@ -44,18 +37,10 @@
           ><i class="icon-Error"></i
         ></a>
       </div>
-      <div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
-        <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span>
-        <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
-        <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span>
-      </div>
+      <kyonsvn-test-review [questions]="questions" [currentQuestionIndex]="currentQuestionIndex" />
     </div>
-    <div class="w-full">
-      <!-- <div class="hidden md:flex flex-1 gap-2">
-        <strong class="uppercase">Phím tắt:</strong>
-        <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
-      </div> -->
-      <div class="flex gap-2 md:gap-4 items-center w-full overflow-hidden">
+    <div class="justify-between flex flex-col gap-3">
+      <div class="flex gap-4 items-center w-full overflow-hidden">
         <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn hidden md:flex">
           Câu trước
         </button>
@@ -70,12 +55,19 @@
           <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
             <i class="icon-ChevronLeft"></i>
           </button>
-          <div #scrollElm class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
+          <div
+            #scrollElm
+            data-tooltip-content="Bạn có thể chuyển đến đáp án mong muốn bằng cách nhấn vào số của câu hỏi"
+            class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
+          >
             <button
-              class="btn btn-icon fill-black"
+              class="btn-rounded btn-icon"
               *ngFor="let question of questions; index as i"
               [ngClass]="{
-                'fill-blue': i === currentQuestionIndex
+                'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
+                'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
+                'outline-green': question.isCorrectAnswer,
+                'outline-red': !question.isCorrectAnswer
               }"
               (click)="currentQuestionIndex = i"
             >

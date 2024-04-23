@@ -1,3 +1,4 @@
+<student-top-menu class="md:hidden" />
 <div class="bg-gradient h-full flex flex-col md:flex-row">
   <div class="col md:hidden">
     <div class="bg-rocket-xs text-white px-4 py-8">
@@ -93,11 +94,14 @@
       </div>
     </div>
     <div *ngIf="!isLoading; else loading" class="col gap-4">
-      <div class="flex flex-col md:flex-row justify-between md:items-center gap-3 md:gap-0">
-        <div class="flex gap-4 items-center">
-          <h5 class="hidden md:block">Mục tiêu gần đây</h5>
-          <span class="h7 md:hidden">Mục tiêu gần đây</span>
-          <!-- <a href="">Xem tất cả Mục tiêu học tập</a> -->
+      <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:gap-0">
+        <div class="flex flex-col lg:flex-row gap-3 lg:items-center">
+          <div class="flex gap-4 items-center">
+            <h5 class="hidden md:block">Mục tiêu gần đây</h5>
+            <span class="h7 md:hidden">Mục tiêu gần đây</span>
+            <!-- <a href="">Xem tất cả Mục tiêu học tập</a> -->
+          </div>
+          <a (click)="showAll = !showAll">{{ !showAll ? 'Xem tất cả' : 'Xem thu gọn' }} Mục tiêu học tập</a>
         </div>
         <button
           #btnCreateLearningGoal
@@ -110,7 +114,7 @@
       </div>
       <div
         *ngIf="learnings.length === 0; else elseBlock"
-        class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-16px] md:relative"
+        class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-14px] md:relative"
       >
         <img class="md:hidden" src="/assets/images/pointer-xs.webp" alt="" />
         <img class="hidden md:block absolute top-[10px] right-[122px]" src="/assets/images/pointer.webp" alt="" />
@@ -121,17 +125,23 @@
         </p>
       </div>
       <ng-template #elseBlock>
-        <div class="grid grid-col-1 xl:grid-cols-2 gap-x-6 gap-y-4">
-          <div (click)="selectLearningGoal(item)" *ngFor="let item of learnings" class="learning-goal-item">
+        <div
+          class="grid grid-col-1 xl:grid-cols-2 gap-x-6 gap-y-4 max-h-[80vh] overflow-y-auto pb-8 px-[24px] mx-[-24px]"
+        >
+          <div
+            (click)="selectLearningGoal(item)"
+            *ngFor="let item of learnings | slice : 0 : (showAll ? 1000 : 4)"
+            class="learning-goal-item"
+          >
             <img src="/assets/images/Subject.svg" alt="" />
             <div class="col gap-0.5 flex-1">
               <h6 class="hidden md:block">{{ item.name }}</h6>
               <span class="h8 md:hidden">{{ item.name }}</span>
-              <span>{{ item.programName }}</span>
+              <span>{{ item.program.name }}</span>
             </div>
             <circle-progress
-              [percent]="item.completePercentage"
-              [title]="item.completePercentage + '%'"
+              [percent]="item.progress"
+              [title]="item.progress + '%'"
               [animateTitle]="false"
               [showSubtitle]="false"
               [radius]="32"

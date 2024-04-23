@@ -1,8 +1,9 @@
-import { Program } from "@data/knowledge/program";
 import { ILessonItem } from "./i-lesson";
 
 export interface ILearningPath {
   isCompleted: boolean;
-  lessonList: ILessonItem[];
-  program: Program;
+  isEmpty: boolean;
+  lessons: ILessonItem[];
+  progress: number;
+  id: string;
 }

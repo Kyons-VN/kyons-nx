@@ -184,7 +184,7 @@ export class MockTest {
   static fromJson(dataObject: any): MockTest {
     const _ = pick(dataObject, ['id', 'score', 'status', 'createdAt']);
     _.id = dataObject['id'].toString();
-    _.score = dataObject['score'] ?? 0;
+    _.score = Number(dataObject['score'] ?? 0.0).toFixed(2);
     _.createdAt = new Date(dataObject['created_at']);
     const shareReferral = dataObject['mocktest_referral'] ?? '';
     const result = new MockTest(_);
@@ -243,9 +243,10 @@ export class TestReviewHtml {
   }
 
   static fromJson(dataObject: any): TestReviewHtml {
-    const data = (dataObject['questions'] as any[]).map((questionObject: any) =>
-      QuestionReview.fromJson(questionObject)
-    );
+    const data = (dataObject['questions'] as any[]).map((questionObject: any) => {
+      return QuestionReview.fromJson(questionObject);
+    });
+
     return new TestReviewHtml(data);
   }
 
@@ -261,7 +262,8 @@ export class QuestionReview {
   explanation: string;
   isCorrectAnswer: boolean;
   answers: Answer[];
-  correctAnswer: number;
+  correctAnswer: string;
+  selectedAnswer: string;
   constructor({
     id,
     question,
@@ -269,13 +271,15 @@ export class QuestionReview {
     explanation,
     isCorrect,
     correctAnswer,
+    selectedAnswer,
   }: {
     id: string;
     question: string;
     answers: Answer[];
     explanation: string;
     isCorrect: boolean;
-    correctAnswer: number;
+    correctAnswer: string;
+    selectedAnswer: string;
   }) {
     this.id = id;
     this.content = question;
@@ -284,17 +288,19 @@ export class QuestionReview {
     this.explanation = explanation;
     this.isCorrectAnswer = isCorrect;
     this.correctAnswer = correctAnswer;
+    this.selectedAnswer = selectedAnswer;
   }
 
   static fromJson(dataObject: any): QuestionReview {
-    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect', 'hint', 'correctAnswer']);
+    const _ = pick(dataObject, ['id', 'question', 'answers', 'explanation', 'isCorrect', 'hint', 'correctAnswer', 'answer_id', 'selectedAnswer']);
     _.id = dataObject['id'].toString();
-    _.question = dataObject['question'] ?? '';
-    _.answers = dataObject['answers'] ?? '';
+    _.question = dataObject['content'] ?? '';
+    _.answers = dataObject['answers'] ?? [];
     _.explanation = dataObject['explanation'] ?? '';
     _.isCorrect = dataObject['answer_status'] as boolean;
     _.answers = dataObject['answers'] != undefined ? dataObject['answers'].map((answerObject: any) => Answer.fromJson(answerObject)) : [];
-    _.correctAnswer = dataObject['correct_answer'];
+    _.correctAnswer = dataObject['correct_answer'].toString();
+    _.selectedAnswer = (_.answer_id ?? -1).toString();
     return new QuestionReview(_);
   }
 
@@ -305,7 +311,8 @@ export class QuestionReview {
       answers: [],
       explanation: '',
       isCorrect: false,
-      correctAnswer: 0,
+      correctAnswer: '',
+      selectedAnswer: '',
     });
   }
 }
@@ -352,35 +359,35 @@ class TestContent implements ITestContent {
 
 class Exercise {
   questions: Question[];
-  progress: number;
-  constructor({ questions, progress }: { questions: Question[]; progress: number }) {
-    this.progress = progress;
+  id: string;
+  constructor({ questions, id }: { questions: Question[]; id: string }) {
+    this.id = id;
     this.questions = questions;
   }
   static fromJson(dataObject: any): Exercise {
-    const _ = pick(dataObject, ['questions', 'progress', 'lesson_percentage']);
-    _.questions = dataObject['questions'].map((questionObject: any) => Question.fromJson(questionObject));
-    _.progress = _.lesson_percentage ?? 0;
+    const _ = pick(dataObject, ['questions', 'id', 'test_question_id', 'data']);
+    _.questions = dataObject['data'].map((questionObject: any) => Question.fromJson(questionObject));
+    _.id = _.test_question_id.toString();
 
     return new Exercise(_);
   }
 
   static empty(): Exercise {
-    return new Exercise({ questions: [], progress: 0 });
+    return new Exercise({ questions: [], id: '' });
   }
 }
 
-enum DifficultyLevel {
-  easy,
-  medium,
-  hard,
-}
+// enum DifficultyLevel {
+//   easy,
+//   medium,
+//   hard,
+// }
 
 class Question implements IQuestion {
   id: string;
   content: string;
   hint?: string;
-  difficulty?: DifficultyLevel;
+  level?: number;
   // topic: Topic;
   answers: Answer[];
 
@@ -389,7 +396,7 @@ class Question implements IQuestion {
     content,
     answers,
     hint,
-    difficulty,
+    level,
   }: // category,
     // topic,
     {
@@ -399,13 +406,13 @@ class Question implements IQuestion {
       // category: Category;
       // topic: Topic;
       hint?: string;
-      difficulty?: DifficultyLevel;
+      level?: number;
     }) {
     this.id = id;
     this.content = content;
     this.answers = answers;
     this.hint = hint;
-    this.difficulty = difficulty;
+    this.level = level;
     // this.topic = topic;
   }
 
@@ -414,8 +421,7 @@ class Question implements IQuestion {
       'id',
       'content',
       'answers',
-      'hint',
-      'difficulty',
+      'level',
       // 'category_id',
       // 'topic_name',
       // 'topic_id',
@@ -432,12 +438,12 @@ class Question implements IQuestion {
     // });
     // _.topic = Topic.fromJson({ id: _.topic_id, name: _.topic_name });
     // _.content = dataObject['question'];
-    _.difficulty = DifficultyLevel[dataObject['difficulty'] as keyof typeof DifficultyLevel];
+    // _.level = DifficultyLevel[dataObject['level'] as keyof typeof DifficultyLevel];
     return new Question(_);
   }
 
   static empty(): Question {
-    return new Question({ id: '', content: '', answers: [], hint: '', difficulty: DifficultyLevel.easy });
+    return new Question({ id: '', content: '', answers: [], hint: '', level: 0 });
   }
 
   toString() {
@@ -643,6 +649,6 @@ class TestResult implements ITestResult {
   }
 }
 
-const answerPrefixes = ['Đáp án 1: ', 'Đáp án 2: ', 'Đáp án 3: ', 'Đáp án 4: ', 'Đáp án 5: ', 'Đáp án 6: '];
+const answerPrefixes = ['Đáp án A: ', 'Đáp án B: ', 'Đáp án C: ', 'Đáp án D: ', 'Đáp án E: ', 'Đáp án F: '];
 export { Answer, answerPrefixes, AnswerResult, Exercise, Question, TestContent, TestResult };
 

@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Chat, Content, Mana, TextPart } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
+import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { Lesson } from '@data/knowledge/lesson';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
@@ -14,7 +16,7 @@ import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
 import { maxManaWidth, Role } from '@domain/chat/i-content';
 import { ExerciseContentComponent, LatexComponent, QuestionsProgressComponent } from '@share-components';
-import { SafeHtmlPipe } from '@share-pipes';
+import { SafeHtmlPipe, SafeResourceUrlSAPipe } from '@share-pipes';
 import { Exercise, Progress, Question, QuestionReview, Submission } from '@share-utils/data';
 import { isCommand } from '@utils/chat';
 import { ChatboxComponent } from '@view/share-components/chat/chatbox.component';
@@ -34,13 +36,13 @@ import { TrackingLessonComponent } from '@view/share-components/tracking/trackin
     LatexComponent,
     ChatboxComponent,
     MessagesComponent,
+    SafeResourceUrlSAPipe,
   ],
   templateUrl: './lesson-page.component.html',
 })
 export class LessonPageComponent implements OnInit {
   paths = inject(NavigationService).paths;
   knowledgeService = inject(KnowledgeService);
-  learningGoal = this.knowledgeService.getSelectedLearningGoal();
   lessonService = inject(LessonService);
   route = inject(ActivatedRoute);
   router = inject(Router);
@@ -48,8 +50,10 @@ export class LessonPageComponent implements OnInit {
   loading = inject(LoadingOverlayService);
   themeService = inject(ThemeService);
   chatService = inject(ChatService);
-
   userId = inject(UserService).getUserId();
+  sanitizer = inject(DomSanitizer);
+
+  learningGoal!: StudentLearningGoal;
   exercise = Exercise.empty();
   submission = new Submission();
   showIncomplete = false;
@@ -69,35 +73,46 @@ export class LessonPageComponent implements OnInit {
   isOutOfSubscription = false;
   currentTestIndex = 0;
   stars = [0];
+  emptyStars = [0, 0, 0];
   manaWidth = maxManaWidth;
   batteryLife = 100;
   currentChat: Chat | null = null;
   messages: Content[] = [];
   isThinking = false;
+  content!: string;
+  shouldViewLesson = false;
+  shouldChat = false;
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
+  @ViewChild('contentElm') contentElm!: ElementRef;
 
   ngOnInit(): void {
+    this.content = this.lessonService.getContent();
+    // this.content = this.sanitizer.bypassSecurityTrustResourceUrl('https://drive.google.com/file/d/11uI4QQW2pDwAJXOjFALjC-5xaIojGGxq/preview');
+    // this.content = 'https://drive.google.com/file/d/11uI4QQW2pDwAJXOjFALjC-5xaIojGGxq/preview';
     this.loading.show();
+    this.learningGoal = this.knowledgeService.getStudentLearningGoal();
     this.lessonId = this.route.snapshot.params['id'];
-    this.lessonService.getDetail(this.lessonId).subscribe({
-      next: result => {
-        this.lesson = result.lessonCategories[0].lessons[0];
-      },
-    });
+    // this.lessonService.getDetail(this.lessonId).subscribe({
+    //   next: result => {
+    //     this.lesson = result;
+    //   },
+    // });
     this._getQuestion();
   }
 
   _getQuestion() {
     this.isSubmitting = true;
-    this.testService.getExercise(this.route.snapshot.params['id']).subscribe({
+    this.testService.getExercise(this.learningGoal.id, this.route.snapshot.params['id']).subscribe({
       next: (exercise: Exercise) => {
         this.exercise = exercise;
         this.question = exercise.questions[0];
-        this.stars = Array.from(Array((this.question.difficulty ?? 0) + 1).keys());
-        this.progress.value = exercise.progress ?? 0;
-        this.progressStr = (exercise.progress ?? 0).toFixed(2);
+        this.stars = Array.from(Array(this.question.level ?? 0).keys());
+        this.emptyStars = Array.from(Array(3 - (this.question.level ?? 0)).keys());
+        // this.progress.value = exercise.progress ?? 0;
+        // this.progressStr = (exercise.progress ?? 0).toFixed(2);
+        this.submission.testId = this.exercise.id;
         this.loading.hide();
         setTimeout(() => {
           this.scrollTopElm.nativeElement.scrollTop = 0;
@@ -108,9 +123,9 @@ export class LessonPageComponent implements OnInit {
       error: e => {
         console.log(e);
         this.loading.hide();
-        if (e.error_code == 'NotFound') {
-          this.progress.value = 100;
-          this.progressStr = '100.00';
+        if (e.error_code == 'CompletedLesson') {
+          // this.progress.value = 100;
+          // this.progressStr = '100.00';
           this.showComplete = true;
         } else if (e.error_code == 'OutOfSubscription') {
           this.isOutOfSubscription = true;
@@ -143,15 +158,23 @@ export class LessonPageComponent implements OnInit {
       // this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
       //   input.setAttribute('disabled', 'disabled');
       // });
-      this.lessonService.submitExercise(this.lessonId, this.submission).subscribe({
-        next: result => {
-          console.log(result.result[0].answer_status);
-          this.progress.value = result['lesson_percentage'];
-          this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
-          this.questionReview = QuestionReview.fromJson(result['result'][0]);
-          if (result['lesson_percentage'] == 100) {
-            this.isCompleted = true;
+      this.lessonService.submitExercise(this.learningGoal.id, this.lessonId, this.submission).subscribe({
+        next: (res: any) => {
+          console.log(res);
+          // this.progress.value = result['lesson_percentage'];
+          // this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
+          this.questionReview = QuestionReview.fromJson(res['data'][0]);
+          if (res['status'] == 'normal') {
+            // this.isCompleted = true;
           }
+          else if (res['status'] == 'lesson') {
+            this.shouldViewLesson = true;
+          }
+          else if (res['status'] == 'chatbot') {
+            this.shouldChat = true;
+          }
+
+
           this.isSubmitting = false;
           this.scrollTopElm.nativeElement.scrollTop = 0;
           this.scrollTopElm.nativeElement.scrollLeft = 0;
@@ -268,6 +291,6 @@ export class LessonPageComponent implements OnInit {
     this.sendMessage('Phân tích chi tiết câu hỏi thuộc thể loại toán nào, cần thông tin gì để giải quyết câu hỏi này?');
   }
   option2() {
-    this.sendMessage('Giải thích' + (this.questionReview != null ? 'vì sao đáp án ' + this.questionReview.correctAnswer + ' là đáp án đúng?' : ''));
+    this.sendMessage('Giải thích ' + (this.questionReview != null ? 'vì sao đáp án ' + this.questionReview.correctAnswer + ' là đáp án đúng?' : ''));
   }
 }

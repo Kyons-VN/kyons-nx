@@ -30,7 +30,7 @@
       </li>
     </ul>
     <div class="w-4"></div>
-    <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
+    <!-- <i class="icon-Settings cursor-pointer text-2xl text-orange" (click)="showSettings = !showSettings"></i>
     <div
       *ngIf="showSettings"
       class="absolute z-20 right-0 top-full rounded-lg p-4"
@@ -41,7 +41,7 @@
         <button class="btn" (click)="setTheme('default')">Mặc định</button>
         <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
       </div>
-    </div>
+    </div> -->
   </div>
   <div *ngIf="showSettings" class="fixed top-0 left-0 h-screen w-screen z-10" (click)="showSettings = false"></div>
 </div>

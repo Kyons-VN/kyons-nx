@@ -12,20 +12,25 @@
         <div class="col gap-2 justify-center w-full items-center">
           <img src="/assets/images/subject.webp" alt="" width="80" height="80" />
           <h6 class="text-orange">{{ selectedStudentLearningGoal.name }}</h6>
-          <b>{{ selectedStudentLearningGoal.programName }}</b>
+          <b>{{ selectedStudentLearningGoal.program.name }}</b>
         </div>
       </div>
     </div>
   </div>
   <div class="gap-2 flex xl:hidden p-6 justify-center">
-    <a [routerLink]="paths.home.path" class="menu-item">
+    <!-- <a [routerLink]="paths.home.path" class="menu-item">
       <img src="/assets/images/Home.svg" alt="" />
       <span>Trang chủ</span>
+    </a>
+    <a [routerLink]="paths.chatbot.path" class="menu-item">
+      <img src="/assets/images/FAQ.svg" alt="" />
+      <span>Chat với Kyo</span>
     </a>
     <a [routerLink]="paths.account.path" class="menu-item">
       <img src="/assets/images/Profile.svg" alt="" />
       <span>Tài khoản</span>
-    </a>
+    </a> -->
+    <student-top-menu [showLogo]="false" />
   </div>
   <div class="col flex-1 gap-6 items-center py-16 px-8 bg-image" [ngClass]="{ 'xs-hidden': activeTab !== 0 }">
     <div class="block sm:hidden h-[264px]"></div>
@@ -34,7 +39,7 @@
       <div class="col gap-2">
         <span>Đây là lộ trình học tập để bạn đạt mục tiêu:</span>
         <h5 class="text-orange">{{ selectedStudentLearningGoal.name }}</h5>
-        <span class="h7">{{ selectedStudentLearningGoal.programName }}</span>
+        <span class="h7">{{ selectedStudentLearningGoal.program.name }}</span>
       </div>
     </div>
     <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full">
@@ -103,14 +108,12 @@
                   class="lesson-block"
                   [ngClass]="{
                     'waiting-block': lessons[lessons.length - 1].isNew,
-                    'finish-block': !lessons[lessons.length - 1].isNew
+                    'finish-block': learningPath.isCompleted
                   }"
                   (click)="onLastLessonBlockClick()"
                   tabindex="0"
                 >
-                  <span *ngIf="!lessons[lessons.length - 1].isNew" class="h7 w-full text-center !mt-[-10px]"
-                    >Tới cuối đường</span
-                  >
+                  <span *ngIf="learningPath.isCompleted" class="h7 w-full text-center !mt-[-10px]">Tới cuối đường</span>
                   <span *ngIf="lessons[lessons.length - 1].isNew" class="h7">(Đang chờ được khám phá...)</span>
                   <div class="flex w-full justify-center relative">
                     <i class="icon-Lock text-5xl mt-[-74px] absolute"></i>
@@ -186,14 +189,12 @@
                   class="lesson-block"
                   [ngClass]="{
                     'waiting-block': lessons[lessons.length - 1].isNew,
-                    'finish-block finish-blockXs': !lessons[lessons.length - 1].isNew
+                    'finish-block finish-blockXs': learningPath.isCompleted
                   }"
                   (click)="onLastLessonBlockClick()"
                   tabindex="0"
                 >
-                  <b
-                    *ngIf="!lessons[lessons.length - 1].isNew"
-                    class="text-[12px] md:text-[16px] w-full text-center !mt-[-10px]"
+                  <b *ngIf="learningPath.isCompleted" class="text-[12px] md:text-[16px] w-full text-center !mt-[-10px]"
                     >Tới cuối đường</b
                   >
                   <b *ngIf="lessons[lessons.length - 1].isNew" class="text-[12px] md:text-[16px]"
@@ -235,38 +236,28 @@
   >
     <div class="block sm:hidden h-[264px]"></div>
     <div class="justify-end hidden xl:flex">
-      <div class="flex gap-2">
-        <a [routerLink]="paths.home.path" class="menu-item">
-          <img src="/assets/images/Home.svg" alt="" />
-          <span>Trang chủ</span>
-        </a>
-        <a [routerLink]="paths.account.path" class="menu-item">
-          <img src="/assets/images/Profile.svg" alt="" />
-          <span>Tài khoản</span>
-        </a>
-      </div>
+      <student-top-menu [showLogo]="false" />
     </div>
     <div class="col gap-4" id="mockTestAnchor">
       <div class="flex justify-between items-center">
         <h5 class="hidden md:block">Theo dõi quá trình học</h5>
         <div class="h7 md:hidden">Theo dõi quá trình học</div>
-        <a
-          (click)="showWhatIsProbabilityIndex = true"
-          class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
-        >
+        <a (click)="showWhatIsProbabilityIndex = true" class="!no-underline flex cursor-pointer gap-0.5 items-center">
           <i class="icon-Help"></i>
           <span class="underline">Đây là gì?</span>
         </a>
       </div>
-      <div class="flex justify-between items-center bg-white rounded-2xl p-6">
+      <div class="flex justify-center items-center bg-white rounded-2xl p-6">
         <div class="w-[132px] md:w-[198px] aspect-square">
           <circle-progress
-            *ngIf="!learningGoalPath.isEmpty()"
-            [percent]="learningGoalPath.progress"
+            *ngIf="!learningPath.isEmpty"
+            [percent]="learningPath.progress"
             title="Tiến độ học"
+            [titleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
             titleFontSize="14px"
             titleColor="var(--color-primaryBlue)"
-            [subtitle]="learningGoalPath.progress + '%'"
+            [subtitle]="learningPath.progress + '%'"
+            [subtitleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
             subtitleFontSize="30px"
             subtitleFontWeight="bold"
             subtitleColor="var(--color-primaryBlue)"
@@ -281,12 +272,14 @@
             [lazy]="false"
           ></circle-progress>
           <circle-progress
-            *ngIf="learningGoalPath.isEmpty()"
+            *ngIf="learningPath.isEmpty"
             [percent]="0"
             title="Tiến độ học"
+            [titleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
             titleFontSize="14px"
             titleColor="var(--color-primaryBlue)"
             [subtitle]="'--'"
+            [subtitleColor]="theme === 'default' ? 'var(--color-primaryBlue)' : 'var(--color-white)'"
             subtitleFontSize="30px"
             subtitleFontWeight="bold"
             subtitleColor="var(--color-primaryBlue)"
@@ -300,7 +293,7 @@
             [responsive]="true"
           ></circle-progress>
         </div>
-        <div class="w-0 h-[156px] border border-r-blueGrey-300"></div>
+        <!-- <div class="w-0 h-[156px] border border-r-blueGrey-300"></div>
         <div class="w-[132px] md:w-[198px] aspect-square">
           <circle-progress
             *ngIf="!probabilityIndex"
@@ -341,17 +334,14 @@
             [responsive]="true"
             [lazy]="false"
           ></circle-progress>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col gap-4" [ngClass]="{ 'md:bg-robot': hasNewMockTest }">
       <div class="flex justify-between items-center">
         <h5 class="hidden md:block">Bài kiểm tra thử thông minh</h5>
         <span class="md:hidden h7">Bài kiểm tra thử thông minh</span>
-        <a
-          (click)="showWhatIsMockTest = true"
-          class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5 items-center"
-        >
+        <a (click)="showWhatIsMockTest = true" class="!no-underline flex cursor-pointer gap-0.5 items-center">
           <i class="icon-Help"></i>
           <span class="underline">Đây là gì?</span>
         </a>

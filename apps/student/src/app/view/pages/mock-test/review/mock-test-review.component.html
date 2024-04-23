@@ -5,9 +5,9 @@
       data-tooltip-content="Bấm vào đây để quay lại trang đáp án bài kiểm tra nhé!"
       data-tooltip-position="bottom"
       (click)="backToResult()"
-      class="icon-btn self-end md:hidden bg-blueGrey-100"
+      class="icon-btn md:hidden bg-blueGrey-100"
     >
-      <i class="icon-Close"></i>
+      <i class="icon-ChevronLeft"></i>
     </button>
     <div class="flex items-center justify-between w-full">
       <div class="flex gap-4 items-center">
@@ -24,14 +24,7 @@
         <h4>Đáp án bài kiểm tra</h4>
       </div>
       <div class="gap-2 hidden md:flex">
-        <a [routerLink]="paths.home.path" class="menu-item">
-          <img src="/assets/images/Home.svg" alt="" />
-          <span>Trang chủ</span>
-        </a>
-        <a [routerLink]="paths.account.path" class="menu-item">
-          <img src="/assets/images/Profile.svg" alt="" />
-          <span>Tài khoản</span>
-        </a>
+        <student-top-menu [showLogo]="false" />
       </div>
     </div>
     <div
@@ -58,89 +51,67 @@
           ><i class="icon-Error"></i
         ></a>
       </div>
-      <div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
-        <!-- <span [innerHTML]="questions[currentQuestionIndex].content | safeHtml"></span> -->
-        <kyonsvn-latex [inputString]="questions[currentQuestionIndex].content"></kyonsvn-latex>
-        <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
-        <kyonsvn-input-radio
-          [style.display]="ai > 3 ? 'none' : 'block'"
-          *ngFor="let answer of questions[currentQuestionIndex].answers | orderBySA : 'order'; let ai = index"
-          [checked]="answer.value === questions[currentQuestionIndex].correctAnswer"
-          [answer]="answer"
-          [label]="answerPrefixes[ai] + answer.content"
-          [disabled]="true"
-        ></kyonsvn-input-radio>
-        <!-- <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span> -->
-        <h5>Lời giải</h5>
-        <kyonsvn-latex [inputString]="questions[currentQuestionIndex].explanation"></kyonsvn-latex>
-      </div>
+      <kyonsvn-test-review [questions]="questions" [currentQuestionIndex]="currentQuestionIndex" />
     </div>
-    <div class="justify-between flex flex-col gap-3">
-      <!-- <div class="hidden md:flex flex-1 gap-2">
-        <strong class="uppercase">Phím tắt:</strong>
-        <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
-      </div> -->
-      <div class="flex gap-4 items-center w-full overflow-hidden">
-        <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn hidden md:flex">
-          Câu trước
-        </button>
-        <button
-          (click)="scrollLeft()"
-          [disabled]="currentQuestionIndex === 0"
-          class="btn btn-icon btn-large flex md:hidden"
-        >
+    <div class="flex gap-4 items-center w-full overflow-hidden">
+      <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn hidden md:flex">
+        Câu trước
+      </button>
+      <button
+        (click)="scrollLeft()"
+        [disabled]="currentQuestionIndex === 0"
+        class="btn btn-icon btn-large flex md:hidden"
+      >
+        <i class="icon-ChevronLeft"></i>
+      </button>
+      <div class="flex-1 flex gap-1 w-full overflow-hidden">
+        <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
           <i class="icon-ChevronLeft"></i>
         </button>
-        <div class="flex-1 flex gap-1 w-full overflow-hidden">
-          <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
-            <i class="icon-ChevronLeft"></i>
-          </button>
-          <div
-            #scrollElm
-            data-tooltip-content="Bạn có thể chuyển đến đáp án mong muốn bằng cách nhấn vào số của câu hỏi"
-            class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
+        <div
+          #scrollElm
+          data-tooltip-content="Bạn có thể chuyển đến đáp án mong muốn bằng cách nhấn vào số của câu hỏi"
+          class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
+        >
+          <button
+            class="btn-rounded btn-icon"
+            *ngFor="let question of questions; index as i"
+            [ngClass]="{
+              'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
+              'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
+              'outline-green': question.isCorrectAnswer,
+              'outline-red': !question.isCorrectAnswer
+            }"
+            (click)="currentQuestionIndex = i"
           >
-            <button
-              class="btn-rounded btn-icon"
-              *ngFor="let question of questions; index as i"
-              [ngClass]="{
-                'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
-                'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
-                'outline-green': question.isCorrectAnswer,
-                'outline-red': !question.isCorrectAnswer
-              }"
-              (click)="currentQuestionIndex = i"
-            >
-              {{ i + 1 }}
-            </button>
-          </div>
-          <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
-            <i class="icon-ChevronRight"></i>
+            {{ i + 1 }}
           </button>
         </div>
-        <button
-          [disabled]="currentQuestionIndex === questions.length - 1"
-          (click)="scrollRight()"
-          class="btn hidden md:flex"
-        >
-          Câu kế tiếp
-        </button>
-        <button
-          (click)="scrollRight()"
-          [disabled]="currentQuestionIndex === questions.length - 1"
-          class="btn btn-icon btn-large flex md:hidden"
-        >
+        <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
           <i class="icon-ChevronRight"></i>
         </button>
       </div>
+      <button
+        [disabled]="currentQuestionIndex === questions.length - 1"
+        (click)="scrollRight()"
+        class="btn hidden md:flex"
+      >
+        Câu kế tiếp
+      </button>
+      <button
+        (click)="scrollRight()"
+        [disabled]="currentQuestionIndex === questions.length - 1"
+        class="btn btn-icon btn-large flex md:hidden"
+      >
+        <i class="icon-ChevronRight"></i>
+      </button>
     </div>
     <div class="hidden md:flex bg-lightOrange-4 w-full h-[56px] items-center justify-between px-6 rounded-lg">
-      <span><b class="text-orange">Bạn muốn cải thiện điểm số?</b> Bấm <b>Tạo lộ trình học</b> để bắt đầu ngay!</span>
-      <button
-        [disabled]="status !== MockTestStatus.learning_path_received"
-        (click)="activateLearningPath()"
-        class="btn"
+      <span
+        ><b class="text-orange">Bạn muốn cải thiện điểm số?</b>&nbsp;
+        <span class="!text-primaryBlue">Bấm <b>Tạo lộ trình học</b> để bắt đầu ngay!</span></span
       >
+      <button [disabled]="status !== MockTestStatus.mock_test_submitted" (click)="activateLearningPath()" class="btn">
         Tạo lộ trình học
       </button>
     </div>

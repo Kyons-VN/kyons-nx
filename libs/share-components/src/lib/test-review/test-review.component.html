@@ -1,27 +1,30 @@
-<h4>Kiến thức cần xem lại</h4>
-<div *ngFor="let review of reviewRenderObject">
-  <div class="flex justify-between items-center cursor-pointer" (click)="review.isOpen = !review.isOpen">
-    <div>{{ review.topic }}</div>
-    <button
-      class="flex transition-transform text-orange"
-      [style.transform]="review.isOpen ? 'rotateX(180deg)' : 'rotateX(0deg)'"
-    >
-      <i class="icon-ArrowDown"></i>
-    </button>
+<div class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
+  <kyonsvn-latex [inputString]="questions[currentQuestionIndex].content"></kyonsvn-latex>
+  <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
+  @for (answer of questions[currentQuestionIndex].answers; track answer.id; let ai = $index){
+  <div
+    class="flex"
+    [ngClass]="{
+      'rounded-lg p-2 gap-2 !text-primaryBlue':
+        answer.id === questions[currentQuestionIndex].correctAnswer ||
+        answer.id === questions[currentQuestionIndex].selectedAnswer,
+      'bg-emerald-3': answer.id === questions[currentQuestionIndex].correctAnswer,
+      'bg-red-1':
+        answer.id === questions[currentQuestionIndex].selectedAnswer &&
+        answer.id !== questions[currentQuestionIndex].correctAnswer
+    }"
+  >
+    <kyonsvn-input-radio
+      [style.display]="ai > 3 ? 'none' : 'block'"
+      [checked]="answer.id === questions[currentQuestionIndex].selectedAnswer"
+      [answer]="answer"
+      [label]="answerPrefixes[ai] + answer.content"
+      [disabled]="true"
+    ></kyonsvn-input-radio>
   </div>
-  <!-- <mat-divider></mat-divider> -->
-  <div class="flex flex-col gap-4 transition-all overflow-hidden mt-2" [style.height]="review.isOpen ? 'auto' : 0">
-    <div class="flex flex-col gap-2" *ngFor="let question of review.questions; let qi = index">
-      <p class="h7">Câu {{ qi + 1 }}</p>
-      <span [innerHTML]="question.content"></span>
-      <div class="flex bg-red-1 rounded-lg p-2 gap-2">
-        <i class="icon-Error text-red-0"></i>
-        <span class="flex-1">{{ question.selected }}</span>
-      </div>
-      <div class="flex bg-emerald-3 rounded-lg p-2 gap-2">
-        <i class="icon-Check text-darkEmerald"></i>
-        <span class="flex-1">{{ question.right }}</span>
-      </div>
-    </div>
-  </div>
+  }
+
+  <!-- <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span> -->
+  <h5>Lời giải</h5>
+  <kyonsvn-latex [inputString]="questions[currentQuestionIndex].explanation"></kyonsvn-latex>
 </div>

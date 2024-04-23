@@ -32,7 +32,7 @@ function initTestKeyboardEvent({
       const answers = question.answers;
       const currentSubmitDataLength = Object.keys(submission.submitData).length;
       if (['1', '2', '3', '4'].includes(e.key)) {
-        submission.submitData[question.id] = answers[parseInt(e.key) - 1];
+        submission.submitData[question.id] = answers[parseInt(e.key) - 1].id;
 
         if (currentSubmitDataLength != Object.keys(submission.submitData).length) {
           progress.next();
@@ -52,3 +52,4 @@ function initTestKeyboardEvent({
 }
 
 export { initTestKeyboardEvent, IProgress };
+

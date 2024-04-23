@@ -53,7 +53,7 @@
           </ul>
         </div>
         <div class="flex flex-col flex-1 items-center gap-4">
-          <h5>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h5>
+          <!-- <h5>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h5>
           <div class="flex gap-1 w-full items-center justify-center text-white">
             <div
               class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
@@ -82,7 +82,7 @@
               <strong class="text-3xl">{{ second }}</strong>
               {{ theme === 'universe' ? (parseInt(second) < 2 ? 'second' : 'seconds') : 'giây' }}
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- <div class="relative z-10 w-full">
@@ -98,7 +98,7 @@
             </div>
           </div>
           <button class="btn btn-small w-[40px] xl:hidden" (click)="isCollapse = !isCollapse">
-            <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ArrowUp"></i>
+            <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ChevronUp"></i>
           </button>
         </div>
       </div> -->
@@ -135,24 +135,24 @@
                 </div>
               </div>
               <button class="btn btn-small w-[40px] xl:hidden" (click)="isCollapse = !isCollapse">
-                <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ArrowUp"></i>
+                <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ChevronUp"></i>
               </button>
             </div>
           </div>
         </div>
         <div class="chat-divider"></div>
-        <chatbot-messages
+        <student-messages
           [messages]="messages"
           [isThinking]="isThinking"
           (startGame)="play()"
           (isWritingEvent)="updateThinking($event)"
         />
         <div class="chat-divider"></div>
-        <chatbot-chatbox (sendMessage)="sendMessage($event)" [isThinking]="isThinking" />
+        <student-chatbox (sendMessage)="sendMessage($event)" [isThinking]="isThinking" />
       </div>
     </div>
     <div class="xl:flex hidden flex-col flex-1 items-end">
-      <h3>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h3>
+      <!-- <h3>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h3>
       <div class="flex gap-1 w-full items-center justify-center text-white">
         <div
           class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
@@ -181,7 +181,7 @@
           <strong class="text-3xl">{{ second }}</strong>
           {{ theme === 'universe' ? (parseInt(second) < 2 ? 'second' : 'seconds') : 'giây' }}
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="h-20" *ngIf="!isCollapse"></div>

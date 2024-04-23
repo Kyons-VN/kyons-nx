@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, HostBinding, Injector, OnDestroy, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
-import { Program } from '@data/knowledge/program';
 import { NavigationService } from '@data/navigation/navigation.service';
+import { ThemeService } from '@data/theme/theme.service';
 import { TutorialService } from '@data/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
 import { AppPaths } from '@view/routes';
@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   router: Router = inject(Router);
   route = inject(ActivatedRoute);
   tutorialService = inject(TutorialService);
+  injector = inject(Injector);
+  themeService = inject(ThemeService);
 
   @HostBinding('class') class = 'h-full';
 
@@ -39,6 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   showSubmenu = false;
   showTutorial = false;
   interval!: Subscription;
+  theme = this.themeService.getTheme();
+  showAll = false;
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
@@ -54,6 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this._getStudentLearningGoalsData();
       }
     });
+
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        this.theme = this.themeService.themeStore();
+      });
+    });
   }
 
   _getStudentLearningGoalsData() {
@@ -62,8 +72,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (
           learningGoals.length > 0 &&
           (this.learnings.length != learningGoals.length ||
-            this.learnings[this.learnings.length - 1].completePercentage !=
-            learningGoals[learningGoals.length - 1].completePercentage)
+            this.learnings[this.learnings.length - 1].progress !=
+            learningGoals[learningGoals.length - 1].progress)
         ) {
           this.learnings = learningGoals;
         }
@@ -92,15 +102,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.interval !== undefined) this.interval.unsubscribe();
   }
 
-  selectProgram(program: Program) {
-    this.knowledgeService.selectProgram(program);
-    this.router.navigate([this.paths.learningPath.path]);
-  }
-
   selectLearningGoal(learningGoal: StudentLearningGoal) {
     this.knowledgeService.selectStudentLearningGoal(learningGoal);
     this.router.navigate([this.paths.learningPath.path]);
   }
+
   goToLastestLearningGoal() {
     this.knowledgeService.selectStudentLearningGoal(this.learnings[0]);
     this.router.navigate([this.paths.learningPath.path]);
