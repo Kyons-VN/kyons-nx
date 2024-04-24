@@ -19,10 +19,7 @@
         <student-top-menu [showLogo]="false" />
       </div>
     </div>
-    <div
-      class="col rounded-lg bg-white p-4 gap-4 overflow-y-auto md:overflow-hidden md:flex-1 h-[calc(100vh_-_280px)]"
-      *ngIf="!isLoading"
-    >
+    <div class="col rounded-lg bg-white p-4 gap-4 overflow-y-auto md:flex-1 h-[calc(100vh_-_280px)]" *ngIf="!isLoading">
       <div class="flex items-center justify-between w-full">
         <h6>
           Câu {{ currentQuestionIndex + 1 }}

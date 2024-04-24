@@ -76,87 +76,22 @@ export class LessonService implements ILessonService {
       // return this.http.get<LearningGoalPath>(`${serverApi()}/students/programs').pipe(
       catchError(DBHelper.handleError('GET lesson_list', LearningPath.empty())),
       map((res: any) => {
-        // if (data['new_user']) {
-        //   return Error('new_user');
+        // res = {
+        //   data:
+        //   {
+        //     "id": 42,
+        //     "progress": 10,
+        //     "lessons": [
+        //       {
+        //         "id": 65,
+        //         "progress": 10.0,
+        //         "name": "Phủ định một mệnh đề",
+        //         "lesson_content": "https://drive.google.com/file/d/..."
+        //       }
+        //     ]
+        //   }
+
         // }
-        // data = {
-        //   complete_percentage: '65',
-        //   categories: [
-        //     {
-        //       category_id: 1,
-        //       category_name: 'Thi Toán THPT Quốc gia',
-        //       completed: false,
-        //       lesson_list: [
-        //         {
-        //           id: 'c88bf3d931b812d21001',
-        //           name: 'Tổ hợp - Xác suất',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21002',
-        //           name: 'Cấp số cộng - Cấp số nhân',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21003',
-        //           name: 'Hình học không gian (khoảng cách - góc)',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21004',
-        //           name: 'Hàm số',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21005',
-        //           name: 'Mũ - Logarit',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21006',
-        //           name: 'Hình học không gian (bài toán thể tích)',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21007',
-        //           name: 'Lesson 7',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21008',
-        //           name: 'Lesson 8',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21009',
-        //           name: 'Lesson 9',
-        //           new: false,
-        //         },
-        //         {
-        //           id: 'c88bf3d931b812d21010',
-        //           name: 'Lesson 10',
-        //           new: false,
-        //         },
-        // {
-        //   id: 'c88bf3d931b812d21011',
-        //   name: 'Lesson 11',
-        //   new: false,
-        // },
-        // {
-        //   id: 'c88bf3d931b812d21012',
-        //   name: 'Lesson 12',
-        //   new: false,
-        // },
-        // {
-        //   id: 'c88bf3d931b812d21013',
-        //   name: 'Lesson 13',
-        //   new: true,
-        //   lesson_percentage: 65,
-        // },
-        //       ],
-        //     },
-        //   ],
-        // };
         return LearningPath.fromJson(res['data']);
       })
     );

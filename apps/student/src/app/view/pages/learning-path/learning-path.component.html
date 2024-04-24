@@ -110,14 +110,14 @@
                   *ngIf="i + bi * 3 === lessons.length"
                   class="lesson-block"
                   [ngClass]="{
-                    'waiting-block': lessons[lessons.length - 1].isNew,
+                    'waiting-block': !learningPath.isCompleted,
                     'finish-block': learningPath.isCompleted
                   }"
                   (click)="onLastLessonBlockClick()"
                   tabindex="0"
                 >
                   <span *ngIf="learningPath.isCompleted" class="h7 w-full text-center !mt-[-10px]">Tới cuối đường</span>
-                  <span *ngIf="lessons[lessons.length - 1].isNew" class="h7">(Đang chờ được khám phá...)</span>
+                  <span *ngIf="!learningPath.isCompleted" class="h7">(Đang chờ được khám phá...)</span>
                   <div class="flex w-full justify-center relative">
                     <i class="icon-Lock text-5xl mt-[-74px] absolute"></i>
                   </div>
