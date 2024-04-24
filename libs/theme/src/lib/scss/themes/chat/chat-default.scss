@@ -40,6 +40,9 @@
     textarea {
       @apply flex-1 m-0 resize-none bg-transparent focus:ring-0 focus-visible:ring-0 h-[64px] placeholder-black/50 dark:placeholder-white/50 border border-blueGrey-300 rounded-l-lg text-lg p-5;
     }
+    .control {
+      @apply px-4 border border-blueGrey-300 rounded-l-lg flex-1 p-3.5 h-[64px];
+    }
   }
   .send {
     @apply flex items-center justify-center w-[86px] h-[64px] text-[32px] text-[#06A5FF] bg-secondaryBlue border-secondaryBlue rounded-r-lg;
@@ -51,7 +54,7 @@
       @apply flex gap-2.5 max-w-[482px] w-full;
       .box {
         width: fit-content;
-        @apply rounded-lg p-3;
+        @apply rounded-lg p-3 relative;
         p {
           @apply m-0;
         }

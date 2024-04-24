@@ -6,7 +6,7 @@
       <ul>
         <li>
           <a
-            [routerLink]="paths.home.path"
+            [routerLink]="paths.chatbot.path"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             (isActiveChange)="(this.ngOnInit)"
@@ -148,7 +148,12 @@
           (isWritingEvent)="updateThinking($event)"
         />
         <div class="chat-divider"></div>
-        <student-chatbox (sendMessage)="sendMessage($event)" [isThinking]="isThinking" />
+        <student-chatbox
+          (sendMessage)="sendMessage($event)"
+          [isThinking]="isThinking"
+          (endGame)="exit()"
+          [isGaming]="isGaming"
+        />
       </div>
     </div>
     <div class="xl:flex hidden flex-col flex-1 items-end">

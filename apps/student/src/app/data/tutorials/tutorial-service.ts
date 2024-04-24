@@ -4,7 +4,7 @@ import { serverApi } from '@data/auth/interceptor';
 import { DBHelper } from '@data/helper/helper';
 import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { Subject } from '@domain/knowledge/subject/subject';
-import { Exercise, MockTest, TestContent, TestReviewHtml, Topic } from '@share-utils/data';
+import { Exercise, MockTest, QuestionReview, TestContent, TestReviewHtml, Topic } from '@share-utils/data';
 import { catchError } from 'rxjs';
 import { LearningPath, LessonGroup } from '../knowledge/lesson';
 import { MockTestItem } from '../test/test-content';
@@ -14,7 +14,8 @@ import mickTestItems from './data/13_response_get_mock_test.json';
 import lessonDetail from './data/14_response_get_lesson_details.json';
 import exercises from './data/15_response_get_practice_test_question.json';
 import resultHtml from './data/17_response_submit_incorrect_practice_test.json';
-import studentLearningGoals from './data/1_response_get_subject.json';
+import studentLearningGoals from './data/1_response_get_learning_goal.json';
+import subjects from './data/1_response_get_subjects.json';
 import learningGoal from './data/3_response_get_topics.json';
 import mockTest from './data/4_response_get_mock_test_question.json';
 import mockTestResult from './data/7_response_get_mock_test_details.json';
@@ -40,7 +41,10 @@ export class TutorialService {
     return probabilitiIndex2.data;
   }
   submitExercise() {
-    return resultHtml.data;
+    const data = (resultHtml['data'] as any[]).map((questionObject: any) => {
+      return QuestionReview.fromJson(questionObject);
+    });
+    return data[0];
   }
   getExercise(): Exercise {
     return Exercise.fromJson(exercises);
@@ -73,7 +77,7 @@ export class TutorialService {
     return studentLearningGoals.map((json: any) => StudentLearningGoal.fromJson(json));
   }
   getSubjects() {
-    return studentLearningGoals.map((json: any) => Subject.fromJson(json));
+    return subjects.map((json: any) => Subject.fromJson(json));
   }
   getLearningGoals() {
     return studentLearningGoals.map((json: any) => LearningGoal.fromJson(json));

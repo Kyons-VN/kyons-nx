@@ -1,14 +1,33 @@
 {
-    "id": 0,
-    "start_time": "2023-05-30 1:15:42",
-    "end_time": "2023-05-30 1:15:42",
-    "data": [
+  "data": [
+    {
+      "id": 259,
+      "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Phát biểu nào sau đây không phải là một mệnh đề?</span></p>",
+      "answer_id": 1033,
+      "answer_status": false,
+      "answers": [
         {
-            "id": 15307929,
-            "question": 15307929,
-            "user_response": "[[1]]",
-            "user_response_ui": [["3"]],
-            "time_taken": 0
+          "id": 1033,
+          "content": "<p><math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mn>11</mn></math>&nbsp;là số nguyên tố.&nbsp;</p>"
+        },
+        {
+          "id": 1034,
+          "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Hôm nay trời đẹp quá!</span></p>"
+        },
+        {
+          "id": 1035,
+          "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Sydney là thủ đô của Australia.</span></p>"
+        },
+        {
+          "id": 1036,
+          "content": "<p><span class=\"undefined\" data-cfc=\"#000000\" data-cfbg=\"transparent\">Đến năm 2030 các nhà khoa học sẽ điều chế được thuốc điều trị HIV.</span></p>"
         }
-    ]
+      ],
+      "level": null,
+      "explanation": "",
+      "correct_answer": 1034
+    }
+  ],
+  "status": "lesson",
+  "random_status": null
 }

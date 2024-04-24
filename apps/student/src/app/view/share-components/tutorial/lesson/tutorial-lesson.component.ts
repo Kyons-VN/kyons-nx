@@ -13,6 +13,7 @@ import { TutorialService } from '@data/tutorials/tutorial-service';
 import {
   ExerciseContentComponent,
   InputRadioComponent,
+  LatexComponent,
   QuestionsProgressComponent,
   TestContentComponent,
   TutorialComponent,
@@ -43,7 +44,7 @@ import { TrackingLessonComponent } from '@view/share-components/tracking/trackin
     TutorialComponent,
     TestContentComponent,
     InputRadioComponent,
-    OrderBySAPipe,
+    OrderBySAPipe, LatexComponent
   ],
   templateUrl: './tutorial-lesson.component.html',
   styleUrls: ['./tutorial-lesson.component.scss'],
@@ -90,7 +91,6 @@ export class TutorialLessonComponent implements OnInit {
     this.loading.show();
     this.lessonId = this.route.snapshot.params['id'];
     // if (this.lessonId == 'tutorial') {
-    this.lesson = this.tutorialService.getDetail().lessonCategories[0].lessons[0];
     this.exercise = this.tutorialService.getExercise();
     this._initSubmission();
     this.learningGoal = this.tutorialService.getSelectedLearningGoal();
@@ -115,10 +115,9 @@ export class TutorialLessonComponent implements OnInit {
 
   testComplete = () => {
     this.tutorialPart++;
-    const result: any = this.tutorialService.submitExercise();
-    this.progress.value = result['lesson_percentage'];
-    this.progressStr = (result['lesson_percentage'] as number).toFixed(2);
-    this.questionReview = QuestionReview.fromJson(result['result'][0]);
+    // this.progress.value = result['progress'];
+    // this.progressStr = (result['progress'] as number).toFixed(2);
+    this.questionReview = this.tutorialService.submitExercise();
     this.showResult = true;
     setTimeout(() => {
       this.tutorialPart++;

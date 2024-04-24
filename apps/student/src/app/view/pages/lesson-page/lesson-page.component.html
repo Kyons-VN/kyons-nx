@@ -51,7 +51,7 @@
           <a class="btn-rounded btn-icon" (click)="openChat()">
             <i class="icon-HintDocument"></i>
           </a>
-          <button [disabled]="questionReview" class="btn" (click)="showLesson = true">
+          <button class="btn" (click)="showLesson = true">
             <i class="icon-Crown text-white"></i>
             Xem bài học
           </button>
@@ -76,6 +76,7 @@
           ></kyonsvn-exercise-content>
         </div>
         <div *ngIf="questionReview" class="col gap-2">
+          <h5>Lời giải</h5>
           <!-- <span [innerHTML]="questionReview.content | safeHtml"></span> -->
           <!-- <span [innerHTML]="questionReview.html | safeHtml"></span> -->
           <!-- <span [innerHTML]="questionReview.explanation | safeHtml"></span> -->

@@ -540,3 +540,7 @@ flutter-view input:where(:not([type])):focus {
     @apply bg-lightBlue-1 border-lightBlue-1;
   }
 }
+div[data-tooltip-content] label {
+  background-color: white;
+  color: var(--color-primaryBlue);
+}

@@ -42,8 +42,11 @@
         <span class="h7">{{ selectedStudentLearningGoal.program.name }}</span>
       </div>
     </div>
-    <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full">
-      <div *ngIf="mockTests.length !== 0; else learingPathEmptyTemplate" class="w-full flex items-start justify-center">
+    <div *ngIf="!learingPathError; else learingPathErrorTemplate" class="w-full flex items-start justify-center">
+      <div
+        *ngIf="lessons.length !== 0 || isLoadingLessons; else learingPathEmptyTemplate"
+        class="w-full flex items-start justify-center"
+      >
         <div
           *ngIf="lessons.length !== 0 && !showActivateLearningPathBtn"
           #widgetsWrapper

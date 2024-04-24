@@ -80,6 +80,9 @@
   textarea {
     @apply text-primaryBlue;
   }
+  .learning-goal-item {
+    @apply text-primaryBlue;
+  }
 }
 
 @import 'chat/chat-universe.scss';

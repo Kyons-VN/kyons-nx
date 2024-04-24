@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Môn Toán",
+    "status": "activated",
+    "programs": [
+      {
+        "id": 15,
+        "name": "Toán 10 THPTQG"
+      },
+      {
+        "id": 16,
+        "name": "Toán 11 THPTQG"
+      },
+      {
+        "id": 17,
+        "name": "Toán 12 THPTQG"
+      }
+    ]
+  }
+]

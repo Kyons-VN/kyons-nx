@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { answerPrefixes, QuestionReview } from '@share-utils/data';
 import { InputRadioComponent, LatexComponent } from '../..';
 
@@ -15,7 +15,7 @@ interface Review {
   templateUrl: './test-review.component.html',
   styleUrls: ['./test-review.component.scss'],
 })
-export class TestReviewComponent implements OnInit {
+export class TestReviewComponent {
 
   @Input() reviewRenderObject!: Review[];
   @Input() questions!: QuestionReview[];
@@ -23,10 +23,10 @@ export class TestReviewComponent implements OnInit {
 
   answerPrefixes = answerPrefixes;
 
-  ngOnInit(): void {
-    this.reviewRenderObject = this.reviewRenderObject.map(review => {
-      review.isOpen = false;
-      return review;
-    });
-  }
+  // ngOnInit(): void {
+  //   this.reviewRenderObject = this.reviewRenderObject.map(review => {
+  //     review.isOpen = false;
+  //     return review;
+  //   });
+  // }
 }

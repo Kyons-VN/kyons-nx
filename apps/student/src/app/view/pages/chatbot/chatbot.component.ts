@@ -256,6 +256,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.flutterState.setMessage('/play');
   }
 
+  exit() {
+    this.flutterState.setMessage('/end');
+  }
+
   updateThinking(isThinking: boolean) {
     this.isThinking = isThinking;
   }

@@ -31,13 +31,13 @@
     >
       <div class="flex w-full items-end justify-center gap-6">
         <div class="col gap-1 w-full">
-          <h6 class="hidden md:block">{{ progressStr }}%</h6>
+          <!-- <h6 class="hidden md:block">{{ progressStr }}%</h6>
           <span class="h8 md:hidden">{{ progressStr }}%</span>
           <kyonsvn-questions-progress
             [progress]="progress"
             class="w-full"
             [hideLabel]="true"
-          ></kyonsvn-questions-progress>
+          ></kyonsvn-questions-progress> -->
         </div>
         <div class="flex gap-2">
           <a class="btn-rounded btn-icon" href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank">
@@ -47,7 +47,6 @@
             #hint
             data-tooltip-content="Bạn hãy bấm vào đây để xem gợi ý từ Kyons nhé!"
             data-tooltip-position="bottom"
-            [disabled]="questionReview"
             class="btn"
             (click)="showHint = true"
           >
@@ -56,8 +55,8 @@
           </button>
         </div>
       </div>
-      <div #scrollTopElm class="col gap-2 flex-1 overflow-auto">
-        <h6 *ngIf="questionReview">
+      <div #scrollTopElm class="col gap-2 md:flex-1 md:max-h-screen md:overflow-y-auto">
+        <!-- <h6>
           <span *ngIf="!questionReview.isCorrectAnswer" class="text-red-0">Chưa phải đáp án đúng!</span
           ><span *ngIf="questionReview.isCorrectAnswer" class="text-darkEmerald">Đáp án chính xác!</span>
         </h6>
@@ -75,6 +74,36 @@
         </div>
         <div *ngIf="questionReview" class="col gap-2">
           <span [innerHTML]="questionReview.explanation | safeHtml"></span>
+        </div> -->
+        <kyonsvn-latex [inputString]="question.content"></kyonsvn-latex>
+        <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
+        @for (answer of question.answers; track answer.id; let ai = $index){
+        <div
+          class="flex"
+          [ngClass]="{
+            'rounded-lg p-2 gap-2 !text-primaryBlue':
+              answer.id === questionReview?.correctAnswer || answer.id === questionReview?.selectedAnswer,
+            'bg-emerald-3': answer.id === questionReview?.correctAnswer,
+            'bg-red-1': answer.id === questionReview?.selectedAnswer && answer.id !== questionReview?.correctAnswer
+          }"
+        >
+          <kyonsvn-input-radio
+            [style.display]="ai > 3 ? 'none' : 'block'"
+            [checked]="answer.id === questionReview?.selectedAnswer"
+            [answer]="answer"
+            [label]="answerPrefixes[ai] + answer.content"
+            [disabled]="true"
+          ></kyonsvn-input-radio>
+        </div>
+        }
+
+        <!-- <span [innerHTML]="questions[currentQuestionIndex].explanation | safeHtml"></span> -->
+        <div *ngIf="questionReview" class="col gap-2">
+          <h5>Lời giải</h5>
+          <!-- <span [innerHTML]="questionReview.content | safeHtml"></span> -->
+          <!-- <span [innerHTML]="questionReview.html | safeHtml"></span> -->
+          <!-- <span [innerHTML]="questionReview.explanation | safeHtml"></span> -->
+          <kyonsvn-latex [inputString]="questionReview.explanation"></kyonsvn-latex>
         </div>
       </div>
       <div class="justify-between hidden md:flex flex-col gap-3">

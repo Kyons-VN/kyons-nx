@@ -88,7 +88,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   showWhatIsMockTest = false;
   probabilityIndex?: number;
 
-  isLoadingResults = true;
+  isLoadingLessons = true;
   isRateLimitReached = false;
   dataSource: MatTableDataSource<MockTestItem> = new MatTableDataSource<MockTestItem>([]);
   hasNewMockTest = false;
@@ -230,7 +230,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
           return;
         }
         this._getLearningPathData();
-        const requestInterval = interval(10000);
+        const requestInterval = interval(5000);
         this.interval = requestInterval.subscribe(() => this._getLearningPathData());
 
         // this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
@@ -314,9 +314,11 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
       next: (learningPath: LearningPath) => {
         this.learningPath = learningPath;
         this.lessons = this.learningPath.lessons;
+        this.isLoadingLessons = false;
         this._updateLessonsData();
       },
       error: err => {
+        this.isLoadingLessons = false;
         if (err.error == undefined || err.error.error_code == undefined) {
           // this.learingPathError = true;
           return;

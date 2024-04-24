@@ -1,10 +1,12 @@
 {
-  "complete_percentage": 100.0,
+  "id": 42,
+  "progress": 100,
   "lessons": [
     {
-      "id": "cd22887717004173eb98",
-      "name": "Số phức",
-      "progress": 100
+      "id": 65,
+      "progress": 100.0,
+      "name": "Phủ định một mệnh đề",
+      "lesson_content": "https://drive.google.com/file/d/..."
     }
   ]
 }
