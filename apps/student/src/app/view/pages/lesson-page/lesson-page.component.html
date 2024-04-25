@@ -231,7 +231,7 @@
   </div>
 </div>
 <div
-  *ngIf="showLesson"
+  [ngClass]="{ flex: showLesson, hidden: !showLesson }"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
   <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
@@ -244,7 +244,20 @@
       <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
         <p>Alternative content for users without PDF support.</p>
       </object> -->
-      <embed [src]="content | safeResourceUrl" width="100%" height="100%" style="height: 80vh" />
+      <div class="relative h-[80vh] w-full bg-[#313131]">
+        <ng-lottie
+          [options]="options"
+          width="100px"
+          height="100px"
+          class="absolute top-[calc(50%_-_50px)] left-[calc(50%_-_50px)]"
+        ></ng-lottie>
+        <embed
+          [src]="content | safeResourceUrl"
+          width="100%"
+          height="100%"
+          class="w-full h-[80vh] min-h-[80vh] relative"
+        />
+      </div>
       <!-- <embed [src]="content" width="100%" height="100%" style="height: 80vh" /> -->
       <button (click)="showLesson = false" class="btn w-full">Đã hiểu</button>
     </div>

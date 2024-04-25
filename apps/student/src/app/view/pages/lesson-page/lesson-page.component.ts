@@ -22,6 +22,7 @@ import { isCommand } from '@utils/chat';
 import { ChatboxComponent } from '@view/share-components/chat/chatbox.component';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
 import { TrackingLessonComponent } from '@view/share-components/tracking/tracking-lesson.component';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 @Component({
   standalone: true,
@@ -37,6 +38,7 @@ import { TrackingLessonComponent } from '@view/share-components/tracking/trackin
     ChatboxComponent,
     MessagesComponent,
     SafeResourceUrlSAPipe,
+    LottieComponent,
   ],
   templateUrl: './lesson-page.component.html',
 })
@@ -82,6 +84,12 @@ export class LessonPageComponent implements OnInit {
   content!: string;
   shouldViewLesson = false;
   shouldChat = false;
+  options: AnimationOptions = {
+    path: './assets/animations/loading-primary.json',
+    loop: true,
+    autoplay: true,
+  };
+
 
   @ViewChild('exerciseElm') exerciseElm!: ElementRef;
   @ViewChild('scrollTopElm') scrollTopElm!: ElementRef;
