@@ -191,7 +191,7 @@
                   *ngIf="i + bi * 2 === lessons.length"
                   class="lesson-block"
                   [ngClass]="{
-                    'waiting-block': lessons[lessons.length - 1].isNew,
+                    'waiting-block': !learningPath.isCompleted,
                     'finish-block finish-blockXs': learningPath.isCompleted
                   }"
                   (click)="onLastLessonBlockClick()"
@@ -200,10 +200,10 @@
                   <b *ngIf="learningPath.isCompleted" class="text-[12px] md:text-[16px] w-full text-center !mt-[-10px]"
                     >Tới cuối đường</b
                   >
-                  <b *ngIf="lessons[lessons.length - 1].isNew" class="text-[12px] md:text-[16px]"
+                  <b *ngIf="!learningPath.isCompleted" class="text-[12px] md:text-[16px]"
                     >(Đang chờ được khám phá...)</b
                   >
-                  <div *ngIf="lessons[lessons.length - 1].isNew" class="flex w-full justify-center relative">
+                  <div *ngIf="!learningPath.isCompleted" class="flex w-full justify-center relative">
                     <i class="icon-Lock text-5xl mt-[-44px] absolute"></i>
                   </div>
                 </button>
@@ -220,14 +220,14 @@
         </div> -->
       </div>
       <ng-template #learingPathEmptyTemplate>
-        <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
+        <div class="col w-full max-w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
           <h5 class="text-blueGrey-500">Meo meo meo meo, trả lại tâm trí tôi đây...</h5>
           <h6 class="h6 text-white">Bạn đợi một chút để AI của Kyons trả lại lộ trình học tập cho bạn nhé ><</h6>
         </div>
       </ng-template>
     </div>
     <ng-template #learingPathErrorTemplate>
-      <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
+      <div class="col w-full max-w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
         <h5 class="text-blueGrey-500">Meo meo meo meo, trả lại tâm trí tôi đây...</h5>
         <h6 class="h6 text-white">Bạn đợi một chút để AI của Kyons trả lại lộ trình học tập cho bạn nhé ><</h6>
       </div>

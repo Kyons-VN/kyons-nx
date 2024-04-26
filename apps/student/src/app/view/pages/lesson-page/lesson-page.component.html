@@ -234,7 +234,7 @@
   [ngClass]="{ flex: showLesson, hidden: !showLesson }"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
-  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[700px] items-center">
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[800px] items-center">
     <div class="col w-full gap-6">
       <div class="flex justify-between">
         <h3>Nội dung bài học</h3>
@@ -244,6 +244,9 @@
       <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
         <p>Alternative content for users without PDF support.</p>
       </object> -->
+      @if(content===''){
+      <div class="">Bài học chưa cập nhật nội dung</div>
+      } @else {
       <div class="relative h-[80vh] w-full bg-[#313131]">
         <ng-lottie
           [options]="options"
@@ -258,6 +261,8 @@
           class="w-full h-[80vh] min-h-[80vh] relative"
         />
       </div>
+      }
+
       <!-- <embed [src]="content" width="100%" height="100%" style="height: 80vh" /> -->
       <button (click)="showLesson = false" class="btn w-full">Đã hiểu</button>
     </div>
