@@ -9,15 +9,16 @@ import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { TestService } from '@data/test/test.service';
 import { TestReviewComponent } from '@share-components';
-import { SafeHtmlPipe } from '@share-pipes';
+import { SafeHtmlPipe, SafeResourceUrlSAPipe } from '@share-pipes';
 import { answerPrefixes, QuestionReview } from '@share-utils/data';
 import { MockTestStatus } from '@share-utils/domain';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, SafeHtmlPipe, LoadingComponent, TopMenuComponent, TestReviewComponent],
+  imports: [CommonModule, RouterModule, FormsModule, SafeHtmlPipe, LoadingComponent, TopMenuComponent, TestReviewComponent, LottieComponent, SafeResourceUrlSAPipe],
   templateUrl: './lesson-review-page.component.html',
 })
 export class LessonReviewPageComponent implements OnInit {
@@ -40,6 +41,13 @@ export class LessonReviewPageComponent implements OnInit {
   status: MockTestStatus = MockTestStatus.active;
   MockTestStatus = MockTestStatus;
   answerPrefixes = answerPrefixes;
+  showLesson = false;
+  options: AnimationOptions = {
+    path: './assets/animations/loading-primary.json',
+    loop: true,
+    autoplay: true,
+  };
+  content = inject(LessonService).getContent();
 
   @ViewChild('scrollElm') scrollElm!: ElementRef;
 

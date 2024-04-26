@@ -29,10 +29,17 @@
             >Đáp án chính xác!</span
           > -->
         </h6>
-        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded hidden md:flex">Báo lỗi</a>
-        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded btn-icon block md:hidden"
-          ><i class="icon-Error"></i
-        ></a>
+        <div class="flex-1"></div>
+        <div class="flex gap-4 items-center">
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded hidden md:flex">Báo lỗi</a>
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded btn-icon block md:hidden"
+            ><i class="icon-Error"></i
+          ></a>
+          <button class="btn" (click)="showLesson = true">
+            <i class="icon-Crown text-white"></i>
+            Xem bài học
+          </button>
+        </div>
       </div>
       <kyonsvn-test-review [questions]="questions" [currentQuestionIndex]="currentQuestionIndex" />
     </div>
@@ -101,5 +108,43 @@
         Tạo lộ trình học
       </button>
     </div> -->
+  </div>
+</div>
+<div
+  [ngClass]="{ flex: showLesson, hidden: !showLesson }"
+  class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
+>
+  <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[800px] items-center">
+    <div class="col w-full gap-6">
+      <div class="flex justify-between">
+        <h3>Nội dung bài học</h3>
+        <button class="btn-rounded btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
+      </div>
+      <!-- <p [innerHTML]="content | safeHtml"></p> -->
+      <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
+        <p>Alternative content for users without PDF support.</p>
+      </object> -->
+      @if(content!==''){
+      <div class="">Bài học chưa cập nhật nội dung</div>
+      } @else {
+      <div class="relative h-[80vh] w-full bg-[#313131]">
+        <ng-lottie
+          [options]="options"
+          width="100px"
+          height="100px"
+          class="absolute top-[calc(50%_-_50px)] left-[calc(50%_-_50px)]"
+        ></ng-lottie>
+        <embed
+          [src]="content | safeResourceUrl"
+          width="100%"
+          height="100%"
+          class="w-full h-[80vh] min-h-[80vh] relative"
+        />
+      </div>
+      }
+
+      <!-- <embed [src]="content" width="100%" height="100%" style="height: 80vh" /> -->
+      <button (click)="showLesson = false" class="btn w-full">Đã hiểu</button>
+    </div>
   </div>
 </div>

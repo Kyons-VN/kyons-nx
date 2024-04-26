@@ -10,6 +10,7 @@
     "start:wl": "pnpm nx run waiting-list:serve:dev --host=127.0.0.1",
     "start:teacher": "pnpm nx run teacher:serve:development --host=127.0.0.1",
     "build": "pnpm exec nx run student:build --configuration=prod",
+    "build:stg": "pnpm exec nx run student:build --configuration=stg",
     "test": "pnpm nx test"
   },
   "private": true,
