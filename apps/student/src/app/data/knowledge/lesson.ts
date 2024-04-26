@@ -22,7 +22,7 @@ class LessonItem implements ILessonItem {
   static fromJson(dataObject: any): LessonItem {
     const _ = pick(dataObject, ['name', 'id', 'progress', 'lesson_content']);
     const lesson = new LessonItem(_);
-    lesson.content = _.lesson_content;
+    lesson.content = _.lesson_content ?? '';
     return lesson;
   }
 
@@ -222,6 +222,7 @@ class Lesson implements ILesson {
     _.learningPointId = data['learning_point_id'].toString();
     _.learningPointDifficultyId = data['learning_point_difficulty_id'].toString();
     _.difficultyLevel = data['difficulty_level'];
+    _.content = _.content ?? '';
     return new Lesson(_);
   }
 
