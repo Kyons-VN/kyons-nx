@@ -16,6 +16,7 @@ import { SelectTopicComponent } from './pages/mock-test/select-topic/select-topi
 import { MockTestShareComponent } from './pages/mock-test/share/share.component';
 import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.component';
 // import { NewUserComponent } from './pages/new-user/new-user.component';
+import { AdminAuthGuard } from './admin-auth.guard';
 import { ChatbotComponent } from './pages/chatbot/chatbot.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { TestComponent } from './pages/test/test.component';
@@ -58,6 +59,8 @@ class AppPaths {
   termsOfService = { name: '', path: '/terms-of-service' };
   chatbot = { name: 'Chatbot', path: '/chatbot' };
   chat = { name: 'Chat', path: '/chatbot/chat/:id' };
+  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
+  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
 }
 
 const routes: Routes = [
@@ -163,6 +166,30 @@ const routes: Routes = [
         loadComponent: () => import('./pages/sign-up/resend-verified.component').then(m => m.ResendVerifiedComponent),
       },
     ],
+  },
+  {
+    path: 'admin',
+    component: LayoutFullComponent,
+    canActivate: [AdminAuthGuard],
+    children: [
+      {
+        path: '',
+        component: ChatbotComponent,
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
+      },
+    ],
+  },
+  {
+    path: 'admin/sign-in',
+    loadComponent: () => import('./pages/admin/sign-in/admin-sign-in.component').then(m => m.AdminSignInComponent),
+  },
+  {
+    path: 'admin/sign-out',
+    loadComponent: () => import('./pages/admin/sign-out/sign-out.component').then(m => m.AdminSignOutComponent),
   },
   {
     path: 'email-verification',

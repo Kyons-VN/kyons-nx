@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { AdminAuthService } from '@data/admin/admin-auth.service';
 
-import { AuthService } from '@data/auth/auth.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 
 // @Injectable({ providedIn: 'root' })
@@ -44,7 +44,7 @@ import { NavigationService } from '@data/navigation/navigation.service';
 class AdminPermissionsService {
   // constructor(private router: Router) {}
   router = inject(Router);
-  authenticationService = inject(AuthService);
+  authenticationService = inject(AdminAuthService);
   paths = inject(NavigationService).paths;
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -55,7 +55,7 @@ class AdminPermissionsService {
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate([this.paths.signIn.path], {
+    this.router.navigate([this.paths.adminSignIn.path], {
       queryParams: { returnUrl: state.url },
     });
     return false;

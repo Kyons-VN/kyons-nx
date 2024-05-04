@@ -11,6 +11,7 @@
     "start:teacher": "pnpm nx run teacher:serve:development --host=127.0.0.1",
     "build": "pnpm exec nx run student:build --configuration=prod",
     "build:stg": "pnpm exec nx run student:build --configuration=stg",
+    "build:dev": "pnpm exec nx run student:build --configuration=dev",
     "test": "pnpm nx test"
   },
   "private": true,

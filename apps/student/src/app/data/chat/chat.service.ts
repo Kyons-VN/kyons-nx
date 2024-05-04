@@ -14,7 +14,7 @@ const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
 @Injectable({
   providedIn: 'root',
 })
-export class ChatService {
+class ChatService {
   resetLessonChat(userId: any, lessonId: string) {
     return this.http.put(`${chatServerApi}/user/${userId}/resetLessonChat/${lessonId}`, null);
   }
@@ -63,7 +63,7 @@ export class ChatService {
     );
   }
 
-  getChats(userId: string): Observable<any> {
+  getChats(userId: string): Observable<Chat[]> {
     return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
       catchError(DBHelper.handleError('GET getChats', [])),
       map((res: any) => {
@@ -94,7 +94,7 @@ export class ChatService {
   }
 }
 
-export { Chat };
+export { Chat, ChatService, chatServerApi };
 // const chatConverter = {
 //   toFirestore(value: WithFieldValue<Chat>) {
 //     return { value };

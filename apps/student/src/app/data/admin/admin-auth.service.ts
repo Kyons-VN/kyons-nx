@@ -3,12 +3,13 @@ import { Injectable, inject } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import { Auth } from '@angular/fire/auth';
 import { TOKEN_HEADER_KEY, serverApi } from '@data/auth/interceptor';
+import { chatServerApi } from '@data/chat/chat.service';
 import { DBHelper } from '@data/helper/helper';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { sandboxAccounts } from '@domain/auth/sandbox-account';
 import { environment } from '@environments';
 import { GoogleAuthProvider, browserPopupRedirectResolver, signInWithPopup } from 'firebase/auth';
-import { catchError, map } from 'rxjs';
+import { catchError, firstValueFrom, map } from 'rxjs';
 import { AdminService, CURRENT_ADMIN } from './admin-service.service';
 
 const TOKEN_KEY = 'flutter.access_token';
@@ -123,7 +124,18 @@ export class AdminAuthService implements IAuthService {
       console.log('googleSignIn');
       // browserPopupRedirectResolver;
       await signInWithPopup(this.afAuth, new GoogleAuthProvider(), browserPopupRedirectResolver);
-      console.log(this.afAuth.currentUser);
+      // console.log(this.afAuth.currentUser);
+      const adminToken = await this.afAuth.currentUser?.getIdToken();
+      // console.log(adminToken);
+
+      const http = new HttpClient(this.backend);
+      const contentType = 'application/json';
+      const options = {
+        headers: new HttpHeaders().set(TOKEN_HEADER_KEY, `Bearer ${adminToken}`).set('Content-Type', contentType),
+      };
+
+      const isAdmin = await firstValueFrom(http.post(chatServerApi + '/isAdmin', null, options));
+      console.log(isAdmin);
 
       // const user = userCred.user;
       // if (user) {

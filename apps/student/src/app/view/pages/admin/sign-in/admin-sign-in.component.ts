@@ -20,6 +20,9 @@ export class AdminSignInComponent {
   async loginGoogle() {
     const user = await this.authService.googleSignIn();
 
+    console.log(user);
+
+
     if (user) {
       this.router.navigate([this.paths.adminDashboard.path]);
     }

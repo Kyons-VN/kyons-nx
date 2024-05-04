@@ -1,6 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, getCountFromServer } from '@angular/fire/firestore';
+import { chatServerApi } from '@data/chat/chat.service';
 import { QueryDocumentSnapshot, WithFieldValue } from 'firebase/firestore';
+import { firstValueFrom, map } from 'rxjs';
+import ChatUser from './chat-user';
 
 export const CURRENT_ADMIN = 'flutter.currentUser';
 
@@ -9,9 +13,31 @@ export const CURRENT_ADMIN = 'flutter.currentUser';
 })
 export class AdminService {
   db = inject(Firestore);
-  getUsers() {
+  http = inject(HttpClient);
+  resetMana(id: string) {
+    return this.http.post(`${chatServerApi}/user/${id}/resetMana`, null);
+  }
+  async getUsers(): Promise<Array<ChatUser>> {
+    const usersStorage: any[] = JSON.parse(window.localStorage.getItem('users') ?? '[]');
+    if (usersStorage.length > 0) {
+      return usersStorage.map((user) => ChatUser.fromJson(user));
+    }
+    console.log('get users from firestore');
+
     const collectionRef = collection(this.db, `users`).withConverter(userConverter);
-    return collectionData(collectionRef);
+    const users = await firstValueFrom(collectionData(collectionRef).pipe(map((users) => users.filter(user => user.email).map(user => ChatUser.fromJson(user)))));
+    window.localStorage.setItem('users', JSON.stringify(users));
+    return users;
+  }
+  async countUsers() {
+    const collectionRef = collection(this.db, `users`);
+    const snapshot = await getCountFromServer(collectionRef);
+
+    return snapshot.data().count;
+  }
+
+  clearStorage() {
+    window.localStorage.removeItem('users');
   }
 }
 const userConverter = {
@@ -19,8 +45,6 @@ const userConverter = {
     return { value };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot) {
-    console.log(snapshot.id);
-
     return { uid: snapshot.id, ...snapshot.data() };
   },
 };

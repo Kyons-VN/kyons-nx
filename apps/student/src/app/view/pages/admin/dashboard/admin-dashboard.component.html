@@ -1,2 +1,49 @@
-<p>admin-dashboard works!</p>
-<div class="" *ngFor="let user of users | async">{{ user.email | json }}</div>
+<div class="flex items-start justify-center p-10">
+  <div class="flex flex-col max-w-[700px] w-full gap-4">
+    <div class="flex justify-between">
+      <p>Total users: {{ totalUsers }}</p>
+      <button class="btn btn-icon" (click)="refresh()"><i class="icon-Reload"></i></button>
+    </div>
+    Search: <input type="text" [(ngModel)]="search" />
+    <div class="flex flex-col border border-blueGrey-300">
+      <div
+        class="flex flex-col"
+        *ngFor="let user of users | filter : filterUser.bind(this)"
+        [ngClass]="{ 'cursor-pointer': selectedUser !== user }"
+        (click)="selectedUser !== user && selectUser(user)"
+      >
+        <div class="flex items-center justify-between border-b border-blueGrey-400 bg-white hover:bg-blueGrey-100 p-4">
+          <div class="flex flex-col">
+            <span>{{ user.id }}</span>
+            <span>{{ user.email }}</span>
+          </div>
+          <div class="flex gap-3 items-center" *ngIf="selectedUser === user">
+            <strong class="text-lightBlue-1 cursor-pointer" (click)="selectUser(user)">{{ mana }}</strong>
+            <button class="btn small" [disabled]="mana === -1" (click)="resetMana(user)">Reset Mana</button>
+            <button class="btn small" [disabled]="mana === -1" (click)="viewChat(user)">View Chat</button>
+          </div>
+        </div>
+        <div class="flex flex-col" *ngIf="selectedUser === user">
+          @if(selectedUser&&(selectedUser.history!==null&&selectedUser.history.length===0)){
+          <div class="p-4">Empty history</div>
+          } @else if(selectedUser&&selectedUser.history) {
+          <div class="flex flex-col p-2 border border-lightBlue-3">
+            <div class="" *ngFor="let chat of selectedUser.history; let i = index">
+              <div
+                class="w-full p-2 cursor-pointer bg-lightBlue-5 border-b border-lightBlue-3 flex justify-between"
+                (click)="getMessages(chat)"
+              >
+                <span>{{ chat.id }}</span>
+                <i [ngClass]="{ 'icon-ChevronUp': !toggleList[i], 'icon-ChevronDown': toggleList[i] }"></i>
+              </div>
+              <div class="bg-white" [ngClass]="{ 'p-2': chat.messages.length > 0 }">
+                <student-messages [messages]="chat.messages" />
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

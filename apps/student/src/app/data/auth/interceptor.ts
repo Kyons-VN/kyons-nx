@@ -9,7 +9,7 @@ import {
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppPaths } from '@view/routes';
-import { Observable, catchError, lastValueFrom, of, throwError, timeout } from 'rxjs';
+import { Observable, catchError, switchMap, throwError, timeout } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { NavigationService } from '../navigation/navigation.service';
 import { AuthService } from './auth.service';
@@ -52,41 +52,43 @@ export class AuthInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           if (error.error instanceof ErrorEvent) {
             console.log('this is client side error');
+            return throwError(() => error.error);
           } else {
             console.log('this is server side error');
             if (error.status === 401) {
-              this.handleRefreshToken(authReq, req, next, contentType);
-            } // else this.redirectToHome();
+              return this.handleRefreshToken(authReq, req, next, contentType);
+            }
+            else {
+              return throwError(() => error.error);
+            }
           }
-          // console.log(errorMsg);
-          return throwError(() => error.error);
         })
       )
       .pipe(timeout(timeoutValueNumeric));
   }
 
-  handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+  // handleError<T>(operation = 'operation', result?: T) {
+  //   return (error: any): Observable<T> => {
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-      // if (error.status === 401) {
-      //   const refreshToken = this.auth.getRefreshToken();
-      //   if (refreshToken !== null) {
-      //     const result = lastValueFrom(this.auth.refreshToken(refreshToken));
-      //     console.log(result);
-      //     if (result != null) this.auth.setToken(result);
-      //     else this.forceSignOut();
-      //   } else {
-      //     this.forceSignOut();
-      //   }
-      // }
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+  //     // TODO: better job of transforming error for user consumption
+  //     console.log(`${operation} failed: ${error.message}`);
+  //     // if (error.status === 401) {
+  //     //   const refreshToken = this.auth.getRefreshToken();
+  //     //   if (refreshToken !== null) {
+  //     //     const result = lastValueFrom(this.auth.refreshToken(refreshToken));
+  //     //     console.log(result);
+  //     //     if (result != null) this.auth.setToken(result);
+  //     //     else this.forceSignOut();
+  //     //   } else {
+  //     //     this.forceSignOut();
+  //     //   }
+  //     // }
+  //     // Let the app keep running by returning an empty result.
+  //     return of(result as T);
+  //   };
+  // }
 
   forceSignOut() {
     this.auth.signOut();
@@ -102,34 +104,27 @@ export class AuthInterceptor implements HttpInterceptor {
   handleRefreshToken(authReq: HttpRequest<any>, req: HttpRequest<any>, next: HttpHandler, contentType: string) {
     const refreshToken = this.auth.getRefreshToken();
     if (refreshToken && refreshToken !== 'undefined') {
-      lastValueFrom(this.auth.refreshToken(refreshToken)).then(
-        (value: any) => {
+      return this.auth.refreshToken(refreshToken).pipe(
+        switchMap((value: any) => {
           if (value.access_token === undefined || value.access_token === null || value.access_token === 'undefined') {
             this.forceSignOut();
-            return;
+            return throwError(() => 'Response no access_token');
           }
           this.auth.setToken(value);
           authReq = req.clone({
             headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token).set('Content-Type', contentType),
           });
-          next.handle(authReq).subscribe({
-            error: e => {
-              console.log(e);
-              throwError(() => 'server error');
-              this.forceSignOut();
-            },
-          });
-        },
-        e => {
+          return next.handle(authReq);
+        }),
+        catchError((e) => {
           console.log(e);
-          throwError(() => 'Invalid refreshToken');
           this.forceSignOut();
-        }
+          return throwError(() => 'Invalid refreshToken');
+        })
       );
     } else {
-      // this.forceSignOut();
-      throwError(() => 'no refreshToken');
-      console.log('forceSignOut');
+      this.forceSignOut();
+      return throwError(() => 'No refreshToken');
     }
   }
 }

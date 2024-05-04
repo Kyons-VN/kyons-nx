@@ -40,7 +40,7 @@
             "bundleName": "find-me-game"
           }
         ],
-        "allowedCommonJsDependencies": ["lottie-web"]
+        "allowedCommonJsDependencies": ["lottie-web", "buffer", "extract-math"]
       },
       "configurations": {
         "prod": {
