@@ -204,8 +204,21 @@ export class AccountAndPaymentComponent implements OnInit {
     this.loadOrderHistory();
   }
 
-}
+  upgrade(pk: Package) {
+    if (this.currentPackage.level === 0) {
+      this.selectPackage(pk);
+    }
+    else {
+      this.selectedPackage = pk;
+      this.showUpgrade = true;
+    }
+  }
 
+  confirmUpgrade() {
+    this.selectPackage(this.selectedPackage);
+  }
+
+}
 
 function toTime(totalhours: number) {
   const days = Math.floor(totalhours / 24);
