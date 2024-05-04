@@ -20,7 +20,7 @@ export class KnowledgeService implements IKnowledgeService {
   // getLearningGoalList() {
   //   return this.http.get(`${serverApi()}/api/v2/`).pipe(
   //     catchError(DBHelper.handleError('GET learning_goal_list', [])),
-  //     map((collection: any) => {
+  //     map((dataObject: any) => {
   //       if (collection.length === 0) return [];
   //       return collection.map((item: any) => Subject.fromJson(item));
   //     })
@@ -31,9 +31,9 @@ export class KnowledgeService implements IKnowledgeService {
   getSubjects(): Observable<Subject[]> {
     return this.http.get(`${serverApi()}/api/v2/subjects`).pipe(
       catchError(DBHelper.handleError('GET subjects_list', [])),
-      map((collection: any) => {
-        if (collection.length === 0) return [];
-        return collection.map((item: any) => Subject.fromJson(item));
+      map((dataObject: any) => {
+        if (dataObject.data == null || dataObject.data.length === 0) return [];
+        return dataObject.data.map((item: any) => Subject.fromJson(item));
       })
     );
   }
@@ -41,9 +41,9 @@ export class KnowledgeService implements IKnowledgeService {
   getPrograms(): Observable<Program[]> {
     return this.http.get(`${serverApi()}/students/programs`).pipe(
       catchError(DBHelper.handleError('GET programs_list', [])),
-      map((collection: any) => {
-        if (collection.length === 0) return [];
-        return collection.map((item: any) => Program.fromJson(item));
+      map((dataObject: any) => {
+        if (dataObject.data == null || dataObject.data.length === 0) return [];
+        return dataObject.data.map((item: any) => Program.fromJson(item));
       })
     );
   }

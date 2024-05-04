@@ -55,10 +55,8 @@
       ></kyonsvn-tutorial>
     </div>
   </div>
-  <div
-    *ngIf="hasError === 'ExistentUnsubmittedMockTest'"
-    class="fixed w-full h-full left-0 top-0 flex flex-col items-center justify-center bg-blueGrey-100 p-6 md:m-0"
-  >
+  @if(hasError === 'ExistentUnsubmittedMockTest'){
+  <div class="fixed w-full h-full left-0 top-0 flex flex-col items-center justify-center bg-blueGrey-100 p-6 md:m-0">
     <div class="w-full md:w-[400px] bg-white rounded-lg p-8 flex flex-col gap-6">
       <div class="flex flex-col gap-2">
         <div class="h7">Chưa hoàn tất bài kiểm tra thử thông minh</div>
@@ -76,4 +74,18 @@
     </div>
     <div class="h-1/3"></div>
   </div>
+  } @else if(hasError!==''){
+  <div class="fixed w-full h-full left-0 top-0 flex flex-col items-center justify-center bg-blueGrey-100 p-6 md:m-0">
+    <div class="w-full md:w-[400px] bg-white rounded-lg p-8 flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <div class="h7">Có lỗi</div>
+        <span>{{ hasError }}</span>
+      </div>
+      <div class="w-full">
+        <a class="btn" (click)="hasError = ''">Đã hiểu</a>
+      </div>
+    </div>
+    <div class="h-1/3"></div>
+  </div>
+  }
 </div>

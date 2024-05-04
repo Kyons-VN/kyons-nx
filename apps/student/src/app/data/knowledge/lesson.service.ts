@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { serverApi } from '@data/auth/interceptor';
 import { MockTestItem } from '@data/test/test-content';
 import ILessonService from '@domain/knowledge/i-lesson-service';
-import { Submission, TestReviewHtml } from '@share-utils/data';
+import { Exercise, Submission, TestReviewHtml } from '@share-utils/data';
 import { Observable, catchError, map } from 'rxjs';
 import { DBHelper } from '../helper/helper';
 import { StudentLearningGoal } from './learning-goal';
@@ -114,14 +114,14 @@ export class LessonService implements ILessonService {
     return window.localStorage.getItem('content') ?? '';
   }
 
-  submitExercise(learningGoalId: string, lessonId: string, submission: Submission) {
+  submitExercise(lessonId: string, submission: Submission) {
     const params = {
       "test_question_id": Number(submission.testId),
       "answer_id": Number(Object.values(submission.submitData)[0]),
     }
 
     return this.http
-      .post(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}`, params)
+      .post(`${serverApi()}/api/v2/users/lessons/${lessonId}`, params)
       .pipe(
         catchError(DBHelper.handleError('GET submit_answers', Error)),
         map((res: any) => {
@@ -162,8 +162,8 @@ export class LessonService implements ILessonService {
       );
   }
 
-  getReviewHtml(learningGoalId: string, lessonId: string) {
-    return this.http.get(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}/review`).pipe(
+  getReviewHtml(lessonId: string) {
+    return this.http.get(`${serverApi()}/api/v2/users/lessons/${lessonId}/review`).pipe(
       catchError(DBHelper.handleError('GET practice_test/review', [])),
       map((res: any) => {
         // res = mockTestReviewJson;
@@ -180,9 +180,9 @@ export class LessonService implements ILessonService {
       })
       .pipe(
         catchError(DBHelper.handleError('GET self_study_path')),
-        map((collection: any) => {
-          if (collection.length === 0) return [];
-          return collection.map((dataObject: any) => LearningPoint.fromJson(dataObject));
+        map((dataObject: any) => {
+          if (dataObject.data.length === 0) return [];
+          return dataObject.data.map((dataObject: any) => LearningPoint.fromJson(dataObject));
         })
       );
   }
@@ -213,5 +213,16 @@ export class LessonService implements ILessonService {
       );
     // },
     // });
+  }
+
+  getExercise(lessonId: string): Observable<Exercise> {
+    return this.http.get(`${serverApi()}/api/v2/users/lessons/${lessonId}/questions`).pipe(
+      // catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
+      map((dataObject: any) => {
+        const result = Exercise.fromJson(dataObject);
+        // result.progress = dataObject['lesson_percentage'];
+        return result;
+      })
+    );
   }
 }

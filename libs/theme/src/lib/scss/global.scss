@@ -287,19 +287,19 @@ p {
   &:disabled {
     @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
   }
-}
-.btn-rounded {
-  @apply bg-white text-orange border-blueGrey-300;
-  &:active {
-    @apply border-orange text-orange;
-  }
-  &:hover {
-    @apply shadow-1;
-  }
-  &:disabled {
-    @apply border-blueGrey-300 text-blueGrey-300 bg-white;
+  &.btn-rounded {
+    @apply bg-white text-orange border-blueGrey-300;
+    &:active {
+      @apply border-orange text-orange;
+    }
     &:hover {
-      @apply shadow-none cursor-not-allowed;
+      @apply shadow-1;
+    }
+    &:disabled {
+      @apply border-blueGrey-300 text-blueGrey-300 bg-white;
+      &:hover {
+        @apply shadow-none cursor-not-allowed;
+      }
     }
   }
 }
@@ -544,6 +544,5 @@ div[data-tooltip-content] label {
   background-color: white;
   color: var(--color-primaryBlue);
 }
-.lesson-loading{
-  
+.lesson-loading {
 }

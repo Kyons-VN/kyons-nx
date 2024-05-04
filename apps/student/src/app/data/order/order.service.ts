@@ -101,7 +101,7 @@ export class OrderService implements IOrderServicce {
       quantity: quantity,
       paid_method: paymentMethod == 'bank_transfer' ? 100 : 200,
     };
-    return this.http.post(`${serverApi()}/api/v2/users/orders`, params).pipe(
+    return this.http.post(`${serverApi()}/api/v2/users/orders/new`, params).pipe(
       // catchError(DBHelper.handleError('POST orderPackage')),
       map((res: any) => {
         if (res.data === undefined || res.data.order_code === undefined) return '';

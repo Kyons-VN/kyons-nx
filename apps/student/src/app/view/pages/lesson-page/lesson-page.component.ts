@@ -112,7 +112,7 @@ export class LessonPageComponent implements OnInit {
 
   _getQuestion() {
     this.isSubmitting = true;
-    this.testService.getExercise(this.learningGoal.id, this.route.snapshot.params['id']).subscribe({
+    this.lessonService.getExercise(this.route.snapshot.params['id']).subscribe({
       next: (exercise: Exercise) => {
         this.exercise = exercise;
         this.question = exercise.questions[0];
@@ -166,7 +166,7 @@ export class LessonPageComponent implements OnInit {
       // this.currentForm.querySelectorAll('input[type="radio"]').forEach((input, index) => {
       //   input.setAttribute('disabled', 'disabled');
       // });
-      this.lessonService.submitExercise(this.learningGoal.id, this.lessonId, this.submission).subscribe({
+      this.lessonService.submitExercise(this.lessonId, this.submission).subscribe({
         next: (res: any) => {
           console.log(res);
           // this.progress.value = result['lesson_percentage'];

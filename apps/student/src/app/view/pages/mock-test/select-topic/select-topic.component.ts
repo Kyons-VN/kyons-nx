@@ -85,6 +85,16 @@ export class SelectTopicComponent implements OnInit {
         next: testId => {
           this.router.navigate([this.paths.mockTestTest.path.replace(':id', testId)]);
         },
+        error: (err) => {
+          console.log(err);
+          if (err.error_code) {
+            this.hasError = err.error_code;
+          }
+          else {
+            this.hasError = 'Có lỗi, vui được thử lại sau';
+          }
+          this.loading.hide();
+        }
       });
   }
 

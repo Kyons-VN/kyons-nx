@@ -9,7 +9,7 @@ import { UserService } from '../user/user.service';
 // import { Submission } from './submission';
 // import { TestContent, TestResult } from './test-content';
 
-import { Exercise, MockTest, Submission, TestContent, TestResult, TestReviewHtml, Topic } from '@share-utils/data';
+import { MockTest, Submission, TestContent, TestResult, TestReviewHtml, Topic } from '@share-utils/data';
 
 @Injectable({
   providedIn: 'root',
@@ -56,17 +56,6 @@ export class TestService {
     );
   }
 
-  getExercise(learningGoalId: string, lessonId: string): Observable<Exercise> {
-    return this.http.get(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/lessons/${lessonId}/questions`).pipe(
-      // catchError(DBHelper.handleError('GET get_lesson_exercise', [])),
-      map((dataObject: any) => {
-        const result = Exercise.fromJson(dataObject);
-        // result.progress = dataObject['lesson_percentage'];
-        return result;
-      })
-    );
-  }
-
   // submitTest(submission: Submission) {
   //   let params = {
   //     test_id: submission.testId,
@@ -84,7 +73,7 @@ export class TestService {
   submitTest(submission: Submission) {
     console.log(submission.toJson());
     return this.http
-      .post(`${serverApi()}/api/v2/users/submit_mock_test/${submission.testId}`, submission.toJson())
+      .post(`${serverApi()}/api/v2/users/mock_tests/${submission.testId}/submit`, submission.toJson())
       .pipe(
         catchError(DBHelper.handleError('GET submit_answers', Error('Server Error')))
         // map((res: any) => {
@@ -101,7 +90,7 @@ export class TestService {
         // .get<LearningGoal[]>(`${serverApi()}/lesson/list', { params: params })
         .pipe(
           // catchError(DBHelper.handleError('GET getLearningGoals', [])),
-          map((collections: any) => {
+          map((dataObject: any) => {
             // collections = [
             //   {
             //     id: 1,
@@ -148,8 +137,8 @@ export class TestService {
             //     ],
             //   },
             // ];
-            if (collections.length == 0) return [];
-            return collections.map((dataObject: any) => LearningGoal.fromJson(dataObject));
+            if (dataObject.data == null || dataObject.data.length === 0) return [];
+            return dataObject.data.map((dataObject: any) => LearningGoal.fromJson(dataObject));
           })
         )
     );
@@ -173,8 +162,8 @@ export class TestService {
       topics: topicIds.map(str => parseInt(str)),
     };
 
-    return this.http.post(`${serverApi()}/api/v2/users/mock_tests`, params).pipe(
-      catchError(DBHelper.handleError('GET submitTopics', Error('Server Error'))),
+    return this.http.post(`${serverApi()}/api/v2/users/mock_tests/new`, params).pipe(
+      // catchError(DBHelper.handleError('GET submitTopics', Error('Server Error'))),
       map((res: any) => {
         return res['test_id'];
       })

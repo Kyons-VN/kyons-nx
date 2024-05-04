@@ -43,7 +43,7 @@
     "sharedGlobals": []
   },
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "pnpm"
   },
   "generators": {
     "@nrwl/angular:application": {

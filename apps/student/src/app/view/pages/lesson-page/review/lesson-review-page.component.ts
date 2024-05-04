@@ -53,7 +53,7 @@ export class LessonReviewPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.mockTestId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.lessonService.getReviewHtml(this.learningGoal.id, this.mockTestId).subscribe({
+    this.lessonService.getReviewHtml(this.mockTestId).subscribe({
       next: (result: any) => {
         console.log(result);
         this.questions = result.data;
