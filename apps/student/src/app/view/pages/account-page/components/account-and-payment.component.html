@@ -162,7 +162,7 @@
               <button
                 *ngIf="package.level > 0 && package.level > currentPackage.level"
                 class="btn"
-                (click)="currentPackage.level === 0 ? selectPackage(package) : (showUpgrade = true)"
+                (click)="upgrade(package)"
               >
                 Nâng cấp gói
               </button>
@@ -564,7 +564,7 @@
     </p>
     <div class="flex gap-4">
       <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
-      <button class="btn" (click)="selectPackage(selectedPackage)">Tiếp tục nâng cấp</button>
+      <button class="btn" (click)="confirmUpgrade()">Tiếp tục nâng cấp</button>
     </div>
   </div>
 </div>
