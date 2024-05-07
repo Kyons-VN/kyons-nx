@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from '@data/auth/auth.service';
 import { TrackingService } from '@data/tracking/tracking.service';
 
 @Component({
@@ -12,11 +13,13 @@ export class TrackingComponent implements OnInit, OnDestroy {
   _mouseInactiveTimeout: any;
   _trackingInterval: any;
 
-  constructor(private service: TrackingService) { }
+  service = inject(TrackingService);
+  authService = inject(AuthService);
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove() {
     if (window.localStorage.getItem('dev') === 'true') return;
+    if (this.authService.getToken() == '') return;
     const isLocalhost = window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1/';
     if (isLocalhost) return;
     if (!this._isMouseActive) {

@@ -2,12 +2,13 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ThemeService } from '@data/theme/theme.service';
+import { TrackingComponent } from '@view/share-components/tracking/tracking.component';
 import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
-  template: '<router-outlet></router-outlet>',
-  imports: [RouterModule],
+  template: '<student-tracking style="display: contents"></student-tracking><router-outlet></router-outlet>',
+  imports: [RouterModule, TrackingComponent],
 })
 export class LayoutFullComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
