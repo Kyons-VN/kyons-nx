@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
-  template: '<router-outlet></router-outlet>',
   templateUrl: './layout-default.component.html',
   imports: [RouterModule, TopMenuComponent, TrackingComponent],
 })
