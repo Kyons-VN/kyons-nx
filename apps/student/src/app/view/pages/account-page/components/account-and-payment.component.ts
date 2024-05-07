@@ -13,6 +13,22 @@ import { UserService } from '@data/user/user.service';
 import { OrderStatus } from '@domain/order/i-order';
 import { SafeHtmlPipe } from '@share-pipes';
 
+enum OrderProcessStatus {
+  initial,
+  warning,
+  selectingPayment,
+  ordering,
+  // upgrading,
+  success,
+  canceling,
+  cancel,
+}
+
+enum PaymentMethod {
+  bank_transfer,
+  momo,
+}
+
 @Component({
   selector: 'student-account-and-payment',
   standalone: true,
@@ -30,10 +46,11 @@ export class AccountAndPaymentComponent implements OnInit {
   activeTab = signal(0);
   totalItems: number = 0;
   showBenefit: boolean = false;
-  showWarning: boolean = false;
+  warning: boolean = false;
   showExtending: boolean = false;
   showUpgrade: boolean = false;
-  showOrdering: boolean = false;
+  showDowngrade: boolean = false;
+  // showOrdering: boolean = false;
   orderCode: string = '';
   isOrderSuccess = false;
   showTopup = false;
@@ -56,6 +73,11 @@ export class AccountAndPaymentComponent implements OnInit {
   isPendingOrder = false;
   isOrderFail = false;
   amount = 0;
+
+  orderProcessStatus = signal(OrderProcessStatus.initial);
+  OrderProcessStatus = OrderProcessStatus;
+  payment = signal(PaymentMethod.momo);
+  PaymentMethod = PaymentMethod;
 
   @HostBinding('class') class = 'flex-1 w-full md:w-auto';
 
@@ -119,11 +141,11 @@ export class AccountAndPaymentComponent implements OnInit {
       next: (orderCode) => {
         if (orderCode == '') { this.isOrderFail = true; }
         this.orderCode = orderCode;
-        this.showOrdering = true;
+        this.orderProcessStatus.set(OrderProcessStatus.ordering);
       },
       error: () => {
         this.isPendingOrder = true;
-        this.showOrdering = false;
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
       },
     });
   }
@@ -148,14 +170,10 @@ export class AccountAndPaymentComponent implements OnInit {
     this.isConfirming = true;
     this.orderService.confirmOrder(this.orderCode).subscribe({
       next: () => {
-        this.isOrderSuccess = true;
-        this.isConfirming = false;
-        this.showOrdering = false;
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
       },
       error: () => {
-        this.isOrderSuccess = false;
-        this.isConfirming = false;
-        this.showOrdering = false;
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
       },
     });
   }
@@ -166,12 +184,11 @@ export class AccountAndPaymentComponent implements OnInit {
       next: (res) => {
         if (res === 'canceled') {
           this.isCancelSuccess = true;
-          this.showOrdering = false;
         }
         else {
           this.isCancelFail = true;
         }
-        this.isCanceling = false;
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
         this.loadOrderHistory();
       },
       error: () => {
@@ -190,7 +207,7 @@ export class AccountAndPaymentComponent implements OnInit {
   viewAndPay(order: Order) {
     this.selectedPackage = order.orderPackage;
     this.orderCode = order.code;
-    this.showOrdering = true;
+    this.orderProcessStatus.set(OrderProcessStatus.ordering);
   }
 
   backToHistory() {
@@ -213,9 +230,18 @@ export class AccountAndPaymentComponent implements OnInit {
       this.showUpgrade = true;
     }
   }
+  // downgrade(pk: Package) {
+  //   this.showWarning = true;
+  //   // this.selectedPackage = pk;
+  // }
 
   confirmUpgrade() {
     this.selectPackage(this.selectedPackage);
+  }
+
+  selectPayment(pk: Package) {
+    this.selectedPackage = pk;
+    this.orderProcessStatus.set(OrderProcessStatus.selectingPayment);
   }
 
 }

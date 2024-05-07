@@ -23,7 +23,7 @@
             <div
               class="flex flex-col gap-2 md:w-[180px] p-4 md:p-0"
               [ngClass]="{
-                'md:bg-transparent bg-lightBlue-1 text-white md:text-primaryBlue rounded-lg': currentPackage.level > 0,
+                'md:bg-transparent text-lightBlue-1 md:text-primaryBlue rounded-lg': currentPackage.level > 0,
                 'md:bg-transparent bg-blueGrey-500 text-white md:text-primaryBlue rounded-lg':
                   currentPackage.level === 0
               }"
@@ -148,7 +148,7 @@
               <button
                 *ngIf="package.level < currentPackage.level"
                 class="btn btn-rounded"
-                (click)="showWarning = true; selectedPackage = package"
+                (click)="orderProcessStatus.set(OrderProcessStatus.warning)"
               >
                 Đổi về gói
               </button>
@@ -368,7 +368,89 @@
     <div class="h-20 md:hidden"></div>
   </div>
   <div
-    *ngIf="showOrdering"
+    *ngIf="orderProcessStatus() === OrderProcessStatus.selectingPayment"
+    class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
+      <h4>Bạn đang mua gói {{ selectedPackage.name }}</h4>
+      <div class="flex flex-col gap-2.5">
+        <h6>Chọn hình thức thanh toán</h6>
+        <div class="flex flex-col gap-4">
+          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
+            <input type="radio" [(ngModel)]="payment" [value]="PaymentMethod.momo" />
+            <i class="icon-Momo"></i>
+            <span>Thanh toán bằng Ví Momo</span>
+          </label>
+          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
+            <input type="radio" [(ngModel)]="payment" [value]="PaymentMethod.bank_transfer" />
+            <i class="icon-BankTransfer"></i>
+            <span>Thanh toán bằng Internet Banking</span>
+          </label>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+        <img
+          [src]="
+            'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
+            selectedPackage.salePrice +
+            '&amp;addInfo=' +
+            orderCode +
+            '&amp;accountName=KYONS LLC'
+          "
+          alt="Bạn đang đăng ký Gói đặt trước ưu đãi (1 tháng)"
+          class="sm:w-[50%]"
+        />
+        <div class="flex flex-col sm:flex-1 sm:items-start w-full">
+          <div class="h-3"></div>
+          <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
+          <div class="h-6"></div>
+          <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
+            <div class="flex flex-col gap-1.5">
+              <span>Nội dung chuyển khoản</span>
+              <a class="flex justify-between cursor-pointer no-underline" (click)="copy(orderCode)">
+                <strong id="copyText" class="text-orange"
+                  ><span id="code">{{ orderCode }}</span></strong
+                >
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </a>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Ngân hàng</span>
+              <span id="copyBank" class="flex justify-between cursor-pointer" (click)="copy('Techcombank')">
+                <strong>Techcombank</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Số tài khoản</span>
+              <span id="copyCard" class="flex justify-between cursor-pointer" (click)="copy('19037780961051')">
+                <strong>19037780961051</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <span>Tên chủ tài khoản</span>
+              <span id="copyName" class="flex justify-between cursor-pointer" (click)="copy('KYONS LLC')">
+                <strong>KYONS LLC</strong>
+                <i class="icon-Duplicate text-orange text-base"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex md:flex-row flex-col md:items-center md:justify-between items-stretch justify-center gap-3">
+        <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+          {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
+        </button>
+        <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
+          {{ isConfirming ? 'Đang xử lý...' : 'Xác nhận đã chuyển khoản' }}
+        </button>
+        <div class="md:hidden h-10"></div>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="orderProcessStatus() === OrderProcessStatus.ordering"
     class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
   >
     <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
@@ -520,10 +602,10 @@
       <li>Sau đó 25.000đ/bài thi thử</li>
       <li>Lộ trình học <strong>cơ bản</strong></li>
     </ul>
-    <button class="btn w-full" (click)="showBenefit = false">Ok nha</button>
     } @else{
     <div class="" [innerHTML]="currentPackage.description | safeHtml"></div>
     }
+    <button class="btn w-full" (click)="showBenefit = false">Ok nha</button>
   </div>
 </div>
 <div
@@ -535,19 +617,22 @@
     <p>Thời gian sử dụng vẫn còn, bạn vẫn muốn mua thêm thời gian?</p>
     <div class="flex gap-4">
       <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
-      <button class="btn" (click)="selectPackage(currentPackage)">Tiếp tục gia hạn</button>
+      <button class="btn" (click)="selectPayment(currentPackage)">Tiếp tục gia hạn</button>
     </div>
   </div>
 </div>
 <div
-  *ngIf="showWarning"
+  *ngIf="orderProcessStatus() === OrderProcessStatus.warning"
   class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
 >
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
     <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <p>Thời gian sử dụng vẫn còn, bạn cần phải hủy gói đang dùng trước khi thay đổi?</p>
+    <p>
+      Thời gian sử dụng vẫn còn, bạn cần phải hủy gói đang dùng trước khi thay đổi? Vui lòng liên hệ
+      <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được giải quyết nhanh chóng nhé!
+    </p>
     <div class="flex gap-4 justify-end">
-      <button class="btn" (click)="showWarning = false">Đã hiểu</button>
+      <button class="btn" (click)="orderProcessStatus.set(OrderProcessStatus.initial)">Đã hiểu</button>
     </div>
   </div>
 </div>
