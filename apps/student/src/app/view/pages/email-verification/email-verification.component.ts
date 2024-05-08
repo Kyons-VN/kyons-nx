@@ -61,7 +61,8 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
       next: () => {
         this.router.navigate([this.paths.resendVerified.path]);
       },
-      error: () => {
+      error: (error) => {
+        this.errorCode = error.error.error_code;
         this.hasError = true;
       },
     });
