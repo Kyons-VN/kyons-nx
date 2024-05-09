@@ -1,21 +1,21 @@
 <div class="bg-blueGrey-100 flex items-start justify-center w-full h-screen">
   <div class="md:w-[454px] flex flex-col items-center justify-start gap-6 py-[90px]">
-    @if (type==VerifyPage.verifySuccess){
+    @if (type===VerifyPage.verifySuccess){
     <img src="/assets/images/Account Verify Succeed.svg" alt="" />
     } @else {
     <img src="/assets/images/Sorry.svg" alt="" />}
     <div class="col bg-white rounded-lg p-6 gap-6">
       <h4 class="text-center">
-        @if (type==VerifyPage.verifySuccess){ Xác thực thành công! } @else {
-        @if(errorCode==ErrorCode.expiredCodeException) { Đường dẫn xác thực email của bạn đã hết hạn mất rồi} @else {
-        Đường dẫn xác thực email không tồn tại} }
+        @if (type===VerifyPage.verifySuccess){ Xác thực thành công! } @else {
+        @if(errorCode===ErrorCode.expiredCodeException) { Đường dẫn xác thực email của bạn đã hết hạn mất rồi} @else {
+        Đường dẫn xác thực email không tồn tại. Mã lỗi: {{ errorCode }}} }
       </h4>
-      @if (type==VerifyPage.verifySuccess){
+      @if (type===VerifyPage.verifySuccess){
       <span
         >Chúc mừng bạn đã xác thực thành công địa chỉ email của mình. Hãy đăng nhập và học “thông minh” cùng AI của
         Kyons nhé.</span
       >
-      } @else { @if(errorCode==ErrorCode.expiredCodeException) {
+      } @else { @if(errorCode===ErrorCode.expiredCodeException) {
       <span>Bạn vui lòng nhấn vào nút dưới đây để gửi lại email xác thực khác giúp Kyons với nha!</span>
       <span
         >Nếu bạn nghĩ đó là lỗi? Liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để
@@ -30,9 +30,9 @@
       } }
 
       <div class="col gap-2">
-        @if (type==VerifyPage.verifySuccess){
+        @if (type===VerifyPage.verifySuccess){
         <a [routerLink]="paths.signIn.path" class="btn">Đăng nhập ngay thôi</a>
-        } @else { @if(errorCode==ErrorCode.expiredCodeException) {
+        } @else { @if(errorCode===ErrorCode.expiredCodeException) {
         <button (click)="resend()" class="btn">Gửi lại email xác thực</button>
         }}
       </div>
@@ -51,6 +51,7 @@
         Hệ thống hiện đang gặp sự cố, bạn vui lòng thử lại sau vài phút hoặc liên hệ
         <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!
       </span>
+      <b>Mã lỗi: {{ errorCode }}</b>
       <button (click)="hasError = false" class="btn w-full">Mình đã hiểu</button>
     </div>
   </div>
