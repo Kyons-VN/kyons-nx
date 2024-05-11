@@ -3,9 +3,9 @@
   <!-- <span [innerHTML]="questions[currentQuestionIndex].html | safeHtml"></span> -->
   @for (answer of questions[currentQuestionIndex].answers; track answer.id; let ai = $index){
   <div
-    class="flex"
+    class="flex p-2"
     [ngClass]="{
-      'rounded-lg p-2 gap-2 !text-primaryBlue':
+      'rounded-lg !text-primaryBlue':
         answer.id === questions[currentQuestionIndex].correctAnswer ||
         answer.id === questions[currentQuestionIndex].selectedAnswer,
       'bg-emerald-3': answer.id === questions[currentQuestionIndex].correctAnswer,

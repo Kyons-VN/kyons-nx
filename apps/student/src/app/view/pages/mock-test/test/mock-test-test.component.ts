@@ -203,7 +203,7 @@ export class MockTestTestComponent implements OnInit {
       error: (err: any) => {
         // TODO: Define error resposes
         console.log(err);
-        this.hasError = 'Có lỗi, vui lòng thử lại';
+        this.hasError = 'Có lỗi, vui lòng thử lại sau';
         this.loading.hide();
       },
     });

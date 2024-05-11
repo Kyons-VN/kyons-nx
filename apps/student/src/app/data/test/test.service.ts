@@ -73,13 +73,13 @@ export class TestService {
   submitTest(submission: Submission) {
     console.log(submission.toJson());
     return this.http
-      .post(`${serverApi()}/api/v2/users/mock_tests/${submission.testId}/submit`, submission.toJson())
-      .pipe(
-        catchError(DBHelper.handleError('GET submit_answers', Error('Server Error')))
-        // map((res: any) => {
-        //   return res;
-        // })
-      );
+      .post(`${serverApi()}/api/v2/users/mock_tests/${submission.testId}/submit`, submission.toJson());
+    // .pipe(
+    //   // catchError(DBHelper.handleError('GET submit_answers', Error('Server Error'))),
+    //   map((res: any) => {
+    //     return res;
+    //   })
+    // );
   }
 
   getLearningGoal(selectedProgram: Program): Observable<LearningGoal[]> {

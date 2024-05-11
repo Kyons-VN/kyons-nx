@@ -18,7 +18,7 @@ export class LessonService implements ILessonService {
   getLearningGoalMockTest(learningGoalId: string) {
     return this.http.get<LearningGoalPath>(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/mock_tests`).pipe(
       // return this.http.get<MockTestItem[]>(`${serverApi()}/students/programs`).pipe(
-      catchError(DBHelper.handleError('GET lesson_list', [])),
+      // catchError(DBHelper.handleError('GET lesson_list', [])),
       map((res: any) => {
         // res = {
         //   "data": [

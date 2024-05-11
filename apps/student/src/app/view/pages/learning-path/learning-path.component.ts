@@ -308,6 +308,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
       error: err => {
         console.log(err);
         this.learingPathError = true;
+        if (this.interval !== undefined) this.interval.unsubscribe();
       },
     });
     this.lessonService.getList(this.selectedStudentLearningGoal.id).subscribe({
@@ -317,16 +318,10 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isLoadingLessons = false;
         this._updateLessonsData();
       },
-      error: err => {
+      error: (err) => {
+        console.log(err);
         this.isLoadingLessons = false;
-        if (err.error == undefined || err.error.error_code == undefined) {
-          // this.learingPathError = true;
-          return;
-        }
-        if (err.error.error_code == 'NewUser') {
-          this.router.navigate([this.paths.newUser.path]);
-          return;
-        }
+        if (this.interval !== undefined) this.interval.unsubscribe();
       },
     });
     // this.testService.getProbabilityIndex({ learningGoalId: this.selectedStudentLearningGoal.id }).subscribe({
