@@ -13,7 +13,6 @@ interface Review {
   selector: 'kyonsvn-test-review',
   imports: [CommonModule, LatexComponent, InputRadioComponent],
   templateUrl: './test-review.component.html',
-  styleUrls: ['./test-review.component.scss'],
 })
 export class TestReviewComponent {
 

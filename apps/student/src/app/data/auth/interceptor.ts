@@ -16,8 +16,8 @@ import { AuthService } from './auth.service';
 
 export const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
 export const serverApi = () => {
-  // if (window.localStorage.getItem('dev') === 'true') return 'https://us-central1-kyonsvn.cloudfunctions.net/v1';
-  if (window.localStorage.getItem('dev') === 'true') return 'http://127.0.0.1:5001/kyonsvn/us-central1/v1';
+  if (window.localStorage.getItem('dev') === 'true') return 'https://us-central1-kyonsvn.cloudfunctions.net/v1';
+  // if (window.localStorage.getItem('dev') === 'true') return 'http://127.0.0.1:5001/kyonsvn/us-central1/v1';
   return environment.serverApi;
 };
 

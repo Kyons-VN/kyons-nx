@@ -6,7 +6,6 @@ import { TOKEN_HEADER_KEY, serverApi } from '@data/auth/interceptor';
 import { chatServerApi } from '@data/chat/chat.service';
 import { DBHelper } from '@data/helper/helper';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
-import { sandboxAccounts } from '@domain/auth/sandbox-account';
 import { environment } from '@environments';
 import { GoogleAuthProvider, browserPopupRedirectResolver, signInWithPopup } from 'firebase/auth';
 import { catchError, firstValueFrom, map } from 'rxjs';
@@ -41,11 +40,6 @@ export class AdminAuthService implements IAuthService {
   }
 
   signIn(credential: IAuthCredential) {
-    if (sandboxAccounts.includes(credential.email)) {
-      window.localStorage.setItem('dev', 'true');
-    } else {
-      window.localStorage.removeItem('dev');
-    }
     const hostName = serverApi();
     return this.http.post(`${hostName}/auth/sign_in`, credential.toJson()).pipe(
       catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
