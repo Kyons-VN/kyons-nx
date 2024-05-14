@@ -13,4 +13,5 @@ export const environment = {
     appId: '1:830127784291:web:0bc7e49b17cc5b981b5356',
   },
   vapidKey: 'BP-BjvXQUjaznK89An_nvZWRmP6PCQxIGQ9OexTGstwXGbTgdPy5jkFtr9SIBJpUXZOMzHnQ_1-PTq2_jVP4ylI',
+  momo: 'https://test-payment.momo.vn',
 };

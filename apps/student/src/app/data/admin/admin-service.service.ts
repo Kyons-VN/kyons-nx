@@ -25,7 +25,13 @@ export class AdminService {
     console.log('get users from firestore');
 
     const collectionRef = collection(this.db, `users`).withConverter(userConverter);
-    const users = await firstValueFrom(collectionData(collectionRef).pipe(map((users) => users.filter(user => user.email).map(user => ChatUser.fromJson(user)))));
+    const users = await firstValueFrom(collectionData(collectionRef)
+      .pipe(map((users) => {
+        console.log(users);
+
+        return users
+          .filter(user => user.email).map(user => ChatUser.fromJson(user));
+      })));
     window.localStorage.setItem('users', JSON.stringify(users));
     return users;
   }
@@ -45,6 +51,12 @@ const userConverter = {
     return { value };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot) {
-    return { uid: snapshot.id, ...snapshot.data() };
+    // console.log(snapshot.data()['email']);
+    if (snapshot.data()['email'] === 'mymeo070206@gmail.com') {
+      console.log(snapshot.data());
+      console.log(snapshot.id);
+
+    }
+    return { id: snapshot.id, ...snapshot.data() };
   },
 };

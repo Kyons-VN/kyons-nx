@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   name: 'STUDENT',
   isPromotionEnable: false,
-  serverApi: 'https://student-api-stg.kyons.vn',
+  serverApi: 'https://student-api-dev.kyons.vn',
   origin: 'https://student-dev.kyons.vn',
   firebase: {
     apiKey: 'AIzaSyD1kg_RXC6PACtLW0GbHnECUtsfQd2gMt0',
@@ -13,4 +13,5 @@ export const environment = {
     appId: '1:830127784291:web:0bc7e49b17cc5b981b5356',
   },
   vapidKey: 'BP-BjvXQUjaznK89An_nvZWRmP6PCQxIGQ9OexTGstwXGbTgdPy5jkFtr9SIBJpUXZOMzHnQ_1-PTq2_jVP4ylI',
+  momo: 'https://test-payment.momo.vn',
 };

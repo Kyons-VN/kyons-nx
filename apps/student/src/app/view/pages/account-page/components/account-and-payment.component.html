@@ -127,8 +127,8 @@
                 <div class="flex-1"></div>
                 <h6 *ngIf="package.price === 0">Miễn phí</h6>
                 <h6 *ngIf="package.price > 0">
-                  {{ package.formatedSalePrice
-                  }}<sub class="text-sm font-normal">/ {{ package.duration / 24 }} ngày</sub>
+                  {{ package.formatedSalePrice }}
+                  <!-- <sub class="text-sm font-normal">/ {{ package.duration / 24 }} ngày</sub> -->
                 </h6>
               </div>
               <hr />
@@ -155,14 +155,14 @@
               <button
                 *ngIf="package.level > 0 && package.level === currentPackage.level"
                 class="btn"
-                (click)="showExtending = true"
+                (click)="selectedPackage = package; showExtending = true"
               >
                 Gia hạn
               </button>
               <button
                 *ngIf="package.level > 0 && package.level > currentPackage.level"
                 class="btn"
-                (click)="upgrade(package)"
+                (click)="selectedPackage = package; showUpgrade = true"
               >
                 Nâng cấp gói
               </button>
@@ -245,12 +245,12 @@
                 >
               </span>
             </div>
-            <div *ngIf="orderDetails.status === OrderStatus.pending" class="flex gap-2">
+            <!-- <div *ngIf="orderDetails.status === OrderStatus.pending" class="flex gap-2">
               <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
                 {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
               </button>
               <button class="btn" (click)="viewAndPay(orderDetails)">Thanh toán</button>
-            </div>
+            </div> -->
           </div>
           <hr />
           <div class="flex flex-col">
@@ -281,7 +281,7 @@
             <th>Thời gian</th>
             <th>Thành tiền</th>
             <th>Trạng thái</th>
-            <th class="text-right">Mã thanh toán</th>
+            <th class="text-right">Phương thức thanh toán</th>
           </tr>
           <tr *ngFor="let order of orders">
             <th class="text-left text-orange cursor-pointer underline" (click)="viewOrder(order)">
@@ -300,7 +300,14 @@
               {{ order.statusDisplay }}
             </td>
             <td class="text-right">
-              {{ order.code }} <button (click)="copy(order.code)"><i class="icon-Duplicate text-orange"></i></button>
+              <i
+                class="icon"
+                [ngClass]="{
+                  'icon-Momo': order.paidMethod === PaymentMethod.momo,
+                  'icon-ATM': order.paidMethod === PaymentMethod.atm,
+                  'icon-Visa': order.paidMethod === PaymentMethod.visa
+                }"
+              ></i>
             </td>
           </tr>
           <!-- <tr>
@@ -368,7 +375,10 @@
     <div class="h-20 md:hidden"></div>
   </div>
   <div
-    *ngIf="orderProcessStatus() === OrderProcessStatus.selectingPayment"
+    *ngIf="
+      orderProcessStatus() === OrderProcessStatus.selectingPayment ||
+      orderProcessStatus() === OrderProcessStatus.ordering
+    "
     class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
   >
     <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
@@ -377,79 +387,86 @@
         <h6>Chọn hình thức thanh toán</h6>
         <div class="flex flex-col gap-4">
           <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
-            <input type="radio" [(ngModel)]="payment" [value]="PaymentMethod.momo" />
-            <i class="icon-Momo"></i>
+            <input
+              type="radio"
+              (change)="payment.set(PaymentMethod.momo)"
+              [checked]="payment() === PaymentMethod.momo"
+            />
+            <i class="icon-Momo icon"></i>
             <span>Thanh toán bằng Ví Momo</span>
           </label>
+          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat items-center">
+            <input type="radio" (change)="payment.set(PaymentMethod.atm)" [checked]="payment() === PaymentMethod.atm" />
+            <i class="icon-ATM icon"></i>
+            <span>Thanh toán bằng Thẻ ATM nội địa</span>
+          </label>
           <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
-            <input type="radio" [(ngModel)]="payment" [value]="PaymentMethod.bank_transfer" />
-            <i class="icon-BankTransfer"></i>
-            <span>Thanh toán bằng Internet Banking</span>
+            <input
+              type="radio"
+              (change)="payment.set(PaymentMethod.visa)"
+              [checked]="payment() === PaymentMethod.visa"
+            />
+            <i class="icon-Visa icon"></i>
+            <span>Thanh toán bằng thẻ quốc tế (Visa/Master/JCB)</span>
           </label>
         </div>
       </div>
-      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-        <img
-          [src]="
-            'https://img.vietqr.io/image/TCB-19037780961051-compact2.png?amount=' +
-            selectedPackage.salePrice +
-            '&amp;addInfo=' +
-            orderCode +
-            '&amp;accountName=KYONS LLC'
-          "
-          alt="Bạn đang đăng ký Gói đặt trước ưu đãi (1 tháng)"
-          class="sm:w-[50%]"
-        />
-        <div class="flex flex-col sm:flex-1 sm:items-start w-full">
-          <div class="h-3"></div>
-          <h2 class="text-lg font-bold text-center sm:text-left">Số tiền: {{ selectedPackage.formatedSalePrice }}</h2>
-          <div class="h-6"></div>
-          <div class="flex flex-col p-4 bg-blueGrey-50 rounded-lg w-full">
-            <div class="flex flex-col gap-1.5">
-              <span>Nội dung chuyển khoản</span>
-              <a class="flex justify-between cursor-pointer no-underline" (click)="copy(orderCode)">
-                <strong id="copyText" class="text-orange"
-                  ><span id="code">{{ orderCode }}</span></strong
-                >
-                <i class="icon-Duplicate text-orange text-base"></i>
-              </a>
+      <div class="flex flex-col items-center sm:items-start gap-2.5">
+        <h6>Chi tiết thanh toán</h6>
+        <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300 w-full">
+          <div class="flex flex-col gap-2.5 h-full">
+            <span class="h7 flex items-center gap-2">
+              <span>{{ selectedPackage.packageTypeDisplay }}</span>
+              <span
+                *ngIf="selectedPackage.isUsing"
+                class="bg-orange text-white rounded-full uppercase px-2 py-0.5 text-xs"
+                >Đang sử dụng</span
+              >
+            </span>
+            <div class="flex items-center">
+              <div class="flex gap-2 items-center">
+                <img [src]="selectedPackage.image" alt="" class="w-8 h-8" />
+                <h6 [ngClass]="{ 'text-lightBlue-1': selectedPackage.level > 0 }">{{ selectedPackage.name }}</h6>
+              </div>
+              <div class="flex-1"></div>
+              <h6 *ngIf="selectedPackage.price === 0">Miễn phí</h6>
+              <h6 *ngIf="selectedPackage.price > 0">
+                {{ selectedPackage.formatedSalePrice }}
+                <!-- <sub class="text-sm font-normal">/ {{ selectedPackage.duration / 24 }} ngày</sub> -->
+              </h6>
             </div>
-            <div class="flex flex-col gap-1.5">
-              <span>Ngân hàng</span>
-              <span id="copyBank" class="flex justify-between cursor-pointer" (click)="copy('Techcombank')">
-                <strong>Techcombank</strong>
-                <i class="icon-Duplicate text-orange text-base"></i>
-              </span>
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <span>Số tài khoản</span>
-              <span id="copyCard" class="flex justify-between cursor-pointer" (click)="copy('19037780961051')">
-                <strong>19037780961051</strong>
-                <i class="icon-Duplicate text-orange text-base"></i>
-              </span>
-            </div>
-            <div class="flex flex-col gap-1.5">
-              <span>Tên chủ tài khoản</span>
-              <span id="copyName" class="flex justify-between cursor-pointer" (click)="copy('KYONS LLC')">
-                <strong>KYONS LLC</strong>
-                <i class="icon-Duplicate text-orange text-base"></i>
-              </span>
+            <hr />
+            <div class="flex flex-col">
+              <span class="h7">Quyền lợi</span>
+              @if(selectedPackage.price === 0){
+              <ul class="check-list">
+                <li><strong>01</strong> bài thi thử miễn phí mỗi tuần</li>
+                <li>Sau đó 25.000đ/bài thi thử</li>
+                <li>Lộ trình học <strong>cơ bản</strong></li>
+              </ul>
+              } @else{
+              <div [innerHTML]="selectedPackage.description | safeHtml" class="check-list-wrapper"></div>
+              }
             </div>
           </div>
         </div>
       </div>
       <div class="flex md:flex-row flex-col md:items-center md:justify-between items-stretch justify-center gap-3">
-        <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
-          {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
+        <button
+          class="btn btn-rounded"
+          (click)="orderProcessStatus.set(OrderProcessStatus.initial)"
+          [disabled]="orderProcessStatus() === OrderProcessStatus.ordering"
+        >
+          Quay lại
         </button>
-        <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
-          {{ isConfirming ? 'Đang xử lý...' : 'Xác nhận đã chuyển khoản' }}
+        <button class="btn" (click)="order()" [disabled]="orderProcessStatus() === OrderProcessStatus.ordering">
+          {{ orderProcessStatus() === OrderProcessStatus.ordering ? 'Đang xử lý...' : 'Mua gói' }}
         </button>
         <div class="md:hidden h-10"></div>
       </div>
     </div>
   </div>
-  <div
+  <!-- <div
     *ngIf="orderProcessStatus() === OrderProcessStatus.ordering"
     class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
   >
@@ -521,7 +538,7 @@
         <div class="md:hidden h-10"></div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div
     *ngIf="showTopup"
@@ -613,11 +630,20 @@
   class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
 >
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <p>Thời gian sử dụng vẫn còn, bạn vẫn muốn mua thêm thời gian?</p>
-    <div class="flex gap-4">
+    <h3>Gói {{ currentPackage.name }} vẫn còn thời gian sử dụng</h3>
+    <p>
+      Thời gian sử dụng vẫn còn, nếu chọn gia hạn gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
+      thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của mình.
+      Bạn muốn tiếp tục gia hạn gói? Kyons đang phát triển tính năng cộng dồn thời gian cho bạn, sẽ sớm cập nhật trong
+      phiên bản tiếp theo.
+    </p>
+    <p>
+      Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để biết thêm chi
+      tiết!
+    </p>
+    <div class="flex gap-4 justify-between">
       <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
-      <button class="btn" (click)="selectPayment(currentPackage)">Tiếp tục gia hạn</button>
+      <button class="btn" (click)="selectPayment(selectedPackage); showExtending = false">Tiếp tục gia hạn</button>
     </div>
   </div>
 </div>
@@ -647,47 +673,58 @@
       thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của mình.
       Bạn muốn tiếp tục nâng cấp gói?
     </p>
-    <div class="flex gap-4">
+    <p>Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được tư vấn!</p>
+    <div class="flex gap-4 justify-between">
       <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
-      <button class="btn" (click)="confirmUpgrade()">Tiếp tục nâng cấp</button>
+      <button class="btn" (click)="selectPayment(selectedPackage); showUpgrade = false">Tiếp tục nâng cấp</button>
     </div>
   </div>
 </div>
 <div
-  *ngIf="isOrderSuccess"
+  *ngIf="orderProcessStatus() === OrderProcessStatus.success"
   class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
 >
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3><i class="icon icon-Success"></i></h3>
-    <h5>
-      Thanh toán cho giao dịch <span class="text-lightBlue-1">{{ orderCode }}</span> của bạn đã được tiếp nhận!
-    </h5>
+    <h3 class="self-center"><img src="assets/icons/Succeed.svg" alt="success" /></h3>
+    <h5 class="self-center">Thanh toán thành công!</h5>
     <p>
-      Kyons đã nhận được thông tin và đang tiến hành xử lí. Bạn có thể xem trạng thái của giao dịch trong
-      <b> “Lịch sử giao dịch” </b>.
+      Kyons vừa gửi email cho bạn để xác nhận thanh toán thành công. Bạn sẽ được đưa về trang
+      <b> “Lịch sử giao dịch” </b> trong vòng {{ countdown }} giây.
     </p>
     <p>
-      Nếu sau 24h vẫn chưa nhận được email xác nhận, bạn hãy gửi <b>hình chụp giao dịch chuyển khoản</b> đến
+      Nếu vẫn chưa nhận được email xác nhận, bạn hãy liên hệ
       <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
         >Kyons fanpage</a
       >
       để được hỗ trợ nhé!
     </p>
-    <div class="flex gap-4 justify-center">
+    <div class="flex gap-3 justify-center">
       <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
-      <div class="w-3"></div>
       <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
     </div>
   </div>
 </div>
 <div
-  *ngIf="isCancelSuccess"
+  *ngIf="orderProcessStatus() === OrderProcessStatus.fail"
   class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
 >
-  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h5 class="text-center">Bạn đã hủy giao dịch thành công</h5>
-    <div class="flex gap-4 justify-center">
-      <button class="btn" (click)="backToHistory()">Ok</button>
+  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+    <h3 class="self-center"><img src="assets/icons/Cancel.svg" alt="fail" /></h3>
+    <h5 class="self-center">Đã có lỗi xảy ra!</h5>
+    <p>
+      Kyons đã nhận được thông tin và đang tiến hành xử lí. Bạn có thể xem trạng thái của giao dịch trong
+      <b>“Lịch sử giao dịch”</b>.
+    </p>
+    <p>
+      Nếu sau 24h vẫn chưa nhận được email xác nhận, bạn hãy gửi hình chụp giao dịch đến
+      <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
+        >Kyons fanpage</a
+      >
+      để được hỗ trợ nhé!
+    </p>
+    <div class="flex gap-3 justify-center">
+      <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+      <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
     </div>
   </div>
 </div>

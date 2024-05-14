@@ -5,7 +5,7 @@ interface IOrder {
   code: string;
   status: OrderStatus;
   orderSubscription: IItem;
-  paidMethod: PayMethod;
+  paidMethod: PaymentMethod;
   orderItems: IItem[];
   createdAt: Date;
   totalPrice: number;
@@ -19,10 +19,13 @@ enum OrderStatus {
   canceled = 'canceled',
   recalled = 'recalled',
 }
-enum PayMethod {
-  transfer = 'transfer',
-  credit = 'credit',
+enum PaymentMethod {
+  bankTransfer = 100,
+  credit = 200,
+  momo = 300,
+  atm = 301,
+  visa = 302
 }
 
-export { IOrder, OrderStatus, PayMethod };
+export { IOrder, OrderStatus, PaymentMethod };
 

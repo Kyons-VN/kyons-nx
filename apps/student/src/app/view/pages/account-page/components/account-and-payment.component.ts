@@ -10,7 +10,7 @@ import { OrderService } from '@data/order/order.service';
 import { Package } from '@data/order/package';
 import SubscriptionTime from '@data/order/subscription';
 import { UserService } from '@data/user/user.service';
-import { OrderStatus } from '@domain/order/i-order';
+import { OrderStatus, PaymentMethod } from '@domain/order/i-order';
 import { SafeHtmlPipe } from '@share-pipes';
 
 enum OrderProcessStatus {
@@ -20,13 +20,9 @@ enum OrderProcessStatus {
   ordering,
   // upgrading,
   success,
+  fail,
   canceling,
   cancel,
-}
-
-enum PaymentMethod {
-  bank_transfer,
-  momo,
 }
 
 @Component({
@@ -52,7 +48,6 @@ export class AccountAndPaymentComponent implements OnInit {
   showDowngrade: boolean = false;
   // showOrdering: boolean = false;
   orderCode: string = '';
-  isOrderSuccess = false;
   showTopup = false;
   orders!: Order[];
   isViewOrder = false;
@@ -73,6 +68,7 @@ export class AccountAndPaymentComponent implements OnInit {
   isPendingOrder = false;
   isOrderFail = false;
   amount = 0;
+  countdown = 3;
 
   orderProcessStatus = signal(OrderProcessStatus.initial);
   OrderProcessStatus = OrderProcessStatus;
@@ -88,7 +84,74 @@ export class AccountAndPaymentComponent implements OnInit {
           if (params['packageLevel']) {
             window.localStorage.removeItem('selectedPackageLevel');
             this.router.navigate([this.paths.account.path]);
-            this.selectPackage(this.packages.find(p => p.level === parseInt(params['packageLevel']))!);
+            this.selectPayment(this.packages.find(p => p.level === parseInt(params['packageLevel']))!);
+          }
+          // Momo callback: http://127.0.0.1:4200/account?partnerCode=MOMOU6R320240416_TEST&orderId=921534272653649&requestId=921534272653649&amount=24000&orderInfo=Quick%20Start&orderType=momo_wallet&transId=4041514291&resultCode=0&message=Th%C3%A0nh%20c%C3%B4ng.&payType=qr&responseTime=1715577456064&extraData=&signature=70452e4e70a2f3fbd950778d93e883c98fcf64ba4b266d7c2fd579f91b56f648
+          if (params['partnerCode'] && params['orderId']) {
+            if (params['resultCode'] == '0') this.orderProcessStatus.set(OrderProcessStatus.success);
+            else {
+              if (params['resultCode'] == '10') {
+                this.hasError = 'Hệ thống đang được bảo trì.';
+              }
+              else if (params['resultCode'] == '1001') {
+                this.hasError = 'Giao dịch thanh toán thất bại do tài khoản người dùng không đủ tiền.';
+              }
+              else if (params['resultCode'] == '1002') {
+                this.hasError = 'Giao dịch bị từ chối do nhà phát hành tài khoản thanh toán.';
+              }
+              else if (params['resultCode'] == '1003') {
+                this.hasError = 'Giao dịch bị đã bị hủy.';
+              }
+              else if (params['resultCode'] == '1004') {
+                this.hasError = 'Giao dịch thất bại do số tiền thanh toán vượt quá hạn mức thanh toán của người dùng.';
+              }
+              else if (params['resultCode'] == '1005') {
+                this.hasError = 'Giao dịch thất bại do url hoặc QR code đã hết hạn.';
+              }
+              else if (params['resultCode'] == '1006') {
+                this.hasError = 'Giao dịch thất bại do người dùng đã từ chối xác nhận thanh toán.';
+              }
+              else if (params['resultCode'] == '1007') {
+                this.hasError = 'Giao dịch bị từ chối vì tài khoản không tồn tại hoặc đang ở trạng thái ngưng hoạt động.';
+              }
+              else if (params['resultCode'] == '1017') {
+                this.hasError = 'Giao dịch bị hủy bởi đối tác.';
+              }
+              else if (params['resultCode'] == '1026') {
+                this.hasError = 'Giao dịch bị hạn chế theo thể lệ chương trình khuyến mãi.';
+              }
+              else if (params['resultCode'] == '1080') {
+                this.hasError = 'Giao dịch hoàn tiền thất bại trong quá trình xử lý. Vui lòng thử lại trong khoảng thời gian ngắn, tốt hơn là sau một giờ.';
+              }
+              else if (params['resultCode'] == '1081') {
+                this.hasError = 'Giao dịch hoàn tiền bị từ chối. Giao dịch thanh toán ban đầu có thể đã được hoàn.';
+              }
+              else if (params['resultCode'] == '2019') {
+                this.hasError = 'Yêu cầu bị từ chối vì orderGroupId không hợp lệ.';
+              }
+              else if (params['resultCode'] == '4001') {
+                this.hasError = 'Giao dịch bị hạn chế do người dùng chưa hoàn tất xác thực tài khoản.';
+              }
+              else if (params['resultCode'] == '4100') {
+                this.hasError = 'Giao dịch thất bại do người dùng không đăng nhập thành công.';
+              }
+              else {
+                this.hasError = params[`Có lỗi ${params['resultCode']}, vui lòng thử lại sau`]
+              }
+              this.orderProcessStatus.set(OrderProcessStatus.fail);
+              return;
+            }
+            let count = 3;
+            const interval = setInterval(() => {
+              if (count < 0) {
+                clearInterval(interval);
+                this.router.navigate([], {
+                  relativeTo: this.route,
+                });
+                this.backToHistory();
+              }
+              this.countdown = count--;
+            }, 1000);
           }
         }
       })
@@ -135,17 +198,19 @@ export class AccountAndPaymentComponent implements OnInit {
     alert('Sao chép thành công!');
   }
 
-  selectPackage(selectedPackage: Package) {
-    this.selectedPackage = selectedPackage;
-    this.orderService.orderPackage(selectedPackage.id, 1).subscribe({
-      next: (orderCode) => {
-        if (orderCode == '') { this.isOrderFail = true; }
-        this.orderCode = orderCode;
-        this.orderProcessStatus.set(OrderProcessStatus.ordering);
+  order() {
+    this.orderService.orderPackage(this.selectedPackage.id, 1, this.payment(), window.origin + this.paths.account.path).subscribe({
+      next: (payUrl) => {
+        if (payUrl == '') { this.isOrderFail = true; }
+        this.orderCode = payUrl;
+        window.location.href = payUrl;
       },
-      error: () => {
-        this.isPendingOrder = true;
-        this.orderProcessStatus.set(OrderProcessStatus.initial);
+      error: (err) => {
+        console.log(err);
+
+        // if(err.)
+        // this.isPendingOrder = true;
+        // this.orderProcessStatus.set(OrderProcessStatus.initial);
       },
     });
   }
@@ -166,37 +231,37 @@ export class AccountAndPaymentComponent implements OnInit {
     });
   }
 
-  confirmOrder() {
-    this.isConfirming = true;
-    this.orderService.confirmOrder(this.orderCode).subscribe({
-      next: () => {
-        this.orderProcessStatus.set(OrderProcessStatus.initial);
-      },
-      error: () => {
-        this.orderProcessStatus.set(OrderProcessStatus.initial);
-      },
-    });
-  }
+  // confirmOrder() {
+  //   this.isConfirming = true;
+  //   this.orderService.confirmOrder(this.orderCode).subscribe({
+  //     next: () => {
+  //       this.orderProcessStatus.set(OrderProcessStatus.initial);
+  //     },
+  //     error: () => {
+  //       this.orderProcessStatus.set(OrderProcessStatus.initial);
+  //     },
+  //   });
+  // }
 
-  cancelOrder() {
-    this.isCanceling = true;
-    this.orderService.cancelOrder(this.orderCode).subscribe({
-      next: (res) => {
-        if (res === 'canceled') {
-          this.isCancelSuccess = true;
-        }
-        else {
-          this.isCancelFail = true;
-        }
-        this.orderProcessStatus.set(OrderProcessStatus.initial);
-        this.loadOrderHistory();
-      },
-      error: () => {
-        this.isCancelFail = true;
-        this.isCanceling = false;
-      },
-    });
-  }
+  // cancelOrder() {
+  //   this.isCanceling = true;
+  //   this.orderService.cancelOrder(this.orderCode).subscribe({
+  //     next: (res) => {
+  //       if (res === 'canceled') {
+  //         this.isCancelSuccess = true;
+  //       }
+  //       else {
+  //         this.isCancelFail = true;
+  //       }
+  //       this.orderProcessStatus.set(OrderProcessStatus.initial);
+  //       this.loadOrderHistory();
+  //     },
+  //     error: () => {
+  //       this.isCancelFail = true;
+  //       this.isCanceling = false;
+  //     },
+  //   });
+  // }
 
   viewOrder(order: Order) {
     this.isViewOrder = true;
@@ -211,19 +276,19 @@ export class AccountAndPaymentComponent implements OnInit {
   }
 
   backToHistory() {
-    this.isOrderSuccess = false;
     this.isViewOrder = false;
     this.isCancelSuccess = false;
     this.isPendingOrder = false;
     this.isCancelFail = false;
     this.isOrderFail = false;
     this.activeTab.set(3);
+    this.orderProcessStatus.set(OrderProcessStatus.initial);
     this.loadOrderHistory();
   }
 
   upgrade(pk: Package) {
     if (this.currentPackage.level === 0) {
-      this.selectPackage(pk);
+      this.selectPayment(pk);
     }
     else {
       this.selectedPackage = pk;
@@ -235,9 +300,9 @@ export class AccountAndPaymentComponent implements OnInit {
   //   // this.selectedPackage = pk;
   // }
 
-  confirmUpgrade() {
-    this.selectPackage(this.selectedPackage);
-  }
+  // confirm() {
+  //   this.selectPayment(this.selectedPackage);
+  // }
 
   selectPayment(pk: Package) {
     this.selectedPackage = pk;

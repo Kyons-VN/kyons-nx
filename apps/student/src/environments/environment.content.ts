@@ -4,4 +4,5 @@ export const environment = {
   isPromotionEnable: false,
   serverApi: 'https://student-api-content.kyons.vn',
   origin: 'https://student-content.kyons.vn',
+  momo: 'https://test-payment.momo.vn',
 };

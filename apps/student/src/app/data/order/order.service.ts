@@ -95,17 +95,18 @@ export class OrderService implements IOrderServicce {
     );
   }
 
-  orderPackage(packageId: string, quantity: number, paymentMethod: string = 'bank_transfer') {
+  orderPackage(packageId: string, quantity: number, payment: number, redirectUrl: string) {
     const params: any = {
       package_id: parseInt(packageId),
       quantity: quantity,
-      paid_method: paymentMethod == 'bank_transfer' ? 100 : 200,
+      paid_method: payment,
+      redirect_url: redirectUrl,
     };
     return this.http.post(`${serverApi()}/api/v2/users/orders/new`, params).pipe(
       // catchError(DBHelper.handleError('POST orderPackage')),
       map((res: any) => {
-        if (res.data === undefined || res.data.order_code === undefined) return '';
-        return res.data.order_code;
+        if (res.data === undefined || res.data.payment === undefined || res.data.payment.pay_url === undefined) return '';
+        return res.data.payment.pay_url;
       })
     );
   }

@@ -1,5 +1,5 @@
 import { IItem } from "@domain/order/i-inventory";
-import { IOrder, OrderStatus, PayMethod } from "@domain/order/i-order";
+import { IOrder, OrderStatus, PaymentMethod } from "@domain/order/i-order";
 import { formattedDate, formattedPrice } from "@utils/formats";
 import pick from "lodash-es/pick";
 import { Item } from "./inventory";
@@ -10,7 +10,7 @@ export default class Order implements IOrder {
   code: string;
   status: OrderStatus;
   orderSubscription: Item;
-  paidMethod: PayMethod;
+  paidMethod: PaymentMethod;
   orderItems: IItem[];
   createdAt: Date;
   // updatedAt: string;
@@ -34,7 +34,7 @@ export default class Order implements IOrder {
     code: string;
     status: OrderStatus;
     orderSubscription: Item;
-    paidMethod: PayMethod;
+    paidMethod: PaymentMethod;
     orderItems: Item[];
     createdAt: Date;
     totalPrice: number;
