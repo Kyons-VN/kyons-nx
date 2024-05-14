@@ -45,6 +45,6 @@ const userConverter = {
     return { value };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot) {
-    return { uid: snapshot.id, ...snapshot.data() };
+    return { id: snapshot.id, ...snapshot.data() };
   },
 };
