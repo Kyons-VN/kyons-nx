@@ -51,12 +51,6 @@ const userConverter = {
     return { value };
   },
   fromFirestore(snapshot: QueryDocumentSnapshot) {
-    // console.log(snapshot.data()['email']);
-    if (snapshot.data()['email'] === 'mymeo070206@gmail.com') {
-      console.log(snapshot.data());
-      console.log(snapshot.id);
-
-    }
     return { id: snapshot.id, ...snapshot.data() };
   },
 };
