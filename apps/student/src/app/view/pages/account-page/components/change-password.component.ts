@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { UserService } from '@data/user/user.service';
 
 @Component({
-  selector: 'chatbot-change-password',
+  selector: 'student-change-password',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './change-password.component.html',

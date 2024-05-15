@@ -227,11 +227,26 @@
                 Thành tiền:
                 {{ orderDetails.totalPriceDisplay }}
               </span>
-              <span>
+              <!-- <span>
                 Mã thanh toán:
                 {{ orderDetails.code }}
                 <button (click)="copy(orderDetails.code)"><i class="icon-Duplicate text-orange"></i></button>
-              </span>
+              </span> -->
+              <div class="flex items-center gap-2">
+                <span> Phương thức thanh toán:</span>
+                <span>
+                  @if(orderDetails.paidMethod === PaymentMethod.momo){MoMo} @if(orderDetails.paidMethod ===
+                  PaymentMethod.atm){ATM nội địa} @if(orderDetails.paidMethod === PaymentMethod.visa){Thẻ quốc tế}&nbsp;
+                </span>
+                <i
+                  class="icon"
+                  [ngClass]="{
+                    'icon-Momo': orderDetails.paidMethod === PaymentMethod.momo,
+                    'icon-ATM': orderDetails.paidMethod === PaymentMethod.atm,
+                    'icon-Visa': orderDetails.paidMethod === PaymentMethod.visa
+                  }"
+                ></i>
+              </div>
               <span> Thời gian: {{ orderDetails.createdAtDisplay }} </span>
               <span>
                 Trạng thái:
@@ -239,7 +254,8 @@
                   [ngClass]="{
                     'text-darkYellow-1': orderDetails.status === OrderStatus.manualPaid,
                     'text-darkEmerald': orderDetails.status === OrderStatus.completed,
-                    'text-red-0': orderDetails.status === OrderStatus.pending
+                    'text-red-0':
+                      orderDetails.status === OrderStatus.pending || orderDetails.status === OrderStatus.paymentFailed
                   }"
                   >{{ orderDetails.statusDisplay }}</b
                 >
@@ -255,16 +271,24 @@
           <hr />
           <div class="flex flex-col">
             <p *ngIf="orderDetails.status === OrderStatus.completed">
-              Trạng thái “<span class="text-darkEmerald">Hoàn tất</span>" thể hiện khi giao dịch của bạn đã được xác
-              nhận và vật phẩm đã được gửi đến bạn.
+              Trạng thái “<b class="text-darkEmerald">Hoàn tất</b>" thể hiện khi giao dịch của bạn đã được xác nhận và
+              vật phẩm đã được gửi đến bạn.
             </p>
             <p *ngIf="orderDetails.status === OrderStatus.manualPaid">
-              Trạng thái “<span class="text-darkYellow-1">Đang xử lí</span>" thể hiện khi bạn đã hoàn tất thanh toán và
-              đang đợi Kyons xác nhận giao dịch. Khi xác nhận thành công, vật phẩm sẽ được gửi đến bạn.
+              Trạng thái “<b class="text-darkYellow-1">Đang xử lí</b>" thể hiện khi bạn đã hoàn tất thanh toán và đang
+              đợi Kyons xác nhận giao dịch. Khi xác nhận thành công, vật phẩm sẽ được gửi đến bạn.
             </p>
             <p *ngIf="orderDetails.status === OrderStatus.pending">
-              Trạng thái “<span class="text-red-0">Chưa thanh toán</span>" thể hiện khi bạn đã tạo giao dịch nhưng chưa
+              Trạng thái “<b class="text-red-0">Chưa thanh toán</b>" thể hiện khi bạn đã tạo giao dịch nhưng chưa thanh
+              toán.
+            </p>
+            <p *ngIf="orderDetails.status === OrderStatus.paymentFailed">
+              Trạng thái “<b class="text-red-0">Thanh toán thất bại</b>" thể hiện khi bạn đã tạo giao dịch nhưng chưa
               thanh toán.
+            </p>
+            <p *ngIf="orderDetails.status === OrderStatus.canceled">
+              Trạng thái “<b>Đã thu hồi</b>" thể hiện khi bạn đã tạo giao dịch mới trong lúc đang sử dụng dịch vụ trả
+              phí và đã thanh toán giao dịch mới.
             </p>
             <p>
               Lưu ý: Nếu bạn nghĩ rằng đã có lỗi trong quá trình giao dịch, liên hệ
@@ -294,20 +318,24 @@
               [ngClass]="{
                 'text-darkYellow-1': order.status === OrderStatus.manualPaid,
                 'text-darkEmerald': order.status === OrderStatus.completed,
-                'text-red-0': order.status === OrderStatus.pending
+                'text-red-0': order.status === OrderStatus.pending || order.status === OrderStatus.paymentFailed
               }"
             >
               {{ order.statusDisplay }}
             </td>
             <td class="text-right">
-              <i
-                class="icon"
-                [ngClass]="{
-                  'icon-Momo': order.paidMethod === PaymentMethod.momo,
-                  'icon-ATM': order.paidMethod === PaymentMethod.atm,
-                  'icon-Visa': order.paidMethod === PaymentMethod.visa
-                }"
-              ></i>
+              <div class="flex items-center justify-end gap-2">
+                @if(order.paidMethod === PaymentMethod.momo){MoMo} @if(order.paidMethod === PaymentMethod.atm){ATM nội
+                địa} @if(order.paidMethod === PaymentMethod.visa){Thẻ quốc tế}&nbsp;
+                <i
+                  class="icon"
+                  [ngClass]="{
+                    'icon-Momo': order.paidMethod === PaymentMethod.momo,
+                    'icon-ATM': order.paidMethod === PaymentMethod.atm,
+                    'icon-Visa': order.paidMethod === PaymentMethod.visa
+                  }"
+                ></i>
+              </div>
             </td>
           </tr>
           <!-- <tr>
@@ -340,7 +368,7 @@
                   [ngClass]="{
                     'text-darkYellow-1': order.status === OrderStatus.manualPaid,
                     'text-darkEmerald': order.status === OrderStatus.completed,
-                    'text-red-0': order.status === OrderStatus.pending
+                    'text-red-0': order.status === OrderStatus.pending || order.status === OrderStatus.paymentFailed
                   }"
                 >
                   {{ order.statusDisplay }}
@@ -668,12 +696,16 @@
 >
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
     <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <p>
-      Thời gian sử dụng vẫn còn, nếu chọn nâng cấp gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
-      thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của mình.
-      Bạn muốn tiếp tục nâng cấp gói?
-    </p>
-    <p>Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được tư vấn!</p>
+    <div class="col">
+      <p>
+        Thời gian sử dụng vẫn còn, nếu chọn nâng cấp gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
+        thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của
+        mình. Bạn muốn tiếp tục nâng cấp gói?
+      </p>
+      <p>
+        Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được tư vấn!
+      </p>
+    </div>
     <div class="flex gap-4 justify-between">
       <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
       <button class="btn" (click)="selectPayment(selectedPackage); showUpgrade = false">Tiếp tục nâng cấp</button>
@@ -711,17 +743,20 @@
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
     <h3 class="self-center"><img src="assets/icons/Cancel.svg" alt="fail" /></h3>
     <h5 class="self-center">Đã có lỗi xảy ra!</h5>
-    <p>
-      Kyons đã nhận được thông tin và đang tiến hành xử lí. Bạn có thể xem trạng thái của giao dịch trong
-      <b>“Lịch sử giao dịch”</b>.
-    </p>
-    <p>
-      Nếu sau 24h vẫn chưa nhận được email xác nhận, bạn hãy gửi hình chụp giao dịch đến
-      <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
-        >Kyons fanpage</a
-      >
-      để được hỗ trợ nhé!
-    </p>
+    @if(hasError!==''){
+    <b class="text-red-0">{{ hasError }}</b>
+    }
+    <div class="col">
+      <p>
+        Kyons đã nhận được thông tin và đang tiến hành xử lí. Nếu có lỗi ngoài ý muốn, bạn có thể xem trạng thái của
+        giao dịch trong
+        <b>“Lịch sử giao dịch”</b> và hãy gửi hình chụp giao dịch đến
+        <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
+          >Kyons fanpage</a
+        >
+        để được hỗ trợ nhé!
+      </p>
+    </div>
     <div class="flex gap-3 justify-center">
       <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
       <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>

@@ -145,9 +145,6 @@ export class AccountAndPaymentComponent implements OnInit {
             const interval = setInterval(() => {
               if (count < 0) {
                 clearInterval(interval);
-                this.router.navigate([], {
-                  relativeTo: this.route,
-                });
                 this.backToHistory();
               }
               this.countdown = count--;
@@ -276,6 +273,9 @@ export class AccountAndPaymentComponent implements OnInit {
   }
 
   backToHistory() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+    });
     this.isViewOrder = false;
     this.isCancelSuccess = false;
     this.isPendingOrder = false;

@@ -81,6 +81,6 @@ function getStatusDisplay(status: OrderStatus): string {
       status === OrderStatus.paid ? 'Đã thanh toán' :
         status === OrderStatus.completed ? 'Hoàn tất' :
           status === OrderStatus.canceled ? 'Đã hủy' :
-            status === OrderStatus.recalled ? 'Đã thu hồi' : '';
+            status === OrderStatus.recalled ? 'Đã thu hồi' : status === OrderStatus.paymentFailed ? 'Thanh toán thất bại' : '';
 }
 

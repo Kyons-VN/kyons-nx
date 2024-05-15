@@ -18,6 +18,7 @@ enum OrderStatus {
   completed = 'completed',
   canceled = 'canceled',
   recalled = 'recalled',
+  paymentFailed = 'payment_failed',
 }
 enum PayMethod {
   transfer = 'transfer',
