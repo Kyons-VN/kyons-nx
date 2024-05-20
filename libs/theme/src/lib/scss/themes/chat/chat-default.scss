@@ -31,6 +31,12 @@
   .chat-divider {
     @apply hidden;
   }
+  .options {
+    @apply flex gap-2 lg:gap-4 w-full;
+    .option {
+      @apply flex items-center justify-between p-3 border border-blueGrey-300 bg-white hover:bg-blueGrey-200 cursor-pointer rounded-lg md:w-1/2 w-full;
+    }
+  }
   .hidden-default {
     display: none;
   }
@@ -55,7 +61,7 @@
       .box {
         width: fit-content;
         @apply rounded-lg p-3 relative;
-        p {
+        p:last-child {
           @apply m-0;
         }
       }

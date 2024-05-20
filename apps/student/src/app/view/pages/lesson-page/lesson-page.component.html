@@ -297,21 +297,14 @@
       </div>
       <div class="chat-divider"></div>
       <student-messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
-      <div class="flex gap-2 lg:gap-4 w-full">
-        <div
-          class="flex items-center justify-between p-3 border border-blueGrey-300 bg-white hover:bg-blueGrey-200 cursor-pointer rounded-lg md:w-1/2 w-full"
-          (click)="option1()"
-        >
+      <div class="options">
+        <div class="option" (click)="option1()">
           <span>Phân tích câu hỏi</span>
           <div class="w-8 h-8 p-2 items-center justify-center bg-white flex rounded-lg">
             <i class="icon-ArrowForward text-blueGrey-400 text-2xl"></i>
           </div>
         </div>
-        <div
-          class="flex items-center justify-between p-3 border border-blueGrey-300 bg-white hover:bg-blueGrey-200 cursor-pointer rounded-lg md:w-1/2 w-full"
-          *ngIf="questionReview"
-          (click)="option2()"
-        >
+        <div class="option" *ngIf="questionReview" (click)="option2()">
           <span>Giải thích đáp án</span>
           <div class="w-8 h-8 p-2 items-center justify-center bg-white flex rounded-lg">
             <i class="icon-ArrowForward text-blueGrey-400 text-2xl"></i>

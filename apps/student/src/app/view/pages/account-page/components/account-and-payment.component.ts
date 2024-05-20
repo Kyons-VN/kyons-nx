@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, OnInit, inject, signal } from '@angular/core';
+import { Component, HostBinding, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import Balance from '@data/order/balance';
 import { Inventory, Item } from '@data/order/inventory';
@@ -12,6 +13,7 @@ import SubscriptionTime from '@data/order/subscription';
 import { UserService } from '@data/user/user.service';
 import { OrderStatus, PaymentMethod } from '@domain/order/i-order';
 import { SafeHtmlPipe } from '@share-pipes';
+import { interval, Subscription } from 'rxjs';
 
 enum OrderProcessStatus {
   initial,
@@ -31,13 +33,14 @@ enum OrderProcessStatus {
   imports: [CommonModule, SafeHtmlPipe, RouterModule, FormsModule],
   templateUrl: './account-and-payment.component.html',
 })
-export class AccountAndPaymentComponent implements OnInit {
+export class AccountAndPaymentComponent implements OnInit, OnDestroy {
   orderService = inject(OrderService);
   paths = inject(NavigationService).paths;
   OrderStatus = OrderStatus;
   route = inject(ActivatedRoute);
   router = inject(Router);
   email = inject(UserService).getEmail();
+  loading = inject(LoadingOverlayService);
 
   activeTab = signal(0);
   totalItems: number = 0;
@@ -69,6 +72,9 @@ export class AccountAndPaymentComponent implements OnInit {
   isOrderFail = false;
   amount = 0;
   countdown = 3;
+  orderCountdown = '10 phút 0 giây';
+
+  $interval!: Subscription;
 
   orderProcessStatus = signal(OrderProcessStatus.initial);
   OrderProcessStatus = OrderProcessStatus;
@@ -156,6 +162,10 @@ export class AccountAndPaymentComponent implements OnInit {
     this.loadGeneral();
   }
 
+  ngOnDestroy(): void {
+    if (this.$interval !== undefined) this.$interval.unsubscribe();
+  }
+
   loadGeneral() {
     this.orderService.getInventory().subscribe({
       next: (inventory: Inventory) => {
@@ -196,18 +206,22 @@ export class AccountAndPaymentComponent implements OnInit {
   }
 
   order() {
+    this.loading.show();
     this.orderService.orderPackage(this.selectedPackage.id, 1, this.payment(), window.origin + this.paths.account.path).subscribe({
       next: (payUrl) => {
         if (payUrl == '') { this.isOrderFail = true; }
         this.orderCode = payUrl;
+        this.loading.hide();
         window.location.href = payUrl;
       },
       error: (err) => {
         console.log(err);
+        this.loading.hide();
 
-        // if(err.)
-        // this.isPendingOrder = true;
-        // this.orderProcessStatus.set(OrderProcessStatus.initial);
+        if (err.error_code == "PendingOrderExists") {
+          this.isPendingOrder = true;
+        }
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
       },
     });
   }
@@ -264,12 +278,23 @@ export class AccountAndPaymentComponent implements OnInit {
     this.isViewOrder = true;
     this.orderDetails = order;
     this.orderCode = order.code;
+    if (order.status == OrderStatus.pending) {
+      const requestInterval = interval(1000);
+      this.$interval = requestInterval.subscribe(() => {
+        const remainningSeconds = Math.round((order.createdAt.getTime() + 10 * 60 * 1000 - (new Date()).getTime()) / 1000);
+        if (remainningSeconds < -3) {
+          this.backToHistory();
+          return;
+        }
+        const minutes = Math.round(remainningSeconds / 60);
+        const seconds = remainningSeconds % 60;
+        this.orderCountdown = `${minutes} phút ${seconds} giây`;
+      });
+    }
   }
 
   viewAndPay(order: Order) {
-    this.selectedPackage = order.orderPackage;
-    this.orderCode = order.code;
-    this.orderProcessStatus.set(OrderProcessStatus.ordering);
+    window.location.href = order.payUrl;
   }
 
   backToHistory() {
@@ -277,6 +302,7 @@ export class AccountAndPaymentComponent implements OnInit {
       relativeTo: this.route,
     });
     this.isViewOrder = false;
+    if (this.$interval) this.$interval.unsubscribe();
     this.isCancelSuccess = false;
     this.isPendingOrder = false;
     this.isCancelFail = false;
@@ -307,6 +333,24 @@ export class AccountAndPaymentComponent implements OnInit {
   selectPayment(pk: Package) {
     this.selectedPackage = pk;
     this.orderProcessStatus.set(OrderProcessStatus.selectingPayment);
+  }
+  cancel(pk: Order) {
+    this.orderService.cancelOrder(pk.code).subscribe({
+      next: (res) => {
+        if (res === 'canceled') {
+          this.isCancelSuccess = true;
+        }
+        else {
+          this.isCancelFail = true;
+        }
+        this.orderProcessStatus.set(OrderProcessStatus.initial);
+        this.loadOrderHistory();
+      },
+      error: () => {
+        this.isCancelFail = true;
+        this.isCanceling = false;
+      },
+    })
   }
 
 }

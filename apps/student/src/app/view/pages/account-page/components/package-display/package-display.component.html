@@ -1,0 +1,31 @@
+<div class="flex flex-col gap-2.5 h-full">
+  <span class="h7 flex items-center gap-2">
+    <span class="text-blueGrey-300">{{ pk.packageTypeDisplay }}</span>
+    <span *ngIf="pk.isUsing" class="bg-orange text-white rounded-full uppercase px-2 py-0.5 text-xs">Đang sử dụng</span>
+  </span>
+  <div class="flex items-center">
+    <div class="flex gap-2 items-center">
+      <img [src]="pk.image" alt="" class="w-8 h-8" />
+      <h6 [ngClass]="{ 'text-lightBlue-1': pk.level > 0 }">{{ pk.name }}</h6>
+    </div>
+    <div class="flex-1"></div>
+    <h6 *ngIf="pk.price === 0">Miễn phí</h6>
+    <h6 *ngIf="pk.price > 0">
+      {{ pk.formatedSalePrice }}
+      <!-- <sub class="text-sm font-normal">/ {{ pk.duration / 24 }} ngày</sub> -->
+    </h6>
+  </div>
+  <hr />
+  <div class="flex flex-col">
+    <span class="h7">Quyền lợi</span>
+    @if(pk.price === 0){
+    <ul class="check-list">
+      <li><strong>01</strong> bài thi thử miễn phí mỗi tuần</li>
+      <li>Sau đó 25.000đ/bài thi thử</li>
+      <li>Lộ trình học <strong>cơ bản</strong></li>
+    </ul>
+    } @else{
+    <div [innerHTML]="pk.description | safeHtml" class="check-list-wrapper"></div>
+    }
+  </div>
+</div>

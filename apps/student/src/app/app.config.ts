@@ -8,6 +8,7 @@ import { notificationServiceProvider } from '@data/notification/notification.ser
 import { environment } from '@environments';
 import { NgCircleProgressModule } from 'ng-circle-progress'; // Add the missing import statement
 import { provideLottieOptions } from 'ngx-lottie';
+import { CLIPBOARD_OPTIONS, ClipboardButtonComponent, provideMarkdown } from 'ngx-markdown';
 import { firebaseProviders } from './firebase.config';
 import { languageProviders } from './language.config';
 import { routes } from './view/routes';
@@ -42,6 +43,14 @@ export const appConfig: ApplicationConfig = {
         startFromZero: false,
         lazy: true,
       })),
-    provideAnimations()
+    provideAnimations(),
+    provideMarkdown({
+      clipboardOptions: {
+        provide: CLIPBOARD_OPTIONS,
+        useValue: {
+          buttonComponent: ClipboardButtonComponent,
+        },
+      },
+    })
   ],
 };

@@ -114,7 +114,7 @@
           <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300" *ngFor="let package of packages">
             <div class="flex flex-col gap-2.5 h-full">
               <span class="h7 flex items-center gap-2">
-                <span>{{ package.packageTypeDisplay }}</span>
+                <span class="text-blueGrey-500">{{ package.packageTypeDisplay }}</span>
                 <span *ngIf="package.isUsing" class="bg-orange text-white rounded-full uppercase px-2 py-0.5 text-xs"
                   >Đang sử dụng</span
                 >
@@ -207,7 +207,7 @@
         <div class="flex flex-col gap-6">
           <div class="flex flex-col gap-4">
             <div class="flex gap-4 items-center">
-              <div class="flex gap-2 text-orange items-center cursor-pointer" (click)="isViewOrder = false">
+              <div class="flex gap-2 text-orange items-center cursor-pointer" (click)="backToHistory()">
                 <i class="icon-ChevronLeft text-2xl"></i>
                 <span>Quay lại</span>
               </div>
@@ -236,11 +236,13 @@
                 <span> Phương thức thanh toán:</span>
                 <span>
                   @if(orderDetails.paidMethod === PaymentMethod.momo){MoMo} @if(orderDetails.paidMethod ===
-                  PaymentMethod.atm){ATM nội địa} @if(orderDetails.paidMethod === PaymentMethod.visa){Thẻ quốc tế}&nbsp;
+                  PaymentMethod.atm){ATM nội địa} @if(orderDetails.paidMethod === PaymentMethod.visa){Thẻ quốc tế}
+                  @if(orderDetails.paidMethod === PaymentMethod.bankTransfer){Chuyển khoản}&nbsp;
                 </span>
                 <i
                   class="icon"
                   [ngClass]="{
+                    'icon-BankTransfer': orderDetails.paidMethod === PaymentMethod.bankTransfer,
                     'icon-Momo': orderDetails.paidMethod === PaymentMethod.momo,
                     'icon-ATM': orderDetails.paidMethod === PaymentMethod.atm,
                     'icon-Visa': orderDetails.paidMethod === PaymentMethod.visa
@@ -252,14 +254,18 @@
                 Trạng thái:
                 <b
                   [ngClass]="{
-                    'text-darkYellow-1': orderDetails.status === OrderStatus.manualPaid,
+                    'text-darkYellow-1':
+                      orderDetails.status === OrderStatus.pending || orderDetails.status === OrderStatus.manualPaid,
                     'text-darkEmerald': orderDetails.status === OrderStatus.completed,
-                    'text-red-0':
-                      orderDetails.status === OrderStatus.pending || orderDetails.status === OrderStatus.paymentFailed
+                    'text-red-0': orderDetails.status === OrderStatus.paymentFailed
                   }"
                   >{{ orderDetails.statusDisplay }}</b
                 >
               </span>
+              <div class="flex justify-between" *ngIf="orderDetails.status === OrderStatus.pending">
+                <span>Thời gian còn lại: {{ orderCountdown }}</span>
+                <button class="btn" (click)="viewAndPay(orderDetails)">Tiếp tục thanh toán</button>
+              </div>
             </div>
             <!-- <div *ngIf="orderDetails.status === OrderStatus.pending" class="flex gap-2">
               <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
@@ -326,10 +332,12 @@
             <td class="text-right">
               <div class="flex items-center justify-end gap-2">
                 @if(order.paidMethod === PaymentMethod.momo){MoMo} @if(order.paidMethod === PaymentMethod.atm){ATM nội
-                địa} @if(order.paidMethod === PaymentMethod.visa){Thẻ quốc tế}&nbsp;
+                địa} @if(order.paidMethod === PaymentMethod.visa){Thẻ quốc tế} @if(order.paidMethod ===
+                PaymentMethod.bankTransfer){Chuyển khoản}&nbsp;
                 <i
                   class="icon"
                   [ngClass]="{
+                    'icon-BankTransfer': order.paidMethod === PaymentMethod.bankTransfer,
                     'icon-Momo': order.paidMethod === PaymentMethod.momo,
                     'icon-ATM': order.paidMethod === PaymentMethod.atm,
                     'icon-Visa': order.paidMethod === PaymentMethod.visa
@@ -409,26 +417,35 @@
     "
     class="fixed top-0 left-0 w-full h-screen overflow-auto flex md:items-center items-start justify-center md:p-4 bg-blueGrey-100"
   >
-    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white md:rounded-lg p-6">
-      <h4>Bạn đang mua gói {{ selectedPackage.name }}</h4>
+    <div class="w-full max-w-[700px] flex flex-col gap-6 md:gap-8 bg-white md:rounded-lg p-6">
+      <h5 class="md:text-2xl">Đang mua gói {{ selectedPackage.name }}</h5>
       <div class="flex flex-col gap-2.5">
-        <h6>Chọn hình thức thanh toán</h6>
+        <span class="h8 md:text-lg">Chọn hình thức thanh toán</span>
         <div class="flex flex-col gap-4">
-          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
+          <label
+            class="flex items-center gap-2 md:gap-4 rounded-lg border border-blueGrey-300 hover:border-orange px-6 py-4 radio flat radio-orange"
+            [ngClass]="{ 'border-orange': payment() === PaymentMethod.momo }"
+          >
             <input
               type="radio"
               (change)="payment.set(PaymentMethod.momo)"
               [checked]="payment() === PaymentMethod.momo"
             />
             <i class="icon-Momo icon"></i>
-            <span>Thanh toán bằng Ví Momo</span>
+            <span>Thanh toán bằng Ví MoMo</span>
           </label>
-          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat items-center">
+          <label
+            class="flex items-center gap-2 md:gap-4 rounded-lg border border-blueGrey-300 hover:border-orange px-6 py-4 radio flat radio-orange"
+            [ngClass]="{ 'border-orange': payment() === PaymentMethod.atm }"
+          >
             <input type="radio" (change)="payment.set(PaymentMethod.atm)" [checked]="payment() === PaymentMethod.atm" />
             <i class="icon-ATM icon"></i>
             <span>Thanh toán bằng Thẻ ATM nội địa</span>
           </label>
-          <label class="flex gap-4 rounded-lg border border-blueGrey-300 px-6 py-4 radio flat">
+          <label
+            class="flex items-center gap-2 md:gap-4 rounded-lg border border-blueGrey-300 hover:border-orange px-6 py-4 radio flat radio-orange"
+            [ngClass]="{ 'border-orange': payment() === PaymentMethod.visa }"
+          >
             <input
               type="radio"
               (change)="payment.set(PaymentMethod.visa)"
@@ -440,11 +457,11 @@
         </div>
       </div>
       <div class="flex flex-col items-center sm:items-start gap-2.5">
-        <h6>Chi tiết thanh toán</h6>
+        <span class="h8 md:text-lg">Chi tiết thanh toán</span>
         <div class="flex flex-col gap-4 p-6 rounded-lg border border-b-gray-300 w-full">
           <div class="flex flex-col gap-2.5 h-full">
             <span class="h7 flex items-center gap-2">
-              <span>{{ selectedPackage.packageTypeDisplay }}</span>
+              <span class="text-blueGrey-500">{{ selectedPackage.packageTypeDisplay }}</span>
               <span
                 *ngIf="selectedPackage.isUsing"
                 class="bg-orange text-white rounded-full uppercase px-2 py-0.5 text-xs"
@@ -479,18 +496,22 @@
           </div>
         </div>
       </div>
-      <div class="flex md:flex-row flex-col md:items-center md:justify-between items-stretch justify-center gap-3">
+      <div class="flex md:flex-row flex-col md:justify-between items-start md:items-center justify-center gap-4">
         <button
-          class="btn btn-rounded"
+          class="btn btn-rounded w-full md:w-[200px]"
           (click)="orderProcessStatus.set(OrderProcessStatus.initial)"
           [disabled]="orderProcessStatus() === OrderProcessStatus.ordering"
         >
           Quay lại
         </button>
-        <button class="btn" (click)="order()" [disabled]="orderProcessStatus() === OrderProcessStatus.ordering">
+        <button
+          class="btn md:flex-1 w-full"
+          (click)="order()"
+          [disabled]="orderProcessStatus() === OrderProcessStatus.ordering"
+        >
           {{ orderProcessStatus() === OrderProcessStatus.ordering ? 'Đang xử lý...' : 'Mua gói' }}
         </button>
-        <div class="md:hidden h-10"></div>
+        <div class="md:hidden h-20"></div>
       </div>
     </div>
   </div>
@@ -628,10 +649,13 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between">
-        <button class="btn btn-rounded" (click)="showTopup = false">Quay lại</button>
-        <a class="btn" href="https://www.facebook.com/KyonsVN" target="_blank">Thông báo đã chuyển khoản</a>
+      <div class="flex items-center justify-between gap-4 flex-col md:flex-row">
+        <button class="btn btn-rounded w-full md:w-[200px]" (click)="showTopup = false">Quay lại</button>
+        <a class="btn w-full md:flex-1" href="https://www.facebook.com/KyonsVN" target="_blank"
+          >Thông báo đã chuyển khoản</a
+        >
       </div>
+      <div class="h-12 md:hidden"></div>
     </div>
   </div>
 </div>

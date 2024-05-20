@@ -81,7 +81,7 @@
         .box {
           background: rgba(37, 138, 194, 0.6);
         }
-        .box::after {
+        .box:after {
           background: rgba(37, 138, 194, 0.6);
         }
       }
@@ -148,13 +148,32 @@
           @apply relative;
           p {
             // background: linear-gradient(182deg, rgba(37, 138, 194, 0.2) 1.8%, rgba(44, 61, 91, 0.2) 152.06%);
-            @apply px-4 py-3 w-full m-1;
+            @apply w-full;
+            &:last-child {
+              @apply mb-0;
+            }
           }
           svg {
             @apply absolute top-0 left-0 w-full;
           }
         }
       }
+    }
+  }
+  .options {
+    @apply flex justify-between gap-2 p-4 w-full;
+    .option {
+      @apply w-1/2 flex items-center justify-between p-4 cursor-pointer;
+      // --mask: linear-gradient(-45deg, #0000 11.31px, #000 0 calc(100% - 11.31px), #0000 0);
+      // -webkit-mask: var(--mask);
+      // mask: var(--mask);
+      background: rgba(37, 138, 194, 0.6);
+      &:hover {
+        background: rgba(37, 138, 194, 1);
+      }
+      // &:after {
+      //   background: rgba(37, 138, 194, 0.6);
+      // }
     }
   }
   .hidden-universe {

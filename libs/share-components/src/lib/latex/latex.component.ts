@@ -3,6 +3,7 @@ import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { extractMath } from 'extract-math';
 import katex from 'katex';
+import { MarkdownService } from 'ngx-markdown';
 
 @Component({
   selector: 'kyonsvn-latex',
@@ -12,13 +13,14 @@ import katex from 'katex';
 })
 export class LatexComponent implements OnChanges {
   domSanitizer = inject(DomSanitizer);
+  markdownService = inject(MarkdownService);
 
   @Input({ required: true }) inputString!: string;
 
   _html: string[] = [];
   _safeHtml: SafeHtml | undefined;
 
-  ngOnChanges(changes: SimpleChanges) {
+  async ngOnChanges(changes: SimpleChanges) {
     if (changes['inputString']) {
       this._html = [];
       // Break the string into segments ('text', 'inline', and 'display')
@@ -44,8 +46,9 @@ export class LatexComponent implements OnChanges {
           console.warn("An error occurred when parsing the LaTex input. The type of the segment is not recognized.");
         }
       }
+      const html = await this.markdownService.parse(this._html.join("\n"));
 
-      this._safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this._html.join(""));
+      this._safeHtml = this.domSanitizer.bypassSecurityTrustHtml(html);
     }
   }
   // ngOnInit() {

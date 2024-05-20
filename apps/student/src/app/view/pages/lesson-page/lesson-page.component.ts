@@ -296,9 +296,11 @@ export class LessonPageComponent implements OnInit {
   }
 
   option1() {
+    if (this.isThinking) return;
     this.sendMessage('Phân tích chi tiết câu hỏi thuộc thể loại toán nào, cần thông tin gì để giải quyết câu hỏi này?');
   }
   option2() {
+    if (this.isThinking) return;
     const rightAnswer = this.questionReview?.answers.find((answer) => answer.id == this.questionReview?.correctAnswer);
     this.sendMessage('Giải thích ' + (this.questionReview != null ? 'vì sao đáp án ' + rightAnswer?.content + ' là đáp án đúng?' : ''));
   }

@@ -19,6 +19,7 @@ export default class Order implements IOrder {
   totalPriceDisplay: string;
   orderPackage: Package;
   statusDisplay: string;
+  payUrl: string;
   constructor({
     id,
     code,
@@ -28,7 +29,8 @@ export default class Order implements IOrder {
     orderItems,
     createdAt,
     totalPrice,
-    orderPackage
+    orderPackage,
+    payUrl,
   }: {
     id: string;
     code: string;
@@ -39,6 +41,7 @@ export default class Order implements IOrder {
     createdAt: Date;
     totalPrice: number;
     orderPackage: Package;
+    payUrl: string;
   }) {
     this.id = id;
     this.code = code;
@@ -52,10 +55,11 @@ export default class Order implements IOrder {
     this.totalPriceDisplay = formattedPrice(totalPrice);
     this.orderPackage = orderPackage;
     this.statusDisplay = getStatusDisplay(status);
+    this.payUrl = payUrl;
   }
 
   static fromJson(dataObject: any): Order {
-    const _ = pick(dataObject, ['id', 'code', 'status', 'orderSubscription', 'paidMethod', 'paid_method', 'orderItems', 'order_items', 'createdAt', 'created_at', 'totalPrice', 'total_price', 'orderPackage', 'order_package']);
+    const _ = pick(dataObject, ['id', 'code', 'status', 'orderSubscription', 'paidMethod', 'paid_method', 'orderItems', 'order_items', 'createdAt', 'created_at', 'totalPrice', 'total_price', 'orderPackage', 'order_package', 'payUrl', 'pay_url']);
     _.id = String(_.id);
     ({ orderSubscription: _.orderSubscription, orderItems: _.orderItems } = getOrderItems(_.order_items));
     _.totalPrice = parseFloat(_.total_price);
@@ -63,6 +67,7 @@ export default class Order implements IOrder {
     _.orderPackage = Package.fromJson(_.order_package);
     _.paidMethod = _.paid_method;
     _.createdAt = new Date(_.created_at);
+    _.payUrl = (dataObject.payment ?? { 'pay_url': '' }).pay_url ?? '';
     return new Order(_);
   }
 }
