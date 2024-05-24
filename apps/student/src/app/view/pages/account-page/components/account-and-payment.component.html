@@ -331,9 +331,6 @@
             </td>
             <td class="text-right">
               <div class="flex items-center justify-end gap-2">
-                @if(order.paidMethod === PaymentMethod.momo){MoMo} @if(order.paidMethod === PaymentMethod.atm){ATM nội
-                địa} @if(order.paidMethod === PaymentMethod.visa){Thẻ quốc tế} @if(order.paidMethod ===
-                PaymentMethod.bankTransfer){Chuyển khoản}&nbsp;
                 <i
                   class="icon"
                   [ngClass]="{
@@ -343,6 +340,9 @@
                     'icon-Visa': order.paidMethod === PaymentMethod.visa
                   }"
                 ></i>
+                @if(order.paidMethod === PaymentMethod.momo){MoMo} @if(order.paidMethod === PaymentMethod.atm){ATM nội
+                địa} @if(order.paidMethod === PaymentMethod.visa){Thẻ quốc tế} @if(order.paidMethod ===
+                PaymentMethod.bankTransfer){Chuyển khoản}
               </div>
             </td>
           </tr>

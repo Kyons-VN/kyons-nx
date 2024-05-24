@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -23,7 +22,6 @@ import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 })
 export class LessonReviewPageComponent implements OnInit {
   route = inject(ActivatedRoute);
-  knowledgeService = inject(KnowledgeService);
   testService = inject(TestService);
   paths = inject(NavigationService).paths;
   router = inject(Router);
@@ -31,7 +29,7 @@ export class LessonReviewPageComponent implements OnInit {
   http = inject(HttpClient);
   loading = inject(LoadingOverlayService);
   location = inject(Location);
-  learningGoal = this.knowledgeService.getStudentLearningGoal();
+  learningGoal = this.lessonService.getStudentLearningGoal();
 
   questions: QuestionReview[] = [];
   currentQuestion!: QuestionReview;

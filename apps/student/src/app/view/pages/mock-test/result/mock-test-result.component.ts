@@ -131,7 +131,7 @@ export class MockTestResultComponent implements OnInit {
     //   next: () => {
     this.lessonService.activateLearningPath(this.mockTestId).subscribe({
       next: (learningGoal: StudentLearningGoal) => {
-        this.knowledgeService.selectStudentLearningGoal(learningGoal);
+        this.lessonService.selectStudentLearningGoal(learningGoal);
         this.loading.hide();
         this.router.navigate([this.paths.learningPath.path]);
       },

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Injector, OnDestroy, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
+import { LessonService } from '@data/knowledge/lesson.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { TutorialService } from '@data/tutorials/tutorial-service';
@@ -22,7 +22,8 @@ import { RightMenuComponent } from './right-menu/right-menu.component';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   paths: AppPaths = inject(NavigationService).paths;
-  knowledgeService: KnowledgeService = inject(KnowledgeService);
+  // knowledgeService: KnowledgeService = inject(KnowledgeService);
+  lessonService: LessonService = inject(LessonService);
   router: Router = inject(Router);
   route = inject(ActivatedRoute);
   tutorialService = inject(TutorialService);
@@ -67,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   _getStudentLearningGoalsData() {
-    this.knowledgeService.getStudentLearningGoals().subscribe({
+    this.lessonService.getStudentLearningGoals().subscribe({
       next: learningGoals => {
         if (
           learningGoals.length > 0 &&
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             learning => learning.id === this.route.snapshot.queryParams['learning_goal_id']
           )[0];
           if (selectedLearningGoal) {
-            this.knowledgeService.selectStudentLearningGoal(selectedLearningGoal);
+            this.lessonService.selectStudentLearningGoal(selectedLearningGoal);
             this.router.navigate([this.paths.learningPath.path]);
           }
         }
@@ -103,12 +104,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   selectLearningGoal(learningGoal: StudentLearningGoal) {
-    this.knowledgeService.selectStudentLearningGoal(learningGoal);
+    this.lessonService.selectStudentLearningGoal(learningGoal);
     this.router.navigate([this.paths.learningPath.path]);
   }
 
   goToLastestLearningGoal() {
-    this.knowledgeService.selectStudentLearningGoal(this.learnings[0]);
+    this.lessonService.selectStudentLearningGoal(this.learnings[0]);
     this.router.navigate([this.paths.learningPath.path]);
   }
 

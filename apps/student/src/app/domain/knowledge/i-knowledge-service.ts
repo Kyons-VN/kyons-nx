@@ -1,4 +1,4 @@
-import { LearningGoal, StudentLearningGoal } from '@data/knowledge/learning-goal';
+import { LearningGoal } from '@data/knowledge/learning-goal';
 import { Program } from '@data/knowledge/program';
 import { Subject } from '@domain/knowledge/subject/subject';
 import { Observable } from 'rxjs';
@@ -14,5 +14,4 @@ export default interface IKnowledgeService {
   selectCategoryId(learningGoal: string): void;
   getSelectedCategoryId(): string;
   removeSelectedLearningGoal(): void;
-  getStudentLearningGoals(): Observable<StudentLearningGoal[]>;
 }

@@ -5,7 +5,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Chat, Content, Mana, TextPart } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { Lesson } from '@data/knowledge/lesson';
 import { LessonService } from '@data/knowledge/lesson.service';
@@ -44,7 +43,6 @@ import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 })
 export class LessonPageComponent implements OnInit {
   paths = inject(NavigationService).paths;
-  knowledgeService = inject(KnowledgeService);
   lessonService = inject(LessonService);
   route = inject(ActivatedRoute);
   router = inject(Router);
@@ -100,7 +98,7 @@ export class LessonPageComponent implements OnInit {
     // this.content = this.sanitizer.bypassSecurityTrustResourceUrl('https://drive.google.com/file/d/11uI4QQW2pDwAJXOjFALjC-5xaIojGGxq/preview');
     // this.content = 'https://drive.google.com/file/d/11uI4QQW2pDwAJXOjFALjC-5xaIojGGxq/preview';
     this.loading.show();
-    this.learningGoal = this.knowledgeService.getStudentLearningGoal();
+    this.learningGoal = this.lessonService.getStudentLearningGoal();
     this.lessonId = this.route.snapshot.params['id'];
     // this.lessonService.getDetail(this.lessonId).subscribe({
     //   next: result => {

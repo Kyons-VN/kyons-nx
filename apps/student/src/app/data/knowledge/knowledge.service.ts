@@ -5,12 +5,11 @@ import IKnowledgeService from '@domain/knowledge/i-knowledge-service';
 import { Observable, catchError, map } from 'rxjs';
 import { Subject } from '../../domain/knowledge/subject/subject';
 import { DBHelper } from '../helper/helper';
-import { LearningGoal, StudentLearningGoal } from './learning-goal';
+import { LearningGoal } from './learning-goal';
 import { Program } from './program';
 
 const SELECTED_PROGRAM_KEY = 'selected_program';
 const SELECTED_LEARNING_GOAL_KEY = 'selected_learning_goal';
-const SELECTED_STUDENT_LEARNING_GOAL_KEY = 'selected_student_learning_goal';
 const SELECTED_CATEGORY_ID = 'selected_category_id';
 
 @Injectable({
@@ -74,18 +73,6 @@ export class KnowledgeService implements IKnowledgeService {
     );
   }
 
-  selectStudentLearningGoal(learningGoal: StudentLearningGoal): void {
-    window.localStorage.setItem(SELECTED_STUDENT_LEARNING_GOAL_KEY, JSON.stringify(learningGoal.toJson()));
-  }
-
-  getStudentLearningGoal(): StudentLearningGoal {
-    return new StudentLearningGoal(
-      JSON.parse(
-        window.localStorage.getItem(SELECTED_STUDENT_LEARNING_GOAL_KEY) ?? JSON.stringify(LearningGoal.empty().toJson())
-      )
-    );
-  }
-
   selectCategoryId(learningGoal: string): void {
     window.localStorage.setItem(SELECTED_CATEGORY_ID, learningGoal);
   }
@@ -96,36 +83,5 @@ export class KnowledgeService implements IKnowledgeService {
 
   removeSelectedLearningGoal() {
     window.localStorage.removeItem(SELECTED_LEARNING_GOAL_KEY);
-  }
-
-  getStudentLearningGoals(): Observable<StudentLearningGoal[]> {
-    return this.http.get(`${serverApi()}/api/v2/users/learning_goals`).pipe(
-      catchError(DBHelper.handleError('GET learning_goals_list', [])),
-      map((res: any) => {
-        if (res.data == undefined || res.data.length === 0) return [];
-        // res = {
-        //   data: [
-        // {
-        //   id: 100,
-        //   name: 'Kiểm tra 15 phút',
-        //   program_name: 'English 11',
-        //   complete_percentage: 100,
-        //   ordinal_number: 1,
-        //   subject_id: 1,
-        // },
-        // {
-        //   id: 97,
-        //   name: 'Kiểm tra 1 tiết',
-        //   program_name: 'English 12',
-        //   complete_percentage: 70,
-        //   ordinal_number: 2,
-        //   subject_id: 2,
-        // },
-        //   ],
-        // };
-
-        return res.data.map((item: any) => StudentLearningGoal.fromJson(item));
-      })
-    );
   }
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
+import { LessonService } from '@data/knowledge/lesson.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 
 @Component({
@@ -11,6 +11,6 @@ import { NavigationService } from '@data/navigation/navigation.service';
   styleUrls: ['./style.scss'],
 })
 export class LearningPathCompleteComponent {
-  learningGoal = inject(KnowledgeService).getStudentLearningGoal();
+  learningGoal = inject(LessonService).getStudentLearningGoal();
   paths = inject(NavigationService).paths;
 }

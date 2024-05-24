@@ -2,7 +2,6 @@ import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { LessonService } from '@data/knowledge/lesson.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -21,7 +20,7 @@ import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.compo
 })
 export class MockTestReviewComponent implements OnInit {
   route = inject(ActivatedRoute);
-  knowledgeService = inject(KnowledgeService);
+  // knowledgeService = inject(KnowledgeService);
   testService = inject(TestService);
   paths = inject(NavigationService).paths;
   router = inject(Router);
@@ -122,7 +121,7 @@ export class MockTestReviewComponent implements OnInit {
     //   next: () => {
     this.lessonService.activateLearningPath(this.mockTestId).subscribe({
       next: (learningGoal) => {
-        this.knowledgeService.selectStudentLearningGoal(learningGoal);
+        this.lessonService.selectStudentLearningGoal(learningGoal);
         this.loading.hide();
         this.router.navigate([this.paths.learningPath.path]);
       },

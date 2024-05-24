@@ -1,20 +1,23 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { serverApi } from '@data/auth/interceptor';
 import { MockTestItem } from '@data/test/test-content';
 import ILessonService from '@domain/knowledge/i-lesson-service';
 import { Exercise, Submission, TestReviewHtml } from '@share-utils/data';
-import { Observable, catchError, map } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { DBHelper } from '../helper/helper';
-import { StudentLearningGoal } from './learning-goal';
+import { LearningGoal, StudentLearningGoal } from './learning-goal';
 import { LearningGoalPath } from './learning-goal-path';
 import { LearningPath, LearningPoint, Lesson, LessonGroup } from './lesson';
 import { Program } from './program';
+
+const SELECTED_STUDENT_LEARNING_GOAL_KEY = 'selected_student_learning_goal';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LessonService implements ILessonService {
+  http: HttpClient = inject(HttpClient);
   getLearningGoalMockTest(learningGoalId: string) {
     return this.http.get<LearningGoalPath>(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/mock_tests`).pipe(
       // return this.http.get<MockTestItem[]>(`${serverApi()}/students/programs`).pipe(
@@ -69,7 +72,50 @@ export class LessonService implements ILessonService {
       })
     );
   }
-  constructor(private http: HttpClient) { }
+
+  getStudentLearningGoal(): StudentLearningGoal {
+    return new StudentLearningGoal(
+      JSON.parse(
+        window.localStorage.getItem(SELECTED_STUDENT_LEARNING_GOAL_KEY) ?? JSON.stringify(LearningGoal.empty().toJson())
+      )
+    );
+  }
+
+
+  getStudentLearningGoals(): Observable<StudentLearningGoal[]> {
+    return this.http.get(`${serverApi()}/api/v2/users/learning_goals`).pipe(
+      catchError(DBHelper.handleError('GET learning_goals_list', [])),
+      map((res: any) => {
+        if (res.data == undefined || res.data.length === 0) return [];
+        // res = {
+        //   data: [
+        // {
+        //   id: 100,
+        //   name: 'Kiểm tra 15 phút',
+        //   program_name: 'English 11',
+        //   complete_percentage: 100,
+        //   ordinal_number: 1,
+        //   subject_id: 1,
+        // },
+        // {
+        //   id: 97,
+        //   name: 'Kiểm tra 1 tiết',
+        //   program_name: 'English 12',
+        //   complete_percentage: 70,
+        //   ordinal_number: 2,
+        //   subject_id: 2,
+        // },
+        //   ],
+        // };
+
+        return res.data.map((item: any) => StudentLearningGoal.fromJson(item));
+      })
+    );
+  }
+
+  selectStudentLearningGoal(learningGoal: StudentLearningGoal): void {
+    window.localStorage.setItem(SELECTED_STUDENT_LEARNING_GOAL_KEY, JSON.stringify(learningGoal.toJson()));
+  }
 
   getList(learningGoalId: string): Observable<LearningPath> {
     return this.http.get<LearningGoalPath>(`${serverApi()}/api/v2/users/learning_goals/${learningGoalId}/learning_path`).pipe(

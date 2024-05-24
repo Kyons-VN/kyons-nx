@@ -19,7 +19,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Category } from '@data/knowledge/category';
-import { KnowledgeService } from '@data/knowledge/knowledge.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { LearningGoalCategory } from '@data/knowledge/learning-goal-path';
 import { LearningPath, LessonItem } from '@data/knowledge/lesson';
@@ -56,7 +55,6 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   testService = inject(TestService);
   loading = inject(LoadingOverlayService);
   http = inject(HttpClient);
-  knowledgeService = inject(KnowledgeService);
   router = inject(Router);
   route = inject(ActivatedRoute);
   tutorialService = inject(TutorialService);
@@ -223,8 +221,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
           this.tutorialPart = 2;
         }, 200);
       } else {
-        this.selectedStudentLearningGoal = this.knowledgeService.getStudentLearningGoal();
-        // this.selectedCategoryId = this.knowledgeService.getSelectedCategoryId();
+        this.selectedStudentLearningGoal = this.lessonService.getStudentLearningGoal();
         if (this.selectedStudentLearningGoal.isEmpty()) {
           this.router.navigate([this.paths.home.path]);
           return;
