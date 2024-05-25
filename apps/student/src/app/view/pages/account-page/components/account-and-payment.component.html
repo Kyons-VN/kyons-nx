@@ -155,7 +155,7 @@
               <button
                 *ngIf="package.level > 0 && package.level === currentPackage.level"
                 class="btn"
-                (click)="showExtending = true"
+                (click)="showExtendingWithCooldown()"
               >
                 Gia hạn
               </button>
@@ -531,12 +531,27 @@
   class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
 >
   <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <p>Thời gian sử dụng vẫn còn, bạn vẫn muốn mua thêm thời gian?</p>
-    <div class="flex gap-4">
+    <img src="/assets/images/warning.webp" alt="" class="w-[100px] self-center" />
+    <h3>Khoan! Gói {{ currentPackage.name }} vẫn còn hiệu lực</h3>
+    <p>
+      Gói học của bạn vẫn còn hiệu lực đấy!
+      <b>Hệ thống sẽ tự động huỷ tài khoản tính phí & hoàn tiền phần chưa sử dụng vào tài khoản Kyons của bạn</b
+      >.<br />Nếu có thắc mắc, hãy liên hệ
+      <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
+        >Kyons fanpage</a
+      >
+      để được hỗ trợ nhé!
+    </p>
+    @if(extendingCooldown<=0){
+    <div class="flex gap-4 justify-between">
+      <button class="btn" (click)="selectPackage(currentPackage)">Tôi chắc chắn gia hạn gói!</button>
       <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
-      <button class="btn" (click)="selectPackage(currentPackage)">Tiếp tục gia hạn</button>
     </div>
+    } @else{
+    <div class="flex gap-4 justify-center">
+      <button class="btn" disabled>Gia hạn ({{ extendingCooldown }} giây)</button>
+    </div>
+    }
   </div>
 </div>
 <div

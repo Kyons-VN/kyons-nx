@@ -56,6 +56,7 @@ export class AccountAndPaymentComponent implements OnInit {
   isPendingOrder = false;
   isOrderFail = false;
   amount = 0;
+  extendingCooldown = 10;
 
   @HostBinding('class') class = 'flex-1 w-full md:w-auto';
 
@@ -114,6 +115,7 @@ export class AccountAndPaymentComponent implements OnInit {
   }
 
   selectPackage(selectedPackage: Package) {
+    this.showExtending = false;
     this.selectedPackage = selectedPackage;
     this.orderService.orderPackage(selectedPackage.id, 1).subscribe({
       next: (orderCode) => {
@@ -218,6 +220,16 @@ export class AccountAndPaymentComponent implements OnInit {
     this.selectPackage(this.selectedPackage);
   }
 
+  showExtendingWithCooldown() {
+    this.showExtending = true;
+    this.extendingCooldown = 10;
+    const timer = setInterval(() => {
+      this.extendingCooldown -= 1;
+      if (this.extendingCooldown <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000)
+  }
 }
 
 function toTime(totalhours: number) {

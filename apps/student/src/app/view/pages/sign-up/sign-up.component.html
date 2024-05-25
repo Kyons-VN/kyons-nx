@@ -150,7 +150,7 @@
         <div class="flex flex-col">
           <p>Chọn gói</p>
           <div class="flex flex-col gap-4">
-            <div class="flex justify-between" *ngFor="let item of ['1', '2', '3']">
+            <div class="flex justify-between" *ngFor="let item of ['1', '2', '3', '0']">
               <label class="radio flat" [id]="'package-' + item">
                 <input type="radio" [checked]="item === packageLevel" (click)="select(item)" name="package" />
                 <span>{{ packageNames[item] }}</span>
@@ -282,10 +282,10 @@
     </div>
   </div>
   <div
-    class="hero-bg hidden md:flex lg:flex-row md:flex-col lg:items-center md:justify-start p-8 justify-center flex-shrink-0 relative flex-1 w-full gap-4 h-screen overflow-y-auto overflow-x-hidden"
+    class="hero-bg hidden md:flex xl:flex-row flex-col lg:items-center md:justify-start p-8 justify-center flex-shrink-0 relative flex-1 w-full gap-4 h-screen overflow-y-auto overflow-x-hidden"
   >
     <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
-      <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
           <h6 class="text-lg">Gói Starter: 1 Tháng</h6>
@@ -295,7 +295,7 @@
             <b class="text-blueGrey-400 text-3xl text-right">69K</b>
             <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 60% </b>
           </div> -->
-          <span class="text-7xl font-semibold">69K</span>
+          <span class="text-6xl font-semibold">69K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">1 tháng truy cập Kyons</div>
@@ -316,7 +316,7 @@
       class="flex flex-col rounded-lg p-4 gap-4 bg-white hover:shadow-orange shadow-2 h-[600px] justify-start items-center outline-orange outline-8"
     >
       <div class="h-[37px] bg-yellow-1 px-4 py-2 rounded-2xl">Khuyên dùng</div>
-      <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
           <h6 class="text-lg">Gói Starter: 3 tháng</h6>
@@ -326,7 +326,7 @@
             <b class="text-blueGrey-400 text-3xl text-right">207K</b>
             <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
           </div> -->
-          <span class="text-7xl font-semibold">207K</span>
+          <span class="text-6xl font-semibold">207K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">3 tháng truy cập Kyons</div>
@@ -345,7 +345,7 @@
       </div>
     </div>
     <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
-      <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
           <h6 class="text-lg">Gói Starter: 12 tháng</h6>
@@ -355,7 +355,7 @@
             <b class="text-blueGrey-400 text-3xl text-right">828K</b>
             <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 67% </b>
           </div> -->
-          <span class="text-7xl font-semibold">828K</span>
+          <span class="text-6xl font-semibold">828K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">12 tháng truy cập Kyons</div>
