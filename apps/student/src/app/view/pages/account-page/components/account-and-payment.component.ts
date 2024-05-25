@@ -80,6 +80,7 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
   OrderProcessStatus = OrderProcessStatus;
   payment = signal(PaymentMethod.momo);
   PaymentMethod = PaymentMethod;
+  extendingCooldown = 10;
 
   @HostBinding('class') class = 'flex-1 w-full md:w-auto';
 
@@ -353,6 +354,16 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
     })
   }
 
+  showExtendingWithCooldown() {
+    this.showExtending = true;
+    this.extendingCooldown = 10;
+    const timer = setInterval(() => {
+      this.extendingCooldown -= 1;
+      if (this.extendingCooldown <= 0) {
+        clearInterval(timer);
+      }
+    }, 1000)
+  }
 }
 
 function toTime(totalhours: number) {

@@ -17,6 +17,11 @@
   .text-white {
     color: white;
   }
+  @media screen and (min-width: 768px) {
+    .md\:text-primaryBlue {
+      color: #2c3d5b;
+    }
+  }
 }
 
 @import 'chat/chat-default.scss';

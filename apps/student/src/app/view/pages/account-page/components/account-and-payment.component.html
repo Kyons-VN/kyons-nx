@@ -46,7 +46,7 @@
                 {{ currentPackage.level === 0 ? 'Không hết hạn' : remainingHoursDisplay }}
               </h4>
             </div>
-            <!-- <a (click)="showBenefit = true">Xem quyền lợi</a> -->
+            <a (click)="showBenefit = true" class="hidden md:flex">Xem quyền lợi</a>
           </div>
           <hr class="hidden md:flex" />
           <div class="gap-8 hidden md:flex">
@@ -155,7 +155,7 @@
               <button
                 *ngIf="package.level > 0 && package.level === currentPackage.level"
                 class="btn"
-                (click)="selectedPackage = package; showExtending = true"
+                (click)="selectedPackage = package; showExtendingWithCooldown()"
               >
                 Gia hạn
               </button>
@@ -658,167 +658,175 @@
       <div class="h-12 md:hidden"></div>
     </div>
   </div>
-</div>
-<div
-  *ngIf="showBenefit"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] bg-white rounded-lg p-6 flex flex-col gap-4">
-    @if(currentPackage.description===''){
+  <div
+    *ngIf="showBenefit"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] bg-white rounded-lg p-6 flex flex-col gap-4">
+      @if(currentPackage.description===''){
 
-    <ul class="check-list">
-      <li><strong>01</strong> bài thi thử miễn phí mỗi tuần</li>
-      <li>Sau đó 25.000đ/bài thi thử</li>
-      <li>Lộ trình học <strong>cơ bản</strong></li>
-    </ul>
-    } @else{
-    <div class="" [innerHTML]="currentPackage.description | safeHtml"></div>
-    }
-    <button class="btn w-full" (click)="showBenefit = false">Ok nha</button>
-  </div>
-</div>
-<div
-  *ngIf="showExtending"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3>Gói {{ currentPackage.name }} vẫn còn thời gian sử dụng</h3>
-    <p>
-      Thời gian sử dụng vẫn còn, nếu chọn gia hạn gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
-      thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của mình.
-      Bạn muốn tiếp tục gia hạn gói? Kyons đang phát triển tính năng cộng dồn thời gian cho bạn, sẽ sớm cập nhật trong
-      phiên bản tiếp theo.
-    </p>
-    <p>
-      Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để biết thêm chi
-      tiết!
-    </p>
-    <div class="flex gap-4 justify-between">
-      <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
-      <button class="btn" (click)="selectPayment(selectedPackage); showExtending = false">Tiếp tục gia hạn</button>
+      <ul class="check-list">
+        <li><strong>01</strong> bài thi thử miễn phí mỗi tuần</li>
+        <li>Sau đó 25.000đ/bài thi thử</li>
+        <li>Lộ trình học <strong>cơ bản</strong></li>
+      </ul>
+      } @else{
+      <div class="" [innerHTML]="currentPackage.description | safeHtml"></div>
+      }
+      <button class="btn w-full" (click)="showBenefit = false">Ok nha</button>
     </div>
   </div>
-</div>
-<div
-  *ngIf="orderProcessStatus() === OrderProcessStatus.warning"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <p>
-      Thời gian sử dụng vẫn còn, bạn cần phải hủy gói đang dùng trước khi thay đổi? Vui lòng liên hệ
-      <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được giải quyết nhanh chóng nhé!
-    </p>
-    <div class="flex gap-4 justify-end">
-      <button class="btn" (click)="orderProcessStatus.set(OrderProcessStatus.initial)">Đã hiểu</button>
-    </div>
-  </div>
-</div>
-<div
-  *ngIf="showUpgrade"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
-    <div class="col">
+  <div
+    *ngIf="showExtending"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <img src="/assets/images/warning.webp" alt="" class="w-[100px] self-center" />
+      <h3>Khoan! Gói {{ currentPackage.name }} vẫn còn hiệu lực</h3>
       <p>
-        Thời gian sử dụng vẫn còn, nếu chọn nâng cấp gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
-        thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của
-        mình. Bạn muốn tiếp tục nâng cấp gói?
-      </p>
-      <p>
-        Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được tư vấn!
-      </p>
-    </div>
-    <div class="flex gap-4 justify-between">
-      <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
-      <button class="btn" (click)="selectPayment(selectedPackage); showUpgrade = false">Tiếp tục nâng cấp</button>
-    </div>
-  </div>
-</div>
-<div
-  *ngIf="orderProcessStatus() === OrderProcessStatus.success"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3 class="self-center"><img src="assets/icons/Succeed.svg" alt="success" /></h3>
-    <h5 class="self-center">Thanh toán thành công!</h5>
-    <p>
-      Kyons vừa gửi email cho bạn để xác nhận thanh toán thành công. Bạn sẽ được đưa về trang
-      <b> “Lịch sử giao dịch” </b> trong vòng {{ countdown }} giây.
-    </p>
-    <p>
-      Nếu vẫn chưa nhận được email xác nhận, bạn hãy liên hệ
-      <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
-        >Kyons fanpage</a
-      >
-      để được hỗ trợ nhé!
-    </p>
-    <div class="flex gap-3 justify-center">
-      <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
-      <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
-    </div>
-  </div>
-</div>
-<div
-  *ngIf="orderProcessStatus() === OrderProcessStatus.fail"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h3 class="self-center"><img src="assets/icons/Cancel.svg" alt="fail" /></h3>
-    <h5 class="self-center">Đã có lỗi xảy ra!</h5>
-    @if(hasError!==''){
-    <b class="text-red-0">{{ hasError }}</b>
-    }
-    <div class="col">
-      <p>
-        Kyons đã nhận được thông tin và đang tiến hành xử lí. Nếu có lỗi ngoài ý muốn, bạn có thể xem trạng thái của
-        giao dịch trong
-        <b>“Lịch sử giao dịch”</b> và hãy gửi hình chụp giao dịch đến
+        Gói học của bạn vẫn còn hiệu lực đấy!
+        <b>Hệ thống sẽ tự động huỷ tài khoản tính phí & hoàn tiền phần chưa sử dụng vào tài khoản Kyons của bạn</b
+        >.<br />Nếu có thắc mắc, hãy liên hệ
         <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
           >Kyons fanpage</a
         >
         để được hỗ trợ nhé!
       </p>
-    </div>
-    <div class="flex gap-3 justify-center">
-      <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
-      <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
-    </div>
-  </div>
-</div>
-<div
-  *ngIf="isCancelFail"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h5 class="text-center">Hủy giao dịch không thành công</h5>
-    <div class="flex gap-4 justify-center">
-      <button class="btn" (click)="backToHistory()">Ok, thử lại sau</button>
+      @if(extendingCooldown<=0){
+      <div class="flex gap-4 justify-between">
+        <button class="btn" (click)="selectPayment(currentPackage); showExtending = false">
+          Tôi chắc chắn gia hạn gói!
+        </button>
+        <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
+      </div>
+      } @else{
+      <div class="flex gap-4 justify-center">
+        <button class="btn" disabled>Gia hạn ({{ extendingCooldown }} giây)</button>
+      </div>
+      }
     </div>
   </div>
-</div>
-<div
-  *ngIf="isPendingOrder"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h5 class="text-center">
-      Bạn đang có một đơn hàng trong trạng thái chờ duyệt nên không thể tiếp tục hành động này.
-    </h5>
-    <div class="flex gap-4 justify-center">
-      <button class="btn" (click)="backToHistory()">Xem</button>
+  <div
+    *ngIf="orderProcessStatus() === OrderProcessStatus.warning"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
+      <p>
+        Thời gian sử dụng vẫn còn, bạn cần phải hủy gói đang dùng trước khi thay đổi? Vui lòng liên hệ
+        <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được giải quyết nhanh chóng nhé!
+      </p>
+      <div class="flex gap-4 justify-end">
+        <button class="btn" (click)="orderProcessStatus.set(OrderProcessStatus.initial)">Đã hiểu</button>
+      </div>
     </div>
   </div>
-</div>
-<div
-  *ngIf="isOrderFail"
-  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
->
-  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
-    <h5 class="text-center">Có lỗi, xin thử lại</h5>
-    <div class="flex gap-4 justify-center">
-      <button class="btn" (click)="backToHistory()">Quay lại</button>
+  <div
+    *ngIf="showUpgrade"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
+      <div class="col">
+        <p>
+          Thời gian sử dụng vẫn còn, nếu chọn nâng cấp gói thời gian sử dụng còn lại sẽ bị đóng băng. Sau khi thanh toán
+          thành công gói mới bạn sẽ được hoàn tiền theo thời gian còn lại của gói cũ (nếu có) vào tài khoản KYONS của
+          mình. Bạn muốn tiếp tục nâng cấp gói?
+        </p>
+        <p>
+          Vui lòng liên hệ <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được tư vấn!
+        </p>
+      </div>
+      <div class="flex gap-4 justify-between">
+        <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
+        <button class="btn" (click)="selectPayment(selectedPackage); showUpgrade = false">Tiếp tục nâng cấp</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="orderProcessStatus() === OrderProcessStatus.success"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h3 class="self-center"><img src="assets/icons/Succeed.svg" alt="success" /></h3>
+      <h5 class="self-center">Thanh toán thành công!</h5>
+      <p>
+        Kyons vừa gửi email cho bạn để xác nhận thanh toán thành công. Bạn sẽ được đưa về trang
+        <b> “Lịch sử giao dịch” </b> trong vòng {{ countdown }} giây.
+      </p>
+      <p>
+        Nếu vẫn chưa nhận được email xác nhận, bạn hãy liên hệ
+        <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
+          >Kyons fanpage</a
+        >
+        để được hỗ trợ nhé!
+      </p>
+      <div class="flex gap-3 justify-center">
+        <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+        <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="orderProcessStatus() === OrderProcessStatus.fail"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[700px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h3 class="self-center"><img src="assets/icons/Cancel.svg" alt="fail" /></h3>
+      <h5 class="self-center">Đã có lỗi xảy ra!</h5>
+      @if(hasError!==''){
+      <b class="text-red-0">{{ hasError }}</b>
+      }
+      <div class="col">
+        <p>
+          Kyons đã nhận được thông tin và đang tiến hành xử lí. Nếu có lỗi ngoài ý muốn, bạn có thể xem trạng thái của
+          giao dịch trong
+          <b>“Lịch sử giao dịch”</b> và hãy gửi hình chụp giao dịch đến
+          <a href="https://www.facebook.com/KyonsVN" target="_blank" class="text-orange font-bold underline"
+            >Kyons fanpage</a
+          >
+          để được hỗ trợ nhé!
+        </p>
+      </div>
+      <div class="flex gap-3 justify-center">
+        <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+        <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="isCancelFail"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h5 class="text-center">Hủy giao dịch không thành công</h5>
+      <div class="flex gap-4 justify-center">
+        <button class="btn" (click)="backToHistory()">Ok, thử lại sau</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="isPendingOrder"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h5 class="text-center">
+        Bạn đang có một đơn hàng trong trạng thái chờ duyệt nên không thể tiếp tục hành động này.
+      </h5>
+      <div class="flex gap-4 justify-center">
+        <button class="btn" (click)="backToHistory()">Xem</button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="isOrderFail"
+    class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+  >
+    <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+      <h5 class="text-center">Có lỗi, xin thử lại</h5>
+      <div class="flex gap-4 justify-center">
+        <button class="btn" (click)="backToHistory()">Quay lại</button>
+      </div>
     </div>
   </div>
 </div>

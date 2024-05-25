@@ -65,6 +65,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   shouldValidate = false;
   viewPackage = '';
   packageNames: { [key: string]: string } = {
+    '0': 'Gói miễn phí',
     '1': 'Gói Starter: 1 Tháng',
     '2': 'Gói Starter: 3 Tháng',
     '3': 'Gói Starter: 12 Tháng',
@@ -207,6 +208,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   select(level: string) {
     this.packageLevel = level;
-    window.localStorage.setItem('selectedPackageLevel', level);
+    if (level == '0') {
+      window.localStorage.removeItem('selectedPackageLevel');
+    }
+    else {
+      window.localStorage.setItem('selectedPackageLevel', level);
+    }
   }
 }
