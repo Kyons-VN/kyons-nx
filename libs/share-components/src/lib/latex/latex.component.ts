@@ -3,7 +3,21 @@ import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { extractMath } from 'extract-math';
 import katex from 'katex';
-import { MarkdownService } from 'ngx-markdown';
+import { MarkdownService, ParseOptions } from 'ngx-markdown';
+
+const parseOption: ParseOptions = {
+  decodeHtml: false,
+  inline: false,
+  emoji: false,
+  mermaid: false,
+  disableSanitizer: true,
+};
+const mfencedRegex = /<mfenced open="{"(?:.*?)>(.*?)<\/mfenced>/g;
+
+// Replacement function to insert enclosing tags
+const replaceMfencedFunction = (match: string, content: string) => {
+  return `<mrow><mo>{</mo>${content}<mo>}</mo></mrow>`;
+};
 
 @Component({
   selector: 'kyonsvn-latex',
@@ -34,7 +48,11 @@ export class LatexComponent implements OnChanges {
       // Parse the LaTeX equation to HTML
       for (let i = 0; i < segments.length; i++) {
         if (segments[i]['type'] == 'text') {
-          this._html.push(segments[i]['value'])
+          const markdown = await this.markdownService.parse(segments[i]['value'], parseOption);
+
+          // Apply replace using the regular expression and function
+          const modifiedMathML = markdown.replace(mfencedRegex, replaceMfencedFunction);
+          this._html.push(modifiedMathML);
         }
         else if (segments[i]['type'] == 'inline') {
           this._html.push(katex.renderToString(segments[i]['value'], { output: "mathml", throwOnError: false, displayMode: false }))
@@ -46,12 +64,8 @@ export class LatexComponent implements OnChanges {
           console.warn("An error occurred when parsing the LaTex input. The type of the segment is not recognized.");
         }
       }
-      const html = await this.markdownService.parse(this._html.join("\n"));
 
-      this._safeHtml = this.domSanitizer.bypassSecurityTrustHtml(html);
+      this._safeHtml = this.domSanitizer.bypassSecurityTrustHtml(this._html.join("\n"));
     }
   }
-  // ngOnInit() {
-  //   this.render();
-  // }
 }
