@@ -151,7 +151,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   submitForm2() {
     this.validate();
-    if (this.signUpForm1.invalid) return;
+    if (this.signUpForm1.invalid || this.processing) return;
     this.loading.show();
     this.processing = true;
     this.authService
