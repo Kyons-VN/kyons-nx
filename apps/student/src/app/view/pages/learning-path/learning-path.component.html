@@ -358,7 +358,7 @@
           <ng-container *ngFor="let item of mockTests">
             <div
               class="flex p-4 justify-between bg-white-gradient rounded-xl"
-              *ngIf="item.status === MockTestStatus.active"
+              *ngIf="item.status === MockTestStatus.new"
             >
               <div class="flex gap-2 items-center">
                 <a (click)="goToMockTest(item)" class="!text-primaryBlue cursor-pointer"

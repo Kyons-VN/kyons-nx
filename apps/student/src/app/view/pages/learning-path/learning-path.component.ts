@@ -257,8 +257,8 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   _updateMockTestData(mockTests: MockTestItem[]) {
-    this.hasNewMockTest = mockTests.some(x => x.status == MockTestStatus.active);
-    this.dataSource = new MatTableDataSource(mockTests.filter(x => x.status != MockTestStatus.active));
+    this.hasNewMockTest = mockTests.some(x => x.status == MockTestStatus.new);
+    this.dataSource = new MatTableDataSource(mockTests.filter(x => x.status != MockTestStatus.new));
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -270,7 +270,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     this.lineChartData.datasets[0].backgroundColor = gradient;
     this.chart?.update();
     if (mockTests.length == 1) {
-      if (mockTests[0].status == MockTestStatus.active) {
+      if (mockTests[0].status == MockTestStatus.new) {
         this.router.navigate([this.paths.mockTestTest.path.replace(':id', mockTests[0].id)]);
         return;
       } else if (mockTests[0].status == MockTestStatus.learning_path_received) {
@@ -366,7 +366,7 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   goToMockTest(mockTest: MockTestItem) {
-    if (mockTest.status == MockTestStatus.active) {
+    if (mockTest.status == MockTestStatus.new) {
       this.router.navigate([this.paths.mockTestTest.path.replace(':id', mockTest.id)]);
     } else {
       this.router.navigate([this.paths.mockTestResult.path.replace(':id', mockTest.id)], {
@@ -390,9 +390,9 @@ export class LearningPathComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  filterCallback(mockTest: MockTestItem) {
-    return mockTest.status == MockTestStatus.active;
-  }
+  // filterCallback(mockTest: MockTestItem) {
+  //   return mockTest.status == MockTestStatus.new;
+  // }
 
   skip() {
     this.router.navigate([this.paths.home.path], { replaceUrl: true });

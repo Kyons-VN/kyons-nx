@@ -12,11 +12,17 @@ const parseOption: ParseOptions = {
   mermaid: false,
   disableSanitizer: true,
 };
-const mfencedRegex = /<mfenced open="{"(?:.*?)>(.*?)<\/mfenced>/g;
+const mfencedBracesBracketRegex = /<mfenced open="{"(?:.*?)>(.*?)<\/mfenced>/g;
 
 // Replacement function to insert enclosing tags
-const replaceMfencedFunction = (match: string, content: string) => {
+const replaceMfencedBracesBracketFunction = (match: string, content: string) => {
   return `<mrow><mo>{</mo>${content}<mo>}</mo></mrow>`;
+};
+const mfencedBracketRegex = /<mfenced>(.*?)<\/mfenced>/g;
+
+// Replacement function to insert enclosing tags
+const replaceMfencedBracketFunction = (match: string, content: string) => {
+  return `<mrow><mo>(</mo>${content}<mo>)</mo></mrow>`;
 };
 
 @Component({
@@ -51,7 +57,8 @@ export class LatexComponent implements OnChanges {
           const markdown = await this.markdownService.parse(segments[i]['value'], parseOption);
 
           // Apply replace using the regular expression and function
-          const modifiedMathML = markdown.replace(mfencedRegex, replaceMfencedFunction);
+          let modifiedMathML = markdown.replace(mfencedBracesBracketRegex, replaceMfencedBracesBracketFunction);
+          modifiedMathML = modifiedMathML.replace(mfencedBracketRegex, replaceMfencedBracketFunction);
           this._html.push(modifiedMathML);
         }
         else if (segments[i]['type'] == 'inline') {
