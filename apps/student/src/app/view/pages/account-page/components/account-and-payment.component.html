@@ -162,7 +162,9 @@
               <button
                 *ngIf="package.level > 0 && package.level > currentPackage.level"
                 class="btn"
-                (click)="selectedPackage = package; showUpgrade = true"
+                (click)="
+                  selectedPackage = package; currentPackage.level === 0 ? selectPayment(package) : (showUpgrade = true)
+                "
               >
                 Nâng cấp gói
               </button>
