@@ -5,11 +5,12 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
+import { environment } from '@environments';
 import { Observable, catchError, map } from 'rxjs';
 import { Chat, Content, Mana } from './chat-model';
 
 // const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
-const chatServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/chat';
+const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
 
 @Injectable({
   providedIn: 'root',

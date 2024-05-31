@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { environment } from '@environments';
 
 // const aiServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/ai';
-const aiServerApi = 'https://us-central1-kyonsvn.cloudfunctions.net/ai';
+const aiServerApi = `${environment.firebase.functionsUrl}/ai`;
 
 @Injectable({
   providedIn: 'root'
