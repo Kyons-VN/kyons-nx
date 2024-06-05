@@ -176,7 +176,14 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
         this.totalItems = this.items.length > 0 ? this.items.reduce((acc, item) => acc + item.quantity, 0) : 0;
       },
     });
+    this.orderService.getSubscriptionTime().subscribe({
+      next: (subscriptionTime: SubscriptionTime) => {
+        this.remainingHoursDisplay = toTime(subscriptionTime.remainingHours);
+      },
+    });
+  }
 
+  loadPackages() {
     this.orderService.getBalance().subscribe({
       next: (balance: Balance) => {
         this.balance = balance;
@@ -186,14 +193,6 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
         this.hasError = 'Có lỗi, vui lòng thử lại';
       },
     });
-    this.orderService.getSubscriptionTime().subscribe({
-      next: (subscriptionTime: SubscriptionTime) => {
-        this.remainingHoursDisplay = toTime(subscriptionTime.remainingHours);
-      },
-    });
-  }
-
-  loadPackages() {
     return this.orderService.getPackages().subscribe({
       next: data => {
         this.packages = data;
@@ -210,10 +209,13 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
     this.loading.show();
     this.orderService.orderPackage(this.selectedPackage.id, 1, this.payment(), window.origin + this.paths.account.path).subscribe({
       next: (payUrl) => {
-        if (payUrl == '') { this.isOrderFail = true; }
-        this.orderCode = payUrl;
-        this.loading.hide();
-        window.location.href = payUrl;
+        if (payUrl == '') {
+          this.isOrderFail = true;
+          this.loading.hide();
+        }
+        else {
+          window.location.href = payUrl;
+        }
       },
       error: (err) => {
         console.log(err);
