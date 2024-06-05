@@ -17,6 +17,7 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
   writingText = '';
   isWriting = false;
   completeMessages: Content[] = [];
+  thinkingText = '';
 
   @Output() startGame = new EventEmitter<void>();
   @Output() isWritingEvent = new EventEmitter<boolean>();
@@ -72,6 +73,14 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
           this.scrollToBottom();
         }, 500);
         // }
+      }
+    }
+    if (changes['isThinking']) {
+      if (changes['isThinking'].currentValue) {
+        this.thinkingText = '...';
+      }
+      else {
+        this.thinkingText = '';
       }
     }
   }

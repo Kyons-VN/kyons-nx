@@ -30,10 +30,69 @@
   @apply text-2xl;
 }
 
-.icon-Visa {
+.icon-Add {
   &:before {
-    content: $icon-Visa;
-    color: #2c3d5b;
+    content: $icon-Add;
+  }
+}
+.icon-AddFriend {
+  &:before {
+    content: $icon-AddFriend;
+  }
+}
+.icon-AddPhoto {
+  &:before {
+    content: $icon-AddPhoto;
+  }
+}
+.icon-Alarm {
+  &:before {
+    content: $icon-Alarm;
+  }
+}
+.icon-AlignCenter {
+  &:before {
+    content: $icon-AlignCenter;
+  }
+}
+.icon-AlignLeft {
+  &:before {
+    content: $icon-AlignLeft;
+  }
+}
+.icon-AlignRight {
+  &:before {
+    content: $icon-AlignRight;
+  }
+}
+.icon-ArrowDownStop {
+  &:before {
+    content: $icon-ArrowDownStop;
+  }
+}
+.icon-ArrowForward {
+  &:before {
+    content: $icon-ArrowForward;
+  }
+}
+.icon-ArrowLeftStop {
+  &:before {
+    content: $icon-ArrowLeftStop;
+  }
+}
+.icon-ArrowRightStop {
+  &:before {
+    content: $icon-ArrowRightStop;
+  }
+}
+.icon-ArrowSelector {
+  &:before {
+    content: $icon-ArrowSelector;
+  }
+}
+.icon-ArrowUpStop {
+  &:before {
+    content: $icon-ArrowUpStop;
   }
 }
 .icon-ATM {
@@ -46,24 +105,304 @@
     content: $icon-BankTransfer;
   }
 }
+.icon-Bookmark {
+  &:before {
+    content: $icon-Bookmark;
+  }
+}
+.icon-BookmarkAdd {
+  &:before {
+    content: $icon-BookmarkAdd;
+  }
+}
+.icon-BookmarkRemove {
+  &:before {
+    content: $icon-BookmarkRemove;
+  }
+}
+.icon-BulletList {
+  &:before {
+    content: $icon-BulletList;
+  }
+}
+.icon-BulletPoint {
+  &:before {
+    content: $icon-BulletPoint;
+  }
+}
+.icon-Calendar {
+  &:before {
+    content: $icon-Calendar;
+  }
+}
+.icon-CalendarViewDay {
+  &:before {
+    content: $icon-CalendarViewDay;
+  }
+}
+.icon-CalendarViewMonth {
+  &:before {
+    content: $icon-CalendarViewMonth;
+  }
+}
+.icon-CalendarViewWeek {
+  &:before {
+    content: $icon-CalendarViewWeek;
+  }
+}
+.icon-Call {
+  &:before {
+    content: $icon-Call;
+  }
+}
+.icon-CallTutor {
+  &:before {
+    content: $icon-CallTutor;
+  }
+}
+.icon-Cancel {
+  &:before {
+    content: $icon-Cancel;
+  }
+}
+.icon-Carousel {
+  &:before {
+    content: $icon-Carousel;
+  }
+}
 .icon-Cash {
   &:before {
     content: $icon-Cash;
   }
 }
-.icon-Momo {
+.icon-Chart {
   &:before {
-    content: $icon-Momo;
+    content: $icon-Chart;
   }
 }
-.icon-Paypal {
+.icon-Chat {
   &:before {
-    content: $icon-Paypal;
+    content: $icon-Chat;
   }
 }
-.icon-ZaloPay {
+.icon-Check {
   &:before {
-    content: $icon-ZaloPay;
+    content: $icon-Check;
+  }
+}
+.icon-ChevronDown {
+  &:before {
+    content: $icon-ChevronDown;
+  }
+}
+.icon-ChevronLeft {
+  &:before {
+    content: $icon-ChevronLeft;
+  }
+}
+.icon-ChevronRight {
+  &:before {
+    content: $icon-ChevronRight;
+  }
+}
+.icon-ChevronUp {
+  &:before {
+    content: $icon-ChevronUp;
+  }
+}
+.icon-Close {
+  &:before {
+    content: $icon-Close;
+  }
+}
+.icon-Crop {
+  &:before {
+    content: $icon-Crop;
+  }
+}
+.icon-Crown {
+  &:before {
+    content: $icon-Crown;
+  }
+}
+.icon-Delete {
+  &:before {
+    content: $icon-Delete;
+  }
+}
+.icon-Document {
+  &:before {
+    content: $icon-Document;
+  }
+}
+.icon-Done {
+  &:before {
+    content: $icon-Done;
+  }
+}
+.icon-Draw {
+  &:before {
+    content: $icon-Draw;
+  }
+}
+.icon-Duplicate {
+  &:before {
+    content: $icon-Duplicate;
+  }
+}
+.icon-Edit {
+  &:before {
+    content: $icon-Edit;
+  }
+}
+.icon-EditText {
+  &:before {
+    content: $icon-EditText;
+  }
+}
+.icon-Education {
+  &:before {
+    content: $icon-Education;
+  }
+}
+.icon-Email {
+  &:before {
+    content: $icon-Email;
+  }
+}
+.icon-Eraser {
+  &:before {
+    content: $icon-Eraser;
+  }
+}
+.icon-Error {
+  &:before {
+    content: $icon-Error;
+  }
+}
+.icon-Facebook {
+  &:before {
+    content: $icon-Facebook;
+  }
+}
+.icon-Filter {
+  &:before {
+    content: $icon-Filter;
+  }
+}
+.icon-Folder {
+  &:before {
+    content: $icon-Folder;
+  }
+}
+.icon-FolderOpen {
+  &:before {
+    content: $icon-FolderOpen;
+  }
+}
+.icon-Google {
+  &:before {
+    content: $icon-Google;
+  }
+}
+.icon-Hanbook {
+  &:before {
+    content: $icon-Hanbook;
+  }
+}
+.icon-Help {
+  &:before {
+    content: $icon-Help;
+  }
+}
+.icon-HintDocument {
+  &:before {
+    content: $icon-HintDocument;
+  }
+}
+.icon-HintTutor {
+  &:before {
+    content: $icon-HintTutor;
+  }
+}
+.icon-History {
+  &:before {
+    content: $icon-History;
+  }
+}
+.icon-Home {
+  &:before {
+    content: $icon-Home;
+  }
+}
+.icon-Info {
+  &:before {
+    content: $icon-Info;
+  }
+}
+.icon-insertText {
+  &:before {
+    content: $icon-insertText;
+  }
+}
+.icon-Inventory {
+  &:before {
+    content: $icon-Inventory;
+  }
+}
+.icon-Keyboard {
+  &:before {
+    content: $icon-Keyboard;
+  }
+}
+.icon-KeyboardHide {
+  &:before {
+    content: $icon-KeyboardHide;
+  }
+}
+.icon-Label {
+  &:before {
+    content: $icon-Label;
+  }
+}
+.icon-LessonContent {
+  &:before {
+    content: $icon-LessonContent;
+  }
+}
+.icon-Lightbulb {
+  &:before {
+    content: $icon-Lightbulb;
+  }
+}
+.icon-LineWeight {
+  &:before {
+    content: $icon-LineWeight;
+  }
+}
+.icon-Link {
+  &:before {
+    content: $icon-Link;
+  }
+}
+.icon-Location {
+  &:before {
+    content: $icon-Location;
+  }
+}
+.icon-Lock {
+  &:before {
+    content: $icon-Lock;
+  }
+}
+.icon-Map {
+  &:before {
+    content: $icon-Map;
+  }
+}
+.icon-MenuHamburger {
+  &:before {
+    content: $icon-MenuHamburger;
   }
 }
 .icon-MicOff {
@@ -79,6 +418,11 @@
 .icon-Minimize {
   &:before {
     content: $icon-Minimize;
+  }
+}
+.icon-Momo {
+  &:before {
+    content: $icon-Momo;
   }
 }
 .icon-More {
@@ -109,6 +453,11 @@
 .icon-OpenNew {
   &:before {
     content: $icon-OpenNew;
+  }
+}
+.icon-Paypal {
+  &:before {
+    content: $icon-Paypal;
   }
 }
 .icon-Phone {
@@ -266,6 +615,11 @@
     content: $icon-VideocamOn;
   }
 }
+.icon-Visa {
+  &:before {
+    content: $icon-Visa;
+  }
+}
 .icon-Visibility {
   &:before {
     content: $icon-Visibility;
@@ -281,363 +635,8 @@
     content: $icon-Work;
   }
 }
-.icon-KeyboardHide {
+.icon-ZaloPay {
   &:before {
-    content: $icon-KeyboardHide;
-  }
-}
-.icon-Label {
-  &:before {
-    content: $icon-Label;
-  }
-}
-.icon-LessonContent {
-  &:before {
-    content: $icon-LessonContent;
-  }
-}
-.icon-Lightbulb {
-  &:before {
-    content: $icon-Lightbulb;
-  }
-}
-.icon-LineWeight {
-  &:before {
-    content: $icon-LineWeight;
-  }
-}
-.icon-Link {
-  &:before {
-    content: $icon-Link;
-  }
-}
-.icon-Location {
-  &:before {
-    content: $icon-Location;
-  }
-}
-.icon-Lock {
-  &:before {
-    content: $icon-Lock;
-  }
-}
-.icon-Map {
-  &:before {
-    content: $icon-Map;
-  }
-}
-.icon-MenuHamburger {
-  &:before {
-    content: $icon-MenuHamburger;
-  }
-}
-.icon-HintDocument {
-  &:before {
-    content: $icon-HintDocument;
-  }
-}
-.icon-HintTutor {
-  &:before {
-    content: $icon-HintTutor;
-  }
-}
-.icon-History {
-  &:before {
-    content: $icon-History;
-  }
-}
-.icon-Home {
-  &:before {
-    content: $icon-Home;
-  }
-}
-.icon-Info {
-  &:before {
-    content: $icon-Info;
-  }
-}
-.icon-InsertText {
-  &:before {
-    content: $icon-InsertText;
-  }
-}
-.icon-Inventory {
-  &:before {
-    content: $icon-Inventory;
-  }
-}
-.icon-Keyboard {
-  &:before {
-    content: $icon-Keyboard;
-  }
-}
-.icon-Help {
-  &:before {
-    content: $icon-Help;
-  }
-}
-.icon-Hanbook {
-  &:before {
-    content: $icon-Hanbook;
-  }
-}
-.icon-Google {
-  &:before {
-    content: $icon-Google;
-  }
-}
-.icon-FolderOpen {
-  &:before {
-    content: $icon-FolderOpen;
-  }
-}
-.icon-Folder {
-  &:before {
-    content: $icon-Folder;
-  }
-}
-.icon-Filter {
-  &:before {
-    content: $icon-Filter;
-  }
-}
-.icon-Facebook {
-  &:before {
-    content: $icon-Facebook;
-  }
-}
-.icon-Error {
-  &:before {
-    content: $icon-Error;
-  }
-}
-.icon-Eraser {
-  &:before {
-    content: $icon-Eraser;
-  }
-}
-.icon-Email {
-  &:before {
-    content: $icon-Email;
-  }
-}
-.icon-Delete {
-  &:before {
-    content: $icon-Delete;
-  }
-}
-.icon-Document {
-  &:before {
-    content: $icon-Document;
-  }
-}
-.icon-Done {
-  &:before {
-    content: $icon-Done;
-  }
-}
-.icon-Draw {
-  &:before {
-    content: $icon-Draw;
-  }
-}
-.icon-Duplicate {
-  &:before {
-    content: $icon-Duplicate;
-  }
-}
-.icon-Edit {
-  &:before {
-    content: $icon-Edit;
-  }
-}
-.icon-EditText {
-  &:before {
-    content: $icon-EditText;
-  }
-}
-.icon-Education {
-  &:before {
-    content: $icon-Education;
-  }
-}
-.icon-Chart {
-  &:before {
-    content: $icon-Chart;
-  }
-}
-.icon-Chat {
-  &:before {
-    content: $icon-Chat;
-  }
-}
-.icon-Check {
-  &:before {
-    content: $icon-Check;
-  }
-}
-.icon-ChevronDown {
-  &:before {
-    content: $icon-ChevronDown;
-  }
-}
-.icon-ChevronLeft {
-  &:before {
-    content: $icon-ChevronLeft;
-  }
-}
-.icon-ChevronRight {
-  &:before {
-    content: $icon-ChevronRight;
-  }
-}
-.icon-ChevronUp {
-  &:before {
-    content: $icon-ChevronUp;
-  }
-}
-.icon-Close {
-  &:before {
-    content: $icon-Close;
-  }
-}
-.icon-Crop {
-  &:before {
-    content: $icon-Crop;
-  }
-}
-.icon-Crown {
-  &:before {
-    content: $icon-Crown;
-  }
-}
-.icon-Calendar {
-  &:before {
-    content: $icon-Calendar;
-  }
-}
-.icon-CalendarViewDay {
-  &:before {
-    content: $icon-CalendarViewDay;
-  }
-}
-.icon-CalendarViewMonth {
-  &:before {
-    content: $icon-CalendarViewMonth;
-  }
-}
-.icon-CalendarViewWeek {
-  &:before {
-    content: $icon-CalendarViewWeek;
-  }
-}
-.icon-Call {
-  &:before {
-    content: $icon-Call;
-  }
-}
-.icon-CallTutor {
-  &:before {
-    content: $icon-CallTutor;
-  }
-}
-.icon-Cancel {
-  &:before {
-    content: $icon-Cancel;
-  }
-}
-.icon-Carousel {
-  &:before {
-    content: $icon-Carousel;
-  }
-}
-.icon-Add {
-  &:before {
-    content: $icon-Add;
-  }
-}
-.icon-AddFriend {
-  &:before {
-    content: $icon-AddFriend;
-  }
-}
-.icon-AddPhoto {
-  &:before {
-    content: $icon-AddPhoto;
-  }
-}
-.icon-Alarm {
-  &:before {
-    content: $icon-Alarm;
-  }
-}
-.icon-AlignCenter {
-  &:before {
-    content: $icon-AlignCenter;
-  }
-}
-.icon-AlignLeft {
-  &:before {
-    content: $icon-AlignLeft;
-  }
-}
-.icon-AlignRight {
-  &:before {
-    content: $icon-AlignRight;
-  }
-}
-.icon-ArrowDownStop {
-  &:before {
-    content: $icon-ArrowDownStop;
-  }
-}
-.icon-ArrowForward {
-  &:before {
-    content: $icon-ArrowForward;
-  }
-}
-.icon-ArrowLeftStop {
-  &:before {
-    content: $icon-ArrowLeftStop;
-  }
-}
-.icon-ArrowRightStop {
-  &:before {
-    content: $icon-ArrowRightStop;
-  }
-}
-.icon-ArrowSelector {
-  &:before {
-    content: $icon-ArrowSelector;
-  }
-}
-.icon-ArrowUpStop {
-  &:before {
-    content: $icon-ArrowUpStop;
-  }
-}
-.icon-Bookmark {
-  &:before {
-    content: $icon-Bookmark;
-  }
-}
-.icon-BookmarkAdd {
-  &:before {
-    content: $icon-BookmarkAdd;
-  }
-}
-.icon-BookmarkRemove {
-  &:before {
-    content: $icon-BookmarkRemove;
-  }
-}
-.icon-BulletList {
-  &:before {
-    content: $icon-BulletList;
-  }
-}
-.icon-BulletPoint {
-  &:before {
-    content: $icon-BulletPoint;
+    content: $icon-ZaloPay;
   }
 }

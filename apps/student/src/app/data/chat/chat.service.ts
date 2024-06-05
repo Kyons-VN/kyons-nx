@@ -5,12 +5,12 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
-import { environment } from '@environments';
+// import { environment } from '@environments';
 import { Observable, catchError, map } from 'rxjs';
 import { Chat, Content, Mana } from './chat-model';
 
-// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn/us-central1/chat';
-const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
+// const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
+const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
 
 @Injectable({
   providedIn: 'root',
@@ -64,12 +64,22 @@ class ChatService {
     );
   }
 
-  getChats(userId: string): Observable<Chat[]> {
+  getChats(userId: string, forceReload = false): Observable<Chat[]> {
+    if (window.localStorage.getItem('chats') && !forceReload) {
+      const chats = JSON.parse(window.localStorage.getItem('chats') as string);
+      return new Observable<Chat[]>((subscriber) => {
+        subscriber.next(chats.map((data: any) => {
+          return Chat.fromJson(data);
+        }));
+        subscriber.complete();
+      });
+    }
     return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
       catchError(DBHelper.handleError('GET getChats', [])),
       map((res: any) => {
         if (res.data === undefined || res.data.length === 0) return [];
         // const collection = res.data;
+        window.localStorage.setItem('chats', JSON.stringify(res.data));
         const collection = (res.data as any[]).map((data: any) => {
           return Chat.fromJson(data);
         });

@@ -214,5 +214,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     else {
       window.localStorage.setItem('selectedPackageLevel', level);
     }
+    this.viewPackage = '';
   }
 }

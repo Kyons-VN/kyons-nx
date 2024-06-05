@@ -16,8 +16,8 @@
       } }
     </div>
   </div>
-  }
-  <div class="left message" *ngIf="isWriting">
+  } @if(isWriting){
+  <div class="left message">
     <div class="avatar">
       <img src="assets/images/kyons-avatar.png" alt="" />
     </div>
@@ -27,4 +27,16 @@
       </div>
     </div>
   </div>
+  } @else if(isThinking){
+  <div class="left message">
+    <div class="avatar">
+      <img src="assets/images/kyons-avatar.png" alt="" />
+    </div>
+    <div class="content">
+      <div class="box">
+        <p>{{ thinkingText }}</p>
+      </div>
+    </div>
+  </div>
+  }
 </div>

@@ -1,10 +1,30 @@
-<div class="flex flex-col items-center chat">
-  <student-top-menu class="w-full xl:max-w-[1200px]" />
-  <div class="flex justify-center w-full xl:max-w-[1200px] h-full gap-4">
-    <div class="xl:flex hidden flex-col flex-1">
-      <h3>{{ theme === 'universe' ? 'History' : 'Lịch sử' }}</h3>
-      <ul>
-        <li>
+<div class="flex flex-col items-center">
+  <student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
+  <div class="flex justify-center w-full xl:max-w-[1440px] h-full gap-4 chat px-4 xl:px-14">
+    <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
+      <div class="xl:hidden flex justify-between items-start">
+        <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
+        <div class="flex items-center justify-center p-1 cursor-pointer w-[24px] h-[24px]" (click)="toggleMenu()">
+          <i class="icon-Close text-[16px]"></i>
+        </div>
+      </div>
+      <div class="flex justify-start">
+        <button
+          class="btn"
+          [routerLink]="paths.chatbot.path"
+          [disabled]="chatId === ''"
+          routerLinkActive="disabled"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (isActiveChange)="(this.ngOnInit)"
+          (click)="isGaming = false"
+        >
+          <i class="icon-Add"></i>
+          {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
+        </button>
+      </div>
+      <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
+      <ul class="history-list">
+        <!-- <li>
           <a
             [routerLink]="paths.chatbot.path"
             routerLinkActive="active"
@@ -12,16 +32,27 @@
             (isActiveChange)="(this.ngOnInit)"
             >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
           >
+        </li> -->
+        @for (item of ['today', 'yesterday', 'last7Days', 'last30Days', 'older']; track $index) {
+        @if(chats[item]['data'].length>0){
+        <li>
+          <span class="">{{ chats[item]['label'] }}</span>
+          <ul>
+            <li
+              *ngFor="let chat of chats[item]['data']"
+              [ngClass]="{ active: chatId === chat.id }"
+              (click)="isGaming = false"
+            >
+              <a
+                class="history-item"
+                [routerLink]="paths.chat.path.replace(':id', chat.id)"
+                [title]="chat.firstMessage"
+                >{{ chat.firstMessage }}</a
+              >
+            </li>
+          </ul>
         </li>
-        <li *ngFor="let chat of chats">
-          <a
-            [routerLink]="paths.chat.path.replace(':id', chat.id)"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (isActiveChange)="(this.ngOnInit)"
-            >{{ chat.firstMessage }} - {{ chat.dateDisplay }}</a
-          >
-        </li>
+        } }
       </ul>
     </div>
     <div class="w-full max-w-[600px] h-full flex flex-col gap-3">
@@ -29,7 +60,7 @@
         class="flex flex-col xl:hidden gap-4 justify-start md:p-0 transition-all duration-300 overflow-hidden shrink-0"
         [ngClass]="{ 'h-[80vh] p-6': !isCollapse, 'h-0': isCollapse }"
       >
-        <div class="flex-1 h-full">
+        <!-- <div class="flex-1 h-full">
           <h5 class="text-center">{{ theme === 'universe' ? 'History' : 'Lịch sử' }}</h5>
           <ul class="scrollable-content">
             <li>
@@ -51,7 +82,7 @@
               >
             </li>
           </ul>
-        </div>
+        </div> -->
         <div class="flex flex-col flex-1 items-center gap-4">
           <!-- <h5>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h5>
           <div class="flex gap-1 w-full items-center justify-center text-white">
@@ -119,24 +150,19 @@
           [ngClass]="{ hidden: !isGaming }"
         ></ng-flutter>
         <div class="head">
-          <h3 class="whitespace-nowrap hidden-default">Chat: KYONS</h3>
+          <!-- <h3 class="whitespace-nowrap hidden-default">Chat: KYONS</h3> -->
           <div class="relative z-10 w-full h-[40px]">
-            <div class="absolute right-6 flex gap-4 w-full left-0 justify-end items-center">
+            <div class="absolute right-6 flex gap-4 w-full left-0 justify-between xl:justify-end items-start">
+              <button class="history-toggle" (click)="toggleMenu()">
+                <i class="icon-History"></i>
+              </button>
               <div class="w-[170px] h-[40px] relative">
                 <img [src]="'/assets/images/' + themeService.getTheme() + '/Mana.svg'" alt="" class="h-[40px]" />
-                <div
-                  class="absolute w-[16px] h-[11px] bg-lightBlue-1 top-[15px] left-[12px]"
-                  [style.width]="manaWidth + 'px'"
-                ></div>
-                <div
-                  class="absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-lightBlue-1 w-[30px] text-right"
-                >
+                <div class="battery-bg" [style.width]="manaWidth + 'px'"></div>
+                <div class="battery-number">
                   {{ batteryLife }}
                 </div>
               </div>
-              <button class="btn btn-small w-[40px] xl:hidden" (click)="isCollapse = !isCollapse">
-                <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ChevronUp"></i>
-              </button>
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
   font-family: 'Montserrat', sans-serif;
   @apply bg-blueGrey-100 text-primaryBlue;
 
-  a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+  a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item):not(.history-item) {
     @apply text-orange underline outline-offset-4;
     &.active[routerlinkactive='active'] {
       @apply text-primaryBlue;
@@ -17,6 +17,39 @@
   .text-white {
     color: white;
   }
+  .history {
+    @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
+    ul > li {
+      @apply gap-2 flex flex-col;
+      & > ul > li {
+        &.active {
+          a.history-item {
+            @apply bg-lightBlue-6 font-bold text-lightBlue-1;
+            // color: var(--color-lightBlue-1);
+          }
+        }
+        span {
+          @apply text-xs text-blueGrey-500;
+        }
+        a.history-item {
+          @apply px-2 py-1 rounded-md text-primaryBlue line-clamp-1 text-ellipsis;
+          text-decoration: none !important;
+        }
+      }
+    }
+    &.show-history {
+      @media screen and (max-width: 1169px) {
+        @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 bg-white p-4;
+      }
+    }
+  }
+  .history-toggle {
+    @apply cursor-pointer w-[48px] h-[48px] p-2 xl:hidden flex items-center justify-center border border-blueGrey-300 rounded-lg;
+    i {
+      @apply text-base text-blueGrey-400;
+    }
+  }
+
   @media screen and (min-width: 768px) {
     .md\:text-primaryBlue {
       color: #2c3d5b;

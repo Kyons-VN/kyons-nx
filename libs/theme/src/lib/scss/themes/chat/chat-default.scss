@@ -4,7 +4,7 @@
     //   url('/images/chat-bg.svg') no-repeat bottom right;
     // background-size: auto, cover;
     // transition: all ease 200ms;
-    @apply w-full h-full min-h-screen px-4 md:p-0;
+    @apply w-full h-full min-h-screen;
     // @apply w-full h-[calc(100vh_-_82px)] flex flex-col lg:justify-center items-center justify-start relative text-center p-4 sm:px-11 sm:py-20 pb-20 overflow-hidden text-white lg:gap-12 gap-4;
     // .collapse {
     //   padding: 0;
@@ -121,6 +121,12 @@
   }
   .find-me-game {
     @apply w-full h-full absolute top-0 left-0;
+  }
+  .battery-bg {
+    @apply absolute w-[16px] h-[11px] bg-secondaryBlue top-[15px] left-[12px];
+  }
+  .battery-number {
+    @apply absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-secondaryBlue w-[30px] text-right;
   }
 
   @media screen and (max-width: 640px) {

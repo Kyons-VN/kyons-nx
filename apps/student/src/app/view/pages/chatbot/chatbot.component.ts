@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,9 +6,11 @@ import {
   NgZone,
   OnDestroy,
   OnInit,
+  Renderer2,
   effect,
   inject,
   runInInjectionContext,
+  signal,
 } from '@angular/core';
 // import { ChatService } from '@data/chat/chat.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -18,6 +20,7 @@ import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
 import { Role, maxManaWidth } from '@domain/chat/i-content';
+import { environment } from '@environments';
 import { isCommand } from '@utils/chat';
 import { ChatboxComponent } from '@view/share-components/chat/chatbox.component';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
@@ -30,6 +33,7 @@ import { Observable } from 'rxjs/internal/Observable';
   standalone: true,
   imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent],
   templateUrl: 'chatbot.component.html',
+  styleUrl: 'chatbot.component.scss',
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
   changeDetectorRef = inject(ChangeDetectorRef);
@@ -41,10 +45,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   injector = inject(Injector);
   themeService = inject(ThemeService);
   zone = inject(NgZone);
+  document = inject(DOCUMENT);
+  renderer = inject(Renderer2);
 
 
   flutterState?: any;
-  chats!: Chat[];
+  chats!: { [key: string]: { label: string, data: Chat[] } };
   countdown!: Observable<number>;
   $interval!: Subscription;
   flutterAppLoaded = true;
@@ -63,6 +69,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   messages: Content[] = [];
   isThinking = false;
   isGaming = false;
+  isSmMenuHide = signal(true);
 
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
@@ -80,11 +87,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     // watch route param changes
     this.route.paramMap.subscribe(params => {
       this.flutterAppLoaded = false;
+      this.isGaming = false;
       this.chatId = params.get('id') ?? '';
       console.log(`Chat id: ${this.chatId}`);
       this.chatService.getChats(this.userId).subscribe({
         next: chats => {
-          this.chats = chats;
+          this.chats = this.groupByTime(chats);
           this.changeDetectorRef.detectChanges();
         },
         error: err => {
@@ -166,6 +174,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
     this.flutterState.setUserId(this.userId);
     this.flutterState.setChatId(this.chatId);
+    this.flutterState.setServerApi(`${environment.firebase.functionsUrl}/chat`);
     // this.flutterState.setTheme(this.themeService.themeStore());
     runInInjectionContext(this.injector, () => {
       effect(() => {
@@ -227,8 +236,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.chatService.startChat(this.userId, message).subscribe({
         next: (chatId) => {
           this.chatId = chatId;
-          this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
-          this.isThinking = false;
+          this.chatService.getChats(this.userId, true).subscribe({
+            next: (chats) => {
+              this.chats = this.groupByTime(chats);
+              this.changeDetectorRef.detectChanges();
+              this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
+              this.isThinking = false;
+            }
+          });
         },
         error: (err) => {
           console.error(err);
@@ -262,5 +277,51 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   updateThinking(isThinking: boolean) {
     this.isThinking = isThinking;
+  }
+
+  toggleMenu() {
+    this.isSmMenuHide.set(!this.isSmMenuHide());
+    this.isSmMenuHide() ? this.renderer.removeClass(this.document.body, 'overflow-hidden') : this.renderer.addClass(this.document.body, 'overflow-hidden');
+  }
+
+
+
+  groupByTime(chats: Chat[]): { [key: string]: { label: string, data: Chat[] } } {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+    const last7Days = new Date(today);
+    last7Days.setDate(today.getDate() - 7);
+    last7Days.setHours(0, 0, 0, 0);
+    const last30Days = new Date(today);
+    last30Days.setDate(today.getDate() - 30);
+    last30Days.setHours(0, 0, 0, 0);
+
+    const groups: { [key: string]: { label: string, data: Chat[] } } = {
+      'today': { label: 'Hôm nay', data: [] },
+      'yesterday': { label: 'Hôm qua', data: [] },
+      'last7Days': { label: '7 ngày trước', data: [] },
+      'last30Days': { label: '1 tháng gần đây', data: [] },
+      'older': { label: 'Cũ hơn', data: [] },
+    };
+
+    chats.forEach(chat => {
+      const chatDate = new Date(chat.createdAt);
+      if (chatDate.getTime() >= today.getTime()) {
+        groups['today']['data'].push(chat);
+      } else if (chatDate.getTime() >= yesterday.getTime()) {
+        groups['yesterday']['data'].push(chat);
+      } else if (chatDate.getTime() >= last7Days.getTime()) {
+        groups['last7Days']['data'].push(chat);
+      } else if (chatDate.getTime() >= last30Days.getTime()) {
+        groups['last30Days']['data'].push(chat);
+      } else {
+        groups['older']['data'].push(chat);
+      }
+    });
+
+    return groups;
   }
 }

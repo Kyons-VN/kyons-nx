@@ -78,18 +78,18 @@ p {
 small {
   font-size: 0.75rem;
 }
-a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
-  @apply text-orange underline outline-offset-4;
-  &.active[routerlinkactive='active'] {
-    @apply text-primaryBlue;
-    svg > path {
-      @apply stroke-primaryBlue;
-    }
-  }
-  &.no-underline {
-    text-decoration: none;
-  }
-}
+// a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+//   @apply text-orange underline outline-offset-4;
+//   &.active[routerlinkactive='active'] {
+//     @apply text-primaryBlue;
+//     svg > path {
+//       @apply stroke-primaryBlue;
+//     }
+//   }
+//   &.no-underline {
+//     text-decoration: none;
+//   }
+// }
 .svg.hover\:stroke-orange:hover > path {
   @apply stroke-orange;
 }
@@ -97,7 +97,7 @@ a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item
 .btn-rounded {
   @apply rounded-md h-[40px] px-[20px] flex items-center justify-center cursor-pointer border whitespace-nowrap gap-2 font-[600];
   &.btn-icon {
-    @apply w-[40px] h-[40px] p-[20px];
+    @apply w-[40px] h-[40px] p-[8px];
     &.btn-large {
       @apply w-[48px] h-[48px];
       i {

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 section {
-  @apply p-6 flex flex-col justify-start items-center text-center md:max-w-[1200px] md:mx-auto;
+  @apply p-6 flex flex-col justify-start items-center text-center md:max-w-[1440px] md:mx-auto;
 }
 a:not(.btn):not(.btn-rounded) {
   @apply text-orange #{!important};

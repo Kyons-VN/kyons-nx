@@ -182,6 +182,12 @@
   .find-me-game {
     @apply w-full h-full absolute top-0 left-0;
   }
+  .battery-bg {
+    @apply absolute w-[16px] h-[11px] bg-teal-0 top-[15px] left-[12px];
+  }
+  .battery-number {
+    @apply absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-teal-0 w-[30px] text-right;
+  }
 
   @media screen and (max-width: 640px) {
     .body {
