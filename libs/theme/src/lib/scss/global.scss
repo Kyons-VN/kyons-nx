@@ -78,7 +78,7 @@ p {
 small {
   font-size: 0.75rem;
 }
-// a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+// a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
 //   @apply text-orange underline outline-offset-4;
 //   &.active[routerlinkactive='active'] {
 //     @apply text-primaryBlue;
@@ -93,17 +93,28 @@ small {
 .svg.hover\:stroke-orange:hover > path {
   @apply stroke-orange;
 }
-.btn,
-.btn-rounded {
-  @apply rounded-md h-[40px] px-[20px] flex items-center justify-center cursor-pointer border whitespace-nowrap gap-2 font-[600];
-  &.btn-icon {
-    @apply w-[40px] h-[40px] p-[8px];
-    &.btn-large {
-      @apply w-[48px] h-[48px];
-      i {
-        @apply text-[24px];
-      }
-    }
+.btn {
+  @apply rounded-xl h-[40px] px-[16px] py-[8px] flex items-center justify-center cursor-pointer whitespace-nowrap gap-2 font-[600] min-w-[147px];
+  &.large {
+    @apply h-[48px] px-[16px] py-[12px];
+  }
+  &.small {
+    @apply h-[36px] px-[8px] py-[10px];
+  }
+  &.hidden {
+    display: none;
+  }
+}
+.btn-icon {
+  @apply rounded-xl h-[40px] w-[40px] p-[8px] flex items-center justify-center cursor-pointer whitespace-nowrap font-[600];
+  i {
+    @apply text-[24px];
+  }
+  &.large {
+    @apply h-[48px] w-[48px] p-[12px];
+  }
+  &.small {
+    @apply h-[36px] w-[36px] p-[10px];
     i {
       @apply text-[16px];
     }
@@ -111,45 +122,94 @@ small {
   &.hidden {
     display: none;
   }
+  &.circle {
+    @apply rounded-full h-[56px] w-[56px];
+    &.large {
+      @apply h-[64px] w-[64px] p-[12px];
+    }
+    &.small {
+      @apply h-[40px] w-[40px] p-[10px];
+    }
+  }
+}
+.btn,
+.btn-icon {
+  &.orange {
+    @apply bg-orange text-white border-orange;
+    &.outlined {
+      @apply bg-white text-orange border border-orange;
+    }
+    &.link {
+      @apply bg-transparent text-orange border-transparent shadow-none;
+    }
+  }
+  &.lightBlue {
+    @apply bg-lightBlue-1 border-lightBlue-1 text-white;
+    &.outlined {
+      @apply bg-white text-lightBlue-1 border border-lightBlue-1;
+    }
+    &.link {
+      @apply bg-transparent text-lightBlue-1 border-transparent shadow-none;
+    }
+  }
+  &.blueGrey {
+    @apply bg-white border-blueGrey-300 text-blueGrey-500;
+    &.outlined {
+      @apply bg-white border-blueGrey-300 border text-blueGrey-500;
+    }
+    &.link {
+      @apply bg-white text-blueGrey-500 border-transparent shadow-none;
+    }
+  }
 }
 @media screen and (min-width: 768px) {
   .btn,
-  .btn-rounded {
+  .btn-icon {
     &.hidden.md\:flex {
       display: flex;
     }
   }
 }
-.icon-btn {
-  @apply text-orange w-[24px] h-[24px] flex items-center justify-center no-underline text-[24px];
-  i {
-    @apply text-[24px];
+
+.btn,
+.btn-icon {
+  &:hover:not(.link):not(:disabled) {
+    @apply shadow-1;
+  }
+  &:hover:active {
+    @apply shadow-none;
+    &.orange {
+      @apply text-lightOrange-3;
+    }
+    &.blueGrey {
+      @apply text-blueGrey-300;
+    }
+    &.lightBlue {
+      @apply text-lightBlue-3;
+    }
+  }
+}
+.btn:disabled {
+  &:not(.outlined):not(.link) {
+    @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
+  }
+  &.outlined,
+  &.link {
+    @apply bg-white text-blueGrey-400 border-blueGrey-400;
+  }
+}
+
+.btn-icon:disabled {
+  &:not(.outlined):not(.link) {
+    @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
+  }
+  &.outlined,
+  &.link {
+    @apply bg-white text-blueGrey-200 border-blueGrey-300;
   }
 }
 
 .btn {
-  &.secondary {
-    @apply bg-white text-orange border border-blueGrey-300;
-    &:hover {
-      @apply border-orange;
-    }
-    &:active {
-      @apply text-orange;
-      @apply border-orange;
-    }
-    &:disabled {
-      @apply bg-white text-blueGrey-300 border-blueGrey-300 #{!important};
-    }
-  }
-  &:hover {
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-  }
-  &:hover:active {
-    @apply shadow-none;
-  }
-  &:disabled {
-    @apply text-blueGrey-400 border-blueGrey-200 cursor-not-allowed hover:shadow-none #{!important};
-  }
   &.google {
     @apply bg-[#4285F4] text-white border border-[#4285F4];
     &:hover {
@@ -163,35 +223,6 @@ small {
       @apply bg-white text-blueGrey-300 border-blueGrey-300 #{!important};
     }
   }
-  &:hover {
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
-  }
-  &:hover:active {
-    @apply shadow-none;
-  }
-  &:disabled {
-    @apply text-blueGrey-400 border-blueGrey-200 cursor-not-allowed hover:shadow-none #{!important};
-  }
-}
-
-.btn.btn-small,
-.btn-rounded.btn-small {
-  @apply px-1 py-2 h-[32px];
-
-  font-size: 0.875rem;
-  line-height: 100%;
-}
-
-.btn.btn-large,
-.btn-rounded.btn-large {
-  @apply p-5 h-[48px];
-
-  font-size: 0.875rem;
-  line-height: 100%;
-}
-
-.btn.secondary:not(:disabled) {
-  @apply bg-lightBlue-1 border-lightBlue-1 text-white;
 }
 
 select {
@@ -276,33 +307,6 @@ p {
   @apply mb-4;
 }
 
-.btn {
-  @apply bg-orange text-white border-orange;
-  &:active {
-    @apply text-lightOrange-3;
-  }
-  &:hover {
-    @apply shadow-1;
-  }
-  &:disabled {
-    @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
-  }
-  &.btn-rounded {
-    @apply bg-white text-orange border-blueGrey-300;
-    &:active {
-      @apply border-orange text-orange;
-    }
-    &:hover {
-      @apply shadow-1;
-    }
-    &:disabled {
-      @apply border-blueGrey-300 text-blueGrey-300 bg-white;
-      &:hover {
-        @apply shadow-none cursor-not-allowed;
-      }
-    }
-  }
-}
 .error {
   @apply px-3 mt-1;
 }
@@ -548,4 +552,7 @@ div[data-tooltip-content] label {
 }
 .line-through {
   text-decoration-thickness: from-font;
+}
+.note {
+  @apply text-xs text-blueGrey-500;
 }

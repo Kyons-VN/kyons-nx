@@ -31,8 +31,8 @@
         </h6>
         <div class="flex-1"></div>
         <div class="flex gap-4 items-center">
-          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded hidden md:flex">Báo lỗi</a>
-          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-rounded btn-icon block md:hidden"
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined hidden md:flex">Báo lỗi</a>
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined btn-icon block md:hidden"
             ><i class="icon-Error"></i
           ></a>
           <button class="btn" (click)="showLesson = true">
@@ -56,7 +56,7 @@
           <i class="icon-ChevronLeft"></i>
         </button>
         <div class="flex-1 flex gap-1 w-full overflow-hidden">
-          <button class="btn-rounded btn-icon hidden md:flex" (click)="previousPage()">
+          <button class="btn-outlined btn-icon hidden md:flex" (click)="previousPage()">
             <i class="icon-ChevronLeft"></i>
           </button>
           <div
@@ -65,7 +65,7 @@
             class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
           >
             <button
-              class="btn-rounded btn-icon"
+              class="btn-outlined btn-icon"
               *ngFor="let question of questions; index as i"
               [ngClass]="{
                 'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
@@ -78,7 +78,7 @@
               {{ i + 1 }}
             </button>
           </div>
-          <button class="btn-icon btn-rounded hidden md:flex" (click)="nextPage()">
+          <button class="btn-icon btn-outlined hidden md:flex" (click)="nextPage()">
             <i class="icon-ChevronRight"></i>
           </button>
         </div>
@@ -118,7 +118,7 @@
     <div class="col w-full gap-6">
       <div class="flex justify-between">
         <h3>Nội dung bài học</h3>
-        <button class="btn-rounded btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
+        <button class="btn-outlined btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
       </div>
       <!-- <p [innerHTML]="content | safeHtml"></p> -->
       <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">

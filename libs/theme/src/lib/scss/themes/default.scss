@@ -2,7 +2,7 @@
   font-family: 'Montserrat', sans-serif;
   @apply bg-blueGrey-100 text-primaryBlue;
 
-  a:not(.btn):not(.btn-rounded):not(.menu-item):not(.icon-btn):not(.drop-menu-item):not(.history-item) {
+  a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item):not(.history-item) {
     @apply text-orange underline outline-offset-4;
     &.active[routerlinkactive='active'] {
       @apply text-primaryBlue;
@@ -22,6 +22,7 @@
     ul > li {
       @apply gap-2 flex flex-col;
       & > ul > li {
+        @apply py-1;
         &.active {
           a.history-item {
             @apply bg-lightBlue-6 font-bold text-lightBlue-1;
@@ -41,6 +42,9 @@
       @media screen and (max-width: 1169px) {
         @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 bg-white p-4;
       }
+    }
+    .history-list {
+      @apply flex flex-col gap-2;
     }
   }
   .history-toggle {

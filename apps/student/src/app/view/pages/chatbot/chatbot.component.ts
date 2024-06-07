@@ -164,11 +164,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       console.log(`Chat id: ${this.chatId}`);
       // this.flutterState.setChatId(id);
     } else {
-      setTimeout(() => {
-        if (this.manaWidth > 0 && this.messages.length == 0) {
-          this.sendMessage('/hello');
-        }
-      }, 600000);
+      // setTimeout(() => {
+      //   if (this.manaWidth > 0 && this.messages.length == 0) {
+      //     this.sendMessage('/hello');
+      //   }
+      // }, 600000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file

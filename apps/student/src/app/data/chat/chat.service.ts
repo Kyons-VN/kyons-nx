@@ -101,7 +101,7 @@ class ChatService {
       },
       defaultMana: 3000,
     };
-    return this.http.post(`${chatServerApi}/onUserCreated`, params);
+    return this.http.post(`${chatServerApi}/onSubscriptionChanged`, params);
   }
 }
 

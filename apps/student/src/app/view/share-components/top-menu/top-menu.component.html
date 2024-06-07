@@ -1,5 +1,5 @@
 <div *ngIf="show" class="w-full flex text-base items-center justify-center relative">
-  <div class="w-full flex relative px-4 py-2 xl:px-14 xl:py-8 items-center">
+  <div class="w-full flex relative px-4 py-2 xl:px-14 xl:py-8 items-center gap-2">
     @if(showLogo){
     <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
     <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
@@ -41,8 +41,10 @@
         </a>
       </li>
     </ul>
-    <div class="w-4"></div>
-    <i class="icon-Settings cursor-pointer text-2xl text-blueGrey-400" (click)="showSettings = !showSettings"></i>
+    <!-- <div class="w-2"></div> -->
+    <button class="btn-icon">
+      <i class="icon-Theme text-blueGrey-400 text-[24px]" (click)="showSettings = !showSettings"></i>
+    </button>
     <div
       *ngIf="showSettings"
       class="absolute z-20 right-0 top-full rounded-lg p-4"

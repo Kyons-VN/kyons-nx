@@ -206,10 +206,13 @@ const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: 'new-user',
-  //   component: NewUserComponent,
-  // },
+  {
+    path: 'design',
+    children: [
+      { path: 'buttons', loadComponent: () => import('./pages/button/button.component').then(m => m.TestButtonComponent) },
+
+    ],
+  },
   {
     path: 'terms-of-service',
     loadComponent: () =>

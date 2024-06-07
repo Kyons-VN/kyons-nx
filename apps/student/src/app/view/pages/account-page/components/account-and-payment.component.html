@@ -147,7 +147,7 @@
               <span class="flex-1"></span>
               <button
                 *ngIf="package.level < currentPackage.level"
-                class="btn btn-rounded"
+                class="btn btn-outlined"
                 (click)="orderProcessStatus.set(OrderProcessStatus.warning)"
               >
                 Đổi về gói
@@ -270,7 +270,7 @@
               </div>
             </div>
             <!-- <div *ngIf="orderDetails.status === OrderStatus.pending" class="flex gap-2">
-              <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+              <button class="btn btn-outlined" (click)="cancelOrder()" [disabled]="isCanceling">
                 {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
               </button>
               <button class="btn" (click)="viewAndPay(orderDetails)">Thanh toán</button>
@@ -500,7 +500,7 @@
       </div>
       <div class="flex md:flex-row flex-col md:justify-between items-start md:items-center justify-center gap-4">
         <button
-          class="btn btn-rounded w-full md:w-[200px]"
+          class="btn btn-outlined w-full md:w-[200px]"
           (click)="orderProcessStatus.set(OrderProcessStatus.initial)"
           [disabled]="orderProcessStatus() === OrderProcessStatus.ordering"
         >
@@ -580,7 +580,7 @@
         </div>
       </div>
       <div class="flex md:flex-row flex-col md:items-center md:justify-between items-stretch justify-center gap-3">
-        <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+        <button class="btn btn-outlined" (click)="cancelOrder()" [disabled]="isCanceling">
           {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
         </button>
         <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
@@ -652,7 +652,7 @@
         </div>
       </div>
       <div class="flex items-center justify-between gap-4 flex-col md:flex-row">
-        <button class="btn btn-rounded w-full md:w-[200px]" (click)="showTopup = false">Quay lại</button>
+        <button class="btn btn-outlined w-full md:w-[200px]" (click)="showTopup = false">Quay lại</button>
         <a class="btn w-full md:flex-1" href="https://www.facebook.com/KyonsVN" target="_blank"
           >Thông báo đã chuyển khoản</a
         >
@@ -699,7 +699,7 @@
         <button class="btn" (click)="selectPayment(currentPackage); showExtending = false">
           Tôi chắc chắn gia hạn gói!
         </button>
-        <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
+        <button class="btn btn-outlined" (click)="showExtending = false">Quay lại</button>
       </div>
       } @else{
       <div class="flex gap-4 justify-center">
@@ -740,7 +740,7 @@
         </p>
       </div>
       <div class="flex gap-4 justify-between">
-        <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
+        <button class="btn btn-outlined" (click)="showUpgrade = false">Quay lại</button>
         <button class="btn" (click)="selectPayment(selectedPackage); showUpgrade = false">Tiếp tục nâng cấp</button>
       </div>
     </div>
@@ -764,7 +764,7 @@
         để được hỗ trợ nhé!
       </p>
       <div class="flex gap-3 justify-center">
-        <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+        <button class="btn btn-outlined" [routerLink]="paths.home.path">Về trang chủ</button>
         <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
       </div>
     </div>
@@ -791,7 +791,7 @@
         </p>
       </div>
       <div class="flex gap-3 justify-center">
-        <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+        <button class="btn btn-outlined" [routerLink]="paths.home.path">Về trang chủ</button>
         <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
       </div>
     </div>

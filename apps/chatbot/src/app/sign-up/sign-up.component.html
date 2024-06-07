@@ -271,7 +271,7 @@
         </div>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="flex item-center justify-between gap-2">
-          <button (click)="step = 0" class="btn-rounded"><i class="icon-ChevronLeft text-[24px]"></i> Quay lại</button>
+          <button (click)="step = 0" class="btn-outlined"><i class="icon-ChevronLeft text-[24px]"></i> Quay lại</button>
           <button type="submit" (click)="submitForm2()" class="btn flex-1" [disabled]="processing">
             {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
           </button>
@@ -414,7 +414,7 @@
         <button class="btn orange" (click)="select('1')">
           {{ packageLevel === '1' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>
@@ -447,7 +447,7 @@
         <button class="btn orange" (click)="select('2')">
           {{ packageLevel === '2' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>
@@ -477,7 +477,7 @@
         <button class="btn orange" (click)="select('3')">
           {{ packageLevel === '3' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-rounded" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>

@@ -24,10 +24,9 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.icon {
-  @apply text-2xl;
+  &:not([class*='text-']):not(.btn-icon i) {
+    font-size: 16px;
+  }
 }
 
 .icon-Add {
@@ -65,6 +64,11 @@
     content: $icon-AlignRight;
   }
 }
+.icon-ArrowDown {
+  &:before {
+    content: $icon-ArrowDown;
+  }
+}
 .icon-ArrowDownStop {
   &:before {
     content: $icon-ArrowDownStop;
@@ -88,6 +92,11 @@
 .icon-ArrowSelector {
   &:before {
     content: $icon-ArrowSelector;
+  }
+}
+.icon-ArrowUp {
+  &:before {
+    content: $icon-ArrowUp;
   }
 }
 .icon-ArrowUpStop {
@@ -305,6 +314,11 @@
     content: $icon-Google;
   }
 }
+.icon-Group {
+  &:before {
+    content: $icon-Group;
+  }
+}
 .icon-Hanbook {
   &:before {
     content: $icon-Hanbook;
@@ -333,6 +347,11 @@
 .icon-Home {
   &:before {
     content: $icon-Home;
+  }
+}
+.icon-Home-1 {
+  &:before {
+    content: $icon-Home-1;
   }
 }
 .icon-Info {
@@ -585,6 +604,11 @@
     content: $icon-TextUnderlined;
   }
 }
+.icon-Theme {
+  &:before {
+    content: $icon-Theme;
+  }
+}
 .icon-Thumbnail {
   &:before {
     content: $icon-Thumbnail;
@@ -603,6 +627,11 @@
 .icon-Undo {
   &:before {
     content: $icon-Undo;
+  }
+}
+.icon-Upload {
+  &:before {
+    content: $icon-Upload;
   }
 }
 .icon-VideocamOff {
@@ -628,6 +657,11 @@
 .icon-VisibilityOff {
   &:before {
     content: $icon-VisibilityOff;
+  }
+}
+.icon-Voucher {
+  &:before {
+    content: $icon-Voucher;
   }
 }
 .icon-Work {

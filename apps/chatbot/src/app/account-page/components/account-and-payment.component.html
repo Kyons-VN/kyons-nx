@@ -147,7 +147,7 @@
               <span class="flex-1"></span>
               <button
                 *ngIf="package.level < currentPackage.level"
-                class="btn btn-rounded"
+                class="btn btn-outlined"
                 (click)="showWarning = true; selectedPackage = package"
               >
                 Đổi về gói
@@ -246,7 +246,7 @@
               </span>
             </div>
             <div *ngIf="orderDetails.status === OrderStatus.pending" class="flex gap-2">
-              <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+              <button class="btn btn-outlined" (click)="cancelOrder()" [disabled]="isCanceling">
                 {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
               </button>
               <button class="btn" (click)="viewAndPay(orderDetails)">Thanh toán</button>
@@ -430,7 +430,7 @@
         </div>
       </div>
       <div class="flex md:flex-row flex-col md:items-center md:justify-between items-stretch justify-center gap-3">
-        <button class="btn btn-rounded" (click)="cancelOrder()" [disabled]="isCanceling">
+        <button class="btn btn-outlined" (click)="cancelOrder()" [disabled]="isCanceling">
           {{ isCanceling ? 'Đang xử lý...' : 'Hủy giao dịch' }}
         </button>
         <button class="btn" (click)="confirmOrder()" [disabled]="isConfirming">
@@ -502,7 +502,7 @@
         </div>
       </div>
       <div class="flex items-center justify-between">
-        <button class="btn btn-rounded" (click)="showTopup = false">Quay lại</button>
+        <button class="btn btn-outlined" (click)="showTopup = false">Quay lại</button>
         <a class="btn" href="https://www.facebook.com/KyonsVN" target="_blank">Thông báo đã chuyển khoản</a>
       </div>
     </div>
@@ -534,7 +534,7 @@
     <h3>Bạn đang sử dụng gói {{ currentPackage.name }}</h3>
     <p>Thời gian sử dụng vẫn còn, bạn vẫn muốn mua thêm thời gian?</p>
     <div class="flex gap-4">
-      <button class="btn btn-rounded" (click)="showExtending = false">Quay lại</button>
+      <button class="btn btn-outlined" (click)="showExtending = false">Quay lại</button>
       <button class="btn" (click)="selectPackage(currentPackage)">Tiếp tục gia hạn</button>
     </div>
   </div>
@@ -563,7 +563,7 @@
       Bạn muốn tiếp tục nâng cấp gói?
     </p>
     <div class="flex gap-4">
-      <button class="btn btn-rounded" (click)="showUpgrade = false">Quay lại</button>
+      <button class="btn btn-outlined" (click)="showUpgrade = false">Quay lại</button>
       <button class="btn" (click)="selectPackage(currentPackage)">Tiếp tục nâng cấp</button>
     </div>
   </div>
@@ -589,7 +589,7 @@
       để được hỗ trợ nhé!
     </p>
     <div class="flex gap-4 justify-center">
-      <button class="btn btn-rounded" [routerLink]="paths.home.path">Về trang chủ</button>
+      <button class="btn btn-outlined" [routerLink]="paths.home.path">Về trang chủ</button>
       <div class="w-3"></div>
       <button class="btn" (click)="backToHistory()">Xem lịch sử giao dịch</button>
     </div>

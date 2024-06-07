@@ -25,7 +25,7 @@
           #submitNow
           data-tooltip-content="Bạn có thể ấn vào nút này để nộp bài ngay dù chưa hoàn tất bài kiểm tra"
           data-tooltip-position="bottom"
-          class="btn-rounded btn-icon"
+          class="btn-outlined btn-icon"
           (click)="testComplete()"
         >
           <i class="icon-Submit"></i>
@@ -34,7 +34,7 @@
           #report
           data-tooltip-content="Nếu thấy câu hỏi bị sai hoặc làm bạn khó hiểu, hãy báo cho Kyons!"
           data-tooltip-position="bottom"
-          class="btn-rounded btn-icon"
+          class="btn-outlined btn-icon"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           ><i class="icon-Error"></i
@@ -82,10 +82,10 @@
             #navigation
             data-tooltip-content="Bạn cũng có thể chuyển đến câu hỏi mong muốn bằng cách nhấn vào số của câu hỏi"
           >
-            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
+            <button class="btn-outlined btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
-                class="btn-rounded btn-icon"
+                class="btn-outlined btn-icon"
                 *ngFor="let question of testContent.questions; index as i"
                 [ngClass]="{
                   'fill-blue': i === currentTestIndex,
@@ -97,7 +97,7 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
+            <button class="btn-icon btn-outlined" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button
             [ngClass]="{ hidden: currentTestIndex === testContent.questions.length - 1 }"
@@ -134,7 +134,7 @@
           <i class="icon-ChevronLeft"></i>
         </button>
         <!-- <a
-          class="btn-rounded btn-icon order-1 md:order-1"
+          class="btn-outlined btn-icon order-1 md:order-1"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           #tooltip="matTooltip"
@@ -147,7 +147,7 @@
         ></a> -->
         <div #scrollXsElm class="max-w-[calc(100%_-_92px)] overflow-x-auto flex gap-[4px] hide-scrollbar">
           <button
-            class="btn-rounded btn-icon"
+            class="btn-outlined btn-icon"
             *ngFor="let question of testContent.questions; index as i"
             [ngClass]="{
               'fill-blue': i === currentTestIndex,
@@ -265,7 +265,7 @@
         Càng cẩn thận, lộ trình học của Kyons tạo ra sẽ càng phù hợp với khả năng của bạn đó!</span
       >
       <button (click)="ignoreHavingTime = true; submitHavingTime()" class="btn w-full">Nộp bài luôn</button>
-      <button (click)="showHavingTime = false; ignoreIncomplete = false" class="btn-rounded w-full">
+      <button (click)="showHavingTime = false; ignoreIncomplete = false" class="btn-outlined w-full">
         Cho mình kiểm tra lại
       </button>
     </div>
@@ -285,7 +285,7 @@
       </p>
       <p>Chắc chắn muốn nộp bài chứ?</p>
       <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn w-full">Để mình làm tiếp</button>
-      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-rounded w-full">Nộp bài luôn</button>
+      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-outlined w-full">Nộp bài luôn</button>
     </div>
   </div>
 </div>

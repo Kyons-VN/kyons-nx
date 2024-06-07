@@ -2,7 +2,7 @@
 section {
   @apply p-6 flex flex-col justify-start items-center text-center md:max-w-[1440px] md:mx-auto;
 }
-a:not(.btn):not(.btn-rounded) {
+a:not(.btn):not(.btn-outlined) {
   @apply text-orange #{!important};
 }
 [class^='icon-'],

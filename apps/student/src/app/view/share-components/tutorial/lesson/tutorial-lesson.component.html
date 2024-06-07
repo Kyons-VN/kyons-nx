@@ -40,7 +40,7 @@
           ></kyonsvn-questions-progress> -->
         </div>
         <div class="flex gap-2">
-          <a class="btn-rounded btn-icon" href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank">
+          <a class="btn-outlined btn-icon" href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank">
             <i class="icon-Error"></i>
           </a>
           <button
@@ -114,10 +114,10 @@
         <div class="flex gap-4 items-center justify-between w-full">
           <!-- <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn">Câu trước</button>
           <div class="flex-1 flex gap-1 w-full overflow-hidden">
-            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
+            <button class="btn-outlined btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
-                class="btn-rounded btn-icon"
+                class="btn-outlined btn-icon"
                 *ngFor="let question of testContent.questions; index as i"
                 [ngClass]="{
                   'fill-blue': i === currentTestIndex,
@@ -129,7 +129,7 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
+            <button class="btn-icon btn-outlined" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button *ngIf="currentTestIndex !== testContent.questions.length - 1" (click)="scrollRight()" class="btn">
             Câu kế tiếp
@@ -174,7 +174,7 @@
           <i class="icon-ChevronLeft"></i>
         </button> -->
         <!-- <a
-          class="btn-rounded btn-icon order-1 md:order-1"
+          class="btn-outlined btn-icon order-1 md:order-1"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           #tooltip="matTooltip"
@@ -187,7 +187,7 @@
         ></a> -->
         <!-- <div #scrollXsElm class="max-w-[calc(100%_-_92px)] overflow-x-auto flex gap-[4px] hide-scrollbar">
           <button
-            class="btn-rounded btn-icon"
+            class="btn-outlined btn-icon"
             *ngFor="let question of testContent.questions; index as i"
             [ngClass]="{
               'fill-blue': i === currentTestIndex,
@@ -266,7 +266,7 @@
       <button [routerLink]="paths.learningPath.path" [queryParams]="{ tutorial: 2 }" class="btn w-full">
         Quay lại Lộ trình học
       </button>
-      <button class="btn-rounded w-full">Xem lại các bài tập đã làm</button>
+      <button class="btn-outlined w-full">Xem lại các bài tập đã làm</button>
     </div>
   </div>
 </div>

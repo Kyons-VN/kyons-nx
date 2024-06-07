@@ -48,7 +48,7 @@
           ></kyonsvn-questions-progress> -->
         </div>
         <div class="flex gap-2">
-          <a class="btn-rounded btn-icon" (click)="openChat()">
+          <a class="btn-outlined btn-icon" (click)="openChat()">
             <i class="icon-HintDocument"></i>
           </a>
           <button class="btn" (click)="showLesson = true">
@@ -91,10 +91,10 @@
         <div class="flex gap-4 items-center justify-between w-full">
           <!-- <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn">Câu trước</button>
           <div class="flex-1 flex gap-1 w-full overflow-hidden">
-            <button class="btn-rounded btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
+            <button class="btn-outlined btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
-                class="btn-rounded btn-icon"
+                class="btn-outlined btn-icon"
                 *ngFor="let question of testContent.questions; index as i"
                 [ngClass]="{
                   'fill-blue': i === currentTestIndex,
@@ -106,7 +106,7 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-rounded" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
+            <button class="btn-icon btn-outlined" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button *ngIf="currentTestIndex !== testContent.questions.length - 1" (click)="scrollRight()" class="btn">
             Câu kế tiếp
@@ -137,7 +137,7 @@
           <i class="icon-ChevronLeft"></i>
         </button> -->
         <!-- <a
-          class="btn-rounded btn-icon order-1 md:order-1"
+          class="btn-outlined btn-icon order-1 md:order-1"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           #tooltip="matTooltip"
@@ -150,7 +150,7 @@
         ></a> -->
         <!-- <div #scrollXsElm class="max-w-[calc(100%_-_92px)] overflow-x-auto flex gap-[4px] hide-scrollbar">
           <button
-            class="btn-rounded btn-icon"
+            class="btn-outlined btn-icon"
             *ngFor="let question of testContent.questions; index as i"
             [ngClass]="{
               'fill-blue': i === currentTestIndex,
@@ -212,7 +212,7 @@
       <h5>Úi úi, bạn sai 2 câu liên tiếp rồi đó!</h5>
       <p>Nè nè, coi lại bài học chỗ này đi, bạn có muốn xem lại bài học không?</p>
       <button (click)="shouldViewLesson = false; showLesson = true" class="btn w-full">Xem bài học</button>
-      <button (click)="shouldViewLesson = false" class="btn btn-rounded w-full">Khum, tui làm tiếp!</button>
+      <button (click)="shouldViewLesson = false" class="btn btn-outlined w-full">Khum, tui làm tiếp!</button>
     </div>
   </div>
 </div>
@@ -226,7 +226,7 @@
       <h5>Úi úi, bạn lại sai tiếp rồi, hãy để Kyo trợ giúp bạn nhé?</h5>
       <p>Hình như bạn đang gặp khó khăn ở bài học này rồi, kết nối với Kyo ngay để hỗ trợ bạn phần này nhé!</p>
       <button (click)="shouldChat = false; showChatbot = true" class="btn w-full">Mở Kyo</button>
-      <button (click)="shouldChat = false" class="btn btn-rounded w-full">Khum, tui làm tiếp!</button>
+      <button (click)="shouldChat = false" class="btn btn-outlined w-full">Khum, tui làm tiếp!</button>
     </div>
   </div>
 </div>
@@ -238,7 +238,7 @@
     <div class="col w-full gap-6">
       <div class="flex justify-between">
         <h3>Nội dung bài học</h3>
-        <button class="btn-rounded btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
+        <button class="btn-outlined btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
       </div>
       <!-- <p [innerHTML]="content | safeHtml"></p> -->
       <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
@@ -293,7 +293,7 @@
           </div>
         </div>
         <div class="w-4"></div>
-        <button class="btn-rounded btn-icon" (click)="showChatbot = false"><i class="icon-Close"></i></button>
+        <button class="btn-outlined btn-icon" (click)="showChatbot = false"><i class="icon-Close"></i></button>
       </div>
       <div class="chat-divider"></div>
       <student-messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
@@ -326,7 +326,7 @@
       <h5 class="w-full">Xin chúc mừng, bạn vừa hoàn thành xuất sắc {{ lesson.name }} rồi đó!</h5>
       <p>Con đường để hoàn thành mục tiêu học tập cũng đang đến gần hơn rồi, tiếp tục ôn tập thôi nào bạn ơi!</p>
       <button [routerLink]="paths.learningPath.path" class="btn w-full">Quay lại Lộ trình học</button>
-      <button [routerLink]="['review']" class="btn-rounded w-full">Xem lại các bài tập đã làm</button>
+      <button [routerLink]="['review']" class="btn-outlined w-full">Xem lại các bài tập đã làm</button>
     </div>
   </div>
 </div>
@@ -343,7 +343,7 @@
         tính năng này, hãy mua gói “Plus” của Kyons nhé!
       </p>
       <button [routerLink]="paths.account.path" class="btn w-full">Mua gói Plus</button>
-      <button [routerLink]="paths.learningPath.path" class="btn-rounded w-full">Trở về Lộ trình học</button>
+      <button [routerLink]="paths.learningPath.path" class="btn-outlined w-full">Trở về Lộ trình học</button>
     </div>
   </div>
 </div>

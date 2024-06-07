@@ -4,7 +4,7 @@
     <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
       <div class="xl:hidden flex justify-between items-start">
         <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
-        <div class="flex items-center justify-center p-1 cursor-pointer w-[24px] h-[24px]" (click)="toggleMenu()">
+        <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
           <i class="icon-Close text-[16px]"></i>
         </div>
       </div>
@@ -36,7 +36,7 @@
         @for (item of ['today', 'yesterday', 'last7Days', 'last30Days', 'older']; track $index) {
         @if(chats[item]['data'].length>0){
         <li>
-          <span class="">{{ chats[item]['label'] }}</span>
+          <span class="note">{{ chats[item]['label'] }}</span>
           <ul>
             <li
               *ngFor="let chat of chats[item]['data']"
