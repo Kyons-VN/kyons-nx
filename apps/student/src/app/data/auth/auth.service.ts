@@ -1,5 +1,6 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { ChatService } from '@data/chat/chat.service';
 import { DBHelper } from '@data/helper/helper';
 import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { sandboxAccounts } from '@domain/auth/sandbox-account';
@@ -8,7 +9,7 @@ import { catchError, map } from 'rxjs';
 import { KnowledgeService } from '../knowledge/knowledge.service';
 import { TrackingService } from '../tracking/tracking.service';
 import { UserService } from '../user/user.service';
-import { TOKEN_HEADER_KEY, serverApi } from './interceptor';
+import { serverApi, TOKEN_HEADER_KEY } from './interceptor';
 
 const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -18,13 +19,12 @@ const USER_ROLE = 'role';
   providedIn: 'root',
 })
 export class AuthService implements IAuthService {
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-    private trackingService: TrackingService,
-    private knowledgeService: KnowledgeService,
-    private backend: HttpBackend
-  ) { }
+  http = inject(HttpClient);
+  userService = inject(UserService);
+  knowledgeService = inject(KnowledgeService);
+  trackingService = inject(TrackingService);
+  backend = inject(HttpBackend);
+  chatService = inject(ChatService);
 
   signIn(credential: IAuthCredential) {
     if (sandboxAccounts.includes(credential.email)) {
@@ -70,6 +70,7 @@ export class AuthService implements IAuthService {
     this.trackingService.resetTracking();
     this.knowledgeService.removeSelectedProgram();
     this.knowledgeService.removeSelectedLearningGoal();
+    this.chatService.removeCache();
   }
 
   public getToken() {

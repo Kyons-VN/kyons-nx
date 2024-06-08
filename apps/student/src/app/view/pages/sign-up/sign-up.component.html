@@ -167,8 +167,8 @@
           </span>
         </label>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <!-- <button (click)="submitForm2()" class="btn" [disabled]="processing">Tiếp tục</button> -->
-        <button type="submit" (click)="submitForm2()" class="btn" [disabled]="processing || packageLevel === ''">
+        <!-- <button (click)="submitForm2()" class="btn orange" [disabled]="processing">Tiếp tục</button> -->
+        <button type="submit" (click)="submitForm2()" class="btn orange" [disabled]="processing || packageLevel === ''">
           {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
         </button>
       </form>
@@ -271,7 +271,7 @@
         </div>
         <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="flex item-center justify-between gap-2">
-          <button (click)="step = 0" class="btn-outlined"><i class="icon-ChevronLeft text-[24px]"></i> Quay lại</button>
+          <button (click)="step = 0" class="outlined"><i class="icon-ChevronLeft text-[24px]"></i> Quay lại</button>
           <button type="submit" (click)="submitForm2()" class="btn flex-1" [disabled]="processing">
             {{ processing ? 'Đang xử lý' : 'Tạo tài khoản' }}
           </button>
@@ -392,7 +392,7 @@
           <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!</span
         >
       </div>
-      <a class="btn" [routerLink]="paths.signIn.path">Đăng nhập ngay thôi</a>
+      <a class="btn orange" [routerLink]="paths.signIn.path">Đăng nhập ngay thôi</a>
     </div>
   </div>
 </div>
@@ -423,7 +423,7 @@
         <button class="btn orange" (click)="select('1')">
           {{ packageLevel === '1' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn orange outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>
@@ -458,7 +458,7 @@
         <button class="btn orange" (click)="select('2')">
           {{ packageLevel === '2' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn orange outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>
@@ -491,7 +491,7 @@
         <button class="btn orange" (click)="select('3')">
           {{ packageLevel === '3' ? 'Đã chọn' : 'Bấm để chọn' }}
         </button>
-        <button class="btn btn-outlined" (click)="viewPackage = ''">Đóng</button>
+        <button class="btn orange outlined" (click)="viewPackage = ''">Đóng</button>
       </div>
     </div>
   </div>

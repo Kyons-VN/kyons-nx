@@ -49,7 +49,7 @@
         #turorial4
         data-tooltip-content="Bấm vào đây để chọn chủ đề cần học"
         (click)="start()"
-        class="btn primary w-full"
+        class="btn orange w-full"
         [attr.disabled]="selectedLearningGoal === emptyLearningGoal || isLoading ? 'disabled' : null"
       >
         {{ isLoading ? 'Đang xử lý' : 'Bắt đầu' }}
@@ -78,8 +78,8 @@
         <span>Để tạo mục tiêu mới, bạn cần mua thêm gói dịch vụ Kyons.</span>
       </div>
       <div class="flex justify-between">
-        <button (click)="hasError = ''" class="btn-outlined">Không đổi mục tiêu</button>
-        <a class="btn" [routerLink]="paths.package.path">Mua gói</a>
+        <button (click)="hasError = ''" class="outlined">Không đổi mục tiêu</button>
+        <a class="btn orange" [routerLink]="paths.package.path">Mua gói</a>
       </div>
     </div>
     <div class="h-1/3"></div>
@@ -116,7 +116,7 @@
         </select>
       </div>
       <div class="flex flex-col md:flex-row justify-between gap-4">
-        <button (click)="showMockTestTemplate = false" class="btn-outlined order-2 md:order-1">
+        <button (click)="showMockTestTemplate = false" class="outlined order-2 md:order-1">
           Để mình suy nghĩ lại
         </button>
         <button
@@ -143,7 +143,7 @@
       </div>
       <div class="w-full">
         <a
-          class="btn"
+          class="btn orange"
           [routerLink]="paths.learningPath.path"
           fragment="mockTestAnchor"
           [queryParams]="{ active_tab: 1 }"

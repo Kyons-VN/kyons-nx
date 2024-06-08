@@ -10,18 +10,18 @@
   @apply text-white;
   background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
 
-  a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
-    @apply text-orange underline outline-offset-4;
-    &.active[routerlinkactive='active'] {
-      @apply text-white;
-      svg > path {
-        @apply stroke-white;
-      }
-    }
-    &.no-underline {
-      text-decoration: none;
-    }
-  }
+  // a:not(.btn):not(.outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+  //   @apply text-orange underline outline-offset-4;
+  //   &.active[routerlinkactive='active'] {
+  //     @apply text-white;
+  //     svg > path {
+  //       @apply stroke-white;
+  //     }
+  //   }
+  //   &.no-underline {
+  //     text-decoration: none;
+  //   }
+  // }
   .bg-blueGrey-100,
   .bg-blueGrey-50 {
     background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);

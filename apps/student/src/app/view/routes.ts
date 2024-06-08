@@ -209,7 +209,8 @@ const routes: Routes = [
   {
     path: 'design',
     children: [
-      { path: 'buttons', loadComponent: () => import('./pages/button/button.component').then(m => m.TestButtonComponent) },
+      { path: 'buttons', loadComponent: () => import('./pages/design/button.component').then(m => m.TestButtonComponent) },
+      { path: 'icons', loadComponent: () => import('./pages/design/icon.component').then(m => m.TestIconComponent) },
 
     ],
   },

@@ -43,15 +43,15 @@
             >Đáp án chính xác!</span
           >
         </span>
-        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined hidden md:flex">Báo lỗi</a>
-        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined btn-icon block md:hidden"
+        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="outlined hidden md:flex">Báo lỗi</a>
+        <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-icon orange outlined block md:hidden"
           ><i class="icon-Error"></i
         ></a>
       </div>
       <kyonsvn-test-review [questions]="questions" [currentQuestionIndex]="currentQuestionIndex" />
     </div>
     <div class="flex gap-4 items-center w-full overflow-hidden">
-      <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn hidden md:flex">
+      <button (click)="scrollLeft()" [disabled]="currentQuestionIndex === 0" class="btn orange hidden md:flex">
         Câu trước
       </button>
       <button
@@ -62,7 +62,7 @@
         <i class="icon-ChevronLeft"></i>
       </button>
       <div class="flex-1 flex gap-1 w-full overflow-hidden">
-        <button class="btn-outlined btn-icon hidden md:flex" (click)="previousPage()">
+        <button class="btn-icon orange outlined hidden md:flex" (click)="previousPage()">
           <i class="icon-ChevronLeft"></i>
         </button>
         <div
@@ -71,27 +71,26 @@
           class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
         >
           <button
-            class="btn-outlined btn-icon"
+            class="btn-icon"
             *ngFor="let question of questions; index as i"
             [ngClass]="{
-              'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
-              'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
-              'outline-green': question.isCorrectAnswer,
-              'outline-red': !question.isCorrectAnswer
+              darkEmerald: question.isCorrectAnswer,
+              red: !question.isCorrectAnswer,
+              outlined: i !== currentQuestionIndex,
             }"
             (click)="currentQuestionIndex = i"
           >
             {{ i + 1 }}
           </button>
         </div>
-        <button class="btn-icon btn-outlined hidden md:flex" (click)="nextPage()">
+        <button class="btn-icon orange outlined hidden md:flex" (click)="nextPage()">
           <i class="icon-ChevronRight"></i>
         </button>
       </div>
       <button
         [disabled]="currentQuestionIndex === questions.length - 1"
         (click)="scrollRight()"
-        class="btn hidden md:flex"
+        class="btn orange hidden md:flex"
       >
         Câu kế tiếp
       </button>
@@ -108,7 +107,11 @@
         ><b class="text-orange">Bạn muốn cải thiện điểm số?</b>&nbsp;
         <span class="!text-primaryBlue">Bấm <b>Tạo lộ trình học</b> để bắt đầu ngay!</span></span
       >
-      <button [disabled]="status !== MockTestStatus.mock_test_submitted" (click)="activateLearningPath()" class="btn">
+      <button
+        [disabled]="status !== MockTestStatus.mock_test_submitted"
+        (click)="activateLearningPath()"
+        class="btn orange"
+      >
         Tạo lộ trình học
       </button>
     </div>

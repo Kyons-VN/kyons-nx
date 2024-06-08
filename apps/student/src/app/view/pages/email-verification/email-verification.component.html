@@ -31,9 +31,9 @@
 
       <div class="col gap-2">
         @if (type===VerifyPage.verifySuccess){
-        <a [routerLink]="paths.signIn.path" class="btn">Đăng nhập ngay thôi</a>
+        <a [routerLink]="paths.signIn.path" class="btn orange">Đăng nhập ngay thôi</a>
         } @else { @if(errorCode===ErrorCode.expiredCodeException) {
-        <button (click)="resend()" class="btn">Gửi lại email xác thực</button>
+        <button (click)="resend()" class="btn orange">Gửi lại email xác thực</button>
         }}
       </div>
     </div>
@@ -52,7 +52,7 @@
         <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!
       </span>
       <b>Mã lỗi: {{ errorCode }}</b>
-      <button (click)="hasError = false" class="btn w-full">Mình đã hiểu</button>
+      <button (click)="hasError = false" class="btn orange w-full">Mình đã hiểu</button>
     </div>
   </div>
 </div>

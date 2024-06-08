@@ -2,17 +2,20 @@
   font-family: 'Montserrat', sans-serif;
   @apply bg-blueGrey-100 text-primaryBlue;
 
-  a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item):not(.history-item) {
-    @apply text-orange underline outline-offset-4;
-    &.active[routerlinkactive='active'] {
-      @apply text-primaryBlue;
-      svg > path {
-        @apply stroke-primaryBlue;
-      }
-    }
-    &.no-underline {
-      text-decoration: none;
-    }
+  // a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item):not(.history-item) {
+  //   @apply text-orange underline outline-offset-4;
+  //   &.active[routerlinkactive='active'] {
+  //     @apply text-primaryBlue;
+  //     svg > path {
+  //       @apply stroke-primaryBlue;
+  //     }
+  //   }
+  //   &.no-underline {
+  //     text-decoration: none;
+  //   }
+  // }
+  a {
+    @apply text-orange cursor-pointer no-underline;
   }
   .text-white {
     color: white;

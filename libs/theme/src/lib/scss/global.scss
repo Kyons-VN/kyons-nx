@@ -11,8 +11,9 @@ body {
 }
 
 a {
-  @apply cursor-pointer;
+  @apply cursor-pointer no-underline;
 }
+
 .card {
   @apply rounded-lg p-6 flex flex-col gap-6;
   min-width: 324px;
@@ -78,7 +79,7 @@ p {
 small {
   font-size: 0.75rem;
 }
-// a:not(.btn):not(.btn-outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
+// a:not(.btn):not(.outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
 //   @apply text-orange underline outline-offset-4;
 //   &.active[routerlinkactive='active'] {
 //     @apply text-primaryBlue;
@@ -95,26 +96,32 @@ small {
 }
 .btn {
   @apply rounded-xl h-[40px] px-[16px] py-[8px] flex items-center justify-center cursor-pointer whitespace-nowrap gap-2 font-[600] min-w-[147px];
+  i {
+    @apply text-[24px];
+  }
   &.large {
     @apply h-[48px] px-[16px] py-[12px];
   }
   &.small {
     @apply h-[36px] px-[8px] py-[10px];
+    i {
+      @apply text-[16px];
+    }
   }
   &.hidden {
     display: none;
   }
 }
 .btn-icon {
-  @apply rounded-xl h-[40px] w-[40px] p-[8px] flex items-center justify-center cursor-pointer whitespace-nowrap font-[600];
+  @apply rounded-xl h-[40px] aspect-square p-[8px] flex items-center justify-center cursor-pointer whitespace-nowrap font-[600];
   i {
     @apply text-[24px];
   }
   &.large {
-    @apply h-[48px] w-[48px] p-[12px];
+    @apply h-[48px] p-[12px];
   }
   &.small {
-    @apply h-[36px] w-[36px] p-[10px];
+    @apply h-[36px] p-[10px];
     i {
       @apply text-[16px];
     }
@@ -123,12 +130,12 @@ small {
     display: none;
   }
   &.circle {
-    @apply rounded-full h-[56px] w-[56px];
+    @apply rounded-full h-[56px];
     &.large {
-      @apply h-[64px] w-[64px] p-[12px];
+      @apply h-[64px] p-[12px];
     }
     &.small {
-      @apply h-[40px] w-[40px] p-[10px];
+      @apply h-[40px] p-[10px];
     }
   }
 }
@@ -161,6 +168,24 @@ small {
       @apply bg-white text-blueGrey-500 border-transparent shadow-none;
     }
   }
+  &.darkEmerald {
+    @apply bg-darkEmerald text-white;
+    &.outlined {
+      @apply bg-white border-darkEmerald border text-darkEmerald;
+    }
+    &.link {
+      @apply bg-white text-darkEmerald border-transparent shadow-none;
+    }
+  }
+  &.red {
+    @apply bg-red-0 text-white;
+    &.outlined {
+      @apply bg-white border-red-0 border text-red-0;
+    }
+    &.link {
+      @apply bg-white text-red-0 border-transparent shadow-none;
+    }
+  }
 }
 @media screen and (min-width: 768px) {
   .btn,
@@ -186,6 +211,12 @@ small {
     }
     &.lightBlue {
       @apply text-lightBlue-3;
+    }
+    &.darkEmerald {
+      @apply text-emerald-2;
+    }
+    &.red {
+      @apply text-red-300;
     }
   }
 }
@@ -519,21 +550,21 @@ flutter-view input:where(:not([type])):focus {
   @apply outline-none shadow-none ring-0;
 }
 
-.drop-menu-item {
+li.drop-menu-item a {
   @apply flex h-16 p-6 no-underline text-primaryBlue;
 }
-.outline-green {
-  @apply text-darkEmerald border-darkEmerald;
-}
-.outline-red {
-  @apply text-red-0 border-red-0;
-}
-.outline-green.fill-green {
-  @apply bg-darkEmerald text-white;
-}
-.outline-red.fill-red {
-  @apply bg-red-0 text-white;
-}
+// .outline-green {
+//   @apply text-darkEmerald border-darkEmerald;
+// }
+// .outline-red {
+//   @apply text-red-0 border-red-0;
+// }
+// .outline-green.fill-green {
+//   @apply bg-darkEmerald text-white;
+// }
+// .outline-red.fill-red {
+//   @apply bg-red-0 text-white;
+// }
 .outline-green.fill-black,
 .outline-red.fill-black {
   @apply bg-primaryBlue text-white;

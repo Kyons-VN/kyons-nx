@@ -30,7 +30,7 @@
           >
             <h5 [ngClass]="{ 'text-white': theme === 'universe' }">Giao diện</h5>
             <div class="flex gap-2">
-              <button class="btn" (click)="setTheme('default')">Mặc định</button>
+              <button class="btn orange" (click)="setTheme('default')">Mặc định</button>
               <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
             </div>
           </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div class="error" *ngIf="errorMessage">Thông tin chưa chính xác</div>
-        <button (click)="login()" class="btn" [disabled]="processing">
+        <button (click)="login()" class="btn orange" [disabled]="processing">
           {{ processing ? 'Đang xử lý' : 'Đăng nhập' }}
         </button>
         <div class="col items-start gap-2">
@@ -109,10 +109,10 @@
         >
         <span>Ngoài ra, bạn có thể yêu cầu gửi lại link xác thực bằng cách bấm vào nút dưới đây</span>
       </div>
-      <button class="btn" (click)="resend()" [disabled]="pendingResendEmail">
+      <button class="btn orange" (click)="resend()" [disabled]="pendingResendEmail">
         Gửi lại email xác thực @if(pendingResendEmail){({{ countdown }}s)}
       </button>
-      <button class="btn btn-outlined" (click)="userNotConfirmedError = false">Quay lại đăng nhập</button>
+      <button class="btn orange outlined" (click)="userNotConfirmedError = false">Quay lại đăng nhập</button>
     </div>
   </div>
 </div>
@@ -128,7 +128,7 @@
         Hệ thống hiện đang gặp sự cố, bạn vui lòng thử lại sau vài phút hoặc liên hệ
         <a href="https://www.facebook.com/KyonsVN" target="_blank">Kyons Fanpage</a> để được hỗ trợ kịp thời!
       </span>
-      <button (click)="resendVerificationEmailError = false" class="btn w-full">Mình đã hiểu</button>
+      <button (click)="resendVerificationEmailError = false" class="btn orange w-full">Mình đã hiểu</button>
     </div>
   </div>
 </div>

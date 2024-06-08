@@ -24,7 +24,9 @@
     <img [src]="image64" alt="" class="w-full" />
     }
     <div class="flex space-between w-full justify-center">
-      <button class="btn" (click)="ask()" [disabled]="isThinking">{{ isThinking ? 'Đang giải...' : 'Giải' }}</button>
+      <button class="btn orange" (click)="ask()" [disabled]="isThinking">
+        {{ isThinking ? 'Đang giải...' : 'Giải' }}
+      </button>
     </div>
     <kyonsvn-latex class="w-full" [inputString]="result" />
   </div>

@@ -5,19 +5,15 @@
     <li>Thông tin cá nhân</li>
   </a>
   <li class="border-t border-blueGrey-300"></li> -->
-  <a [routerLink]="paths.account.path" class="drop-menu-item">
-    <li>Tài khoản của bạn</li>
-  </a>
+  <li class="drop-menu-item"><a [routerLink]="paths.account.path"> Tài khoản của bạn </a></li>
   <li class="border-t border-blueGrey-300"></li>
-  <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }" class="drop-menu-item">
-    <li>Hướng dẫn sử dụng</li>
-  </a>
+  <li class="drop-menu-item">
+    <a [routerLink]="paths.home.path" [queryParams]="{ tutorial: true }"> Hướng dẫn sử dụng </a>
+  </li>
   <li class="border-t border-blueGrey-300"></li>
   <!-- <li [routerLink]="'/knowledge'">
               <a class="h-5 text-primaryBlue">Cây kiến thức</a>
             </li>
             <li class="border-t border-blueGrey-300"></li> -->
-  <a [routerLink]="paths.signOut.path" class="drop-menu-item">
-    <li>Thoát</li>
-  </a>
+  <li class="drop-menu-item"><a [routerLink]="paths.signOut.path"> Thoát </a></li>
 </ul>

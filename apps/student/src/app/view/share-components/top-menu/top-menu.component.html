@@ -1,5 +1,5 @@
 <div *ngIf="show" class="w-full flex text-base items-center justify-center relative">
-  <div class="w-full flex relative px-4 py-2 xl:px-14 xl:py-8 items-center gap-2">
+  <div class="w-full flex relative px-4 py-2 xl:px-6 xl:py-8 items-center gap-2">
     @if(showLogo){
     <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
     <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
@@ -52,7 +52,7 @@
     >
       <h5>Giao diện</h5>
       <div class="flex gap-2">
-        <button class="btn" (click)="setTheme('default')">Mặc định</button>
+        <button class="btn orange" (click)="setTheme('default')">Mặc định</button>
         <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
       </div>
     </div>

@@ -93,7 +93,7 @@
               data-tooltip-content="Bạn hãy bấm vào đây để xem lại kết quả bài kiểm tra của mình"
               data-tooltip-position="bottom"
               (click)="review()"
-              class="btn-outlined order-2 md:order-1"
+              class="btn orange outlined order-2 md:order-1"
             >
               Xem lại đáp án bài kiểm tra
             </button>
@@ -103,7 +103,7 @@
               data-tooltip-position="bottom"
               [disabled]="testResult.status !== MockTestStatus.mock_test_submitted && !showTutorial"
               (click)="activateLearningPath()"
-              class="btn order-1 md:order-2"
+              class="btn orange order-1 md:order-2"
             >
               Tạo lộ trình học
             </button>

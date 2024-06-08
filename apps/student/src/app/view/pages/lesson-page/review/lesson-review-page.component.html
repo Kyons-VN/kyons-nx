@@ -31,11 +31,11 @@
         </h6>
         <div class="flex-1"></div>
         <div class="flex gap-4 items-center">
-          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined hidden md:flex">Báo lỗi</a>
-          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-outlined btn-icon block md:hidden"
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="outlined hidden md:flex">Báo lỗi</a>
+          <a href="https://forms.gle/b36mTdMWNRY1qkZh7" target="_blank" class="btn-icon orange outlined block md:hidden"
             ><i class="icon-Error"></i
           ></a>
-          <button class="btn" (click)="showLesson = true">
+          <button class="btn orange" (click)="showLesson = true">
             <i class="icon-Crown text-white"></i>
             Xem bài học
           </button>
@@ -56,7 +56,7 @@
           <i class="icon-ChevronLeft"></i>
         </button>
         <div class="flex-1 flex gap-1 w-full overflow-hidden">
-          <button class="btn-outlined btn-icon hidden md:flex" (click)="previousPage()">
+          <button class="btn-icon orange outlined hidden md:flex" (click)="previousPage()">
             <i class="icon-ChevronLeft"></i>
           </button>
           <div
@@ -65,20 +65,19 @@
             class="w-full md:w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar"
           >
             <button
-              class="btn-outlined btn-icon"
+              class="btn-icon orange outlined"
               *ngFor="let question of questions; index as i"
               [ngClass]="{
-                'fill-green': question.isCorrectAnswer && i === currentQuestionIndex,
-                'fill-red': !question.isCorrectAnswer && i === currentQuestionIndex,
-                'outline-green': question.isCorrectAnswer,
-                'outline-red': !question.isCorrectAnswer
+                darkEmerald: question.isCorrectAnswer,
+                red: !question.isCorrectAnswer,
+                outlined: i !== currentQuestionIndex,
               }"
               (click)="currentQuestionIndex = i"
             >
               {{ i + 1 }}
             </button>
           </div>
-          <button class="btn-icon btn-outlined hidden md:flex" (click)="nextPage()">
+          <button class="btn-icon orange outlined hidden md:flex" (click)="nextPage()">
             <i class="icon-ChevronRight"></i>
           </button>
         </div>
@@ -103,7 +102,7 @@
       <button
         [disabled]="status !== MockTestStatus.learning_path_received"
         (click)="activateLearningPath()"
-        class="btn"
+        class="btn orange"
       >
         Tạo lộ trình học
       </button>
@@ -118,7 +117,7 @@
     <div class="col w-full gap-6">
       <div class="flex justify-between">
         <h3>Nội dung bài học</h3>
-        <button class="btn-outlined btn-icon" (click)="showLesson = false"><i class="icon-Close"></i></button>
+        <button class="btn-icon orange outlined" (click)="showLesson = false"><i class="icon-Close"></i></button>
       </div>
       <!-- <p [innerHTML]="content | safeHtml"></p> -->
       <!-- <object #contentElm data="" type="application/pdf" width="100%" height="100%" style="height: 80vh">
@@ -144,7 +143,7 @@
       }
 
       <!-- <embed [src]="content" width="100%" height="100%" style="height: 80vh" /> -->
-      <button (click)="showLesson = false" class="btn w-full">Đã hiểu</button>
+      <button (click)="showLesson = false" class="btn orange w-full">Đã hiểu</button>
     </div>
   </div>
 </div>

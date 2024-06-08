@@ -28,14 +28,14 @@
             id="continue"
             *ngIf="testProgress.isComplete() && showResult"
             (click)="showWaitlistPopup = true; emailElm.nativeElement.focus()"
-            class="btn"
+            class="btn orange"
           >
             Tiếp
           </button>
           <button
             (click)="handleNextQuestion()"
             [disabled]="testProgress.value < currentTestIndex + 1"
-            class="btn"
+            class="btn orange"
             *ngIf="!(testProgress.isComplete() && showResult)"
           >
             {{ showResult ? 'Tiếp' : 'Trả lời' }}
@@ -50,7 +50,7 @@
     <div class="md:hidden w-full flex items-center justify-end gap-2">
       <div class="flex gap-2 items-center justify-center">
         <!-- <a
-          class="btn-outlined btn-icon order-1 md:order-1"
+          class="btn-icon orange outlined order-1 md:order-1"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           #tooltip="matTooltip"

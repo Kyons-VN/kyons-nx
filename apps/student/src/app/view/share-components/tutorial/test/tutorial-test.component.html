@@ -25,7 +25,7 @@
           #submitNow
           data-tooltip-content="Bạn có thể ấn vào nút này để nộp bài ngay dù chưa hoàn tất bài kiểm tra"
           data-tooltip-position="bottom"
-          class="btn-outlined btn-icon"
+          class="btn-icon orange outlined"
           (click)="testComplete()"
         >
           <i class="icon-Submit"></i>
@@ -34,7 +34,7 @@
           #report
           data-tooltip-content="Nếu thấy câu hỏi bị sai hoặc làm bạn khó hiểu, hãy báo cho Kyons!"
           data-tooltip-position="bottom"
-          class="btn-outlined btn-icon"
+          class="btn-icon orange outlined"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           ><i class="icon-Error"></i
@@ -76,16 +76,16 @@
           <span>Bấm 1,2,3,4 chọn đáp án, bấm space sẽ làm tiếp hoặc nộp bài</span>
         </div> -->
         <div class="flex gap-4 items-center w-full overflow-hidden">
-          <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn">Câu trước</button>
+          <button (click)="scrollLeft()" [disabled]="currentTestIndex === 0" class="btn orange">Câu trước</button>
           <div
             class="flex-1 flex gap-1 w-full overflow-hidden"
             #navigation
             data-tooltip-content="Bạn cũng có thể chuyển đến câu hỏi mong muốn bằng cách nhấn vào số của câu hỏi"
           >
-            <button class="btn-outlined btn-icon" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
+            <button class="btn-icon orange outlined" (click)="previousPage()"><i class="icon-ChevronLeft"></i></button>
             <div #scrollElm class="w-[calc(100%_-_92px)] overflow-x-auto flex gap-1 hide-scrollbar">
               <button
-                class="btn-outlined btn-icon"
+                class="btn-icon orange outlined"
                 *ngFor="let question of testContent.questions; index as i"
                 [ngClass]="{
                   'fill-blue': i === currentTestIndex,
@@ -97,12 +97,12 @@
                 {{ i + 1 }}
               </button>
             </div>
-            <button class="btn-icon btn-outlined" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
+            <button class="btn-icon outlined" (click)="nextPage()"><i class="icon-ChevronRight"></i></button>
           </div>
           <button
             [ngClass]="{ hidden: currentTestIndex === testContent.questions.length - 1 }"
             (click)="scrollRight()"
-            class="btn"
+            class="btn orange"
             #nextElm
             data-tooltip-content="Bấm chọn nút này để chuyển sang câu hỏi tiếp theo nhé!"
           >
@@ -113,7 +113,7 @@
             #submit
             data-tooltip-content="Bấm chọn nút này nộp bài bạn nhé!"
             (click)="testComplete()"
-            class="btn"
+            class="btn orange"
           >
             Nộp bài
           </button>
@@ -134,7 +134,7 @@
           <i class="icon-ChevronLeft"></i>
         </button>
         <!-- <a
-          class="btn-outlined btn-icon order-1 md:order-1"
+          class="btn-icon orange outlined order-1 md:order-1"
           href="https://forms.gle/b36mTdMWNRY1qkZh7"
           target="_blank"
           #tooltip="matTooltip"
@@ -147,7 +147,7 @@
         ></a> -->
         <div #scrollXsElm class="max-w-[calc(100%_-_92px)] overflow-x-auto flex gap-[4px] hide-scrollbar">
           <button
-            class="btn-outlined btn-icon"
+            class="btn-icon orange outlined"
             *ngFor="let question of testContent.questions; index as i"
             [ngClass]="{
               'fill-blue': i === currentTestIndex,
@@ -264,8 +264,8 @@
         >Hãy xem bài kiểm tra thử này giống như kỳ thi thiệt mà làm bài thật nghiêm túc và tránh bị sai nhảm nha bạn ơi.
         Càng cẩn thận, lộ trình học của Kyons tạo ra sẽ càng phù hợp với khả năng của bạn đó!</span
       >
-      <button (click)="ignoreHavingTime = true; submitHavingTime()" class="btn w-full">Nộp bài luôn</button>
-      <button (click)="showHavingTime = false; ignoreIncomplete = false" class="btn-outlined w-full">
+      <button (click)="ignoreHavingTime = true; submitHavingTime()" class="btn orange w-full">Nộp bài luôn</button>
+      <button (click)="showHavingTime = false; ignoreIncomplete = false" class="btn orange outlined w-full">
         Cho mình kiểm tra lại
       </button>
     </div>
@@ -284,8 +284,12 @@
         học tập của bạn đó.
       </p>
       <p>Chắc chắn muốn nộp bài chứ?</p>
-      <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn w-full">Để mình làm tiếp</button>
-      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn-outlined w-full">Nộp bài luôn</button>
+      <button (click)="showIncomplete = false; ignoreHavingTime = false" class="btn orange w-full">
+        Để mình làm tiếp
+      </button>
+      <button (click)="ignoreIncomplete = true; submitIncomplete()" class="btn orange outlined w-full">
+        Nộp bài luôn
+      </button>
     </div>
   </div>
 </div>
@@ -297,8 +301,8 @@
     <div class="col w-full gap-6">
       <h5 class="w-full text-center">Bài kiểm tra đã hoàn thành</h5>
       <p></p>
-      <button (click)="goToResult()" class="btn w-full">Xem kết quả</button>
-      <button (click)="goToReview()" class="btn w-full">Xem đáp án</button>
+      <button (click)="goToResult()" class="btn orange w-full">Xem kết quả</button>
+      <button (click)="goToReview()" class="btn orange w-full">Xem đáp án</button>
     </div>
   </div>
 </div>

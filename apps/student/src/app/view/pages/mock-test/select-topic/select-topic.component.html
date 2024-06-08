@@ -14,7 +14,7 @@
         }"
         >Bạn hãy chọn từ {{ learningGoal.minTopic }} đến {{ learningGoal.maxTopic }} bài để ôn luyện nhé</strong
       >
-      <!-- <button class="btn-outlined">
+      <!-- <button class="outlined">
         <span class="flex items-center gap-2"
           ><i class="icon-ChevronLeft"></i> Chọn tất cả <i class="icon-ChevronRight"></i
         ></span>
@@ -39,7 +39,7 @@
             isDoneEditing &&
             (checkedCount < (learningGoal.minTopic ?? 3) || checkedCount > (learningGoal.maxTopic ?? 4))
           "
-          class="btn"
+          class="btn orange"
         >
           Làm bài kiểm tra
         </button>
@@ -64,7 +64,7 @@
       </div>
       <div class="w-full">
         <a
-          class="btn"
+          class="btn orange"
           [routerLink]="paths.learningPath.path"
           fragment="mockTestAnchor"
           [queryParams]="{ active_tab: 1 }"
@@ -82,7 +82,7 @@
         <span>{{ hasError }}</span>
       </div>
       <div class="w-full">
-        <a class="btn" (click)="hasError = ''">Đã hiểu</a>
+        <a class="btn orange" (click)="hasError = ''">Đã hiểu</a>
       </div>
     </div>
     <div class="h-1/3"></div>

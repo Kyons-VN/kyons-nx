@@ -215,7 +215,7 @@
           <div class="col w-[520px] h-[500px] px-8 items-center gap-2 text-center justify-center">
             <h5 class="text-white">Bạn chưa tạo lộ trình học!</h5>
             <h6 class="h6 text-white">bấm vào nút bên dưới để bắt đầu học thôi</h6>
-            <button (click)="activateLearningPath()" class="btn">Tạo lộ trình học</button>
+            <button (click)="activateLearningPath()" class="btn orange">Tạo lộ trình học</button>
           </div>
         </div> -->
       </div>
@@ -408,7 +408,7 @@
         <mat-row *matRowDef="let row; columns: ['index', 'score']"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[4]" aria-label="Select page of periodic elements"> </mat-paginator>
-      <button [routerLink]="paths.mockTest.path" class="btn btn-large w-full !rounded-none">
+      <button [routerLink]="paths.mockTest.path" class="btn orange large w-full !rounded-none">
         Tạo bài kiểm tra thử thông minh mới
       </button>
     </div>
@@ -451,7 +451,7 @@
       hiện khả năng bạn có thể hoàn thành mục tiêu lớn dựa trên số lượng kiến thức mà bạn đã học so với toàn bộ kiến
       thức có thể ra trong bài kiểm tra.
     </p>
-    <button (click)="showWhatIsProbabilityIndex = false" class="btn w-full shrink-0">Đã hiểu</button>
+    <button (click)="showWhatIsProbabilityIndex = false" class="btn orange w-full shrink-0">Đã hiểu</button>
   </div>
 </div>
 <div
@@ -464,7 +464,7 @@
       Nếu quên, bạn có thể truy cập phần <a (click)="completeTutorial(false)">Trang chủ</a> >
       <i class="icon-Settings text-[16px]"></i> > “Hướng dẫn sử dụng” để xem lại. Chúc bạn học tập thật vui vẻ nha
     </p>
-    <button (click)="completeTutorial()" class="btn w-full shrink-0">Quay về trang chủ</button>
+    <button (click)="completeTutorial()" class="btn orange w-full shrink-0">Quay về trang chủ</button>
   </div>
 </div>
 <div
@@ -494,7 +494,7 @@
       <b class="text-lightBlue-1">thay đổi sang lộ trình học khác</b>. Vì thế, hãy cứ trải nghiệm Kyons để hiểu rõ kiến
       thức mình đang còn yếu nằm ở đâu nhé! Chúc bạn học tập thật tốt nha.
     </p>
-    <button (click)="showWhatIsMockTest = false" class="btn w-full shrink-0">Đã hiểu</button>
+    <button (click)="showWhatIsMockTest = false" class="btn orange w-full shrink-0">Đã hiểu</button>
   </div>
 </div>
 <div *ngIf="showTutorial">

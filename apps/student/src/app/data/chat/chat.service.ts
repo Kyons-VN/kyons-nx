@@ -103,6 +103,10 @@ class ChatService {
     };
     return this.http.post(`${chatServerApi}/onSubscriptionChanged`, params);
   }
+
+  removeCache() {
+    window.localStorage.removeItem('chats');
+  }
 }
 
 export { Chat, ChatService, chatServerApi };
