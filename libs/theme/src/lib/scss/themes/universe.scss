@@ -10,18 +10,6 @@
   @apply text-white;
   background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
 
-  // a:not(.btn):not(.outlined):not(.menu-item):not(.icon-btn):not(.drop-menu-item) {
-  //   @apply text-orange underline outline-offset-4;
-  //   &.active[routerlinkactive='active'] {
-  //     @apply text-white;
-  //     svg > path {
-  //       @apply stroke-white;
-  //     }
-  //   }
-  //   &.no-underline {
-  //     text-decoration: none;
-  //   }
-  // }
   .bg-blueGrey-100,
   .bg-blueGrey-50 {
     background: linear-gradient(180deg, #090d13 0%, #1d283a 100%);
@@ -48,8 +36,8 @@
   .border-lightBlue-1 {
     @apply border-teal-0;
   }
-  .drop-menu-item {
-    @apply flex h-16 p-6 no-underline text-white;
+  .drop-menu-item a {
+    @apply text-white;
   }
   @media (min-width: 768px) {
     .md\:text-primaryBlue {
