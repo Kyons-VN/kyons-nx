@@ -186,6 +186,15 @@ small {
       @apply bg-white text-red-0 border-transparent shadow-none;
     }
   }
+  &.white {
+    @apply bg-transparent text-white;
+    &.outlined {
+      @apply bg-transparent border-white border text-white;
+    }
+    &.link {
+      @apply bg-transparent text-white border-transparent shadow-none;
+    }
+  }
 }
 @media screen and (min-width: 768px) {
   .btn,
@@ -221,6 +230,7 @@ small {
   }
 }
 .btn:disabled {
+  @apply cursor-not-allowed;
   &:not(.outlined):not(.link) {
     @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
   }
@@ -228,15 +238,22 @@ small {
   &.link {
     @apply bg-white text-blueGrey-400 border-blueGrey-400;
   }
+  &.link * {
+    @apply opacity-70;
+  }
 }
 
 .btn-icon:disabled {
+  @apply cursor-not-allowed;
   &:not(.outlined):not(.link) {
     @apply bg-blueGrey-200 text-blueGrey-400 border-blueGrey-200;
   }
   &.outlined,
   &.link {
-    @apply bg-white text-blueGrey-200 border-blueGrey-300;
+    @apply bg-transparent text-blueGrey-200 border-transparent;
+  }
+  &.link * {
+    @apply opacity-50;
   }
 }
 
