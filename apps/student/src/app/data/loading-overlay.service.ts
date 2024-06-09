@@ -1,18 +1,17 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { inject, Injectable } from '@angular/core';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoadingOverlayService {
-  private overlayRef: OverlayRef;
+  document = inject(DOCUMENT);
+  overlay = inject(Overlay);
+  overlayRef = this.overlay.create();
   _isActive = false;
-
-  constructor(private overlay: Overlay) {
-    this.overlayRef = this.overlay.create();
-  }
 
   public show() {
     if (this._isActive) return;
@@ -24,6 +23,7 @@ export class LoadingOverlayService {
     // Create ComponentPortal that can be attached to a PortalHost
     const spinnerOverlayPortal = new ComponentPortal(LoadingComponent);
     this.overlayRef.attach(spinnerOverlayPortal); // Attach ComponentPortal to PortalHost
+    this.document.body.classList.add('overflow-hidden');
     this._isActive = true;
   }
 
@@ -32,6 +32,7 @@ export class LoadingOverlayService {
     if (this.overlayRef) {
       this.overlayRef.detach();
     }
+    this.document.body.classList.remove('overflow-hidden');
     this._isActive = false;
   }
 }

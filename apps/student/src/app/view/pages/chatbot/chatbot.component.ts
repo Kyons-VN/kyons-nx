@@ -16,6 +16,7 @@ import {
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Content, Mana, TextPart } from '@data/chat/chat-model';
 import { Chat, ChatService } from '@data/chat/chat.service';
+import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
@@ -26,7 +27,7 @@ import { ChatboxComponent } from '@view/share-components/chat/chatbox.component'
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
 import { NgFlutterComponent } from '@view/share-components/ng-flutter/ng-flutter.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
-import { Subscription, interval } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
@@ -47,6 +48,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   zone = inject(NgZone);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
+  loading = inject(LoadingOverlayService);
 
 
   flutterState?: any;
@@ -72,6 +74,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isSmMenuHide = signal(true);
 
   ngOnInit(): void {
+    this.loading.show();
     this.userId = this.userService.getUserId();
     this.userService.updateCurrentUser(this.userId).then((res) => {
       if (res) {
@@ -94,11 +97,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         next: chats => {
           this.chats = this.groupByTime(chats);
           this.changeDetectorRef.detectChanges();
+          this.loading.hide();
         },
         error: err => {
           if (err.message === 'Unauthenticated') {
             this.router.navigate([this.paths.signOut.path]);
           }
+          this.loading.hide();
+          console.error(err);
         },
       });
       this.updateMana();
@@ -111,28 +117,28 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       }, 500);
       this.theme = this.themeService.themeStore();
     });
-    const targetDate = new Date('2024-04-22T24:00:00+00:00');
-    const countdown = interval(1000);
+    // const targetDate = new Date('2024-04-22T24:00:00+00:00');
+    // const countdown = interval(1000);
 
-    this.$interval = countdown.subscribe(() => {
-      const now = new Date();
-      const diff = targetDate.getTime() - now.getTime();
-      const day = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minute = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const second = Math.floor((diff % (1000 * 60)) / 1000);
-      this.day = day.toString().padStart(2, '0');
-      this.hour = hour.toString().padStart(2, '0');
-      this.minute = minute.toString().padStart(2, '0');
-      this.second = second.toString().padStart(2, '0');
-      if (diff < 0) {
-        if (this.$interval !== undefined) this.$interval.unsubscribe();
-        this.day = '00';
-        this.hour = '00';
-        this.minute = '00';
-        this.second = '00';
-      }
-    });
+    // this.$interval = countdown.subscribe(() => {
+    //   const now = new Date();
+    //   const diff = targetDate.getTime() - now.getTime();
+    //   const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+    //   const hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //   const minute = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    //   const second = Math.floor((diff % (1000 * 60)) / 1000);
+    //   this.day = day.toString().padStart(2, '0');
+    //   this.hour = hour.toString().padStart(2, '0');
+    //   this.minute = minute.toString().padStart(2, '0');
+    //   this.second = second.toString().padStart(2, '0');
+    //   if (diff < 0) {
+    //     if (this.$interval !== undefined) this.$interval.unsubscribe();
+    //     this.day = '00';
+    //     this.hour = '00';
+    //     this.minute = '00';
+    //     this.second = '00';
+    //   }
+    // });
   }
   updateMana() {
     this.chatService.getMana(this.userId).subscribe({
