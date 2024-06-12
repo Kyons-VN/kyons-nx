@@ -137,6 +137,9 @@ $student-theme: mat.define-light-theme(
       accent: $student-accent,
       warn: $student-warn,
     ),
+    density: (
+      scale: -2,
+    ),
   )
 );
 

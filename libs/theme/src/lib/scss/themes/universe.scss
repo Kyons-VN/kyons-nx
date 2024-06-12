@@ -72,22 +72,24 @@
     @apply text-primaryBlue;
   }
   .history {
-    @apply p-4 xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
+    @apply px-4;
     ul > li {
-      @apply gap-2 flex flex-col;
       & > ul > li {
         &.active {
-          a.history-item {
-            @apply bg-lightBlue-6 font-bold text-lightBlue-1;
-            // color: var(--color-lightBlue-1);
+          .history-item {
+            @apply bg-lightBlue-6;
+            .chat-name {
+              @apply font-bold text-lightBlue-1;
+            }
           }
         }
         span {
           @apply text-xs text-blueGrey-500;
         }
-        a.history-item {
-          @apply px-2 py-1 rounded-md text-primaryBlue line-clamp-1 text-ellipsis;
-          text-decoration: none !important;
+        .history-item {
+          .chat-name {
+            @apply text-white;
+          }
         }
       }
     }
@@ -96,6 +98,9 @@
         background: linear-gradient(180deg, rgba(37, 138, 194, 1) 0%, rgba(44, 61, 91, 1) 100%);
         @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 p-4;
       }
+    }
+    .history-list {
+      @apply flex flex-col gap-4;
     }
   }
   .history-toggle {

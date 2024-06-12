@@ -9,23 +9,21 @@
     color: white;
   }
   .history {
-    @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
     ul > li {
-      @apply gap-2 flex flex-col;
       & > ul > li {
         @apply py-1;
         &.active {
-          a.history-item {
+          .history-item {
             @apply bg-lightBlue-6 font-bold text-lightBlue-1;
-            // color: var(--color-lightBlue-1);
+          }
+        }
+        .history-item {
+          .chat-name {
+            @apply text-primaryBlue;
           }
         }
         span {
           @apply text-xs text-blueGrey-500;
-        }
-        a.history-item {
-          @apply px-2 py-1 rounded-md text-primaryBlue line-clamp-1 text-ellipsis;
-          text-decoration: none !important;
         }
       }
     }
@@ -35,7 +33,7 @@
       }
     }
     .history-list {
-      @apply flex flex-col gap-2;
+      @apply flex flex-col gap-4;
     }
   }
   .history-toggle {

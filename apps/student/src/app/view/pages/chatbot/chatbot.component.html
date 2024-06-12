@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center">
+<div class="flex flex-col items-center relative">
   <student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
   <div class="flex justify-center w-full xl:max-w-[1440px] h-full gap-4 chat px-4 xl:px-14">
     <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
@@ -22,7 +22,7 @@
           {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
         </button>
       </div>
-      <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
+      <h5>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
       <ul class="history-list">
         <!-- <li>
           <a
@@ -43,12 +43,19 @@
               [ngClass]="{ active: chatId === chat.id }"
               (click)="isGaming = false"
             >
-              <a
-                class="history-item"
-                [routerLink]="paths.chat.path.replace(':id', chat.id)"
-                [title]="chat.firstMessage"
-                >{{ chat.firstMessage }}</a
-              >
+              <div class="history-item">
+                <a
+                  class="chat-name"
+                  [routerLink]="paths.chat.path.replace(':id', chat.id)"
+                  [title]="chat.firstMessage"
+                  >{{ chat.firstMessage }}</a
+                >
+                <div class="flex items-center relative">
+                  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
         </li>
@@ -215,5 +222,19 @@
       </div> -->
     </div>
   </div>
+  <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+    <button mat-menu-item (click)="test()">
+      <mat-icon>dialpad</mat-icon>
+      <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Disable alerts</span>
+    </button>
+  </mat-menu>
   <div class="h-20" *ngIf="!isCollapse"></div>
 </div>

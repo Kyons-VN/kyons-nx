@@ -12,7 +12,10 @@ import {
   runInInjectionContext,
   signal,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 // import { ChatService } from '@data/chat/chat.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Content, Mana, TextPart } from '@data/chat/chat-model';
 import { Chat, ChatService } from '@data/chat/chat.service';
@@ -32,7 +35,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent],
+  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule,],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
@@ -170,11 +173,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       console.log(`Chat id: ${this.chatId}`);
       // this.flutterState.setChatId(id);
     } else {
-      // setTimeout(() => {
-      //   if (this.manaWidth > 0 && this.messages.length == 0) {
-      //     this.sendMessage('/hello');
-      //   }
-      // }, 600000);
+      setTimeout(() => {
+        if (this.manaWidth > 0 && this.messages.length == 0) {
+          this.sendMessage('/hello');
+        }
+      }, 600000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
@@ -329,5 +332,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     });
 
     return groups;
+  }
+
+  test() {
+    console.log('TEST');
+
   }
 }
