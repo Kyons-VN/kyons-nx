@@ -61,3 +61,48 @@ body .mat-tooltip {
 .mdc-data-table__header-cell {
   @apply border-b-2 border-blueGrey-200 #{!important};
 }
+/* Target Material component classes with lower specificity */
+.mat-mdc-icon-button.mat-mdc-button-base {
+  --mdc-icon-button-state-layer-size: 24px;
+  width: var(--mdc-icon-button-state-layer-size);
+  height: var(--mdc-icon-button-state-layer-size);
+  padding: 0;
+  .mat-mdc-button-touch-target {
+    height: var(--mdc-icon-button-state-layer-size);
+    width: var(--mdc-icon-button-state-layer-size);
+  }
+}
+.cdk-overlay-container {
+  &:empty {
+    display: none;
+  }
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  .cdk-overlay-backdrop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
+  }
+  .cdk-overlay-connected-position-bounding-box {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    min-width: 1px;
+    min-height: 1px;
+    .cdk-overlay-pane {
+      @apply absolute;
+    }
+  }
+}

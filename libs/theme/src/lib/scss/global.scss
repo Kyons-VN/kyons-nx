@@ -604,3 +604,18 @@ div[data-tooltip-content] label {
 .note {
   @apply text-xs text-blueGrey-500;
 }
+.history {
+  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
+  ul > li {
+    @apply gap-1 flex flex-col;
+    & > ul > li {
+      .history-item {
+        @apply flex items-center rounded-md;
+        .chat-name {
+          @apply flex-1 px-2 line-clamp-1 text-ellipsis;
+          text-decoration: none !important;
+        }
+      }
+    }
+  }
+}

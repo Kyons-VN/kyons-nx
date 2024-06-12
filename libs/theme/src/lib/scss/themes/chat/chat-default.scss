@@ -4,7 +4,7 @@
     //   url('/images/chat-bg.svg') no-repeat bottom right;
     // background-size: auto, cover;
     // transition: all ease 200ms;
-    @apply w-full h-full min-h-screen;
+    @apply w-full h-full;
     // @apply w-full h-[calc(100vh_-_82px)] flex flex-col lg:justify-center items-center justify-start relative text-center p-4 sm:px-11 sm:py-20 pb-20 overflow-hidden text-white lg:gap-12 gap-4;
     // .collapse {
     //   padding: 0;
@@ -117,6 +117,22 @@
       .content {
         @apply flex flex-col gap-2;
       }
+      .thinking {
+        span:nth-child(1) {
+          animation: opacityChange 1s infinite;
+        }
+        span:nth-child(2) {
+          animation: opacityChange 1s infinite;
+          animation-delay: 0.15s;
+        }
+        span:nth-child(3) {
+          animation: opacityChange 1s infinite;
+          animation-delay: 0.3s;
+        }
+        span {
+          transition: opacity 0.5s ease;
+        }
+      }
     }
   }
   .find-me-game {
@@ -133,5 +149,14 @@
     .body {
       height: calc(100vh - 320px);
     }
+  }
+}
+
+@keyframes opacityChange {
+  0% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
   }
 }
