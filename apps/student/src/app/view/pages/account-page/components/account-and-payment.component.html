@@ -43,7 +43,7 @@
             <div class="flex md:flex-col gap-2 flex-1 md:items-start items-center">
               <span class="h7 text-secondaryBlue">Hết hạn</span>
               <h4 class="md:text-2xl text-base">
-                {{ currentPackage.level === 0 ? 'Không hết hạn' : remainingHoursDisplay }}
+                {{ remainingHours === 0 ? 'Không hết hạn' : remainingHoursDisplay }}
               </h4>
             </div>
             <a (click)="showBenefit = true" class="hidden md:flex">Xem quyền lợi</a>

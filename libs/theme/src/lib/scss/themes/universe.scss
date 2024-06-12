@@ -93,14 +93,11 @@
         }
       }
     }
-    &.show-history {
-      @media screen and (max-width: 1169px) {
-        background: linear-gradient(180deg, rgba(37, 138, 194, 1) 0%, rgba(44, 61, 91, 1) 100%);
-        @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 p-4;
-      }
-    }
-    .history-list {
-      @apply flex flex-col gap-4;
+  }
+  .left-menu.show-history {
+    @media screen and (max-width: 1169px) {
+      background: linear-gradient(180deg, rgba(37, 138, 194, 1) 0%, rgba(44, 61, 91, 1) 100%);
+      @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 p-4;
     }
   }
   .history-toggle {

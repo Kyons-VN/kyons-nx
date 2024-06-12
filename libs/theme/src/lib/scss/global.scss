@@ -604,7 +604,7 @@ div[data-tooltip-content] label {
 .note {
   @apply text-xs text-blueGrey-500;
 }
-.history {
+.left-menu {
   @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
   ul > li {
     @apply gap-1 flex flex-col;
@@ -618,4 +618,8 @@ div[data-tooltip-content] label {
       }
     }
   }
+}
+
+ul.left-list {
+  @apply flex flex-col gap-4;
 }

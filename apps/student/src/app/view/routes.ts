@@ -59,6 +59,7 @@ class AppPaths {
   termsOfService = { name: '', path: '/terms-of-service' };
   chatbot = { name: 'Chatbot', path: '/chatbot' };
   chat = { name: 'Chat', path: '/chatbot/chat/:id' };
+  files = { name: 'File Manager', path: '/files/' };
   adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
   adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
 }
@@ -238,6 +239,10 @@ const routes: Routes = [
       },
       {
         path: 'chat/:id',
+        component: ChatbotComponent,
+      },
+      {
+        path: 'files',
         component: ChatbotComponent,
       },
     ],
