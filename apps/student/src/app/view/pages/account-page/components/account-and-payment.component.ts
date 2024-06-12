@@ -178,7 +178,8 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
     });
     this.orderService.getSubscriptionTime().subscribe({
       next: (subscriptionTime: SubscriptionTime) => {
-        this.remainingHoursDisplay = toTime(subscriptionTime.remainingHours);
+        this.remainingHours = subscriptionTime.remainingHours;
+        this.remainingHoursDisplay = toTime(this.remainingHours);
       },
     });
   }
