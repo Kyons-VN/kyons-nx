@@ -76,7 +76,7 @@
     ul > li {
       & > ul > li {
         &.active {
-          .history-item {
+          .left-menu-item {
             @apply bg-lightBlue-6;
             .chat-name {
               @apply font-bold text-lightBlue-1;
@@ -86,7 +86,7 @@
         span {
           @apply text-xs text-blueGrey-500;
         }
-        .history-item {
+        .left-menu-item {
           .chat-name {
             @apply text-white;
           }

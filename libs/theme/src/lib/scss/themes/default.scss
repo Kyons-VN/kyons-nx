@@ -11,13 +11,12 @@
   .history {
     ul > li {
       & > ul > li {
-        @apply py-1;
         &.active {
-          .history-item {
+          .left-menu-item {
             @apply bg-lightBlue-6 font-bold text-lightBlue-1;
           }
         }
-        .history-item {
+        .left-menu-item {
           .chat-name {
             @apply text-primaryBlue;
           }

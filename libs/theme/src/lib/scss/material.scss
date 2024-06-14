@@ -72,6 +72,23 @@ body .mat-tooltip {
     width: var(--mdc-icon-button-state-layer-size);
   }
 }
+.material-icons {
+  @apply text-xl leading-[20px];
+}
+.mat-icon {
+  height: var(--mdc-icon-button-state-layer-size);
+  width: var(--mdc-icon-button-state-layer-size);
+}
+.mat-mdc-menu-panel .mat-mdc-menu-content .mat-mdc-menu-item {
+  @apply px-2 min-h-9;
+  .mat-icon {
+    @apply mr-2;
+  }
+}
+.mat-mdc-menu-panel .mat-mdc-menu-content,
+.mat-mdc-menu-panel .mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  @apply text-sm;
+}
 .cdk-overlay-container {
   &:empty {
     display: none;

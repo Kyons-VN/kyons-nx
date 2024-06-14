@@ -1,13 +1,46 @@
 // Design System
 html,
 body {
-  @apply h-full m-0 p-0 text-[14px];
+  @apply m-0 h-full w-full flex flex-col;
+  // margin: 0;
+  // height: 100%;
+  // width: 100%;
+  // display: -webkit-box;
+  // display: -webkit-flex;
+  // display: -moz-box;
+  // display: -ms-flexbox;
+  // display: flex;
+  // -webkit-box-orient: vertical;
+  // -webkit-box-direction: normal;
+  // -webkit-flex-direction: column;
+  // -moz-box-orient: vertical;
+  // -moz-box-direction: normal;
+  // -ms-flex-direction: column;
+  // flex-direction: column;
   &.outline * {
     outline: darkseagreen solid 1px;
   }
 }
-body {
-  height: 100%;
+student-root,
+.app-full {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow-y: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 a {
@@ -605,21 +638,31 @@ div[data-tooltip-content] label {
   @apply text-xs text-blueGrey-500;
 }
 .left-menu {
-  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
+  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto h-full xl:relative;
   ul > li {
     @apply gap-1 flex flex-col;
     & > ul > li {
-      .history-item {
-        @apply flex items-center rounded-md;
-        .chat-name {
-          @apply flex-1 px-2 line-clamp-1 text-ellipsis;
-          text-decoration: none !important;
-        }
+      .chat-name {
+        @apply flex-1 line-clamp-1 text-ellipsis;
+        text-decoration: none !important;
       }
     }
   }
 }
+.sidenav-with-history-container {
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  grid-template-columns: minmax(0, 1fr);
+}
+.history {
+  @apply flex-1 flex flex-col gap-4;
+}
 
 ul.left-list {
-  @apply flex flex-col gap-4;
+  @apply block overflow-auto;
+  .left-menu-item {
+    @apply flex items-center rounded-md p-2;
+  }
 }

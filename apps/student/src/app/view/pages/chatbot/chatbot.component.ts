@@ -2,6 +2,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
+  HostBinding,
   Injector,
   NgZone,
   OnDestroy,
@@ -12,6 +13,7 @@ import {
   runInInjectionContext,
   signal,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 // import { ChatService } from '@data/chat/chat.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,11 +37,13 @@ import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule,],
+  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule, FormsModule],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'app-full';
+
   changeDetectorRef = inject(ChangeDetectorRef);
   chatService = inject(ChatService);
   paths = inject(NavigationService).paths;
@@ -75,6 +79,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isThinking = false;
   isGaming = false;
   isSmMenuHide = signal(true);
+  selectedChat = signal<Chat | null>(null);
+  selectedChatGroup = signal<string>('');
+  showConfirmDeleteChat = signal(false);
+  showEditChat = signal(false);
+  chatName = '';
 
   ngOnInit(): void {
     this.loading.show();
@@ -175,9 +184,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     } else {
       setTimeout(() => {
         if (this.manaWidth > 0 && this.messages.length == 0) {
-          this.sendMessage('/hello');
+          // this.sendMessage('/hello');
+          this.getGreeting();
         }
-      }, 600000);
+      }, 6000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
@@ -215,7 +225,23 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.updateMessages();
     });
   }
+  getGreeting() {
+    if (this.chatId == '') {
+      this.isThinking = true;
+      this.chatService.getGreeting().subscribe({
+        next: (message) => {
+          this.messages = [message];
+          this.isThinking = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.isThinking = false;
+        },
+      })
+    }
+  }
   sendMessage(message: string) {
+    if (this.isThinking) return;
     this.isThinking = true;
     if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
     console.log(message);
@@ -272,6 +298,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error(err);
+        this.isThinking = false;
+        this.router.navigate([this.paths.chatbot.path]);
       },
     });
   }
@@ -335,7 +363,34 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
   test() {
-    console.log('TEST');
+    console.log(this.selectedChat()?.id);
+  }
 
+  updateChatName() {
+    this.chatService.updateChatName(this.userId, this.selectedChat()!.id, this.chatName).subscribe({
+      next: () => {
+        this.chatService.getChats(this.userId, true).subscribe({
+          next: (chats) => {
+            this.chats = this.groupByTime(chats);
+            // this.changeDetectorRef.detectChanges();
+          }
+        })
+      }
+    });
+    this.showEditChat.set(false);
+  }
+
+  deleteChat() {
+    this.chatService.deleteChat(this.userId, this.selectedChat()!.id).subscribe({
+      next: () => {
+        this.chatService.getChats(this.userId, true).subscribe({
+          next: (chats) => {
+            this.chats = this.groupByTime(chats);
+            // this.changeDetectorRef.detectChanges();
+          }
+        })
+      }
+    });
+    this.showConfirmDeleteChat.set(false);
   }
 }

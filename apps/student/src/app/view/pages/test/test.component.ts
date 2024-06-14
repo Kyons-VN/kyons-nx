@@ -1,16 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { AiService } from '@data/ai/ai.service';
 import { LatexComponent } from '@share-components';
+import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
 @Component({
   standalone: true,
-  imports: [FormsModule, LatexComponent],
+  imports: [FormsModule, LatexComponent, MatIconModule, CommonModule, TopMenuComponent],
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
 })
 export class TestComponent implements OnInit {
-  @HostBinding('class') class = 'h-full';
+  @HostBinding('class') class = 'app-full';
   aiService = inject(AiService)
   isThinking = false;
   prompt = 'Giải bài toán này bằng tiếng Việt, lời giải format chuẩn markdown và latex'
