@@ -5,12 +5,12 @@ import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
-import { environment } from '@environments';
+// import { environment } from '@environments';
 import { Observable, catchError, map } from 'rxjs';
 import { Chat, Content, Mana } from './chat-model';
 
-const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
-// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
+// const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
+const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
 
 @Injectable({
   providedIn: 'root',
@@ -106,6 +106,17 @@ class ChatService {
 
   removeCache() {
     window.localStorage.removeItem('chats');
+  }
+
+  changeChatName(userId: string, chatId: string, name: string) {
+    const params = {
+      'firstMessage': name,
+    }
+    return this.http.put(`${chatServerApi}/user/${userId}/updateChat/${chatId}`, params);
+  }
+
+  deleteChat(userId: string, chatId: string) {
+    return this.http.delete(`${chatServerApi}/user/${userId}/deleteChat/${chatId}`);
   }
 }
 

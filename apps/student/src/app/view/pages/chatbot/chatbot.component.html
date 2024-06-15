@@ -3,10 +3,20 @@
   <div class="flex justify-center w-full xl:max-w-[1440px] h-full gap-4 chat px-4 xl:px-14">
     <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
       <div class="xl:hidden flex justify-between items-start">
-        <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
+        <h5>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
         <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
           <i class="icon-Close text-[16px]"></i>
         </div>
+      </div>
+      <div class="w-full flex">
+        <input
+          type="text"
+          [(ngModel)]="search"
+          (ngModelChange)="searchChange()"
+          placeholder="Tiềm kiếm..."
+          class="w-full"
+        />
+        <button class="btn-icon link"><i class="icon-Search"></i></button>
       </div>
       <div class="flex justify-start">
         <button
@@ -22,7 +32,7 @@
           {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
         </button>
       </div>
-      <h5>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
+      <h5 class="hidden xl:block">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
       <ul class="history-list">
         <!-- <li>
           <a
@@ -33,8 +43,7 @@
             >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
           >
         </li> -->
-        @for (item of ['today', 'yesterday', 'last7Days', 'last30Days', 'older']; track $index) {
-        @if(chats[item]['data'].length>0){
+        @for (item of groupList; track $index) { @if(chats[item]['data'].length>0){
         <li>
           <span class="note">{{ chats[item]['label'] }}</span>
           <ul>
@@ -44,14 +53,26 @@
               (click)="isGaming = false"
             >
               <div class="history-item">
-                <a
+                @if(isChangingName && this.selectedChat?.id===chat.id){
+                <div class="flex">
+                  <input type="text" [(ngModel)]="newChatName" (keydown.enter)="changeChatName()" />
+                  <button class="btn-icon link" (click)="changeChatName()">
+                    <i class="icon-Check"></i>
+                  </button>
+                </div>
+                } @else{<a
                   class="chat-name"
                   [routerLink]="paths.chat.path.replace(':id', chat.id)"
                   [title]="chat.firstMessage"
                   >{{ chat.firstMessage }}</a
-                >
+                >}
                 <div class="flex items-center relative">
-                  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu"
+                    (click)="selectedChat = chat; newChatName = chat.firstMessage"
+                  >
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </div>
@@ -222,19 +243,23 @@
       </div> -->
     </div>
   </div>
-  <mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-    <button mat-menu-item (click)="test()">
-      <mat-icon>dialpad</mat-icon>
-      <span>Redial</span>
-    </button>
-    <button mat-menu-item disabled>
-      <mat-icon>voicemail</mat-icon>
-      <span>Check voice mail</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Disable alerts</span>
-    </button>
-  </mat-menu>
-  <div class="h-20" *ngIf="!isCollapse"></div>
+</div>
+<mat-menu #menu="matMenu" yPosition="below" xPosition="before">
+  <button mat-menu-item (click)="isChangingName = true">
+    <mat-icon>edit</mat-icon>
+    <span>Sửa tên</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>delete</mat-icon>
+    <span>Xóa</span>
+  </button>
+</mat-menu>
+<div *ngIf="showDeletePopup" class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-20 flex justify-center">
+  <div class="flex flex-col w-full max-w-[600px]">
+    <h5>Bạn chắc chắn muốn xóa trò chuyện này?</h5>
+    <div class="flex justify-end">
+      <button class="btn orange outlined" (click)="showDeletePopup = false">Hủy</button>
+      <button class="btn orange" (click)="deleteChat()">Xóa</button>
+    </div>
+  </div>
 </div>

@@ -12,6 +12,7 @@ import {
   runInInjectionContext,
   signal,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 // import { ChatService } from '@data/chat/chat.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,7 +36,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule,],
+  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule, FormsModule],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
@@ -56,6 +57,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
 
   flutterState?: any;
   chats!: { [key: string]: { label: string, data: Chat[] } };
+  chats$!: Chat[];
+  search = '';
   countdown!: Observable<number>;
   $interval!: Subscription;
   flutterAppLoaded = true;
@@ -75,6 +78,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isThinking = false;
   isGaming = false;
   isSmMenuHide = signal(true);
+  groupList = ['today', 'yesterday', 'last7Days', 'last30Days', 'older'];
+  showDeletePopup = false;
+  selectedChat: Chat | null = null;
+  isChangingName = false;
+  newChatName = '';
 
   ngOnInit(): void {
     this.loading.show();
@@ -98,6 +106,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       console.log(`Chat id: ${this.chatId}`);
       this.chatService.getChats(this.userId).subscribe({
         next: chats => {
+          this.chats$ = chats;
           this.chats = this.groupByTime(chats);
           this.changeDetectorRef.detectChanges();
           this.loading.hide();
@@ -243,16 +252,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
     else {
       this.chatService.startChat(this.userId, message).subscribe({
-        next: (chatId) => {
+        next: async (chatId) => {
           this.chatId = chatId;
-          this.chatService.getChats(this.userId, true).subscribe({
-            next: (chats) => {
-              this.chats = this.groupByTime(chats);
-              this.changeDetectorRef.detectChanges();
-              this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
-              this.isThinking = false;
-            }
-          });
+          await this.updateChats();
+          this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
+          this.isThinking = false;
         },
         error: (err) => {
           console.error(err);
@@ -337,5 +341,57 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   test() {
     console.log('TEST');
 
+  }
+
+  searchChange() {
+    if (this.search === '') {
+      this.chats = this.groupByTime(this.chats$);
+      return;
+    }
+    const result = this.groupByTime(this.chats$);
+    for (const groupName in this.groupList) {
+      result[groupName]['data'] = result[groupName]['data'].filter(chat => chat.firstMessage.toLowerCase().includes(this.search.toLowerCase()));
+    }
+  }
+
+  deleteChat() {
+    if (this.selectedChat === null) return;
+    this.chatService.deleteChat(this.userId, this.selectedChat.id).subscribe({
+      next: () => {
+        this.updateChats();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
+  async updateChats() {
+    this.search = '';
+    return this.chatService.getChats(this.userId, true).subscribe({
+      next: (chats) => {
+        this.chats$ = chats;
+        this.chats = this.groupByTime(chats);
+        this.changeDetectorRef.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    }).add(() => null);
+  }
+
+  changeChatName() {
+    if (this.selectedChat === null) return;
+    this.chatService.changeChatName(this.userId, this.selectedChat.id, this.newChatName).subscribe({
+      next: () => {
+        this.updateChats();
+        this.selectedChat = null;
+        this.newChatName = '';
+        this.isChangingName = false;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    })
   }
 }
