@@ -1,87 +1,93 @@
-<div class="flex flex-col items-center relative">
+<div class="flex flex-col items-center relative h-full">
   <student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
-  <div class="flex justify-center w-full xl:max-w-[1440px] h-full gap-4 chat px-4 xl:px-14">
-    <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
-      <div class="xl:hidden flex justify-between items-start">
-        <h5>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
-        <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
-          <i class="icon-Close text-[16px]"></i>
-        </div>
-      </div>
-      <div class="w-full flex">
-        <input
-          type="text"
-          [(ngModel)]="search"
-          (ngModelChange)="searchChange()"
-          placeholder="Tiềm kiếm..."
-          class="w-full"
-        />
-        <button class="btn-icon link"><i class="icon-Search"></i></button>
-      </div>
-      <div class="flex justify-start">
-        <button
-          class="btn orange"
-          [routerLink]="paths.chatbot.path"
-          [disabled]="chatId === ''"
-          routerLinkActive="disabled"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (isActiveChange)="(this.ngOnInit)"
-          (click)="isGaming = false"
-        >
-          <i class="icon-Add"></i>
-          {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
-        </button>
-      </div>
-      <h5 class="hidden xl:block">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h5>
-      <ul class="history-list">
-        <!-- <li>
-          <a
-            [routerLink]="paths.chatbot.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (isActiveChange)="(this.ngOnInit)"
-            >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
-          >
-        </li> -->
-        @for (item of groupList; track $index) { @if(chats[item]['data'].length>0){
-        <li>
-          <span class="note">{{ chats[item]['label'] }}</span>
-          <ul>
-            <li
-              *ngFor="let chat of chats[item]['data']"
-              [ngClass]="{ active: chatId === chat.id }"
+  <div
+    class="flex justify-center w-full xl:max-w-[1440px] h-[calc(100%_-_56px)] xl:h-[calc(100%_-_106px)] gap-4 chat px-4 xl:px-14"
+  >
+    <div class="left-menu" [ngClass]="{ 'show-history': !isSmMenuHide() }">
+      <div class="sidenav-with-history-container">
+        <div class="history">
+          <div class="xl:hidden flex justify-between items-start">
+            <span class="h7">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</span>
+            <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
+              <i class="icon-Close text-[16px]"></i>
+            </div>
+          </div>
+          <div class="flex justify-start">
+            <button
+              class="btn orange"
+              [routerLink]="paths.chatbot.path"
+              [disabled]="chatId === ''"
+              routerLinkActive="disabled"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (isActiveChange)="(this.ngOnInit)"
               (click)="isGaming = false"
             >
-              <div class="history-item">
-                @if(isChangingName && this.selectedChat?.id===chat.id){
-                <div class="flex">
-                  <input type="text" [(ngModel)]="newChatName" (keydown.enter)="changeChatName()" />
-                  <button class="btn-icon link" (click)="changeChatName()">
-                    <i class="icon-Check"></i>
-                  </button>
+              <i class="icon-Add"></i>
+              {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
+            </button>
+          </div>
+          <span class="h7">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</span>
+        </div>
+        <ul class="left-list">
+          <!-- <li>
+              <a
+                [routerLink]="paths.chatbot.path"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (isActiveChange)="(this.ngOnInit)"
+                >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
+              >
+            </li> -->
+          @for (item of ['today', 'yesterday', 'last7Days', 'last30Days', 'older']; track $index) {
+          @if(chats[item]['data'].length>0){
+          <li>
+            <span class="note">{{ chats[item]['label'] }}</span>
+            <ul>
+              <li
+                *ngFor="let chat of chats[item]['data']"
+                [ngClass]="{ active: chatId === chat.id }"
+                (click)="isGaming = false"
+              >
+                <div class="left-menu-item relative" [ngClass]="{ 'z-20': selectedChat()?.id === chat.id }">
+                  @if(!showEditChat()||selectedChat()?.id !== chat.id){<a
+                    class="chat-name"
+                    [routerLink]="paths.chat.path.replace(':id', chat.id)"
+                    [title]="chat.firstMessage"
+                    >{{ chat.firstMessage }}</a
+                  >} @else if(selectedChat()?.id === chat.id){
+                  <div class="flex">
+                    <input type="text" [(ngModel)]="chatName" (keyup.enter)="updateChatName()" />
+                    <button class="btn-icon link" (click)="updateChatName()">
+                      <i class="icon-Check"></i>
+                    </button>
+                  </div>
+                  }
+                  <div class="flex items-center relative">
+                    <button
+                      mat-icon-button
+                      [matMenuTriggerFor]="menu"
+                      aria-label="Example icon-button with a menu"
+                      (click)="selectedChat.set(chat); selectedChatGroup.set(item)"
+                    >
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </div>
                 </div>
-                } @else{<a
-                  class="chat-name"
-                  [routerLink]="paths.chat.path.replace(':id', chat.id)"
-                  [title]="chat.firstMessage"
-                  >{{ chat.firstMessage }}</a
-                >}
-                <div class="flex items-center relative">
-                  <button
-                    mat-icon-button
-                    [matMenuTriggerFor]="menu"
-                    aria-label="Example icon-button with a menu"
-                    (click)="selectedChat = chat; newChatName = chat.firstMessage"
-                  >
-                    <mat-icon>more_vert</mat-icon>
-                  </button>
-                </div>
-              </div>
+              </li>
+            </ul>
+          </li>
+          } }
+        </ul>
+        <div class="flex flex-col self-end">
+          <ul class="left-list">
+            <li>
+              <a class="btn orange outlined rounded-full" [routerLink]="paths.files.path"
+                ><span></span><mat-icon>perm_media</mat-icon><span>Quản lý file</span></a
+              >
             </li>
           </ul>
-        </li>
-        } }
-      </ul>
+        </div>
+      </div>
     </div>
     <div class="w-full max-w-[600px] h-full flex flex-col gap-3">
       <div
@@ -244,22 +250,30 @@
     </div>
   </div>
 </div>
-<mat-menu #menu="matMenu" yPosition="below" xPosition="before">
-  <button mat-menu-item (click)="isChangingName = true">
+<mat-menu #menu="matMenu" yPosition="below" xPosition="before"
+  ><button mat-menu-item (click)="chatName = selectedChat()?.firstMessage ?? ''; showEditChat.set(true)">
     <mat-icon>edit</mat-icon>
     <span>Sửa tên</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item (click)="showConfirmDeleteChat.set(true)">
     <mat-icon>delete</mat-icon>
     <span>Xóa</span>
   </button>
 </mat-menu>
-<div *ngIf="showDeletePopup" class="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-50 z-20 flex justify-center">
-  <div class="flex flex-col w-full max-w-[600px]">
-    <h5>Bạn chắc chắn muốn xóa trò chuyện này?</h5>
-    <div class="flex justify-end">
-      <button class="btn orange outlined" (click)="showDeletePopup = false">Hủy</button>
-      <button class="btn orange" (click)="deleteChat()">Xóa</button>
+<div
+  class="fixed top-0 left-0 right-0 bottom-0 z-10"
+  (click)="showEditChat.set(false)"
+  [ngClass]="{ hidden: !showEditChat() }"
+></div>
+<div
+  *ngIf="showConfirmDeleteChat()"
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 z-20 bg-black bg-opacity-50"
+>
+  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+    <h5 class="text-center">Bạn chắc chắn muốn xóa đoạn trò chuyện này?</h5>
+    <div class="flex gap-4 justify-center">
+      <button class="btn orange outlined" (click)="showConfirmDeleteChat.set(false)">Hủy</button>
+      <button class="btn orange" (click)="deleteChat()">Chắc chắn</button>
     </div>
   </div>
 </div>

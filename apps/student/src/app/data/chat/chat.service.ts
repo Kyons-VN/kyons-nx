@@ -16,6 +16,22 @@ const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
   providedIn: 'root',
 })
 class ChatService {
+  getGreeting(): Observable<Content> {
+    const params = new HttpParams().set('prompt', '/hello');
+    return this.http.get(`${chatServerApi}/greet`, { params: params }).pipe(
+      map((res: any) => {
+        console.log(res);
+
+        return res.data !== undefined && res.data['text'] !== undefined ? Content.parseContent({
+          role: 'model',
+          parts: [{ text: res.data['text'] }],
+          createdAt: {
+            _seconds: Date.now() / 1000,
+          },
+        }) : Content.outOfMana();
+      })
+    );
+  }
   resetLessonChat(userId: any, lessonId: string) {
     return this.http.put(`${chatServerApi}/user/${userId}/resetLessonChat/${lessonId}`, null);
   }
@@ -41,7 +57,7 @@ class ChatService {
   }
   getMessages(userId: string, chatId: string): Observable<Content[]> {
     return this.http.get(`${chatServerApi}/user/${userId}/chat/${chatId}`).pipe(
-      catchError(DBHelper.handleError('POST startChat', '')),
+      // catchError(DBHelper.handleError('POST startChat', '')),
       map((res: any) => {
         if (res.data === undefined) return [];
         return (res.data as any[]).map((data: any) => Content.parseContent(data));
@@ -73,6 +89,9 @@ class ChatService {
         }));
         subscriber.complete();
       });
+    }
+    else {
+      window.localStorage.removeItem('chats');
     }
     return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
       catchError(DBHelper.handleError('GET getChats', [])),
@@ -107,20 +126,26 @@ class ChatService {
   removeCache() {
     window.localStorage.removeItem('chats');
   }
-
-  changeChatName(userId: string, chatId: string, name: string) {
-    const params = {
-      'firstMessage': name,
-    }
-    return this.http.put(`${chatServerApi}/user/${userId}/updateChat/${chatId}`, params);
+  updateChatName(userId: string, chatId: string, chatName: string) {
+    console.log(userId, chatId, chatName);
+    return this.http.put(`${chatServerApi}/user/${userId}/updateChat/${chatId}`, { firstMessage: chatName });
   }
 
   deleteChat(userId: string, chatId: string) {
-    return this.http.delete(`${chatServerApi}/user/${userId}/deleteChat/${chatId}`);
+    return this.http.delete(`${chatServerApi}/user/${userId}/deleteChat/${chatId}`).pipe(
+      map((res: any) => {
+        console.log(res);
+        if (res.success) {
+          window.localStorage.removeItem('chats');
+        }
+        return res;
+      })
+    );
   }
 }
 
 export { Chat, ChatService, chatServerApi };
+
 // const chatConverter = {
 //   toFirestore(value: WithFieldValue<Chat>) {
 //     return { value };

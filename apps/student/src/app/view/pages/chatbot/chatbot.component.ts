@@ -2,6 +2,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
+  HostBinding,
   Injector,
   NgZone,
   OnDestroy,
@@ -41,6 +42,8 @@ import { Observable } from 'rxjs/internal/Observable';
   styleUrl: 'chatbot.component.scss',
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'app-full';
+
   changeDetectorRef = inject(ChangeDetectorRef);
   chatService = inject(ChatService);
   paths = inject(NavigationService).paths;
@@ -78,11 +81,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isThinking = false;
   isGaming = false;
   isSmMenuHide = signal(true);
-  groupList = ['today', 'yesterday', 'last7Days', 'last30Days', 'older'];
-  showDeletePopup = false;
-  selectedChat: Chat | null = null;
-  isChangingName = false;
-  newChatName = '';
+  selectedChat = signal<Chat | null>(null);
+  selectedChatGroup = signal<string>('');
+  showConfirmDeleteChat = signal(false);
+  showEditChat = signal(false);
+  chatName = '';
 
   ngOnInit(): void {
     this.loading.show();
@@ -184,9 +187,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     } else {
       setTimeout(() => {
         if (this.manaWidth > 0 && this.messages.length == 0) {
-          this.sendMessage('/hello');
+          // this.sendMessage('/hello');
+          this.getGreeting();
         }
-      }, 600000);
+      }, 6000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
@@ -224,7 +228,23 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.updateMessages();
     });
   }
+  getGreeting() {
+    if (this.chatId == '') {
+      this.isThinking = true;
+      this.chatService.getGreeting().subscribe({
+        next: (message) => {
+          this.messages = [message];
+          this.isThinking = false;
+        },
+        error: (err) => {
+          console.error(err);
+          this.isThinking = false;
+        },
+      })
+    }
+  }
   sendMessage(message: string) {
+    if (this.isThinking) return;
     this.isThinking = true;
     if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
     console.log(message);
@@ -268,6 +288,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       });
     }
   }
+  updateChats() {
+    return this.chatService.getChats(this.userId, true).subscribe({
+      next: (chats) => {
+        this.chats = this.groupByTime(chats);
+        // this.changeDetectorRef.detectChanges();
+      }
+    }).add(() => null);
+  }
   updateMessages() {
     this.chatService.getMessages(this.userId, this.chatId).subscribe({
       next: (messages) => {
@@ -276,6 +304,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error(err);
+        this.isThinking = false;
+        this.router.navigate([this.paths.chatbot.path]);
       },
     });
   }
@@ -339,59 +369,34 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
   test() {
-    console.log('TEST');
-
+    console.log(this.selectedChat()?.id);
   }
 
-  searchChange() {
-    if (this.search === '') {
-      this.chats = this.groupByTime(this.chats$);
-      return;
-    }
-    const result = this.groupByTime(this.chats$);
-    for (const groupName in this.groupList) {
-      result[groupName]['data'] = result[groupName]['data'].filter(chat => chat.firstMessage.toLowerCase().includes(this.search.toLowerCase()));
-    }
+  updateChatName() {
+    this.chatService.updateChatName(this.userId, this.selectedChat()!.id, this.chatName).subscribe({
+      next: () => {
+        this.chatService.getChats(this.userId, true).subscribe({
+          next: (chats) => {
+            this.chats = this.groupByTime(chats);
+            // this.changeDetectorRef.detectChanges();
+          }
+        })
+      }
+    });
+    this.showEditChat.set(false);
   }
 
   deleteChat() {
-    if (this.selectedChat === null) return;
-    this.chatService.deleteChat(this.userId, this.selectedChat.id).subscribe({
+    this.chatService.deleteChat(this.userId, this.selectedChat()!.id).subscribe({
       next: () => {
-        this.updateChats();
-      },
-      error: (err) => {
-        console.error(err);
-      },
+        this.chatService.getChats(this.userId, true).subscribe({
+          next: (chats) => {
+            this.chats = this.groupByTime(chats);
+            // this.changeDetectorRef.detectChanges();
+          }
+        })
+      }
     });
-  }
-
-  async updateChats() {
-    this.search = '';
-    return this.chatService.getChats(this.userId, true).subscribe({
-      next: (chats) => {
-        this.chats$ = chats;
-        this.chats = this.groupByTime(chats);
-        this.changeDetectorRef.detectChanges();
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    }).add(() => null);
-  }
-
-  changeChatName() {
-    if (this.selectedChat === null) return;
-    this.chatService.changeChatName(this.userId, this.selectedChat.id, this.newChatName).subscribe({
-      next: () => {
-        this.updateChats();
-        this.selectedChat = null;
-        this.newChatName = '';
-        this.isChangingName = false;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    })
+    this.showConfirmDeleteChat.set(false);
   }
 }
