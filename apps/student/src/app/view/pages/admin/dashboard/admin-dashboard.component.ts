@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
@@ -16,7 +16,10 @@ import { MessagesComponent } from '@view/share-components/chat/messages.componen
   encapsulation: ViewEncapsulation.None,
 })
 export class AdminDashboardComponent implements OnInit {
+  @HostBinding('class') class = 'app-full';
   toggleList: boolean[] = [];
+  tabs: string[] = ['Chat', 'Config'];
+  selectedTab = 0;
   getMessages(chat: Chat) {
     this.chatService.getMessages(this.selectedUser!.id, chat.id).subscribe({
       next: (messages) => {
@@ -88,4 +91,14 @@ export class AdminDashboardComponent implements OnInit {
     this.users = await this.adminService.getUsers();
     this.totalUsers = await this.adminService.countUsers();
   }
+
+  selectTab(index: number) {
+    this.selectedTab = index;
+    if (index == 1) {
+      const config = this.adminService.getConfig();
+      console.log(config);
+
+    }
+  }
+
 }

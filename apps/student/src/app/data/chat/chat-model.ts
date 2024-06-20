@@ -1,21 +1,21 @@
-import { IChat, IContent, IPart, Role } from "@domain/chat/i-content";
-import { formatedDate } from "@share-utils/formats";
-import { Buffer } from "buffer";
+import { IChat, IContent, IFileDataPart, IPart, Role } from "@domain/chat/i-content";
+import { formattedDate, toNonAccentVietnamese } from "@share-utils/formats";
+import { pick } from "lodash-es";
 
 class Content implements IContent {
   role: Role;
-  parts: (TextPart | DataPart)[];
+  parts: (Part)[];
   isModel: boolean;
   isUser: boolean;
   createdAt: Date;
-  constructor(role: Role, parts: (TextPart | DataPart)[], createdAt: Date) {
+  constructor(role: Role, parts: (Part)[], createdAt: Date) {
     this.role = role;
     this.parts = parts;
     this.isModel = role === Role.model;
     this.isUser = role === Role.user;
     this.createdAt = createdAt;
   }
-  static parseContent({ role, parts, createdAt }: { role: string; parts: { text: string }[], createdAt: { _seconds: number } }) {
+  static parseContent({ role, parts, createdAt }: { role: string; parts: { [key: string]: string }[], createdAt: { _seconds: number } }) {
     return new Content(
       role === "user" ? Role.user : Role.model,
       parts.map((part) => Part.parsePart(part)),
@@ -40,6 +40,10 @@ class Part implements IPart {
   }
   isText = false;
   isData = false;
+  text?: string;
+  fileId?: string;
+  url?: string;
+  mimeType?: string;
   static parsePart(jsonObject: any) {
 
     // return switch (jsonObject) {
@@ -50,15 +54,15 @@ class Part implements IPart {
     // };
     if (jsonObject.text) {
       return new TextPart(jsonObject.text);
-    } else if (jsonObject.inlineData) {
-      return new DataPart(jsonObject.inlineData.mimeType, Buffer.from(jsonObject.inlineData.data, 'base64'));
+    } else if (jsonObject.fileId) {
+      return new FilePart(jsonObject.fileId);
     }
     throw new Error('Unhandled Part format');
   }
 }
 
 class TextPart extends Part {
-  text: string;
+  // override url: string;
   hasPlayBtn: boolean;
   override isText = true;
   constructor(text: string) {
@@ -71,21 +75,25 @@ class TextPart extends Part {
   }
 }
 
-class DataPart extends Part {
-  mimeType: string;
-  bytes: Uint8Array;
+class FilePart extends Part {
+  // mimeType?: string;
+  // url?: string;
   override isData = true;
+  id: string;
 
-  constructor(mimeType: string, bytes: Uint8Array) {
+  constructor(id: string) {
     super();
-    this.mimeType = mimeType;
-    this.bytes = bytes;
+    this.id = id;
   }
 
   override toJson(): Record<string, unknown> {
     return {
-      'inlineData': { 'data': Buffer.from(this.bytes).toString('base64'), 'mimeType': this.mimeType }
+      'fileId': this.id
     }
+  }
+
+  static empty() {
+    return new FilePart('');
   }
 }
 
@@ -93,13 +101,15 @@ class Chat implements IChat {
   id: string;
   createdAt: Date;
   firstMessage: string;
+  search: string;
   messages: Content[] = [];
   dateDisplay: string;
   constructor(id: string, createdAt: Date, firstMessage: string) {
     this.id = id;
     this.firstMessage = firstMessage;
     this.createdAt = createdAt;
-    this.dateDisplay = formatedDate(this.createdAt);
+    this.dateDisplay = formattedDate(this.createdAt);
+    this.search = toNonAccentVietnamese(this.firstMessage);
   }
   static fromJson({
     id,
@@ -130,5 +140,92 @@ class Mana {
   static invalid() { return new Mana(-1, -1) };
 }
 
-export { Chat, Content, DataPart, Mana, Part, TextPart };
+class Image {
+  name: string;
+  size: number;
+  uri?: string;
+  base64?: string;
+  mimeType: string;
+
+  constructor(name: string, mimeType: string, size: number) {
+    this.mimeType = mimeType;
+    this.name = name;
+    this.size = size;
+  }
+  toJson(): Record<string, unknown> {
+    return {
+      'fileData': { 'fileUri': this.uri, 'mimeType': 'image/png' }
+    }
+  }
+
+  toPart(): IFileDataPart {
+    return {
+      'fileData': { fileUri: this.uri ?? '', 'mimeType': 'image/png' }
+    }
+  }
+}
+
+class FileData {
+  mimeType: string;
+  fileUri: string;
+  createdAt: Date;
+  updatedAt: Date;
+  extension: string;
+  size: number;
+  constructor({
+    mimeType,
+    fileUri,
+    createdAt,
+    updatedAt,
+    extension,
+    size
+  }
+    : {
+      mimeType: string,
+      fileUri: string,
+      createdAt: { _seconds: number },
+      updatedAt: { _seconds: number },
+      extension: string,
+      size: number,
+    }) {
+    this.mimeType = mimeType;
+    this.fileUri = fileUri;
+    this.createdAt = new Date(createdAt._seconds * 1000);
+    this.updatedAt = new Date(updatedAt._seconds * 1000);
+    this.extension = extension;
+    this.size = size;
+  }
+
+  static fromJson(jsonObject: any) {
+    const _ = pick(jsonObject, [
+      'mimeType',
+      'fileUri',
+      'createdAt',
+      'updatedAt',
+      'extension',
+      'size',
+    ]);
+    _.fileUri = jsonObject['publicUri'];
+    _.createdAt = new Date(_.createdAt._seconds * 1000);
+    _.updatedAt = new Date(_.updatedAt._seconds * 1000);
+    return new FileData(_);
+  }
+
+  toJson() {
+    return {
+      'mimeType': this.mimeType,
+      'publicUri': this.fileUri,
+      'createdAt': {
+        _seconds: Math.floor(this.createdAt.getTime() / 1000),
+      },
+      'updatedAt': {
+        _seconds: Math.floor(this.updatedAt.getTime() / 1000),
+      },
+      'extension': this.extension,
+      'size': this.size
+    }
+  }
+}
+
+export { Chat, Content, FileData, FilePart, Image, Mana, Part, TextPart };
 

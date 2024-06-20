@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
-import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
+import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@share-utils/validators';
 
 @Component({
   standalone: true,

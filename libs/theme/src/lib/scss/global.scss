@@ -638,7 +638,7 @@ div[data-tooltip-content] label {
   @apply text-xs text-blueGrey-500;
 }
 .left-menu {
-  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto h-full xl:relative;
+  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:min-w-[30%] h-full xl:relative;
   ul > li {
     @apply gap-1 flex flex-col;
     & > ul > li {
@@ -650,19 +650,43 @@ div[data-tooltip-content] label {
   }
 }
 .sidenav-with-history-container {
-  width: 100%;
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: min-content 1fr;
-  grid-template-columns: minmax(0, 1fr);
+  @apply w-full h-full overflow-hidden grid grid-cols-1 grid-rows-[min-content_1fr];
+  // width: 100%;
+  // overflow: hidden;
+  // display: grid;
+  // grid-template-rows: min-content 1fr;
+  // grid-template-columns: minmax(0, 1fr);
 }
 .history {
   @apply flex-1 flex flex-col gap-4;
 }
-
+.sidenav-with-history-container {
+  @apply gap-4;
+}
 ul.left-list {
-  @apply block overflow-auto;
+  @apply flex flex-col gap-2 overflow-auto;
   .left-menu-item {
     @apply flex items-center rounded-md p-2;
   }
+}
+.icon-prefix {
+  @apply relative;
+  i:nth-child(1) {
+    @apply absolute top-3 left-3;
+  }
+  input {
+    @apply pl-8;
+  }
+}
+.chatbox {
+  @apply relative w-full h-full overflow-hidden grid grid-cols-1 grid-rows-[min-content_1fr];
+  .body {
+    @apply w-full h-full;
+  }
+  .ask {
+    @apply flex flex-col items-center overflow-hidden relative;
+  }
+}
+student-messages {
+  overflow: hidden;
 }

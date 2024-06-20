@@ -8,7 +8,18 @@
       @for (message of content.parts; track $index) {
       <div class="box">
         @if(message.isText){
-        <kyonsvn-latex [inputString]="getText(message)" />
+        <kyonsvn-latex [inputString]="message.text ?? ''" />
+        }@else if(message.isData){
+        <div
+          class=""
+          intercepterObserver
+          #intersection="intersection"
+          [class.intersected]="intersection._isIntersecting"
+          (isIntersecting)="isIntersecting($event, i, $index)"
+          [isContinuous]="false"
+        >
+          <img [src]="message.url" alt="" />
+        </div>
         }
       </div>
       @if(i===completeMessages.length-1 && $index === content.parts.length-1 && hasPlayBtn(message)){

@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { from } from 'rxjs';
 import { map, mergeMap, reduce } from 'rxjs/operators';
-
 
 export const formSerializeObject = (form: HTMLFormElement, encodeValue?: boolean): Promise<any> => {
   const result: any = {};

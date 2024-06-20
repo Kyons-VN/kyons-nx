@@ -90,15 +90,15 @@ body .mat-tooltip {
   @apply text-sm;
 }
 .cdk-overlay-container {
-  &:empty {
-    display: none;
-  }
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+  // &:empty {
+  //   display: none;
+  // }
+  // position: fixed;
+  // z-index: 1000;
+  // top: 0;
+  // left: 0;
+  // height: 100%;
+  // width: 100%;
   .cdk-overlay-backdrop {
     position: absolute;
     top: 0;

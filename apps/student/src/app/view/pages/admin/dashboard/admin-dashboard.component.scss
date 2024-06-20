@@ -1,3 +1,9 @@
 [data-theme='default'] .body {
   height: auto !important;
 }
+.tab-wrapper {
+  @apply w-full flex;
+  .tab-item {
+    @apply flex-1;
+  }
+}

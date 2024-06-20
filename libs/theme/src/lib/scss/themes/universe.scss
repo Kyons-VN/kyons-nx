@@ -4,6 +4,9 @@
   font-weight: normal;
   font-style: normal;
   --color-orange: theme('colors.teal.0');
+  input {
+    font-family: 'Jura', sans-serif;
+  }
   .text-orange {
     color: var(--color-orange, #00c4d0);
   }
@@ -73,6 +76,8 @@
   }
   .history {
     @apply px-4;
+  }
+  .sidenav-with-history-container {
     ul > li {
       & > ul > li {
         &.active {

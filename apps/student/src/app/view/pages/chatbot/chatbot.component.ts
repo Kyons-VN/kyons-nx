@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Content, Mana, TextPart } from '@data/chat/chat-model';
+import { Content, Image, Mana, TextPart } from '@data/chat/chat-model';
 import { Chat, ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -32,12 +32,13 @@ import { ChatboxComponent } from '@view/share-components/chat/chatbox.component'
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
 import { NgFlutterComponent } from '@view/share-components/ng-flutter/ng-flutter.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule, FormsModule],
+  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, MatButtonModule, MatMenuModule, MatIconModule, FormsModule, LottieComponent],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
@@ -55,8 +56,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   zone = inject(NgZone);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
-  loading = inject(LoadingOverlayService);
-
+  loadingService = inject(LoadingOverlayService);
 
   flutterState?: any;
   chats!: { [key: string]: { label: string, data: Chat[] } };
@@ -86,9 +86,21 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   showConfirmDeleteChat = signal(false);
   showEditChat = signal(false);
   chatName = '';
+  groupNames = ['today', 'yesterday', 'last7Days', 'last30Days', 'older'];
+  searchChat = '';
+  file: File | undefined = undefined;
+  image: Image | undefined = undefined;
+  imageTest: Image = new Image('1718506979', 'image/jpg', 12345);
+  mana!: Mana;
+  isLoadingMessages = false;
+  options: AnimationOptions = {
+    path: './assets/animations/loading.json',
+    loop: true,
+    autoplay: true,
+  };
 
   ngOnInit(): void {
-    this.loading.show();
+    this.loadingService.show();
     this.userId = this.userService.getUserId();
     this.userService.updateCurrentUser(this.userId).then((res) => {
       if (res) {
@@ -103,6 +115,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     });
     // watch route param changes
     this.route.paramMap.subscribe(params => {
+      this.isLoadingMessages = true;
       this.flutterAppLoaded = false;
       this.isGaming = false;
       this.chatId = params.get('id') ?? '';
@@ -112,19 +125,19 @@ export class ChatbotComponent implements OnInit, OnDestroy {
           this.chats$ = chats;
           this.chats = this.groupByTime(chats);
           this.changeDetectorRef.detectChanges();
-          this.loading.hide();
+          this.loadingService.hide();
         },
         error: err => {
           if (err.message === 'Unauthenticated') {
             this.router.navigate([this.paths.signOut.path]);
           }
-          this.loading.hide();
+          this.loadingService.hide();
           console.error(err);
         },
       });
       this.updateMana();
       if (this.chatId) {
-        this.updateMessages();
+        this.updateMessages().add(() => this.isLoadingMessages = false);
       }
 
       setTimeout(() => {
@@ -158,6 +171,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   updateMana() {
     this.chatService.getMana(this.userId).subscribe({
       next: (mana: Mana) => {
+        this.mana = mana;
         this.manaWidth = Math.floor(maxManaWidth * mana.value / mana.max);
         this.batteryLife = Math.floor(mana.value / mana.max * 100);
       },
@@ -190,7 +204,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
           // this.sendMessage('/hello');
           this.getGreeting();
         }
-      }, 6000);
+      }, 600000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
@@ -211,13 +225,14 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     //     this.goToChat(this.flutterState.getChatId());
     //   }
     // });
-    // this.flutterState.onManaChanged(() => {
-    //   console.log('Mana changed');
-    //   console.log(this.flutterState.getMana());
-    //   const { a, b } = this.flutterState.getMana();
-    //   this.manaWidth = maxManaWidth * a / b;
-    //   this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
-    // });
+    this.flutterState.onManaChanged(() => {
+      console.log('Mana changed');
+      console.log(this.flutterState.getMana());
+      const { a, b } = this.flutterState.getMana();
+      this.manaWidth = maxManaWidth * a / b;
+      this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
+      if (a != this.mana.value) { this.updateMana(), this.updateMessages(); };
+    });
     // this.flutterState.onThemeChanged(() => {
     //   this.theme = this.flutterState.getTheme();
     //   this.themeService.setTheme(this.theme);
@@ -249,7 +264,10 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
     console.log(message);
     if (this.chatId) {
-      this.chatService.sendMessage(this.userId, this.chatId, message).subscribe({
+      this.chatService.sendMessageFile(this.userId, this.chatId, message, {
+        file: this.file,
+        image: this.image,
+      }).subscribe({
         next: () => {
           // if (errorMessage.length > 0) {
           //   this.messages = errorMessage;
@@ -269,6 +287,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
           this.isThinking = false;
         },
       });
+      if (this.file) { this.file = undefined; this.image = undefined; }
     }
     else {
       this.chatService.startChat(this.userId, message).subscribe({
@@ -289,15 +308,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }
   }
   updateChats() {
+    this.searchChat = '';
     return this.chatService.getChats(this.userId, true).subscribe({
       next: (chats) => {
+        this.chats$ = chats;
         this.chats = this.groupByTime(chats);
-        // this.changeDetectorRef.detectChanges();
+        this.changeDetectorRef.detectChanges();
       }
     }).add(() => null);
   }
+
   updateMessages() {
-    this.chatService.getMessages(this.userId, this.chatId).subscribe({
+    return this.chatService.getMessages(this.userId, this.chatId).subscribe({
       next: (messages) => {
         this.messages = messages;
         this.isThinking = false;
@@ -375,12 +397,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   updateChatName() {
     this.chatService.updateChatName(this.userId, this.selectedChat()!.id, this.chatName).subscribe({
       next: () => {
-        this.chatService.getChats(this.userId, true).subscribe({
-          next: (chats) => {
-            this.chats = this.groupByTime(chats);
-            // this.changeDetectorRef.detectChanges();
-          }
-        })
+        this.updateChats();
       }
     });
     this.showEditChat.set(false);
@@ -389,14 +406,34 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   deleteChat() {
     this.chatService.deleteChat(this.userId, this.selectedChat()!.id).subscribe({
       next: () => {
-        this.chatService.getChats(this.userId, true).subscribe({
-          next: (chats) => {
-            this.chats = this.groupByTime(chats);
-            // this.changeDetectorRef.detectChanges();
-          }
-        })
+        this.updateChats();
+        if (this.selectedChat()?.id === this.chatId) {
+          this.router.navigate([this.paths.chatbot.path]);
+        }
       }
     });
     this.showConfirmDeleteChat.set(false);
   }
+
+  onSearchChat() {
+    if (this.searchChat === '') {
+      this.chats = this.groupByTime(this.chats$);
+      return;
+    }
+    const filteredChats = this.chats$.filter(chat => chat.search.toLowerCase().includes(this.searchChat.toLowerCase()));
+    this.chats = this.groupByTime(filteredChats);
+  }
+
+  selectFile(file: File) {
+    this.file = file;
+  }
+
+  selectImage(image: Image) {
+    this.image = image;
+  }
+
+  removeImage() {
+    this.file = undefined;
+  }
+
 }

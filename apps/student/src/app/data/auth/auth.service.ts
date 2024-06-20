@@ -32,6 +32,7 @@ export class AuthService implements IAuthService {
     } else {
       window.localStorage.removeItem('dev');
     }
+    this.clearStorage();
     const hostName = serverApi();
     return this.http.post(`${hostName}/auth/sign_in`, credential.toJson()).pipe(
       catchError(DBHelper.handleError('POST sign_in', Error('Server Error'))),
@@ -64,6 +65,10 @@ export class AuthService implements IAuthService {
         },
       });
     }
+    this.clearStorage();
+  }
+
+  clearStorage() {
     this.removeToken();
     this.removeRefreshToken();
     this.userService.removeCurrentUser();

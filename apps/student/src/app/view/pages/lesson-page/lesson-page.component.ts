@@ -233,7 +233,9 @@ export class LessonPageComponent implements OnInit {
     let context = '';
     context = this.question.toString() + (this.questionReview?.explanation ? '\nLời giải: ' + this.questionReview?.explanation : '');
     if (!isCommand(context)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
-    this.chatService.sendMessage(this.userId, this.lessonId, message, context).subscribe({
+    this.chatService.sendMessageFile(this.userId, this.lessonId, message, {
+      lessonContext: context,
+    }).subscribe({
       next: () => {
         // if (errorMessage.length > 0) {
         //   this.messages = errorMessage;

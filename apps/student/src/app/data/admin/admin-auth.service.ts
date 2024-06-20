@@ -9,7 +9,7 @@ import { IAuthCredential, IAuthService } from '@domain/auth/i-auth-service';
 import { environment } from '@environments';
 import { GoogleAuthProvider, browserPopupRedirectResolver, signInWithPopup } from 'firebase/auth';
 import { catchError, firstValueFrom, map } from 'rxjs';
-import { AdminService, CURRENT_ADMIN } from './admin-service.service';
+import { CURRENT_ADMIN } from './admin-service.service';
 
 const TOKEN_KEY = 'flutter.access_token';
 const REFRESH_TOKEN_KEY = 'flutter.refresh_token';
@@ -23,7 +23,6 @@ export class AdminAuthService implements IAuthService {
   afAuth = inject(Auth);
   constructor(
     private http: HttpClient,
-    private adminService: AdminService,
     // private trackingService: TrackingService,
     // private knowledgeService: KnowledgeService,
     private backend: HttpBackend
@@ -31,10 +30,10 @@ export class AdminAuthService implements IAuthService {
     this.afAuth.onAuthStateChanged(user => {
       if (user) {
         localStorage.setItem(CURRENT_ADMIN, JSON.stringify(user));
-        JSON.parse(localStorage.getItem('user')!);
+        // JSON.parse(localStorage.getItem('user')!);
       } else {
         localStorage.setItem(CURRENT_ADMIN, 'null');
-        JSON.parse(localStorage.getItem('user')!);
+        // JSON.parse(localStorage.getItem('user')!);
       }
     });
   }

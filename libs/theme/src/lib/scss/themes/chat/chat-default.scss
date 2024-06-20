@@ -12,7 +12,7 @@
     // }
   }
   .chatbox {
-    @apply bg-white relative w-full max-w-[669px] flex flex-col rounded-2xl p-4 md:p-6 lg:p-8 gap-4;
+    @apply bg-white rounded-2xl p-4 md:p-6 lg:p-8 gap-4;
   }
   .head {
     @apply flex flex-col sm:flex-row md:justify-between md:items-center justify-end;
@@ -41,10 +41,10 @@
     display: none;
   }
   .ask {
-    @apply flex items-center overflow-hidden relative;
+    @apply border border-blueGrey-300 rounded-lg;
     input,
     textarea {
-      @apply flex-1 m-0 resize-none bg-transparent focus:ring-0 focus-visible:ring-0 h-[64px] placeholder-black/50 dark:placeholder-white/50 border border-blueGrey-300 rounded-l-lg text-lg p-5;
+      @apply w-full flex-1 m-0 resize-none bg-transparent focus:ring-0 focus-visible:ring-0 h-[64px] placeholder-black/50 dark:placeholder-white/50 text-lg p-5 border-none;
     }
     .control {
       @apply px-4 border border-blueGrey-300 rounded-l-lg flex-1 p-3.5 h-[64px];
@@ -55,14 +55,17 @@
   }
   .body {
     @apply flex flex-col items-end xl:gap-20 md:gap-10 gap-5 overflow-auto flex-1;
-    height: calc(100vh - 320px);
+    // height: calc(100vh - 320px);
     .message {
-      @apply flex gap-2.5 max-w-[482px] w-full;
+      @apply flex gap-2.5 max-w-[555px] xl:max-w-[] w-full;
       .box {
         width: fit-content;
         @apply rounded-lg p-3 relative;
         p:last-child {
           @apply m-0;
+        }
+        img {
+          max-width: 200px;
         }
       }
       .avatar {
@@ -76,6 +79,9 @@
       }
       &.right {
         @apply self-end justify-end text-right;
+        .content {
+          @apply items-end;
+        }
         .box {
           @apply bg-secondaryBlue text-white;
         }

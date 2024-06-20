@@ -1,18 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Content, Part, TextPart } from '@data/chat/chat-model';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Content, FileData, FilePart, Part, TextPart } from '@data/chat/chat-model';
+import { ChatService } from '@data/chat/chat.service';
 import { Role } from '@domain/chat/i-content';
 import { LatexComponent } from '@share-components';
+import { IntercepterObserverDirective } from '@share-directives';
 
 @Component({
   selector: 'student-messages',
   standalone: true,
-  imports: [CommonModule, LatexComponent],
+  imports: [CommonModule, LatexComponent, IntercepterObserverDirective],
   templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements AfterViewInit, OnChanges {
+  chatService = inject(ChatService);
   @Input() messages: Content[] = [];
   @Input() isThinking = false;
+  @Input() userId = '';
   completeText = '';
   writingText = '';
   isWriting = false;
@@ -109,5 +113,22 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
 
   play() {
     this.startGame.emit();
+  }
+
+  isIntersecting(status: boolean, contentIndex: number, partIndex: number) {
+    if (status) {
+      const part = this.messages[contentIndex].parts[partIndex];
+      if (part.isData) {
+        const filePart = part as FilePart;
+        this.chatService.getFile(this.userId, filePart.id).subscribe({
+          next: (data: FileData | null) => {
+            if (data == null) return;
+            filePart.mimeType = data.mimeType;
+            filePart.url = data.fileUri;
+            this.messages[contentIndex].parts[partIndex] = filePart;
+          }
+        });
+      };
+    }
   }
 }

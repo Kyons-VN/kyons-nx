@@ -24,5 +24,18 @@ interface IChat {
   dateDisplay: string;
 }
 
-export { IChat, IContent, IPart, Role, maxManaWidth };
+interface IFileDataPart {
+  text?: never;
+  inlineData?: never;
+  functionCall?: never;
+  functionResponse?: never;
+  fileData: IFileData;
+}
+
+interface IFileData {
+  mimeType: string;
+  fileUri: string;
+}
+
+export { IChat, IContent, IFileData, IFileDataPart, IPart, Role, maxManaWidth };
 

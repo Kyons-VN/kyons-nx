@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, collectionData, getCountFromServer } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, docData, getCountFromServer } from '@angular/fire/firestore';
 import { chatServerApi } from '@data/chat/chat.service';
-import { QueryDocumentSnapshot, WithFieldValue } from 'firebase/firestore';
-import { firstValueFrom, map } from 'rxjs';
+import { QueryDocumentSnapshot, WithFieldValue, doc } from 'firebase/firestore';
+import { firstValueFrom, map, } from 'rxjs';
 import ChatUser from './chat-user';
 
 export const CURRENT_ADMIN = 'flutter.currentUser';
@@ -44,6 +44,11 @@ export class AdminService {
 
   clearStorage() {
     window.localStorage.removeItem('users');
+  }
+
+  async getConfig() {
+    const docRef = doc(this.db, 'configurations/settings');
+    return await firstValueFrom(docData(docRef));
   }
 }
 const userConverter = {

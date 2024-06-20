@@ -13,7 +13,7 @@ import { ThemeService } from '@data/theme/theme.service';
 // import { notificationServiceProvider } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
 import { environment } from '@environments';
-import { FormControlStatus } from '@utils/form';
+import { FormControlStatus } from '@share-utils/form';
 import { Subscription, interval, throwError } from 'rxjs';
 
 @Component({

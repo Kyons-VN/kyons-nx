@@ -1,5 +1,8 @@
 [data-theme='default'] {
   font-family: 'Montserrat', sans-serif;
+  input {
+    font-family: 'Montserrat', sans-serif;
+  }
   @apply bg-blueGrey-100 text-primaryBlue;
 
   a {
@@ -8,7 +11,7 @@
   .text-white {
     color: white;
   }
-  .history {
+  .sidenav-with-history-container {
     ul > li {
       & > ul > li {
         &.active {

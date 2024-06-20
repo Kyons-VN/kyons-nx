@@ -1,21 +1,23 @@
 // import { Injectable, inject } from '@angular/core';
 // import { Firestore } from 'firebase/firestore';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
+import { serverApi } from '@data/auth/interceptor';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
-// import { environment } from '@environments';
+import { environment } from '@environments';
 import { Observable, catchError, map } from 'rxjs';
-import { Chat, Content, Mana } from './chat-model';
+import { Chat, Content, FileData, Image, Mana } from './chat-model';
 
-// const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
-const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
+const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
+// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
 
 @Injectable({
   providedIn: 'root',
 })
 class ChatService {
+  backend = inject(HttpBackend);
   getGreeting(): Observable<Content> {
     const params = new HttpParams().set('prompt', '/hello');
     return this.http.get(`${chatServerApi}/greet`, { params: params }).pipe(
@@ -35,11 +37,34 @@ class ChatService {
   resetLessonChat(userId: any, lessonId: string) {
     return this.http.put(`${chatServerApi}/user/${userId}/resetLessonChat/${lessonId}`, null);
   }
-  sendMessage(userId: string, chatId: string, message: string, lessonContext: string | null = null): Observable<Content[]> {
-    let params = new HttpParams();
-    params = params.set('prompt', message);
-    if (lessonContext != null) params = params.set('lessonContext', lessonContext);
-    return this.http.get(`${chatServerApi}/user/${userId}/${lessonContext ? 'askLesson' : 'ask'}/${chatId}`, { params: params }).pipe(
+  // sendMessage(userId: string, chatId: string, message: string, { lessonContext = null, file }: { lessonContext?: string | null, file?: File } = {}): Observable<Content[]> {
+  //   let params = new HttpParams();
+  //   params = params.set('prompt', message);
+  //   if (lessonContext != null) params = params.set('lessonContext', lessonContext);
+  //   if(file){
+  //     return 
+  //   }
+  //   return this.http.get(`${chatServerApi}/user/${userId}/${lessonContext ? 'askLesson' : 'ask'}/${chatId}`, { params: params }).pipe(
+  //     // catchError(DBHelper.handleError('POST sendMessage', [Content.outOfMana()])),
+  //     map(() => {
+  //       return [];
+  //     })
+  //   );
+  // }
+  sendMessageFile(userId: string, chatId: string, message: string, { lessonContext, file, image }: { lessonContext?: string, file?: File, image?: Image } = {}): Observable<Content[]> {
+    const formData = new FormData();
+    if (file) formData.append('file', file);
+    if (image) {
+      formData.append('fileName', image.name);
+      formData.append('mimeType', image.mimeType);
+    }
+    if (lessonContext) formData.append('lessonContext', lessonContext);
+    formData.append('prompt', message);
+    const headers = new HttpHeaders({
+      enctype: 'multipart/form-data',
+      Accept: 'application/json',
+    });
+    return this.http.post(`${chatServerApi}/user/${userId}/askFile/${chatId}`, formData, { headers }).pipe(
       // catchError(DBHelper.handleError('POST sendMessage', [Content.outOfMana()])),
       map(() => {
         return [];
@@ -57,7 +82,6 @@ class ChatService {
   }
   getMessages(userId: string, chatId: string): Observable<Content[]> {
     return this.http.get(`${chatServerApi}/user/${userId}/chat/${chatId}`).pipe(
-      // catchError(DBHelper.handleError('POST startChat', '')),
       map((res: any) => {
         if (res.data === undefined) return [];
         return (res.data as any[]).map((data: any) => Content.parseContent(data));
@@ -125,6 +149,7 @@ class ChatService {
 
   removeCache() {
     window.localStorage.removeItem('chats');
+    window.localStorage.removeItem('files');
   }
   updateChatName(userId: string, chatId: string, chatName: string) {
     console.log(userId, chatId, chatName);
@@ -139,6 +164,43 @@ class ChatService {
           window.localStorage.removeItem('chats');
         }
         return res;
+      })
+    );
+  }
+
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('image', file);
+    const headers = new HttpHeaders({
+      enctype: 'multipart/form-data',
+      Accept: 'application/json',
+    });
+
+    return this.http.post(`${serverApi()}/api/v2/users/images/upload`, formData, { headers });
+  }
+
+  deleteFile(fileName: string) {
+    console.log(fileName);
+    const body = JSON.stringify({ id: '1718460117.png' });  // Data for request body
+
+    return this.http.delete(`${serverApi()}/api/v2/users/images/delete`, { body })
+  }
+
+  getFile(userId: string, fileId: string): Observable<FileData | null> {
+    const files = JSON.parse(localStorage.getItem('files') ?? '{}');
+    if (files[fileId]) {
+      return new Observable<FileData | null>((subscriber) => {
+        subscriber.next(FileData.fromJson(files[fileId]));
+        subscriber.complete();
+      });
+    }
+    return this.http.get(`${chatServerApi}/user/${userId}/file/${fileId}`).pipe(
+      map((res: any) => {
+        if (res.data === undefined) return null;
+        const filePart = FileData.fromJson(res.data);
+        files[fileId] = filePart.toJson();
+        window.localStorage.setItem('files', JSON.stringify(files));
+        return filePart;
       })
     );
   }

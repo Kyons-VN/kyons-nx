@@ -1,18 +1,18 @@
-function notHaveDigit(str: string) {
-  return str.search(/(?=.*[0-9])/);
+function notHaveDigit(str: string): boolean {
+  return str.search(/(?=.*[0-9])/) == -1;
 }
 
-function notHaveUppercase(str: string) {
-  return str.search(/(?=.*[A-Z])/);
+function notHaveUppercase(str: string): boolean {
+  return str.search(/(?=.*[A-Z])/) == -1;
 }
 
-function notHaveSpecial(str: string) {
-  return str.search(/(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]])/);
+function notHaveSpecial(str: string): boolean {
+  return str.search(/(?=.*[!@#$%^&*()~=_+}{":;'?{}/>.<,`\-|[\]])/) == -1;
 }
 
 function search(str: string, regexStr: string) {
   str.search(regexStr);
 }
 
-export { notHaveDigit, notHaveUppercase, notHaveSpecial, search };
+export { notHaveDigit, notHaveSpecial, notHaveUppercase, search };
 
