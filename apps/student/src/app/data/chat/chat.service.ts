@@ -51,23 +51,26 @@ class ChatService {
   //     })
   //   );
   // }
-  sendMessageFile(userId: string, chatId: string, message: string, { lessonContext, file, image }: { lessonContext?: string, file?: File, image?: Image } = {}): Observable<Content[]> {
+  sendMessageFile(userId: string, message: string, { lessonContext, file, image, chatId }: { chatId?: string, lessonContext?: string, file?: File, image?: Image } = {}): Observable<string> {
     const formData = new FormData();
+    formData.append('prompt', message);
+    formData.append('userId', userId);
+    if (chatId) formData.append('chatId', chatId);
     if (file) formData.append('file', file);
     if (image) {
       formData.append('fileName', image.name);
       formData.append('mimeType', image.mimeType);
     }
     if (lessonContext) formData.append('lessonContext', lessonContext);
-    formData.append('prompt', message);
     const headers = new HttpHeaders({
       enctype: 'multipart/form-data',
       Accept: 'application/json',
     });
-    return this.http.post(`${chatServerApi}/user/${userId}/askFile/${chatId}`, formData, { headers }).pipe(
+    return this.http.post(`${chatServerApi}/askFile`, formData, { headers }).pipe(
       // catchError(DBHelper.handleError('POST sendMessage', [Content.outOfMana()])),
-      map(() => {
-        return [];
+      map((res: any) => {
+        if (res['chatId'] === undefined) return '';
+        return res['chatId'];
       })
     );
   }
@@ -92,17 +95,28 @@ class ChatService {
   http = inject(HttpClient);
   userService = inject(UserService);
 
-  startChat(userId: string, message: string): Observable<string> {
-
-    const params = new HttpParams().set('prompt', message);
-    return this.http.get(`${chatServerApi}/user/${userId}/ask`, { params: params }).pipe(
-      // catchError(DBHelper.handleError('POST startChat', '')),
-      map((res: any) => {
-        if (res['chatId'] === undefined) return '';
-        return res['chatId'];
-      })
-    );
-  }
+  // startChat(userId: string, message: string, { lessonContext, file, image }: { lessonContext?: string, file?: File, image?: Image } = {}): Observable<string> {
+  //   const formData = new FormData();
+  //   formData.append('prompt', message);
+  //   formData.append('userId', userId);
+  //   if (file) formData.append('file', file);
+  //   if (image) {
+  //     formData.append('fileName', image.name);
+  //     formData.append('mimeType', image.mimeType);
+  //   }
+  //   if (lessonContext) formData.append('lessonContext', lessonContext);
+  //   const headers = new HttpHeaders({
+  //     enctype: 'multipart/form-data',
+  //     Accept: 'application/json',
+  //   });
+  //   return this.http.post(`${chatServerApi}/askFile`, formData, { headers }).pipe(
+  //     // catchError(DBHelper.handleError('POST sendMessage', [Content.outOfMana()])),
+  //     map((res: any) => {
+  //       if (res['chatId'] === undefined) return '';
+  //       return res['chatId'];
+  //     })
+  //   );
+  // }
 
   getChats(userId: string, forceReload = false): Observable<Chat[]> {
     if (window.localStorage.getItem('chats') && !forceReload) {

@@ -57,7 +57,13 @@
                 [ngClass]="{ active: chatId === chat.id }"
                 (click)="isGaming = false"
               >
-                <div class="left-menu-item relative" [ngClass]="{ 'z-20': selectedChat()?.id === chat.id }">
+                <div
+                  class="left-menu-item relative"
+                  [ngClass]="{
+                    'z-20': selectedChat()?.id === chat.id,
+                    shine: selectedChat()?.id === chat.id && updatingChatName
+                  }"
+                >
                   @if(!showEditChat()||selectedChat()?.id !== chat.id){<a
                     class="chat-name"
                     [routerLink]="paths.chat.path.replace(':id', chat.id)"

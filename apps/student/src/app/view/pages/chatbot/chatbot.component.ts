@@ -19,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Content, Image, Mana, TextPart } from '@data/chat/chat-model';
+import { ChatError, Content, FilePart, Image, Mana, Part, TextPart } from '@data/chat/chat-model';
 import { Chat, ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
@@ -98,6 +98,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     loop: true,
     autoplay: true,
   };
+  updatingChatName = false;
 
   ngOnInit(): void {
     this.loadingService.show();
@@ -137,7 +138,12 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       });
       this.updateMana();
       if (this.chatId) {
-        this.updateMessages().add(() => this.isLoadingMessages = false);
+        this.getMessages().add(() => this.isLoadingMessages = false);
+      }
+      else {
+        setTimeout(() => {
+          this.isLoadingMessages = false;
+        }, 500);
       }
 
       setTimeout(() => {
@@ -231,7 +237,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       const { a, b } = this.flutterState.getMana();
       this.manaWidth = maxManaWidth * a / b;
       this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
-      if (a != this.mana.value) { this.updateMana(), this.updateMessages(); };
+      if (a != this.mana.value) { this.updateMana(), this.getMessages(); };
     });
     // this.flutterState.onThemeChanged(() => {
     //   this.theme = this.flutterState.getTheme();
@@ -240,7 +246,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.flutterState.onShowGameChanged(() => {
       this.isGaming = this.flutterState.shouldShowGame();
       if (!this.isGaming) { this.flutterState.setMessage(''); }
-      this.updateMessages();
+      this.getMessages();
     });
   }
   getGreeting() {
@@ -261,10 +267,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   sendMessage(message: string) {
     if (this.isThinking) return;
     this.isThinking = true;
-    if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
-    console.log(message);
+    const askingMessage: Part[] = [new TextPart(message)];
+    if (this.image) {
+      const newFilePart = new FilePart(this.image.name);
+      newFilePart.url = this.image.base64;
+      newFilePart.mimeType = this.image.mimeType;
+      askingMessage.push(newFilePart);
+    }
+    if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, askingMessage, new Date())];
+    // console.log(message);
     if (this.chatId) {
-      this.chatService.sendMessageFile(this.userId, this.chatId, message, {
+      this.chatService.sendMessageFile(this.userId, message, {
+        chatId: this.chatId,
         file: this.file,
         image: this.image,
       }).subscribe({
@@ -273,7 +287,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
           //   this.messages = errorMessage;
           // }
           // else {
-          this.updateMessages();
+          this.getMessages();
           this.updateMana();
           // }
           // this.messages = messages;
@@ -290,16 +304,19 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       if (this.file) { this.file = undefined; this.image = undefined; }
     }
     else {
-      this.chatService.startChat(this.userId, message).subscribe({
+      this.chatService.sendMessageFile(this.userId, message, {
+        file: this.file,
+        image: this.image,
+      }).subscribe({
         next: async (chatId) => {
           this.chatId = chatId;
-          await this.updateChats();
+          await this.getChats();
           this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
           this.isThinking = false;
         },
-        error: (err) => {
+        error: (err: ChatError) => {
           console.error(err);
-          if (err.error === 'Not enough mana') {
+          if (err.code === 3) {
             this.messages = [...this.messages, Content.outOfMana()]
           }
           this.isThinking = false;
@@ -307,7 +324,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       });
     }
   }
-  updateChats() {
+  async getChats(): Promise<void> {
     this.searchChat = '';
     return this.chatService.getChats(this.userId, true).subscribe({
       next: (chats) => {
@@ -318,7 +335,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     }).add(() => null);
   }
 
-  updateMessages() {
+  getMessages() {
     return this.chatService.getMessages(this.userId, this.chatId).subscribe({
       next: (messages) => {
         this.messages = messages;
@@ -395,9 +412,15 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
   updateChatName() {
+    this.updatingChatName = true;
     this.chatService.updateChatName(this.userId, this.selectedChat()!.id, this.chatName).subscribe({
-      next: () => {
-        this.updateChats();
+      next: async () => {
+        await this.getChats();
+        this.updatingChatName = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.updatingChatName = false;
       }
     });
     this.showEditChat.set(false);
@@ -406,7 +429,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   deleteChat() {
     this.chatService.deleteChat(this.userId, this.selectedChat()!.id).subscribe({
       next: () => {
-        this.updateChats();
+        this.getChats();
         if (this.selectedChat()?.id === this.chatId) {
           this.router.navigate([this.paths.chatbot.path]);
         }

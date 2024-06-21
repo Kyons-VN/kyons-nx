@@ -80,6 +80,7 @@ class FilePart extends Part {
   // url?: string;
   override isData = true;
   id: string;
+  base64?: string;
 
   constructor(id: string) {
     super();
@@ -138,6 +139,21 @@ class Mana {
     this.max = max;
   }
   static invalid() { return new Mana(-1, -1) };
+}
+
+enum ChatErrorCode {
+  UserNotFound = 1,
+  NoPrompt = 2,
+  OutOfMana = 3,
+}
+
+class ChatError {
+  message: string;
+  code: ChatErrorCode;
+  constructor(message: string, errorCode: number) {
+    this.message = message;
+    this.code = errorCode;
+  }
 }
 
 class Image {
@@ -227,5 +243,5 @@ class FileData {
   }
 }
 
-export { Chat, Content, FileData, FilePart, Image, Mana, Part, TextPart };
+export { Chat, ChatError, Content, FileData, FilePart, Image, Mana, Part, TextPart };
 
