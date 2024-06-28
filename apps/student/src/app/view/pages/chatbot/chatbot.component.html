@@ -48,7 +48,7 @@
                 >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
               >
             </li> -->
-          @for (item of groupNames; track $index) { @if(chats[item]['data'].length>0){
+          @for (item of groupNames; track $index) { @if(chats[item]&&chats[item]['data'].length>0){
           <li>
             <span class="note">{{ chats[item]['label'] }}</span>
             <ul>

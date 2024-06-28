@@ -6,12 +6,11 @@ import { Firestore } from '@angular/fire/firestore';
 import { serverApi } from '@data/auth/interceptor';
 import { DBHelper } from '@data/helper/helper';
 import { UserService } from '@data/user/user.service';
-import { environment } from '@environments';
 import { Observable, catchError, map } from 'rxjs';
 import { Chat, Content, FileData, Image, Mana } from './chat-model';
 
-const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
-// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
+// const chatServerApi = `${environment.firebase.functionsUrl}/chat`;
+const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/chat';
 
 @Injectable({
   providedIn: 'root',
