@@ -98,7 +98,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     loop: true,
     autoplay: true,
   };
-  updatingChatName = false;
+  updatingChat = false;
 
   ngOnInit(): void {
     this.loadingService.show();
@@ -412,27 +412,33 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   }
 
   updateChatName() {
-    this.updatingChatName = true;
+    this.updatingChat = true;
     this.chatService.updateChatName(this.userId, this.selectedChat()!.id, this.chatName).subscribe({
       next: async () => {
         await this.getChats();
-        this.updatingChatName = false;
+        this.updatingChat = false;
       },
       error: (err) => {
         console.error(err);
-        this.updatingChatName = false;
+        this.updatingChat = false;
       }
     });
     this.showEditChat.set(false);
   }
 
   deleteChat() {
+    this.updatingChat = true;
     this.chatService.deleteChat(this.userId, this.selectedChat()!.id).subscribe({
       next: () => {
         this.getChats();
         if (this.selectedChat()?.id === this.chatId) {
           this.router.navigate([this.paths.chatbot.path]);
         }
+        this.updatingChat = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.updatingChat = false;
       }
     });
     this.showConfirmDeleteChat.set(false);

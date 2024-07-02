@@ -61,7 +61,7 @@
                   class="left-menu-item relative"
                   [ngClass]="{
                     'z-20': selectedChat()?.id === chat.id,
-                    shine: selectedChat()?.id === chat.id && updatingChatName
+                    shine: selectedChat()?.id === chat.id && updatingChat
                   }"
                 >
                   @if(!showEditChat()||selectedChat()?.id !== chat.id){<a
