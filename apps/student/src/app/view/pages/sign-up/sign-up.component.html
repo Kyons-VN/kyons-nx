@@ -284,18 +284,20 @@
   <div
     class="hero-bg hidden md:flex xl:flex-row flex-col lg:items-center md:justify-start p-8 justify-center flex-shrink-0 relative flex-1 w-full gap-4 h-screen overflow-y-auto overflow-x-hidden"
   >
-    <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
+    <div
+      class="flex flex-1 w-full flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[425px] justify-start"
+    >
       <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
-          <h6 class="text-lg">Gói Starter: 1 Tháng</h6>
+          <h6 class="text-lg">Gói 1 Tháng</h6>
         </div>
         <div class="flex gap-2.5 justify-center items-center">
-          <div class="flex flex-col justify-end">
+          <!-- <div class="flex flex-col justify-end">
             <b class="text-blueGrey-400 text-3xl text-right line-through">69K</b>
             <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
-          </div>
-          <span class="text-7xl font-bold">39K</span>
+          </div> -->
+          <span class="text-7xl font-bold">69K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">1 tháng truy cập Kyons</div>
@@ -304,28 +306,28 @@
           <button class="btn orange" (click)="select('1')">
             {{ packageLevel === '1' ? 'Đã chọn' : 'Bấm để chọn' }}
           </button>
-          <p>Bao gồm các <b>tính năng:</b></p>
+          <!-- <p>Bao gồm các <b>tính năng:</b></p>
           <ul class="star">
             <li>Huy hiệu <b>Kyons First</b> độc quyền gắn trên hồ sơ truy cập</li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
     <div
-      class="flex flex-col rounded-lg p-4 gap-4 bg-white hover:shadow-orange shadow-2 h-[600px] justify-start items-center outline-orange outline-8"
+      class="flex flex-1 w-full flex-col rounded-lg p-4 gap-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start items-center outline-orange outline-8"
     >
       <div class="h-[37px] bg-yellow-1 px-4 py-2 rounded-2xl">Khuyên dùng</div>
       <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
-          <h6 class="text-lg">Gói Starter: 3 tháng</h6>
+          <h6 class="text-lg">Gói 3 tháng</h6>
         </div>
         <div class="flex gap-2.5 justify-center items-center">
           <div class="flex flex-col justify-end">
             <b class="text-blueGrey-400 text-3xl text-right line-through">207K</b>
-            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
+            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 15% </b>
           </div>
-          <span class="text-7xl font-bold">99K</span>
+          <span class="text-7xl font-bold">175K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">3 tháng truy cập Kyons</div>
@@ -334,26 +336,28 @@
           <button class="btn orange" (click)="select('2')">
             {{ packageLevel === '2' ? 'Đã chọn' : 'Bấm để chọn' }}
           </button>
-          <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
+          <!-- <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
           <ul class="star">
             <li><b>Vĩnh viễn giảm 10%</b> cho các đơn hàng tiếp theo trên Kyons</li>
             <li><b>Truy cập công cụ “Học Tốt”</b> độc quyền của Kyons</li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
-    <div class="flex flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[500px] justify-start">
+    <div
+      class="flex flex-1 w-full flex-col rounded-lg p-4 bg-white hover:shadow-orange shadow-2 h-[425px] justify-start"
+    >
       <div class="flex flex-col gap-6">
         <div class="flex gap-1 items-center justify-center">
           <img src="/assets/images/free-package.svg" alt="" />
-          <h6 class="text-lg">Gói Starter: 12 tháng</h6>
+          <h6 class="text-lg">Gói 12 tháng</h6>
         </div>
         <div class="flex gap-2.5 justify-center items-center">
           <div class="flex flex-col justify-end">
             <b class="text-blueGrey-400 text-3xl text-right line-through">828K</b>
-            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
+            <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 20% </b>
           </div>
-          <span class="text-6xl font-bold">419K</span>
+          <span class="text-6xl font-bold">659K</span>
         </div>
         <div class="flex flex-col gap-2">
           <div class="text-center">12 tháng truy cập Kyons</div>
@@ -362,9 +366,9 @@
           <button class="btn orange" (click)="select('3')">
             {{ packageLevel === '3' ? 'Đã chọn' : 'Bấm để chọn' }}
           </button>
-          <p>Bao gồm các tính năng của <b>Gói Starter 3 tháng</b> và:</p>
+          <p>Bao gồm các tính năng:</p>
           <ul class="star">
-            <li>Tham gia cộng đồng <b>“Chiến thần Toán Học”</b> của Kyons</li>
+            <!-- <li>Tham gia cộng đồng <b>“Chiến thần Toán Học”</b> của Kyons</li> -->
             <li>Quyền ưu tiên được trải nghiệm các tính năng mới của Kyons</li>
             <li>Gấp đôi thời gian sử dụng công cụ AI trong Kyons</li>
           </ul>
@@ -401,23 +405,23 @@
     <div class="flex flex-col gap-8">
       <div class="flex gap-1 items-center justify-center">
         <img src="/assets/images/free-package.svg" alt="" />
-        <h6 class="text-lg">Gói Starter: 1 Tháng</h6>
+        <h6 class="text-lg">Gói 1 Tháng</h6>
       </div>
       <div class="flex gap-2.5 justify-center items-center">
-        <div class="flex flex-col justify-end">
+        <!-- <div class="flex flex-col justify-end">
           <b class="text-blueGrey-400 text-3xl text-right line-through">69K</b>
           <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
-        </div>
-        <span class="text-7xl font-bold">39K</span>
+        </div> -->
+        <span class="text-7xl font-bold">69K</span>
       </div>
       <div class="flex flex-col gap-2">
         <div class="text-center">1 tháng truy cập Kyons</div>
       </div>
       <div class="flex flex-col gap-4">
-        <p>Bao gồm các <b>tính năng:</b></p>
+        <!-- <p>Bao gồm các <b>tính năng:</b></p>
         <ul class="star">
           <li>Huy hiệu <b>Kyons First</b> độc quyền gắn trên hồ sơ truy cập</li>
-        </ul>
+        </ul> -->
       </div>
       <div class="flex flex-col gap-2">
         <button class="btn orange" (click)="select('1')">
@@ -435,24 +439,24 @@
     <div class="flex flex-col gap-8">
       <div class="flex gap-1 items-center justify-center">
         <img src="/assets/images/free-package.svg" alt="" />
-        <h6 class="text-lg">Gói Starter: 3 tháng</h6>
+        <h6 class="text-lg">Gói 3 tháng</h6>
       </div>
       <div class="flex gap-2.5 justify-center items-center">
         <div class="flex flex-col justify-end">
           <b class="text-blueGrey-400 text-3xl text-right line-through">207K</b>
-          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
+          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 15% </b>
         </div>
-        <span class="text-7xl font-bold">99K</span>
+        <span class="text-7xl font-bold">175K</span>
       </div>
       <div class="flex flex-col gap-2">
         <div class="text-center">3 tháng truy cập Kyons</div>
       </div>
       <div class="flex flex-col gap-4">
-        <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
+        <!-- <p>Bao gồm các tính năng của <b>Gói Starter 1 tháng</b> và:</p>
         <ul class="star">
           <li><b>Vĩnh viễn giảm 10%</b> cho các đơn hàng tiếp theo trên Kyons</li>
           <li><b>Truy cập công cụ “Học Tốt”</b> độc quyền của Kyons</li>
-        </ul>
+        </ul> -->
       </div>
       <div class="flex flex-col gap-2">
         <button class="btn orange" (click)="select('2')">
@@ -466,15 +470,14 @@
     <div class="flex flex-col gap-8">
       <div class="flex gap-1 items-center justify-center">
         <img src="/assets/images/free-package.svg" alt="" />
-        <h6 class="text-lg">Gói Starter: 12 tháng</h6>
-        <strong class="text-center">Mua 12 tháng tặng 12 tháng</strong>
+        <h6 class="text-lg">Gói 12 tháng</h6>
       </div>
       <div class="flex gap-2.5 justify-center items-center">
         <div class="flex flex-col justify-end">
           <b class="text-blueGrey-400 text-3xl text-right line-through">828K</b>
-          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 50% </b>
+          <b class="px-2.5 py-1 w-[96px] text-sm bg-emerald-3 text-darkEmerald rounded-3xl text-center"> giảm 20% </b>
         </div>
-        <span class="text-6xl font-bold">419K</span>
+        <span class="text-6xl font-bold">659K</span>
       </div>
       <div class="flex flex-col gap-2">
         <div class="text-center">12 tháng truy cập Kyons</div>
