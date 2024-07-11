@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
+import { Component, HostBinding, Injector, OnInit, ViewEncapsulation, effect, inject, runInInjectionContext, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
-import { Chat, ChatService } from '@data/chat/chat.service';
+import { Chat } from '@data/chat/chat-model';
+import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { FilterPipe } from '@share-pipes';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
@@ -16,7 +17,56 @@ import { MessagesComponent } from '@view/share-components/chat/messages.componen
   encapsulation: ViewEncapsulation.None,
 })
 export class AdminDashboardComponent implements OnInit {
+  loadingService = inject(LoadingOverlayService);
+  chatService = inject(ChatService);
+  adminService = inject(AdminService);
+  injector = inject(Injector);
+
+  @HostBinding('class') class = 'app-full';
+
   toggleList: boolean[] = [];
+  tabs: string[] = ['Chat', 'Config'];
+  selectedTab = 0;
+  configMenu = signal(0);
+  selectedUser: ChatUser | null = null;
+  mana = 0;
+  totalUsers!: number;
+  search = '';
+  users: ChatUser[] = [];
+
+  // Config
+  defaultMana = 0;
+  isChanged = false;
+  context = {
+    initialGameContext: '',
+    initialNoGameContext: '',
+    websiteContext: '',
+  };
+  fileValidation = {
+    maxFileSize: 0,
+    maxImageSize: 0,
+    allowedFileTypes: [''],
+    maxStorageSize: 0,
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.users = await this.adminService.getUsers();
+    this.totalUsers = await this.adminService.countUsers();
+    runInInjectionContext(this.injector, () => {
+      effect(async () => {
+        if (this.configMenu() == 0) {
+          this.defaultMana = await this.adminService.getDefaultMana();
+        }
+        else if (this.configMenu() == 1) {
+          this.context = await this.adminService.getContext();
+        }
+        else if (this.configMenu() == 2) {
+          this.fileValidation = await this.adminService.getFileValidation();
+        }
+      });
+    });
+  }
+
   getMessages(chat: Chat) {
     this.chatService.getMessages(this.selectedUser!.id, chat.id).subscribe({
       next: (messages) => {
@@ -25,7 +75,7 @@ export class AdminDashboardComponent implements OnInit {
       }
     })
   }
-  loadingService = inject(LoadingOverlayService);
+
   viewChat(user: ChatUser) {
     if (this.selectedUser == null) return;
     this.chatService.getChats(user.id).subscribe({
@@ -35,6 +85,7 @@ export class AdminDashboardComponent implements OnInit {
       }
     })
   }
+
   resetMana(user: ChatUser) {
     this.loadingService.show();
     this.adminService.resetMana(user.id).subscribe({
@@ -57,10 +108,12 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
+
   async refresh() {
     this.adminService.clearStorage();
     this.users = await this.adminService.getUsers();
   }
+
   selectUser(user: any) {
     this.mana = -1;
     this.selectedUser = user;
@@ -70,22 +123,37 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
-  selectedUser: ChatUser | null = null;
-  mana = 0;
-  chatService = inject(ChatService);
+
   filterUser(item: ChatUser) {
     return item.email.includes(this.search);
   }
+
   submit() {
     console.log(this.search);
 
   }
-  adminService = inject(AdminService);
-  totalUsers!: number;
-  search = '';
-  users: ChatUser[] = [];
-  async ngOnInit(): Promise<void> {
-    this.users = await this.adminService.getUsers();
-    this.totalUsers = await this.adminService.countUsers();
+
+  selectTab(index: number) {
+    this.selectedTab = index;
   }
+
+  saveDefaultMana() {
+    this.adminService.saveDefaultMana(this.defaultMana);
+  }
+  saveContext() {
+    this.adminService.saveContext(this.context);
+  }
+
+  insertFileTypeAt(index: number) {
+    this.fileValidation.allowedFileTypes.splice(index, 0, '');
+  }
+
+  saveFileValidation() {
+    this.adminService.saveFileValidation(this.fileValidation);
+  }
+
+  remove(index: number) {
+    this.fileValidation.allowedFileTypes.splice(index, 1);
+  }
+
 }

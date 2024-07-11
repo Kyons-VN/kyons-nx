@@ -29,7 +29,7 @@
       "@domain/*": ["apps/student/src/app/domain/*"],
       "@utils/*": ["apps/student/src/app/utils/*"],
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
-      "@share-directives/*": ["libs/share-directives/src/lib/*"],
+      "@share-directives": ["libs/share-directives/src/index.ts"],
       "@share-components": ["libs/share-components/src/index.ts"],
       "@share-pipes": ["libs/share-pipes/src/index.ts"],
       "@environments": ["apps/student/src/environments/environment"]

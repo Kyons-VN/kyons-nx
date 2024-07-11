@@ -16,7 +16,7 @@ import { AuthService } from './auth.service';
 
 export const TOKEN_HEADER_KEY = 'Authorization'; // for Spring Boot back-end
 export const serverApi = () => {
-  if (window.localStorage.getItem('dev') === 'true') return `${environment.firebase.functionsUrl}/v1`;
+  if (window.localStorage.getItem('dev') === 'true') return environment.sandboxApi;
   // if (window.localStorage.getItem('dev') === 'true') return 'http://127.0.0.1:5001/kyonsvn-dev/us-central1/v1';
   return environment.serverApi;
 };
@@ -38,10 +38,10 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.auth.getToken();
-    const contentType = req.headers.get('Content-Type') ?? 'application/json';
+    // const contentType = req.headers.get('Content-Type') ?? 'application/json';
     if (token !== '') {
       authReq = req.clone({
-        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token).set('Content-Type', contentType),
+        headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token),
       });
     }
     const timeoutValue = req.headers.get('timeout') || this.defaultTimeout;
@@ -56,7 +56,7 @@ export class AuthInterceptor implements HttpInterceptor {
           } else {
             console.log('this is server side error');
             if (error.status === 401) {
-              return this.handleRefreshToken(authReq, req, next, contentType);
+              return this.handleRefreshToken(authReq, req, next);
             }
             else {
               return throwError(() => error.error);
@@ -101,7 +101,7 @@ export class AuthInterceptor implements HttpInterceptor {
     this.router.navigate([this.paths.home.path]);
   }
 
-  handleRefreshToken(authReq: HttpRequest<any>, req: HttpRequest<any>, next: HttpHandler, contentType: string) {
+  handleRefreshToken(authReq: HttpRequest<any>, req: HttpRequest<any>, next: HttpHandler) {
     const refreshToken = this.auth.getRefreshToken();
     if (refreshToken && refreshToken !== 'undefined') {
       return this.auth.refreshToken(refreshToken).pipe(
@@ -112,7 +112,7 @@ export class AuthInterceptor implements HttpInterceptor {
           }
           this.auth.setToken(value);
           authReq = req.clone({
-            headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token).set('Content-Type', contentType),
+            headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + value.access_token),
           });
           return next.handle(authReq);
         }),

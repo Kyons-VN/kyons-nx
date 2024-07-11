@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
+import { Component, HostBinding, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ThemeService } from '@data/theme/theme.service';
 import { TrackingComponent } from '@view/share-components/tracking/tracking.component';
@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
   imports: [RouterModule, TrackingComponent],
 })
 export class LayoutFullComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'app-full';
+
   themeService = inject(ThemeService);
   theme = this.themeService.getTheme();
   injector = inject(Injector);

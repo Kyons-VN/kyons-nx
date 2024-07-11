@@ -12,40 +12,29 @@
           [routerLink]="'/'"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          (isActiveChange)="(this.ngOnInit)"
         >
           <img src="/assets/images/Home.svg" alt="" />
           <span>Trang chủ</span>
         </a>
       </li>
       <li>
-        <a
-          class="menu-item"
-          [routerLink]="paths.chatbot.path"
-          routerLinkActive="active"
-          (isActiveChange)="(this.ngOnInit)"
-        >
+        <a class="menu-item" [routerLink]="paths.chatbot.path" routerLinkActive="active">
           <img src="/assets/images/FAQ.svg" alt="" />
           <span class="hidden md:flex">Chat với Kyo</span>
         </a>
       </li>
       <li>
-        <a
-          class="menu-item"
-          [routerLink]="paths.account.path"
-          routerLinkActive="active"
-          (isActiveChange)="(this.ngOnInit)"
-        >
+        <a class="menu-item" [routerLink]="paths.account.path" routerLinkActive="active">
           <img src="/assets/images/Profile.svg" alt="" />
           <span class="hidden md:flex">Tài khoản</span>
         </a>
       </li>
     </ul>
     <!-- <div class="w-2"></div> -->
-    <button class="btn-icon">
+    <button class="btn-icon link" [matMenuTriggerFor]="themeSelectionMenu" title="Giao diện">
       <i class="icon-Theme text-blueGrey-400 text-[24px]" (click)="showSettings = !showSettings"></i>
     </button>
-    <div
+    <!-- <div
       *ngIf="showSettings"
       class="absolute z-20 right-0 top-full rounded-lg p-4"
       [ngClass]="{ 'bg-white': theme === 'default', 'bg-black': theme === 'universe' }"
@@ -55,7 +44,10 @@
         <button class="btn orange" (click)="setTheme('default')">Mặc định</button>
         <button class="btn !bg-teal-0 !border-teal-0" (click)="setTheme('universe')">Universe</button>
       </div>
-    </div>
+    </div> -->
   </div>
-  <div *ngIf="showSettings" class="fixed top-0 left-0 h-screen w-screen z-10" (click)="showSettings = false"></div>
 </div>
+<mat-menu #themeSelectionMenu yPosition="below" xPosition="before">
+  <button mat-menu-item (click)="setTheme('default')">Mặc định</button>
+  <button mat-menu-item (click)="setTheme('universe')">Universe</button>
+</mat-menu>

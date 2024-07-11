@@ -1,189 +1,96 @@
-<div class="flex flex-col items-center">
-  <student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
-  <div class="flex justify-center w-full xl:max-w-[1440px] h-full gap-4 chat px-4 xl:px-14">
-    <div class="history" [ngClass]="{ 'show-history': !isSmMenuHide() }">
-      <div class="xl:hidden flex justify-between items-start">
-        <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
-        <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
-          <i class="icon-Close text-[16px]"></i>
-        </div>
-      </div>
-      <div class="flex justify-start">
-        <button
-          class="btn orange"
-          [routerLink]="paths.chatbot.path"
-          [disabled]="chatId === ''"
-          routerLinkActive="disabled"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (isActiveChange)="(this.ngOnInit)"
-          (click)="isGaming = false"
-        >
-          <i class="icon-Add"></i>
-          {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
-        </button>
-      </div>
-      <h4>{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</h4>
-      <ul class="history-list">
-        <!-- <li>
-          <a
-            [routerLink]="paths.chatbot.path"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (isActiveChange)="(this.ngOnInit)"
-            >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
-          >
-        </li> -->
-        @for (item of ['today', 'yesterday', 'last7Days', 'last30Days', 'older']; track $index) {
-        @if(chats[item]['data'].length>0){
-        <li>
-          <span class="note">{{ chats[item]['label'] }}</span>
-          <ul>
-            <li
-              *ngFor="let chat of chats[item]['data']"
-              [ngClass]="{ active: chatId === chat.id }"
-              (click)="isGaming = false"
-            >
-              <a
-                class="history-item"
-                [routerLink]="paths.chat.path.replace(':id', chat.id)"
-                [title]="chat.firstMessage"
-                >{{ chat.firstMessage }}</a
-              >
-            </li>
-          </ul>
-        </li>
-        } }
-      </ul>
+<student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
+<div
+  class="flex justify-start w-full xl:max-w-[1440px] h-[calc(100%_-_56px)] xl:h-[calc(100%_-_106px)] gap-4 px-4 xl:px-14 pb-10"
+>
+  <student-chatbot-sidebar class="side-bar" [isSmMenuHide]="isSmMenuHide" />
+  <div class="w-full h-full flex flex-col gap-3 overflow-hidden">
+    <div
+      class="flex flex-col xl:hidden gap-4 justify-start md:p-0 transition-all duration-300 overflow-hidden shrink-0"
+      [ngClass]="{ 'h-[80vh] p-6': !isCollapse, 'h-0': isCollapse }"
+    >
+      <div class="flex flex-col flex-1 items-center gap-4"></div>
     </div>
-    <div class="w-full max-w-[600px] h-full flex flex-col gap-3">
-      <div
-        class="flex flex-col xl:hidden gap-4 justify-start md:p-0 transition-all duration-300 overflow-hidden shrink-0"
-        [ngClass]="{ 'h-[80vh] p-6': !isCollapse, 'h-0': isCollapse }"
-      >
-        <!-- <div class="flex-1 h-full">
-          <h5 class="text-center">{{ theme === 'universe' ? 'History' : 'Lịch sử' }}</h5>
-          <ul class="scrollable-content">
-            <li>
-              <a
-                [routerLink]="paths.home.path"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (isActiveChange)="(this.ngOnInit)"
-                >{{ theme === 'universe' ? 'New chat' : 'Chat mới' }}</a
-              >
-            </li>
-            <li *ngFor="let chat of chats">
-              <a
-                [routerLink]="paths.chat.path.replace(':id', chat.id)"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (isActiveChange)="(this.ngOnInit)"
-                >{{ chat.firstMessage }} - {{ chat.dateDisplay }}</a
-              >
-            </li>
-          </ul>
-        </div> -->
-        <div class="flex flex-col flex-1 items-center gap-4">
-          <!-- <h5>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h5>
-          <div class="flex gap-1 w-full items-center justify-center text-white">
-            <div
-              class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
-            >
-              <strong class="text-3xl">{{ day }}</strong>
-              {{ theme === 'universe' ? (parseInt(day) < 2 ? 'day' : 'days') : 'ngày' }}
-            </div>
-            <span class="text-3xl text-primaryBlue">:</span>
-            <div
-              class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
-            >
-              <strong class="text-3xl">{{ hour }}</strong>
-              {{ theme === 'universe' ? (parseInt(hour) < 2 ? 'hour' : 'hours') : 'giờ' }}
-            </div>
-            <span class="text-3xl text-primaryBlue">:</span>
-            <div
-              class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
-            >
-              <strong class="text-3xl">{{ minute }}</strong>
-              {{ theme === 'universe' ? (parseInt(minute) < 2 ? 'minute' : 'minutes') : 'phút' }}
-            </div>
-            <span class="text-3xl text-primaryBlue">:</span>
-            <div
-              class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
-            >
-              <strong class="text-3xl">{{ second }}</strong>
-              {{ theme === 'universe' ? (parseInt(second) < 2 ? 'second' : 'seconds') : 'giây' }}
-            </div>
-          </div> -->
-        </div>
-      </div>
-      <!-- <div class="relative z-10 w-full">
-        <div class="absolute bottom-[-58px] right-6 flex gap-4 w-full left-0 justify-end items-center">
-          <div class="w-[170px] h-[40px] relative">
-            <img src="/assets/images/Mana.svg" alt="" class="h-[40px]" />
-            <div
-              class="absolute w-[16px] h-[11px] bg-[#00C4D0] top-[15px] left-[12px]"
-              [style.width]="manaWidth + 'px'"
-            ></div>
-            <div class="absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-[#00C4D0] w-[30px] text-right">
-              {{ batteryLife }}
-            </div>
-          </div>
-          <button class="btn btn-small w-[40px] xl:hidden" (click)="isCollapse = !isCollapse">
-            <i *ngIf="isCollapse" class="icon-MenuHamburger"></i><i *ngIf="!isCollapse" class="icon-ChevronUp"></i>
-          </button>
-        </div>
-      </div> -->
-      <!-- <ng-flutter
-        *ngIf="flutterAppLoaded"
-        src="/find-me-game/main.dart.js"
-        assetBase="/find-me-game/"
-        (appLoaded)="onFlutterAppLoaded($event)"
-        class="h-full"
-      ></ng-flutter> -->
-      <div class="chatbox">
-        <ng-flutter
-          *ngIf="flutterAppLoaded"
-          src="/find-me-game/main.dart.js"
-          assetBase="/find-me-game/"
-          (appLoaded)="onFlutterAppLoaded($event)"
-          class="find-me-game"
-          [ngClass]="{ hidden: !isGaming }"
-        ></ng-flutter>
-        <div class="head">
-          <!-- <h3 class="whitespace-nowrap hidden-default">Chat: KYONS</h3> -->
-          <div class="relative z-10 w-full h-[40px]">
-            <div class="absolute right-6 flex gap-4 w-full left-0 justify-between xl:justify-end items-start">
-              <button class="history-toggle" (click)="toggleMenu()">
-                <i class="icon-History"></i>
-              </button>
-              <div class="w-[170px] h-[40px] relative">
-                <img [src]="'/assets/images/' + themeService.getTheme() + '/Mana.svg'" alt="" class="h-[40px]" />
-                <div class="battery-bg" [style.width]="manaWidth + 'px'"></div>
-                <div class="battery-number">
-                  {{ batteryLife }}
-                </div>
+    <div class="chatbox">
+      <div class="head">
+        <div class="relative z-10 w-full h-[40px]">
+          <div class="absolute right-6 flex gap-4 w-full left-0 justify-between xl:justify-end items-start">
+            <button class="history-toggle" (click)="toggleMenu()">
+              <i class="icon-History"></i>
+            </button>
+            <div class="w-[170px] h-[40px] relative">
+              <img [src]="'/assets/images/' + themeService.getTheme() + '/Mana.svg'" alt="" class="h-[40px]" />
+              <div class="battery-bg" [style.width]="manaWidth + 'px'"></div>
+              <div class="battery-number">
+                {{ batteryLife }}
               </div>
             </div>
           </div>
         </div>
-        <div class="chat-divider"></div>
-        <student-messages
-          [messages]="messages"
-          [isThinking]="isThinking"
-          (startGame)="play()"
-          (isWritingEvent)="updateThinking($event)"
-        />
-        <div class="chat-divider"></div>
-        <student-chatbox
-          (sendMessage)="sendMessage($event)"
-          [isThinking]="isThinking"
-          (endGame)="exit()"
-          [isGaming]="isGaming"
-        />
       </div>
+      @if(!isLoadingMessages){
+      <ng-flutter
+        *ngIf="flutterAppLoaded"
+        src="/find-me-game/main.dart.js"
+        assetBase="/find-me-game/"
+        (appLoaded)="onFlutterAppLoaded($event)"
+        class="find-me-game"
+        [ngClass]="{ hidden: !isGaming }"
+      ></ng-flutter>
+      <div class="chat-divider"></div>
+      <student-messages
+        [messages]="messages"
+        [isThinking]="isThinking"
+        (startGame)="play()"
+        (isWritingEvent)="updateThinking($event)"
+        [userId]="userId"
+      />
+      <div class="chat-divider"></div>
+      <student-chatbox
+        (sendMessage)="sendMessage($event)"
+        [isThinking]="isThinking"
+        (endGame)="exit()"
+        [isGaming]="isGaming"
+        (selectFile)="selectFile($event)"
+        (selectImage)="selectImage($event)"
+        (removeImage)="removeImage()"
+        (selectFileFromStorage)="selectFileFromStorage($event)"
+      />
+      } @else if(chatId){
+      <!-- <div class="place-self-center flex items-center">
+          <ng-lottie [options]="options" width="200px" height="200px"></ng-lottie>
+        </div> -->
+      <div class="body">
+        <div class="message right">
+          <div class="content w-full">
+            <div class="box w-full shine h-[48px]"></div>
+            <div class="box w-full shine h-[48px]"></div>
+          </div>
+        </div>
+        <div class="message left">
+          <div class="avatar"><img src="assets/images/kyons-avatar.png" alt="" /></div>
+          <div class="content w-full">
+            <div class="box w-full shine h-[48px]"></div>
+            <div class="box w-full shine h-[48px]"></div>
+            <div class="box w-full shine h-[48px]"></div>
+          </div>
+        </div>
+        <div class="message right">
+          <div class="content w-full">
+            <div class="box w-full shine h-[48px]"></div>
+          </div>
+        </div>
+        <div class="message left">
+          <div class="avatar"><img src="assets/images/kyons-avatar.png" alt="" /></div>
+          <div class="content w-full">
+            <div class="box w-full shine h-[120px]"></div>
+          </div>
+        </div>
+      </div>
+      }
     </div>
-    <div class="xl:flex hidden flex-col flex-1 items-end">
-      <!-- <h3>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h3>
+  </div>
+  <div class="xl:flex hidden flex-col flex-1 items-end">
+    <!-- <h3>{{ theme === 'universe' ? 'Countdown' : 'Đếm ngược' }}</h3>
       <div class="flex gap-1 w-full items-center justify-center text-white">
         <div
           class="flex flex-col w-[calc((100%_-_36px)_/_4)] max-w-[70px] bg-blueGrey-800 py-[14px] rounded-lg text-center"
@@ -213,7 +120,5 @@
           {{ theme === 'universe' ? (parseInt(second) < 2 ? 'second' : 'seconds') : 'giây' }}
         </div>
       </div> -->
-    </div>
   </div>
-  <div class="h-20" *ngIf="!isCollapse"></div>
 </div>

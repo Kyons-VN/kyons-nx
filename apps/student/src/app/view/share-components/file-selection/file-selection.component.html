@@ -1,0 +1,91 @@
+<div class="flex flex-col w-full h-full">
+  <div class="flex flex-col gap-6 h-full overflow-hidden">
+    <div class="flex gap-4 w-full">
+      <div class="icon-prefix w-full md:w-auto">
+        <i class="icon-Search absolute pointer-events-none"></i>
+        <input
+          type="text"
+          placeholder="Tìm kiếm..."
+          [(ngModel)]="searchFile"
+          (ngModelChange)="onSearchChat()"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <div class="w-full h-full flex flex-col gap-3">
+      <div class="table-responsive">
+        @if(!loading){<mat-table id="fileTable" [dataSource]="dataSource" matSort>
+          <!-- Name Definition -->
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="" class="w-1/3">
+              <span class="font-bold text-blueGrey-500">Tên tài liệu</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="flex gap-4">
+              @if(row.isImage()){
+              <img [src]="row.fileUri" class="w-[48px] h-[48px] object-cover" />
+              }@else if(row.isPdf()){
+              <mat-icon>picture_as_pdf</mat-icon>
+              }@else {
+              <mat-icon>description</mat-icon>
+              } &nbsp;
+              <span
+                ><span class="line-clamp-1">{{ row.name.split('.')[0] }}</span
+                >.{{ row.name.split('.')[1] }}</span
+              >
+            </mat-cell>
+          </ng-container>
+          <!-- Type Definition -->
+          <ng-container matColumnDef="mimeType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+              <span class="font-bold text-blueGrey-500">Loại tài liệu</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="text-center">{{ row.typeDisplay }}</span>
+            </mat-cell>
+          </ng-container>
+          <!-- Size Definition -->
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+              <span class="font-bold text-blueGrey-500">Kích thước</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="text-center">{{ row.sizeDisplay }}</span>
+            </mat-cell>
+          </ng-container>
+          <!-- Type Definition -->
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="" class="justify-end">
+              <span class="font-bold text-blueGrey-500">Ngày tạo</span>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row" class="justify-end">
+              <span class="text-center">{{ row.dateDisplay }}</span>
+            </mat-cell>
+          </ng-container>
+          <!-- Header and Row Declarations -->
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="fileClicked.emit(row)"
+            class="cursor-pointer"
+          ></mat-row>
+          <!-- <mat-row>
+            <mat-cell colspan="4" *ngIf="searchFile != '' && dataSource.filteredData.length == 0"
+              >Không có tập tin nào giống với tìm kiếm {{ searchFile }}</mat-cell
+            >
+          </mat-row> --> </mat-table
+        >}@else {
+        <div class="col w-full h-full overflow-hidden">
+          <div class="bg-blueGrey-200 h-[56px] w-full shrink-0"></div>
+          <div class="col">
+            <div class="shine w-full h-[81px] border-b border-[#0000001f] delay-1"></div>
+            <div class="shine w-full h-[81px] border-b border-[#0000001f] delay-2"></div>
+            <div class="shine w-full h-[81px] border-b border-[#0000001f] delay-3"></div>
+            <div class="shine w-full h-[81px] border-b border-[#0000001f] delay-4"></div>
+          </div>
+        </div>
+        }
+      </div>
+      <mat-paginator [pageSizeOptions]="[10]" aria-label="Select page of periodic elements"> </mat-paginator>
+    </div>
+  </div>
+</div>

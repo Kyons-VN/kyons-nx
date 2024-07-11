@@ -2,11 +2,13 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
+  HostBinding,
   Injector,
   NgZone,
   OnDestroy,
   OnInit,
   Renderer2,
+  ViewChild,
   effect,
   inject,
   runInInjectionContext,
@@ -14,14 +16,13 @@ import {
 } from '@angular/core';
 // import { ChatService } from '@data/chat/chat.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Content, Mana, TextPart } from '@data/chat/chat-model';
-import { Chat, ChatService } from '@data/chat/chat.service';
-import { LoadingOverlayService } from '@data/loading-overlay.service';
+import { Content, FilePart, Mana, Part, TextPart } from '@data/chat/chat-model';
+import { ChatService, chatServerApi } from '@data/chat/chat.service';
+import { FileData, Image } from '@data/file/file-model';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
 import { Role, maxManaWidth } from '@domain/chat/i-content';
-import { environment } from '@environments';
 import { isCommand } from '@utils/chat';
 import { ChatboxComponent } from '@view/share-components/chat/chatbox.component';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
@@ -29,14 +30,18 @@ import { NgFlutterComponent } from '@view/share-components/ng-flutter/ng-flutter
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { ChatbotSidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent],
+  imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, ChatbotSidebarComponent],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'app-full items-center relative chat';
+  @ViewChild(ChatbotSidebarComponent) sidebar!: ChatbotSidebarComponent;
+
   changeDetectorRef = inject(ChangeDetectorRef);
   chatService = inject(ChatService);
   paths = inject(NavigationService).paths;
@@ -48,11 +53,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   zone = inject(NgZone);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
-  loading = inject(LoadingOverlayService);
-
 
   flutterState?: any;
-  chats!: { [key: string]: { label: string, data: Chat[] } };
   countdown!: Observable<number>;
   $interval!: Subscription;
   flutterAppLoaded = true;
@@ -67,14 +69,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isCollapse = true;
   manaWidth = maxManaWidth;
   batteryLife = 100;
-  currentChat: Chat | null = null;
   messages: Content[] = [];
   isThinking = false;
   isGaming = false;
   isSmMenuHide = signal(true);
+  file: File | undefined = undefined;
+  image: Image | undefined = undefined;
+  imageTest: Image = new Image('1718506979', 'image/jpg', 12345);
+  mana!: Mana;
+  isLoadingMessages = false;
+  fileData: FileData | undefined = undefined;
 
   ngOnInit(): void {
-    this.loading.show();
     this.userId = this.userService.getUserId();
     this.userService.updateCurrentUser(this.userId).then((res) => {
       if (res) {
@@ -89,27 +95,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     });
     // watch route param changes
     this.route.paramMap.subscribe(params => {
+      this.isLoadingMessages = true;
       this.flutterAppLoaded = false;
       this.isGaming = false;
       this.chatId = params.get('id') ?? '';
-      console.log(`Chat id: ${this.chatId}`);
-      this.chatService.getChats(this.userId).subscribe({
-        next: chats => {
-          this.chats = this.groupByTime(chats);
-          this.changeDetectorRef.detectChanges();
-          this.loading.hide();
-        },
-        error: err => {
-          if (err.message === 'Unauthenticated') {
-            this.router.navigate([this.paths.signOut.path]);
-          }
-          this.loading.hide();
-          console.error(err);
-        },
-      });
       this.updateMana();
       if (this.chatId) {
-        this.updateMessages();
+        this.getMessages().add(() => this.isLoadingMessages = false);
+      }
+      else {
+        setTimeout(() => {
+          this.isLoadingMessages = false;
+        }, 500);
       }
 
       setTimeout(() => {
@@ -143,6 +140,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   updateMana() {
     this.chatService.getMana(this.userId).subscribe({
       next: (mana: Mana) => {
+        this.mana = mana;
         this.manaWidth = Math.floor(maxManaWidth * mana.value / mana.max);
         this.batteryLife = Math.floor(mana.value / mana.max * 100);
       },
@@ -156,13 +154,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     if (this.$interval !== undefined) this.$interval.unsubscribe();
   }
 
-  goToChat(chatId: string) {
-    console.log(`Navigating to chat ${chatId}`);
-    this.zone.run(() => {
-      this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
-    });
-  }
-
   onFlutterAppLoaded(state: any) {
     this.flutterState = state;
 
@@ -170,17 +161,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       console.log(`Chat id: ${this.chatId}`);
       // this.flutterState.setChatId(id);
     } else {
-      // setTimeout(() => {
-      //   if (this.manaWidth > 0 && this.messages.length == 0) {
-      //     this.sendMessage('/hello');
-      //   }
-      // }, 600000);
+      setTimeout(() => {
+        if (this.manaWidth > 0 && this.messages.length == 0) {
+          // this.sendMessage('/hello');
+          this.getGreeting();
+        }
+      }, 600000);
     }
 
     // Set the initial values of the Flutter app from enum DemoScreen in dart file
     this.flutterState.setUserId(this.userId);
     this.flutterState.setChatId(this.chatId);
-    this.flutterState.setServerApi(`${environment.firebase.functionsUrl}/chat`);
+    this.flutterState.setServerApi(chatServerApi);
     // this.flutterState.setTheme(this.themeService.themeStore());
     runInInjectionContext(this.injector, () => {
       effect(() => {
@@ -195,13 +187,16 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     //     this.goToChat(this.flutterState.getChatId());
     //   }
     // });
-    // this.flutterState.onManaChanged(() => {
-    //   console.log('Mana changed');
-    //   console.log(this.flutterState.getMana());
-    //   const { a, b } = this.flutterState.getMana();
-    //   this.manaWidth = maxManaWidth * a / b;
-    //   this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
-    // });
+    this.flutterState.onManaChanged(() => {
+      const { a, b } = this.flutterState.getMana();
+      this.manaWidth = maxManaWidth * a / b;
+      this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
+      if (a != this.mana.value) {
+        console.log('Mana changed');
+        this.updateMana();
+        this.getMessages();
+      };
+    });
     // this.flutterState.onThemeChanged(() => {
     //   this.theme = this.flutterState.getTheme();
     //   this.themeService.setTheme(this.theme);
@@ -209,66 +204,106 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.flutterState.onShowGameChanged(() => {
       this.isGaming = this.flutterState.shouldShowGame();
       if (!this.isGaming) { this.flutterState.setMessage(''); }
-      this.updateMessages();
+      this.getMessages();
     });
   }
-  sendMessage(message: string) {
-    this.isThinking = true;
-    if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, [new TextPart(message)], new Date())];
-    console.log(message);
-    if (this.chatId) {
-      this.chatService.sendMessage(this.userId, this.chatId, message).subscribe({
-        next: () => {
-          // if (errorMessage.length > 0) {
-          //   this.messages = errorMessage;
-          // }
-          // else {
-          this.updateMessages();
-          this.updateMana();
-          // }
-          // this.messages = messages;
 
+  getGreeting() {
+    if (this.chatId == '') {
+      this.isThinking = true;
+      this.chatService.getGreeting().subscribe({
+        next: (message) => {
+          this.messages = [message];
         },
         error: (err) => {
           console.error(err);
-          if (err.error === 'Not enough mana') {
-            this.messages = [...this.messages, Content.outOfMana()]
-          }
           this.isThinking = false;
         },
-      });
-    }
-    else {
-      this.chatService.startChat(this.userId, message).subscribe({
-        next: (chatId) => {
-          this.chatId = chatId;
-          this.chatService.getChats(this.userId, true).subscribe({
-            next: (chats) => {
-              this.chats = this.groupByTime(chats);
-              this.changeDetectorRef.detectChanges();
-              this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
-              this.isThinking = false;
-            }
-          });
-        },
-        error: (err) => {
-          console.error(err);
-          if (err.error === 'Not enough mana') {
-            this.messages = [...this.messages, Content.outOfMana()]
-          }
-          this.isThinking = false;
-        },
-      });
+      })
     }
   }
-  updateMessages() {
-    this.chatService.getMessages(this.userId, this.chatId).subscribe({
-      next: (messages) => {
-        this.messages = messages;
-        this.isThinking = false;
+
+  sendMessage(message: string) {
+    if (this.isThinking) return;
+    this.isThinking = true;
+    const askingMessage: Part[] = [new TextPart(message)];
+    if (this.image) {
+      const newFilePart = new FilePart(this.image.name);
+      newFilePart.url = this.image.base64 || this.image.uri;
+      newFilePart.mimeType = this.image.mimeType;
+      askingMessage.push(newFilePart);
+    }
+    if (!isCommand(message)) this.messages = [...this.messages, new Content(Role.user, askingMessage, new Date())];
+    // console.log(message);
+    // if (this.chatId) {
+    this.chatService.sendMessageFile(this.userId, message, {
+      chatId: this.chatId,
+      file: this.file,
+      image: this.image,
+      fileData: this.fileData,
+    }).subscribe({
+      next: async (chatId) => {
+        if (this.chatId == '') {
+          this.chatId = chatId;
+          await this.sidebar.getChats();
+          this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
+        }
+        else {
+          this.getMessages();
+          this.updateMana();
+        }
       },
       error: (err) => {
         console.error(err);
+        if (err.code === 3) {
+          this.messages = [...this.messages, Content.outOfMana()]
+        }
+        else {
+          this.messages = [...this.messages, Content.unknownError(err.code)]
+        }
+        this.isThinking = false;
+      },
+    });
+    if (this.file) { this.file = undefined; this.image = undefined; }
+    if (this.fileData) { this.fileData = undefined; this.image = undefined; }
+    // }
+    // else {
+    //   this.chatService.sendMessageFile(this.userId, message, {
+    //     file: this.file,
+    //     image: this.image,
+    //     fileData: this.fileData,
+    //   }).subscribe({
+    //     next: async (chatId) => {
+    //       this.chatId = chatId;
+    //       await this.sidebar.getChats();
+    //       this.router.navigate([this.paths.chat.path.replace(':id', chatId)]);
+    //       this.isThinking = false;
+    //     },
+    //     error: (err: ChatError) => {
+    //       console.error(err);
+    //       if (err.code === 3) {
+    //         this.messages = [...this.messages, Content.outOfMana()]
+    //       }
+    //       this.isThinking = false;
+    //     },
+    //   });
+    // }
+  }
+
+  toggleMenu() {
+    this.sidebar.toggleMenu();
+  }
+
+  getMessages() {
+    if (this.chatId == '') return new Observable<Content[]>(() => { [] }).subscribe();
+    return this.chatService.getMessages(this.userId, this.chatId).subscribe({
+      next: (messages) => {
+        this.messages = messages;
+      },
+      error: (err) => {
+        console.error(err);
+        this.isThinking = false;
+        this.router.navigate([this.paths.chatbot.path]);
       },
     });
   }
@@ -285,49 +320,21 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.isThinking = isThinking;
   }
 
-  toggleMenu() {
-    this.isSmMenuHide.set(!this.isSmMenuHide());
-    this.isSmMenuHide() ? this.renderer.removeClass(this.document.body, 'overflow-hidden') : this.renderer.addClass(this.document.body, 'overflow-hidden');
+  selectFile(file: File) {
+    this.file = file;
   }
 
-
-
-  groupByTime(chats: Chat[]): { [key: string]: { label: string, data: Chat[] } } {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    yesterday.setHours(0, 0, 0, 0);
-    const last7Days = new Date(today);
-    last7Days.setDate(today.getDate() - 7);
-    last7Days.setHours(0, 0, 0, 0);
-    const last30Days = new Date(today);
-    last30Days.setDate(today.getDate() - 30);
-    last30Days.setHours(0, 0, 0, 0);
-
-    const groups: { [key: string]: { label: string, data: Chat[] } } = {
-      'today': { label: 'Hôm nay', data: [] },
-      'yesterday': { label: 'Hôm qua', data: [] },
-      'last7Days': { label: '7 ngày trước', data: [] },
-      'last30Days': { label: '1 tháng gần đây', data: [] },
-      'older': { label: 'Cũ hơn', data: [] },
-    };
-
-    chats.forEach(chat => {
-      const chatDate = new Date(chat.createdAt);
-      if (chatDate.getTime() >= today.getTime()) {
-        groups['today']['data'].push(chat);
-      } else if (chatDate.getTime() >= yesterday.getTime()) {
-        groups['yesterday']['data'].push(chat);
-      } else if (chatDate.getTime() >= last7Days.getTime()) {
-        groups['last7Days']['data'].push(chat);
-      } else if (chatDate.getTime() >= last30Days.getTime()) {
-        groups['last30Days']['data'].push(chat);
-      } else {
-        groups['older']['data'].push(chat);
-      }
-    });
-
-    return groups;
+  selectImage(image: Image) {
+    this.image = image;
   }
+
+  removeImage() {
+    this.file = undefined;
+    this.fileData = undefined;
+  }
+
+  selectFileFromStorage(file: FileData) {
+    this.fileData = file;
+  }
+
 }

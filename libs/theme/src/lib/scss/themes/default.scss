@@ -1,5 +1,8 @@
 [data-theme='default'] {
   font-family: 'Montserrat', sans-serif;
+  input {
+    font-family: 'Montserrat', sans-serif;
+  }
   @apply bg-blueGrey-100 text-primaryBlue;
 
   a {
@@ -8,34 +11,28 @@
   .text-white {
     color: white;
   }
-  .history {
-    @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:h-auto xl:relative;
+  .sidenav-with-scrollable-list {
     ul > li {
-      @apply gap-2 flex flex-col;
       & > ul > li {
-        @apply py-1;
         &.active {
-          a.history-item {
+          .side-bar-item {
             @apply bg-lightBlue-6 font-bold text-lightBlue-1;
-            // color: var(--color-lightBlue-1);
+          }
+        }
+        .side-bar-item {
+          .chat-name {
+            @apply text-primaryBlue;
           }
         }
         span {
           @apply text-xs text-blueGrey-500;
         }
-        a.history-item {
-          @apply px-2 py-1 rounded-md text-primaryBlue line-clamp-1 text-ellipsis;
-          text-decoration: none !important;
-        }
       }
     }
-    &.show-history {
-      @media screen and (max-width: 1169px) {
-        @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 bg-white p-4;
-      }
-    }
-    .history-list {
-      @apply flex flex-col gap-2;
+  }
+  .side-bar.show-sm {
+    @media screen and (max-width: 1169px) {
+      @apply bg-white;
     }
   }
   .history-toggle {

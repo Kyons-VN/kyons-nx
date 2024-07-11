@@ -15,10 +15,11 @@ import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 // import { NotificationService } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
+import { MaterialModule } from '../../../material.module';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MaterialModule],
   selector: 'student-top-menu',
   templateUrl: 'top-menu.component.html',
   styleUrls: ['top-menu.component.scss'],

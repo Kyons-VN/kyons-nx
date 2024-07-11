@@ -24,14 +24,26 @@
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  &:not([class*='text-']):not(.btn-icon i, .btn i) {
-    font-size: 16px;
+  font-size: 24px;
+  // &:not([class*='text-']):not(.btn-icon i, .btn i) {
+  //   font-size: 16px;
+  // }
+  &.small {
+    @apply text-[16px];
+  }
+  &.large {
+    @apply text-[32px];
   }
 }
 
 .icon-Add {
   &:before {
     content: $icon-Add;
+  }
+}
+.icon-AddFile {
+  &:before {
+    content: $icon-AddFile;
   }
 }
 .icon-AddFriend {
@@ -129,11 +141,6 @@
     content: $icon-BookmarkRemove;
   }
 }
-.icon-BulletList {
-  &:before {
-    content: $icon-BulletList;
-  }
-}
 .icon-BulletPoint {
   &:before {
     content: $icon-BulletPoint;
@@ -199,29 +206,24 @@
     content: $icon-Check;
   }
 }
-.icon-ChevronDown {
+.icon-ChervonDown {
   &:before {
-    content: $icon-ChevronDown;
+    content: $icon-ChervonDown;
   }
 }
-.icon-ChevronLeft {
+.icon-ChervonLeft {
   &:before {
-    content: $icon-ChevronLeft;
+    content: $icon-ChervonLeft;
   }
 }
-.icon-ChevronRight {
+.icon-ChervonRight {
   &:before {
-    content: $icon-ChevronRight;
+    content: $icon-ChervonRight;
   }
 }
-.icon-ChevronUp {
+.icon-ChervonUp {
   &:before {
-    content: $icon-ChevronUp;
-  }
-}
-.icon-Close {
-  &:before {
-    content: $icon-Close;
+    content: $icon-ChervonUp;
   }
 }
 .icon-Crop {
@@ -234,11 +236,6 @@
     content: $icon-Crown;
   }
 }
-.icon-Delete {
-  &:before {
-    content: $icon-Delete;
-  }
-}
 .icon-Document {
   &:before {
     content: $icon-Document;
@@ -247,6 +244,26 @@
 .icon-Done {
   &:before {
     content: $icon-Done;
+  }
+}
+.icon-DotPoints {
+  &:before {
+    content: $icon-DotPoints;
+  }
+}
+.icon-DotsGrid {
+  &:before {
+    content: $icon-DotsGrid;
+  }
+}
+.icon-DotsHorizontal {
+  &:before {
+    content: $icon-DotsHorizontal;
+  }
+}
+.icon-DotsVertical {
+  &:before {
+    content: $icon-DotsVertical;
   }
 }
 .icon-Draw {
@@ -292,6 +309,11 @@
 .icon-Facebook {
   &:before {
     content: $icon-Facebook;
+  }
+}
+.icon-File {
+  &:before {
+    content: $icon-File;
   }
 }
 .icon-Filter {
@@ -352,6 +374,11 @@
 .icon-Home-1 {
   &:before {
     content: $icon-Home-1;
+  }
+}
+.icon-Image {
+  &:before {
+    content: $icon-Image;
   }
 }
 .icon-Info {
@@ -482,6 +509,11 @@
 .icon-Phone {
   &:before {
     content: $icon-Phone;
+  }
+}
+.icon-Present {
+  &:before {
+    content: $icon-Present;
   }
 }
 .icon-Preview {
@@ -624,6 +656,11 @@
     content: $icon-Time;
   }
 }
+.icon-Trash {
+  &:before {
+    content: $icon-Trash;
+  }
+}
 .icon-Undo {
   &:before {
     content: $icon-Undo;
@@ -667,6 +704,11 @@
 .icon-Work {
   &:before {
     content: $icon-Work;
+  }
+}
+.icon-XClose {
+  &:before {
+    content: $icon-XClose;
   }
 }
 .icon-ZaloPay {

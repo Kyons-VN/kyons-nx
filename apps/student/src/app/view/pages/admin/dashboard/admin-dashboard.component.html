@@ -1,47 +1,183 @@
-<div class="flex items-start justify-center p-10">
-  <div class="flex flex-col max-w-[700px] w-full gap-4">
-    <div class="flex justify-between">
-      <p>Total users: {{ totalUsers }}</p>
-      <button class="btn btn-icon" (click)="refresh()"><i class="icon-Reload"></i></button>
-    </div>
-    Search: <input type="text" [(ngModel)]="search" />
-    <div class="flex flex-col border border-blueGrey-300">
+<div class="flex items-start justify-center pb-10 md:p-10 overflow-auto h-full">
+  <div
+    class="flex flex-col w-full h-full"
+    [ngClass]="{ 'max-w-[700px]': selectedTab === 0, 'max-w-[1440px]': selectedTab === 1 }"
+  >
+    <!-- Tab header -->
+    <div class="tab-wrapper">
       <div
-        class="flex flex-col"
-        *ngFor="let user of users | filter : filterUser.bind(this)"
-        [ngClass]="{ 'cursor-pointer': selectedUser !== user }"
-        (click)="selectedUser !== user && selectUser(user)"
+        *ngFor="let tab of tabs; let i = index"
+        class="tab-item"
+        [class.active]="i === selectedTab"
+        (click)="selectTab(i)"
       >
-        <div class="flex items-center justify-between border-b border-blueGrey-400 bg-white hover:bg-blueGrey-100 p-4">
-          <div class="flex flex-col">
-            <span>{{ user.id }}</span>
-            <span>{{ user.email }}</span>
+        {{ tab }}
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 0" class="flex flex-col gap-4 bg-white p-4">
+      <div class="flex justify-between">
+        <p>Total users: {{ totalUsers }}</p>
+        <button class="btn btn-icon" (click)="refresh()"><i class="icon-Reload"></i></button>
+      </div>
+      Search: <input type="text" [(ngModel)]="search" />
+      <div class="flex flex-col border border-blueGrey-300">
+        <div
+          class="flex flex-col"
+          *ngFor="let user of users | filter : filterUser.bind(this)"
+          [ngClass]="{ 'cursor-pointer': selectedUser !== user }"
+          (click)="selectedUser !== user && selectUser(user)"
+        >
+          <div
+            class="flex items-center justify-between border-b border-blueGrey-400 bg-white hover:bg-blueGrey-100 p-4"
+          >
+            <div class="flex flex-col">
+              <span>{{ user.id }}</span>
+              <span>{{ user.email }}</span>
+            </div>
+            <div class="flex gap-3 items-center" *ngIf="selectedUser === user">
+              <strong class="text-lightBlue-1 cursor-pointer" (click)="selectUser(user)">{{ mana }}</strong>
+              <button class="btn small" [disabled]="mana === -1" (click)="resetMana(user)">Reset Mana</button>
+              <button class="btn small" [disabled]="mana === -1" (click)="viewChat(user)">View Chat</button>
+            </div>
           </div>
-          <div class="flex gap-3 items-center" *ngIf="selectedUser === user">
-            <strong class="text-lightBlue-1 cursor-pointer" (click)="selectUser(user)">{{ mana }}</strong>
-            <button class="btn small" [disabled]="mana === -1" (click)="resetMana(user)">Reset Mana</button>
-            <button class="btn small" [disabled]="mana === -1" (click)="viewChat(user)">View Chat</button>
+          <div class="flex flex-col" *ngIf="selectedUser === user">
+            @if(selectedUser&&(selectedUser.history!==null&&selectedUser.history.length===0)){
+            <div class="p-4">Empty history</div>
+            } @else if(selectedUser&&selectedUser.history) {
+            <div class="flex flex-col p-2 border border-lightBlue-3">
+              <div class="" *ngFor="let chat of selectedUser.history; let i = index">
+                <div
+                  class="w-full p-2 cursor-pointer bg-lightBlue-5 border-b border-lightBlue-3 flex justify-between"
+                  (click)="getMessages(chat)"
+                >
+                  <span>{{ chat.id }}</span>
+                  <i [ngClass]="{ 'icon-ChevronUp': !toggleList[i], 'icon-ChevronDown': toggleList[i] }"></i>
+                </div>
+                <div class="bg-white" [ngClass]="{ 'p-2': chat.messages.length > 0 }">
+                  <student-messages [messages]="chat.messages" />
+                </div>
+              </div>
+            </div>
+            }
           </div>
         </div>
-        <div class="flex flex-col" *ngIf="selectedUser === user">
-          @if(selectedUser&&(selectedUser.history!==null&&selectedUser.history.length===0)){
-          <div class="p-4">Empty history</div>
-          } @else if(selectedUser&&selectedUser.history) {
-          <div class="flex flex-col p-2 border border-lightBlue-3">
-            <div class="" *ngFor="let chat of selectedUser.history; let i = index">
-              <div
-                class="w-full p-2 cursor-pointer bg-lightBlue-5 border-b border-lightBlue-3 flex justify-between"
-                (click)="getMessages(chat)"
-              >
-                <span>{{ chat.id }}</span>
-                <i [ngClass]="{ 'icon-ChevronUp': !toggleList[i], 'icon-ChevronDown': toggleList[i] }"></i>
+      </div>
+    </div>
+    <div *ngIf="selectedTab === 1" class="flex flex-col bg-white h-[calc(100%_-_56px)]">
+      <div class="grid grid-rows-[100%] grid-cols-1 h-full md:flex md:flex-row-reverse">
+        <div class="flex-1 h-full">
+          @if(configMenu()===0){
+          <div class="flex flex-col w-full h-full p-4 gap-4 overflow-auto">
+            <div class="flex flex-col">
+              <label>Default mana for all free users</label>
+              <input type="number" [(ngModel)]="defaultMana" (keydown)="isChanged = true" />
+            </div>
+            <div class="flex justify-center">
+              <button class="btn orange" (click)="saveDefaultMana()" [disabled]="!isChanged">Save</button>
+            </div>
+          </div>
+          }@else if(configMenu()===1){
+          <div class="grid grid-rows-[100%] grid-cols-1 h-full">
+            <div class="flex flex-col p-4 gap-4 h-full">
+              <div class="flex flex-col w-full h-full gap-3 overflow-auto">
+                <div class="flex flex-col">
+                  <label>Context of chatbot when student in /chatbot menu</label>
+                  <textarea
+                    type="text"
+                    [(ngModel)]="context.initialGameContext"
+                    (keydown)="isChanged = true"
+                    rows="10"
+                  ></textarea>
+                </div>
+                <div class="flex flex-col">
+                  <label>Context of chatbot when student in lesson</label>
+                  <textarea
+                    type="text"
+                    [(ngModel)]="context.initialNoGameContext"
+                    (keydown)="isChanged = true"
+                    rows="10"
+                  ></textarea>
+                </div>
+                <div class="flex flex-col">
+                  <label>Context of chatbot in the landing page kyons.vn</label>
+                  <textarea
+                    type="text"
+                    [(ngModel)]="context.websiteContext"
+                    (keydown)="isChanged = true"
+                    rows="10"
+                  ></textarea>
+                </div>
               </div>
-              <div class="bg-white" [ngClass]="{ 'p-2': chat.messages.length > 0 }">
-                <student-messages [messages]="chat.messages" />
+              <div class="">
+                <p>Variable: [current_time] - Get local datetime</p>
+              </div>
+              <div class="flex justify-center gap-2">
+                <button class="btn orange" [disabled]="!isChanged">Test</button>
+                <button class="btn orange" (click)="saveContext()" [disabled]="!isChanged">Save</button>
               </div>
             </div>
           </div>
+          }@else if( configMenu()===2){
+          <div class="flex flex-col w-full h-full p-4 gap-4 overflow-auto">
+            <div class="flex flex-col gap-2">
+              <label>File types</label>
+              @for (item of fileValidation.allowedFileTypes;track i ;let i= $index) {
+              <div class="flex">
+                <input
+                  type="text"
+                  [(ngModel)]="fileValidation.allowedFileTypes[i]"
+                  (keydown)="isChanged = true"
+                  (keydown.enter)="insertFileTypeAt(i + 1)"
+                  class="flex-1"
+                />
+                <button class="btn-icon link" (click)="remove(i)">
+                  <i class="icon-Trash"></i>
+                </button>
+              </div>
+              }
+            </div>
+            <div class="flex flex-col">
+              <label>Size limit for all file type (byte)</label>
+              <input type="number" [(ngModel)]="fileValidation.maxFileSize" (keydown)="isChanged = true" />
+            </div>
+            <div class="flex flex-col">
+              <label>Size limit for image file (byte)</label>
+              <input type="number" [(ngModel)]="fileValidation.maxImageSize" (keydown)="isChanged = true" />
+            </div>
+            <div class="flex flex-col">
+              <label>Size limit for storage (byte)</label>
+              <input type="number" [(ngModel)]="fileValidation.maxStorageSize" (keydown)="isChanged = true" />
+            </div>
+            <div class="flex justify-center">
+              <button class="btn orange" (click)="saveFileValidation()" [disabled]="!isChanged">Save</button>
+            </div>
+          </div>
           }
+        </div>
+        <div class="h-full md:w-[300px]">
+          <ul class="grid grid-cols-3 md:flex md:flex-col">
+            <li
+              class="cursor-pointer p-2 bg-primaryBlue bg-opacity-20 text-center md:text-left flex justify-center items-center md:block"
+              [ngClass]="{ 'bg-opacity-100 text-white': configMenu() === 0 }"
+              (click)="configMenu.set(0)"
+            >
+              Mana
+            </li>
+            <li
+              class="cursor-pointer p-2 bg-primaryBlue bg-opacity-20 text-center md:text-left flex justify-center items-center md:block"
+              [ngClass]="{ 'bg-opacity-100 text-white': configMenu() === 1 }"
+              (click)="configMenu.set(1)"
+            >
+              Context
+            </li>
+            <li
+              class="cursor-pointer p-2 bg-primaryBlue bg-opacity-20 text-center md:text-left flex justify-center items-center md:block"
+              [ngClass]="{ 'bg-opacity-100 text-white': configMenu() === 2 }"
+              (click)="configMenu.set(2)"
+            >
+              File Validation
+            </li>
+          </ul>
         </div>
       </div>
     </div>

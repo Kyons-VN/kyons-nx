@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostBinding, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AccountStandaloneService } from '@data/auth/account.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 // import { TestType } from '@domain/knowledge/i-test';
-import { BeforeunloadDirective } from '@share-directives/before-unload';
-import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@utils/validators';
+import { BeforeunloadDirective } from '@share-directives';
+import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@share-utils/validators';
 
 @Component({
   standalone: true,
@@ -32,6 +32,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     this.notHaveSpecial = notHaveSpecial;
     this.search = search;
   }
+
+  @HostBinding('class') class = 'h-full';
 
   platformId = inject(PLATFORM_ID);
 

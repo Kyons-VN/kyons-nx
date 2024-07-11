@@ -1,6 +1,6 @@
 import { IMockTestItem, MockTestStatus } from '@domain/knowledge/i-mock-test';
 // import { environment } from '@environments';
-import { formattedDate } from '@utils/formats';
+import { formattedDate } from '@share-utils/formats';
 import { pick } from 'lodash-es';
 // import {
 //   IAnswer,
@@ -313,3 +313,4 @@ class MockTestItem implements IMockTestItem {
 
 // const answerPrefixes = ['A. ', 'B. ', 'C. ', 'D. ', 'E. ', 'F. '];
 export { MockTestItem };
+

@@ -1,7 +1,7 @@
-// .history {
-//   &.show-history {
-//     @media screen and (max-width: 1169px) {
-//       @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 bg-white p-4;
-//     }
-//   }
-// }
+.loading {
+  @apply flex items-center justify-center w-full h-full;
+}
+.chatbox.bg-blue {
+  // @apply bg-primaryBlue p-0;
+  grid-template-rows: 100%;
+}

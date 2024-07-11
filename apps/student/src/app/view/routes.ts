@@ -59,8 +59,10 @@ class AppPaths {
   termsOfService = { name: '', path: '/terms-of-service' };
   chatbot = { name: 'Chatbot', path: '/chatbot' };
   chat = { name: 'Chat', path: '/chatbot/chat/:id' };
+  files = { name: 'File Manager', path: '/chatbot/files/' };
   adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
   adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
+  fileManager = { name: 'File Manager', path: '/file-manager' };
 }
 
 const routes: Routes = [
@@ -113,6 +115,7 @@ const routes: Routes = [
       },
       { path: 'share-mocktest/:ref', component: MockTestShareComponent },
       { path: 'promotions/:event', component: GiftComponent },
+      { path: 'file-manager', loadComponent: () => import('./pages/file-manager/file-manager.component').then(m => m.FileManagerComponent) },
     ],
   },
   {
@@ -238,6 +241,10 @@ const routes: Routes = [
       },
       {
         path: 'chat/:id',
+        component: ChatbotComponent,
+      },
+      {
+        path: 'files',
         component: ChatbotComponent,
       },
     ],

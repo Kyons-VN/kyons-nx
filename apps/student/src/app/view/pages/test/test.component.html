@@ -1,33 +1,64 @@
-<div class="flex justify-center">
-  <div class="flex flex-col items-center justify-center h-full gap-10 p-10 w-full max-w-[600px]">
-    <h1 class="">Giải toán trên ảnh</h1>
-    <div class="flex flex-col gap-2 w-full">
-      <label for="">Yêu cầu:</label>
-      <textarea
-        class="w-full"
-        rows="3"
-        placeholder="Nội dung..."
-        name="text"
-        (keydown.control.enter)="onCtrlEnter()"
-        (keydown.enter)="onEnter()"
-        [(ngModel)]="prompt"
-      ></textarea>
+<!-- <div class="wrapper1"> -->
+<!-- <div class="flex flex-col h-full"> -->
+<student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
+<div class="flex h-[calc(100%_-_56px)] xl:h-[calc(100%_-_106px)]">
+  <!-- <div class="bard-sidenav-container flex flex-1 h-full"> -->
+  <div class="bard-sidenav flex w-[284px] h-full">
+    <!-- history -->
+    <!-- <div class="sidenav-with-scrollable-list"> -->
+    <div class="overflow-container">
+      <div class="history">
+        <div class="xl:hidden flex justify-between items-start">
+          <span class="h7">History</span>
+          <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]">
+            <i class="icon-Close text-[16px]"></i>
+          </div>
+        </div>
+        <div class="flex justify-start">
+          <button class="btn orange">
+            <i class="icon-Add"></i>
+            New chat
+          </button>
+        </div>
+        <span class="h7">History</span>
+      </div>
+      <div class="h-[40px] w-full"></div>
+      <div class="chat-history">
+        <div
+          *ngFor="let item of [0, 1, 2, 3, 4, 5, 6, 7]"
+          _ngcontent-ng-c3455529033=""
+          role="button"
+          tabindex="0"
+          data-test-id="conversation"
+          mattooltipposition="right"
+          mattooltipshowdelay="300"
+          class="mat-mdc-tooltip-trigger conversation selected ng-star-inserted"
+          jslog='186014;track:generic_click;BardVeMetadataKey:[null,null,null,null,null,null,null,["c_6299249eec606c14","Image Size in Typescript",0]];mutable:true'
+          aria-describedby="cdk-describedby-message-ng-1-43"
+          cdk-describedby-host="ng-1"
+        >
+          <div _ngcontent-ng-c3455529033="" class="icon-container with-mat-icon ng-star-inserted">
+            <mat-icon
+              _ngcontent-ng-c3455529033=""
+              role="img"
+              matlistitemicon=""
+              class="mat-icon notranslate icon-size-small google-symbols mat-icon-no-color"
+              aria-hidden="true"
+              data-mat-icon-type="font"
+              >chat_bubble_outline</mat-icon
+            ><!---->
+          </div>
+          <!----><!----><span _ngcontent-ng-c3455529033="" class="conversation-title gmat-body-1">
+            Image Size in Typescript
+          </span>
+          <div _ngcontent-ng-c3455529033="" class="icon-container with-mat-icon"><!----></div>
+        </div>
+      </div>
+      <div class="h-[120px] w-full bottom"></div>
     </div>
-    <div class="w-full">
-      <input type="file" (change)="onFileSelected($event)" accept="image/*" placeholder="Chọn ảnh" />
-    </div>
-    @if(image64!==''){
-    <!-- <div
-      class="aspect-square w-full bg-contain bg-no-repeat bg-center"
-      [style]="{ 'background-image': 'url(' + image64 + ')' }"
-    ></div> -->
-    <img [src]="image64" alt="" class="w-full" />
-    }
-    <div class="flex space-between w-full justify-center">
-      <button class="btn orange" (click)="ask()" [disabled]="isThinking">
-        {{ isThinking ? 'Đang giải...' : 'Giải' }}
-      </button>
-    </div>
-    <kyonsvn-latex class="w-full" [inputString]="result" />
+    <!-- </div> -->
   </div>
+  <!-- </div> -->
 </div>
+<!-- </div> -->
+<!-- </div> -->

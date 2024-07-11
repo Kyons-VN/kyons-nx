@@ -98,7 +98,6 @@ export class NgFlutterComponent implements AfterViewInit {
       },
       false
     );
-    console.log(_flutter);
 
     _flutter.loader.loadEntrypoint({
       entrypointUrl: this.src,
