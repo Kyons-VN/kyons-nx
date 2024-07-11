@@ -82,7 +82,7 @@ export class AccountAndPaymentComponent implements OnInit, OnDestroy {
   PaymentMethod = PaymentMethod;
   extendingCooldown = 10;
 
-  @HostBinding('class') class = 'flex-1 w-full md:w-auto chat';
+  @HostBinding('class') class = 'flex-1 w-full md:w-auto';
 
   ngOnInit(): void {
     this.loadPackages().add(() => {
