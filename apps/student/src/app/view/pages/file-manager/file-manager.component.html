@@ -102,7 +102,11 @@
         <button class="btn-icon link" (click)="hideDetail()"><i class="icon-XClose"></i></button>
       </div>
       <div class="col w-full gap-6 overflow-y-auto">
+        @if(detail.isImage){
         <img [src]="detail.fileUri" alt="" />
+        }@else {
+        <a class="btn orange outlined" [href]="detail.fileUri" target="_blank">Xem file</a>
+        }
         <div
           class="flex gap-4 relative z-20 w-full"
           [ngClass]="{
@@ -111,7 +115,15 @@
         >
           @if(!edittingDetail){
           <h6 class="flex justify-start gap-2 w-full" [title]="detail.name">
-            <i class="icon large text-blueGrey-500" [class]="detail.iconDisplay()"></i>
+            @if(detail.isPdf){
+            <mat-icon class="icon large">picture_as_pdf</mat-icon>
+            }@else if(detail.isAudio){
+            <mat-icon class="icon large">audio_file</mat-icon>
+            }@else if(detail.isVideo){
+            <mat-icon class="icon large">video_file</mat-icon>
+            }@else {
+            <mat-icon class="icon large">description</mat-icon>
+            }
             <span class="max-w-[calc(100%_-_88px)] break-words">{{ detail.name }}</span>
             <button *ngIf="!edittingDetail" class="btn-icon link" (click)="edittingDetail = true">
               <i class="icon-Edit text-blueGrey-500"></i>

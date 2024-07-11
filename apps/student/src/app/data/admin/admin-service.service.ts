@@ -3,14 +3,15 @@ import { Injectable, inject } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { Firestore, collection, collectionData, docData, getCountFromServer, updateDoc } from '@angular/fire/firestore';
 import { TOKEN_HEADER_KEY } from '@data/auth/interceptor';
+import { environment } from '@environments';
 import { QueryDocumentSnapshot, WithFieldValue, doc } from 'firebase/firestore';
 import { firstValueFrom, map, } from 'rxjs';
 import ChatUser from './chat-user';
 
 export const CURRENT_ADMIN = 'flutter.currentUser';
 
-// const adminServerApi = environment.adminApi;
-const adminServerApi = 'http://127.0.0.1:5001/kyonsvn-stg/asia-east1/adminApi';
+const adminServerApi = environment.adminApi;
+// const adminServerApi = 'http://127.0.0.1:5001/kyonsvn-stg/asia-east1/adminApi';
 
 @Injectable({
   providedIn: 'root',

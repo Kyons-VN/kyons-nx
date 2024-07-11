@@ -147,13 +147,6 @@ class FileData {
   isEmpty() {
     return this.id === '';
   }
-
-  iconDisplay() {
-    if (this.mimeType.split("/")[0] === "image") {
-      return 'icon-Image';
-    }
-    return 'icon-File';
-  }
 }
 
 class Image {

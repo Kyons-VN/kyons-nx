@@ -25,6 +25,10 @@
               <img [src]="row.fileUri" class="w-[48px] h-[48px] object-cover" />
               }@else if(row.isPdf){
               <mat-icon>picture_as_pdf</mat-icon>
+              }@else if(row.isAudio){
+              <mat-icon>audio_file</mat-icon>
+              }@else if(row.isVideo){
+              <mat-icon>video_file</mat-icon>
               }@else {
               <mat-icon>description</mat-icon>
               } &nbsp;

@@ -1,6 +1,7 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, HostBinding, inject, OnInit, Renderer2, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -15,7 +16,7 @@ import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.compo
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TopMenuComponent, FormsModule, FileSelectionComponent],
+  imports: [CommonModule, TopMenuComponent, FormsModule, FileSelectionComponent, MatIconModule],
   templateUrl: './file-manager.component.html',
   styleUrls: ['./file-manager.component.scss'],
 })
