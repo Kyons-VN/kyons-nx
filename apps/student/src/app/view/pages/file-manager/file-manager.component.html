@@ -143,7 +143,7 @@
         </div>
         <hr />
       </div>
-      <button class="btn red outlined w-full" (click)="showConfirmDelete = true">
+      <button class="btn red outlined w-full" (click)="showConfirmDeleteDialog()">
         <i class="icon-Trash"></i>
         Xóa tài liệu
       </button>
@@ -157,6 +157,15 @@
   <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
     <img src="/assets/images/warning.webp" alt="" class="w-[100px] self-center" />
     <h5 class="text-center">Khoan! Bạn có chắc muốn xoá?</h5>
+    @if(detailChats&&detailChats.length){
+    <p>
+      Hiện tại tài liệu của bạn đang nằm ở @for(chat of detailChats; track chat.id){<a
+        (click)="openChat(chat)"
+        class="font-bold"
+        >{{ chat.firstMessage }}</a
+      >, } ... Bạn có chắc muốn xoá?
+    </p>
+    }
     <div class="flex gap-4 justify-between">
       <button class="btn red outlined" (click)="showConfirmDelete = false">Để xem lại</button>
       <button class="btn red" (click)="deleteFile()">Tôi chắc chắn!</button>

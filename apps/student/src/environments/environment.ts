@@ -19,6 +19,7 @@ export const environment = {
   chatApi: 'https://chatapi-ox2opk6u3q-de.a.run.app',
   fileApi: 'https://fileapi-ox2opk6u3q-de.a.run.app',
   sandboxApi: 'https://v1-ox2opk6u3q-de.a.run.app',
+  adminApi: 'https://adminapi-ox2opk6u3q-de.a.run.app',
   vapidKey: 'BP-BjvXQUjaznK89An_nvZWRmP6PCQxIGQ9OexTGstwXGbTgdPy5jkFtr9SIBJpUXZOMzHnQ_1-PTq2_jVP4ylI',
 };
 

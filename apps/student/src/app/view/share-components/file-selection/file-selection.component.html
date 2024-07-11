@@ -21,9 +21,9 @@
               <span class="font-bold text-blueGrey-500">Tên tài liệu</span>
             </mat-header-cell>
             <mat-cell *matCellDef="let row" class="flex gap-4">
-              @if(row.isImage()){
+              @if(row.isImage){
               <img [src]="row.fileUri" class="w-[48px] h-[48px] object-cover" />
-              }@else if(row.isPdf()){
+              }@else if(row.isPdf){
               <mat-icon>picture_as_pdf</mat-icon>
               }@else {
               <mat-icon>description</mat-icon>

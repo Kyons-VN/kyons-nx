@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Content, FilePart, Part, TextPart } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
 import { FileData } from '@data/file/file-model';
@@ -11,7 +12,7 @@ import { IntercepterObserverDirective } from '@share-directives';
 @Component({
   selector: 'student-messages',
   standalone: true,
-  imports: [CommonModule, LatexComponent, IntercepterObserverDirective],
+  imports: [CommonModule, LatexComponent, IntercepterObserverDirective, MatIconModule],
   templateUrl: './messages.component.html',
 })
 export class MessagesComponent implements AfterViewInit, OnChanges {
@@ -127,8 +128,12 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
         this.fileService.getFile(this.userId, filePart.id).subscribe({
           next: (data: FileData | null) => {
             if (data == null) return;
-            filePart.mimeType = data.mimeType;
-            filePart.url = data.fileUri;
+            if (data.id == 'deleted') {
+              filePart.isDeleted = true;
+            }
+            else {
+              filePart.data = data;
+            }
             this.messages[contentIndex].parts[partIndex] = filePart;
           }
         });

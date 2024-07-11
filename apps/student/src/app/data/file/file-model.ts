@@ -15,6 +15,12 @@ class FileData {
   dateDisplay: string;
   sizeDisplay: string;
   typeDisplay: string;
+  chatIds?: string[];
+  isImage: boolean;
+  isPdf: boolean;
+  isText: boolean;
+  isAudio: boolean;
+  isVideo: boolean;
   constructor({
     bucketId,
     id,
@@ -25,6 +31,7 @@ class FileData {
     updatedAt,
     extension,
     size,
+    chatIds,
   }
     : {
       bucketId: string,
@@ -36,6 +43,7 @@ class FileData {
       updatedAt: Date,
       extension: string,
       size: number,
+      chatIds?: string[]
     }) {
     this.bucketId = bucketId;
     this.id = id;
@@ -46,6 +54,14 @@ class FileData {
     this.updatedAt = updatedAt;
     this.extension = extension;
     this.size = size;
+    this.chatIds = chatIds;
+    this.isImage = this.mimeType.split("/")[0] === "image";
+    this.isPdf = this.mimeType == 'application/pdf';
+    this.isText = this.mimeType.split("/")[0] === "text";
+    this.isAudio = this.mimeType.split("/")[0] === "audio";
+    this.isVideo = this.mimeType.split("/")[0] === "video";
+
+    // After detected file type
     this.dateDisplay = formattedDate(this.createdAt);
     this.sizeDisplay = this.getSizeDisplay();
     this.typeDisplay = this.getTypeDisplay();
@@ -56,20 +72,18 @@ class FileData {
   }
 
   private getTypeDisplay() {
-    const type = this.mimeType.split("/")[0]
-    if (type === "image") {
+    if (this.isImage) {
       return "Hình ảnh"
-    } else {
-      return "Tập tin"
+    } else if (this.isPdf) {
+      return "PDF"
+    } else if (this.isText) {
+      return "Tài liệu"
+    } else if (this.isAudio) {
+      return "Âm thanh"
+    } else if (this.isVideo) {
+      return "Video"
     }
-  }
-
-  isImage() {
-    return this.mimeType.split("/")[0] === "image";
-  }
-
-  isPdf() {
-    return this.mimeType.split("/")[0] === "application" && this.mimeType.split("/")[1] === "pdf";
+    return "Tập tin";
   }
 
   static fromJson(jsonObject: any) {
@@ -83,7 +97,9 @@ class FileData {
       'updatedAt',
       'extension',
       'size',
+      'chatIds',
     ]);
+    if (!_.bucketId) return FileData.deletedFile();
     _.fileUri = jsonObject['publicUri'];
     _.createdAt = new Date(_.createdAt._seconds * 1000);
     _.updatedAt = new Date(_.updatedAt._seconds * 1000);
@@ -92,6 +108,8 @@ class FileData {
 
   toJson() {
     return {
+      'bucketId': this.bucketId,
+      'name': this.name,
       'id': this.id,
       'mimeType': this.mimeType,
       'publicUri': this.fileUri,
@@ -118,6 +136,12 @@ class FileData {
       extension: '',
       size: 0
     });
+  }
+
+  static deletedFile() {
+    const file = FileData.empty();
+    file.id = 'deleted';
+    return file;
   }
 
   isEmpty() {

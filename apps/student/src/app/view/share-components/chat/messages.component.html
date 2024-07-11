@@ -10,6 +10,7 @@
         @if(message.isText){
         <kyonsvn-latex [inputString]="message.text ?? ''" />
         }@else if(message.isData){
+        <!-- prettier-ignore -->
         <div
           class=""
           intercepterObserver
@@ -18,7 +19,25 @@
           (isIntersecting)="isIntersecting($event, i, $index)"
           [isContinuous]="false"
         >
-          <img [src]="message.url" alt="" />
+          @if(!message.isDeleted){
+            @if(message.data!=null){
+              @if(message.data.isImage){
+                <img [src]="message.data.fileUri" />
+              }
+              @else if(message.data.isPdf||message.data.isText){
+                @if(message.data.isPdf){
+                  <mat-icon>picture_as_pdf</mat-icon>
+                }
+                @else {
+                  <mat-icon>description</mat-icon>
+                }
+                <span
+                  ><span class="line-clamp-1">{{ message.data.name.split('.')[0] }}</span
+                  >.{{ message.data.name.split('.')[1] }}</span
+                >
+              }
+            }
+          } @else {<i class="">Ảnh đã bị xóa</i>}
         </div>
         }
       </div>

@@ -6,7 +6,7 @@ import { map, Observable } from "rxjs";
 
 
 const fileServerApi = environment.fileApi;
-// const fileServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/asia-east1/fileApi';
+// const fileServerApi = 'http://127.0.0.1:5001/kyonsvn-stg/asia-east1/fileApi';
 
 @Injectable({
   providedIn: 'root',

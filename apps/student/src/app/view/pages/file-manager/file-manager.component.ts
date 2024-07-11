@@ -3,8 +3,12 @@ import { ChangeDetectorRef, Component, HostBinding, inject, OnInit, Renderer2, s
 import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
+import { Chat } from '@data/chat/chat-model';
+import { ChatService } from '@data/chat/chat.service';
 import { Capacity, FileData, Image } from '@data/file/file-model';
 import { FileService } from '@data/file/file.service';
+import { NavigationService } from '@data/navigation/navigation.service';
 import { UserService } from '@data/user/user.service';
 import { FileSelectionComponent } from '@view/share-components/file-selection/file-selection.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
@@ -22,6 +26,8 @@ export class FileManagerComponent implements OnInit {
   userService = inject(UserService);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
+  chatService = inject(ChatService);
+  paths = inject(NavigationService).paths;
 
   capacity: Capacity | null = null;
   userId = '';
@@ -34,6 +40,8 @@ export class FileManagerComponent implements OnInit {
   file!: File;
   showConfirmDelete = false;
   accetp = this.fileService.accept;
+  detailChats: Chat[] | null = null;
+  router = inject(Router);
 
   // searchFile = '';
   // dataSource: MatTableDataSource<FileData> = new MatTableDataSource<FileData>([]);
@@ -152,6 +160,18 @@ export class FileManagerComponent implements OnInit {
     });
   }
 
+  showConfirmDeleteDialog() {
+    this.chatService.getChatsByIds(this.detail.chatIds ?? []).subscribe({
+      next: (chats) => {
+        this.detailChats = chats;
+        this.showConfirmDelete = true;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
   deleteFile() {
     this.selection.deleteFile(this.detail.id).then(() => {
       this.showConfirmDelete = false;
@@ -161,6 +181,10 @@ export class FileManagerComponent implements OnInit {
         this.updateCapacity();
       }, 500)
     });
+  }
+
+  openChat(chat: Chat) {
+    window.open(this.paths.chat.path.replace(':id', chat.id), '_blank');
   }
 
 }

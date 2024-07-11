@@ -1,3 +1,4 @@
+import { FileData } from "@data/file/file-model";
 import { IChat, IContent, IPart, Role } from "@domain/chat/i-content";
 import { formattedDate, toNonAccentVietnamese } from "@share-utils/formats";
 
@@ -49,10 +50,12 @@ class Part implements IPart {
   }
   isText = false;
   isData = false;
+  isDeleted = false;
   text?: string;
   fileId?: string;
   url?: string;
   mimeType?: string;
+  data?: FileData;
   static parsePart(jsonObject: any) {
 
     // return switch (jsonObject) {
@@ -129,10 +132,10 @@ class Chat implements IChat {
     id: string;
     createdAt: { _seconds: number };
     messages: { role: string; parts: { text: string }[] }[];
-    firstMessage: string;
+    firstMessage: string | null;
   }) {
     const createdAtDate = new Date(createdAt._seconds * 1000); // Convert Firebase moment time to TypeScript
-    return new Chat(id, createdAtDate, firstMessage);
+    return new Chat(id, createdAtDate, firstMessage ?? '');
   }
 
   updateMessages(messages: Content[]) {

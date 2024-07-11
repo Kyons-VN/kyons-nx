@@ -187,6 +187,24 @@ class ChatService {
       })
     );
   }
+
+
+  getChatsByIds(ids: string[]): Observable<Chat[]> {
+    if (window.localStorage.getItem('chats')) {
+      const chats = JSON.parse(window.localStorage.getItem('chats') as string) as any[];
+      return new Observable<Chat[]>((subscriber) => {
+        subscriber.next(
+          chats.map((data: any) => {
+            return Chat.fromJson(data);
+          }).filter((chat) => ids.includes(chat.id))
+        );
+        subscriber.complete();
+      });
+    }
+    else {
+      return new Observable<Chat[]>();
+    }
+  }
 }
 
 export { ChatService, chatServerApi };

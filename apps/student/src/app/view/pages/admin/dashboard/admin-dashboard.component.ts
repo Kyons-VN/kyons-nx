@@ -86,9 +86,9 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
-  resetMana(user: ChatUser) {
+  async resetMana(user: ChatUser) {
     this.loadingService.show();
-    this.adminService.resetMana(user.id).subscribe({
+    (await this.adminService.resetMana(user.id)).subscribe({
       next: () => {
         this.chatService.getMana(this.selectedUser!.id).subscribe({
           next: (mana) => {
@@ -101,7 +101,7 @@ export class AdminDashboardComponent implements OnInit {
           },
         })
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
 
         this.loadingService.hide();
@@ -154,6 +154,7 @@ export class AdminDashboardComponent implements OnInit {
 
   remove(index: number) {
     this.fileValidation.allowedFileTypes.splice(index, 1);
+    this.isChanged = true;
   }
 
 }
