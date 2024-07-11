@@ -142,7 +142,7 @@ export class AdminAuthService implements IAuthService {
       return true;
     } catch (error) {
       if (error instanceof FirebaseError) {
-        const errorCode = error.code;
+        const code = error.code;
         const errorMessage = error.message;
         // eslint-disable-next-line valid-typeof
         if (typeof error === 'object') {
@@ -150,7 +150,7 @@ export class AdminAuthService implements IAuthService {
         }
         const credential = GoogleAuthProvider.credentialFromError(error);
         const email = credential != null ? credential!.signInMethod : '';
-        console.log(errorCode, errorMessage, email, credential);
+        console.log(code, errorMessage, email, credential);
       }
       return false;
     }

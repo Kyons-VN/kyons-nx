@@ -1,0 +1,165 @@
+<student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
+<div class="flex justify-start w-full xl:max-w-[1440px] gap-4 p-0 xl:px-14 xl:pt-0 xl:pb-10 h-full">
+  <div
+    class="w-full bg-white xl:rounded-3xl p-6 flex flex-col gap-8 h-full"
+    [ngClass]="{ 'xl:max-w-[70%]': !detail.isEmpty() }"
+  >
+    <div class="flex flex-row gap-6 w-full justify-between">
+      <div class="flex gap-6 items-center">
+        <h3 class="hidden xl:flex">Tất cả tập tin</h3>
+        <h6 class="xl:hidden">Tất cả tập tin</h6>
+        <div *ngIf="capacity" class="flex-col gap-2 hidden md:flex">
+          <b>{{ capacity.sizeDisplay }}/{{ capacity.maxSizeDisplay }} đã sử dụng</b>
+          <div class="w-[200px] h-2 relative bg-blueGrey-300 rounded overflow-hidden">
+            <div
+              class="absolute h-full bg-lightBlue-1 rounded left-0 top-0"
+              [style.width]="capacity.percent + '%'"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <button class="btn orange md:large" (click)="file.click()">
+        <i class="icon-AddFile"></i>
+        Thêm mới
+        <input #file hidden type="file" (change)="onFileSelected($event)" [accept]="accetp" placeholder="Chọn ảnh" />
+      </button>
+    </div>
+    <!-- <div class="flex flex-col gap-6 h-full overflow-hidden">
+      <div class="flex gap-4">
+        <div class="icon-prefix">
+          <i class="icon-Search absolute pointer-events-none"></i>
+          <input
+            type="text"
+            placeholder="Tìm kiếm..."
+            [(ngModel)]="searchFile"
+            (ngModelChange)="onSearchChat()"
+            class="w-full"
+          />
+        </div>
+      </div>
+      <div class="w-full h-full flex flex-col gap-3">
+        <div class="table-responsive">
+          <mat-table id="fileTable" [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="" class="w-1/3">
+                <span class="font-bold text-blueGrey-500">Tên tài liệu</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="flex gap-4">
+                @if(row.isImage()){
+                <img [src]="row.fileUri" class="w-[48px] h-[48px] object-cover" />
+                }@else if(row.isPdf()){
+                <mat-icon>picture_as_pdf</mat-icon>
+                }@else {
+                <mat-icon>description</mat-icon>
+                } &nbsp;
+                <span
+                  ><span class="line-clamp-1">{{ row.name.split('.')[0] }}</span
+                  >.{{ row.name.split('.')[1] }}</span
+                >
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="mimeType">
+              <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+                <span class="font-bold text-blueGrey-500">Loại tài liệu</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="text-center">{{ row.typeDisplay }}</span>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="size">
+              <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+                <span class="font-bold text-blueGrey-500">Kích thước</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="text-center">{{ row.sizeDisplay }}</span>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="createdAt">
+              <mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="">
+                <span class="font-bold text-blueGrey-500">Ngày tạo</span>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span class="text-center">{{ row.dateDisplay }}</span>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="ASD"></mat-header-row>
+            <mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="openDetails(row)"
+              class="cursor-pointer"
+            ></mat-row>
+          </mat-table>
+        </div>
+        <mat-paginator [pageSizeOptions]="[10]" aria-label="Select page of periodic elements"> </mat-paginator>
+      </div>
+    </div> -->
+    <student-file-selection (fileClicked)="openDetails($event)" [useService]="true" class="h-full" />
+  </div>
+  <div class="side-bar right show-sm bg-white rounded-3xl p-6" *ngIf="!detail.isEmpty()">
+    <div class="sidenav-with-scrollable-list">
+      <div class="flex justify-between items-start">
+        <h5>Chi tiết tài liệu</h5>
+        <button class="btn-icon link" (click)="hideDetail()"><i class="icon-XClose"></i></button>
+      </div>
+      <div class="col w-full gap-6 overflow-y-auto">
+        <img [src]="detail.fileUri" alt="" />
+        <div
+          class="flex gap-4 relative z-20 w-full"
+          [ngClass]="{
+            shine: updatingDetail
+          }"
+        >
+          @if(!edittingDetail){
+          <h6 class="flex justify-start gap-2 w-full" [title]="detail.name">
+            <i class="icon large text-blueGrey-500" [class]="detail.iconDisplay()"></i>
+            <span class="max-w-[calc(100%_-_88px)] break-words">{{ detail.name }}</span>
+            <button *ngIf="!edittingDetail" class="btn-icon link" (click)="edittingDetail = true">
+              <i class="icon-Edit text-blueGrey-500"></i>
+            </button>
+          </h6>
+          } @else if(edittingDetail){
+          <div class="flex w-full">
+            <input type="text" [(ngModel)]="fileName" (keyup.enter)="updateFileName()" />
+            <button class="btn-icon link" (click)="updateFileName()">
+              <i class="icon-Check"></i>
+            </button>
+          </div>
+          }
+        </div>
+        <hr />
+        <div class="col gap-2">
+          <div class="col gap-1">
+            <span class="caption">Loại tài liệu</span>
+            <span>{{ detail.extension | uppercase }}</span>
+          </div>
+          <div class="col gap-1">
+            <span class="caption">Kích thước tài liệu</span>
+            <span>{{ detail.sizeDisplay }}</span>
+          </div>
+          <div class="col gap-1">
+            <span class="caption">Ngày tạo</span>
+            <span>{{ detail.dateDisplay }}</span>
+          </div>
+        </div>
+        <hr />
+      </div>
+      <button class="btn red outlined w-full" (click)="showConfirmDelete = true">
+        <i class="icon-Trash"></i>
+        Xóa tài liệu
+      </button>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="showConfirmDelete"
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100 z-[100]"
+>
+  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+    <img src="/assets/images/warning.webp" alt="" class="w-[100px] self-center" />
+    <h5 class="text-center">Khoan! Bạn có chắc muốn xoá?</h5>
+    <div class="flex gap-4 justify-between">
+      <button class="btn red outlined" (click)="showConfirmDelete = false">Để xem lại</button>
+      <button class="btn red" (click)="deleteFile()">Tôi chắc chắn!</button>
+    </div>
+  </div>
+</div>

@@ -78,12 +78,14 @@ export class AdminService {
       maxFileSize: 0,
       maxImageSize: 0,
       allowedFileTypes: [''],
+      maxStorageSize: 0,
     }
     const config = await this.getConfig();
     if (config == undefined) return data;
     data.maxFileSize = config['maxFileSize'];
     data.maxImageSize = config['maxImageSize'];
     data.allowedFileTypes = config['allowedFileTypes'];
+    data.maxStorageSize = config['maxStorageSize'];
     return data;
   }
 

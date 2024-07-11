@@ -4,7 +4,7 @@
       url('/assets/images/chat-bg.svg') no-repeat bottom right;
     background-size: auto, cover;
     transition: all ease 200ms;
-    @apply w-full px-4 md:p-0;
+    // @apply w-full px-4 md:p-0;
     // @apply w-full h-[calc(100vh_-_82px)] flex flex-col lg:justify-center items-center justify-start relative text-center p-4 sm:px-11 sm:py-20 pb-20 overflow-hidden text-white lg:gap-12 gap-4;
     // .collapse {
     //   padding: 0;
@@ -55,8 +55,7 @@
     @apply flex items-center justify-center w-[64px] h-[64px] text-[32px] text-[#06A5FF] bg-secondaryBlue border-secondaryBlue;
   }
   .body {
-    @apply flex flex-col items-end xl:px-11 xl:py-9 p-4 md:p-6 xl:gap-20 md:gap-10 gap-5 overflow-auto flex-1;
-    height: calc(100vh - 280px);
+    @apply h-full flex flex-col items-end xl:px-11 xl:py-9 p-4 md:p-6 xl:gap-20 md:gap-10 gap-5 overflow-auto flex-1;
     .message {
       @apply flex gap-2.5 max-w-[482px] w-full;
       .box {
@@ -188,9 +187,9 @@
     @apply absolute top-[8px] left-[121px] text-[17px] leading-[24px] text-teal-0 w-[30px] text-right;
   }
 
-  @media screen and (max-width: 640px) {
-    .body {
-      height: calc(100vh - 320px);
-    }
-  }
+  // @media screen and (max-width: 640px) {
+  //   .body {
+  //     height: calc(100vh - 320px);
+  //   }
+  // }
 }

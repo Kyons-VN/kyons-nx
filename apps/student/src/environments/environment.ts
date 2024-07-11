@@ -15,8 +15,10 @@ export const environment = {
     storageBucket: 'kyonsvn.appspot.com',
     messagingSenderId: '830127784291',
     appId: '1:830127784291:web:0bc7e49b17cc5b981b5356',
-    functionsUrl: 'https://us-central1-kyonsvn.cloudfunctions.net',
   },
+  chatApi: 'https://chatapi-ox2opk6u3q-de.a.run.app',
+  fileApi: 'https://fileapi-ox2opk6u3q-de.a.run.app',
+  sandboxApi: 'https://v1-ox2opk6u3q-de.a.run.app',
   vapidKey: 'BP-BjvXQUjaznK89An_nvZWRmP6PCQxIGQ9OexTGstwXGbTgdPy5jkFtr9SIBJpUXZOMzHnQ_1-PTq2_jVP4ylI',
 };
 

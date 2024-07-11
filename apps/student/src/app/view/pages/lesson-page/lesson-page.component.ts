@@ -3,7 +3,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Chat, Content, Mana, TextPart } from '@data/chat/chat-model';
+import { Content, Mana, TextPart } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { Lesson } from '@data/knowledge/lesson';
@@ -76,7 +76,6 @@ export class LessonPageComponent implements OnInit {
   emptyStars = [0, 0, 0];
   manaWidth = maxManaWidth;
   batteryLife = 100;
-  currentChat: Chat | null = null;
   messages: Content[] = [];
   isThinking = false;
   content!: string;

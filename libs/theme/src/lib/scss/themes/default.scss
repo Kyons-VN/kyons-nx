@@ -11,15 +11,15 @@
   .text-white {
     color: white;
   }
-  .sidenav-with-history-container {
+  .sidenav-with-scrollable-list {
     ul > li {
       & > ul > li {
         &.active {
-          .left-menu-item {
+          .side-bar-item {
             @apply bg-lightBlue-6 font-bold text-lightBlue-1;
           }
         }
-        .left-menu-item {
+        .side-bar-item {
           .chat-name {
             @apply text-primaryBlue;
           }
@@ -30,9 +30,9 @@
       }
     }
   }
-  .left-menu.show-history {
+  .side-bar.show-sm {
     @media screen and (max-width: 1169px) {
-      @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 bg-white p-4;
+      @apply bg-white;
     }
   }
   .history-toggle {

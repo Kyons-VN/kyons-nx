@@ -26,6 +26,9 @@
   .bg-white {
     background: linear-gradient(180deg, rgba(37, 138, 194, 0.5) 0%, rgba(44, 61, 91, 0.5) 100%);
   }
+  student-top-menu.bg-white {
+    background: transparent;
+  }
   .text-secondaryBlue,
   .text-primaryBlue {
     @apply text-white;
@@ -77,11 +80,11 @@
   .history {
     @apply px-4;
   }
-  .sidenav-with-history-container {
+  .sidenav-with-scrollable-list {
     ul > li {
       & > ul > li {
         &.active {
-          .left-menu-item {
+          .side-bar-item {
             @apply bg-lightBlue-6;
             .chat-name {
               @apply font-bold text-lightBlue-1;
@@ -91,7 +94,7 @@
         span {
           @apply text-xs text-blueGrey-500;
         }
-        .left-menu-item {
+        .side-bar-item {
           .chat-name {
             @apply text-white;
           }
@@ -99,10 +102,9 @@
       }
     }
   }
-  .left-menu.show-history {
+  .side-bar.show-sm {
     @media screen and (max-width: 1169px) {
       background: linear-gradient(180deg, rgba(37, 138, 194, 1) 0%, rgba(44, 61, 91, 1) 100%);
-      @apply flex fixed z-50 top-0 left-0 right-0 bottom-0 p-4;
     }
     .history-list {
       @apply flex flex-col gap-4;

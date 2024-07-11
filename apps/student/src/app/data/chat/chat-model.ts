@@ -1,6 +1,5 @@
-import { IChat, IContent, IFileDataPart, IPart, Role } from "@domain/chat/i-content";
+import { IChat, IContent, IPart, Role } from "@domain/chat/i-content";
 import { formattedDate, toNonAccentVietnamese } from "@share-utils/formats";
-import { pick } from "lodash-es";
 
 class Content implements IContent {
   role: Role;
@@ -28,6 +27,16 @@ class Content implements IContent {
       Role.model,
       [
         new TextPart('Bạn đã hỏi hết giới hạn ngày hôm nay mất rồi :-( Giới hạn sẽ được tự động hồi phục vào lúc 00:00 ngày mai. Hãy quay lại sau lúc đó để hỏi thêm câu hỏi bạn nha!')
+      ],
+      new Date(),
+    );
+  }
+
+  static unknownError(code: number): Content {
+    return new Content(
+      Role.model,
+      [
+        new TextPart(`Lỗi ${code}, vui lòng thử lại sau!`)
       ],
       new Date(),
     );
@@ -110,7 +119,7 @@ class Chat implements IChat {
     this.firstMessage = firstMessage;
     this.createdAt = createdAt;
     this.dateDisplay = formattedDate(this.createdAt);
-    this.search = toNonAccentVietnamese(this.firstMessage);
+    this.search = toNonAccentVietnamese(this.firstMessage).toLocaleLowerCase();
   }
   static fromJson({
     id,
@@ -150,98 +159,12 @@ enum ChatErrorCode {
 class ChatError {
   message: string;
   code: ChatErrorCode;
-  constructor(message: string, errorCode: number) {
+  constructor(message: string, code: number) {
     this.message = message;
-    this.code = errorCode;
+    this.code = code;
   }
 }
 
-class Image {
-  name: string;
-  size: number;
-  uri?: string;
-  base64?: string;
-  mimeType: string;
 
-  constructor(name: string, mimeType: string, size: number) {
-    this.mimeType = mimeType;
-    this.name = name;
-    this.size = size;
-  }
-  toJson(): Record<string, unknown> {
-    return {
-      'fileData': { 'fileUri': this.uri, 'mimeType': 'image/png' }
-    }
-  }
-
-  toPart(): IFileDataPart {
-    return {
-      'fileData': { fileUri: this.uri ?? '', 'mimeType': 'image/png' }
-    }
-  }
-}
-
-class FileData {
-  mimeType: string;
-  fileUri: string;
-  createdAt: Date;
-  updatedAt: Date;
-  extension: string;
-  size: number;
-  constructor({
-    mimeType,
-    fileUri,
-    createdAt,
-    updatedAt,
-    extension,
-    size
-  }
-    : {
-      mimeType: string,
-      fileUri: string,
-      createdAt: { _seconds: number },
-      updatedAt: { _seconds: number },
-      extension: string,
-      size: number,
-    }) {
-    this.mimeType = mimeType;
-    this.fileUri = fileUri;
-    this.createdAt = new Date(createdAt._seconds * 1000);
-    this.updatedAt = new Date(updatedAt._seconds * 1000);
-    this.extension = extension;
-    this.size = size;
-  }
-
-  static fromJson(jsonObject: any) {
-    const _ = pick(jsonObject, [
-      'mimeType',
-      'fileUri',
-      'createdAt',
-      'updatedAt',
-      'extension',
-      'size',
-    ]);
-    _.fileUri = jsonObject['publicUri'];
-    _.createdAt = new Date(_.createdAt._seconds * 1000);
-    _.updatedAt = new Date(_.updatedAt._seconds * 1000);
-    return new FileData(_);
-  }
-
-  toJson() {
-    return {
-      'mimeType': this.mimeType,
-      'publicUri': this.fileUri,
-      'createdAt': {
-        _seconds: Math.floor(this.createdAt.getTime() / 1000),
-      },
-      'updatedAt': {
-        _seconds: Math.floor(this.updatedAt.getTime() / 1000),
-      },
-      'extension': this.extension,
-      'size': this.size
-    }
-  }
-}
-
-export { Chat, ChatError, Content, FileData, FilePart, Image, Mana, Part, TextPart };
+export { Chat, ChatError, Content, FilePart, Mana, Part, TextPart };
 

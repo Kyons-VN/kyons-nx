@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { Content, FileData, FilePart, Part, TextPart } from '@data/chat/chat-model';
+import { Content, FilePart, Part, TextPart } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
+import { FileData } from '@data/file/file-model';
+import { FileService } from '@data/file/file.service';
 import { Role } from '@domain/chat/i-content';
 import { LatexComponent } from '@share-components';
 import { IntercepterObserverDirective } from '@share-directives';
@@ -14,6 +16,7 @@ import { IntercepterObserverDirective } from '@share-directives';
 })
 export class MessagesComponent implements AfterViewInit, OnChanges {
   chatService = inject(ChatService);
+  fileService = inject(FileService);
   @Input() messages: Content[] = [];
   @Input() isThinking = false;
   @Input() userId = '';
@@ -88,6 +91,7 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
       }
     }
   }
+
   typeWriting(lastMessage: Content) {
     this.completeText = lastMessage.parts.map(part => this.getText(part)).join('<br>');
     if (this.writingText.length < this.completeText.length) {
@@ -120,7 +124,7 @@ export class MessagesComponent implements AfterViewInit, OnChanges {
       const part = this.messages[contentIndex].parts[partIndex];
       if (part.isData) {
         const filePart = part as FilePart;
-        this.chatService.getFile(this.userId, filePart.id).subscribe({
+        this.fileService.getFile(this.userId, filePart.id).subscribe({
           next: (data: FileData | null) => {
             if (data == null) return;
             filePart.mimeType = data.mimeType;

@@ -28,7 +28,7 @@ import { ProfileComponent } from './components/profile.component';
   ],
 })
 export class AccountPageComponent {
-  @HostBinding('class') class = 'w-full h-full';
+  @HostBinding('class') class = 'w-full h-full chat';
 
   paths = inject(NavigationService).paths;
   orderService = inject(OrderService);

@@ -3,7 +3,8 @@ import { Component, HostBinding, Injector, OnInit, ViewEncapsulation, effect, in
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
-import { Chat, ChatService } from '@data/chat/chat.service';
+import { Chat } from '@data/chat/chat-model';
+import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { FilterPipe } from '@share-pipes';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
@@ -45,6 +46,7 @@ export class AdminDashboardComponent implements OnInit {
     maxFileSize: 0,
     maxImageSize: 0,
     allowedFileTypes: [''],
+    maxStorageSize: 0,
   }
 
   async ngOnInit(): Promise<void> {
@@ -148,6 +150,10 @@ export class AdminDashboardComponent implements OnInit {
 
   saveFileValidation() {
     this.adminService.saveFileValidation(this.fileValidation);
+  }
+
+  remove(index: number) {
+    this.fileValidation.allowedFileTypes.splice(index, 1);
   }
 
 }

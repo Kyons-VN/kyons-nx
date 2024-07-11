@@ -67,10 +67,10 @@
       <div class="grid grid-rows-[100%] grid-cols-1 h-full md:flex md:flex-row-reverse">
         <div class="flex-1 h-full">
           @if(configMenu()===0){
-          <div class="flex flex-col w-full h-full p-4 gap-4">
+          <div class="flex flex-col w-full h-full p-4 gap-4 overflow-auto">
             <div class="flex flex-col">
               <label>Default mana for all free users</label>
-              <input type="text" [(ngModel)]="defaultMana" (keydown)="isChanged = true" />
+              <input type="number" [(ngModel)]="defaultMana" (keydown)="isChanged = true" />
             </div>
             <div class="flex justify-center">
               <button class="btn orange" (click)="saveDefaultMana()" [disabled]="!isChanged">Save</button>
@@ -118,7 +118,7 @@
             </div>
           </div>
           }@else if( configMenu()===2){
-          <div class="flex flex-col w-full h-full p-4 gap-4">
+          <div class="flex flex-col w-full h-full p-4 gap-4 overflow-auto">
             <div class="flex flex-col gap-2">
               <label>File types</label>
               @for (item of fileValidation.allowedFileTypes;track i ;let i= $index) {
@@ -127,22 +127,26 @@
                   type="text"
                   [(ngModel)]="fileValidation.allowedFileTypes[i]"
                   (keydown)="isChanged = true"
-                  (keydown.enter)="insertFileTypeAt(i)"
+                  (keydown.enter)="insertFileTypeAt(i + 1)"
                   class="flex-1"
                 />
-                <button class="btn-icon link">
-                  <i class="icon-Delete"></i>
+                <button class="btn-icon link" (click)="remove(i)">
+                  <i class="icon-Trash"></i>
                 </button>
               </div>
               }
             </div>
             <div class="flex flex-col">
               <label>Size limit for all file type (byte)</label>
-              <input type="text" [(ngModel)]="fileValidation.maxFileSize" (keydown)="isChanged = true" />
+              <input type="number" [(ngModel)]="fileValidation.maxFileSize" (keydown)="isChanged = true" />
             </div>
             <div class="flex flex-col">
               <label>Size limit for image file (byte)</label>
-              <input type="text" [(ngModel)]="fileValidation.maxImageSize" (keydown)="isChanged = true" />
+              <input type="number" [(ngModel)]="fileValidation.maxImageSize" (keydown)="isChanged = true" />
+            </div>
+            <div class="flex flex-col">
+              <label>Size limit for storage (byte)</label>
+              <input type="number" [(ngModel)]="fileValidation.maxStorageSize" (keydown)="isChanged = true" />
             </div>
             <div class="flex justify-center">
               <button class="btn orange" (click)="saveFileValidation()" [disabled]="!isChanged">Save</button>

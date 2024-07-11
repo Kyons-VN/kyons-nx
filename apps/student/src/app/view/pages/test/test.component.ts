@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, inject, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { AiService } from '@data/ai/ai.service';
 import { LatexComponent } from '@share-components';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
@@ -14,7 +13,6 @@ import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.compo
 })
 export class TestComponent implements OnInit {
   @HostBinding('class') class = 'app-full';
-  aiService = inject(AiService)
   isThinking = false;
   prompt = 'Giải bài toán này bằng tiếng Việt, lời giải format chuẩn markdown và latex'
   image: string | null = null;
@@ -62,13 +60,6 @@ export class TestComponent implements OnInit {
 
   ask() {
     this.isThinking = true;
-    this.aiService.ask(this.prompt, this.image ?? '', this.mimeType).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.result = res.data.text;
-        this.isThinking = false;
-      }
-    });
   }
 }
 

@@ -14,30 +14,29 @@
   <div class="control">
     <button type="button" class="btn orange outlined" (click)="exit()">Thoát trò chơi</button>
   </div>
-  } @if(image && image.base64!==''){
+  } @if(image && (image.base64!==''||image.uri!=undefined)){
   <!-- <div
       class="aspect-square w-full bg-contain bg-no-repeat bg-center"
       [style]="{ 'background-image': 'url(' + image64 + ')' }"
     ></div> -->
-  <div class="flex justify-center">
-    <img [src]="image.base64" alt="" class="max-w-[200px] max-h-[100px] flex-shrink-0" />
-    <button class="btn-icon link" (click)="onDeleteFile()"><i class="icon-Delete"></i></button>
+  <div class="flex justify-center relative">
+    <img [src]="image.base64 || image.uri" alt="" class="max-w-[200px] max-h-[100px] flex-shrink-0" />
+    <button
+      class="w-[24px] h-[24px] flex items-center justify-center p-1 absolute top-[-10px] right-[-10px]"
+      (click)="onDeleteFile()"
+    >
+      <span class="bg-white w-[20px] h-[20px] border border-gray-300 rounded-xl flex items-center justify-center"
+        ><i class="icon-XClose small font-bold"></i
+      ></span>
+    </button>
   </div>
   }
-  <div class="w-full flex justify-end">
-    <input
-      #file
-      hidden
-      type="file"
-      (change)="onFileSelected($event)"
-      accept="image/*"
-      placeholder="Chọn ảnh"
-      accept="image/*"
-    />
-    <button class="btn-icon link small" (click)="file.click()" [disabled]="isThinking">
-      <i class="icon-AddPhoto"></i>
+  <div class="w-full flex justify-end p-2 gap-2">
+    <input #file hidden type="file" (change)="onFileSelected($event)" [accept]="accetp" placeholder="Chọn ảnh" />
+    <button class="btn-icon link" [matMenuTriggerFor]="fileSelectionMenu" [disabled]="isThinking">
+      <i class="icon-AddFile"></i>
     </button>
-    <button class="btn-icon link small" (click)="ask()" [disabled]="isThinking">
+    <button class="btn-icon link" (click)="ask()" [disabled]="isThinking">
       @if(isThinking){<ng-lottie [options]="options" width="60px" height="60px"></ng-lottie>} @else{<i
         class="icon-Send"
       ></i
@@ -45,3 +44,35 @@
     </button>
   </div>
 </form>
+<mat-menu #fileSelectionMenu yPosition="below" xPosition="before"
+  ><button mat-menu-item (click)="showFileSelection = true">
+    <i class="icon-File"></i>
+    <span>Chọn từ quản lý tập tin</span>
+  </button>
+  <button mat-menu-item (click)="file.click()">
+    <i class="icon-Upload"></i>
+    <span>Chọn từ máy tính</span>
+  </button>
+  <div class="border-t border-dashed px-4 my-2"></div>
+  <div class="flex gap-1.5 px-4 text-blueGrey-500">
+    <i class="icon-Error small"></i>
+    <span>
+      Kyo hỗ trợ tải lên:<br />
+      <ul class="list-disc">
+        <li>Ảnh: kích thước &lt; 5 MB</li>
+        <li>Tài liệu: kích thước &lt; 7 MB</li>
+        <li>Video/audio &lt; 15m</li>
+      </ul>
+      Mỗi lần tải lên một tài liệu duy nhất.
+    </span>
+  </div>
+</mat-menu>
+<div
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100 z-20"
+  *ngIf="showFileSelection"
+>
+  <div class="absolute top-0 left-0 right-0 bottom-0" (click)="showFileSelection = false"></div>
+  <div class="w-full max-w-[777px] flex flex-col gap-6 bg-white rounded-lg p-6 relative h-[80%]">
+    <student-file-selection [useService]="true" (fileClicked)="onSelectFileFromStorage($event)" />
+  </div>
+</div>

@@ -4,6 +4,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { NgModule } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -38,10 +40,10 @@ const appearance: MatFormFieldDefaultOptions = {
     MatDividerModule,
     // MatExpansionModule,
     // MatGridListModule,
-    // MatIconModule,
+    MatIconModule,
     // MatInputModule,
     // MatListModule,
-    // MatMenuModule,
+    MatMenuModule,
     // MatNativeDateModule,
     MatPaginatorModule,
     // MatProgressBarModule,
@@ -70,4 +72,4 @@ const appearance: MatFormFieldDefaultOptions = {
     },
   ],
 })
-export class MaterialModule {}
+export class MaterialModule { }

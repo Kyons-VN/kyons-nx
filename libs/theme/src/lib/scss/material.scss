@@ -79,15 +79,20 @@ body .mat-tooltip {
   height: var(--mdc-icon-button-state-layer-size);
   width: var(--mdc-icon-button-state-layer-size);
 }
-.mat-mdc-menu-panel .mat-mdc-menu-content .mat-mdc-menu-item {
-  @apply px-2 min-h-9;
-  .mat-icon {
-    @apply mr-2;
+.mat-mdc-menu-panel {
+  .mat-mdc-menu-content {
+    @apply text-sm py-2 rounded-lg;
+    .mat-mdc-menu-item {
+      @apply px-4 py-2 min-h-10;
+      .mat-icon,
+      i {
+        @apply mr-2 text-blueGrey-500;
+      }
+      .mat-mdc-menu-item-text {
+        @apply flex items-center gap-2.5;
+      }
+    }
   }
-}
-.mat-mdc-menu-panel .mat-mdc-menu-content,
-.mat-mdc-menu-panel .mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text {
-  @apply text-sm;
 }
 .cdk-overlay-container {
   // &:empty {
@@ -122,4 +127,11 @@ body .mat-tooltip {
       @apply absolute;
     }
   }
+}
+.cdk-overlay-container .cdk-overlay-connected-position-bounding-box {
+  @apply h-fit w-fit #{!important};
+}
+.mat-elevation-z8,
+.mat-mdc-elevation-specific.mat-elevation-z8 {
+  @apply shadow-2;
 }

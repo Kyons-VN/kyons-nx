@@ -135,6 +135,12 @@ small {
   &.large {
     @apply h-[48px] px-[16px] py-[12px];
   }
+  &.md\:large {
+    @apply h-[40px] px-[16px] py-[8px];
+    @media screen and (min-width: 768px) {
+      @apply h-[48px] px-[16px] py-[12px];
+    }
+  }
   &.small {
     @apply h-[36px] px-[8px] py-[10px];
     i {
@@ -637,8 +643,13 @@ div[data-tooltip-content] label {
 .note {
   @apply text-xs text-blueGrey-500;
 }
-.left-menu {
+.side-bar {
   @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:min-w-[30%] h-full xl:relative;
+  &.show-sm {
+    @media screen and (max-width: 1169px) {
+      @apply flex fixed z-[100] top-0 left-0 right-0 bottom-0 p-4;
+    }
+  }
   ul > li {
     @apply gap-1 flex flex-col;
     & > ul > li {
@@ -649,7 +660,7 @@ div[data-tooltip-content] label {
     }
   }
 }
-.sidenav-with-history-container {
+.sidenav-with-scrollable-list {
   @apply w-full h-full overflow-hidden grid grid-cols-1 grid-rows-[min-content_1fr];
   // width: 100%;
   // overflow: hidden;
@@ -660,23 +671,26 @@ div[data-tooltip-content] label {
 .history {
   @apply flex-1 flex flex-col gap-4;
 }
-.sidenav-with-history-container {
+.sidenav-with-scrollable-list {
   @apply gap-4;
 }
 ul.left-list {
   @apply flex flex-col gap-2 overflow-auto;
-  .left-menu-item {
+  .side-bar-item {
     @apply flex items-center rounded-md p-2;
   }
 }
 .icon-prefix {
   @apply relative;
   i:nth-child(1) {
-    @apply absolute top-3 left-3;
+    @apply absolute top-3 left-3 text-[18px];
   }
   input {
     @apply pl-8;
   }
+}
+[class*=' icon-'].icon.large {
+  @apply text-[32px];
 }
 .chatbox {
   @apply relative w-full h-full overflow-hidden grid grid-cols-1 grid-rows-[min-content_1fr];
@@ -685,6 +699,46 @@ ul.left-list {
   }
   .ask {
     @apply flex flex-col items-center overflow-hidden relative;
+  }
+}
+.body .message.right .box.shine,
+.shine {
+  background: #f6f7f8;
+  background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-repeat: no-repeat;
+  background-size: 2000px 104px;
+  display: inline-block;
+  position: relative;
+
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeholderShimmer;
+  animation-timing-function: linear;
+  &.delay-1 {
+    animation-delay: 0.1s;
+  }
+  &.delay-2 {
+    animation-delay: 0.2s;
+  }
+  &.delay-3 {
+    animation-delay: 0.3s;
+  }
+  &.delay-4 {
+    animation-delay: 0.4s;
+  }
+}
+.body .message.right .box.shine,
+.body .message.left .box.shine {
+  width: 100%;
+}
+@keyframes placeholderShimmer {
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 1200px 0;
   }
 }
 student-messages {
