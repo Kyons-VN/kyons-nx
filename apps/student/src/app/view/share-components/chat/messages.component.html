@@ -24,16 +24,19 @@
               @if(message.data.isImage){
                 <img [src]="message.data.fileUri" />
               }
-              @else if(message.data.isPdf||message.data.isText){
+              @else{
                 @if(message.data.isPdf){
-                  <mat-icon>picture_as_pdf</mat-icon>
+                  <mat-icon class="">picture_as_pdf</mat-icon>
+                } @else if(message.data.isAudio){
+                  <mat-icon class="">audio_file</mat-icon>
+                } @else if(message.data.isVideo){
+                  <mat-icon class="">video_file</mat-icon>
+                } @else {
+                  <mat-icon class="">description</mat-icon>
                 }
-                @else {
-                  <mat-icon>description</mat-icon>
-                }
-                <span
+                <a [href]="message.data.fileUri" target="_blank"
                   ><span class="line-clamp-1">{{ message.data.name.split('.')[0] }}</span
-                  >.{{ message.data.name.split('.')[1] }}</span
+                  >.{{ message.data.name.split('.')[1] }}</a
                 >
               }
             }
