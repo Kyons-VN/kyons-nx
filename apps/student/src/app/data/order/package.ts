@@ -1,6 +1,6 @@
 import { DiscountType, IDiscount, IPackage } from '@domain/order/i-package';
 import { IOrderSubscription } from '@domain/order/i-subscription';
-import { formattedPrice } from '@share-utils/formats';
+import { formattedPrice } from '@share-utils/utils';
 import pick from 'lodash-es/pick';
 
 class Package implements IPackage {

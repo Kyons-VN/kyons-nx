@@ -2,7 +2,7 @@
   @for (content of completeMessages; track content.createdAt; let i = $index) {
   <div class="message" [ngClass]="{ left: content.isModel, right: content.isUser }">
     <div class="avatar" *ngIf="content.isModel">
-      <img src="assets/images/kyons-avatar.png" alt="" />
+      <img src="assets/images/kyons-avatar.svg" alt="" />
     </div>
     <div class="content">
       @for (message of content.parts; track $index) {
@@ -40,6 +40,9 @@
                 >
               }
             }
+            @if(message.url){
+              <img [src]="message.url" />
+            }
           } @else {<i class="">Ảnh đã bị xóa</i>}
         </div>
         }
@@ -52,7 +55,7 @@
   } @if(isWriting){
   <div class="left message">
     <div class="avatar">
-      <img src="assets/images/kyons-avatar.png" alt="" />
+      <img src="assets/images/kyons-avatar.svg" alt="" />
     </div>
     <div class="content">
       <div class="box">
@@ -63,7 +66,7 @@
   } @else if(isThinking){
   <div class="left message">
     <div class="avatar">
-      <img src="assets/images/kyons-avatar.png" alt="" />
+      <img src="assets/images/kyons-avatar.svg" alt="" />
     </div>
     <div class="content">
       <div class="box">

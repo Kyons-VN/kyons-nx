@@ -3,10 +3,10 @@ import { Component, HostBinding, Injector, OnInit, ViewEncapsulation, effect, in
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
-import { Chat } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { FilterPipe } from '@share-pipes';
+import { Chat } from '@share-utils/data';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
 
 @Component({

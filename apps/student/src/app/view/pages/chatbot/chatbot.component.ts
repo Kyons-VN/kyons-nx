@@ -16,21 +16,20 @@ import {
 } from '@angular/core';
 // import { ChatService } from '@data/chat/chat.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Content, FilePart, Mana, Part, TextPart } from '@data/chat/chat-model';
 import { ChatService, chatServerApi } from '@data/chat/chat.service';
-import { FileData, Image } from '@data/file/file-model';
+import { FileService } from '@data/file/file.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
 import { Role, maxManaWidth } from '@domain/chat/i-content';
+import { ChatboxComponent, MessagesComponent } from '@share-components';
+import { Content, FileData, FilePart, FilePlaceholder, Mana, Part, TextPart } from '@share-utils/data';
 import { isCommand } from '@utils/chat';
-import { ChatboxComponent } from '@view/share-components/chat/chatbox.component';
-import { MessagesComponent } from '@view/share-components/chat/messages.component';
 import { NgFlutterComponent } from '@view/share-components/ng-flutter/ng-flutter.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { ChatbotSidebarComponent } from './sidebar/sidebar.component';
+import { ChatbotSidebarComponent } from './sidebar/chatbot-sidebar.component';
 
 @Component({
   standalone: true,
@@ -53,6 +52,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   zone = inject(NgZone);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
+  fileService = inject(FileService);
 
   flutterState?: any;
   countdown!: Observable<number>;
@@ -74,8 +74,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   isGaming = false;
   isSmMenuHide = signal(true);
   file: File | undefined = undefined;
-  image: Image | undefined = undefined;
-  imageTest: Image = new Image('1718506979', 'image/jpg', 12345);
+  image: FilePlaceholder | undefined = undefined;
   mana!: Mana;
   isLoadingMessages = false;
   fileData: FileData | undefined = undefined;
@@ -324,7 +323,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     this.file = file;
   }
 
-  selectImage(image: Image) {
+  selectImage(image: FilePlaceholder) {
     this.image = image;
   }
 

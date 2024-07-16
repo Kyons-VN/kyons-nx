@@ -1,4 +1,4 @@
-import { Chat } from "@data/chat/chat-model";
+import { Chat } from "@share-utils/data";
 
 export default class ChatUser {
   id: string;

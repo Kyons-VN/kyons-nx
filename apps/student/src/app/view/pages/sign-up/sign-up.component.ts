@@ -7,7 +7,7 @@ import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 // import { TestType } from '@domain/knowledge/i-test';
 import { BeforeunloadDirective } from '@share-directives';
-import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@share-utils/validators';
+import { notHaveDigit, notHaveSpecial, notHaveUppercase, search } from '@share-utils/utils';
 
 @Component({
   standalone: true,

@@ -135,3 +135,7 @@ body .mat-tooltip {
 .mat-mdc-elevation-specific.mat-elevation-z8 {
   @apply shadow-2;
 }
+.mat-mdc-menu-content,
+.mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text {
+  letter-spacing: 0;
+}

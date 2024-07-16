@@ -1,6 +1,6 @@
 import { IItem } from "@domain/order/i-inventory";
 import { IOrder, OrderStatus, PaymentMethod } from "@domain/order/i-order";
-import { formattedDate, formattedPrice } from '@share-utils/formats';
+import { formattedDate, formattedPrice } from '@share-utils/utils';
 import pick from "lodash-es/pick";
 import { Item } from "./inventory";
 import { Package } from "./package";

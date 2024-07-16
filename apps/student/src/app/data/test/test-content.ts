@@ -1,6 +1,6 @@
 import { IMockTestItem, MockTestStatus } from '@domain/knowledge/i-mock-test';
 // import { environment } from '@environments';
-import { formattedDate } from '@share-utils/formats';
+import { formattedDate } from '@share-utils/utils';
 import { pick } from 'lodash-es';
 // import {
 //   IAnswer,

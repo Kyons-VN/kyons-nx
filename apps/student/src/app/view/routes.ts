@@ -30,39 +30,39 @@ import { TutorialTestComponent } from './share-components/tutorial/test/tutorial
  */
 
 class AppPaths {
-  home = { name: 'Trang chủ', path: '/' };
-  signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
-  signOut = { name: 'Thoát', path: '/sign-out/' };
-  signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
-  resendVerified = { name: 'Gửi lại email xác thực', path: '/sign-up/resend-verified/' };
+  account = { name: '', path: '/account/' };
+  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
+  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
+  chat = { name: 'Chat', path: '/chatbot/chat/:id' };
+  chatbot = { name: 'Chatbot', path: '/chatbot' };
   classProgram = { name: 'Trang chọn mục tiêu', path: '/mock-test/' };
-  test = { name: 'Test', path: '/test/' };
+  fileManager = { name: 'File Manager', path: '/file-manager' };
+  files = { name: 'File Manager', path: '/chatbot/files/' };
+  gift = { name: '', path: '/promotions/:event' };
+  home = { name: 'Trang chủ', path: '/' };
   learningPath = { name: '', path: '/learning-path/' };
+  learningPathComplete = { name: '', path: '/learning-path/complete/' };
   lessonPage = { name: '', path: '/learning-path/lesson-page/:id' };
   lessonPageTutorial = { name: '', path: '/learning-path/lesson-page-tutorial' };
   lessonReviewPage = { name: '', path: '/learning-path/lesson-page/:id/review' };
-  learningPathComplete = { name: '', path: '/learning-path/complete/' };
-  profile = { name: '', path: '/profile/' };
-  pageNotfound = { name: '', path: '/page-not-found/' };
-  resetPassword = { name: '', path: '/reset-password/' };
-  account = { name: '', path: '/account/' };
-  package = { name: '', path: '/account/package/' };
   mockTest = { name: '', path: '/mock-test/' };
   mockTestResult = { name: '', path: '/mock-test/:id/result/' };
   mockTestReview = { name: '', path: '/mock-test/:id/review/' };
   mockTestSelect = { name: '', path: '/mock-test/:id/select/' };
+  mockTestShare = { name: '', path: '/share-mocktest/:ref' };
   mockTestTest = { name: '', path: '/mock-test/:id/test/' };
   mockTestTestTutorial = { name: '', path: '/mock-test/tutorial/1' };
-  mockTestShare = { name: '', path: '/share-mocktest/:ref' };
-  gift = { name: '', path: '/promotions/:event' };
   newUser = { name: '', path: '/new-user/' };
+  package = { name: '', path: '/account/package/' };
+  pageNotfound = { name: '', path: '/page-not-found/' };
+  profile = { name: '', path: '/profile/' };
+  resendVerified = { name: 'Gửi lại email xác thực', path: '/sign-up/resend-verified/' };
+  resetPassword = { name: '', path: '/reset-password/' };
+  signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
+  signOut = { name: 'Thoát', path: '/sign-out/' };
+  signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
   termsOfService = { name: '', path: '/terms-of-service' };
-  chatbot = { name: 'Chatbot', path: '/chatbot' };
-  chat = { name: 'Chat', path: '/chatbot/chat/:id' };
-  files = { name: 'File Manager', path: '/chatbot/files/' };
-  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
-  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
-  fileManager = { name: 'File Manager', path: '/file-manager' };
+  test = { name: 'Test', path: '/test/' };
 }
 
 const routes: Routes = [

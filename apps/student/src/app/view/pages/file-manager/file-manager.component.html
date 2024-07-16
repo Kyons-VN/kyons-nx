@@ -100,14 +100,16 @@
   <div class="side-bar right show-sm bg-white rounded-3xl p-6" *ngIf="!detail.isEmpty()">
     <div class="sidenav-with-scrollable-list">
       <div class="flex justify-between items-start">
-        <h5>Chi tiết tài liệu</h5>
+        <h5>Chi tiết {{ detail.typeDisplay.toLocaleLowerCase() }}</h5>
         <button class="btn-icon link" (click)="hideDetail()"><i class="icon-XClose"></i></button>
       </div>
       <div class="col w-full gap-6 overflow-y-auto">
         @if(detail.isImage){
         <img [src]="detail.fileUri" alt="" />
         }@else {
-        <a class="btn orange outlined" [href]="detail.fileUri" target="_blank">Xem tài liệu</a>
+        <a class="btn orange outlined" [href]="detail.fileUri" target="_blank"
+          >Xem {{ detail.typeDisplay.toLocaleLowerCase() }}</a
+        >
         }
         <div
           class="flex gap-4 relative z-20 w-full"
@@ -143,11 +145,11 @@
         <hr />
         <div class="col gap-2">
           <div class="col gap-1">
-            <span class="caption">Loại tài liệu</span>
+            <span class="caption">Loại tập tin</span>
             <span>{{ detail.extension | uppercase }}</span>
           </div>
           <div class="col gap-1">
-            <span class="caption">Kích thước tài liệu</span>
+            <span class="caption">Kích thước {{ detail.typeDisplay.toLocaleLowerCase() }}</span>
             <span>{{ detail.sizeDisplay }}</span>
           </div>
           <div class="col gap-1">

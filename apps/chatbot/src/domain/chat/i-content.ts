@@ -3,6 +3,8 @@ enum Role {
   model,
 }
 
+const maxManaWidth = 26;
+
 interface IPart {
   toJson(): Record<string, unknown>;
   isText: boolean;
@@ -22,5 +24,18 @@ interface IChat {
   dateDisplay: string;
 }
 
-export { IChat, IContent, IPart, Role };
+interface IFileDataPart {
+  text?: never;
+  inlineData?: never;
+  functionCall?: never;
+  functionResponse?: never;
+  fileData: IFileData;
+}
+
+interface IFileData {
+  mimeType: string;
+  fileUri: string;
+}
+
+export { IChat, IContent, IFileData, IFileDataPart, IPart, Role, maxManaWidth };
 

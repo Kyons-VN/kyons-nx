@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FileData, Image } from '@data/file/file-model';
 import { FileService } from '@data/file/file.service';
 import { UserService } from '@data/user/user.service';
+import { FileData, FilePlaceholder } from '@share-utils/data';
 import { MaterialModule } from '../../../material.module';
 
 @Component({
@@ -96,7 +96,7 @@ export class FileSelectionComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = this.searchFile;
   }
 
-  uploadFile(file: File, image: Image, callback: (data: string) => void, errorCallback: (code: number) => void) {
+  uploadFile(file: File, image: FilePlaceholder, callback: (data: string) => void, errorCallback: (code: number) => void) {
     return this.fileService.uploadFile(this.userId, file, image).subscribe({
       next: (data) => {
         if (data.id != undefined) {

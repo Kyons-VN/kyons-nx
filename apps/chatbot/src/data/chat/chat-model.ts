@@ -1,21 +1,20 @@
 import { IChat, IContent, IPart, Role } from "@domain/chat/i-content";
-import { formatedDate } from "@share-utils/formats";
-import { Buffer } from "buffer";
+import { formattedDate, toNonAccentVietnamese } from "@share-utils/utils";
 
 class Content implements IContent {
   role: Role;
-  parts: (TextPart | DataPart)[];
+  parts: (Part)[];
   isModel: boolean;
   isUser: boolean;
   createdAt: Date;
-  constructor(role: Role, parts: (TextPart | DataPart)[], createdAt: Date) {
+  constructor(role: Role, parts: (Part)[], createdAt: Date) {
     this.role = role;
     this.parts = parts;
     this.isModel = role === Role.model;
     this.isUser = role === Role.user;
     this.createdAt = createdAt;
   }
-  static parseContent({ role, parts, createdAt }: { role: string; parts: { text: string }[], createdAt: { _seconds: number } }) {
+  static parseContent({ role, parts, createdAt }: { role: string; parts: { [key: string]: string }[], createdAt: { _seconds: number } }) {
     return new Content(
       role === "user" ? Role.user : Role.model,
       parts.map((part) => Part.parsePart(part)),
@@ -32,6 +31,16 @@ class Content implements IContent {
       new Date(),
     );
   }
+
+  static unknownError(code: number): Content {
+    return new Content(
+      Role.model,
+      [
+        new TextPart(`Lỗi ${code}, vui lòng thử lại sau!`)
+      ],
+      new Date(),
+    );
+  }
 }
 
 class Part implements IPart {
@@ -40,6 +49,11 @@ class Part implements IPart {
   }
   isText = false;
   isData = false;
+  isDeleted = false;
+  text?: string;
+  fileId?: string;
+  url?: string;
+  mimeType?: string;
   static parsePart(jsonObject: any) {
 
     // return switch (jsonObject) {
@@ -50,15 +64,15 @@ class Part implements IPart {
     // };
     if (jsonObject.text) {
       return new TextPart(jsonObject.text);
-    } else if (jsonObject.inlineData) {
-      return new DataPart(jsonObject.inlineData.mimeType, Buffer.from(jsonObject.inlineData.data, 'base64'));
+    } else if (jsonObject.fileId) {
+      return new FilePart(jsonObject.fileId);
     }
     throw new Error('Unhandled Part format');
   }
 }
 
 class TextPart extends Part {
-  text: string;
+  // override url: string;
   hasPlayBtn: boolean;
   override isText = true;
   constructor(text: string) {
@@ -71,21 +85,26 @@ class TextPart extends Part {
   }
 }
 
-class DataPart extends Part {
-  mimeType: string;
-  bytes: Uint8Array;
+class FilePart extends Part {
+  // mimeType?: string;
+  // url?: string;
   override isData = true;
+  id: string;
+  base64?: string;
 
-  constructor(mimeType: string, bytes: Uint8Array) {
+  constructor(id: string) {
     super();
-    this.mimeType = mimeType;
-    this.bytes = bytes;
+    this.id = id;
   }
 
   override toJson(): Record<string, unknown> {
     return {
-      'inlineData': { 'data': Buffer.from(this.bytes).toString('base64'), 'mimeType': this.mimeType }
+      'fileId': this.id
     }
+  }
+
+  static empty() {
+    return new FilePart('');
   }
 }
 
@@ -93,13 +112,15 @@ class Chat implements IChat {
   id: string;
   createdAt: Date;
   firstMessage: string;
+  search: string;
   messages: Content[] = [];
   dateDisplay: string;
   constructor(id: string, createdAt: Date, firstMessage: string) {
     this.id = id;
     this.firstMessage = firstMessage;
     this.createdAt = createdAt;
-    this.dateDisplay = formatedDate(this.createdAt);
+    this.dateDisplay = formattedDate(this.createdAt);
+    this.search = toNonAccentVietnamese(this.firstMessage).toLocaleLowerCase();
   }
   static fromJson({
     id,
@@ -109,10 +130,10 @@ class Chat implements IChat {
     id: string;
     createdAt: { _seconds: number };
     messages: { role: string; parts: { text: string }[] }[];
-    firstMessage: string;
+    firstMessage: string | null;
   }) {
     const createdAtDate = new Date(createdAt._seconds * 1000); // Convert Firebase moment time to TypeScript
-    return new Chat(id, createdAtDate, firstMessage);
+    return new Chat(id, createdAtDate, firstMessage ?? '');
   }
 
   updateMessages(messages: Content[]) {
@@ -130,5 +151,21 @@ class Mana {
   static invalid() { return new Mana(-1, -1) };
 }
 
-export { Chat, Content, DataPart, Mana, Part, TextPart };
+enum ChatErrorCode {
+  UserNotFound = 1,
+  NoPrompt = 2,
+  OutOfMana = 3,
+}
+
+class ChatError {
+  message: string;
+  code: ChatErrorCode;
+  constructor(message: string, code: number) {
+    this.message = message;
+    this.code = code;
+  }
+}
+
+
+export { Chat, ChatError, Content, FilePart, Mana, Part, TextPart };
 

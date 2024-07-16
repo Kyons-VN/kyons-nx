@@ -1,4 +1,4 @@
-import { Properties as CarouselProperties, Image } from './interfaces';
+import { Properties as CarouselProperties } from './interfaces';
 
 export interface Cell {
   index: number;

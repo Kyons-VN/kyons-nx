@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { Capacity, FileData, Image } from '@data/file/file-model';
 import { environment } from "@environments";
+import { Capacity, FileData, FilePlaceholder } from '@share-utils/data';
+import { IFileService } from "@share-utils/domain";
 import { map, Observable } from "rxjs";
 
 
@@ -11,11 +12,12 @@ const fileServerApi = environment.fileApi;
 @Injectable({
   providedIn: 'root',
 })
-class FileService {
+class FileService implements IFileService {
   http = inject(HttpClient);
-  accept = 'image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/mpeg,video/avi,video/mov,video/webm,video/mkv,video/wmv,application/pdf,text/*,application/x-javascript,application/x-typescript,text/x-python,application/json,application/rtf,audio/mpeg,audio/wav,audio/webm,audio/x-m4a,audio/opus,audio/aac,audio/flac,audio/pcm,audio/aiff,audio/ogg';
+  // accept = 'image/jpeg,image/png,image/webp,image/heic,image/heif,video/mp4,video/mpeg,video/avi,video/mov,video/webm,video/mkv,video/wmv,application/pdf,text/*,application/x-javascript,application/x-typescript,text/x-python,application/json,application/rtf,audio/mpeg,audio/wav,audio/webm,audio/x-m4a,audio/opus,audio/aac,audio/flac,audio/pcm,audio/aiff,audio/ogg';
+  accept = 'image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf,text/*,application/x-javascript,application/x-typescript,text/x-python,application/json,application/rtf,audio/mpeg,audio/wav,audio/webm,audio/x-m4a,audio/opus,audio/aac,audio/flac,audio/pcm,audio/aiff,audio/ogg';
 
-  uploadFile(userId: string, file: File, image: Image) {
+  uploadFile(userId: string, file: File, image: FilePlaceholder) {
     const formData = new FormData();
 
     formData.append('userId', userId);

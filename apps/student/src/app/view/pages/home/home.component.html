@@ -1,5 +1,5 @@
 <student-top-menu class="md:hidden" />
-<div class="bg-gradient h-full flex flex-col md:flex-row">
+<div class="bg-gradient h-full flex flex-col md:flex-row overflow-auto">
   <div class="col md:hidden">
     <div class="bg-rocket-xs text-white px-4 py-8">
       <div class="flex justify-between items-center relative">
@@ -36,8 +36,8 @@
       </button>
     </div>
   </div>
-  <div class="col p-4 md:p-8 items-stretch flex-1 gap-6 md:gap-8 md:overflow-y-auto">
-    <div class="gap-4 hidden md:flex flex-col">
+  <div class="col items-stretch flex-1 md:overflow-y-auto">
+    <div class="hidden md:flex flex-col">
       <!-- <div class="flex justify-between">
         <img src="/assets/images/logo-h.svg" alt="" width="126px" />
         <div class="flex gap-2">
@@ -57,109 +57,111 @@
       </div> -->
       <student-top-menu />
     </div>
-    <div class="col gap-4">
-      <div class="flex justify-between">
-        <h5 class="hidden md:block">Chỉ số của bạn</h5>
-        <span class="h7 md:hidden">Chỉ số của bạn</span>
-        <!-- <a (click)="showWhatIsStats = true" class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5">
-          <i class="icon-Help"></i>
-          <span class="underline">Những chỉ số này là gì?</span>
-        </a> -->
-      </div>
-      <div class="stats text-white items-center shadow-4 rounded-2xl md:h-[296px] flex flex-col md:flex-row">
-        <div class="flex-1 flex items-center justify-center p-3">
-          <img src="/assets/images/Spider chart.svg" alt="" class="w-[179px] md:w-auto" />
+    <div class="col gap-6 md:gap-8">
+      <div class="col gap-4 px-4 md:px-8">
+        <div class="flex justify-between">
+          <h5 class="hidden md:block">Chỉ số của bạn</h5>
+          <span class="h7 md:hidden">Chỉ số của bạn</span>
+          <!-- <a (click)="showWhatIsStats = true" class="!text-blueGrey-500 !no-underline flex cursor-pointer gap-0.5">
+            <i class="icon-Help"></i>
+            <span class="underline">Những chỉ số này là gì?</span>
+          </a> -->
         </div>
-        <div class="h-[150px] border-r border-solid border-blueGrey-600 hidden md:block"></div>
-        <div class="w-[222px] border-t border-solid border-blueGrey-600 md:hidden"></div>
-        <div class="flex-1 h-full col gap-6 md:gap-0 items-center justify-start p-14 pt-6 md:pt-14">
-          <div class="flex gap-4">
-            <img
-              width="32px"
-              height="32px"
-              *ngFor="let o of over; index as i"
-              [src]="'/assets/images/' + (o || activeStat === i ? stats[i] : statsBW[i]) + '.svg'"
-              alt=""
-              (mouseover)="over[i] = true"
-              (mouseout)="over[i] = false"
-              class="cursor-pointer stat"
-              [ngClass]="{ active: activeStat === i }"
-              (click)="activeStat = i"
-            />
+        <div class="stats text-white items-center shadow-4 rounded-2xl md:h-[296px] flex flex-col md:flex-row">
+          <div class="flex-1 flex items-center justify-center p-3">
+            <img src="/assets/images/Spider chart.svg" alt="" class="w-[179px] md:w-auto" />
           </div>
-          <div class="flex-1 text-base font-bold flex items-center text-center">
-            Tính năng bí mật sắp<br />được bật mí 🥳
-          </div>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="!isLoading; else loading" class="col gap-4">
-      <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:gap-0">
-        <div class="flex flex-col lg:flex-row gap-3 lg:items-center">
-          <div class="flex gap-4 items-center">
-            <h5 class="hidden md:block">Mục tiêu gần đây</h5>
-            <span class="h7 md:hidden">Mục tiêu gần đây</span>
-            <!-- <a href="">Xem tất cả Mục tiêu học tập</a> -->
-          </div>
-          <a (click)="showAll = !showAll">{{ !showAll ? 'Xem tất cả' : 'Xem thu gọn' }} Mục tiêu học tập</a>
-        </div>
-        <button
-          #btnCreateLearningGoal
-          [routerLink]="paths.mockTest.path"
-          class="btn orange large"
-          data-tooltip-content="Bấm vào đây để tạo mục tiêu học tập mới"
-        >
-          <i class="icon-Add"></i>Tạo mục tiêu học tập mới
-        </button>
-      </div>
-      <div
-        *ngIf="learnings.length === 0; else elseBlock"
-        class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-14px] md:relative"
-      >
-        <img class="md:hidden" src="/assets/images/pointer-xs.webp" alt="" />
-        <img class="hidden md:block absolute top-[10px] right-[122px]" src="/assets/images/pointer.webp" alt="" />
-        <h5 class="text-orange">Bạn chưa có Mục tiêu học tập!</h5>
-        <p class="max-w-[435px] text-center">
-          Kyons cần biết mục tiêu học tập để tạo ra bài tập vừa với trình độ của bạn. Bấm vào nút này để Tạo mục tiêu
-          học tập đầu tiên nhé!
-        </p>
-      </div>
-      <ng-template #elseBlock>
-        <div
-          class="grid grid-col-1 xl:grid-cols-2 gap-x-6 gap-y-4 max-h-[80vh] overflow-y-auto pb-8 px-[16px] mx-[-14px]"
-        >
-          <div
-            (click)="selectLearningGoal(item)"
-            *ngFor="let item of learnings | slice : 0 : (showAll ? 1000 : 4)"
-            class="learning-goal-item"
-          >
-            <img src="/assets/images/Subject.svg" alt="" />
-            <div class="col gap-0.5 flex-1">
-              <h6 class="hidden md:block">{{ item.name }}</h6>
-              <span class="h8 md:hidden">{{ item.name }}</span>
-              <span>{{ item.program.name }}</span>
+          <div class="h-[150px] border-r border-solid border-blueGrey-600 hidden md:block"></div>
+          <div class="w-[222px] border-t border-solid border-blueGrey-600 md:hidden"></div>
+          <div class="flex-1 h-full col gap-6 md:gap-0 items-center justify-start p-14 pt-6 md:pt-14">
+            <div class="flex gap-4">
+              <img
+                width="32px"
+                height="32px"
+                *ngFor="let o of over; index as i"
+                [src]="'/assets/images/' + (o || activeStat === i ? stats[i] : statsBW[i]) + '.svg'"
+                alt=""
+                (mouseover)="over[i] = true"
+                (mouseout)="over[i] = false"
+                class="cursor-pointer stat"
+                [ngClass]="{ active: activeStat === i }"
+                (click)="activeStat = i"
+              />
             </div>
-            <circle-progress
-              [percent]="item.progress"
-              [title]="item.progress + '%'"
-              [animateTitle]="false"
-              [showSubtitle]="false"
-              [radius]="32"
-              titleFontSize="16px"
-              titleFontWeight="bold"
-              outerStrokeColor="var(--color-lightOrange-1)"
-              [lazy]="false"
-            ></circle-progress>
+            <div class="flex-1 text-base font-bold flex items-center text-center">
+              Tính năng bí mật sắp<br />được bật mí 🥳
+            </div>
           </div>
         </div>
-        <div class="h-[60px] md:hidden"></div>
-      </ng-template>
-      <kyonsvn-tutorial
-        *ngIf="showTutorial"
-        (skipCallback)="skip()"
-        [scriptElements]="[btnCreateLearningGoal]"
-        [scriptEvents]="[['click', script]]"
-      ></kyonsvn-tutorial>
+      </div>
+      <div *ngIf="!isLoading; else loading" class="col gap-4 px-4 md:px-8">
+        <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4 lg:gap-0">
+          <div class="flex flex-col lg:flex-row gap-3 lg:items-center">
+            <div class="flex gap-4 items-center">
+              <h5 class="hidden md:block">Mục tiêu gần đây</h5>
+              <span class="h7 md:hidden">Mục tiêu gần đây</span>
+              <!-- <a href="">Xem tất cả Mục tiêu học tập</a> -->
+            </div>
+            <a (click)="showAll = !showAll">{{ !showAll ? 'Xem tất cả' : 'Xem thu gọn' }} Mục tiêu học tập</a>
+          </div>
+          <button
+            #btnCreateLearningGoal
+            [routerLink]="paths.mockTest.path"
+            class="btn orange large"
+            data-tooltip-content="Bấm vào đây để tạo mục tiêu học tập mới"
+          >
+            <i class="icon-Add"></i>Tạo mục tiêu học tập mới
+          </button>
+        </div>
+        <div
+          *ngIf="learnings.length === 0; else elseBlock"
+          class="bg-mess col items-center gap-2 p-4 md:p-8 mx-[-14px] md:relative"
+        >
+          <img class="md:hidden" src="/assets/images/pointer-xs.webp" alt="" />
+          <img class="hidden md:block absolute top-[10px] right-[122px]" src="/assets/images/pointer.webp" alt="" />
+          <h5 class="text-orange">Bạn chưa có Mục tiêu học tập!</h5>
+          <p class="max-w-[435px] text-center">
+            Kyons cần biết mục tiêu học tập để tạo ra bài tập vừa với trình độ của bạn. Bấm vào nút này để Tạo mục tiêu
+            học tập đầu tiên nhé!
+          </p>
+        </div>
+        <ng-template #elseBlock>
+          <div
+            class="grid grid-col-1 xl:grid-cols-2 gap-x-6 gap-y-4 max-h-[80vh] overflow-y-auto pb-8 px-[16px] mx-[-14px]"
+          >
+            <div
+              (click)="selectLearningGoal(item)"
+              *ngFor="let item of learnings | slice : 0 : (showAll ? 1000 : 4)"
+              class="learning-goal-item"
+            >
+              <img src="/assets/images/Subject.svg" alt="" />
+              <div class="col gap-0.5 flex-1">
+                <h6 class="hidden md:block">{{ item.name }}</h6>
+                <span class="h8 md:hidden">{{ item.name }}</span>
+                <span>{{ item.program.name }}</span>
+              </div>
+              <circle-progress
+                [percent]="item.progress"
+                [title]="item.progress + '%'"
+                [animateTitle]="false"
+                [showSubtitle]="false"
+                [radius]="32"
+                titleFontSize="16px"
+                titleFontWeight="bold"
+                outerStrokeColor="var(--color-lightOrange-1)"
+                [lazy]="false"
+              ></circle-progress>
+            </div>
+          </div>
+          <div class="h-[60px] md:hidden"></div>
+        </ng-template>
+        <kyonsvn-tutorial
+          *ngIf="showTutorial"
+          (skipCallback)="skip()"
+          [scriptElements]="[btnCreateLearningGoal]"
+          [scriptEvents]="[['click', script]]"
+        ></kyonsvn-tutorial>
+      </div>
     </div>
   </div>
   <ng-template #loading>
