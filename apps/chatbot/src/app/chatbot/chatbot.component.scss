@@ -1,0 +1,7 @@
+.loading {
+  @apply flex items-center justify-center w-full h-full;
+}
+.chatbox.bg-blue {
+  // @apply bg-primaryBlue p-0;
+  grid-template-rows: 100%;
+}

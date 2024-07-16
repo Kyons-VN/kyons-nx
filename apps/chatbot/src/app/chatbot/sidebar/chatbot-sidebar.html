@@ -1,0 +1,105 @@
+<div class="side-bar" [ngClass]="{ 'show-sm': !isSmMenuHide() }">
+  <div class="sidenav-with-scrollable-list">
+    <div class="history">
+      <div class="xl:hidden flex justify-between items-start">
+        <span class="h7">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</span>
+        <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
+          <i class="icon-Close text-[16px]"></i>
+        </div>
+      </div>
+      <div class="flex justify-start" *ngIf="chatId">
+        <button
+          class="btn orange outlined"
+          [routerLink]="paths.home.path"
+          [disabled]="chatId === ''"
+          routerLinkActive="disabled"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="icon-Add"></i>
+          {{ theme === 'universe' ? 'New chat' : 'Tạo mới' }}
+        </button>
+      </div>
+      <span class="h7 hidden xl:block">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</span>
+      <div class="icon-prefix">
+        <i class="icon-Search absolute pointer-events-none"></i>
+        <input
+          type="text"
+          placeholder="Tìm kiếm..."
+          [(ngModel)]="searchChat"
+          (ngModelChange)="onSearchChat()"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <ul class="left-list">
+      @for (item of groupNames; track $index) { @if(chats[item]&&chats[item]['data'].length>0){
+      <li>
+        <span class="note">{{ chats[item]['label'] }}</span>
+        <ul>
+          <li *ngFor="let chat of chats[item]['data']" [ngClass]="{ active: chatId === chat.id }">
+            <div
+              class="side-bar-item relative"
+              [ngClass]="{
+                'z-20': selectedChat()?.id === chat.id,
+                shine: selectedChat()?.id === chat.id && updatingChat
+              }"
+            >
+              @if(!showEditChat()||selectedChat()?.id !== chat.id){<a
+                class="chat-name"
+                [routerLink]="paths.chat.path.replace(':id', chat.id)"
+                [title]="chat.firstMessage"
+                >{{ chat.firstMessage }}</a
+              >} @else if(selectedChat()?.id === chat.id){
+              <div class="flex">
+                <input type="text" [(ngModel)]="chatName" (keyup.enter)="updateChatName()" />
+                <button class="btn-icon link" (click)="updateChatName()">
+                  <i class="icon-Check"></i>
+                </button>
+              </div>
+              }
+              <div class="flex items-center relative">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="chatMenu"
+                  aria-label="Example icon-button with a menu"
+                  (click)="selectedChat.set(chat); selectedChatGroup.set(item)"
+                  [disabled]="updatingChat"
+                >
+                  <i class="icon-DotsHorizontal"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+      } }
+    </ul>
+  </div>
+</div>
+<mat-menu #chatMenu yPosition="below" xPosition="before"
+  ><button mat-menu-item (click)="chatName = selectedChat()?.firstMessage ?? ''; showEditChat.set(true)">
+    <i class="icon-Edit"></i>
+    <span>Sửa tên</span>
+  </button>
+  <button mat-menu-item (click)="showConfirmDeleteChat.set(true)">
+    <i class="icon-Trash"></i>
+    <span>Xóa</span>
+  </button>
+</mat-menu>
+<div
+  class="fixed top-0 left-0 right-0 bottom-0 z-10"
+  (click)="showEditChat.set(false)"
+  [ngClass]="{ hidden: !showEditChat() }"
+></div>
+<div
+  *ngIf="showConfirmDeleteChat()"
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 z-20 bg-black bg-opacity-50"
+>
+  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+    <h5 class="text-center">Bạn chắc chắn muốn xóa đoạn trò chuyện này?</h5>
+    <div class="flex gap-4 justify-center">
+      <button class="btn orange outlined" (click)="showConfirmDeleteChat.set(false)">Hủy</button>
+      <button class="btn orange" (click)="deleteChat()">Chắc chắn</button>
+    </div>
+  </div>
+</div>
