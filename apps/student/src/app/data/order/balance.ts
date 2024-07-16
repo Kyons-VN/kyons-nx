@@ -1,5 +1,5 @@
 import IBalance from '@domain/order/i-balance';
-import { formattedPrice } from '@share-utils/formats';
+import { formattedPrice } from '@share-utils/utils';
 
 export default class Balance implements IBalance {
   value: number;

@@ -1,3 +1,6 @@
+export * from './lib/chat/chatbox/chatbox.component';
+export * from './lib/chat/file-selection/file-selection.component';
+export * from './lib/chat/messages/messages.component';
 export * from './lib/exercise-content/exercise-content.component';
 export * from './lib/input-radio/input-radio.component';
 export * from './lib/latex/latex.component';

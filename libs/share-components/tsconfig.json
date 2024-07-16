@@ -11,7 +11,8 @@
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@share-utils/*": ["libs/share-utils/src/lib/*"],
-      "@share-pipes": ["libs/share-pipes/src/index.ts"]
+      "@share-pipes": ["libs/share-pipes/src/index.ts"],
+      "@share-directives": ["libs/share-directives/src/index.ts"]
     }
   },
   "files": [],

@@ -1,3 +1,4 @@
-export * from './lib/formats';
-export * from './lib/knowledge/data';
-export * from './lib/knowledge/domain';
+export * from './lib/data';
+export * from './lib/domain';
+export * from './lib/utils';
+

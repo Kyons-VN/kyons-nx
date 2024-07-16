@@ -1,120 +1,199 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatMenuModule } from '@angular/material/menu';
-import { FileData, Image } from '@data/file/file-model';
-import { FileService } from '@data/file/file.service';
-import { AnimationOptions, LottieComponent } from 'ngx-lottie';
-import { FileSelectionComponent } from '../file-selection/file-selection.component';
+// import { CommonModule } from '@angular/common';
+// import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+// import { FormsModule } from '@angular/forms';
+// import { MatMenuModule } from '@angular/material/menu';
+// import { FileData, FilePlaceholder } from '@data/file/file-model';
+// import { FileService } from '@data/file/file.service';
+// import { getBase64 } from '@share-utils/utils';
+// import { AnimationOptions, LottieComponent } from 'ngx-lottie';
+// import { FileSelectionComponent } from '../file-selection/file-selection.component';
 
-@Component({
-  selector: 'student-chatbox',
-  standalone: true,
-  imports: [CommonModule, FormsModule, LottieComponent, MatMenuModule, FileSelectionComponent],
-  templateUrl: './chatbox.component.html',
-})
-export class ChatboxComponent implements OnChanges, AfterViewInit {
-  accetp = inject(FileService).accept;
-  text: string = '';
-  options: AnimationOptions = {
-    path: './assets/animations/loading.json',
-    loop: true,
-    autoplay: true,
-  };
-  isInit: boolean = false;
-  image: Image | null = null;
-  showFileSelection = false;
+// @Component({
+//   selector: 'student-chatbox',
+//   standalone: true,
+//   imports: [CommonModule, FormsModule, LottieComponent, MatMenuModule, FileSelectionComponent],
+//   templateUrl: './chatbox.component.html',
+// })
+// export class ChatboxComponent implements OnChanges, AfterViewInit {
+//   accetp = inject(FileService).accept;
+//   text: string = '';
+//   options: AnimationOptions = {
+//     path: './assets/animations/loading.json',
+//     loop: true,
+//     autoplay: true,
+//   };
+//   isInit: boolean = false;
+//   placeholder: FilePlaceholder | null = null;
+//   showFileSelection = false;
+//   file: File | null = null;
 
-  @Input() isThinking: boolean = false;
-  @Input() isGaming: boolean = false;
-  @Output() sendMessage = new EventEmitter<string>();
-  @Output() endGame = new EventEmitter<void>();
-  @Output() selectFile = new EventEmitter<File>();
-  @Output() selectFileFromStorage = new EventEmitter<FileData>();
-  @Output() selectImage = new EventEmitter<Image>();
-  @Output() removeImage = new EventEmitter<Image>();
-  @ViewChild('askInput') askInputElm!: ElementRef;
+//   @Input() isThinking: boolean = false;
+//   @Input() isGaming: boolean = false;
+//   @Input() hasFileFeature: boolean = false;
+//   @Output() sendMessage = new EventEmitter<string>();
+//   @Output() endGame = new EventEmitter<void>();
+//   @Output() selectFile = new EventEmitter<File>();
+//   @Output() selectFileFromStorage = new EventEmitter<FileData>();
+//   @Output() selectImage = new EventEmitter<FilePlaceholder>();
+//   @Output() removeImage = new EventEmitter<FilePlaceholder>();
+//   @ViewChild('askInput') askInputElm!: ElementRef;
 
-  ngAfterViewInit(): void {
-    this.isInit = true;
-  }
+//   ngAfterViewInit(): void {
+//     this.isInit = true;
+//   }
 
-  ask() {
-    if (this.text === '') return;
-    this.sendMessage.emit(this.text.replace(/\n/g, '<br>'));
-    this.text = '';
-    this.image = null;
-  }
+//   ask() {
+//     if (this.text === '') return;
+//     this.sendMessage.emit(this.text.replace(/\n/g, '<br>'));
+//     this.text = '';
+//     this.placeholder = null;
+//   }
 
-  onCtrlEnter() {
-    this.text += '\n';
-  }
+//   onCtrlEnter() {
+//     this.text += '\n';
+//   }
 
-  onEnter() {
-    this.ask();
-  }
+//   onEnter() {
+//     this.ask();
+//   }
 
-  onDeleteFile() {
-    if (this.image == null) return;
-    this.removeImage.emit(this.image);
-    this.image = null;
-  }
+//   onDeleteFile() {
+//     if (!this.hasFileFeature) return;
+//     if (this.placeholder == null) return;
+//     this.removeImage.emit(this.placeholder);
+//     this.placeholder = null;
+//   }
 
-  onFileSelected($event: Event) {
-    if ($event.target == null) return;
-    const target = $event.target as HTMLInputElement;
-    // convertFile(files[0]).subscribe(base64 => {
-    //   this.image = base64;
-    // });
-    const reader = new FileReader();
-    if (target.files && target.files[0]) {
-      const file = target.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        alert("Không thể tải file lớn hơn 5 MB");
-        return;
-      }
-      reader.readAsDataURL(target.files[0]);
-      this.image = new Image(file.name, file.type, file.size);
-      this.selectFile.emit(file);
-      this.selectImage.emit(this.image);
-      reader.onloadend = this.onloadend.bind(this, reader);
-    }
-  }
+//   async onFileSelected($event: Event) {
+//     if (!this.hasFileFeature) return;
+//     if ($event.target == null) return;
+//     const target = $event.target as HTMLInputElement;
+//     // const reader = new FileReader();
+//     if (target.files && target.files[0]) {
+//       const file = target.files[0];
+//       if (file.type.split('/')[0] !== 'image' && file.size > 5 * 1024 * 1024) {
+//         alert("Không thể tải ảnh lớn hơn 5 MB");
+//         return;
+//       }
+//       if (file.size > 15 * 1024 * 1024) {
+//         alert("Không thể tải tập tin lớn hơn 15 MB");
+//       }
+//       this.file = file;
+//       // reader.readAsDataURL(target.files[0]);
+//       // if (file.type.split('/')[0] == 'image') {
+//       this.placeholder = new FilePlaceholder(file.name, file.type, file.size);
+//       this.selectImage.emit(this.placeholder);
+//       // }
+//       this.selectFile.emit(file);
+//       const base64 = await getBase64(file);
+//       // reader.onloadend = this.onloadend.bind(this, reader);
+//     }
+//   }
 
-  onloadend(reader: FileReader) {
-    if (this.image == null) return;
-    const result = reader.result as string;
-    const splits = result.split(',');
-    this.image.base64 = reader.result as string;
-    if (splits[0].includes('image/png')) {
-      this.image.mimeType = 'image/png'
-    }
-    else if (splits[0].includes('image/jpg')) {
-      this.image.mimeType = 'image/jpg'
-    }
-    this.selectImage.emit(this.image);
-  }
+//   async onloadend(reader: FileReader) {
+//     if (!this.hasFileFeature) return;
+//     if (this.placeholder == null || this.file == null) return;
+//     const result = reader.result as string;
+//     const splits = result.split(',');
+//     if (this.file.type.split('/')[0] == 'image') this.placeholder.base64 = reader.result as string;
+//     if (this.file.type.split('/')[0] == 'video') {
+//       const image = await videoToImage(this.file, { frameTimeInSeconds: 0.5, extension: 'png' });
+//       console.log(image);
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (!this.isInit) return;
-    if (changes['isThinking']) {
-      if (!changes['isThinking'].currentValue) {
-        setTimeout(() => {
-          this.askInputElm.nativeElement.focus();
-        }, 100);
-      }
-    }
-  }
+//       // this.placeholder.base64 = reader.result as string;
+//     }
+//     // if (splits[0].includes('image/png')) {
+//     //   this.placeholder.mimeType = 'image/png'
+//     // }
+//     // else if (splits[0].includes('image/jpg')) {
+//     //   this.placeholder.mimeType = 'image/jpg'
+//     // }
+//     this.selectImage.emit(this.placeholder);
+//   }
 
-  exit() {
-    this.endGame.emit()
-  }
+//   ngOnChanges(changes: SimpleChanges) {
+//     if (!this.isInit) return;
+//     if (changes['isThinking']) {
+//       if (!changes['isThinking'].currentValue) {
+//         setTimeout(() => {
+//           this.askInputElm.nativeElement.focus();
+//         }, 100);
+//       }
+//     }
+//   }
 
-  onSelectFileFromStorage(file: FileData) {
-    this.image = Image.fromFileData(file);
-    if (this.image == null) return;
-    this.showFileSelection = false;
-    this.selectFileFromStorage.emit(file);
-    this.selectImage.emit(this.image);
-  }
-}
+//   exit() {
+//     this.endGame.emit()
+//   }
+
+//   onSelectFileFromStorage(file: FileData) {
+//     if (!this.hasFileFeature) return;
+//     this.placeholder = FilePlaceholder.fromFileData(file);
+//     if (this.placeholder == null) return;
+//     this.showFileSelection = false;
+//     this.selectFileFromStorage.emit(file);
+//     this.selectImage.emit(this.placeholder);
+//   }
+// }
+
+// export const videoToImage = (
+//   videoFile: File,
+//   options: {
+//     frameTimeInSeconds?: number
+//     filename?: string
+//     extension?: string
+//   } = {
+//       frameTimeInSeconds: 0.5,
+//       extension: "png"
+//     }
+// ): Promise<File> => {
+//   return new Promise<File>((resolve) => {
+//     const canvas = document.createElement('canvas')
+//     const video = document.createElement('video')
+//     const source = document.createElement('source')
+//     const context = canvas.getContext('2d')
+//     const urlRef = URL.createObjectURL(videoFile)
+
+//     video.style.display = 'none'
+//     canvas.style.display = 'none'
+
+//     source.setAttribute('src', urlRef)
+//     video.setAttribute('crossorigin', 'anonymous')
+//     video.setAttribute('preload', 'metadata')
+
+//     video.appendChild(source)
+//     document.body.appendChild(canvas)
+//     document.body.appendChild(video)
+
+//     if (!context) {
+//       return
+//     }
+
+//     video.currentTime = options.frameTimeInSeconds ?? 0
+//     video.load()
+
+//     video.addEventListener('loadedmetadata', function () {
+//       canvas.width = video.videoWidth
+//       canvas.height = video.videoHeight
+//     })
+
+//     video.addEventListener('loadeddata', function () {
+//       setTimeout(() => {
+//         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+
+//         canvas.toBlob((blob) => {
+//           if (!blob) return
+//           resolve(
+//             new File([blob], (options.filename || videoFile.name) + "_preview." + options.extension, {
+//               type: 'image/' + options.extension
+//             })
+//           )
+//           URL.revokeObjectURL(urlRef)
+
+//           video.remove()
+//           canvas.remove()
+//         }, 'image/' + options.extension)
+//       }, 2000)
+//     })
+//   })
+// }

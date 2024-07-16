@@ -9,8 +9,6 @@ import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
-// import { MessagingService } from '@data/notification/messaging.service';
-// import { notificationServiceProvider } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
 import { environment } from '@environments';
 import { FormControlStatus } from '@utils/form';

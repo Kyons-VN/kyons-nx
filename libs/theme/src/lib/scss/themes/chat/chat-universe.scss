@@ -45,7 +45,7 @@
   .ask {
     input,
     textarea {
-      @apply m-0 flex-1 resize-none border-0 bg-transparent focus:ring-0 focus-visible:ring-0 py-[10px] pr-10 md:py-3.5 md:pr-12 max-h-52 placeholder-white/50 pl-3 md:pl-4;
+      @apply m-0 flex-1 resize-none border-0 bg-transparent focus:ring-0 focus-visible:ring-0 py-2.5 px-5 max-h-52 placeholder-white/50 w-full;
     }
     .control {
       @apply px-4 flex-1 p-3.5 h-[64px];
@@ -118,7 +118,7 @@
         }
       }
       .content {
-        @apply flex flex-col gap-2;
+        @apply flex flex-col gap-2 items-end;
         .box:after {
           @apply absolute inset-0;
           content: '';
@@ -153,6 +153,9 @@
           }
           svg {
             @apply absolute top-0 left-0 w-full;
+          }
+          img {
+            max-width: 200px;
           }
         }
       }

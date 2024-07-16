@@ -95,10 +95,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }, 100);
   }
 
-  private redirectToHome() {
-    this.router.navigate([this.paths.home.path]);
-  }
-
   handleRefreshToken(authReq: HttpRequest<any>, req: HttpRequest<any>, next: HttpHandler, contentType: string) {
     const refreshToken = this.auth.getRefreshToken();
     if (refreshToken && refreshToken !== 'undefined') {

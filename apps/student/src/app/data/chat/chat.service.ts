@@ -3,20 +3,19 @@
 import { HttpBackend, HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { FileData, Image } from '@data/file/file-model';
 import { DBHelper } from '@data/helper/helper';
-import { UserService } from '@data/user/user.service';
 import { environment } from '@environments';
+import { Chat, Content, FileData, FilePlaceholder, Mana } from '@share-utils/data';
+import { IChatService } from '@share-utils/domain';
 import { Observable, catchError, map } from 'rxjs';
-import { Chat, Content, Mana } from './chat-model';
 
 const chatServerApi = environment.chatApi;
-// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-dev/asia-east1/chatApi';
+// const chatServerApi = 'http://127.0.0.1:5001/kyonsvn-stg/asia-east1/chatApi';
 
 @Injectable({
   providedIn: 'root',
 })
-class ChatService {
+class ChatService implements IChatService {
   backend = inject(HttpBackend);
   getGreeting(): Observable<Content> {
     const params = new HttpParams().set('prompt', '/hello');
@@ -51,7 +50,7 @@ class ChatService {
   //     })
   //   );
   // }
-  sendMessageFile(userId: string, message: string, { lessonContext, file, image, chatId, fileData }: { chatId?: string, lessonContext?: string, file?: File, image?: Image, fileData?: FileData } = {}): Observable<string> {
+  sendMessageFile(userId: string, message: string, { lessonContext, file, image, chatId, fileData }: { chatId?: string, lessonContext?: string, file?: File, image?: FilePlaceholder, fileData?: FileData } = {}): Observable<string> {
     const formData = new FormData();
     formData.append('prompt', message);
     formData.append('userId', userId);
@@ -99,9 +98,8 @@ class ChatService {
   }
   db = inject(Firestore);
   http = inject(HttpClient);
-  userService = inject(UserService);
 
-  // startChat(userId: string, message: string, { lessonContext, file, image }: { lessonContext?: string, file?: File, image?: Image } = {}): Observable<string> {
+  // startChat(userId: string, message: string, { lessonContext, file, image }: { lessonContext?: string, file?: File, image?: FilePlaceholder } = {}): Observable<string> {
   //   const formData = new FormData();
   //   formData.append('prompt', message);
   //   formData.append('userId', userId);
@@ -155,23 +153,22 @@ class ChatService {
     return this.http.get(`${chatServerApi}/user/${userId}/mana`);
   }
 
-  initDefaultMana(userId: string) {
-    const email = this.userService.getEmail();
-    const params: Record<string, unknown> = {
-      id: userId,
-      userInfo: {
-        email: email,
-      },
-      defaultMana: 3000,
-    };
-    return this.http.post(`${chatServerApi}/onSubscriptionChanged`, params);
-  }
+  // initDefaultMana(userId: string, userEmail: string) {
+  //   const params: Record<string, unknown> = {
+  //     id: userId,
+  //     userInfo: {
+  //       email: userEmail,
+  //     },
+  //     defaultMana: 3000,
+  //   };
+  //   return this.http.post(`${chatServerApi}/onSubscriptionChanged`, params);
+  // }
 
   removeCache() {
     window.localStorage.removeItem('chats');
     window.localStorage.removeItem('files');
   }
-  updateChatName(userId: string, chatId: string, chatName: string) {
+  updateChatName(userId: string, chatId: string, chatName: string): Observable<any> {
     console.log(userId, chatId, chatName);
     return this.http.put(`${chatServerApi}/user/${userId}/updateChat/${chatId}`, { firstMessage: chatName });
   }
@@ -184,6 +181,36 @@ class ChatService {
           window.localStorage.removeItem('chats');
         }
         return res;
+      })
+    );
+  }
+
+
+  getChatsByIds(userId: string, ids: string[]): Observable<Chat[]> {
+    if (window.localStorage.getItem('chats')) {
+      const chats = JSON.parse(window.localStorage.getItem('chats') as string) as any[];
+      return new Observable<Chat[]>((subscriber) => {
+        subscriber.next(
+          chats.map((data: any) => {
+            return Chat.fromJson(data);
+          }).filter((chat) => ids.includes(chat.id))
+        );
+        subscriber.complete();
+      });
+    }
+    else {
+      window.localStorage.removeItem('chats');
+    }
+    return this.http.get(`${chatServerApi}/user/${userId}/chats`).pipe(
+      catchError(DBHelper.handleError('GET getChats', [])),
+      map((res: any) => {
+        if (res.data === undefined || res.data.length === 0) return [];
+        // const collection = res.data;
+        window.localStorage.setItem('chats', JSON.stringify(res.data));
+        const collection = (res.data as any[]).map((data: any) => {
+          return Chat.fromJson(data);
+        });
+        return collection.filter((chat) => ids.includes(chat.id));
       })
     );
   }

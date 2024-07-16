@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-import { AccountPageComponent } from '../app/account-page/account-page.component';
-import { ChatbotFindMeComponent } from '../app/find-me/find-me.component';
-import { ProfileComponent } from '../app/profile/profile.component';
-import { AdminAuthGuard } from './admin-auth.guard';
+import { ChatbotComponent } from '../app/chatbot/chatbot.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 
@@ -13,20 +10,22 @@ import { LayoutFullComponent } from './layouts/full/layout-full.component';
  */
 
 class AppPaths {
-  home = { name: 'Trang chủ', path: '/' };
+  account = { name: '', path: '/account' };
+  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
+  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
   chat = { name: 'Chat', path: '/chat/:id' };
+  // chat = { name: 'Chat', path: '/chatbot/chat/:id' };
+  home = { name: 'Chatbot', path: '/' };
+  // home = { name: 'Trang chủ', path: '/' };
+  package = { name: '', path: '/account/package/' };
+  pageNotfound = { name: '', path: '/page-not-found/' };
+  profile = { name: '', path: '/profile/' };
+  resendVerified = { name: 'Gửi lại email xác thực', path: '/sign-up/resend-verified/' };
+  resetPassword = { name: '', path: '/reset-password/' };
   signIn = { name: 'Trang đăng nhập', path: '/sign-in/' };
   signOut = { name: 'Thoát', path: '/sign-out/' };
   signUp = { name: 'Trang đăng ký', path: '/sign-up/' };
-  resendVerified = { name: 'Gửi lại email xác thực', path: '/sign-up/resend-verified/' };
-  profile = { name: '', path: '/profile/' };
-  pageNotfound = { name: '', path: '/page-not-found/' };
-  resetPassword = { name: '', path: '/reset-password/' };
-  account = { name: '', path: '/account' };
-  package = { name: '', path: '/account/package/' };
   termsOfService = { name: '', path: '/terms-of-service' };
-  adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
-  adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
 }
 
 const routes: Routes = [
@@ -37,36 +36,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ChatbotFindMeComponent,
+        component: ChatbotComponent,
       },
       {
         path: 'chat/:id',
-        component: ChatbotFindMeComponent,
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-      },
-      {
-        path: 'account',
-        children: [{ path: '', component: AccountPageComponent }],
-      },
-    ],
-  },
-  {
-    path: 'admin',
-    component: LayoutFullComponent,
-    canActivate: [AdminAuthGuard],
-    children: [
-      {
-        path: '',
-        component: ChatbotFindMeComponent,
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('../app/admin/dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent),
-      },
+        component: ChatbotComponent,
+      }
     ],
   },
   {
@@ -77,10 +52,6 @@ const routes: Routes = [
   {
     path: 'sign-out',
     loadComponent: () => import('../app/sign-out/sign-out.component').then(m => m.SignOutComponent),
-  },
-  {
-    path: 'reset-password',
-    loadComponent: () => import('../app/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
   },
   {
     path: 'sign-up',
@@ -97,21 +68,6 @@ const routes: Routes = [
       {
         path: 'resend-verified',
         loadComponent: () => import('../app/sign-up/resend-verified.component').then(m => m.ResendVerifiedComponent),
-      },
-    ],
-  },
-  {
-    path: 'email-verification',
-    children: [
-      {
-        path: 'verify-success',
-        loadComponent: () =>
-          import('../app/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
-      },
-      {
-        path: 'verify-fail',
-        loadComponent: () =>
-          import('../app/email-verification/email-verification.component').then(m => m.EmailVerificationComponent),
       },
     ],
   },

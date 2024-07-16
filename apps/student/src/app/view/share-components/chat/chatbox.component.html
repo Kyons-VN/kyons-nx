@@ -14,13 +14,15 @@
   <div class="control">
     <button type="button" class="btn orange outlined" (click)="exit()">Thoát trò chơi</button>
   </div>
-  } @if(image && (image.base64!==''||image.uri!=undefined)){
-  <!-- <div
-      class="aspect-square w-full bg-contain bg-no-repeat bg-center"
-      [style]="{ 'background-image': 'url(' + image64 + ')' }"
-    ></div> -->
+  } @if(placeholder){
+
   <div class="flex justify-center relative">
-    <img [src]="image.base64 || image.uri" alt="" class="max-w-[200px] max-h-[100px] flex-shrink-0" />
+    @if(placeholder.base64){
+    <div
+      class="aspect-square w-full bg-contain bg-no-repeat bg-center"
+      [style]="{ 'background-image': 'url(' + placeholder.base64 + ')' }"
+    ></div>
+    } @else{ {{ placeholder.name }} }
     <button
       class="w-[24px] h-[24px] flex items-center justify-center p-1 absolute top-[-10px] right-[-10px]"
       (click)="onDeleteFile()"
@@ -61,7 +63,6 @@
       <ul class="list-disc">
         <li>Ảnh: kích thước &lt; 5 MB</li>
         <li>Tài liệu: kích thước &lt; 7 MB</li>
-        <li>Video/audio &lt; 15m</li>
       </ul>
       Mỗi lần tải lên một tài liệu duy nhất.
     </span>

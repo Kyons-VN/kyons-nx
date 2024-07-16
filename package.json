@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "nx",
     "start": "pnpm exec nx run student:serve:dev --host=127.0.0.1 --no-live-reload",
-    "start:student:stg": "pnpm exec nx run student:serve:stg --host=127.0.0.1 --no-live-reload",
+    "start:stg": "pnpm exec nx run student:serve:stg --host=127.0.0.1 --no-live-reload",
     "start:school": "pnpm nx run school:serve:development --host=127.0.0.1",
     "start:chatbot": "pnpm nx run chatbot:serve:dev --host=127.0.0.1",
     "start:wl": "pnpm nx run waiting-list:serve:dev --host=127.0.0.1",

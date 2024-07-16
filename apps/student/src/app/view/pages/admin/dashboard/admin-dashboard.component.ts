@@ -3,10 +3,10 @@ import { Component, HostBinding, Injector, OnInit, ViewEncapsulation, effect, in
 import { FormsModule } from '@angular/forms';
 import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
-import { Chat } from '@data/chat/chat-model';
 import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
 import { FilterPipe } from '@share-pipes';
+import { Chat } from '@share-utils/data';
 import { MessagesComponent } from '@view/share-components/chat/messages.component';
 
 @Component({
@@ -86,9 +86,9 @@ export class AdminDashboardComponent implements OnInit {
     })
   }
 
-  resetMana(user: ChatUser) {
+  async resetMana(user: ChatUser) {
     this.loadingService.show();
-    this.adminService.resetMana(user.id).subscribe({
+    (await this.adminService.resetMana(user.id)).subscribe({
       next: () => {
         this.chatService.getMana(this.selectedUser!.id).subscribe({
           next: (mana) => {
@@ -101,7 +101,7 @@ export class AdminDashboardComponent implements OnInit {
           },
         })
       },
-      error: (error) => {
+      error: (error: any) => {
         console.log(error);
 
         this.loadingService.hide();
@@ -154,6 +154,7 @@ export class AdminDashboardComponent implements OnInit {
 
   remove(index: number) {
     this.fileValidation.allowedFileTypes.splice(index, 1);
+    this.isChanged = true;
   }
 
 }

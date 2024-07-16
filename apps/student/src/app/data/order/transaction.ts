@@ -1,4 +1,4 @@
-import { formattedDate, formattedPrice } from '@share-utils/formats';
+import { formattedDate, formattedPrice } from '@share-utils/utils';
 import pick from 'lodash-es/pick';
 
 export class Transaction {

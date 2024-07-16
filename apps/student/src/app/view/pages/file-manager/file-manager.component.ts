@@ -1,17 +1,21 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectorRef, Component, HostBinding, inject, OnInit, Renderer2, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Capacity, FileData, Image } from '@data/file/file-model';
+import { Router } from '@angular/router';
+import { ChatService } from '@data/chat/chat.service';
 import { FileService } from '@data/file/file.service';
+import { NavigationService } from '@data/navigation/navigation.service';
 import { UserService } from '@data/user/user.service';
+import { Capacity, Chat, FileData, FilePlaceholder } from '@share-utils/data';
 import { FileSelectionComponent } from '@view/share-components/file-selection/file-selection.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TopMenuComponent, FormsModule, FileSelectionComponent],
+  imports: [CommonModule, TopMenuComponent, FormsModule, FileSelectionComponent, MatIconModule],
   templateUrl: './file-manager.component.html',
   styleUrls: ['./file-manager.component.scss'],
 })
@@ -22,6 +26,8 @@ export class FileManagerComponent implements OnInit {
   userService = inject(UserService);
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
+  chatService = inject(ChatService);
+  paths = inject(NavigationService).paths;
 
   capacity: Capacity | null = null;
   userId = '';
@@ -30,10 +36,12 @@ export class FileManagerComponent implements OnInit {
   edittingDetail = false;
   updatingDetail = false;
   fileName = '';
-  image: Image | null = null;
+  image: FilePlaceholder | null = null;
   file!: File;
   showConfirmDelete = false;
   accetp = this.fileService.accept;
+  detailChats: Chat[] | null = null;
+  router = inject(Router);
 
   // searchFile = '';
   // dataSource: MatTableDataSource<FileData> = new MatTableDataSource<FileData>([]);
@@ -118,13 +126,17 @@ export class FileManagerComponent implements OnInit {
     // });
     const reader = new FileReader();
     if (target.files && target.files[0]) {
-      this.file = target.files[0];
-      if (this.file.size > 5 * 1024 * 1024) {
-        alert("Không thể tải file lớn hơn 5 MB");
+      const file = target.files[0];
+      if (file.type.split('/')[0] !== 'image' && file.size > 5 * 1024 * 1024) {
+        alert("Không thể tải ảnh lớn hơn 5 MB");
         return;
       }
-      reader.readAsDataURL(target.files[0]);
-      this.image = new Image(this.file.name, this.file.type, this.file.size);
+      if (file.size > 15 * 1024 * 1024) {
+        alert("Không thể tải tập tin lớn hơn 15 MB");
+      }
+      this.file = file;
+      this.image = new FilePlaceholder(this.file.name, this.file.type, this.file.size);
+      reader.readAsDataURL(file);
       reader.onloadend = this.onloadend.bind(this, reader);
     }
   }
@@ -152,6 +164,18 @@ export class FileManagerComponent implements OnInit {
     });
   }
 
+  showConfirmDeleteDialog() {
+    this.chatService.getChatsByIds(this.userId, this.detail.chatIds ?? []).subscribe({
+      next: (chats) => {
+        this.detailChats = chats;
+        this.showConfirmDelete = true;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
   deleteFile() {
     this.selection.deleteFile(this.detail.id).then(() => {
       this.showConfirmDelete = false;
@@ -161,6 +185,10 @@ export class FileManagerComponent implements OnInit {
         this.updateCapacity();
       }, 500)
     });
+  }
+
+  openChat(chat: Chat) {
+    window.open(this.paths.chat.path.replace(':id', chat.id), '_blank');
   }
 
 }

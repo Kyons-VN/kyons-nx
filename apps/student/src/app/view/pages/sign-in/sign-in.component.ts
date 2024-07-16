@@ -13,7 +13,7 @@ import { ThemeService } from '@data/theme/theme.service';
 // import { notificationServiceProvider } from '@data/notification/notification.service';
 import { UserService } from '@data/user/user.service';
 import { environment } from '@environments';
-import { FormControlStatus } from '@share-utils/form';
+import { FormControlStatus } from '@share-utils/utils';
 import { Subscription, interval, throwError } from 'rxjs';
 
 @Component({
@@ -149,14 +149,14 @@ export class SignInComponent implements OnInit, AfterViewInit, OnDestroy {
                 },
                 error: error => {
                   if (error.error == 'Not found') {
-                    this.chatService.initDefaultMana(userId)?.subscribe({
-                      next: () => {
-                        // this.router.navigate([this.paths.home.path]);
-                      },
-                      error: () => {
-                        // this.router.navigate([this.paths.home.path]);
-                      },
-                    });
+                    // this.chatService.initDefaultMana(userId)?.subscribe({
+                    //   next: () => {
+                    //     // this.router.navigate([this.paths.home.path]);
+                    //   },
+                    //   error: () => {
+                    //     // this.router.navigate([this.paths.home.path]);
+                    //   },
+                    // });
                   }
                   if (window.localStorage.getItem('selectedPackageLevel') != undefined) {
                     const packageLevel = window.localStorage.getItem('selectedPackageLevel');

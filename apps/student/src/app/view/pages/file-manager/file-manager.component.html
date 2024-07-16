@@ -1,5 +1,7 @@
 <student-top-menu class="w-full xl:max-w-[1440px] bg-white xl:bg-transparent shadow-1 xl:shadow-none" />
-<div class="flex justify-start w-full xl:max-w-[1440px] gap-4 p-0 xl:px-14 xl:pt-0 xl:pb-10 h-full">
+<div
+  class="flex justify-start w-full xl:max-w-[1440px] gap-4 p-0 xl:px-14 xl:pt-0 xl:pb-10 h-full md:h-[calc(100%_-_106px)]"
+>
   <div
     class="w-full bg-white xl:rounded-3xl p-6 flex flex-col gap-8 h-full"
     [ngClass]="{ 'xl:max-w-[70%]': !detail.isEmpty() }"
@@ -98,11 +100,17 @@
   <div class="side-bar right show-sm bg-white rounded-3xl p-6" *ngIf="!detail.isEmpty()">
     <div class="sidenav-with-scrollable-list">
       <div class="flex justify-between items-start">
-        <h5>Chi tiết tài liệu</h5>
+        <h5>Chi tiết {{ detail.typeDisplay.toLocaleLowerCase() }}</h5>
         <button class="btn-icon link" (click)="hideDetail()"><i class="icon-XClose"></i></button>
       </div>
       <div class="col w-full gap-6 overflow-y-auto">
+        @if(detail.isImage){
         <img [src]="detail.fileUri" alt="" />
+        }@else {
+        <a class="btn orange outlined" [href]="detail.fileUri" target="_blank"
+          >Xem {{ detail.typeDisplay.toLocaleLowerCase() }}</a
+        >
+        }
         <div
           class="flex gap-4 relative z-20 w-full"
           [ngClass]="{
@@ -111,7 +119,15 @@
         >
           @if(!edittingDetail){
           <h6 class="flex justify-start gap-2 w-full" [title]="detail.name">
-            <i class="icon large text-blueGrey-500" [class]="detail.iconDisplay()"></i>
+            @if(detail.isPdf){
+            <mat-icon class="icon large">picture_as_pdf</mat-icon>
+            }@else if(detail.isAudio){
+            <mat-icon class="icon large">audio_file</mat-icon>
+            }@else if(detail.isVideo){
+            <mat-icon class="icon large">video_file</mat-icon>
+            }@else {
+            <mat-icon class="icon large">description</mat-icon>
+            }
             <span class="max-w-[calc(100%_-_88px)] break-words">{{ detail.name }}</span>
             <button *ngIf="!edittingDetail" class="btn-icon link" (click)="edittingDetail = true">
               <i class="icon-Edit text-blueGrey-500"></i>
@@ -129,11 +145,11 @@
         <hr />
         <div class="col gap-2">
           <div class="col gap-1">
-            <span class="caption">Loại tài liệu</span>
+            <span class="caption">Loại tập tin</span>
             <span>{{ detail.extension | uppercase }}</span>
           </div>
           <div class="col gap-1">
-            <span class="caption">Kích thước tài liệu</span>
+            <span class="caption">Kích thước {{ detail.typeDisplay.toLocaleLowerCase() }}</span>
             <span>{{ detail.sizeDisplay }}</span>
           </div>
           <div class="col gap-1">
@@ -143,7 +159,7 @@
         </div>
         <hr />
       </div>
-      <button class="btn red outlined w-full" (click)="showConfirmDelete = true">
+      <button class="btn red outlined w-full" (click)="showConfirmDeleteDialog()">
         <i class="icon-Trash"></i>
         Xóa tài liệu
       </button>
@@ -157,6 +173,15 @@
   <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
     <img src="/assets/images/warning.webp" alt="" class="w-[100px] self-center" />
     <h5 class="text-center">Khoan! Bạn có chắc muốn xoá?</h5>
+    @if(detailChats&&detailChats.length){
+    <p>
+      Hiện tại tài liệu của bạn đang nằm ở @for(chat of detailChats; track chat.id){<a
+        (click)="openChat(chat)"
+        class="font-bold"
+        >{{ chat.firstMessage }}</a
+      >, } ... Bạn có chắc muốn xoá?
+    </p>
+    }
     <div class="flex gap-4 justify-between">
       <button class="btn red outlined" (click)="showConfirmDelete = false">Để xem lại</button>
       <button class="btn red" (click)="deleteFile()">Tôi chắc chắn!</button>

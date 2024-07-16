@@ -1,0 +1,91 @@
+<form
+  class="ask"
+  novalidate
+  [ngClass]="{ 'flex-row': scrollHeightLevel == 1 && file == null, 'flex-col': scrollHeightLevel > 1 || file }"
+>
+  @if(!isGaming){
+  <textarea
+    rows="1"
+    placeholder="Trò chuyện..."
+    [(ngModel)]="text"
+    name="text"
+    [disabled]="isThinking"
+    (keydown.control.enter)="onCtrlEnter()"
+    (keydown.enter)="onEnter()"
+    (keydown)="onKeydown($event)"
+    #askInput
+    [ngClass]="{
+      'h-[44px]': scrollHeightLevel == 1,
+      'h-[72px] basis-auto': scrollHeightLevel == 2,
+      'h-[100px] basis-auto': scrollHeightLevel == 3
+    }"
+  ></textarea
+  >} @else {
+  <div class="control">
+    <button type="button" class="btn orange outlined" (click)="exit()">Thoát trò chơi</button>
+  </div>
+  } @if(placeholder){
+
+  <div class="flex px-6 w-full">
+    <div class="flex relative w-[200px]">
+      @if(placeholder.base64){
+      <div
+        class="aspect-square w-full bg-cover bg-no-repeat bg-center"
+        [style]="{ 'background-image': 'url(' + placeholder.base64 + ')' }"
+      ></div>
+      } @else{ {{ placeholder.name }} }
+      <button
+        class="w-[24px] h-[24px] flex items-center justify-center p-1 absolute top-[-10px] right-[-10px]"
+        (click)="onDeleteFile()"
+      >
+        <span class="bg-white w-[20px] h-[20px] border border-gray-300 rounded-xl flex items-center justify-center"
+          ><i class="icon-XClose small font-bold"></i
+        ></span>
+      </button>
+    </div>
+  </div>
+  }
+  <div class="flex justify-end p-2 gap-2" [ngClass]="{ 'w-full': scrollHeightLevel > 1 || file }">
+    <input #fileElm hidden type="file" (change)="onFileSelected($event)" [accept]="accept" placeholder="Chọn ảnh" />
+    <button class="btn-icon link" [matMenuTriggerFor]="fileSelectionMenu" [disabled]="isThinking">
+      <i class="icon-AddFile"></i>
+    </button>
+    <button class="btn-icon link" (click)="ask()" [disabled]="isThinking">
+      @if(isThinking){<ng-lottie [options]="options" width="60px" height="60px"></ng-lottie>} @else{<i
+        class="icon-Send"
+      ></i
+      >}
+    </button>
+  </div>
+</form>
+<mat-menu #fileSelectionMenu yPosition="below" xPosition="before"
+  ><button mat-menu-item (click)="showFileSelection = true">
+    <i class="icon-File"></i>
+    <span>Chọn từ quản lý tập tin</span>
+  </button>
+  <button mat-menu-item (click)="fileElm.click()">
+    <i class="icon-Upload"></i>
+    <span>Chọn từ máy tính</span>
+  </button>
+  <div class="border-t border-dashed px-4 my-2"></div>
+  <div class="flex gap-1.5 px-4 text-blueGrey-500">
+    <i class="icon-Error small"></i>
+    <span>
+      Kyo hỗ trợ tải lên:<br />
+      <ul class="list-disc">
+        <li>Ảnh: kích thước &lt; 5 MB</li>
+        <li>Tài liệu: kích thước &lt; 7 MB</li>
+      </ul>
+      Mỗi lần tải lên một tài liệu duy nhất.
+    </span>
+  </div>
+</mat-menu>
+<div
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100 z-20"
+  *ngIf="showFileSelection"
+>
+  <div class="absolute top-0 left-0 right-0 bottom-0" (click)="showFileSelection = false"></div>
+  <div class="w-full max-w-[777px] flex flex-col gap-6 bg-white rounded-lg p-6 relative h-[80%]">
+    <file-selection [useService]="true" (fileClicked)="onSelectFileFromStorage($event)" />
+  </div>
+</div>

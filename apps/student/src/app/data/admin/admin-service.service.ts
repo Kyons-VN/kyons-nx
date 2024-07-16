@@ -1,22 +1,36 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import { Firestore, collection, collectionData, docData, getCountFromServer, updateDoc } from '@angular/fire/firestore';
-import { chatServerApi } from '@data/chat/chat.service';
+import { TOKEN_HEADER_KEY } from '@data/auth/interceptor';
+import { environment } from '@environments';
 import { QueryDocumentSnapshot, WithFieldValue, doc } from 'firebase/firestore';
 import { firstValueFrom, map, } from 'rxjs';
 import ChatUser from './chat-user';
 
 export const CURRENT_ADMIN = 'flutter.currentUser';
 
+const adminServerApi = environment.adminApi;
+// const adminServerApi = 'http://127.0.0.1:5001/kyonsvn-stg/asia-east1/adminApi';
+
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
+  afAuth = inject(Auth);
   db = inject(Firestore);
-  http = inject(HttpClient);
-  resetMana(id: string) {
-    return this.http.post(`${chatServerApi}/user/${id}/resetMana`, null);
+  backend = inject(HttpBackend);
+
+  async resetMana(id: string) {
+    const adminToken = await this.afAuth.currentUser?.getIdToken();
+    const http = new HttpClient(this.backend);
+    const contentType = 'application/json';
+    const options = {
+      headers: new HttpHeaders().set(TOKEN_HEADER_KEY, `Bearer ${adminToken}`).set('Content-Type', contentType),
+    };
+    return http.post(`${adminServerApi}/user/${id}/resetMana`, null, options);
   }
+
   async getUsers(): Promise<Array<ChatUser>> {
     const usersStorage: any[] = JSON.parse(window.localStorage.getItem('users') ?? '[]');
     if (usersStorage.length > 0) {
@@ -91,17 +105,32 @@ export class AdminService {
 
   saveContext(context: { initialGameContext: string; initialNoGameContext: string; websiteContext: string; }) {
     const docRef = doc(this.db, 'configurations/settings');
+    this.updateConfigCache();
     return updateDoc(docRef, context);
   }
 
   saveDefaultMana(defaultMana: number) {
     const docRef = doc(this.db, 'configurations/settings');
+    this.updateConfigCache();
     return updateDoc(docRef, { defaultMana });
   }
 
   saveFileValidation(fileValidation: { maxFileSize: number; maxImageSize: number; allowedFileTypes: string[]; }) {
     const docRef = doc(this.db, 'configurations/settings');
+    this.updateConfigCache();
     return updateDoc(docRef, fileValidation);
+  }
+
+  async updateConfigCache() {
+    const adminToken = await this.afAuth.currentUser?.getIdToken();
+    console.log(adminToken);
+
+    const http = new HttpClient(this.backend);
+    const contentType = 'application/json';
+    const options = {
+      headers: new HttpHeaders().set(TOKEN_HEADER_KEY, `Bearer ${adminToken}`).set('Content-Type', contentType),
+    };
+    await firstValueFrom(http.post(adminServerApi + '/updateSettings', null, options));
   }
 
 }
