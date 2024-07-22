@@ -132,7 +132,7 @@
 }
 
 .radio > input[type='radio']:checked {
-  background: url('../../assets/images/radio_on.svg') no-repeat;
+  background: url('../../assets/icons/radio_on.svg') no-repeat;
 }
 
 .checkbox > input[type='checkbox']:checked {
@@ -149,7 +149,7 @@
 // }
 
 .radio > input[type='radio']:not(:checked) {
-  background: url('../../assets/images/radio_off.svg') no-repeat;
+  background: url('../../assets/icons/radio_off.svg') no-repeat;
 }
 
 .checkbox > input[type='checkbox']:checked + span::before,
@@ -170,7 +170,7 @@
 
 .radio > input[type='radio']:checked + span::before {
   left: 2px;
-  background: url('/assets/images/radio_on.svg') no-repeat;
+  background: url('/assets/icons/radio_on.svg') no-repeat;
 }
 
 .nps {

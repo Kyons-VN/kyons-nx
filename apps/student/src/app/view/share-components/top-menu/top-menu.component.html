@@ -14,7 +14,7 @@
           [routerLinkActiveOptions]="{ exact: true }"
           (isActiveChange)="(this.ngOnInit)"
         >
-          <img src="/assets/images/Home.svg" alt="" />
+          <img src="/assets/icons/Home.svg" alt="" />
           <span>Trang chủ</span>
         </a>
       </li>
@@ -30,13 +30,19 @@
         </a>
       </li>
       <li>
+        <a class="menu-item" [routerLink]="paths.task.path" routerLinkActive="active">
+          <img src="/assets/icons/Mission.svg" alt="" />
+          <span class="hidden md:flex">Nhiệm vụ</span>
+        </a>
+      </li>
+      <li>
         <a
           class="menu-item"
           [routerLink]="paths.account.path"
           routerLinkActive="active"
           (isActiveChange)="(this.ngOnInit)"
         >
-          <img src="/assets/images/Profile.svg" alt="" />
+          <img src="/assets/icons/Profile.svg" alt="" />
           <span class="hidden md:flex">Tài khoản</span>
         </a>
       </li>

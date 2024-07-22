@@ -1,0 +1,11 @@
+<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="lightning-01">
+<path id="Icon" d="M12.9999 2.5L4.09332 13.1879C3.74451 13.6064 3.57011 13.8157 3.56744 13.9925C3.56512 14.1461 3.63359 14.2923 3.75312 14.3889C3.89061 14.5 4.16304 14.5 4.7079 14.5H11.9999L10.9999 22.5L19.9064 11.8121C20.2552 11.3936 20.4296 11.1843 20.4323 11.0075C20.4346 10.8539 20.3661 10.7077 20.2466 10.6111C20.1091 10.5 19.8367 10.5 19.2918 10.5H11.9999L12.9999 2.5Z" stroke="url(#paint0_linear_6977_26798)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_6977_26798" x1="11.9999" y1="17.1753" x2="20.322" y2="6.87899" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FB7200"/>
+<stop offset="1" stop-color="#FB923C"/>
+</linearGradient>
+</defs>
+</svg>

@@ -121,9 +121,9 @@ export class MockTestResultComponent implements OnInit {
     this.router.navigate([this.paths.mockTestReview.path.replace(':id', this.mockTestId)]);
   }
 
-  share() {
-    this.router.navigate([this.paths.mockTestShare.path.replace(':ref', this.testResult.shareReferral ?? '')]);
-  }
+  // share() {
+  //   this.router.navigate([this.paths.mockTestShare.path.replace(':ref', this.testResult.shareReferral ?? '')]);
+  // }
 
   activateLearningPath() {
     this.loading.show();

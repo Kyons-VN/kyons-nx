@@ -1,0 +1,61 @@
+<div class="w-full flex px-4 py-2 xl:py-4 xl:px-10 items-center gap-2 bg-white shadow-1">
+  <button class="btn-icon link xl:hidden" (click)="isShowMobileMenu = !isShowMobileMenu">
+    <i class="icon-MenuHamburger"></i>
+  </button>
+  <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
+  <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
+  <div class="flex-1"></div>
+  <ul class="flex gap-4 item-center">
+    <li class="flex gap-1 items-center">
+      <img src="/assets/images/lightning.svg" alt="" class="h-[24px] aspect-square" />
+      <span>{{ mana }}</span>
+    </li>
+    <li class="flex gap-1 items-center">
+      <img src="/assets/images/Coins.svg" alt="" class="h-[24px] aspect-square" />
+      <span>{{ coin }}</span>
+    </li>
+    <li>
+      <a class="h-[60px] aspect-square inline-flex" [routerLink]="paths.account.path">
+        <img src="/assets/images/Avatar.svg" alt="" />
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="left-menu" [ngClass]="{ showMobileMenu: isShowMobileMenu, isCollapsed }" (click)="isShowMobileMenu = false">
+  <div
+    class="absolute h-full top-0 left-0 w-[240px] bg-primaryBlue text-white p-4 col xl:px-8 gap-6 lx:gap-10"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="flex gap-2 items-center">
+      <button class="btn-icon orange link xl:hidden" (click)="isShowMobileMenu = false">
+        <i class="icon-Close"></i>
+      </button>
+      <a href="/" class="w-full"><img src="/assets/images/logo-horizontal-light.svg" alt="Logo" /></a>
+    </div>
+    <ul class="col gap-4" (click)="isShowMobileMenu = false">
+      <li>
+        <a
+          class="menu-item home"
+          [routerLink]="'/'"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <img src="/assets/icons/Home.svg" alt="" />
+          <span>Trang chủ</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-item" [routerLink]="paths.chatbot.path" routerLinkActive="active">
+          <img src="/assets/images/FAQ.svg" alt="" />
+          <span class="menu-text">Chat với Kyo</span>
+        </a>
+      </li>
+      <li>
+        <a class="menu-item" [routerLink]="paths.task.path" routerLinkActive="active">
+          <img src="/assets/icons/Mission.svg" alt="" />
+          <span class="menu-text">Nhiệm vụ</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -90,7 +90,7 @@ module.exports = {
         4: '0px 9px 19px 1px rgba(49, 93, 147, 0.1)',
         lightBlue1: '0px 9px 22px 1px rgba(6, 165, 255, 0.7)',
         emerald: '0px 9px 22px 1px rgba(52, 211, 153, 0.7)',
-        lightOrange1: '0px 9px 22px rgba(251, 146, 60, 0.5)',
+        lightOrange1: '0px 9px 22px 0px rgba(251, 146, 60, 0.5)',
         teal: '0px 9px 22px 0px rgba(0, 196, 208, 0.70)',
       },
       borderWidth: {

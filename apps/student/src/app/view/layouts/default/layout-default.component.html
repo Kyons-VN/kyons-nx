@@ -1,5 +1,7 @@
-<div class="flex flex-col w-full h-full gap-8">
-  <student-tracking style="display: contents"></student-tracking>
-  <student-top-menu></student-top-menu>
-  <router-outlet style="display: contents"></router-outlet>
+<student-tracking style="display: contents"></student-tracking>
+<div class="col w-full h-full">
+  <student-left-menu (collapseEvent)="isCollapsed = $event"></student-left-menu>
+  <div class="h-full" [ngClass]="{ 'xl:pl-[80px]': isCollapsed, ' xl:pl-[240px]': !isCollapsed }">
+    <router-outlet style="display: contents"></router-outlet>
+  </div>
 </div>

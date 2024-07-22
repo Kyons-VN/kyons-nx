@@ -1,4 +1,3 @@
-<student-top-menu class="md:hidden" />
 <div class="bg-gradient h-full flex flex-col md:flex-row">
   <div class="col md:hidden">
     <div class="bg-rocket-xs text-white px-4 py-8">
@@ -15,12 +14,6 @@
           <li class="flex items-center gap-5 cursor-pointer relative">
             <student-right-menu [ngStyle]="{ display: showSubmenu ? 'contents' : 'none' }" />
           </li>
-          <!-- <li>
-            <div class="relative">
-              <img src="assets/icons/clarity_notification-line.svg" class="cursor-pointer" />
-              <span class="top-menu-notification"></span>
-            </div>
-          </li> -->
         </ul>
       </div>
     </div>
@@ -42,7 +35,7 @@
         <img src="/assets/images/logo-h.svg" alt="" width="126px" />
         <div class="flex gap-2">
           <a class="menu-item active">
-            <img src="/assets/images/Home.svg" alt="" />
+            <img src="/assets/icons/Home.svg" alt="" />
             <span>Trang chủ</span>
           </a>
           <a [routerLink]="paths.chatbot.path" class="menu-item">
@@ -50,12 +43,11 @@
             <span>Chat với Kyo</span>
           </a>
           <a [routerLink]="paths.account.path" class="menu-item">
-            <img src="/assets/images/Profile.svg" alt="" />
+            <img src="/assets/icons/Profile.svg" alt="" />
             <span>Tài khoản</span>
           </a>
         </div>
       </div> -->
-      <student-top-menu />
     </div>
     <div class="col gap-4">
       <div class="flex justify-between">

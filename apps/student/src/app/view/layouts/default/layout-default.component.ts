@@ -1,15 +1,15 @@
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ThemeService } from '@data/theme/theme.service';
-import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
+import { LeftMenuComponent } from '@view/share-components/left-menu/left-menu.component';
 import { TrackingComponent } from '@view/share-components/tracking/tracking.component';
 import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
   templateUrl: './layout-default.component.html',
-  imports: [RouterModule, TopMenuComponent, TrackingComponent],
+  imports: [CommonModule, RouterModule, LeftMenuComponent, TrackingComponent],
 })
 export class LayoutDefaultComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
@@ -19,6 +19,7 @@ export class LayoutDefaultComponent implements OnInit, OnDestroy {
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
   subscription!: Subscription;
+  isCollapsed = false;
 
   ngOnInit(): void {
     runInInjectionContext(this.injector, () => {

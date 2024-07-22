@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import { AdminAuthGuard } from './admin-auth.guard';
 import { AuthGuard } from './auth.guard';
+import { LayoutDefaultComponent } from './layouts/default/layout-default.component';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { ProfileComponent } from './pages/account-page/components/profile.component';
+import { ChatbotComponent } from './pages/chatbot/chatbot.component';
 import { VerifyPage } from './pages/email-verification/email-verification.component';
-import { GiftComponent } from './pages/gift/gift.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
@@ -13,11 +15,7 @@ import { MockTestResultComponent } from './pages/mock-test/result/mock-test-resu
 import { MockTestReviewComponent } from './pages/mock-test/review/mock-test-review.component';
 import { MockTestSelectProgramComponent } from './pages/mock-test/select-program/select-program.component';
 import { SelectTopicComponent } from './pages/mock-test/select-topic/select-topic.component';
-import { MockTestShareComponent } from './pages/mock-test/share/share.component';
 import { MockTestTestComponent } from './pages/mock-test/test/mock-test-test.component';
-// import { NewUserComponent } from './pages/new-user/new-user.component';
-import { AdminAuthGuard } from './admin-auth.guard';
-import { ChatbotComponent } from './pages/chatbot/chatbot.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { TestComponent } from './pages/test/test.component';
 import { TutorialLessonComponent } from './share-components/tutorial/lesson/tutorial-lesson.component';
@@ -53,20 +51,19 @@ class AppPaths {
   mockTestSelect = { name: '', path: '/mock-test/:id/select/' };
   mockTestTest = { name: '', path: '/mock-test/:id/test/' };
   mockTestTestTutorial = { name: '', path: '/mock-test/tutorial/1' };
-  mockTestShare = { name: '', path: '/share-mocktest/:ref' };
-  gift = { name: '', path: '/promotions/:event' };
   newUser = { name: '', path: '/new-user/' };
   termsOfService = { name: '', path: '/terms-of-service' };
   chatbot = { name: 'Chatbot', path: '/chatbot' };
   chat = { name: 'Chat', path: '/chatbot/chat/:id' };
   adminDashboard = { name: 'Admin Dashboard', path: '/admin/dashboard' };
   adminSignIn = { name: 'Admin Signin', path: '/admin/sign-in' };
+  task = { name: 'Task', path: '/task' };
 }
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutFullComponent,
+    component: LayoutDefaultComponent,
     canActivate: [AuthGuard],
     children: [
       {
@@ -104,15 +101,19 @@ const routes: Routes = [
           },
           { path: 'select/:id', component: SelectTopicComponent },
           { path: 'test/:id', component: MockTestTestComponent },
-          { path: 'share/:id', component: MockTestShareComponent },
+          // { path: 'share/:id', component: MockTestShareComponent },
           {
             path: 'tutorial/:id',
             component: TutorialTestComponent,
           },
         ],
       },
-      { path: 'share-mocktest/:ref', component: MockTestShareComponent },
-      { path: 'promotions/:event', component: GiftComponent },
+      // { path: 'share-mocktest/:ref', component: MockTestShareComponent },
+      // { path: 'promotions/:event', component: GiftComponent },
+      {
+        path: 'task',
+        loadComponent: () => import('./pages/task/task.component').then(m => m.TaskComponent),
+      }
     ],
   },
   {
@@ -218,10 +219,6 @@ const routes: Routes = [
     path: 'terms-of-service',
     loadComponent: () =>
       import('./pages/terms-of-service/terms-of-service.component').then(m => m.TermsOfServiceComponent),
-  },
-  {
-    path: 'flashcard/:id',
-    loadComponent: () => import('./pages/flashcard/flashcard.component').then(m => m.FlashcardComponent),
   },
   {
     path: 'event/math',
