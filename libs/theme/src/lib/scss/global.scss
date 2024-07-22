@@ -419,7 +419,7 @@ form:not(.no-validate) {
 //   margin-top: 4px;
 //   margin-right: 6px;
 //   &:checked {
-//     background: url('/assets/images/radio_off.svg') no-repeat;
+//     background: url('/assets/icons/radio_off.svg') no-repeat;
 //   }
 // }
 
@@ -484,10 +484,13 @@ table {
 .katex-html {
   display: none; /* Safari and Chrome */
 }
-.tab-menu {
+.tab-btn {
   @apply h-[40px] flex items-center justify-center text-blueGrey-500 rounded-2xl cursor-pointer font-bold px-2 py-[10px];
   &.active {
-    @apply bg-lightBlue-5 text-lightBlue-1;
+    @apply bg-white text-orange;
+  }
+  &:hover {
+    @apply bg-lightOrange-4 text-orange;
   }
 }
 .line-clamp-3 {
@@ -585,14 +588,14 @@ kyonsvn-tutorial label.radio {
   @apply hidden sm:flex;
 }
 .tab-wrapper {
-  @apply flex md:bg-secondaryBlue bg-white md:text-white rounded-t-lg w-full md:w-auto md:p-0 px-6 py-3 justify-center gap-5 md:gap-0;
+  @apply flex md:bg-blueGrey-200 bg-white md:text-blueGrey-500 md:rounded-t-lg w-full md:w-auto md:p-0 px-6 py-3 justify-center gap-5 md:gap-0;
   .tab-item {
     @apply flex md:flex-row flex-col justify-center items-center font-bold gap-2 px-3 py-2 md:rounded-b-none rounded-lg cursor-pointer w-[100px] md:w-auto text-xs md:text-sm;
     .i {
       @apply w-5 h-5 text-xl;
     }
     &.active {
-      @apply md:bg-white md:text-primaryBlue bg-lightBlue-6 text-lightBlue-1;
+      @apply md:bg-white md:text-orange bg-lightOrange-4 text-orange;
     }
   }
 }

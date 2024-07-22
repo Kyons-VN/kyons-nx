@@ -2,8 +2,8 @@
   <div class="p-6 absolute w-full top-[68px] sm:hidden">
     <div class="col w-full bg-white rounded-2xl p-4 gap-4 h-[264px]">
       <div class="flex justify-between gap-1">
-        <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0">Lộ trình học</div>
-        <div class="flex-1 tab-menu" [ngClass]="{ active: activeTab === 1 }" (click)="activeTab = 1">
+        <div class="flex-1 tab-btn" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0">Lộ trình học</div>
+        <div class="flex-1 tab-btn" [ngClass]="{ active: activeTab === 1 }" (click)="activeTab = 1">
           Chi tiết tiến độ
         </div>
       </div>
@@ -17,9 +17,9 @@
       </div>
     </div>
   </div>
-  <div class="gap-2 flex xl:hidden p-6 justify-center">
+  <div class="gap-2 flex xl:hidden justify-center">
     <!-- <a [routerLink]="paths.home.path" class="menu-item">
-      <img src="/assets/images/Home.svg" alt="" />
+      <img src="/assets/icons/Home.svg" alt="" />
       <span>Trang chủ</span>
     </a>
     <a [routerLink]="paths.chatbot.path" class="menu-item">
@@ -27,7 +27,7 @@
       <span>Chat với Kyo</span>
     </a>
     <a [routerLink]="paths.account.path" class="menu-item">
-      <img src="/assets/images/Profile.svg" alt="" />
+      <img src="/assets/icons/Profile.svg" alt="" />
       <span>Tài khoản</span>
     </a> -->
     <student-top-menu [showLogo]="false" />

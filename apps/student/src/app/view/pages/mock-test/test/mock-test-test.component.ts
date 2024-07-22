@@ -192,13 +192,13 @@ export class MockTestTestComponent implements OnInit {
       next: (result: any) => {
         this.knowledgeService.selectLearningGoal(this.learningGoal);
         this.loading.hide();
-        if (result.have_promotion == true) {
-          this.router.navigate([this.paths.gift.path.replace(':event', 'mock_test_submitted')], {
-            queryParams: { continue: this.paths.mockTestResult.path.replace(':id', this.mockTestId) },
-          });
-        } else {
-          this.router.navigate([this.paths.mockTestResult.path.replace(':id', this.mockTestId)]);
-        }
+        // if (result.have_promotion == true) {
+        //   this.router.navigate([this.paths.gift.path.replace(':event', 'mock_test_submitted')], {
+        //     queryParams: { continue: this.paths.mockTestResult.path.replace(':id', this.mockTestId) },
+        //   });
+        // } else {
+        this.router.navigate([this.paths.mockTestResult.path.replace(':id', this.mockTestId)]);
+        // }
       },
       error: (err: any) => {
         // TODO: Define error resposes

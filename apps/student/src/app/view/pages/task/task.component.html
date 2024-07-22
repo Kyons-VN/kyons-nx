@@ -1,0 +1,118 @@
+<div class="flex justify-center w-full md:pb-14">
+  <div class="col w-full max-w-[874px] gap-8">
+    <div class="col bg-universe relative p-8 gap-4 rounded-2xl">
+      <div class="bg-gradient absolute top-0 left-0 right-0 bottom-0"></div>
+      <div class="col">
+        <h3 class="text-white"><span class="text-lightBlue-1">7</span> ngày liên tục</h3>
+        <span class="h7 inline-flex gap-1">
+          <span class="text-blueGrey-400">Bạn đang có</span> <span class="text-white">500</span>
+          <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+        </span>
+      </div>
+      <div class="col bg-white px-4 py-6 gap-6 rounded-lg">
+        <span>Điểm danh liên tục 7 ngày để <strong>nhận thưởng bự</strong> nhé!</span>
+        <div class="w-full flex overflow-auto hide-scrollbar">
+          <div class="week-task">
+            <div class="week-date">
+              <div class="task-block bg-blueGrey-400">
+                <img src="/assets/images/Coins-white.svg" alt="" width="24px" height="24px" />
+                <strong class="caption text-blueGrey-500">+400</strong>
+              </div>
+              <strong class="text-blueGrey-500">Thứ Hai</strong>
+            </div>
+            <div class="date-devider bg-blueGrey-400" style="--i: 0"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div class="aspect-square w-full col bg-emerald-3 rounded justify-center items-center p-2">
+                <img src="/assets/icons/Succeed.svg" alt="" width="24px" height="24px" />
+              </div>
+              <strong class="text-blueGrey-500">Thứ Ba</strong>
+            </div>
+            <div class="date-devider bg-emerald-3" style="--i: 1"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div
+                class="aspect-square w-full col bg-lightOrange-4 shadow-lightOrange1 rounded justify-center items-center p-2"
+              >
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+                <strong class="caption">+400</strong>
+              </div>
+              <strong class="text-lightOrange-1">Thứ Tư</strong>
+            </div>
+            <div class="date-devider bg-lightOrange-4" style="--i: 2"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+                <strong class="caption">+400</strong>
+              </div>
+              <strong class="text-blueGrey-500">Thứ Năm</strong>
+            </div>
+            <div class="date-devider bg-blueGrey-400" style="--i: 3"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+                <strong class="caption">+400</strong>
+              </div>
+              <strong class="text-blueGrey-500">Thứ Sáu</strong>
+            </div>
+            <div class="date-devider bg-blueGrey-400" style="--i: 4"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+                <strong class="caption text-darkRed">+800</strong>
+              </div>
+              <strong class="text-blueGrey-500">Thứ Bảy</strong>
+            </div>
+            <div class="date-devider bg-blueGrey-400" style="--i: 5"></div>
+            <div class="col gap-2 w-[68px] items-center week-date">
+              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
+                <strong class="caption text-darkRed">+800</strong>
+              </div>
+              <strong class="text-blueGrey-500">Thứ Bảy</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col gap-6">
+      <h4>Nhiệm vụ của bạn</h4>
+      <div class="col">
+        <div class="flex flex-col items-start justify-start w-full">
+          <div class="tab-wrapper">
+            <div class="tab-item" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0; loadPermanent()">
+              <i class="icon-Calendar"></i> Thường xuyên
+            </div>
+            <div class="tab-item" [ngClass]="{ active: activeTab === 1 }" (click)="activeTab = 1; loadSeasonal()">
+              <i class="icon-Cash"></i> Thời vụ
+            </div>
+          </div>
+        </div>
+        <div
+          class="w-full md:p-0 p-4 md:max-h-[calc(100vh_-_130px)] max-h-[calc(100vh_-_130px)] overflow-auto flef flex-col"
+        >
+          <div class="md:bg-white md:rounded-tl-none rounded-lg overflow-y-auto">
+            @switch(activeTab){ @case(0){
+            <div *ngIf="true" class="flex flex-col bg-white md:bg-transparent rounded-lg">
+              <div class="w-full overflow-auto hide-scrollbar p-6">
+                <div class="task-list">
+                  <div class="task-item">
+                    <div class="flex justify-between">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2"> Còn {{ timeCountdown }} nữa </span>
+                    </div>
+                  </div>
+                  <div class="task-item">A</div>
+                  <div class="task-item">A</div>
+                  <div class="task-item">A</div>
+                  <div class="task-item">A</div>
+                </div>
+              </div>
+            </div>
+            } @case(1){
+            <div *ngIf="true" class="flex flex-col gap-4 bg-white md:bg-transparent p-4 md:p-0 rounded-lg"></div>
+            } @default{} }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

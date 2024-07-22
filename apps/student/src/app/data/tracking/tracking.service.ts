@@ -54,7 +54,7 @@ export class TrackingService {
       };
       updateTracking[trackingType] = lessonTracking[trackingType];
 
-      this.http.post(`${serverApi()}/students/on_lesson`, updateTracking).subscribe();
+      this.http.post(`${serverApi()}/students/on_lesson_view`, updateTracking).subscribe();
     }
   }
 
@@ -109,7 +109,7 @@ export class TrackingService {
       start: true,
     };
     params[trackingType] = updateTracking[trackingType];
-    this.http.post(`${serverApi()}/students/on_lesson`, params).subscribe();
+    this.http.post(`${serverApi()}/students/on_lesson_view`, params).subscribe();
   }
 
   resetTracking() {

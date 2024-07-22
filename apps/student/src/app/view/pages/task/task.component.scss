@@ -1,0 +1,33 @@
+.bg-universe {
+  background-image: url('/assets/images/task-bg.svg');
+  @apply bg-no-repeat bg-cover overflow-hidden;
+  .bg-gradient {
+    background: var(--Gradient-2, linear-gradient(2deg, #0f172a 82.21%, #315d93 125.33%));
+    z-index: -1;
+  }
+}
+.week-task {
+  @apply flex justify-between relative min-w-[700px] w-full;
+  .week-date {
+    @apply flex flex-col gap-2 w-[68px] items-center;
+    .task-block {
+      @apply flex flex-col aspect-square w-full rounded justify-center items-center p-2;
+    }
+  }
+  .date-devider {
+    @apply absolute w-[calc((100%_-_476px)/6)] h-1 top-[32px];
+    left: calc((var(--i) + 1) * 68px + var(--i) * (100% - 476px) / 6);
+  }
+}
+
+.task-list {
+  @apply w-fit flex gap-4;
+  &.permanent-task {
+    .task-item {
+      // background-image: ;
+    }
+  }
+  .task-item {
+    @apply w-[350px] aspect-square bg-white rounded-3xl p-4 flex justify-center items-center shadow-2 hover:shadow-lightOrange1 transition;
+  }
+}

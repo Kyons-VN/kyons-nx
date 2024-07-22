@@ -32,12 +32,22 @@ export class OrderService implements IOrderServicce {
     );
   }
 
-  getBalance() {
+  getBalance(): Observable<Balance> {
     return this.http.get(`${serverApi()}/api/v2/users/inventories/balance`).pipe(
-      catchError(DBHelper.handleError('GET getBalance', 0)),
+      catchError(DBHelper.handleError('GET getBalance', Balance.empty())),
       map((res: any) => {
         if (res.balance === undefined || typeof parseInt(res.balance) != 'number') return Balance.empty();
         return new Balance(parseInt(res.balance));
+      })
+    );
+  }
+
+  getCoin(): Observable<number> {
+    return this.http.get(`${serverApi()}/api/v2/users/inventories/koin`).pipe(
+      catchError(DBHelper.handleError('GET getKcoin', -1)),
+      map((res: any) => {
+        if (res.koin === undefined || typeof parseInt(res.koin) != 'number') return -1;
+        return parseInt(res.koin);
       })
     );
   }
