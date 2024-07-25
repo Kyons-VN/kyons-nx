@@ -5,9 +5,10 @@ import { AdminService } from '@data/admin/admin-service.service';
 import ChatUser from '@data/admin/chat-user';
 import { ChatService } from '@data/chat/chat.service';
 import { LoadingOverlayService } from '@data/loading-overlay.service';
+import { MessagesComponent } from '@share-components';
 import { FilterPipe } from '@share-pipes';
 import { Chat } from '@share-utils/data';
-import { MessagesComponent } from '@view/share-components/chat/messages.component';
+// import { MessagesComponent } from '@view/share-components/chat/messages.component';
 
 @Component({
   standalone: true,

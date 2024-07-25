@@ -54,11 +54,12 @@ export class AuthInterceptor implements HttpInterceptor {
             console.log('this is client side error');
             return throwError(() => error.error);
           } else {
-            console.log('this is server side error');
             if (error.status === 401) {
+              console.log('trying to refresh token');
               return this.handleRefreshToken(authReq, req, next);
             }
             else {
+              console.log('this is server side error');
               return throwError(() => error.error);
             }
           }

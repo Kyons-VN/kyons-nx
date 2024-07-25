@@ -1,7 +1,17 @@
 <student-tracking style="display: contents"></student-tracking>
-<div class="col w-full h-full">
-  <student-left-menu (collapseEvent)="isCollapsed = $event"></student-left-menu>
-  <div class="h-full" [ngClass]="{ 'xl:pl-[80px]': isCollapsed, ' xl:pl-[240px]': !isCollapsed }">
+<div class="col w-full h-full" [ngClass]="{ displaySidebar: showChat }">
+  <div
+    class="col h-full"
+    [ngClass]="{ 'xl:pl-[80px]': isCollapsed, ' xl:pl-[240px]': !isCollapsed }"
+    style="transition: padding 0.5s ease-in-out"
+  >
+    <student-left-menu (collapseEvent)="onCollapse($event)"></student-left-menu>
     <router-outlet style="display: contents"></router-outlet>
   </div>
+</div>
+
+<div class="fixed right-10 bottom-10">
+  <button (click)="openChat()">
+    <img src="assets/images/kyons-avatar.svg" alt="" class="w-20 h-20 aspect-square" />
+  </button>
 </div>

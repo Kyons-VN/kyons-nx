@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { serverApi } from '@data/auth/interceptor';
+import { map, take } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 const DEVICE_ID_KEY = 'device_id';
@@ -35,8 +36,9 @@ export class TrackingService {
       total += this.trackingThreshold / 1000;
       this.setTrackingOnApp(total);
       this.http
-        .post(`${serverApi()}/students/on_app`, {
-          on_total: total,
+        .post(`${serverApi()}/api/v2/users/trackings`, {
+          tracking_type: 'on_app',
+          total: total,
         })
         .subscribe();
     }
@@ -54,7 +56,7 @@ export class TrackingService {
       };
       updateTracking[trackingType] = lessonTracking[trackingType];
 
-      this.http.post(`${serverApi()}/students/on_lesson_view`, updateTracking).subscribe();
+      this.http.post(`${serverApi()}/api/v2/users/trackings`, updateTracking).subscribe();
     }
   }
 
@@ -91,7 +93,8 @@ export class TrackingService {
     tracking.total = this.trackingThreshold / 1000;
     localStorage.setItem('tracking', JSON.stringify(tracking));
     this.http
-      .post(`${serverApi()}/students/on_app`, {
+      .post(`${serverApi()}/api/v2/users/trackings`, {
+        tracking_type: 'on_app',
         on_total: tracking.toJson,
         start: true,
       })
@@ -109,10 +112,20 @@ export class TrackingService {
       start: true,
     };
     params[trackingType] = updateTracking[trackingType];
-    this.http.post(`${serverApi()}/students/on_lesson_view`, params).subscribe();
+    this.http.post(`${serverApi()}/api/v2/users/trackings`, params).subscribe();
   }
 
   resetTracking() {
     localStorage.removeItem('tracking');
+  }
+
+  updateTrackOnSendMessage() {
+    const subscription = this.http.post(`${serverApi()}/api/v2/users/trackings`, { tracking_type: 'on_send_message' });
+    subscription.pipe(
+      take(1),
+      map((res: any) => {
+        return res;
+      })
+    ).subscribe();
   }
 }

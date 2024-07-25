@@ -198,9 +198,6 @@ small {
       @apply text-[16px];
     }
   }
-  &.hidden {
-    display: none;
-  }
   &.circle {
     @apply rounded-full h-[56px];
     &.large {
@@ -465,12 +462,12 @@ table {
 .col {
   @apply flex flex-col;
 }
-.menu-item {
-  @apply flex items-center text-blueGrey-500 gap-2 border border-transparent rounded-lg bg-transparent px-2 font-bold cursor-pointer;
-  &.active {
-    @apply border-lightBlue-1 bg-lightBlue-6 text-lightBlue-1;
-  }
-}
+// .menu-item {
+//   @apply flex items-center text-blueGrey-500 gap-2 border border-transparent rounded-lg bg-transparent px-2 font-bold cursor-pointer;
+//   &.active {
+//     @apply bg-secondaryBlue;
+//   }
+// }
 
 .caption {
   @apply text-xs;
@@ -680,7 +677,7 @@ div[data-tooltip-content] label {
   @apply text-xs text-blueGrey-500;
 }
 .side-bar {
-  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-auto xl:min-w-[30%] h-full xl:relative;
+  @apply xl:flex hidden flex-col flex-1 gap-4 xl:w-[300px] h-full xl:relative;
   &.show-sm {
     @media screen and (max-width: 1169px) {
       @apply flex fixed z-[100] top-0 left-0 right-0 bottom-0 p-4;
@@ -777,6 +774,14 @@ ul.left-list {
     background-position: 1200px 0;
   }
 }
-student-messages {
+messages {
   overflow: hidden;
+}
+ng-component {
+  @apply contents;
+}
+.displaySidebar {
+  .hideOnShowSidebarRight {
+    @apply hidden;
+  }
 }

@@ -54,7 +54,7 @@
                   <i [ngClass]="{ 'icon-ChevronUp': !toggleList[i], 'icon-ChevronDown': toggleList[i] }"></i>
                 </div>
                 <div class="bg-white" [ngClass]="{ 'p-2': chat.messages.length > 0 }">
-                  <student-messages [messages]="chat.messages" />
+                  <messages [messages]="chat.messages" />
                 </div>
               </div>
             </div>

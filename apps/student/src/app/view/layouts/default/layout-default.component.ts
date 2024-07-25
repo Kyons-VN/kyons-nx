@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
+import { Component, HostBinding, Injector, OnDestroy, OnInit, Renderer2, effect, inject, runInInjectionContext } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router, RouterModule } from '@angular/router';
 import { ThemeService } from '@data/theme/theme.service';
 import { LeftMenuComponent } from '@view/share-components/left-menu/left-menu.component';
@@ -20,6 +20,9 @@ export class LayoutDefaultComponent implements OnInit, OnDestroy {
   renderer = inject(Renderer2);
   subscription!: Subscription;
   isCollapsed = false;
+  showChat = false;
+
+  @HostBinding('class') class = 'app-full';
 
   ngOnInit(): void {
     runInInjectionContext(this.injector, () => {
@@ -43,4 +46,13 @@ export class LayoutDefaultComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
   }
+
+  onCollapse($event: boolean) {
+    this.isCollapsed = $event;
+  }
+
+  openChat() {
+    this.showChat = true;
+  }
+
 }

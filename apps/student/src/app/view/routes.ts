@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminAuthGuard } from './admin-auth.guard';
+import { TaskItemBGComponent } from './assets/svgs/task-item/task-item-bg.component';
 import { AuthGuard } from './auth.guard';
 import { LayoutDefaultComponent } from './layouts/default/layout-default.component';
 import { LayoutFullComponent } from './layouts/full/layout-full.component';
@@ -7,6 +8,7 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 import { ProfileComponent } from './pages/account-page/components/profile.component';
 import { ChatbotComponent } from './pages/chatbot/chatbot.component';
 import { VerifyPage } from './pages/email-verification/email-verification.component';
+import { FileManagerComponent } from './pages/file-manager/file-manager.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LearningPathComponent } from './pages/learning-path/learning-path.component';
 import { LessonPageComponent } from './pages/lesson-page/lesson-page.component';
@@ -117,7 +119,24 @@ const routes: Routes = [
       {
         path: 'task',
         loadComponent: () => import('./pages/task/task.component').then(m => m.TaskComponent),
-      }
+      },
+      {
+        path: 'chatbot',
+        children: [
+          {
+            path: '',
+            component: ChatbotComponent,
+          },
+          {
+            path: 'chat/:id',
+            component: ChatbotComponent,
+          },
+        ],
+      },
+      {
+        path: 'files',
+        component: FileManagerComponent,
+      },
     ],
   },
   {
@@ -229,23 +248,8 @@ const routes: Routes = [
     loadComponent: () => import('./pages/event/event.component').then(m => m.EventComponent),
   },
   {
-    path: 'chatbot',
-    component: LayoutFullComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: ChatbotComponent,
-      },
-      {
-        path: 'chat/:id',
-        component: ChatbotComponent,
-      },
-      {
-        path: 'files',
-        component: ChatbotComponent,
-      },
-    ],
+    path: 'assets/task-bg',
+    component: TaskItemBGComponent,
   },
   {
     path: '**',

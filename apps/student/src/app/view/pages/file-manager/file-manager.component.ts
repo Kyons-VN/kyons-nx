@@ -11,11 +11,10 @@ import { NavigationService } from '@data/navigation/navigation.service';
 import { UserService } from '@data/user/user.service';
 import { Capacity, Chat, FileData, FilePlaceholder } from '@share-utils/data';
 import { FileSelectionComponent } from '@view/share-components/file-selection/file-selection.component';
-import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TopMenuComponent, FormsModule, FileSelectionComponent, MatIconModule],
+  imports: [CommonModule, FormsModule, FileSelectionComponent, MatIconModule],
   templateUrl: './file-manager.component.html',
   styleUrls: ['./file-manager.component.scss'],
 })

@@ -29,7 +29,6 @@ import {
   TestResult,
   answerPrefixes,
 } from '@share-utils/data';
-import { TrackingLessonComponent } from '@view/share-components/tracking/tracking-lesson.component';
 
 @Component({
   standalone: true,
@@ -40,7 +39,6 @@ import { TrackingLessonComponent } from '@view/share-components/tracking/trackin
     QuestionsProgressComponent,
     MatTooltipModule,
     SafeHtmlPipe,
-    TrackingLessonComponent,
     TutorialComponent,
     TestContentComponent,
     InputRadioComponent,

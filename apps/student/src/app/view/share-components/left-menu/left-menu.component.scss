@@ -10,26 +10,63 @@
   height: 2px;
 }
 a.menu-item {
-  @apply flex gap-3 items-center font-extrabold text-blueGrey-400 no-underline p-2;
-  &.home {
-    @apply hidden md:flex;
+  @apply flex gap-3 items-center text-white no-underline p-2 rounded-lg hover:bg-secondaryBlue hover:bg-opacity-50;
+  img {
+    @apply w-[24px] aspect-square;
+  }
+  &.active {
+    @apply bg-secondaryBlue;
+  }
+  .menu-text {
+    @apply line-clamp-1;
   }
 }
 .drop-menu-item {
   @apply flex h-16 p-6 no-underline;
 }
 .left-menu {
-  @media screen and (max-width: 1279px) {
-    @apply fixed top-0 left-0 h-screen w-screen z-10 hidden;
+  @apply text-sm;
+  > div {
+    transition: width 0.5s ease-in-out;
+  }
+  * {
+    transition: all 0.2s ease-in-out;
+  }
+  @media screen and (max-width: 1169px) {
+    @apply fixed top-0 left-0 h-screen w-screen z-[101] hidden;
     &.showMobileMenu {
       @apply flex;
     }
   }
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1170px) {
     &.isCollapsed {
-      .menu-text {
-        @apply hidden;
+      .menu-item {
+        @apply justify-center w-fit;
+        .menu-text {
+          @apply hidden;
+        }
       }
+      .tab-item {
+        .tab-text {
+          @apply hidden;
+        }
+        &:not(.active) {
+          @apply hidden;
+        }
+      }
+    }
+  }
+}
+.tab-menu {
+  @apply flex p-1 bg-[#56647C] rounded-full w-full relative;
+  &::before {
+    content: '';
+    @apply border-t border-[#56647C] absolute top-[-16px] left-0 w-full;
+  }
+  .tab-item {
+    @apply px-2 py-1 flex gap-2 justify-center items-center text-white w-full rounded-full h-[40px];
+    &.active {
+      @apply bg-secondaryBlue;
     }
   }
 }

@@ -160,9 +160,12 @@ export class ChatboxComponent implements OnInit, OnChanges, AfterViewInit {
       else {
         this.scrollHeightLevel = 3;
       }
-      console.log(this.scrollHeightLevel);
-
     }, 500);
+  }
+
+  removeText() {
+    this.text = '';
+    this.scrollHeightLevel = 1;
   }
 
 }

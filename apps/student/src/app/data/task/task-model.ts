@@ -7,8 +7,11 @@ class KTask {
   conditions: TaskCondition;
   isRedeemed: boolean;
   progress: number;
+  history?: TaskHistoryItem[];
+  isDaily!: boolean;
+  isWeekly!: boolean;
 
-  constructor({ id, category, type, conditions, isRedeemed, progress }: {
+  constructor({ id, category, type, conditions, isRedeemed, progress, history }: {
     id: string;
     category: TaskCategory;
     type: KTaskType;
@@ -23,13 +26,32 @@ class KTask {
     this.conditions = conditions;
     this.isRedeemed = isRedeemed;
     this.progress = progress;
+    this.history = history;
+
+    if (type === KTaskType.WeeklyCompleteMockTest) {
+      this.isWeekly = true;
+      this.isDaily = false;
+    } else if (type !== KTaskType.DailyAttendanceCheck) {
+      this.isDaily = true;
+      this.isWeekly = false;
+    }
+    else {
+      this.isDaily = false;
+      this.isWeekly = false;
+    }
   }
 
   static fromJson(dataObject: any): KTask {
     const _ = pick(dataObject, ['id', 'category', 'type', 'conditions', 'isRedeemed', 'progress', 'history']);
     _.isRedeemed = dataObject['redeem'] ?? false;
     _.type = dataObject['task_type'] ?? KTaskType.DailyChat;
-    _.history = (dataObject['history'] as any[]).map((data) => TaskHistoryItem.fromJson(data)) ?? [];
+    if (dataObject['history']) {
+      _.history = (dataObject['history'] as any[]).map((data) => TaskHistoryItem.fromJson(data)) ?? [];
+    }
+    if (dataObject['conditions']) {
+      _.conditions = TaskCondition.fromJson(dataObject['conditions']);
+    }
+
     return new KTask(_);
   }
 }
@@ -114,5 +136,54 @@ class TaskHistoryItem {
   }
 }
 
-export { KTask as Task, TaskCategory, TaskCondition, TaskHistoryItem, KTaskType as TaskType };
+class TaskDate {
+  day: WeekDay;
+  isRedeemed: boolean;
+  isCurrent: boolean;
+  rewardAmount: number;
+  isWeekend: boolean;
+
+  constructor({ day, isRedeemed, isCurrent, rewardAmount, isWeekend }: { day: WeekDay, isRedeemed: boolean, isCurrent: boolean, rewardAmount: number, isWeekend: boolean }) {
+    this.day = day;
+    this.isRedeemed = isRedeemed;
+    this.isCurrent = isCurrent;
+    this.rewardAmount = rewardAmount;
+    this.isWeekend = isWeekend;
+  }
+
+  static fromHistory(day: WeekDay, history: TaskHistoryItem | null, baseReward: number): TaskDate {
+    const curr = new Date();
+    // Start from Monday
+    const today = (curr.getDay() + 6) % 7;
+    if (history == null) {
+      return new TaskDate({
+        day: day,
+        isRedeemed: false,
+        isCurrent: day === today,
+        rewardAmount: day === WeekDay.Saturday || day === WeekDay.Sunday ? baseReward * 2 : baseReward,
+        isWeekend: day === WeekDay.Saturday || day === WeekDay.Sunday
+      })
+    }
+    const createdDay = (history.createdAt.getDay() + 6) % 7;
+    return new TaskDate({
+      day: day,
+      isRedeemed: createdDay === day,
+      isCurrent: day === today,
+      rewardAmount: day === WeekDay.Saturday || day === WeekDay.Sunday ? baseReward * 2 : baseReward,
+      isWeekend: day === WeekDay.Saturday || day === WeekDay.Sunday
+    });
+  }
+}
+
+enum WeekDay {
+  Monday = 0,
+  Tuesday = 1,
+  Wednesday = 2,
+  Thursday = 3,
+  Friday = 4,
+  Saturday = 5,
+  Sunday = 6,
+}
+
+export { KTask as Task, TaskCategory, TaskCondition, TaskDate, TaskHistoryItem, KTaskType as TaskType, WeekDay };
 

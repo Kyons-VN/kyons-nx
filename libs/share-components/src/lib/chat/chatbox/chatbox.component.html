@@ -1,9 +1,17 @@
 <form
-  class="ask"
+  class="ask relative"
   novalidate
   [ngClass]="{ 'flex-row': scrollHeightLevel == 1 && file == null, 'flex-col': scrollHeightLevel > 1 || file }"
 >
-  @if(!isGaming){
+  @if(text){
+  <button
+    class="absolute btn-icon link"
+    [ngClass]="{ 'right-3 top-1': scrollHeightLevel > 1, 'right-24': scrollHeightLevel == 1 }"
+    (click)="removeText()"
+  >
+    <i class="icon-XClose"></i>
+  </button>
+  } @if(!isGaming){
   <textarea
     rows="1"
     placeholder="Trò chuyện..."
@@ -15,7 +23,7 @@
     (keydown)="onKeydown($event)"
     #askInput
     [ngClass]="{
-      'h-[44px]': scrollHeightLevel == 1,
+      'h-[44px] basis-0 flex-grow': scrollHeightLevel == 1,
       'h-[72px] basis-auto': scrollHeightLevel == 2,
       'h-[100px] basis-auto': scrollHeightLevel == 3
     }"
@@ -25,7 +33,6 @@
     <button type="button" class="btn orange outlined" (click)="exit()">Thoát trò chơi</button>
   </div>
   } @if(placeholder){
-
   <div class="flex px-6 w-full">
     <div class="flex relative w-[200px]">
       @if(placeholder.base64){

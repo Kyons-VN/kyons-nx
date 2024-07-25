@@ -13,11 +13,11 @@ import { TestService } from '@data/test/test.service';
 import { ThemeService } from '@data/theme/theme.service';
 import { UserService } from '@data/user/user.service';
 import { maxManaWidth, Role } from '@domain/chat/i-content';
-import { ChatboxComponent, ExerciseContentComponent, LatexComponent, QuestionsProgressComponent } from '@share-components';
+import { ChatboxComponent, ExerciseContentComponent, LatexComponent, MessagesComponent, QuestionsProgressComponent } from '@share-components';
 import { SafeHtmlPipe, SafeResourceUrlSAPipe } from '@share-pipes';
 import { Content, Exercise, Mana, Progress, Question, QuestionReview, Submission, TextPart } from '@share-utils/data';
 import { isCommand } from '@utils/chat';
-import { MessagesComponent } from '@view/share-components/chat/messages.component';
+// import { MessagesComponent } from '@view/share-components/chat/messages.component';
 import { TrackingLessonComponent } from '@view/share-components/tracking/tracking-lesson.component';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 

@@ -1,21 +1,22 @@
-<div class="w-full flex px-4 py-2 xl:py-4 xl:px-10 items-center gap-2 bg-white shadow-1">
+<div class="w-full flex px-4 py-2 xl:py-2 xl:px-10 items-center gap-2 bg-white shadow-1">
+  <button class="btn-icon link hidden xl:flex ml-[-40px]" (click)="collapse()">
+    <i [ngClass]="{ 'icon-ChervonRight': isCollapsed, 'icon-ChervonLeft': !isCollapsed }"></i>
+  </button>
   <button class="btn-icon link xl:hidden" (click)="isShowMobileMenu = !isShowMobileMenu">
     <i class="icon-MenuHamburger"></i>
   </button>
-  <a *ngIf="theme === 'default'" href="/"><img src="/assets/images/logo-h.svg" alt="" /></a>
-  <a *ngIf="theme === 'universe'" href="/"><img src="/assets/images/logo-horizontal-light.svg" alt="" /></a>
   <div class="flex-1"></div>
   <ul class="flex gap-4 item-center">
     <li class="flex gap-1 items-center">
       <img src="/assets/images/lightning.svg" alt="" class="h-[24px] aspect-square" />
-      <span>{{ mana }}</span>
+      <strong>{{ mana }}</strong>
     </li>
     <li class="flex gap-1 items-center">
       <img src="/assets/images/Coins.svg" alt="" class="h-[24px] aspect-square" />
-      <span>{{ coin }}</span>
+      <strong>{{ coin }}</strong>
     </li>
-    <li>
-      <a class="h-[60px] aspect-square inline-flex" [routerLink]="paths.account.path">
+    <li class="flex item-center">
+      <a class="h-[48px] aspect-square inline-flex" [routerLink]="paths.account.path">
         <img src="/assets/images/Avatar.svg" alt="" />
       </a>
     </li>
@@ -23,25 +24,31 @@
 </div>
 <div class="left-menu" [ngClass]="{ showMobileMenu: isShowMobileMenu, isCollapsed }" (click)="isShowMobileMenu = false">
   <div
-    class="absolute h-full top-0 left-0 w-[240px] bg-primaryBlue text-white p-4 col xl:px-8 gap-6 lx:gap-10"
+    class="absolute h-full top-0 left-0 bg-primaryBlue text-white p-4 col xl:py-8 gap-6 lx:gap-10 overflow-hidden"
+    [ngClass]="{ ' w-[240px]': !isCollapsed, 'w-[80px]': isCollapsed }"
     (click)="$event.stopPropagation()"
   >
-    <div class="flex gap-2 items-center">
-      <button class="btn-icon orange link xl:hidden" (click)="isShowMobileMenu = false">
-        <i class="icon-Close"></i>
-      </button>
-      <a href="/" class="w-full"><img src="/assets/images/logo-horizontal-light.svg" alt="Logo" /></a>
+    <div class="h-[48px] relative w-full">
+      <a href="/" [ngClass]="{ 'opacity-0': !isCollapsed }" class="absolute w-[48px] h-[48px]"
+        ><img src="/assets/icons/left-menu-logo-icon.svg" alt="Logo" class="w-[48px]"
+      /></a>
+      <div
+        class="flex gap-2 items-center absolute w-full top-0 left-0 h-[48px]"
+        [ngClass]="{ 'opacity-0 absolute': isCollapsed }"
+      >
+        <button class="btn-icon orange link xl:hidden" (click)="isShowMobileMenu = false">
+          <i class="icon-Close"></i>
+        </button>
+        <a href="/" class="w-full"
+          ><img src="/assets/images/logo-horizontal-light.svg" alt="Logo" class="h-[48px] max-w-[unset]"
+        /></a>
+      </div>
     </div>
-    <ul class="col gap-4" (click)="isShowMobileMenu = false">
+    <ul class="col gap-4" (click)="isShowMobileMenu = false" [ngClass]="{ 'p-1': isCollapsed }">
       <li>
-        <a
-          class="menu-item home"
-          [routerLink]="'/'"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <img src="/assets/icons/Home.svg" alt="" />
-          <span>Trang chủ</span>
+        <a class="menu-item" [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <img src="/assets/icons/Home.svg" alt="Home menu" />
+          <span class="menu-text">Trang chủ</span>
         </a>
       </li>
       <li>
@@ -54,6 +61,29 @@
         <a class="menu-item" [routerLink]="paths.task.path" routerLinkActive="active">
           <img src="/assets/icons/Mission.svg" alt="" />
           <span class="menu-text">Nhiệm vụ</span>
+        </a>
+      </li>
+    </ul>
+    <div class="flex-1"></div>
+    <ul class="tab-menu" (click)="isShowMobileMenu = false">
+      <li class="flex-1">
+        <a
+          class="tab-item"
+          [ngClass]="{ active: theme === 'default' }"
+          (click)="!isCollapsed ? setTheme('default') : setTheme('universe')"
+        >
+          <i class="icon-Add"></i>
+          <span class="tab-text">Sáng</span>
+        </a>
+      </li>
+      <li class="flex-1">
+        <a
+          class="tab-item"
+          [ngClass]="{ active: theme === 'universe' }"
+          (click)="!isCollapsed ? setTheme('universe') : setTheme('default')"
+        >
+          <i class="icon-XClose"></i>
+          <span class="tab-text">Vũ Trụ</span>
         </a>
       </li>
     </ul>

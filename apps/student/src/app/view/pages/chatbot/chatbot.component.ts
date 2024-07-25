@@ -9,6 +9,7 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
+  computed,
   effect,
   inject,
   runInInjectionContext,
@@ -16,14 +17,16 @@ import {
 } from '@angular/core';
 // import { ChatService } from '@data/chat/chat.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ManaController } from '@app/mana.controller';
 import { ChatService, chatServerApi } from '@data/chat/chat.service';
 import { FileService } from '@data/file/file.service';
 import { NavigationService } from '@data/navigation/navigation.service';
 import { ThemeService } from '@data/theme/theme.service';
+import { TrackingService } from '@data/tracking/tracking.service';
 import { UserService } from '@data/user/user.service';
 import { Role, maxManaWidth } from '@domain/chat/i-content';
 import { ChatboxComponent, MessagesComponent } from '@share-components';
-import { Content, FileData, FilePart, FilePlaceholder, Mana, Part, TextPart } from '@share-utils/data';
+import { Content, FileData, FilePart, FilePlaceholder, Part, TextPart } from '@share-utils/data';
 import { isCommand } from '@utils/chat';
 import { NgFlutterComponent } from '@view/share-components/ng-flutter/ng-flutter.component';
 import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
@@ -32,13 +35,14 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ChatbotSidebarComponent } from './sidebar/chatbot-sidebar.component';
 
 @Component({
+  selector: 'student-chatbot',
   standalone: true,
   imports: [CommonModule, NgFlutterComponent, RouterModule, TopMenuComponent, MessagesComponent, ChatboxComponent, ChatbotSidebarComponent],
   templateUrl: 'chatbot.component.html',
   styleUrl: 'chatbot.component.scss',
 })
 export class ChatbotComponent implements OnInit, OnDestroy {
-  @HostBinding('class') class = 'app-full items-center relative chat';
+  @HostBinding('class') class = 'contents chat';
   @ViewChild(ChatbotSidebarComponent) sidebar!: ChatbotSidebarComponent;
 
   changeDetectorRef = inject(ChangeDetectorRef);
@@ -53,6 +57,8 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   document = inject(DOCUMENT);
   renderer = inject(Renderer2);
   fileService = inject(FileService);
+  trackingService = inject(TrackingService);
+  manaCtrl = inject(ManaController);
 
   flutterState?: any;
   countdown!: Observable<number>;
@@ -67,17 +73,17 @@ export class ChatbotComponent implements OnInit, OnDestroy {
   theme!: string;
   parseInt = parseInt;
   isCollapse = true;
-  manaWidth = maxManaWidth;
-  batteryLife = 100;
   messages: Content[] = [];
   isThinking = false;
   isGaming = false;
   isSmMenuHide = signal(true);
   file: File | undefined = undefined;
   image: FilePlaceholder | undefined = undefined;
-  mana!: Mana;
   isLoadingMessages = false;
   fileData: FileData | undefined = undefined;
+  mana = this.manaCtrl.mana$;
+  manaWidth = computed(() => Math.floor(maxManaWidth * this.mana().value / this.mana().max));
+  batteryLife = computed(() => Math.floor(this.mana().value / this.mana().max) * 100);;
 
   ngOnInit(): void {
     this.userId = this.userService.getUserId();
@@ -98,7 +104,6 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       this.flutterAppLoaded = false;
       this.isGaming = false;
       this.chatId = params.get('id') ?? '';
-      this.updateMana();
       if (this.chatId) {
         this.getMessages().add(() => this.isLoadingMessages = false);
       }
@@ -136,18 +141,18 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     //   }
     // });
   }
-  updateMana() {
-    this.chatService.getMana(this.userId).subscribe({
-      next: (mana: Mana) => {
-        this.mana = mana;
-        this.manaWidth = Math.floor(maxManaWidth * mana.value / mana.max);
-        this.batteryLife = Math.floor(mana.value / mana.max * 100);
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
-  }
+  // updateMana() {
+  //   this.chatService.getMana(this.userId).subscribe({
+  //     next: (mana: Mana) => {
+  //       this.mana = mana;
+  //       this.manaWidth = Math.floor(maxManaWidth * mana.value / mana.max);
+  //       this.batteryLife = Math.floor(mana.value / mana.max * 100);
+  //     },
+  //     error: (err) => {
+  //       console.error(err);
+  //     },
+  //   });
+  // }
 
   ngOnDestroy(): void {
     if (this.$interval !== undefined) this.$interval.unsubscribe();
@@ -161,7 +166,7 @@ export class ChatbotComponent implements OnInit, OnDestroy {
       // this.flutterState.setChatId(id);
     } else {
       setTimeout(() => {
-        if (this.manaWidth > 0 && this.messages.length == 0) {
+        if (this.manaWidth() > 0 && this.messages.length == 0) {
           // this.sendMessage('/hello');
           this.getGreeting();
         }
@@ -188,11 +193,11 @@ export class ChatbotComponent implements OnInit, OnDestroy {
     // });
     this.flutterState.onManaChanged(() => {
       const { a, b } = this.flutterState.getMana();
-      this.manaWidth = maxManaWidth * a / b;
-      this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
-      if (a != this.mana.value) {
+      // this.manaWidth = maxManaWidth * a / b;
+      // this.batteryLife = (a / b * 100).toFixed(0) as unknown as number;
+      if (a != this.mana()) {
         console.log('Mana changed');
-        this.updateMana();
+        this.manaCtrl.mana$;
         this.getMessages();
       };
     });
@@ -249,8 +254,9 @@ export class ChatbotComponent implements OnInit, OnDestroy {
         }
         else {
           this.getMessages();
-          this.updateMana();
+          this.manaCtrl.refresh();
         }
+        this.trackingService.updateTrackOnSendMessage()
       },
       error: (err) => {
         console.error(err);

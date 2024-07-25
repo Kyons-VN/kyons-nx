@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, Injector, OnDestroy, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit, effect, inject, runInInjectionContext } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StudentLearningGoal } from '@data/knowledge/learning-goal';
 import { LessonService } from '@data/knowledge/lesson.service';
@@ -9,14 +9,13 @@ import { TutorialService } from '@data/tutorials/tutorial-service';
 import { TutorialComponent } from '@share-components';
 import { AppPaths } from '@view/routes';
 import { LoadingComponent } from '@view/share-components/loading/loading.component';
-import { TopMenuComponent } from '@view/share-components/top-menu/top-menu.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { Subscription } from 'rxjs';
 import { RightMenuComponent } from './right-menu/right-menu.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterModule, LoadingComponent, NgCircleProgressModule, TutorialComponent, TopMenuComponent, RightMenuComponent],
+  imports: [CommonModule, RouterModule, LoadingComponent, NgCircleProgressModule, TutorialComponent, RightMenuComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -30,8 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   injector = inject(Injector);
   themeService = inject(ThemeService);
 
-  @HostBinding('class') class = 'h-full';
-
   learnings: StudentLearningGoal[] = [];
   stats = ['Speed', 'Accuracy', 'Deligence', 'Quantity', 'Combo'];
   statsBW = this.stats.map(stat => stat + ' BW');
@@ -44,11 +41,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   interval!: Subscription;
   theme = this.themeService.getTheme();
   showAll = false;
+  routeSubscription!: Subscription;
+  learningGoalsSubscription!: Subscription;
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    this.route.queryParamMap.subscribe(params => {
+    this.routeSubscription = this.route.queryParamMap.subscribe(params => {
       if (params.get('tutorial') === 'true') {
         this.learnings = this.tutorialService.getStudentLearningGoals();
         this.showTutorial = true;
@@ -68,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   _getStudentLearningGoalsData() {
-    this.lessonService.getStudentLearningGoals().subscribe({
+    this.learningGoalsSubscription = this.lessonService.getStudentLearningGoals().subscribe({
       next: learningGoals => {
         if (
           learningGoals.length > 0 &&
@@ -101,6 +100,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.interval !== undefined) this.interval.unsubscribe();
+    this.routeSubscription.unsubscribe();
+    this.learningGoalsSubscription.unsubscribe();
   }
 
   selectLearningGoal(learningGoal: StudentLearningGoal) {

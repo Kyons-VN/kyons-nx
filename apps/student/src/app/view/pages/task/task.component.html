@@ -1,74 +1,57 @@
-<div class="flex justify-center w-full md:pb-14">
+<div class="flex justify-center w-full md:pb-14 h-full overflow-auto p-8">
   <div class="col w-full max-w-[874px] gap-8">
-    <div class="col bg-universe relative p-8 gap-4 rounded-2xl">
+    <div class="col bg-universe relative p-8 gap-4 rounded-2xl shrink-0">
       <div class="bg-gradient absolute top-0 left-0 right-0 bottom-0"></div>
       <div class="col">
         <h3 class="text-white"><span class="text-lightBlue-1">7</span> ngày liên tục</h3>
         <span class="h7 inline-flex gap-1">
-          <span class="text-blueGrey-400">Bạn đang có</span> <span class="text-white">500</span>
+          <span class="text-blueGrey-400">Bạn đang có</span> <span class="text-white">{{ coin$() }}</span>
           <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
         </span>
       </div>
-      <div class="col bg-white px-4 py-6 gap-6 rounded-lg">
-        <span>Điểm danh liên tục 7 ngày để <strong>nhận thưởng bự</strong> nhé!</span>
-        <div class="w-full flex overflow-auto hide-scrollbar">
+      <div class="col bg-white py-6 gap-6 rounded-lg">
+        <span class="px-4">Điểm danh liên tục 7 ngày để <strong>nhận thưởng bự</strong> nhé!</span>
+        <pre class="fixed bg-white top-0 right-0 z-10 overflow-auto h-full">{{ systemTasks | json }}</pre>
+        <div class="w-full flex overflow-auto hide-scrollbar px-4 pt-3 mt-[-.75rem]">
           <div class="week-task">
+            @for( day of week;track day.name;let i=$index){
             <div class="week-date">
-              <div class="task-block bg-blueGrey-400">
-                <img src="/assets/images/Coins-white.svg" alt="" width="24px" height="24px" />
-                <strong class="caption text-blueGrey-500">+400</strong>
-              </div>
-              <strong class="text-blueGrey-500">Thứ Hai</strong>
-            </div>
-            <div class="date-devider bg-blueGrey-400" style="--i: 0"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
-              <div class="aspect-square w-full col bg-emerald-3 rounded justify-center items-center p-2">
-                <img src="/assets/icons/Succeed.svg" alt="" width="24px" height="24px" />
-              </div>
-              <strong class="text-blueGrey-500">Thứ Ba</strong>
-            </div>
-            <div class="date-devider bg-emerald-3" style="--i: 1"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
               <div
-                class="aspect-square w-full col bg-lightOrange-4 shadow-lightOrange1 rounded justify-center items-center p-2"
+                class="task-block"
+                [ngClass]="{
+                  'shadow-lightOrange1 cursor-pointer task-pointer': !day.task.isRedeemed&&day.task.isCurrent,
+                  'bg-blueGrey-200': !day.task.isRedeemed,
+                  'bg-emerald-3': day.task.isRedeemed,
+                }"
+                (click)="attend(day.task)"
               >
-                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
-                <strong class="caption">+400</strong>
+                @if(day.task.isRedeemed){
+                <img src="/assets/icons/Succeed.svg" alt="" width="24px" height="24px" />
+                } @else {
+                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />}
+                <strong class="caption" [ngClass]="{ 'text-darkRed': day.task.isWeekend }"
+                  >+{{ day.task.rewardAmount }}</strong
+                >
               </div>
-              <strong class="text-lightOrange-1">Thứ Tư</strong>
+              <strong
+                class="w-max"
+                [ngClass]="{
+                  'text-blueGrey-500': !day.task.isCurrent || day.task.isRedeemed,
+                  'text-lightOrange-1': !day.task.isRedeemed && day.task.isCurrent
+                }"
+                >{{ day.name }}</strong
+              >
             </div>
-            <div class="date-devider bg-lightOrange-4" style="--i: 2"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
-              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
-                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
-                <strong class="caption">+400</strong>
-              </div>
-              <strong class="text-blueGrey-500">Thứ Năm</strong>
-            </div>
-            <div class="date-devider bg-blueGrey-400" style="--i: 3"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
-              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
-                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
-                <strong class="caption">+400</strong>
-              </div>
-              <strong class="text-blueGrey-500">Thứ Sáu</strong>
-            </div>
-            <div class="date-devider bg-blueGrey-400" style="--i: 4"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
-              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
-                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
-                <strong class="caption text-darkRed">+800</strong>
-              </div>
-              <strong class="text-blueGrey-500">Thứ Bảy</strong>
-            </div>
-            <div class="date-devider bg-blueGrey-400" style="--i: 5"></div>
-            <div class="col gap-2 w-[68px] items-center week-date">
-              <div class="aspect-square w-full col bg-blueGrey-200 rounded justify-center items-center p-2">
-                <img src="/assets/images/Coins.svg" alt="" width="24px" height="24px" />
-                <strong class="caption text-darkRed">+800</strong>
-              </div>
-              <strong class="text-blueGrey-500">Thứ Bảy</strong>
-            </div>
+            <div
+              class="date-devider"
+              [ngClass]="{
+                'shadow-lightOrange1 cursor-pointer task-pointer': day.task.isCurrent,
+                'bg-blueGrey-200': !day.task.isRedeemed,
+                'bg-emerald-3': day.task.isRedeemed,
+              }"
+              style="--i: {{ i }}"
+            ></div>
+            }
           </div>
         </div>
       </div>
@@ -77,7 +60,7 @@
       <h4>Nhiệm vụ của bạn</h4>
       <div class="col">
         <div class="flex flex-col items-start justify-start w-full">
-          <div class="tab-wrapper">
+          <div class="tab-wrapper w-full">
             <div class="tab-item" [ngClass]="{ active: activeTab === 0 }" (click)="activeTab = 0; loadPermanent()">
               <i class="icon-Calendar"></i> Thường xuyên
             </div>
@@ -91,28 +74,402 @@
         >
           <div class="md:bg-white md:rounded-tl-none rounded-lg overflow-y-auto">
             @switch(activeTab){ @case(0){
-            <div *ngIf="true" class="flex flex-col bg-white md:bg-transparent rounded-lg">
-              <div class="w-full overflow-auto hide-scrollbar p-6">
+            <div *ngIf="true" class="col bg-white md:bg-transparent rounded-lg relative">
+              <div class="w-full overflow-auto hide-scrollbar p-6 scroll-smooth" #scrollPermanentDiv>
                 <div class="task-list">
-                  <div class="task-item">
-                    <div class="flex justify-between">
-                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
-                      <span class="text-red-0 inline-flex gap-2"> Còn {{ timeCountdown }} nữa </span>
+                  @for (task of systemTasks;track task.id;let i=$index){
+                  <div class="task-item system">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4 text-[14px] font-semibold">
+                        {{ task.isDaily ? 'Hằng ngày' : 'Hằng tuần' }}
+                      </div>
+                      <span class="text-red-0 inline-flex gap-2 items-center"
+                        ><i class="icon-Time"></i> <span>Còn {{ task.isDaily ? endDayCount : endWeekCount }} nữa</span>
+                      </span>
                     </div>
+                    <div class="col gap-4 w-full">
+                      <div class="col gap-2 items-start h-[150px]">
+                        @switch (task.type){
+                        <!--   -->
+                        @case (TaskType.DailyChat) {
+                        <img src="/assets/images/kyons-avatar.svg" alt="" class="h-[60px]" />
+                        <h6>Nói chuyện với Kyo</h6>
+                        <span class="text-[12px]">Nói chuyện với Kyo để tìm hiểu thêm nhé!</span>
+                        } @case (TaskType.DailyCompleteLesson) {
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h6>Hoàn thành {{ task.conditions.eligibleAmount }} bài học</h6>
+                        <span class="text-[12px]"
+                          >Hoàn thành ít nhất {{ task.conditions.eligibleAmount }} bài học trong mục tiêu học tập của
+                          bạn nhé!</span
+                        >
+                        } @case (TaskType.DailyCompleteQuestion) {
+                        <img src="/assets/images/complete-question-task.svg" alt="" class="h-[60px]" />
+                        <h6>Hoàn thành {{ task.conditions.eligibleAmount }} câu trắc nghiệm</h6>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                        } @case (TaskType.DailyCorrectAnswer) {
+                        <img src="/assets/images/5-questions-task.svg" alt="" class="h-[60px]" />
+                        <h6>Làm đúng {{ task.conditions.eligibleAmount }} câu trắc nghiệm</h6>
+                        <span class="text-[12px]"
+                          >Làm đúng ít nhất {{ task.conditions.eligibleAmount }} câu trắc nghiệm trong bất kì bài kiểm
+                          tra hoặc bài học của bạn</span
+                        >
+                        } @case (TaskType.DailyMinimumLearningTime) {
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h6>Dành 10 phút học bài nào!</h6>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                        } @case (TaskType.DailyViewLessonContent) {
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h6>Xem {{ task.conditions.eligibleAmount }} bài học</h6>
+                        <span class="text-[12px]"
+                          >Xem ít nhất {{ task.conditions.eligibleAmount }} bài học hôm nay bạn nhé!</span
+                        >
+                        } @case (TaskType.WeeklyCompleteMockTest) {
+                        <img src="/assets/images/mock-test-task.svg" alt="" class="h-[60px]" />
+                        <h6>Hoàn thành {{ task.conditions.eligibleAmount }} bài kiểm tra</h6>
+                        <span class="text-[12px]"
+                          >Hoàn thành {{ task.conditions.eligibleAmount }} bài kiểm tra cho tuần này nha!</span
+                        >
+                        } }
+                      </div>
+                      <div class="progress-bar">
+                        <div class="bar-bg"></div>
+                        <div class="bar-running">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"
+                          ><span class="ml-[-50%]"
+                            >{{ task.progress }}/{{ task.conditions.eligibleAmount }}</span
+                          ></strong
+                        >
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +{{ task.conditions.rewardAmount }}</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    @if(task.progress===task.conditions.eligibleAmount){
+                    <button class="btn large lightBlue w-full" (click)="redeem(task)">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                    } @else{
+                    <button class="btn large orange w-full" (click)="letgo(task)">
+                      <i class="icon-Present"></i>
+                      Xung phong!
+                    </button>
+                    }
                   </div>
-                  <div class="task-item">A</div>
-                  <div class="task-item">A</div>
-                  <div class="task-item">A</div>
-                  <div class="task-item">A</div>
+                  }
                 </div>
+              </div>
+              <!-- <div class="w-full overflow-auto hide-scrollbar p-6 scroll-smooth" #scrollPermanentDiv>
+                <div class="task-list">
+                  <div class="task-item system">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">10/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue w-full">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large orange w-full">Xung phong!</button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                </div>
+              </div> -->
+              <div class="absolute top-1/2 left-4">
+                <button class="btn-icon outlined blueGrey mt-[-50%]" (click)="previousPage(scrollPermanentElm)">
+                  <i class="icon-ChervonLeft"></i>
+                </button>
+              </div>
+              <div class="absolute top-1/2 right-4">
+                <button class="btn-icon outlined blueGrey mt-[-50%]" (click)="nextPage(scrollPermanentElm)">
+                  <i class="icon-ChervonRight"></i>
+                </button>
               </div>
             </div>
             } @case(1){
-            <div *ngIf="true" class="flex flex-col gap-4 bg-white md:bg-transparent p-4 md:p-0 rounded-lg"></div>
+            <div *ngIf="true" class="flex flex-col bg-white md:bg-transparent rounded-lg relative">
+              <div class="w-full overflow-auto hide-scrollbar p-6 scroll-smooth" #scrollSeasonalDiv>
+                <div class="task-list">
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">10/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                  <div class="task-item">
+                    <div class="flex justify-between w-full">
+                      <div class="rounded p-2 bg-lightOrange-4">Hằng ngày</div>
+                      <span class="text-red-0 inline-flex gap-2 item-center"
+                        ><i class="icon-Time"></i> <span>Còn 49:23 nữa</span>
+                      </span>
+                    </div>
+                    <div class="col gap-4">
+                      <div class="col gap-2 items-start">
+                        <img src="/assets/images/planet-with-flag.svg" alt="" class="h-[60px]" />
+                        <h5>Dành 10 phút học bài nào!</h5>
+                        <span class="text-[12px]"
+                          >Dành 10 phút để học bất cứ bài nào, hoặc làm bất kì bài kiểm tra nào bạn nhé!</span
+                        >
+                      </div>
+                      <div class="w-full relative">
+                        <div class="w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0"></div>
+                        <div class="rounded-2xl bg-darkOrange-1 h-[25px] relative w-1/2">
+                          <div class="rounded-2xl bg-lightOrange-1 h-[9px] left-1 right-1 top-1 absolute"></div>
+                        </div>
+                        <strong class="absolute left-[50%] top-0.5"><span class="ml-[-50%]">5/10</span></strong>
+                      </div>
+                    </div>
+                    <div class="flex justify-center items-center w-full h7 gap-2">
+                      <span>Phần thưởng: +400</span>
+                      <img src="/assets/images/Coins.svg" alt="" class="w-[24px] aspect-square" />
+                    </div>
+                    <button class="btn large lightBlue">
+                      <i class="icon-Present"></i>
+                      Nhận phần thưởng!
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute top-1/2 left-4">
+                <button class="btn-icon outlined blueGrey mt-[-50%]" (click)="previousPage(scrollPermanentElm)">
+                  <i class="icon-ChervonLeft"></i>
+                </button>
+              </div>
+              <div class="absolute top-1/2 right-4">
+                <button class="btn-icon outlined blueGrey mt-[-50%]" (click)="nextPage(scrollPermanentElm)">
+                  <i class="icon-ChervonRight"></i>
+                </button>
+              </div>
+            </div>
             } @default{} }
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div
+  *ngIf="error != null"
+  class="fixed top-0 left-0 w-full h-screen overflow-hidden flex items-center justify-center p-4 bg-blueGrey-100"
+>
+  <div class="w-full max-w-[443px] flex flex-col gap-6 bg-white rounded-lg p-6">
+    <h5 class="text-center">Có lỗi xảy ra</h5>
+    <span>
+      <p>{{ error.message }}</p>
+      <p>Mã lỗi: {{ error.error_code }}</p>
+    </span>
+    <div class="flex gap-4 justify-center">
+      <button class="btn orange" (click)="error = null">Đã hiểu</button>
     </div>
   </div>
 </div>

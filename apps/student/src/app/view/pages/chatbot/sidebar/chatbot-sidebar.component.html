@@ -3,9 +3,9 @@
     <div class="history">
       <div class="xl:hidden flex justify-between items-start">
         <span class="h7">{{ theme === 'universe' ? 'History' : 'Trò chuyện gần đây' }}</span>
-        <div class="flex items-center justify-center p-1 cursor-pointer w-[40px] h-[40px]" (click)="toggleMenu()">
-          <i class="icon-Close text-[16px]"></i>
-        </div>
+        <button class="btn-icon link" (click)="toggleMenu()">
+          <i class="icon-XClose"></i>
+        </button>
       </div>
       <div class="flex justify-start" *ngIf="chatId">
         <button

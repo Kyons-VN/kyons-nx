@@ -46,8 +46,8 @@ export class OrderService implements IOrderServicce {
     return this.http.get(`${serverApi()}/api/v2/users/inventories/koin`).pipe(
       catchError(DBHelper.handleError('GET getKcoin', -1)),
       map((res: any) => {
-        if (res.koin === undefined || typeof parseInt(res.koin) != 'number') return -1;
-        return parseInt(res.koin);
+        if (res.quantity === undefined || typeof parseInt(res.quantity) != 'number') return -1;
+        return Number(res.quantity);
       })
     );
   }

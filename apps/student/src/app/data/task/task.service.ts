@@ -15,8 +15,8 @@ export class TaskService implements ITaskService {
     return this.http.get<Task[]>(`${serverApi()}/api/v2/users/tasks`).pipe(
       // catchError(DBHelper.handleError('GET getTaskList', [])),
       map((res: any) => {
-        // if (res.data === undefined) return [];
-        // const data = {
+        if (res.data === undefined) return [];
+        // res = {
         //   "data": [
         //     {
         //       "id": 1,
@@ -34,7 +34,28 @@ export class TaskService implements ITaskService {
         //           "task_id": 1,
         //           "condition_type": "weekday",
         //           "amount": 5,
-        //           "created_at": "2024-07-09T11:49:54.914+07:00"
+        //           "created_at": "2024-07-21T14:55:16.495+07:00"
+        //         },
+        //         {
+        //           "id": 2,
+        //           "task_id": 1,
+        //           "condition_type": "weekday",
+        //           "amount": 5,
+        //           "created_at": "2024-07-22T14:55:16.495+07:00"
+        //         },
+        //         {
+        //           "id": 3,
+        //           "task_id": 1,
+        //           "condition_type": "weekday",
+        //           "amount": 5,
+        //           "created_at": "2024-07-23T14:55:16.495+07:00"
+        //         },
+        //         {
+        //           "id": 4,
+        //           "task_id": 1,
+        //           "condition_type": "weekday",
+        //           "amount": 5,
+        //           "created_at": "2024-07-24T14:55:16.495+07:00"
         //         }
         //       ]
         //     },
@@ -66,7 +87,7 @@ export class TaskService implements ITaskService {
         //       "task_type": "daily_view_lesson_content",
         //       "conditions": {
         //         "reward_amount": 5,
-        //         "eligible_amount": 1
+        //         "eligible_amount": 10
         //       },
         //       "redeem": false,
         //       "progress": 0
@@ -76,7 +97,7 @@ export class TaskService implements ITaskService {
         //       "category": "system",
         //       "task_type": "daily_complete_lesson",
         //       "conditions": {
-        //         "reward_amount": 3,
+        //         "reward_amount": 5,
         //         "eligible_amount": 10
         //       },
         //       "redeem": false,
@@ -87,7 +108,7 @@ export class TaskService implements ITaskService {
         //       "category": "system",
         //       "task_type": "daily_correct_answer",
         //       "conditions": {
-        //         "reward_amount": 1,
+        //         "reward_amount": 5,
         //         "eligible_amount": 10
         //       },
         //       "redeem": false,
@@ -122,7 +143,9 @@ export class TaskService implements ITaskService {
     );
   }
   redeemTask(task: Task): Observable<TaskHistoryItem> {
-    throw new Error('Method not implemented.');
+    return this.http.post(`${serverApi()}/api/v2/users/tasks/${task.id}/redeem`, {}).pipe(
+      map((res: any) => TaskHistoryItem.fromJson(res.data))
+    )
   }
 
 }

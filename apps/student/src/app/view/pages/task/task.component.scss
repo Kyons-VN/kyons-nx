@@ -13,6 +13,12 @@
     .task-block {
       @apply flex flex-col aspect-square w-full rounded justify-center items-center p-2;
     }
+    .task-pointer {
+      &::before {
+        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='16' viewBox='0 0 24 16' fill='none'%3E%3Cpath d='M13.5316 15.1761C12.7323 16.1278 11.2677 16.1279 10.4684 15.1761L0.903276 3.78607C-0.189488 2.48482 0.735618 0.499877 2.43485 0.499878L21.5652 0.499879C23.2644 0.499879 24.1895 2.48482 23.0967 3.78607L13.5316 15.1761Z' fill='%23FB7200'/%3E%3C/svg%3E");
+        @apply absolute top-[-12px];
+      }
+    }
   }
   .date-devider {
     @apply absolute w-[calc((100%_-_476px)/6)] h-1 top-[32px];
@@ -28,6 +34,23 @@
     }
   }
   .task-item {
-    @apply w-[350px] aspect-square bg-white rounded-3xl p-4 flex justify-center items-center shadow-2 hover:shadow-lightOrange1 transition;
+    @apply w-[384px] aspect-square bg-white rounded-3xl p-4 flex flex-col justify-between items-center shadow-2 hover:shadow-lightOrange1 transition gap-6;
+    &.system {
+      background: url('/assets/images/system-task-bg.svg') no-repeat center center / 100%;
+      background-size: cover;
+      .progress-bar {
+        @apply w-full relative;
+        .bar-bg {
+          @apply w-full h-[25px] bg-lightOrange-4 rounded-2xl absolute top-0 left-0;
+        }
+        .bar-running {
+          @apply rounded-2xl bg-darkOrange-1 h-[25px] relative;
+        }
+      }
+    }
+    &.admin {
+      background: url('/assets/images/admin-task-bg.svg') no-repeat center center / 100%;
+      background-size: cover;
+    }
   }
 }

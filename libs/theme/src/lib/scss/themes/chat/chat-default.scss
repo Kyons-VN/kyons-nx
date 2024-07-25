@@ -55,9 +55,8 @@
   }
   .body {
     @apply flex flex-col items-end xl:gap-20 md:gap-10 gap-5 overflow-auto flex-1;
-    // height: calc(100vh - 320px);
     .message {
-      @apply flex gap-2.5 max-w-[555px] xl:max-w-[] w-full;
+      @apply flex gap-2.5 w-4/5;
       .box {
         width: fit-content;
         @apply rounded-lg p-3 relative;

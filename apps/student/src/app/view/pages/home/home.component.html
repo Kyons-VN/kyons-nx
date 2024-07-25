@@ -1,4 +1,4 @@
-<div class="bg-gradient h-full flex flex-col md:flex-row overflow-auto">
+<div class="bg-gradient w-full h-full flex flex-col md:flex-row overflow-auto">
   <div class="col md:hidden">
     <div class="bg-rocket-xs text-white px-4 py-8">
       <div class="flex justify-between items-center relative">
@@ -49,7 +49,7 @@
         </div>
       </div> -->
     </div>
-    <div class="col gap-6 md:gap-8">
+    <div class="col gap-6 md:gap-8 py-4">
       <div class="col gap-4 px-4 md:px-8">
         <div class="flex justify-between">
           <h5 class="hidden md:block">Chỉ số của bạn</h5>
@@ -159,32 +159,37 @@
   <ng-template #loading>
     <student-loading></student-loading>
   </ng-template>
-  <div *ngIf="!isLoading" class="hidden md:flex flex-col p-11 bg-rocket text-white">
-    <div class="flex justify-between items-center relative">
-      <div class="flex gap-3 items-center">
-        <img src="/assets/images/Avatar.svg" alt="" />
-        <h4>Xin chào!</h4>
+  <div *ngIf="!isLoading" class="hidden md:flex hideOnShowSidebarRight h-full w-[436px]">
+    <div class="col p-11 bg-rocket text-white relative w-[436px]">
+      <div class="flex justify-between items-center relative">
+        <div class="flex gap-3 items-center">
+          <img src="/assets/images/Avatar.svg" alt="" />
+          <h4>Xin chào!</h4>
+        </div>
+        <div class="relative">
+          <i (click)="showSubmenu = !showSubmenu" class="cursor-pointer icon-Settings text-[40px]"></i>
+          <student-right-menu [ngStyle]="{ display: showSubmenu ? 'contents' : 'none' }" />
+        </div>
       </div>
-      <div class="relative">
-        <i (click)="showSubmenu = !showSubmenu" class="cursor-pointer icon-Settings text-[40px]"></i>
-        <student-right-menu [ngStyle]="{ display: showSubmenu ? 'contents' : 'none' }" />
+      <div class="flex-1"></div>
+      <div class="col gap-4">
+        <h5>Lối tắt</h5>
+        <button
+          class="btn-extra-large flex justify-between w-full bg-blue-gradient"
+          [disabled]="learnings.length === 0"
+          (click)="goToLastestLearningGoal()"
+        >
+          <span>Tiếp tục học bài trước đó</span>
+          <i class="icon-ArrowForward"></i>
+        </button>
+        <button
+          class="btn-extra-large flex justify-between w-full bg-orange-gradient"
+          [routerLink]="paths.mockTest.path"
+        >
+          <span>Tạo “Bài kiểm tra thử thông minh” mới</span>
+          <i class="icon-ArrowForward"></i>
+        </button>
       </div>
-    </div>
-    <div class="flex-1"></div>
-    <div class="col gap-4">
-      <h5>Lối tắt</h5>
-      <button
-        class="btn-extra-large flex justify-between w-full bg-blue-gradient"
-        [disabled]="learnings.length === 0"
-        (click)="goToLastestLearningGoal()"
-      >
-        <span>Tiếp tục học bài trước đó</span>
-        <i class="icon-ArrowForward"></i>
-      </button>
-      <button class="btn-extra-large flex justify-between w-full bg-orange-gradient" [routerLink]="paths.mockTest.path">
-        <span>Tạo “Bài kiểm tra thử thông minh” mới</span>
-        <i class="icon-ArrowForward"></i>
-      </button>
     </div>
   </div>
 </div>

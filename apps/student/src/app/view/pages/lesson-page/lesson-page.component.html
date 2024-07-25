@@ -234,6 +234,7 @@
   [ngClass]="{ flex: showLesson, hidden: !showLesson }"
   class="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-80 flex items-center justify-center"
 >
+  <student-tracking-lesson trackingType="on_lesson_view" [lessonId]="lessonId"></student-tracking-lesson>
   <div class="col rounded-2xl bg-white gap-6 p-6 w-full md:w-[800px] items-center">
     <div class="col w-full gap-6">
       <div class="flex justify-between">
@@ -291,7 +292,7 @@
         <button class="btn-icon orange outlined" (click)="showChatbot = false"><i class="icon-Close"></i></button>
       </div>
       <div class="chat-divider"></div>
-      <student-messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
+      <messages [messages]="messages" [isThinking]="isThinking" (isWritingEvent)="updateThinking($event)" />
       <div class="options">
         <div class="option" (click)="option1()">
           <span>Phân tích câu hỏi</span>
@@ -342,4 +343,3 @@
     </div>
   </div>
 </div>
-<student-tracking-lesson trackingType="practice" [lessonId]="lessonId"></student-tracking-lesson>
